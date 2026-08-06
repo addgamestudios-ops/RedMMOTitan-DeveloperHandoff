@@ -1,8 +1,11 @@
-﻿Binaries/
+Binaries/
 Intermediate/
 DerivedDataCache/
 Saved/
 .vs/
+.idea/
+.codex/
+.cursor/
 *.sln
 *.VC.db
 __pycache__/
