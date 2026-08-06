@@ -1,53 +1,88 @@
-# START HERE — Red MMO environmental artist handoff
+# START HERE — **Red MMO** environment artist handoff
 
 **Generated:** 2026-08-07  
 **Ukrainian:** [START_HERE_UK.md](./START_HERE_UK.md)  
-**PDF (EN):** [RedMMO_Environment_Artist_Handoff.pdf](./RedMMO_Environment_Artist_Handoff.pdf)  
-**Merge with gameplay:** [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md) · [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md)  
-**Fab / env packs:** [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md)  
-**Folder ownership:** [FOLDER_OWNERSHIP.md](./FOLDER_OWNERSHIP.md)
+**PDF (EN):** [RedMMO_Environment_Artist_Handoff.pdf](./RedMMO_Environment_Artist_Handoff.pdf) · **PDF (UK):** [RedMMO_Environment_Artist_Handoff_UK.pdf](./RedMMO_Environment_Artist_Handoff_UK.pdf)
 
-Product name in docs: **Red MMO**. Paths like `Titan.uproject` / `RedMMOTitan*` are technical only.
+Product name in docs: **Red MMO**. Names like `Titan.uproject` / `RedMMOTitan*` are technical paths only.
 
-Gameplay / netcode handoff (separate role): `Docs/DeveloperHandoff/` in the same public repo.
+Gameplay / netcode role (separate): [../DeveloperHandoff/START_HERE.md](../DeveloperHandoff/START_HERE.md)
+
+---
+
+## Core: same repo, merge-safe world (read this first)
+
+You and the gameplay developer work in the **same GitHub repository**. Your hub environment will **not** overwrite HubLogic, and the developer will **not** overwrite your env package — **if you keep ownership split**:
+
+| Layer | Package | Owner |
+|---|---|---|
+| Thin persistent | `/Game/RedMMO/Maps/Hubs/L_Hub_Persistent` | Lead / rare edits |
+| **Environment (you)** | `/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals` | **Environment artist** |
+| HubLogic | `/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic` | Gameplay developer |
+
+- Put landscape, lighting, fog/post look, foliage, static meshes, and set dressing in **`L_Hub_Env_Visuals`**.
+- Do **not** edit **`L_Hub_Gameplay_Logic`** (PlayerStarts, combat volumes, replicated actors).
+- Do **not** edit pawn / Character BP, running animation, weapons, or netcode packages.
+- Details: [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md) · developer mirror: [../DeveloperHandoff/MERGE_SAFE_WORLD.md](../DeveloperHandoff/MERGE_SAFE_WORLD.md).
+
+**One-liner:** Clone the same handoff repo as the gameplay developer; own `L_Hub_Env_Visuals` (plus ArtistCanvas / Desert sandbox for tests); leave HubLogic and gameplay code alone.
 
 ---
 
 ## 60-second path
 
-1. Install **Unreal Engine 5.8**.
-2. Open the **Titan** project on the machine that has full Content:  
-   `D:\RedMMOTitan\Titan.uproject`  
-   (PlanetGen marketplace plugin required for planetary maps.)
-3. Open **one** of the two env / level-design test maps (see below). Do **not** open both and save blindly.
-4. Read [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md) before combining hub graphics with a gameplay map.
-5. Run **one Unreal Editor** at a time on this machine.
+1. Clone: `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
+2. Install **Unreal Engine 5.8**.
+3. Open the project that has the env Content you were given:
+   - Hub stubs / fundamentals: **`TitanFundamentals.uproject`** in the handoff clone  
+   - Full planetary / dressed Titan Content (owner machine or content sync): **`Titan.uproject`**
+4. Open **your** maps (see below). Do **not** open HubLogic and save into it.
+5. Read [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md) before delivering hub art.
+6. Run **one Unreal Editor** at a time on a shared machine.
+
+```powershell
+git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+cd RedMMOTitan-DeveloperHandoff
+# Hub env ownership: /Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals
+start TitanFundamentals.uproject
+```
+
+| Check | Expected |
+|---|---|
+| Hub stubs present | `L_Hub_Persistent`, `L_Hub_Env_Visuals`, `L_Hub_Gameplay_Logic` |
+| Your save target | **`L_Hub_Env_Visuals`** only for hub delivery |
+| HubLogic | Present but **not** your edit target |
+| Test maps (full Titan Content) | ArtistCanvas and/or Desert sandbox |
+| **Running anim / pawn / weapons** | Do not touch |
 
 ---
 
-## The two maps to open
+## Maps you open
 
-Both live in the **Titan** monolith (`D:\RedMMOTitan`), not the clean PPG-only RedMMO project.
+### Hub delivery (same-repo ownership)
 
-| # | Soft path | Disk path | Role |
-|---|---|---|---|
-| **1** | `/Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas` | `Content/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas.umap` | Planetary environment canvas — continents, atmosphere preview, 50 km planet art |
-| **2** | `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` | `Content/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01.umap` | Desert / dressed sandbox for level design, props, lighting experiments |
+| Soft path | You |
+|---|---|
+| `/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals` | **Own and save here** |
+| `/Game/RedMMO/Maps/Hubs/L_Hub_Persistent` | Integration only (streaming refs; rarely edit) |
+| `/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic` | **Do not edit** (developer / HubLogic) |
 
-**Related (not the primary pair):**
+### Env / level-design test maps (full Titan Content)
 
-| Soft path | Project | Note |
-|---|---|---|
-| `/Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalTile_R15_V3` | Titan | Continent / tropical tile lighting scratch (Region-15) |
-| `/Game/RedMMO/Maps/RedMMO_PPG_HomeWorld` | Clean RedMMO only: `D:\RedMMOTitanWindowsData\Projects\RedMMO\` | PPG home world (seed 1337) — planetary presentation; needs PPG plugin |
+| Soft path | Role |
+|---|---|
+| `/Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas` | Planetary environment canvas (PlanetGen) |
+| `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` | Desert / dressed sandbox for LD, props, lighting |
+
+Details: [MAPS.md](./MAPS.md) · Fab packs: [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md) · Folders: [FOLDER_OWNERSHIP.md](./FOLDER_OWNERSHIP.md)
 
 ---
 
 ## What you own
 
-- Landscape / terrain dressing, foliage, rocks, props, lighting, sky/atmosphere look (within map ownership rules)
-- Static meshes and materials under `/Game/RedMMO/World/...` (Quarantine → Approved → Biomes / ManualPOI)
-- Hub **visuals**: architecture dressing, set dressing, fog/post volumes that do not change gameplay rules
+- Hub visuals in **`L_Hub_Env_Visuals`**: architecture dressing, set dressing, landscape look, lighting, fog/post that do not change gameplay rules
+- Foliage, rocks, props; static meshes / materials under `/Game/RedMMO/World/...` (Quarantine → Approved → Biomes / ManualPOI)
+- ArtistCanvas / Desert sandbox experiments when assigned
 - Screenshots from player height, jetpack height, and ship approach
 
 ---
@@ -56,34 +91,25 @@ Both live in the **Titan** monolith (`D:\RedMMOTitan`), not the clean PPG-only R
 
 | Do not touch | Why |
 |---|---|
-| Player pawn / Character Blueprints and C++ (`RedPlayerCharacter`, Action Trooper setup) | Locomotion and replication |
+| **`L_Hub_Gameplay_Logic`** | Developer HubLogic — PlayerStarts, volumes, networked actors |
+| Player pawn / Character Blueprints and C++ | Locomotion and replication |
 | **Running animation** assets or AnimBP “fixes” | Protected — do not overwrite |
-| Weapon Blueprints, projectile C++, FocalRig aim chain | Gameplay combat |
+| Weapon Blueprints, projectile C++, aim chain | Gameplay combat |
 | Replication / GameMode / GameState / PlayerController networking | Netcode developer owns |
-| Protected production maps: `RedPlanetGen`, `RedPlanetGen_50km_Test`, `RedPlanetGen_50km_FusedPrototype` | Rollback / acceptance baselines |
+| Protected production maps: `RedPlanetGen`, `RedPlanetGen_50km_Test`, `RedPlanetGen_50km_FusedPrototype` | Rollback baselines |
 | Marketplace **master** materials (edit project-owned MI children only) | Pack upgrades break otherwise |
-| Clean RedMMO PPG seed / ProfileV1 generation data unless explicitly tasked | Planetary authority |
 
 ---
 
-## Engine / plugins for env work
+## What to read next
 
-| Need | Requirement |
+| Doc | Why |
 |---|---|
-| UE version | **5.8** (`D:\UE_5.8` on owner machine) |
-| ArtistCanvas / RedPlanetGen* | **PlanetGen** (Epic Marketplace for UE 5.8) |
-| Sandbox desert map | Usually opens without PPG; may reference dressed Content packs |
-| Clean PPG home world | Separate project + **PPG** plugin — only if assigned |
-
----
-
-## First-day checklist
-
-1. Open `Titan.uproject` → map **ArtistCanvas** OR **Sandbox_DesertDemoSparkle_T01**.
-2. Confirm MapCheck is clean enough to work (note any existing warnings; do not “fix” gameplay actors).
-3. Place art only under agreed World folders (see `FOLDER_OWNERSHIP.md`).
-4. Prefer a **new env sublevel** for hub dressing rather than saving into the gameplay developer’s map package.
-5. Export screenshots; list changed folders when you hand work back.
+| [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md) | Same-repo merge without overwrite |
+| [ENVIRONMENT_ARTIST_HANDOFF.md](./ENVIRONMENT_ARTIST_HANDOFF.md) | Paths, plugins, first-day checklist |
+| [MAPS.md](./MAPS.md) | Map identity + protected list |
+| [FOLDER_OWNERSHIP.md](./FOLDER_OWNERSHIP.md) | World folder conventions |
+| [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md) | Fab / art packs you may need |
 
 ---
 
@@ -91,6 +117,6 @@ Both live in the **Titan** monolith (`D:\RedMMOTitan`), not the clean PPG-only R
 
 | Copy | Path |
 |---|---|
-| Repo docs | `Docs/EnvironmentArtistHandoff/` (this folder) |
-| Public GitHub | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff → `Docs/EnvironmentArtistHandoff/` |
-| Desktop email/PDF pack | `C:\Users\user\Desktop\RedMMO_EnvironmentArtist_Handoff\` |
+| Repo docs | `docs/EnvironmentArtistHandoff/` (this folder) |
+| Public GitHub | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/tree/main/docs/EnvironmentArtistHandoff |
+| Desktop PDF pack | `C:\Users\user\Desktop\RedMMO_EnvironmentArtist_Handoff\` |

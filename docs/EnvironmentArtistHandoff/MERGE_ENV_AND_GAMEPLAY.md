@@ -1,75 +1,78 @@
-# Merging hub / graphics work with the gameplay map
+# Same-repo merge: environment + HubLogic (artist view)
 
-**Question:** Can an environmental artist build a hub / graphics map while a gameplay developer codes on another map, then merge them **without starting over** and **without overwriting** each other?
+**This is the core collaboration rule for Red MMO — environment side.**  
+Gameplay and environment work in the **same GitHub repo**, on **separate Unreal map packages**, so hub art can land without forcing a gameplay rewrite and without binary `.umap` overwrite fights.
 
-**Answer: YES — if they never both save the same `.umap` package as the shared ownership file.**  
-Gameplay code in C++ and Blueprint *assets* (Character, GameMode, weapons, AnimBP) can stay completely independent of the environment `.umap`. Visual hub work should live in env-owned level packages that the persistent level only **references**.
+Developer mirror: [../DeveloperHandoff/MERGE_SAFE_WORLD.md](../DeveloperHandoff/MERGE_SAFE_WORLD.md).
 
 ---
 
-## Recommended Unreal pattern (best)
+## What you are guaranteed
 
-Use **composition**, not “one person owns the whole world file.”
+| Need | How it is met |
+|---|---|
+| Hub visuals that **survive** alongside HubLogic | Your dress lives in **`L_Hub_Env_Visuals`**. Developer actors live in **`L_Hub_Gameplay_Logic`**. |
+| Developer does **not** overwrite your env delivery | Developers never check in your env sublevel; you never edit HubLogic. |
+| You do **not** rebuild pawn / weapons / netcode when maps compose | Those are separate packages from env `.umap` files. Persistent only streams both. |
+
+---
+
+## Map layout (named packages)
 
 ```text
-PersistentLevel (thin shell — rarely edited)
-├── Sublevel / WP layer: Env_Landscape_Lighting_Foliage   ← artists
-├── Sublevel / WP layer: Env_HubDressing_Meshes           ← artists
-└── Sublevel / WP layer: Gameplay_HubLogic                ← gameplay
-        (PlayerStarts, volumes, BP gameplay actors,
-         triggers, spawn managers, networked actors)
+/Game/RedMMO/Maps/Hubs/L_Hub_Persistent          ← thin shell (streaming refs only; rarely edited)
+/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals         ← you (environment)
+/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic      ← gameplay developer (HubLogic)
 ```
 
-| Owner | Owns |
-|---|---|
-| Environment artist | Landscape, lighting, fog/post look, foliage, static meshes, set dressing, visual-only volumes |
-| Gameplay developer | GameMode/GameState refs, PlayerStart authority, combat volumes, replicated actors, interactables logic, spawn rules |
-| Tech / lead | Persistent level membership (which sublevels are always loaded), streaming / World Partition rules |
+| Owner | Owns | Do not touch |
+|---|---|---|
+| **Environment artist** | `L_Hub_Env_Visuals`, landscape/lighting/foliage/dressing, ArtistCanvas / Desert sandbox as assigned | `L_Hub_Gameplay_Logic`, Character/GameMode/weapons/netcode |
+| **Gameplay developer** | `L_Hub_Gameplay_Logic`, `Source/`, gameplay Blueprints, netcode | Artist-owned env `.umap` |
+| **Lead / either with agreement** | `L_Hub_Persistent` membership (which sublevels load) | Daily art or combat authoring inside Persistent |
 
-**World Partition / Data Layers / Level Streaming** are all valid implementations of the same idea: **separate packages + clear ownership**. Prefer World Partition + Data Layers when the hub sits on a large planetary map; prefer classic streaming sublevels for a compact hub sandbox.
+```text
+L_Hub_Persistent          ← thin shell (streaming only)
+├── L_Hub_Env_Visuals     ← you
+└── L_Hub_Gameplay_Logic  ← developer / HubLogic (do not edit)
+```
 
 ---
 
-## What breaks if both edit the same `.umap`
+## Working rules
 
-| Reality | Consequence |
-|---|---|
-| `.umap` is a **binary** Unreal package | Git / Git LFS cannot merge conflicting saves; one writer wins or the file is corrupted / needs full replace |
-| Perforce (better for UE binaries) still needs **exclusive checkout** | Two people locking/saving the same map = lost work or forced overwrite |
-| Actor GUID / external-actor references | Copy-paste between maps without a plan duplicates or orphans gameplay actors |
-| Autosave + “Save All” | Easy to dirty the wrong map when both are open |
+1. Clone the **same** handoff repo as the gameplay developer:  
+   `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
+2. Author hub visuals in **`L_Hub_Env_Visuals`**.
+3. Use **ArtistCanvas** or **Sandbox_DesertDemoSparkle_T01** for planetary / desert experiments — prefer delivering finished hub look into `L_Hub_Env_Visuals`, not into HubLogic.
+4. Do **not** put PlayerStarts, combat volumes, spawn managers, or networked actors in your env package.
+5. Do **not** both save the same `.umap` as the developer. Binary packages do not git-merge.
 
-**Rule:** Never have artist and gameplay developer simultaneously authoring and saving `HubWorld.umap` (or any single shared map). Split first, then compose.
+**Binary truth:** two people saving the same `.umap` cannot be safely git-merged. Split packages first.
 
 ---
 
 ## Safe merge options (ranked)
 
-### (A) Sublevel / World Partition composition — **best**
+### (A) Sublevel composition with named hub packages — **best**
 
-1. Create `L_Env_HubVisuals` (or WP Data Layer `Env`) from the artist’s dressed map / canvas work.  
-2. Create `L_Gameplay_HubLogic` from the developer’s gameplay map (or keep logic actors only).  
-3. Persistent level loads both; PIE tests the composition.  
-4. Artists never check in the gameplay sublevel; developers never check in the env sublevel.
+1. You deliver dress in `L_Hub_Env_Visuals`.  
+2. Developer keeps HubLogic in `L_Hub_Gameplay_Logic`.  
+3. Persistent loads both; PIE tests the composition.  
+4. You never check in the gameplay sublevel; developers never check in the env sublevel.
 
 **Result:** Parallel work, no binary map conflict, no restart.
 
-### (B) Migrate / copy actors with ownership rules — **good if already diverged**
+### (B) Migrate env-only actors — **good if already diverged**
 
-1. Freeze one side as “source of truth” for structure (usually gameplay PlayerStarts + volumes).  
-2. Migrate **env-only** actors (StaticMesh, lights, foliage, decals) into the env sublevel via Level → Move into Level / Migrate Asset.  
-3. Do **not** migrate Character, GameMode overrides, weapon pickups that own replication, or AnimBP assets via map copy.  
-4. Verify collision and PlayerStart once in the composed persistent level.
+1. Freeze HubLogic as source of truth for PlayerStarts / volumes.  
+2. Migrate **env-only** actors (StaticMesh, lights, foliage, decals) into `L_Hub_Env_Visuals`.  
+3. Do **not** migrate Character, GameMode, weapon pickups that own replication, or AnimBP via map copy.  
+4. Verify look once in composed Persistent.
 
-**Result:** Recoverable if both already edited different maps; more manual than (A).
+### (C) OFPA / World Partition external actors — **good on WP maps**
 
-### (C) One File Per Actor (OFPA) / World Partition external actors — **good on WP maps**
-
-When World Partition + OFPA is enabled, many actors become individual files under the map’s external actors folder. That reduces whole-map binary conflicts **for actors that were externalized**, but:
-
-- Persistent map settings, landscape streaming proxies, and non-OFPA actors can still conflict.  
-- Still require folder ownership and communication.  
-- Not a substitute for keeping gameplay BP/C++ out of artist packages.
+Reduces whole-map conflicts for externalized actors, but still requires folder ownership. Not a substitute for keeping gameplay out of artist packages.
 
 ---
 
@@ -77,37 +80,24 @@ When World Partition + OFPA is enabled, many actors become individual files unde
 
 | Statement | True? |
 |---|---|
-| Merge hub graphics + gameplay map without starting the planet/hub from zero | **Yes**, via (A) or (B) |
-| Keep gameplay C++ / BP assets while env `.umap` changes | **Yes** — code assets are separate packages |
-| Both people save the same `.umap` and “git merge” later | **No** — binary conflict; expect overwrite or restore |
-| Artist must re-implement PlayerStart / weapons / netcode after merge | **No**, if those stayed in gameplay-owned assets/sublevel |
-
----
-
-## Practical workflow for Red MMO
-
-1. **Gameplay developer** works on fundamentals / hub logic (e.g. ThirdPerson / gameplay sublevel / listen-server). Does not dress the ArtistCanvas as the long-term hub visual file.  
-2. **Environment artist** works on:
-   - `/Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas` for planetary look, **or**
-   - `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` for desert/LD experiments, **or**
-   - a **new** `L_Env_*` sublevel duplicated from either — preferred for hub delivery.  
-3. Lead (or either role with agreement) creates a thin persistent hub that **streams both**.  
-4. Integration day: load composition, MapCheck, PIE, fix only cross-level references (streaming volumes, soft paths).  
-5. Protected maps (`RedPlanetGen`, `RedPlanetGen_50km_Test`, `RedPlanetGen_50km_FusedPrototype`) stay **read-only** unless a dedicated mutation gate says otherwise.
+| Merge hub graphics + HubLogic without starting the hub from zero | **Yes**, via (A) or (B) |
+| Keep gameplay C++ / BP while env `.umap` changes | **Yes** |
+| Both people save the same `.umap` and “git merge” later | **No** |
+| Artist must re-implement PlayerStart / weapons / netcode after merge | **No**, if those stayed in HubLogic |
 
 ---
 
 ## Checklist before “we’re merging”
 
-- [ ] Env work is in env-owned map/sublevel package(s) only  
-- [ ] Gameplay actors / PlayerStarts / volumes are in gameplay-owned package(s) only  
-- [ ] Persistent level only adds streaming/WP references (minimal dirtying)  
+- [ ] Env work is in **`L_Hub_Env_Visuals`** (or agreed env-owned package) only  
+- [ ] Gameplay actors / PlayerStarts / volumes are in **`L_Hub_Gameplay_Logic`** only  
+- [ ] Persistent only adds streaming/WP references (minimal dirtying)  
 - [ ] No simultaneous save of the same `.umap`  
 - [ ] Running anim, weapons, pawn, replication untouched by art pass  
 - [ ] Screenshots of composed PIE from ground + approach  
 
 ---
 
-## Short answer for stakeholders
+## One sentence for the environment artist
 
-**Yes, you can merge.** Use separate env and gameplay levels under one persistent shell. Do not both edit one binary map. Gameplay code does not need to be rebuilt from scratch when the hub art lands.
+Clone the same handoff repo, own `L_Hub_Env_Visuals` (plus ArtistCanvas / Desert sandbox as needed); the gameplay developer owns HubLogic and will not overwrite your env package if you both keep that split.

@@ -1,9 +1,11 @@
 # Fab / Marketplace inventory — environment focus
 
-Subset of `Docs/DeveloperHandoff/FAB_MARKETPLACE_INVENTORY.md` for environmental / level-design work.  
+Subset of `docs/DeveloperHandoff/FAB_MARKETPLACE_INVENTORY.md` for environmental / level-design work.  
 Presence checked on owner machine 2026-08-07.
 
 Legend: **Titan** = `D:\RedMMOTitan\Content` · **Clean** = `D:\RedMMOTitanWindowsData\Projects\RedMMO\Content`
+
+Hub delivery in the shared handoff repo (`L_Hub_Env_Visuals`) does **not** require PlanetGen/PPG. Those plugins matter for planetary test maps and full Titan Content.
 
 ---
 
@@ -11,6 +13,7 @@ Legend: **Titan** = `D:\RedMMOTitan\Content` · **Clean** = `D:\RedMMOTitanWindo
 
 | Name | Needed for | Notes |
 |---|---|---|
+| *(none)* | Hub stubs `L_Hub_*` in TitanFundamentals | Dress hub visuals without planet plugins |
 | **PlanetGen** (UE 5.8 Marketplace) | ArtistCanvas, RedPlanetGen* | Install via Epic Launcher into UE 5.8 |
 | **PPG** | Only clean `RedMMO_PPG_HomeWorld` | Not required for Titan ArtistCanvas / desert sandbox |
 | Nwiro / UAIP | Optional editor tooling | Not required for art delivery |

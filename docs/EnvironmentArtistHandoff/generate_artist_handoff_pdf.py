@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate EN Red MMO environment-artist handoff PDF."""
+"""Generate EN + UK Red MMO environment-artist handoff PDFs (artist-facing only)."""
 from __future__ import annotations
 
 import re
@@ -241,22 +241,43 @@ def build_pdf(out: Path, sources: list[Path], title: str, blurb: str, font: str,
 
 def main() -> None:
     font, font_bold = register_fonts()
-    sources = [
+    # Artist-facing only: same-repo merge-safe ownership first.
+    # Exclude owner auth/invite/Cursor troubleshooting.
+    en_sources = [
         ROOT / "START_HERE.md",
-        ROOT / "MAPS.md",
         ROOT / "MERGE_ENV_AND_GAMEPLAY.md",
+        ROOT / "ENVIRONMENT_ARTIST_HANDOFF.md",
+        ROOT / "MAPS.md",
         ROOT / "FOLDER_OWNERSHIP.md",
         ROOT / "ENV_FAB_INVENTORY.md",
+    ]
+    uk_sources = [
         ROOT / "START_HERE_UK.md",
         ROOT / "MERGE_ENV_AND_GAMEPLAY_UK.md",
+        ROOT / "ENVIRONMENT_ARTIST_HANDOFF_UK.md",
+        ROOT / "MAPS.md",
+        ROOT / "FOLDER_OWNERSHIP.md",
+        ROOT / "ENV_FAB_INVENTORY.md",
     ]
     build_pdf(
         ROOT / "RedMMO_Environment_Artist_Handoff.pdf",
-        sources,
-        "Red MMO — Environment Artist Handoff",
-        "2026-08-07. Maps: ArtistCanvas + Sandbox_DesertDemoSparkle_T01 (Titan). "
-        "Merge answer: YES via separate env/gameplay sublevels — never both save one .umap. "
-        "Ukrainian summaries included at end.",
+        en_sources,
+        "Red MMO — Environment Artist Handoff (EN)",
+        "2026-08-07. Same-repo collaboration: own `L_Hub_Env_Visuals`; "
+        "developer owns HubLogic (`L_Hub_Gameplay_Logic`); thin `L_Hub_Persistent` composes both. "
+        "Test maps: ArtistCanvas + Sandbox_DesertDemoSparkle_T01. "
+        "Clone RedMMOTitan-DeveloperHandoff (same repo as gameplay).",
+        font,
+        font_bold,
+    )
+    build_pdf(
+        ROOT / "RedMMO_Environment_Artist_Handoff_UK.pdf",
+        uk_sources,
+        "Red MMO — Передача художнику середовища (UK)",
+        "2026-08-07. Спільне репо: володій `L_Hub_Env_Visuals`; "
+        "розробник володіє HubLogic (`L_Hub_Gameplay_Logic`); тонкий `L_Hub_Persistent` збирає обидва. "
+        "Тестові карти: ArtistCanvas + Sandbox_DesertDemoSparkle_T01. "
+        "Клон RedMMOTitan-DeveloperHandoff (те саме репо, що в геймплею).",
         font,
         font_bold,
     )

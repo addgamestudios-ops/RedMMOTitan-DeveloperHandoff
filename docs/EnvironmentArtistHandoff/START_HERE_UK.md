@@ -1,43 +1,77 @@
-# START HERE — Red MMO передача художнику середовища (UK)
+# ПОЧНИ ТУТ — передача **Red MMO** художнику середовища
 
-**Дата:** 2026-08-07  
+**Створено:** 2026-08-07  
 **English:** [START_HERE.md](./START_HERE.md)  
-**PDF (EN):** [RedMMO_Environment_Artist_Handoff.pdf](./RedMMO_Environment_Artist_Handoff.pdf)  
-**Злиття з геймплеєм:** [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md) · повна EN [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md)  
-**Fab / паки:** [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md)  
-**Папки:** [FOLDER_OWNERSHIP.md](./FOLDER_OWNERSHIP.md)
+**PDF (UA):** [RedMMO_Environment_Artist_Handoff_UK.pdf](./RedMMO_Environment_Artist_Handoff_UK.pdf) · **PDF (EN):** [RedMMO_Environment_Artist_Handoff.pdf](./RedMMO_Environment_Artist_Handoff.pdf)
 
-Назва продукту: **Red MMO**. Шляхи `Titan.uproject` / `RedMMOTitan*` — лише технічні.
+Продукт у текстах: **Red MMO**. Імена на кшталт `Titan.uproject` / `RedMMOTitan*` — лише технічні шляхи.
 
-Окрема роль (геймплей / мережа): `Docs/DeveloperHandoff/`.
+Роль геймплею / netcode (окремо): [../DeveloperHandoff/START_HERE_UK.md](../DeveloperHandoff/START_HERE_UK.md)
 
 ---
 
-## Шлях на 60 секунд
+## Головне: те саме репо, merge-safe світ (читай першим)
 
-1. Встановіть **Unreal Engine 5.8**.
-2. Відкрийте **Titan**: `D:\RedMMOTitan\Titan.uproject` (для планетарних карт потрібен PlanetGen).
-3. Відкрийте **одну** з двох тестових карт (нижче).
-4. Прочитайте [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md) перед злиттям хаба з геймплей-картою.
-5. Лише **один** Unreal Editor одночасно.
+Ти і gameplay-розробник працюєте в **тому самому GitHub-репозиторії**. Твій env хаба **не перезапише** HubLogic, і розробник **не перезапише** твій env-пакет — **якщо тримаєш розділене володіння**:
 
----
-
-## Дві карти для роботи
-
-Обидві в проєкті **Titan** (`D:\RedMMOTitan`).
-
-| # | Soft path | Роль |
+| Шар | Пакет | Власник |
 |---|---|---|
-| **1** | `/Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas` | Планетарний canvas середовища (50 км) |
-| **2** | `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` | Пустельний sandbox для level design / props / light |
+| Тонкий persistent | `/Game/RedMMO/Maps/Hubs/L_Hub_Persistent` | Lead / рідкі правки |
+| **Environment (ти)** | `/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals` | **Environment artist** |
+| HubLogic | `/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic` | Gameplay developer |
 
-**Пов’язані (не основна пара):** TropicalTile R15 V3 (Titan Tests); `RedMMO_PPG_HomeWorld` лише в clean RedMMO + PPG.
+- Landscape, lighting, fog/post, foliage, static meshes, set dressing — у **`L_Hub_Env_Visuals`**.
+- **Не** редагуй **`L_Hub_Gameplay_Logic`** (PlayerStarts, combat volumes, replicated actors).
+- **Не** чіпай pawn / Character BP, running animation, зброю, netcode.
+- Деталі: [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md) · дзеркало для розробника: [../DeveloperHandoff/MERGE_SAFE_WORLD_UK.md](../DeveloperHandoff/MERGE_SAFE_WORLD_UK.md).
+
+**Одним реченням:** клонуй те саме handoff-репо, що й геймплей-розробник; володій `L_Hub_Env_Visuals` (+ ArtistCanvas / Desert sandbox для тестів); HubLogic і gameplay-код не чіпай.
+
+---
+
+## 60 секунд
+
+1. Клон: `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
+2. Встанови **Unreal Engine 5.8**.
+3. Відкрий проєкт із потрібним Content:
+   - Stub-и хаба / fundamentals: **`TitanFundamentals.uproject`** у клоні  
+   - Повний Titan Content: **`Titan.uproject`**
+4. Відкривай **свої** карти. Не сейв у HubLogic.
+5. Прочитай [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md) перед delivery хаба.
+6. Лише **один** Unreal Editor одночасно.
+
+```powershell
+git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+cd RedMMOTitan-DeveloperHandoff
+start TitanFundamentals.uproject
+```
+
+| Перевірка | Очікування |
+|---|---|
+| Stub-и хаба | `L_Hub_Persistent`, `L_Hub_Env_Visuals`, `L_Hub_Gameplay_Logic` |
+| Твій save target | **`L_Hub_Env_Visuals`** для hub delivery |
+| HubLogic | Є, але **не** твоя зона редагування |
+| Тестові карти (повний Titan) | ArtistCanvas і/або Desert sandbox |
+| **Running anim / pawn / зброя** | Не чіпати |
+
+---
+
+## Карти, які відкриваєш
+
+**Hub delivery:** володієш **`L_Hub_Env_Visuals`**. Persistent — лише інтеграція. **`L_Hub_Gameplay_Logic`** — не чіпати.
+
+**Тести (повний Titan Content):**
+
+| Soft path | Роль |
+|---|---|
+| `/Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas` | Планетарний canvas (PlanetGen) |
+| `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` | Пустельний sandbox для LD / props / light |
 
 ---
 
 ## Не чіпати
 
+- **`L_Hub_Gameplay_Logic`** (HubLogic розробника)  
 - Player pawn / Character BP і C++  
 - **Running animation**  
 - Зброя, снаряди, aim chain  
@@ -47,7 +81,18 @@
 
 ---
 
+## Далі читати
+
+| Док | Навіщо |
+|---|---|
+| [MERGE_ENV_AND_GAMEPLAY_UK.md](./MERGE_ENV_AND_GAMEPLAY_UK.md) | Merge без overwrite |
+| [ENVIRONMENT_ARTIST_HANDOFF_UK.md](./ENVIRONMENT_ARTIST_HANDOFF_UK.md) | Шляхи, плагіни, чеклист |
+| [MAPS.md](./MAPS.md) | Ідентичність карт |
+| [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md) | Fab / арт-паки |
+
+---
+
 ## Пакет
 
-- GitHub: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff → `Docs/EnvironmentArtistHandoff/`  
+- GitHub: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/tree/main/docs/EnvironmentArtistHandoff  
 - Desktop: `C:\Users\user\Desktop\RedMMO_EnvironmentArtist_Handoff\`

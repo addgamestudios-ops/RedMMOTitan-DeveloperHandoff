@@ -1,27 +1,53 @@
-# Злиття хаба / графіки з геймплей-картою (коротко, UK)
+# Спільне репо: злиття env + HubLogic (погляд артиста)
 
-**Питання:** Чи можна паралельно робити env/хаб і геймплей, а потім злити без старту з нуля і без перезапису?
+**Це головне правило колаборації для Red MMO — сторона середовища.**  
+Геймплей і оточення працюють у **тому самому GitHub-репозиторії**, на **окремих Unreal map-пакетах**, щоб арт хаба міг підключитись без переписування геймплею і без бінарних конфліктів `.umap`.
 
-**Відповідь: ТАК** — якщо обидві сторони **не зберігають один і той самий файл `.umap`**.  
-Код геймплею (C++ / Blueprint-ассети) живе окремо від карти середовища.
+Дзеркало для розробника: [../DeveloperHandoff/MERGE_SAFE_WORLD_UK.md](../DeveloperHandoff/MERGE_SAFE_WORLD_UK.md) · повна EN: [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md).
 
 ---
 
-## Рекомендований патерн
+## Що тобі гарантовано
+
+| Потреба | Як забезпечено |
+|---|---|
+| Візуали хаба, що **живуть поруч** із HubLogic | Твій декор у **`L_Hub_Env_Visuals`**. Актори розробника — у **`L_Hub_Gameplay_Logic`**. |
+| Розробник **не перезапише** твій env-delivery | Розробники не комітять твій env-саблевел; ти не редагуєш HubLogic. |
+| **Не** переробляти pawn / зброю / netcode після compose | Це окремі пакети від env `.umap`. Persistent лише стрімить обидва. |
+
+---
+
+## Структура карт
 
 ```text
-PersistentLevel (тонка оболонка)
-├── Env_*  — landscape, light, foliage, meshes   ← художник
-└── Gameplay_* — PlayerStart, volumes, BP logic ← програміст
+/Game/RedMMO/Maps/Hubs/L_Hub_Persistent          ← тонка оболонка (лише streaming; рідко чіпають)
+/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals         ← ти (environment)
+/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic      ← gameplay developer (HubLogic)
 ```
 
-Level Streaming / World Partition / Data Layers — різні реалізації тієї ж ідеї.
+| Власник | Володіє | Не чіпати |
+|---|---|---|
+| **Environment artist** | `L_Hub_Env_Visuals`, landscape/lighting/foliage/dressing, ArtistCanvas / Desert sandbox за завданням | `L_Hub_Gameplay_Logic`, Character/GameMode/зброя/netcode |
+| **Gameplay developer** | `L_Hub_Gameplay_Logic`, `Source/`, gameplay BP, netcode | Env `.umap` артистів |
+| **Lead / за домовленістю** | Склад `L_Hub_Persistent` | Щоденний арт або combat всередині Persistent |
+
+```text
+L_Hub_Persistent          ← тонка оболонка
+├── L_Hub_Env_Visuals     ← ти
+└── L_Hub_Gameplay_Logic  ← розробник / HubLogic (не чіпати)
+```
 
 ---
 
-## Чому не можна «просто змерджити» одну карту
+## Правила роботи
 
-`.umap` — бінарний пакет. Git / Git LFS **не зливає** конфлікти карт. Perforce потребує exclusive checkout. Двоє зберігають одну карту → хтось втрачає роботу.
+1. Клонуй **те саме** handoff-репо, що й геймплей-розробник.  
+2. Хаб-візуали — у **`L_Hub_Env_Visuals`**.  
+3. ArtistCanvas / Desert sandbox — для експериментів; фінальний hub look віддавай у `L_Hub_Env_Visuals`, не в HubLogic.  
+4. Не клади PlayerStarts, combat volumes, spawn managers, networked actors у свій env-пакет.  
+5. Не сейв одночасно той самий `.umap`, що й розробник.
+
+**Бінарна правда:** двоє, що сейвлять той самий `.umap`, не змержаться через git. Спочатку розділи пакети.
 
 ---
 
@@ -29,16 +55,20 @@ Level Streaming / World Partition / Data Layers — різні реалізац�
 
 | | Метод | Коли |
 |---|---|---|
-| **A** | Окремі sublevel / WP (найкраще) | Нова робота хаба |
-| **B** | Міграція акторів за правилами ownership | Вже є дві роз’їхані карти |
+| **A** | Іменовані hub-пакети Persistent / Env / HubLogic (найкраще) | Нова робота хаба |
+| **B** | Міграція лише env-акторів | Вже є дві роз’їхані карти |
 | **C** | OFPA / external actors (WP) | Великі WP-карти; не замінює ownership |
 
 ---
 
 ## Гарантії
 
-- Злити hub graphics + gameplay **без переробки планети з нуля** — так (A/B).  
+- Злити hub graphics + HubLogic **без переробки хаба з нуля** — так (A/B).  
 - Залишити C++/BP геймплею при зміні env `.umap` — так.  
 - Обидва зберігають один `.umap` і «змерджать у git» — **ні**.
 
-Повна EN-версія: [MERGE_ENV_AND_GAMEPLAY.md](./MERGE_ENV_AND_GAMEPLAY.md).
+---
+
+## Одне речення для художника середовища
+
+Клонуй те саме handoff-репо, володій `L_Hub_Env_Visuals` (+ ArtistCanvas / Desert sandbox за потреби); gameplay-розробник володіє HubLogic і не перезапише твій env-пакет, якщо обидва тримають цей split.
