@@ -98,3 +98,7 @@ Do **not** use `C:\Users\user\Documents\Red MMO Windows`.
 3. Then (with PPG or PlanetGen restored): home-world art, shore bands, multiplayer, fused-consumer binding.
 
 Continue with [DEVELOPER_HANDOFF.md](./DEVELOPER_HANDOFF.md).
+
+---
+
+**Environment artist (separate role):** [../EnvironmentArtistHandoff/START_HERE.md](../EnvironmentArtistHandoff/START_HERE.md) · [PDF](../EnvironmentArtistHandoff/RedMMO_Environment_Artist_Handoff.pdf)
