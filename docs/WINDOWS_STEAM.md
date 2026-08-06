@@ -5,9 +5,9 @@ Mac development snapshot is saved on GitHub. **A Windows PC (or build farm) is r
 | Doc | Role |
 |---|---|
 | [`../README.md`](../README.md) | Clone, layout, Mac/Win build entry |
-| [`../CODEX_HANDOVER.md`](../CODEX_HANDOVER.md) | Codex/agent brief (mission, locked-good, open bugs) |
-| [`../HANDOVER.md`](../HANDOVER.md) | Full engineering truth (locked-good, open bugs, MCP, key files) |
-| [`../HANDOVER_SHIP_PLUMES_TERRAIN.md`](../HANDOVER_SHIP_PLUMES_TERRAIN.md) | Historical plume / terrain / oasis investigation; defer to CODEX_HANDOVER for current Windows status |
+| [`../Docs/DeveloperHandoff/START_HERE.md`](../Docs/DeveloperHandoff/START_HERE.md) | Current developer handoff |
+| [`../HANDOVER.md`](../HANDOVER.md) | Full engineering notes (locked-good, open bugs, key files) |
+| [`../HANDOVER_SHIP_PLUMES_TERRAIN.md`](../HANDOVER_SHIP_PLUMES_TERRAIN.md) | Historical plume / terrain / oasis investigation |
 | [`../WINDOWS_BUILD.md`](../WINDOWS_BUILD.md) | Short friend-facing package notes |
 
 **Remote (verify):** `https://github.com/addgamestudios-ops/RedMMOTitan.git` · branch `main`

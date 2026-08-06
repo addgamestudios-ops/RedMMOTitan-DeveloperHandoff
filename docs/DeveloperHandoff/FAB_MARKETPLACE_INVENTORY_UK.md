@@ -12,9 +12,8 @@
 | **PPG** | Clean home world | **Off** | Немає home generation | `Procedur890d9e860517V2` |
 | **FocalRig** | Aim chain гвинтівки | **Off** — substitute | ControlRig AimItem | Intermediate-only на машині власника |
 | **WorldGen** | Companion world-gen | **Off** | Disabled | Intermediate-only |
-| **Nwiro** | MCP editor `:5353` | **Opt** | Лише tooling | Fab product у Titan.uproject |
-| **UAIP** | MCP `:8765` | **Opt** / blocked | Enabled false | https://www.fab.com/listings/0eedf909-00ac-4d95-b109-8fda51800fff |
-| **ModelContextProtocol** | Epic MCP `:8000` | **Opt** | Потрібен editor listener | Engine Experimental |
+| **Nwiro** | Опційний editor kit | **Opt** | Не потрібен для PIE/netcode | Fab product у Titan.uproject |
+| **UAIP** | Опційні remote editor tools | **Opt** / blocked | Enabled false | https://www.fab.com/listings/0eedf909-00ac-4d95-b109-8fda51800fff |
 | **VibeMMOUIKit** / **RedHUD** | HUD | **Opt** | Геймплей C++ може йти | Project plugins |
 | **SteamIntegrationKit** | Steam сесії / MP | **Opt** (пізніше для Steam PvP) | Немає friend join | ~297 MB; копіювати з owner machine |
 | **VibeUE** / **BpGeneratorUltimate** | Tooling | **Off** на Win64 | Skip | — |

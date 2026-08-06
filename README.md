@@ -1,7 +1,7 @@
 ﻿# RedMMOTitan — Developer Handoff Repo
 
-**Start here:** [Docs/DeveloperHandoff/START_HERE.md](Docs/DeveloperHandoff/START_HERE.md)  
-**PDF:** [Docs/DeveloperHandoff/RedMMOTitan_Developer_Handoff.pdf](Docs/DeveloperHandoff/RedMMOTitan_Developer_Handoff.pdf)
+**Start here:** [Docs/DeveloperHandoff/START_HERE.md](Docs/DeveloperHandoff/START_HERE.md) · [UK](Docs/DeveloperHandoff/START_HERE_UK.md)  
+**PDF:** [Docs/DeveloperHandoff/RedMMOTitan_Developer_Handoff.pdf](Docs/DeveloperHandoff/RedMMOTitan_Developer_Handoff.pdf) · [UK PDF](Docs/DeveloperHandoff/RedMMOTitan_Developer_Handoff_UK.pdf)
 
 ## First day (no PPG / PlanetGen)
 
@@ -12,9 +12,17 @@
 
 Planet / PPG work is optional later — see `Docs/DeveloperHandoff/PPG_PLANETGEN_FREE_START.md` and `FAB_MARKETPLACE_INVENTORY.md`.
 
+Netcode / PvP focus: `Docs/DeveloperHandoff/NETWORKING_PVP.md` (UK: `NETWORKING_PVP_UK.md`).
+
 ## Access
 
-This repository is **private**. The owner must invite you by **GitHub username**. See `Docs/DeveloperHandoff/GITHUB_ACCESS.md`.
+This repository is **public**. Clone:
+
+```powershell
+git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+```
+
+The full historical Titan repo (`addgamestudios-ops/RedMMOTitan`) remains **private**. See `Docs/DeveloperHandoff/GITHUB_ACCESS.md`.
 
 ## Not included
 

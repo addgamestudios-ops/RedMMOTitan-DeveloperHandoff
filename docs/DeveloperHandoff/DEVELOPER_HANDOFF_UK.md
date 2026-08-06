@@ -1,6 +1,6 @@
 # RedMMOTitan — передача розробнику (UK, 2026-08-07)
 
-**Статус:** достатньо добре для takeover. Багато проблем лишається.  
+**Статус:** достатньо добре, щоб програміст міг підхопити роботу. Багато проблем лишається.  
 **English:** [DEVELOPER_HANDOFF.md](./DEVELOPER_HANDOFF.md)  
 **Netcode/PvP:** [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) · [NETWORKING_PVP.md](./NETWORKING_PVP.md)
 
@@ -14,7 +14,7 @@
 | GitHub | [GITHUB_ACCESS.md](./GITHUB_ACCESS.md) |
 | Діагностика | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_DeveloperHandoff_20260807\` |
 
-**Колаборатор:** sanyarud@gmail.com → GitHub **sanyarud** (write, pending accept).
+**Колаборатор:** sanyarud@gmail.com → GitHub **sanyarud** (write на private Titan, pending accept).
 
 ---
 
@@ -22,7 +22,7 @@
 
 | Роль | Шлях |
 |---|---|
-| Standalone clone | `RedMMOTitan-DeveloperHandoff` → `TitanFundamentals.uproject` |
+| Standalone clone (public) | `RedMMOTitan-DeveloperHandoff` → `TitanFundamentals.uproject` |
 | Owner repo | `D:\RedMMOTitan` |
 | Clean planetary RedMMO | `D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject` (потрібен PPG) |
 | R92 package | `...\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe` |
@@ -54,15 +54,17 @@
 Див. [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md).  
 `TitanFundamentals.uproject` + ThirdPersonMap.
 
-## 5. MCP порти
+**Правило:** один UnrealEditor одночасно.
 
-Epic `:8000`, Nwiro `:5353`, UAIP `:8765` (заблокований — немає payload).
+---
 
-## 6. Захищено
+## 5. Захищено
 
 Running anim; fused hashes; R92 package; один UnrealEditor; не dual Steam OSS.
 
-## 7. Наступна робота для netcode/PvP програміста
+---
+
+## 6. Наступна робота для netcode/PvP програміста
 
 1. Fundamentals PIE без планет.  
 2. Listen-server 2P реплікація.  

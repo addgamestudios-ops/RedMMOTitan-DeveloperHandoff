@@ -6,35 +6,19 @@
 |---|---|
 | Contact email | **sanyarud@gmail.com** |
 | Resolved GitHub username | **sanyarud** (https://github.com/sanyarud, name: Oleksandr) |
-| Permission | **write / push** (not read-only) |
-| API note | Collaborator PUT requires username; email local-part matched `sanyarud` |
+| Permission | **write / push** on private Titan (when invite accepted) |
+| Standalone handoff | **Public** — clone without invite |
 
-### Invitation status (sent 2026-08-06 UTC)
+### Invitation status (private Titan)
 
-| Repo | Invite ID | Permissions | Status | Accept URL |
-|---|---|---|---|---|
-| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | 328309879 | **write** | **pending accept** (`expired: false`) | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/invitations |
-| `addgamestudios-ops/RedMMOTitan` | 328309881 | **write** | **pending accept** (`expired: false`) | https://github.com/addgamestudios-ops/RedMMOTitan/invitations |
-
-Developer must accept while logged into GitHub as **sanyarud** (GitHub notifies that account’s email).
-
-## Answer (invite vs open)
-
-| Repo | Visibility | Must invite by username? |
+| Repo | Permissions | Notes |
 |---|---|---|
-| `addgamestudios-ops/RedMMOTitan` | **Private** | **YES** — done for `sanyarud` (from sanyarud@gmail.com) |
-| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | **Private** | **YES** — done for `sanyarud` |
-
-Re-invite if needed:
-
-```powershell
-gh api -X PUT repos/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/collaborators/sanyarud -f permission=push
-gh api -X PUT repos/addgamestudios-ops/RedMMOTitan/collaborators/sanyarud -f permission=push
-```
+| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | n/a (public) | Clone URL below |
+| `addgamestudios-ops/RedMMOTitan` | **write** invite for `sanyarud` | Accept while logged in as that username |
 
 ---
 
-## Clone URL (standalone handoff)
+## Clone URL (standalone handoff — public)
 
 ```text
 https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
@@ -48,6 +32,8 @@ start TitanFundamentals.uproject
 ```
 
 Web UI: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff
+
+Browser multi-account issues: [GITHUB_AUTH_FIX.md](./GITHUB_AUTH_FIX.md).
 
 ---
 
@@ -65,7 +51,7 @@ Web UI: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff
 - `Content/ThirdPerson/` (PPG-free starter map)
 - Git-whitelisted `Content/RedMMO/` crumbs (maps/materials/characters listed in `.gitignore` exceptions) when present
 - Project plugins that are small enough / essential: prefer `VibeMMOUIKit`, `RedHUD` if size allows; otherwise document copy-from-owner
-- README / CODEX_HANDOVER / WINDOWS_BUILD entry docs
+- `README.md`, `HANDOVER.md`, `WINDOWS_BUILD.md` entry docs
 
 ### Excluded (do not expect in clone)
 
@@ -79,14 +65,3 @@ Web UI: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff
 ### Existing private Titan remote
 
 - `https://github.com/addgamestudios-ops/RedMMOTitan.git` — historical Mac/Windows handoff; worktree on owner PC is intentionally dirty and **not** fully mirrored by a blind push of all Content.
-
----
-
-## If `gh` create/push failed on a machine
-
-```powershell
-gh auth login
-gh repo create addgamestudios-ops/RedMMOTitan-DeveloperHandoff --private --source=. --remote=origin --push
-# then invite:
-gh api -X PUT repos/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/collaborators/DEVELOPER_GITHUB_USERNAME -f permission=push
-```

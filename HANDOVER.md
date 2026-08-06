@@ -3,10 +3,10 @@
 **Snapshot date:** 2026-07-11  
 **Purpose:** Final Mac development save before continuing on a **Windows** machine. Stop iterating gameplay on Mac unless a trivial doc fix. Read this + [`HANDOVER_SHIP_PLUMES_TERRAIN.md`](HANDOVER_SHIP_PLUMES_TERRAIN.md) + [`docs/WINDOWS_STEAM.md`](docs/WINDOWS_STEAM.md) before changing ship, jetpack, sand, oasis, or atmosphere.
 
-**Codex / agent entry:** Start at [`README.md`](README.md) → full agent brief [`CODEX_HANDOVER.md`](CODEX_HANDOVER.md).  
-**GitHub:** https://github.com/addgamestudios-ops/RedMMOTitan · `git clone https://github.com/addgamestudios-ops/RedMMOTitan.git`
+**Start here (current):** [`Docs/DeveloperHandoff/START_HERE.md`](Docs/DeveloperHandoff/START_HERE.md) · [`README.md`](README.md).  
+**GitHub handoff (public):** https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff · historical Titan: https://github.com/addgamestudios-ops/RedMMOTitan
 
-**Tone for next AI:** Be honest. Do not claim PIE success without a `HighResShot` (or clear user confirmation). Prior agents overclaimed oasis spawn and sand — treat those as **failed / unverified**.
+**Honesty rule:** Do not claim PIE success without a `HighResShot` (or clear user confirmation). Oasis spawn and sand were historically overclaimed — treat those as **failed / unverified** until re-proven.
 
 ---
 
@@ -57,7 +57,7 @@ Document as **OPEN**. Do not mark fixed until user re-verifies in PIE with eyes 
 
 2. **Sand** — **Unchanged** vs user expectation. Not SoStylized dunes / demo sand look. Biome-layer path (`MI_PlanetBiome_RED` Sand + SandMult boost) did **not** deliver demo dunes. Still open.
 
-3. **Oasis terraforming pockets** — User **saw none**. Prior agent claimed `EnsureOasisTerraformingPockets` spawned water/palms/dunes near spawn — treat as **unverified / failed**. Do not claim spawn success without HighResShot + user eyes.
+3. **Oasis terraforming pockets** — User **saw none**. Prior notes claimed `EnsureOasisTerraformingPockets` spawned water/palms/dunes near spawn — treat as **unverified / failed**. Do not claim spawn success without HighResShot + user eyes.
 
 4. **Jetpack aim-while-shoot** — Code restored (`bWantFlyPose = bAirJet && !bCombatAim`). Status: **attempted restore; user should re-check** in PIE (double-Space → thrust + fire → aimed weapon, not open hands).
 
@@ -93,9 +93,7 @@ Document as **OPEN**. Do not mark fixed until user re-verifies in PIE with eyes 
 
 ---
 
-## 5. MCP / editor iteration (Mac)
-
-Editor driven via ModelContextProtocol HTTP on **`:8000`**.
+## 5. Editor iteration (Mac — historical)
 
 ### Build (must kill editor first — Mac cannot relink a loaded dylib)
 ```bash
@@ -111,17 +109,13 @@ Built module: `Binaries/Mac/libUnrealEditor-RedMMO.dylib`.
 rm -f "$UPROJ/../Saved/PackageRestoreData.json"   # recovery modal blocks startup
 pkill -9 -f CrashReportClient 2>/dev/null || true
 nohup ue58 "$UPROJ" "/Game/RedMMO/Maps/RedPlanetGen" > /tmp/titan_launch.log 2>&1 &
-# MCP ready when curl http://127.0.0.1:8000/mcp returns 405
 ```
 
 ### PIE rules
 - Always `Slate.bAllowThrottling 0` or focus loss freezes PIE (~0 fps).
 - First PIE after relaunch = cold shader compile — warm up before judging.
 - Screenshots: `HighResShot` → `Saved/Screenshots/MacEditor/` — **required before claiming visual fixes**.
-- Do not fight a running editor rebuild if another agent owns it.
-
-### MCP gotcha
-- Occasional **`FAppTime` ensure** when calling editor APIs from the MCP thread. Prefer small Python calls; avoid heavy asset factories from MCP.
+- Keep **one** UnrealEditor instance at a time.
 
 ---
 
@@ -168,19 +162,18 @@ nohup ue58 "$UPROJ" "/Game/RedMMO/Maps/RedPlanetGen" > /tmp/titan_launch.log 2>&
 | `Source/RedMMO/RedCharacterMovement.{h,cpp}` | Radial gravity, surface snap |
 | `Source/RedMMO/RedGravityBodies.{h,cpp}` | CLM planet detection |
 | `Source/RedMMO/RedBolt.{h,cpp}` | Projectiles + Cascade impacts |
-| `Source/RedMMO/RedMMOEditorTools.{h,cpp}` | Editor/MCP helpers |
+| `Source/RedMMO/RedMMOEditorTools.{h,cpp}` | Editor helpers (ControlRig substitutes, etc.) |
 | `Config/DefaultEngine.ini` | Maps, Steam OSS (App ID **480**) |
 | `Config/DefaultInput.ini` | Sprint/Shift, flying axis |
 | `steam_appid.txt` | `480` (Spacewar dev) |
 | `/Game/RedMMO/Maps/RedPlanetGen` | Play map |
 | `/Game/SpaceShip/Blueprints/BP_Shuttle` | Pack ship BP |
 | `/Game/Jet_Packs_Sci-Fi/...` | Jetpack + Cascade exhaust |
-| `README.md` | Codex entry — clone, layout, build |
-| `CODEX_HANDOVER.md` | Full agent brief (mission, bugs, architecture) |
+| `README.md` | Clone, layout, build entry |
+| `Docs/DeveloperHandoff/START_HERE.md` | Current developer handoff |
 | `docs/WINDOWS_STEAM.md` | Full Windows PIE + package + Steam |
 | `WINDOWS_BUILD.md` | Short friend-facing package notes |
 | `HANDOVER_SHIP_PLUMES_TERRAIN.md` | Open plume/sand/oasis track |
-| `Tools/fix_*.py`, `Tools/tiny_mcp.py` | Atmosphere/stars/sand MCP scripts |
 
 ---
 

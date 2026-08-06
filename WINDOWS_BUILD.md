@@ -1,7 +1,7 @@
 # Building the Windows copy of RedMMOTitan (for your friend)
 
 Full engineering checklist (PIE, packaging, SteamPipe, what to copy): **[`docs/WINDOWS_STEAM.md`](docs/WINDOWS_STEAM.md)**.  
-Project entry: **[`README.md`](README.md)** · Codex brief: **[`CODEX_HANDOVER.md`](CODEX_HANDOVER.md)** · handover: **[`HANDOVER.md`](HANDOVER.md)**.
+Project entry: **[`README.md`](README.md)** · developer handoff: **[`Docs/DeveloperHandoff/START_HERE.md`](Docs/DeveloperHandoff/START_HERE.md)** · engineering notes: **[`HANDOVER.md`](HANDOVER.md)**.
 
 Your Mac makes the Mac copy; this makes the **Windows `.exe`** your friend runs. Both must be built from
 **Unreal Engine 5.8.0** (exact match — a different 5.8.x will cause "connection refused"). Steam then

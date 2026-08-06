@@ -72,7 +72,7 @@ Configuration: Development
 | Clean planetary project | `D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject` |
 | Accepted packaged R92 baseline | `D:\RedMMOTitanWindowsData\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe` |
 | This diagnostics pack | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_DeveloperHandoff_20260807\` |
-| R92 agent takeover pack | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_R92_AgentTakeover_20260806T1805Z\` |
+| R92 packaging diagnostics | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_R92_AgentTakeover_20260806T1805Z\` |
 | Dependency disposition | `D:\RedMMOTitanWindowsData\Diagnostics\R92_DependencyUnblock_20260807_000731\R92_DEPENDENCY_DISPOSITION.md` |
 | Engine | `D:\UE_5.8` |
 

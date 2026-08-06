@@ -1,11 +1,11 @@
 # RedMMOTitan — Developer Handoff (2026-08-07)
 
-**Status:** Good enough for developer takeover. Many problems remain. Planetary plugins are optional for first fundamentals work.  
+**Status:** Good enough for a human developer to pick up. Many problems remain. Planetary plugins are optional for first fundamentals work.  
 **Ukrainian pack:** [START_HERE_UK.md](./START_HERE_UK.md) · [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)
 
 **Primary audience:** programmer — networking, replication, multiplayer, PvP, gameplay. Start with [NETWORKING_PVP.md](./NETWORKING_PVP.md) / [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md).
 
-**Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push, pending accept on both private repos).
+**Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push, pending accept on private Titan).
 
 | Artifact | Location |
 |---|---|
@@ -31,6 +31,7 @@
 | R92 playable package | `D:\RedMMOTitanWindowsData\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe` |
 | Tree SHA-256 (R92) | `11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409` |
 | Owner origin (private) | `https://github.com/addgamestudios-ops/RedMMOTitan.git` |
+| Standalone handoff (public) | `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git` |
 
 Never use `C:\Users\...\Documents\Red MMO Windows`.
 
@@ -63,20 +64,20 @@ Never use `C:\Users\...\Documents\Red MMO Windows`.
 - M04 traversal/perf, M05 real 1S/2C, Steam two-account, warp, final art  
 - Running anim must stay **protected** while improving feel  
 
-This handoff is **good enough to take over**, not “feature complete.”
+This handoff is **good enough to pick up**, not “feature complete.”
 
 ---
 
 ## 3. Known bugs / open defects (pointers)
 
-Read `ProjectKnowledge/defects/` and queue `Build/Automation/redmmotitan_module_queue.json`. Snapshot from R92 takeover:
+Read `ProjectKnowledge/defects/` and queue `Build/Automation/redmmotitan_module_queue.json`. Snapshot from R92 packaging:
 
 - DEF-0001, DEF-0002 open  
 - DEF-0003, DEF-0005, DEF-0007 await runtime acceptance  
 - DEF-0004 open (jetpack HUD boundary history)  
 - DEF-0006 awaits build/runtime  
 - DEF-0008 resolved  
-- UAIP / Copilot / Blender MCP: marketplace/human blockers — skip without stalling  
+- Optional marketplace editor tooling (UAIP / similar): skip if missing — not required for fundamentals  
 
 ---
 
@@ -124,38 +125,21 @@ start D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject
 & 'D:\RedMMOTitanWindowsData\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe'
 ```
 
-**Single-editor rule:** one UnrealEditor at a time. Prefer guarded MCP start:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File D:\RedMMOTitan\Build\Automation\Start-UnrealAIEditorGuarded.ps1
-```
+**Single-editor rule:** one UnrealEditor at a time on this machine.
 
 ---
 
-## 6. MCP ports
-
-| Server | Port | Notes |
-|---|---|---|
-| Epic ModelContextProtocol | `http://127.0.0.1:8000/mcp` | Needs editor + `-ModelContextProtocolStartServer` |
-| Nwiro | `http://127.0.0.1:5353/mcp` | Needs Nwiro plugins |
-| UAIP | `http://127.0.0.1:8765/mcp` | **Blocked** — payload missing |
-
-Cursor catalog IDs: `user-epic_unreal_mcp`, `user-nwiro`, `user-uaip_titan_http`.  
-Guide: `...\RedMMO_R92_AgentTakeover_20260806T1805Z\MCP_PLUGIN_ACCESS_GUIDE.md`.
-
----
-
-## 7. Protected items
+## 6. Protected items
 
 1. **Running animation / locomotion graph** on `ABP_RedTrooperFemale` — do not “fix” run by replacing the single-node / R86 locomotion guard without explicit owner authority. Prefer additive or parallel work on aim/jetpack poses.  
 2. Fused 27 tangent inputs + six fused faces — never silent bind/regenerate/promote.  
-3. Protected hashes (production map, 50 km checkpoint, fused prototype/heightfield, clean home, ProfileV1) — see takeover pack §6.  
+3. Protected hashes (production map, 50 km checkpoint, fused prototype/heightfield, clean home, ProfileV1) — see diagnostics packs under `D:\RedMMOTitanWindowsData\Diagnostics\`.  
 4. R92 package directory — immutable; new work gets a new named package.  
 5. Owner dirty git worktree — no hard reset / bulk clean.
 
 ---
 
-## 8. Next fundamentals work
+## 7. Next fundamentals work
 
 1. PPG/PlanetGen-free compile + PIE on `TitanFundamentals` / ThirdPersonMap.  
 2. Protect run anim; improve on-foot feel, aim, jetpack, fire separately.  
@@ -164,17 +148,16 @@ Guide: `...\RedMMO_R92_AgentTakeover_20260806T1805Z\MCP_PLUGIN_ACCESS_GUIDE.md`.
 
 ---
 
-## 9. GitHub
+## 8. GitHub
 
 See [GITHUB_ACCESS.md](./GITHUB_ACCESS.md).
 
-- Existing org/user repo `addgamestudios-ops/RedMMOTitan` is **private**.  
-- Standalone handoff repo is published separately for the developer.  
-- **Inviting a collaborator to a private repo requires the developer’s GitHub username (or email for invite).** Agents cannot invent that handle.
+- Standalone handoff repo `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` is **public** — clone without invite.  
+- Full Titan `addgamestudios-ops/RedMMOTitan` is **private** — invite by GitHub username for write access.  
 
 ---
 
-## 10. Fab / Marketplace
+## 9. Fab / Marketplace
 
 Full checklist: [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md).
 

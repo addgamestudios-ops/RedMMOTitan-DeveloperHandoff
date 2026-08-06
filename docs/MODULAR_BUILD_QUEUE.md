@@ -4,7 +4,6 @@ The machine-readable queue is [`Build/Automation/redmmotitan_module_queue.json`]
 
 ## Scheduling behavior
 
-- A Codex heartbeat resumes this task every 10 minutes.
 - A module is `completed` only after its listed acceptance tests have evidence.
 - If the same blocker produces no meaningful progress for about 10 minutes, record the blocker, set the module to `incomplete_retry`, and continue with the next independent module.
 - After each forward pass, revisit `incomplete_retry` modules whose dependencies or environment changed.

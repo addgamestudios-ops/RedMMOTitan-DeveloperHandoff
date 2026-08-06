@@ -13,7 +13,7 @@
 | **Топологія** | Unreal **listen-server** (хост також гравець). Dedicated server не прийнятий. | Історично: PIE 2 клієнти listen-server для aim/jetpack/fire |
 | **Транспорт** | **Steam Integration Kit (SIK) v1.9** — єдиний Steam-стек (заміна OnlineSubsystemSteam + SteamSockets). Стандартні Epic OSS Steam **вимкнені**. Dev App ID **480** (Spacewar), `steam_appid.txt` | Packaged smoke: auth/relay + хост з одного акаунта. **Реальний join/PvP двох Steam-акаунтів не доведено** |
 | **UI сесій** | Escape → Multiplayer/Lobby; **F8** у runtime / **F6** у PIE. Create / Find / Join / Reconnect / Invite / Leave. ≥8 гравців. Немає тихого auto-host після порожнього пошуку | UI + життєвий цикл хоста; join друга — відкрито |
-| **Авторитет** | Сервер: heat/overheat зброї, спавн болтів, пілот/зброя корабля, урон; реплікуються aim + прапорці jetpack | Official-MCP two-client listen-server (шлях NULL OSS — **реплікація геймплею, не Steam-транспорт**) |
+| **Авторитет** | Сервер: heat/overheat зброї, спавн болтів, пілот/зброя корабля, урон; реплікуються aim + прапорці jetpack | Two-client listen-server PIE (шлях NULL OSS — **реплікація геймплею, не Steam-транспорт**) |
 | **GameState** | Celestial/PPG frame + registry; реальний 1S/2C late-join + radar **відкриті** (M05) | Докази single-process ≠ прийняття мультиплеєра |
 | **PvP** | `bIsEnemy`, health/shield/armor, downed, grapple по гравцю, lethal ragdoll / смерть у кораблі | Не завершений PvP-режим; немає matchmaking |
 

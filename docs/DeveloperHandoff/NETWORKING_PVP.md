@@ -13,7 +13,7 @@
 | **Topology** | Unreal **listen-server** (host is also a player). Dedicated server not accepted. | PIE 2-client listen-server used historically for aim/jetpack/fire replication |
 | **Transport** | **Steam Integration Kit (SIK) v1.9** as sole Steam stack (replacement OnlineSubsystemSteam + SteamSockets). Epic stock OSS Steam plugins **disabled**. Dev App ID **480** (Spacewar) via `steam_appid.txt` | Packaged smokes: Steam auth/relay + single-account host lifecycle. **Real two-account Steam join/PvP not proven** |
 | **Session UI** | Escape → Multiplayer/Lobby; **F8** runtime / **F6** in PIE (editor owns F8). Create / Find / Join / Reconnect / Invite / Leave. Sessions advertise ≥8 players. No silent auto-host after empty search | UI + host lifecycle smoke; friend join open |
-| **Authority** | Server-authoritative weapons heat/overheat, bolt spawn, ship pilot/weapons, damage; aim direction + jetpack flags replicated | Official-MCP two-client listen-server PIE verified aim/jetpack/fire/heat (NULL OSS path — **gameplay replication, not Steam transport**) |
+| **Authority** | Server-authoritative weapons heat/overheat, bolt spawn, ship pilot/weapons, damage; aim direction + jetpack flags replicated | Two-client listen-server PIE verified aim/jetpack/fire/heat (NULL OSS path — **gameplay replication, not Steam transport**) |
 | **GameState** | Celestial / PPG frame producers and registry work exist; real 1S/2C late-join transport + radar consumers **open** (M05) | Single-process ordering evidence ≠ multiplayer acceptance |
 | **PvP** | `bIsEnemy`, health/shield/armor, downed, grapple-on-player pull, lethal ragdoll / ship death paths in character/ship code | Not a finished PvP mode; no ranked/matchmaking |
 

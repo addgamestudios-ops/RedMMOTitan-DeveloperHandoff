@@ -21,9 +21,9 @@
 
 ## 60 секунд
 
-1. Прийми запрошення GitHub (обидва private-репо).
-2. Клонуй standalone:  
+1. Клонуй standalone handoff (**public**, invite не потрібен):  
    `git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
+2. Для write у повний private Titan — прийми запрошення GitHub (якщо ще pending).
 3. Встанови **Unreal Engine 5.8**.
 4. Відкрий **`TitanFundamentals.uproject`** (не потребує PPG/PlanetGen).
 5. Збери **TitanEditor** Win64 Development → PIE на `/Game/ThirdPerson/Maps/ThirdPersonMap`.
@@ -52,7 +52,7 @@ start TitanFundamentals.uproject
 
 | Репо | URL | Доступ |
 |---|---|---|
-| **Standalone handoff (почни тут)** | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff | private, write invite → `sanyarud` |
+| **Standalone handoff (почни тут)** | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff | **public** — clone без invite |
 | Повний Titan (історичний) | https://github.com/addgamestudios-ops/RedMMOTitan | private, write invite → `sanyarud` |
 
 ---
