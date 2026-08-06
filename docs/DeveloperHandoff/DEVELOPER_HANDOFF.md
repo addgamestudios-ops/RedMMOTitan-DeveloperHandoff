@@ -1,13 +1,19 @@
 # RedMMOTitan — Developer Handoff (2026-08-07)
 
-**Status:** Good enough for developer takeover. Many problems remain. Planetary plugins are optional for first fundamentals work.
+**Status:** Good enough for developer takeover. Many problems remain. Planetary plugins are optional for first fundamentals work.  
+**Ukrainian pack:** [START_HERE_UK.md](./START_HERE_UK.md) · [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)
+
+**Primary audience:** programmer — networking, replication, multiplayer, PvP, gameplay. Start with [NETWORKING_PVP.md](./NETWORKING_PVP.md) / [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md).
+
+**Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push, pending accept on both private repos).
 
 | Artifact | Location |
 |---|---|
-| **START_HERE** | [START_HERE.md](./START_HERE.md) |
-| **PDF** | [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) |
-| **Fab inventory** | [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md) |
-| **PPG-free start** | [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md) |
+| **START_HERE** | [START_HERE.md](./START_HERE.md) · [START_HERE_UK.md](./START_HERE_UK.md) |
+| **PDF EN / UK** | [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) |
+| **Networking / PvP** | [NETWORKING_PVP.md](./NETWORKING_PVP.md) · [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) |
+| **Fab inventory** | [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md) · [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md) |
+| **PPG-free start** | [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md) · [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md) |
 | **GitHub access** | [GITHUB_ACCESS.md](./GITHUB_ACCESS.md) |
 | Diagnostics copy | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_DeveloperHandoff_20260807\` |
 | Canonical knowledge | `D:\RedMMOTitan\ProjectKnowledge\` (`INDEX.yaml` → `current_state.yaml` → `invariants.yaml`) |

@@ -1,25 +1,36 @@
 # GitHub access — standalone handoff + invite rules
 
+## Intended collaborator
+
+| Field | Value |
+|---|---|
+| Contact email | **sanyarud@gmail.com** |
+| Resolved GitHub username | **sanyarud** (https://github.com/sanyarud, name: Oleksandr) |
+| Permission | **write / push** (not read-only) |
+| API note | Collaborator PUT requires username; email local-part matched `sanyarud` |
+
+### Invitation status (sent 2026-08-06 UTC)
+
+| Repo | Invite ID | Permissions | Status | Accept URL |
+|---|---|---|---|---|
+| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | 328309879 | **write** | **pending accept** (`expired: false`) | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/invitations |
+| `addgamestudios-ops/RedMMOTitan` | 328309881 | **write** | **pending accept** (`expired: false`) | https://github.com/addgamestudios-ops/RedMMOTitan/invitations |
+
+Developer must accept while logged into GitHub as **sanyarud** (GitHub notifies that account’s email).
+
 ## Answer (invite vs open)
 
-| Repo | Visibility | Must owner invite developer by GitHub username? |
+| Repo | Visibility | Must invite by username? |
 |---|---|---|
-| `addgamestudios-ops/RedMMOTitan` (existing) | **Private** | **YES** — invite by GitHub username (or email invite). Agents cannot grant access without the developer’s handle. |
-| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` (standalone) | **Private** (created for handoff) | **YES** — same rule. After invite, developer clones the URL below. |
+| `addgamestudios-ops/RedMMOTitan` | **Private** | **YES** — done for `sanyarud` (from sanyarud@gmail.com) |
+| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | **Private** | **YES** — done for `sanyarud` |
 
-Making the handoff repo **public** would allow clone without invite, but game source + licensed plugin trees should stay **private**. Prefer invite.
-
-### Invite commands (owner runs once they have the developer’s username)
+Re-invite if needed:
 
 ```powershell
-$env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
-# Replace DEVELOPER_GITHUB_USERNAME
-gh api -X PUT repos/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/collaborators/DEVELOPER_GITHUB_USERNAME -f permission=push
-# Optional: also grant the full private Titan repo
-gh api -X PUT repos/addgamestudios-ops/RedMMOTitan/collaborators/DEVELOPER_GITHUB_USERNAME -f permission=push
+gh api -X PUT repos/addgamestudios-ops/RedMMOTitan-DeveloperHandoff/collaborators/sanyarud -f permission=push
+gh api -X PUT repos/addgamestudios-ops/RedMMOTitan/collaborators/sanyarud -f permission=push
 ```
-
-Or GitHub UI: Repo → Settings → Collaborators → Add people → enter **username**.
 
 ---
 

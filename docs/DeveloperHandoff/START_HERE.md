@@ -1,10 +1,14 @@
 # START HERE — RedMMOTitan developer handoff
 
 **Generated:** 2026-08-07  
-**PDF:** [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf)  
+**Ukrainian:** [START_HERE_UK.md](./START_HERE_UK.md) · **PDF UK:** [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)  
+**PDF (EN):** [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf)  
 **Full handoff:** [DEVELOPER_HANDOFF.md](./DEVELOPER_HANDOFF.md)  
+**Networking / PvP (primary for this developer):** [NETWORKING_PVP.md](./NETWORKING_PVP.md) · [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md)  
 **Fab / Marketplace checklist:** [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md)  
 **PPG / PlanetGen–free start:** [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md)
+
+**Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push invites pending accept).
 
 ---
 
@@ -24,7 +28,7 @@
 ## Clone → open → build → PIE
 
 ```powershell
-git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+git clone <CLONE_URL_FROM_GITHUB_ACCESS.md>
 cd RedMMOTitan-DeveloperHandoff
 
 # Fundamentals (no PPG / PlanetGen required)

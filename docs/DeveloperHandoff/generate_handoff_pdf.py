@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Generate RedMMOTitan_Developer_Handoff.pdf from the handoff markdown set."""
+"""Generate EN + UK RedMMOTitan developer handoff PDFs (Cyrillic-safe)."""
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
+from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     ListFlowable,
     ListItem,
@@ -20,18 +24,30 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
-from reportlab.lib import colors
 
 ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "RedMMOTitan_Developer_Handoff.pdf"
 
-SOURCES = [
-    ROOT / "START_HERE.md",
-    ROOT / "DEVELOPER_HANDOFF.md",
-    ROOT / "PPG_PLANETGEN_FREE_START.md",
-    ROOT / "FAB_MARKETPLACE_INVENTORY.md",
-    ROOT / "GITHUB_ACCESS.md",
+FONT_CANDIDATES = [
+    Path(r"C:\Windows\Fonts\arial.ttf"),
+    Path(r"C:\Windows\Fonts\segoeui.ttf"),
+    Path(r"C:\Windows\Fonts\calibri.ttf"),
+    Path(r"C:\Windows\Fonts\tahoma.ttf"),
 ]
+
+
+def register_fonts() -> tuple[str, str]:
+    for path in FONT_CANDIDATES:
+        if path.exists():
+            pdfmetrics.registerFont(TTFont("Handoff", str(path)))
+            bold = path.with_name(path.stem + "bd.ttf")
+            if not bold.exists():
+                bold = Path(r"C:\Windows\Fonts\arialbd.ttf")
+            if bold.exists():
+                pdfmetrics.registerFont(TTFont("Handoff-Bold", str(bold)))
+                return "Handoff", "Handoff-Bold"
+            return "Handoff", "Handoff"
+    print("WARN: no TTF found; Cyrillic may fail", file=sys.stderr)
+    return "Helvetica", "Helvetica-Bold"
 
 
 def md_inline(text: str) -> str:
@@ -49,7 +65,7 @@ def parse_table(lines: list[str], styles) -> Table:
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         rows.append([Paragraph(md_inline(c), styles["TableCell"]) for c in cells])
-    t = Table(rows, hAlign="LEFT", colWidths=None)
+    t = Table(rows, hAlign="LEFT")
     t.setStyle(
         TableStyle(
             [
@@ -61,7 +77,12 @@ def parse_table(lines: list[str], styles) -> Table:
                 ("RIGHTPADDING", (0, 0), (-1, -1), 4),
                 ("TOPPADDING", (0, 0), (-1, -1), 3),
                 ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
-                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.whitesmoke, colors.Color(0.95, 0.95, 0.97)]),
+                (
+                    "ROWBACKGROUNDS",
+                    (0, 1),
+                    (-1, -1),
+                    [colors.whitesmoke, colors.Color(0.95, 0.95, 0.97)],
+                ),
             ]
         )
     )
@@ -99,12 +120,12 @@ def md_to_flowables(text: str, styles) -> list:
             flow.append(Spacer(1, 8))
             continue
         if line.startswith("# "):
-            flow.append(Paragraph(md_inline(line[2:]), styles["Title"]))
+            flow.append(Paragraph(md_inline(line[2:]), styles["DocTitle"]))
         elif line.startswith("## "):
             flow.append(Spacer(1, 10))
-            flow.append(Paragraph(md_inline(line[3:]), styles["Heading1"]))
+            flow.append(Paragraph(md_inline(line[3:]), styles["DocH1"]))
         elif line.startswith("### "):
-            flow.append(Paragraph(md_inline(line[4:]), styles["Heading2"]))
+            flow.append(Paragraph(md_inline(line[4:]), styles["DocH2"]))
         elif line.startswith("---"):
             flow.append(Spacer(1, 8))
         elif line.startswith("- ") or line.startswith("* "):
@@ -117,7 +138,11 @@ def md_to_flowables(text: str, styles) -> list:
         elif re.match(r"^\d+\.\s", line):
             items = []
             while i < len(lines) and re.match(r"^\d+\.\s", lines[i]):
-                items.append(ListItem(Paragraph(md_inline(re.sub(r"^\d+\.\s", "", lines[i])), styles["Body"])))
+                items.append(
+                    ListItem(
+                        Paragraph(md_inline(re.sub(r"^\d+\.\s", "", lines[i])), styles["Body"])
+                    )
+                )
                 i += 1
             flow.append(ListFlowable(items, bulletType="1", leftIndent=12))
             continue
@@ -129,12 +154,12 @@ def md_to_flowables(text: str, styles) -> list:
     return flow
 
 
-def main() -> None:
+def build_styles(font: str, font_bold: str):
     styles = getSampleStyleSheet()
     styles.add(
         ParagraphStyle(
             name="Body",
-            parent=styles["Normal"],
+            fontName=font,
             fontSize=9,
             leading=12,
             spaceAfter=3,
@@ -154,53 +179,103 @@ def main() -> None:
     styles.add(
         ParagraphStyle(
             name="TableCell",
+            fontName=font,
             fontSize=7.5,
             leading=9,
             alignment=TA_LEFT,
         )
     )
-    styles["Title"].fontSize = 16
-    styles["Title"].spaceAfter = 8
-    styles["Heading1"].fontSize = 12
-    styles["Heading1"].spaceBefore = 6
-    styles["Heading1"].textColor = colors.HexColor("#111827")
-    styles["Heading2"].fontSize = 10
-    styles["Heading2"].textColor = colors.HexColor("#1f2937")
+    styles.add(
+        ParagraphStyle(
+            name="DocTitle",
+            fontName=font_bold,
+            fontSize=14,
+            leading=17,
+            spaceAfter=8,
+            textColor=colors.HexColor("#111827"),
+        )
+    )
+    styles.add(
+        ParagraphStyle(
+            name="DocH1",
+            fontName=font_bold,
+            fontSize=11,
+            leading=14,
+            spaceBefore=6,
+            textColor=colors.HexColor("#111827"),
+        )
+    )
+    styles.add(
+        ParagraphStyle(
+            name="DocH2",
+            fontName=font_bold,
+            fontSize=10,
+            leading=12,
+            textColor=colors.HexColor("#1f2937"),
+        )
+    )
+    return styles
 
+
+def build_pdf(out: Path, sources: list[Path], title: str, blurb: str, font: str, font_bold: str) -> None:
+    styles = build_styles(font, font_bold)
     doc = SimpleDocTemplate(
-        str(OUT),
+        str(out),
         pagesize=LETTER,
         leftMargin=0.65 * inch,
         rightMargin=0.65 * inch,
         topMargin=0.6 * inch,
         bottomMargin=0.6 * inch,
-        title="RedMMOTitan Developer Handoff",
+        title=title,
         author="RedMMOTitan handoff",
     )
-    story = []
-    story.append(Paragraph("RedMMOTitan — Developer Handoff PDF", styles["Title"]))
-    story.append(
-        Paragraph(
-            md_inline(
-                "Generated 2026-08-07. **PPG/PlanetGen not required** for fundamentals "
-                "(`TitanFundamentals.uproject` + ThirdPersonMap). "
-                "**Private GitHub:** invite developer by username. "
-                "Full markdown lives beside this PDF in `Docs/DeveloperHandoff/`."
-            ),
-            styles["Body"],
-        )
-    )
-    story.append(Spacer(1, 10))
-
-    for idx, path in enumerate(SOURCES):
+    story = [Paragraph(title, styles["DocTitle"]), Paragraph(md_inline(blurb), styles["Body"]), Spacer(1, 10)]
+    for idx, path in enumerate(sources):
         if not path.exists():
             continue
         if idx:
             story.append(PageBreak())
         story.extend(md_to_flowables(path.read_text(encoding="utf-8"), styles))
-
     doc.build(story)
-    print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
+    print(f"Wrote {out} ({out.stat().st_size} bytes)")
+
+
+def main() -> None:
+    font, font_bold = register_fonts()
+    en_sources = [
+        ROOT / "START_HERE.md",
+        ROOT / "NETWORKING_PVP.md",
+        ROOT / "DEVELOPER_HANDOFF.md",
+        ROOT / "PPG_PLANETGEN_FREE_START.md",
+        ROOT / "FAB_MARKETPLACE_INVENTORY.md",
+        ROOT / "GITHUB_ACCESS.md",
+    ]
+    uk_sources = [
+        ROOT / "START_HERE_UK.md",
+        ROOT / "NETWORKING_PVP_UK.md",
+        ROOT / "DEVELOPER_HANDOFF_UK.md",
+        ROOT / "PPG_PLANETGEN_FREE_START_UK.md",
+        ROOT / "FAB_MARKETPLACE_INVENTORY_UK.md",
+        ROOT / "GITHUB_ACCESS.md",
+    ]
+    build_pdf(
+        ROOT / "RedMMOTitan_Developer_Handoff.pdf",
+        en_sources,
+        "RedMMOTitan — Developer Handoff (EN)",
+        "2026-08-07. Collaborator sanyarud@gmail.com → GitHub **sanyarud** (write, pending). "
+        "Netcode/PvP: NETWORKING_PVP.md. PPG/PlanetGen optional via TitanFundamentals.",
+        font,
+        font_bold,
+    )
+    build_pdf(
+        ROOT / "RedMMOTitan_Developer_Handoff_UK.pdf",
+        uk_sources,
+        "RedMMOTitan — Передача розробнику (UK)",
+        "2026-08-07. Колаборатор sanyarud@gmail.com → GitHub **sanyarud** (write, pending). "
+        "Мережа/PvP: NETWORKING_PVP_UK.md. PPG/PlanetGen не потрібні для старту (TitanFundamentals).",
+        font,
+        font_bold,
+    )
 
 
 if __name__ == "__main__":
