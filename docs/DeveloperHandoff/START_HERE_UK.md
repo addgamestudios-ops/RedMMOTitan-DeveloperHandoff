@@ -1,4 +1,4 @@
-# ПОЧНИ ТУТ — передача RedMMOTitan розробнику
+# ПОЧНИ ТУТ — передача **Red MMO** розробнику
 
 **Створено:** 2026-08-07  
 **Мова:** українська · English: [START_HERE.md](./START_HERE.md)  
@@ -7,6 +7,8 @@
 **Мережа / PvP (для тебе):** [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md)  
 **Fab-інвентар:** [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md)  
 **Без PPG/PlanetGen:** [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md)
+
+Продукт у текстах: **Red MMO**. Імена на кшталт `TitanFundamentals.uproject` / репо `RedMMOTitan*` — лише технічні шляхи.
 
 ---
 
@@ -23,9 +25,9 @@
 
 1. Клонуй standalone handoff (**public**, invite не потрібен):  
    `git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
-2. Для write у повний private Titan — прийми запрошення GitHub (якщо ще pending).
+2. Для write у повний private репозиторій — прийми запрошення GitHub (якщо ще pending).
 3. Встанови **Unreal Engine 5.8**.
-4. Відкрий **`TitanFundamentals.uproject`** (не потребує PPG/PlanetGen).
+4. Відкрий **`TitanFundamentals.uproject`** (технічний файл; не потребує PPG/PlanetGen).
 5. Збери **TitanEditor** Win64 Development → PIE на `/Game/ThirdPerson/Maps/ThirdPersonMap`.
 6. Читай [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) перед змінами реплікації.
 
@@ -53,7 +55,7 @@ start TitanFundamentals.uproject
 | Репо | URL | Доступ |
 |---|---|---|
 | **Standalone handoff (почни тут)** | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff | **public** — clone без invite |
-| Повний Titan (історичний) | https://github.com/addgamestudios-ops/RedMMOTitan | private, write invite → `sanyarud` |
+| Повний private (історичний monolith) | https://github.com/addgamestudios-ops/RedMMOTitan | private, write invite → `sanyarud` |
 
 ---
 

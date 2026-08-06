@@ -1,4 +1,4 @@
-# START HERE — RedMMOTitan developer handoff
+# START HERE — **Red MMO** developer handoff
 
 **Generated:** 2026-08-07  
 **Ukrainian:** [START_HERE_UK.md](./START_HERE_UK.md) · **PDF UK:** [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)  
@@ -7,6 +7,8 @@
 **Networking / PvP (primary for this developer):** [NETWORKING_PVP.md](./NETWORKING_PVP.md) · [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md)  
 **Fab / Marketplace checklist:** [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md)  
 **PPG / PlanetGen–free start:** [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md)
+
+Product name in docs: **Red MMO**. Filenames like `TitanFundamentals.uproject` / repo `RedMMOTitan*` are technical paths only.
 
 **Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push invites pending accept).
 
