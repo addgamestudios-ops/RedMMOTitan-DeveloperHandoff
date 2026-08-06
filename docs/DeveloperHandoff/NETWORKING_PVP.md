@@ -4,6 +4,10 @@
 **Ukrainian:** [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md)  
 **PPG/PlanetGen:** not required for first netcode PIE — use `TitanFundamentals.uproject` + ThirdPersonMap.
 
+### World ownership (short)
+
+Same GitHub repo as environment artists. Put hub gameplay / networked actors in **`/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic`** (HubLogic). Do not edit **`L_Hub_Env_Visuals`**. Thin **`L_Hub_Persistent`** composes both so env delivery does not force a netcode rewrite. Full rules: [MERGE_SAFE_WORLD.md](./MERGE_SAFE_WORLD.md).
+
 ---
 
 ## Current architecture (honest)
@@ -43,8 +47,9 @@
 1. **Day 1 — no Fab planets:** Open `TitanFundamentals.uproject`, build TitanEditor, PIE ThirdPersonMap. Confirm compile with PlanetGen/PPG/FocalRig/WorldGen off.
 2. **Day 1–2 — listen-server gameplay replication:** Editor → Play → Number of Players = 2, Net Mode = Play As Listen Server. Validate move/aim/fire/jetpack replication between windows (NULL OSS is fine for this gate).
 3. **Day 2–3 — PvP damage loop:** Trace Health/Shield damage, `bIsEnemy`, downed, bolt hit authority in `RedPlayerCharacter` / `RedBolt`. Add a minimal deathmatch spawn/score only after replication is stable.
-4. **When ready for Steam:** Enable/copy `Plugins/SteamIntegrationKit`, keep Epic OSS Steam **disabled**, Steam client logged in, App **480**. Host on machine A, join on machine B with **different** Steam accounts. Do not claim success from single-account smoke.
-5. **Defer:** PPG home world, PlanetGen maps, fused terrain, final art — not blockers for netcode fundamentals.
+4. **Hub placement:** keep networked hub actors / PlayerStarts that must survive env delivery in `L_Hub_Gameplay_Logic`, not in the env sublevel.
+5. **When ready for Steam:** Enable/copy `Plugins/SteamIntegrationKit`, keep Epic OSS Steam **disabled**, Steam client logged in, App **480**. Host on machine A, join on machine B with **different** Steam accounts. Do not claim success from single-account smoke.
+6. **Defer:** PPG home world, PlanetGen maps, fused terrain, final art — not blockers for netcode fundamentals.
 
 ---
 

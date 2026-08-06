@@ -8,6 +8,7 @@
 | Шлях | PPG? | PlanetGen? | Для чого |
 |---|---|---|---|
 | **`TitanFundamentals.uproject` + ThirdPersonMap** | Ні | Ні | Збірка, controls, зброя, HUD, **netcode PIE** |
+| **`TitanFundamentals` + `/Game/RedMMO/Maps/Hubs/L_Hub_*`** | Ні | Ні | Merge-safe хаб (Persistent / Env / Gameplay_Logic) — див. MERGE_SAFE_WORLD_UK.md |
 | `Titan.uproject` + RedPlanetGen | Ні | Так | Повний Titan-планета |
 | Clean `RedMMO.uproject` + PPG Home | Так | Окремо | R92 planetary baseline |
 

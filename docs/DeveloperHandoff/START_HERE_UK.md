@@ -1,39 +1,41 @@
 # ПОЧНИ ТУТ — передача **Red MMO** розробнику
 
 **Створено:** 2026-08-07  
-**Мова:** українська · English: [START_HERE.md](./START_HERE.md)  
-**PDF (UA):** [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)  
-**PDF (EN):** [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf)  
-**Мережа / PvP (для тебе):** [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md)  
-**Fab-інвентар:** [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md)  
-**Без PPG/PlanetGen:** [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md)
+**English:** [START_HERE.md](./START_HERE.md)  
+**PDF (UA):** [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) · **PDF (EN):** [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf)
 
-Продукт у текстах: **Red MMO**. Імена на кшталт `TitanFundamentals.uproject` / репо `RedMMOTitan*` — лише технічні шляхи.
+Продукт у текстах: **Red MMO**. Імена на кшталт `TitanFundamentals.uproject` / `RedMMOTitan*` — лише технічні шляхи.
 
 ---
 
-## Хто ти в цій передачі
+## Головне: те саме репо, merge-safe світ (читай першим)
 
-Ти **програміст** з фокусом на **мережу, реплікацію, мультиплеєр, PvP і геймплей-системи**.  
-Планетарний арт / PPG — **не** твій обов’язковий старт. Спочатку збирай і PIE без PlanetGen/PPG, потім listen-server реплікація, потім Steam.
+Ти і environment-артисти працюєте в **тому самому GitHub-репозиторії**. Ти **не втратиш** hub-геймплей, коли збудують оточення player hub, і **не переписуватимеш усе** після арту — **якщо тримаєш розділене володіння**:
 
-**Колаборатор:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push, запрошення pending accept).
+| Шар | Пакет | Власник |
+|---|---|---|
+| Тонкий persistent | `/Game/RedMMO/Maps/Hubs/L_Hub_Persistent` | Lead / рідкі правки |
+| Environment | `/Game/RedMMO/Maps/Hubs/L_Hub_Env_Visuals` | Environment artists |
+| **HubLogic (ти)** | `/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic` | **Gameplay developer** |
+
+- PlayerStarts, volumes, spawn managers, replicated / networked actors — у **`L_Hub_Gameplay_Logic`**.
+- **Не** редагуй artist-owned env `.umap`.
+- C++ / gameplay Blueprint лишаються в твоїх пакетах — незалежно від сейвів env-карти.
+- Деталі: [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md) · merge для артистів: [../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY_UK.md](../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY_UK.md).
+
+**Одним реченням:** клонуй це handoff-репо, працюй у шарі HubLogic / gameplay; артисти не перезапишуть твій код чи gameplay-карту.
 
 ---
 
 ## 60 секунд
 
-1. Клонуй standalone handoff (**public**, invite не потрібен):  
-   `git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
-2. Для write у повний private репозиторій — прийми запрошення GitHub (якщо ще pending).
-3. Встанови **Unreal Engine 5.8**.
-4. Відкрий **`TitanFundamentals.uproject`** (технічний файл; не потребує PPG/PlanetGen).
-5. Збери **TitanEditor** Win64 Development → PIE на `/Game/ThirdPerson/Maps/ThirdPersonMap`.
-6. Читай [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) перед змінами реплікації.
-
----
-
-## Збірка / PIE
+1. Клон: `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git`
+2. Встанови **Unreal Engine 5.8**.
+3. Відкрий **`TitanFundamentals.uproject`** (PlanetGen / PPG не потрібні).
+4. Збери **TitanEditor** Win64 Development.
+5. День 1 PIE: `/Game/ThirdPerson/Maps/ThirdPersonMap` (controls / listen-server).  
+   Хаб-робота, що має переживати env: **`L_Hub_Gameplay_Logic`** у `/Game/RedMMO/Maps/Hubs/`.
+6. Netcode: [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md). Повний пак: [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md).
 
 ```powershell
 git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
@@ -43,26 +45,30 @@ start TitanFundamentals.uproject
 
 | Перевірка | Очікування |
 |---|---|
-| Редактор відкриває ThirdPersonMap | Немає жорсткого фейлу через відсутність PPG/PlanetGen |
-| PIE | WASD + миша |
-| 2 Players + Listen Server | Реплікація руху/пострілу/jetpack між вікнами |
-| **Running anim** | **Не ламай** locomotion на `ABP_RedTrooperFemale` |
+| Редактор без планетарних плагінів | Немає жорсткого фейлу через PPG / PlanetGen |
+| PIE на ThirdPersonMap | Рух; listen-server 2P для реплікації |
+| Stub-и хаба | `L_Hub_Persistent`, `L_Hub_Env_Visuals`, `L_Hub_Gameplay_Logic` |
+| Env-саблевел | Не сейвиш свою ownership у цей пакет |
+| **Running anim** | Не перезаписуй locomotion trooper без дозволу |
 
 ---
 
-## Репозиторії
+## Далі читати
 
-| Репо | URL | Доступ |
-|---|---|---|
-| **Standalone handoff (почни тут)** | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff | **public** — clone без invite |
-| Повний private (історичний monolith) | https://github.com/addgamestudios-ops/RedMMOTitan | private, write invite → `sanyarud` |
+| Док | Навіщо |
+|---|---|
+| [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md) | Володіння в одному репо + шлях без overwrite |
+| [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) | Listen-server, реплікація, PvP |
+| [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md) | Шляхи, захищене, плагіни |
+| [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md) | Fundamentals без планетарних плагінів |
+| [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md) | Опційні marketplace-плагіни пізніше |
+
+**Роль environment artist (окремо):** [../EnvironmentArtistHandoff/START_HERE_UK.md](../EnvironmentArtistHandoff/START_HERE_UK.md)
 
 ---
 
-## Захищено
+## Захищено (коротко)
 
-- Running / locomotion на trooper ABP  
-- Не вмикай одночасно SIK і Epic OnlineSubsystemSteam  
-- Не `git reset --hard` брудний worktree власника на `D:\RedMMOTitan`
-
-Повна передача: [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md).
+- Running / locomotion на `ABP_RedTrooperFemale`
+- Env map-пакети артистів (не роби з них свій hub-файл)
+- Не вмикай одночасно Steam Integration Kit і Epic OnlineSubsystemSteam

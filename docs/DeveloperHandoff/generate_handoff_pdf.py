@@ -242,8 +242,11 @@ def build_pdf(out: Path, sources: list[Path], title: str, blurb: str, font: str,
 
 def main() -> None:
     font, font_bold = register_fonts()
+    # Developer-facing only: same-repo merge-safe ownership first.
+    # Exclude owner auth/invite/Cursor troubleshooting (keep those in diagnostics if needed).
     en_sources = [
         ROOT / "START_HERE.md",
+        ROOT / "MERGE_SAFE_WORLD.md",
         ROOT / "NETWORKING_PVP.md",
         ROOT / "DEVELOPER_HANDOFF.md",
         ROOT / "PPG_PLANETGEN_FREE_START.md",
@@ -252,6 +255,7 @@ def main() -> None:
     ]
     uk_sources = [
         ROOT / "START_HERE_UK.md",
+        ROOT / "MERGE_SAFE_WORLD_UK.md",
         ROOT / "NETWORKING_PVP_UK.md",
         ROOT / "DEVELOPER_HANDOFF_UK.md",
         ROOT / "PPG_PLANETGEN_FREE_START_UK.md",
@@ -261,18 +265,20 @@ def main() -> None:
     build_pdf(
         ROOT / "RedMMOTitan_Developer_Handoff.pdf",
         en_sources,
-        "RedMMOTitan — Developer Handoff (EN)",
-        "2026-08-07. Collaborator sanyarud@gmail.com → GitHub **sanyarud** (write, pending). "
-        "Netcode/PvP: NETWORKING_PVP.md. PPG/PlanetGen optional via TitanFundamentals.",
+        "Red MMO — Developer Handoff (EN)",
+        "2026-08-07. Same-repo collaboration: work in HubLogic (`L_Hub_Gameplay_Logic`); "
+        "artists own `L_Hub_Env_Visuals`; thin `L_Hub_Persistent` composes both. "
+        "Clone RedMMOTitan-DeveloperHandoff → TitanFundamentals. Netcode: NETWORKING_PVP.md.",
         font,
         font_bold,
     )
     build_pdf(
         ROOT / "RedMMOTitan_Developer_Handoff_UK.pdf",
         uk_sources,
-        "RedMMOTitan — Передача розробнику (UK)",
-        "2026-08-07. Колаборатор sanyarud@gmail.com → GitHub **sanyarud** (write, pending). "
-        "Мережа/PvP: NETWORKING_PVP_UK.md. PPG/PlanetGen не потрібні для старту (TitanFundamentals).",
+        "Red MMO — Передача розробнику (UK)",
+        "2026-08-07. Спільне репо: працюй у HubLogic (`L_Hub_Gameplay_Logic`); "
+        "артисти володіють `L_Hub_Env_Visuals`; тонкий `L_Hub_Persistent` збирає обидва. "
+        "Клон RedMMOTitan-DeveloperHandoff → TitanFundamentals. Мережа: NETWORKING_PVP_UK.md.",
         font,
         font_bold,
     )

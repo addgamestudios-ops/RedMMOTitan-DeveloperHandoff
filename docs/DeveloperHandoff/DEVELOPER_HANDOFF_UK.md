@@ -1,74 +1,87 @@
-# RedMMOTitan — передача розробнику (UK, 2026-08-07)
+# Red MMO — передача розробнику (UK, 2026-08-07)
 
-**Статус:** достатньо добре, щоб програміст міг підхопити роботу. Багато проблем лишається.  
-**English:** [DEVELOPER_HANDOFF.md](./DEVELOPER_HANDOFF.md)  
-**Netcode/PvP:** [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) · [NETWORKING_PVP.md](./NETWORKING_PVP.md)
+**Статус:** достатньо, щоб підхопити. Багато проблем лишається. Для fundamentals планетарні плагіни не потрібні.  
+**English:** [DEVELOPER_HANDOFF.md](./DEVELOPER_HANDOFF.md) · **Старт:** [START_HERE_UK.md](./START_HERE_UK.md)
+
+**Аудиторія:** програміст геймплею / netcode. Спочатку володіння світом: [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md). Netcode: [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md).
 
 | Артефакт | Шлях |
 |---|---|
-| START_HERE (UK) | [START_HERE_UK.md](./START_HERE_UK.md) |
-| PDF UK | [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) |
-| PDF EN | [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) |
-| Fab | [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md) |
-| Без PPG | [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md) |
-| GitHub | [GITHUB_ACCESS.md](./GITHUB_ACCESS.md) |
-| Діагностика | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_DeveloperHandoff_20260807\` |
-
-**Колаборатор:** sanyarud@gmail.com → GitHub **sanyarud** (write на private Titan, pending accept).
+| START_HERE | [START_HERE_UK.md](./START_HERE_UK.md) |
+| Merge-safe світ | [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md) |
+| PDF UK / EN | [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) · [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) |
+| Мережа / PvP | [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) |
+| Клон | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git |
 
 ---
 
-## 1. Шляхи
+## 1. Колаборація в тому ж репо (обов’язково)
+
+Геймплей і оточення — один репозиторій. Розділене володіння захищає від rewrite після арту хаба:
+
+```text
+L_Hub_Persistent          ← тонка оболонка (лише streaming)
+├── L_Hub_Env_Visuals     ← артисти (не редагуй)
+└── L_Hub_Gameplay_Logic  ← ти / HubLogic
+```
+
+| Ти володієш | Артисти володіють |
+|---|---|
+| `L_Hub_Gameplay_Logic`, `Source/RedMMO`, gameplay BP, netcode | `L_Hub_Env_Visuals`, landscape, lighting, foliage, dressing |
+
+**Гарантії:** пакет hub-геймплею ≠ env-delivery файл; C++/BP не переписуються при зміні env `.umap`; git не змержить двох авторів одного бінарного `.umap` — тому не діліть один файл.
+
+Узгоджено з [../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY_UK.md](../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY_UK.md).
+
+---
+
+## 2. Шляхи
 
 | Роль | Шлях |
 |---|---|
-| Standalone clone (public) | `RedMMOTitan-DeveloperHandoff` → `TitanFundamentals.uproject` |
-| Owner repo | `D:\RedMMOTitan` |
-| Clean planetary RedMMO | `D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject` (потрібен PPG) |
-| R92 package | `...\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe` |
-| Engine | `D:\UE_5.8` |
+| Standalone handoff (клонуй це) | `RedMMOTitan-DeveloperHandoff` → `TitanFundamentals.uproject` |
+| Stub-и хаба | `/Game/RedMMO/Maps/Hubs/` |
+| День 1 PIE | `/Game/ThirdPerson/Maps/ThirdPersonMap` |
+| Engine | Unreal Engine **5.8** |
 
 ---
 
-## 2. Що працює / що ні
+## 3. Що працює / що відкрито
 
-**Працює (з обмеженнями доказів):** TitanEditor збірка з вимкненими FocalRig/WorldGen і shim PlanetGen; live PIE-фікси (wheel→thrust, atmosphere exit, weapons/plumes/jetpack, terrain blend); R92 packaged baseline; listen-server реплікація aim/fire/jetpack (не Steam two-account).
+**Достатньо для старту:** TitanEditor з вимкненими FocalRig/WorldGen і shim PlanetGen; PIE без PPG; listen-server реплікація aim/fire/jetpack; історичні PIE-фікси на live RedMMO (перевір на своєму білді).
 
-**Відкрито:** фізичний feel, HUD fuel pixels, біоми, fused consumer, M04/M05, Steam two-account PvP, dedicated server.
-
----
-
-## 3. FocalRig / WorldGen / PlanetGen
-
-| Плагін | Статус |
-|---|---|
-| FocalRig | Disabled + ControlRig substitute |
-| WorldGen | Disabled |
-| PlanetGen fork | Відсутній; `RedPlanetGenCompat` shim |
-| PPG | Лише clean RedMMO; **не потрібен** для fundamentals/netcode |
+**Відкрито:** feel, HUD fuel, біоми, fused consumer, M04/M05, Steam two-account PvP, dedicated server; повна композиція Persistent + реальний env.
 
 ---
 
-## 4. Збірка / PIE без PPG
+## 4. Збірка / PIE
 
-Див. [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md).  
-`TitanFundamentals.uproject` + ThirdPersonMap.
+```powershell
+git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+cd RedMMOTitan-DeveloperHandoff
+start TitanFundamentals.uproject
+```
 
-**Правило:** один UnrealEditor одночасно.
-
----
-
-## 5. Захищено
-
-Running anim; fused hashes; R92 package; один UnrealEditor; не dual Steam OSS.
+Хаб-геймплей → **`L_Hub_Gameplay_Logic`**. Env → **`L_Hub_Env_Visuals`**. Інтеграція → **`L_Hub_Persistent`**.
 
 ---
 
-## 6. Наступна робота для netcode/PvP програміста
+## 5. Плагіни (fundamentals)
 
-1. Fundamentals PIE без планет.  
-2. Listen-server 2P реплікація.  
-3. Цикл урону PvP.  
-4. Потім Steam SIK + два акаунти.  
+FocalRig / WorldGen / PlanetGen — **вимкнені**; PPG не потрібен для старту. Див. [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md).
 
-Деталі: [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md).
+---
+
+## 6. Захищено
+
+Running anim; env-owned `.umap`; fused/production planetary maps без гейту; не dual Steam OSS.
+
+---
+
+## 7. Наступна робота
+
+1. Fundamentals PIE.  
+2. Listen-server → PvP цикл урону.  
+3. Актори HubLogic в `L_Hub_Gameplay_Logic`.  
+4. Потім Steam SIK з двома акаунтами.  
+5. Планетарні карти — лише коли плагіни в скоупі.

@@ -4,6 +4,10 @@
 **English:** [NETWORKING_PVP.md](./NETWORKING_PVP.md)  
 **PPG/PlanetGen:** для першого PIE з netcode **не потрібні** — відкривай `TitanFundamentals.uproject` + ThirdPersonMap.
 
+### Володіння світом (коротко)
+
+Те саме GitHub-репо, що й у environment-артистів. Хаб-геймплей / networked actors — у **`/Game/RedMMO/Maps/Hubs/L_Hub_Gameplay_Logic`** (HubLogic). **`L_Hub_Env_Visuals`** не редагуй. Тонкий **`L_Hub_Persistent`** збирає обидва, щоб env-delivery не змушував переписувати netcode. Повні правила: [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md).
+
 ---
 
 ## Поточна архітектура (чесно)
@@ -43,8 +47,9 @@
 1. **День 1 — без планетарних Fab:** `TitanFundamentals.uproject` → TitanEditor → PIE ThirdPersonMap. Переконайся, що збірка йде без PlanetGen/PPG/FocalRig/WorldGen.
 2. **День 1–2 — реплікація listen-server:** Play → 2 Players, Net Mode = Listen Server. Перевір move/aim/fire/jetpack між вікнами (NULL OSS ок для цього гейту).
 3. **День 2–3 — цикл урону PvP:** Health/Shield, `bIsEnemy`, downed, авторитет попадань у `RedPlayerCharacter` / `RedBolt`. Deathmatch/score — лише після стабільної реплікації.
-4. **Коли готові Steam:** увімкнути/скопіювати `Plugins/SteamIntegrationKit`, Epic OSS Steam **вимкнені**, клієнт Steam, App **480**. Хост на A, join на B з **різних** акаунтів.
-5. **Відкласти:** PPG home, карти PlanetGen, fused terrain, фінальний арт — не блокують netcode.
+4. **Розміщення хаба:** networked actors / PlayerStarts, що мають переживати env-delivery, тримай у `L_Hub_Gameplay_Logic`, не в env-саблевелі.
+5. **Коли готові Steam:** увімкнути/скопіювати `Plugins/SteamIntegrationKit`, Epic OSS Steam **вимкнені**, клієнт Steam, App **480**. Хост на A, join на B з **різних** акаунтів.
+6. **Відкласти:** PPG home, карти PlanetGen, fused terrain, фінальний арт — не блокують netcode.
 
 ---
 

@@ -1,24 +1,6 @@
-# GitHub access — standalone handoff + invite rules
+# GitHub access — clone the handoff repo
 
-## Intended collaborator
-
-| Field | Value |
-|---|---|
-| Contact email | **sanyarud@gmail.com** |
-| Resolved GitHub username | **sanyarud** (https://github.com/sanyarud, name: Oleksandr) |
-| Permission | **write / push** on private Titan (when invite accepted) |
-| Standalone handoff | **Public** — clone without invite |
-
-### Invitation status (private Titan)
-
-| Repo | Permissions | Notes |
-|---|---|---|
-| `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` | n/a (public) | Clone URL below |
-| `addgamestudios-ops/RedMMOTitan` | **write** invite for `sanyarud` | Accept while logged in as that username |
-
----
-
-## Clone URL (standalone handoff — public)
+## Clone (start here)
 
 ```text
 https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
@@ -27,41 +9,39 @@ https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
 ```powershell
 git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
 cd RedMMOTitan-DeveloperHandoff
-# Read Docs/DeveloperHandoff/START_HERE.md
+# Read docs/DeveloperHandoff/START_HERE.md
 start TitanFundamentals.uproject
 ```
 
 Web UI: https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff
 
-Browser multi-account issues: [GITHUB_AUTH_FIX.md](./GITHUB_AUTH_FIX.md).
+This handoff repository is the **same-repo** collaboration surface for gameplay and environment: you own HubLogic / gameplay packages; artists own env map packages. See [MERGE_SAFE_WORLD.md](./MERGE_SAFE_WORLD.md).
 
 ---
 
 ## What is included vs excluded
 
-### Included in standalone handoff repo
+### Included
 
 - `Source/` (RedMMO gameplay C++)
 - `Config/`
-- `docs/` + `Docs/DeveloperHandoff/` (MD + PDF)
-- `ProjectKnowledge/`
-- `Build/Automation/` (scripts that exist)
-- Selected `Tools/` (no `__pycache__`)
+- `docs/` DeveloperHandoff + EnvironmentArtistHandoff (MD + PDF)
+- `ProjectKnowledge/` (when present)
 - `Titan.uproject`, `TitanFundamentals.uproject`, targets
-- `Content/ThirdPerson/` (PPG-free starter map)
-- Git-whitelisted `Content/RedMMO/` crumbs (maps/materials/characters listed in `.gitignore` exceptions) when present
-- Project plugins that are small enough / essential: prefer `VibeMMOUIKit`, `RedHUD` if size allows; otherwise document copy-from-owner
-- `README.md`, `HANDOVER.md`, `WINDOWS_BUILD.md` entry docs
+- `Content/ThirdPerson/` starter map
+- `Content/RedMMO/Maps/Hubs/` — Persistent / Env / Gameplay_Logic stubs
+- Selected `Content/RedMMO/` crumbs when tracked
 
-### Excluded (do not expect in clone)
+### Excluded
 
 - `Binaries/`, `Intermediate/`, `DerivedDataCache/`, `Saved/`
-- Full Fab content packs (TropicalAlienWorld, SpaceColony, Action_Trooper full tree, etc. — tens of GB)
-- Git LFS large media beyond tracked exceptions (clone may need separate content drive)
-- `Plugins/SteamIntegrationKit` (~297 MB) — optional; copy from owner machine for Steam work
-- `.env`, credentials, Steam secrets beyond public App ID **480** for Spacewar tests
-- Owner-only diagnostics under `D:\RedMMOTitanWindowsData\` (R92 exe, rollbacks) — documented by path, not uploaded
+- Full Fab content packs
+- `Plugins/SteamIntegrationKit` (~297 MB) — optional; copy when doing Steam sessions
+- Secrets beyond public Steam App ID **480** for Spacewar tests
+- Owner-only workstation diagnostics and packaged build trees
 
-### Existing private Titan remote
+---
 
-- `https://github.com/addgamestudios-ops/RedMMOTitan.git` — historical Mac/Windows handoff; worktree on owner PC is intentionally dirty and **not** fully mirrored by a blind push of all Content.
+## Private full Titan (optional later)
+
+Historical / full private tree: `https://github.com/addgamestudios-ops/RedMMOTitan.git` — use only if you are granted access for content that is not in the public handoff clone. Day-1 HubLogic and netcode do not require it.

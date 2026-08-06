@@ -51,6 +51,7 @@ PlanetGen and PPG are **optional** for the fundamentals baseline. Full planet ma
 | Map | Plugin need | Notes |
 |---|---|---|
 | `/Game/ThirdPerson/Maps/ThirdPersonMap` | None | **Primary PPG/PlanetGen-free starter** (included in handoff Content) |
+| `/Game/RedMMO/Maps/Hubs/L_Hub_*` | None | Merge-safe hub stubs (Persistent / Env / Gameplay_Logic) — see MERGE_SAFE_WORLD.md |
 | `/Game/RedMMO/Maps/Sandbox_DesertDemoSparkle_T01` | Usually none for open | Local Titan sandbox; large; may reference dressed content |
 | `/Game/RedMMO/Maps/RedPlanetGen*` | PlanetGen | Do not use for first-day fundamentals |
 | `/Game/RedMMO/Maps/RedMMO_PPG_HomeWorld` | PPG | Clean D-drive project only |

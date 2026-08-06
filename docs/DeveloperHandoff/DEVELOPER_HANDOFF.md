@@ -1,164 +1,123 @@
-# RedMMOTitan — Developer Handoff (2026-08-07)
+# Red MMO — Developer Handoff (2026-08-07)
 
-**Status:** Good enough for a human developer to pick up. Many problems remain. Planetary plugins are optional for first fundamentals work.  
-**Ukrainian pack:** [START_HERE_UK.md](./START_HERE_UK.md) · [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf)
+**Status:** Good enough to pick up. Many problems remain. Fundamentals do not require planet plugins.  
+**Ukrainian:** [DEVELOPER_HANDOFF_UK.md](./DEVELOPER_HANDOFF_UK.md) · **START:** [START_HERE.md](./START_HERE.md)
 
-**Primary audience:** programmer — networking, replication, multiplayer, PvP, gameplay. Start with [NETWORKING_PVP.md](./NETWORKING_PVP.md) / [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md).
-
-**Collaborator:** `sanyarud@gmail.com` → GitHub **`sanyarud`** (write/push, pending accept on private Titan).
+**Audience:** gameplay / netcode programmer. World ownership first: [MERGE_SAFE_WORLD.md](./MERGE_SAFE_WORLD.md). Netcode order: [NETWORKING_PVP.md](./NETWORKING_PVP.md).
 
 | Artifact | Location |
 |---|---|
-| **START_HERE** | [START_HERE.md](./START_HERE.md) · [START_HERE_UK.md](./START_HERE_UK.md) |
-| **PDF EN / UK** | [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) |
-| **Networking / PvP** | [NETWORKING_PVP.md](./NETWORKING_PVP.md) · [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) |
-| **Fab inventory** | [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md) · [FAB_MARKETPLACE_INVENTORY_UK.md](./FAB_MARKETPLACE_INVENTORY_UK.md) |
-| **PPG-free start** | [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md) · [PPG_PLANETGEN_FREE_START_UK.md](./PPG_PLANETGEN_FREE_START_UK.md) |
-| **GitHub access** | [GITHUB_ACCESS.md](./GITHUB_ACCESS.md) |
-| Diagnostics copy | `D:\RedMMOTitanWindowsData\Diagnostics\RedMMO_DeveloperHandoff_20260807\` |
-| Canonical knowledge | `D:\RedMMOTitan\ProjectKnowledge\` (`INDEX.yaml` → `current_state.yaml` → `invariants.yaml`) |
+| START_HERE | [START_HERE.md](./START_HERE.md) · [START_HERE_UK.md](./START_HERE_UK.md) |
+| Merge-safe world | [MERGE_SAFE_WORLD.md](./MERGE_SAFE_WORLD.md) · [MERGE_SAFE_WORLD_UK.md](./MERGE_SAFE_WORLD_UK.md) |
+| PDF EN / UK | [RedMMOTitan_Developer_Handoff.pdf](./RedMMOTitan_Developer_Handoff.pdf) · [RedMMOTitan_Developer_Handoff_UK.pdf](./RedMMOTitan_Developer_Handoff_UK.pdf) |
+| Networking / PvP | [NETWORKING_PVP.md](./NETWORKING_PVP.md) · [NETWORKING_PVP_UK.md](./NETWORKING_PVP_UK.md) |
+| PPG-free start | [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md) |
+| Fab inventory | [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md) |
+| Clone | https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git |
 
 ---
 
-## 1. Paths
+## 1. Same-repo collaboration (non-negotiable)
+
+Gameplay and environment share one repository. Separable ownership keeps hub art from forcing a gameplay rewrite:
+
+```text
+L_Hub_Persistent          ← thin shell (streaming only)
+├── L_Hub_Env_Visuals     ← artists (do not edit)
+└── L_Hub_Gameplay_Logic  ← you / HubLogic
+```
+
+| You own | Artists own |
+|---|---|
+| `L_Hub_Gameplay_Logic`, `Source/RedMMO`, gameplay BP, netcode | `L_Hub_Env_Visuals`, landscape, lighting, foliage, set dressing |
+
+**Guarantees:** hub gameplay map package is not the env delivery file; C++/BP are not rewritten when env `.umap` changes; git will not “merge” two writers on one binary `.umap` — so do not share one.
+
+Aligned with [../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY.md](../EnvironmentArtistHandoff/MERGE_ENV_AND_GAMEPLAY.md).
+
+---
+
+## 2. Paths
 
 | Role | Path |
 |---|---|
-| Primary repo (owner, dirty worktree) | `D:\RedMMOTitan` — `Titan.uproject` |
-| Fundamentals handoff project | `TitanFundamentals.uproject` (PlanetGen/PPG not required) |
-| Clean planetary RedMMO | `D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject` |
-| Engine | `D:\UE_5.8` (UE **5.8** exact) |
-| R92 playable package | `D:\RedMMOTitanWindowsData\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe` |
-| Tree SHA-256 (R92) | `11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409` |
-| Owner origin (private) | `https://github.com/addgamestudios-ops/RedMMOTitan.git` |
-| Standalone handoff (public) | `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git` |
+| Standalone handoff (clone this) | `https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git` → `TitanFundamentals.uproject` |
+| Hub map stubs | `/Game/RedMMO/Maps/Hubs/` (`L_Hub_Persistent`, `L_Hub_Env_Visuals`, `L_Hub_Gameplay_Logic`) |
+| Day-1 PIE (no hub art required) | `/Game/ThirdPerson/Maps/ThirdPersonMap` |
+| Engine | Unreal Engine **5.8** |
 
-Never use `C:\Users\...\Documents\Red MMO Windows`.
+Optional later (owner / full content): full `Titan.uproject` planetary maps, clean D-drive `RedMMO.uproject` + PPG home world, packaged R92 baseline — not required for HubLogic / netcode start.
 
 ---
 
-## 2. What works (honest)
+## 3. What works / what is open (honest)
 
-**Build / dependency (evidence: R92_DependencyUnblock pack):**
+**Working enough to start:**
 
-- `TitanEditor` Win64 Development **succeeds** with FocalRig/WorldGen **disabled** and PlanetGen fork APIs **shimmed** (`RedPlanetGenCompat`).
-- FocalRig: stock ControlRig AimItem substitute when Fab payload absent.
-- WorldGen: disabled with documented rollback.
+- `TitanEditor` Win64 Development with FocalRig/WorldGen disabled and PlanetGen APIs shimmed (`RedPlanetGenCompat`)
+- Fundamentals PIE without PPG / PlanetGen
+- Listen-server aim / fire / jetpack replication (gameplay path; not a finished Steam two-account proof)
+- Live RedMMO editor fixes historically: wheel→thrust, atmosphere exit, weapons/plumes/jetpack, terrain blend (re-verify on your build)
 
-**Live RedMMO editor PIE fixes (recent session — treat as working on that build, still need human regression):**
+**Still open:**
 
-- Mouse wheel → thrust  
-- Atmosphere exit  
-- Weapons / plumes / jetpack  
-- Terrain blend  
-
-**Accepted packaged baseline:**
-
-- R92 Win64 Development package (50 files) — launchable without editor; PlayerStatus cook closure; packaged D3D12 smoke historically clean.
-
-**Still open / many problems remain:**
-
-- Human feel / full physical playtest on R92  
-- Authored HUD fuel pixels, audio feel, biome art polish  
-- Fused-continent consumer binding on clean RedMMO  
-- M04 traversal/perf, M05 real 1S/2C, Steam two-account, warp, final art  
-- Running anim must stay **protected** while improving feel  
-
-This handoff is **good enough to pick up**, not “feature complete.”
+- Physical feel polish; HUD fuel pixels; biome art; fused consumer; M04/M05; Steam two-account PvP; dedicated server
+- Composed hub Persistent with real env + gameplay streaming (stubs exist; dress and wire on integration days)
 
 ---
 
-## 3. Known bugs / open defects (pointers)
+## 4. Build / PIE
 
-Read `ProjectKnowledge/defects/` and queue `Build/Automation/redmmotitan_module_queue.json`. Snapshot from R92 packaging:
+```powershell
+git clone https://github.com/addgamestudios-ops/RedMMOTitan-DeveloperHandoff.git
+cd RedMMOTitan-DeveloperHandoff
+start TitanFundamentals.uproject
+# Target: TitanEditor | Win64 | Development
+```
 
-- DEF-0001, DEF-0002 open  
-- DEF-0003, DEF-0005, DEF-0007 await runtime acceptance  
-- DEF-0004 open (jetpack HUD boundary history)  
-- DEF-0006 awaits build/runtime  
-- DEF-0008 resolved  
-- Optional marketplace editor tooling (UAIP / similar): skip if missing — not required for fundamentals  
+1. Confirm compile with PlanetGen / PPG / FocalRig / WorldGen off.  
+2. PIE ThirdPersonMap for controls and 2-player listen-server.  
+3. Author hub gameplay in **`L_Hub_Gameplay_Logic`**; leave **`L_Hub_Env_Visuals`** to artists.  
+4. Wire both under **`L_Hub_Persistent`** when integrating.
+
+One UnrealEditor at a time on a shared machine.
 
 ---
 
-## 4. FocalRig / WorldGen / PlanetGen disposition
+## 5. Plugin disposition (fundamentals)
 
-| Plugin | Disposition | Rollback |
-|---|---|---|
-| FocalRig | **Disabled** + ControlRig substitute | Restore Fab `FocalRig.uplugin` → Enabled true → rebuild |
-| WorldGen | **Disabled** | Restore `WorldGen.uplugin` → Enabled true |
-| PlanetGen fork pin | **Absent**; shims active | Restore `Plugins/PlanetGenPinned_*` or port APIs; shims auto-forward |
-| PlanetGen Marketplace 1.7 | Present on owner engine; **disabled in TitanFundamentals** | Enable only when doing Titan planetary maps |
-| PPG | Clean RedMMO only; **not required** for fundamentals | Install Marketplace PPG for home world |
+| Plugin | Fundamentals |
+|---|---|
+| FocalRig | Disabled (+ ControlRig substitute in source) |
+| WorldGen | Disabled |
+| PlanetGen | Disabled (`RedPlanetGenCompat` shims link) |
+| PPG | Not in TitanFundamentals; optional later on clean RedMMO |
 
-Details: `R92_DEPENDENCY_DISPOSITION.md` and [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md).
-
----
-
-## 5. Build / launch / PIE
-
-### Fundamentals (recommended first day)
-
-```powershell
-# Open fundamentals project (no PPG/PlanetGen)
-start D:\path\to\RedMMOTitan-DeveloperHandoff\TitanFundamentals.uproject
-# Build TitanEditor Win64 Development, PIE on ThirdPersonMap
-```
-
-### Full Titan (PlanetGen)
-
-```powershell
-start D:\RedMMOTitan\Titan.uproject
-# Map: /Game/RedMMO/Maps/RedPlanetGen
-```
-
-### Clean planetary RedMMO (PPG)
-
-```powershell
-start D:\RedMMOTitanWindowsData\Projects\RedMMO\RedMMO.uproject
-# Map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld — seed 1337
-```
-
-### Packaged smoke (no editor)
-
-```powershell
-& 'D:\RedMMOTitanWindowsData\Builds\RedMMO_R92_Playable_20260806T1740Z\Windows\RedMMO.exe'
-```
-
-**Single-editor rule:** one UnrealEditor at a time on this machine.
+See [PPG_PLANETGEN_FREE_START.md](./PPG_PLANETGEN_FREE_START.md).
 
 ---
 
 ## 6. Protected items
 
-1. **Running animation / locomotion graph** on `ABP_RedTrooperFemale` — do not “fix” run by replacing the single-node / R86 locomotion guard without explicit owner authority. Prefer additive or parallel work on aim/jetpack poses.  
-2. Fused 27 tangent inputs + six fused faces — never silent bind/regenerate/promote.  
-3. Protected hashes (production map, 50 km checkpoint, fused prototype/heightfield, clean home, ProfileV1) — see diagnostics packs under `D:\RedMMOTitanWindowsData\Diagnostics\`.  
-4. R92 package directory — immutable; new work gets a new named package.  
-5. Owner dirty git worktree — no hard reset / bulk clean.
+1. **Running animation / locomotion** on `ABP_RedTrooperFemale` — do not replace without explicit authority.  
+2. **Env-owned map packages** — not your save target for hub logic.  
+3. Fused 27/6 authoring hashes and production planetary maps — read-only without a dedicated gate.  
+4. Do not enable SIK and Epic OnlineSubsystemSteam together.
 
 ---
 
-## 7. Next fundamentals work
+## 7. Next work order
 
-1. PPG/PlanetGen-free compile + PIE on `TitanFundamentals` / ThirdPersonMap.  
-2. Protect run anim; improve on-foot feel, aim, jetpack, fire separately.  
-3. Re-verify wheel-thrust, atmosphere exit, weapons/plumes on RedMMO when plugins available.  
-4. Only then: PPG home art, shore bands, fused consumer, MP/Steam.
-
----
-
-## 8. GitHub
-
-See [GITHUB_ACCESS.md](./GITHUB_ACCESS.md).
-
-- Standalone handoff repo `addgamestudios-ops/RedMMOTitan-DeveloperHandoff` is **public** — clone without invite.  
-- Full Titan `addgamestudios-ops/RedMMOTitan` is **private** — invite by GitHub username for write access.  
+1. Fundamentals compile + PIE (ThirdPersonMap).  
+2. Listen-server replication → PvP damage loop ([NETWORKING_PVP.md](./NETWORKING_PVP.md)).  
+3. HubLogic actors in `L_Hub_Gameplay_Logic` so env can land without rewrite.  
+4. Steam SIK two-account only after gameplay replication is stable.  
+5. Planetary / PPG maps only when those plugins are intentionally in scope.
 
 ---
 
-## 9. Fab / Marketplace
+## 8. Clone contents (expectations)
 
-Full checklist: [FAB_MARKETPLACE_INVENTORY.md](./FAB_MARKETPLACE_INVENTORY.md).
+**Expect:** `Source/`, `Config/`, `docs/` (Developer + Environment handoffs), `TitanFundamentals.uproject`, ThirdPerson starter map, Hub stubs under `Content/RedMMO/Maps/Hubs/`, selected RedMMO crumbs.
 
-**Day-1 rule:** developer must **not** need PPG or PlanetGen installed to start building.
+**Do not expect:** full Fab packs, Binaries/Intermediate/DDC, large SteamIntegrationKit tree unless copied separately, owner machine diagnostics / packaged R92 trees.

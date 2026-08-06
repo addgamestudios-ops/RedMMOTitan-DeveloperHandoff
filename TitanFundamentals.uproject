@@ -2,7 +2,7 @@
     "FileVersion": 3,
     "EngineAssociation": "5.8",
     "Category": "RedMMO Handoff",
-    "Description": "Developer fundamentals baseline: no PPG/PlanetGen/WorldGen/FocalRig required. Default map is ThirdPersonMap.",
+    "Description": "Developer fundamentals baseline: no PPG/PlanetGen/WorldGen/FocalRig required. Day-1 PIE: ThirdPersonMap. Hub composition stubs: /Game/RedMMO/Maps/Hubs (Persistent + Env + Gameplay_Logic).",
     "Modules": [
         {
             "Name": "RedMMO",
