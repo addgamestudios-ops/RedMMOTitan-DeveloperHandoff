@@ -242,7 +242,6 @@ def build_pdf(out: Path, sources: list[Path], title: str, blurb: str, font: str,
 def main() -> None:
     font, font_bold = register_fonts()
     # Artist-facing only: same-repo merge-safe ownership first.
-    # Exclude owner auth/invite/Cursor troubleshooting.
     en_sources = [
         ROOT / "START_HERE.md",
         ROOT / "MERGE_ENV_AND_GAMEPLAY.md",

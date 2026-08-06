@@ -125,4 +125,4 @@ See [ENV_FAB_INVENTORY.md](./ENV_FAB_INVENTORY.md).
 
 **Expect:** `docs/` EnvironmentArtistHandoff + DeveloperHandoff (MD + PDF), `TitanFundamentals.uproject`, Hub stubs under `Content/RedMMO/Maps/Hubs/`, selected RedMMO crumbs.
 
-**Do not expect:** full Fab packs, Binaries/Intermediate/DDC, owner machine diagnostics, Cursor/auth troubleshooting, or gameplay netcode deep-dives (those stay in the developer pack).
+**Do not expect:** full Fab packs, Binaries/Intermediate/DDC, owner machine diagnostics, or gameplay netcode deep-dives (those stay in the developer pack).
