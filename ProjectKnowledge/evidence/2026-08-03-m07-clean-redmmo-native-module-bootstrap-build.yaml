@@ -1,0 +1,90 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-native-module-bootstrap.build.2026-08-03
+captured_utc: "2026-08-03T02:20:32Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: minimal-native-redmmo-module-and-target-bootstrap
+evidence_class: build
+result: passed_editor_and_game_target_builds_runtime_and_asset_migration_pending
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  engine: 5.8.1-56057345
+  descriptor_sha256_before: 344BDA6BF5A99CC9C0902CB8C069A0EE2E67C3F15B80B2CDEA1D4B0B007AD105
+  descriptor_sha256_after: 54E664A24FA5E9129C022740EE624F84389F1825AA9A4AE07D5E99DD783F382E
+  declared_module: RedMMO
+  module_type: Runtime
+  loading_phase: Default
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01
+  descriptor_preimage: RedMMO.uproject.pre_bootstrap
+  descriptor_preimage_sha256: 344BDA6BF5A99CC9C0902CB8C069A0EE2E67C3F15B80B2CDEA1D4B0B007AD105
+  manifest: manifest.json
+  manifest_sha256: 3A8121FA22B5C3816B53FFB9442BD8E2B91A7BC63E9353980C50CB261079C7BA
+  new_source_paths_have_no_preimage: true
+
+source:
+  RedMMO_Target_cs: 91327231A2B9EE07C784933ACB720B199E31047A63AA2AC05818B65F8E1A8F5B
+  RedMMOEditor_Target_cs: BA44D17C6C81B6A830826DD07535F0801614FCF54AA352A4D5067E20F98862BB
+  RedMMO_Build_cs: 4167F97036372E3A25474DE3FDAF82C5CF7CBCB9256B08D59A6822366EE158C3
+  RedMMO_h: B3ADF106D95B8934F690943F2921308B90BE5B766C4C8BA250C792DE56400201
+  RedMMO_cpp: D0FE9244AAAD906ED7D2B6104B2C3618C7AC018D8DDFC53EC479E9DB837FDC11
+  dependencies: [Core, CoreUObject, Engine]
+  gameplay_classes_added: false
+
+builds:
+  editor:
+    target: RedMMOEditor Win64 Development
+    serialized_max_parallel_actions: 1
+    no_ubt_makefiles: true
+    result: succeeded
+    compile_errors: 0
+    warnings: 3
+    warning_scope: engine_marketplace_NWIRO_Build_cs_deprecated_ShadowVariableWarningLevel
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/RedMMOEditor_build.log
+    log_sha256: 258498D9356E586807AA2DB4472B04220AEF40333D03FF90F951ACC9361A3A52
+    module_dll: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    module_dll_sha256: F5C2671DBE9E48932EC02A2EC6B57D23967D4EDFB3D09F9C8AFDF9F67AC54ACB
+    target_receipt_sha256: 9D8600F6F05F8D1010EAAE9680E42C2DE61A397604CA1A347B0E623938CF437A
+  game:
+    target: RedMMO Win64 Development
+    serialized_max_parallel_actions: 1
+    no_ubt_makefiles: true
+    result: succeeded
+    compile_errors: 0
+    warnings: 0
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/RedMMO_game_build.log
+    log_sha256: B9E969FB7C69FF39DAADB9F29208309E024BE43319B15C49117B24132C3E9538
+    executable: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/RedMMO.exe
+    executable_sha256: DAEE9A2D6FB3C015E9B1FE9B3984ED344E8F628B45A20B71C9156C47F15AF06C
+    target_receipt_sha256: 2E694E7786D77038976FABCFEB552A73342EE756824D248132114210ECD75AC5
+
+preservation:
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  content_or_map_changed: false
+  ppg_seed_or_markers_changed: false
+  gameplay_assets_copied_or_bound: false
+  unreal_editor_launched: false
+  provider_ports_opened: false
+  desktop_control_used: false
+
+claim_limit: >-
+  This proves that the clean project now declares and compiles a minimal native
+  RedMMO runtime module for both editor and Win64 Development game targets. It
+  establishes the /Script/RedMMO module namespace only. It does not add
+  RedPlayerCharacter or any gameplay class, prove the legacy Blueprint API,
+  validate FocalRig or VibeMMOUIKit, close asset dependencies, migrate content,
+  load the editor or map, bind a GameMode, run PIE, or prove visuals, gameplay,
+  audio, replication, multiplayer, cook, package, or standalone behavior.
+
+next_safe_action: >-
+  Validate or replace the hard FocalRig and VibeMMOUIKit class dependencies,
+  then implement the first pruned API-compatible on-foot native class subset
+  and run an authoritative recursive Asset Registry dependency query. Do not
+  copy or bind gameplay packages until the class API compiles and the exact
+  dependency allowlist closes.

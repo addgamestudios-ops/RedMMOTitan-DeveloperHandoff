@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m00.clean-r86-infantry-presentation-build
+module: M00
+evidence_class: build
+status: accepted_partial_runtime_visual_package_pending
+timestamp_utc: 2026-08-06T06:31:32Z
+scope: >-
+  One rollback-backed clean RedMMO M00 implementation slice. Six previously
+  audited P_Flash_17 closure packages were copied no-clobber and byte-exact,
+  then the project-owned character bound the exact muzzle system and existing
+  compatible A_Rifle_Fire_Single animation. The implementation temporarily
+  plays a bounded 0.20-second single-node fire impulse and deterministically
+  restores the current locomotion state. No map, PPG profile, terrain, seed,
+  vendor source, R84 package, Config, plugin, or user asset was changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 195
+  free_physical_ram_gib: 51.91
+  commit_headroom_gib: 54.23
+  gpu: NVIDIA GeForce RTX 3080
+  gpu_free_mib: 9094
+  gpu_used_mib: 960
+  d_drive_free_gib: 759.37
+  active_unreal_build_package_process_count: 0
+  provider_listener_count: 0
+copy:
+  policy: exact_no_clobber
+  source_root: D:/RedMMOTitan/Content
+  target_root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content
+  copied_package_count: 6
+  copied_packages:
+    - path: ProjectilesVol1/Effects/P_Flash_17.uasset
+      sha256: 03D6E1A968858D2512A3210614D29354268D855B4E183257EC1CA5FC472421D8
+    - path: ProjectilesVol1/Materials/MI_Flash26a.uasset
+      sha256: F29008C271FDA7FF13E99590FC150E26CDAD9ED3A14B16EF82CB45D2EF7BA8C4
+    - path: ProjectilesVol1/Materials/M_Circle41a.uasset
+      sha256: 691FA4E3054993D98699BA6C2C9900D3681841B8E51D7E7F93C0AA2CAECE0970
+    - path: ProjectilesVol1/Textures/T_Circle41.uasset
+      sha256: EE1AB2A5459699F07B03F29B19E19F387D03BA13D4453EB18943A07930EBAED6
+    - path: ProjectilesVol1/Textures/T_Flash26.uasset
+      sha256: 69F0C7D7D86AE68CCB050EBF57B93B13DF6DAC097202AE856F3C56127D8A2310
+    - path: ProjectilesVol1/Textures/T_Noise41.uasset
+      sha256: 8A7D828E71A9806E38073B848929A8B8C2A6BEBAACFA86E3E1711961CA1D7CA3
+source_change:
+  cpp:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+    before_sha256: B8BEABC6A9328AE917F754A41E0548D0ECAB9A78D03FCDBC409984263CAC642B
+    after_sha256: FFAFC221EDF961BB784C6EF4266E85020D22E3E1C5B0618F5FF0E3962C7029DA
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlayerCharacter.h
+    before_sha256: 722CEE5FB57D9DDFE07B13DBDAB345E64AC8A4B8405C76BAAE778F43D1D7967B
+    after_sha256: 3AC4380C21CB63915BDD3D2B9AF0048FA814ECB4D96BA8ED3B6409572FE36C3C
+  exact_muzzle: /Game/ProjectilesVol1/Effects/P_Flash_17.P_Flash_17
+  exact_fire_animation: /Game/RedMMO/Anims/Rifle/A_Rifle_Fire_Single.A_Rifle_Fire_Single
+  rejected_paths_absent_from_new_binding: [P_Flash_4, SM_Conus]
+  locomotion_restore: >-
+    Multicast fire cosmetics plays the verified fire sequence only for the
+    current single-node presentation path. After at most 0.20 seconds it clears
+    the fire gate, invalidates the cached locomotion state, and reselects the
+    current idle, walk, run, jump-start, jump-loop, or jump-end clip.
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M00_R86_InfantryPresentation_20260806T062716Z
+  cpp_preimage_sha256: B8BEABC6A9328AE917F754A41E0548D0ECAB9A78D03FCDBC409984263CAC642B
+  header_preimage_sha256: 722CEE5FB57D9DDFE07B13DBDAB345E64AC8A4B8405C76BAAE778F43D1D7967B
+  copied_asset_rollback: remove_only_the_six_exact_new_target_files
+build:
+  target: RedMMOEditor Win64 Development
+  engine: D:/UE_5.8
+  invocation: >-
+    bundled DotNet 10.0 UnrealBuildTool.dll RedMMOEditor Win64 Development
+    -Project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -WaitMutex -NoHotReloadFromIDE -NoUBA -MaxParallelActions=1
+  result: succeeded
+  compiled_action: RedPlayerCharacter.cpp
+  linked_action: UnrealEditor-RedMMO.dll
+  build_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_InfantryPresentation_R86_20260806T062854Z/RedMMOEditor_build.stdout.log
+  build_log_sha256: 90ADF5D4BFF98471A7CC9FC09C1AD60A7EEC60B93CF5007655B995C04E8DAB20
+  build_log_bytes: 5606
+  editor_module_sha256: 8764821EF32BECAC51FD7155167DC283697E43B4B59B2145A0DC754D6D1E9E63
+  editor_module_bytes: 813056
+  editor_target_sha256: 99913ABA38977C6F09B0CB32232428FB597CDE05EF9BB673D4CD16204D8789D3
+  editor_target_bytes: 949424
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  active_unreal_build_package_process_count_after: 0
+  provider_listener_count_after: 0
+claim_limit: >-
+  Exact-copy and successful editor compile/link evidence only. This does not
+  visually accept P_Flash_17, prove the fire animation appears correctly on the
+  Trooper, prove locomotion remains visually correct while firing, or prove PIE,
+  physical input, replication, multiplayer, packaging, Steam, or user acceptance.
+next_safe_action: >-
+  Run one fresh provider-off D3D12 SM6 player-scale acceptance through the proven
+  quoted ExecCmds bootstrap. Require exact P_Flash_17 runtime binding, visible
+  muzzle pixels at the rifle, visible A_Rifle_Fire_Single body motion, deterministic
+  locomotion restoration, preserved R85 tracer behavior, MapCheck 0/0, no save,
+  clean teardown, and unchanged home/ProfileV1/protected hashes. Retain or roll
+  back the candidate based on that visual/runtime gate before packaging.

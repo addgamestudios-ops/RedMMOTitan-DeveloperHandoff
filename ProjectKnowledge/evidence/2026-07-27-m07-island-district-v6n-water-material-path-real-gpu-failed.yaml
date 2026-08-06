@@ -1,0 +1,266 @@
+schema_version: 1
+id: evidence.m07.island-district-v6n.water-material-path-real-gpu-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T13:08:00Z"
+evidence_class: real_gpu_visual
+result: scratch_v6n_material_path_narrowed_visual_fit_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  base_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  diagnostic_successor: /Game/RedMMO/Maps/Tests/M07/V6N_AB/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  authored_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10Rollback_PreV6N_20260727T120657Z
+  base_map:
+    bytes: 1166360982
+    sha256: 1B8AD03C2081E61020BD5F815D1C17B0511209A5D2046303F814EDE712B2E638
+  authored_source:
+    bytes: 59872776
+    sha256: 46947B30602E62A828AB07CE6986B5C109763B5B6D665699F7DBDC9A09105F20
+  canonical_metadata_preimages:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NCanonicalRollback_20260727T1308Z
+
+scratch_implementation:
+  surface_contract: V6N_material_only_diagnostic_successor
+  shoreline_topology_contract: V6L_boundary_clipped
+  diagnostic_material:
+    package: /Game/RedMMO/Staging/M07/Materials/M_M07_LocalOcean_NonSLWDiagnostic_V6N
+    bytes: 6455
+    sha256: 56FB1B1F20FAC863C66B3D17BA3A0D5067B2C4312E5A73CF1BC88A5535CF12CC
+    material_domain: Surface
+    blend_mode: Opaque
+    shading_model: DefaultLit
+    two_sided: false
+    base_color: [0.012, 0.035, 0.055]
+    roughness: 1.0
+    specular: 0.0
+    single_layer_water: false
+    refraction: false
+    normal_input: false
+    world_position_offset_input: false
+    texture_dependencies: []
+    runtime_virtual_texture_dependencies: []
+  successor_map:
+    bytes: 1166364001
+    sha256: 5A501F9A8846437F8191186FC989A61DFBD0A2EBB6ECE8C8EAD47B1854137CA2
+  unchanged_geometry:
+    algorithm: SHA1_of_section_zero_counts_and_canonical_vertex_index_bytes
+    v6m_authenticated_base: 77333511F8E7E3537EB170866E8418260B06CBD4
+    v6n_before_material_bind: 77333511F8E7E3537EB170866E8418260B06CBD4
+    v6n_after_material_bind: 77333511F8E7E3537EB170866E8418260B06CBD4
+    v6n_fresh_process_audit: 77333511F8E7E3537EB170866E8418260B06CBD4
+    vertex_count: 1640153
+    triangle_count: 3262828
+    source_triangle_count: 3274240
+    inner_dry_triangle_count: 12291
+    clipped_source_triangle_count: 1752
+    clipped_output_triangle_count: 2631
+    boundary_vertex_count: 1752
+    boundary_edge_count: 1752
+    non_manifold_boundary_vertex_count: 0
+    degenerate_clipped_triangle_count: 0
+    reversed_clipped_triangle_count: 0
+
+implementation_files:
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/create_m07_local_ocean_nonslw_v6n.py
+    bytes: 12138
+    sha256: 7C7FD3FAE907DD232967F73E202D589F97ABFA297301C7322C9C9F4EB318CA2F
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/apply_m07_v6n_water_ab.py
+    bytes: 23161
+    sha256: 1BD0F6338FF2AA065B6992653D92298C1AE9491148BEE59549B7A6C5F3805808
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/audit_m07_v6n_water_ab.py
+    bytes: 14434
+    sha256: A27CEFF3A9F8B7DA175FCEB8AEBAC441C7A99F1370678F4D6A77F5CC8E19226D
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_v6n_water_ab_contract.py
+    bytes: 6579
+    sha256: F8334B71E2F637AFFE286627D09143B29D5029C8E1D486CC9D12CC27DF640A2A
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/Invoke-M07IslandDistrictV6NWaterABRealGPU.ps1
+    bytes: 44455
+    sha256: D5D8E6C53B8A3AF0A29812159672598210C6617340B66CA3252C3FDEC4D7E07B
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07LocalOceanDistrict.h
+    bytes: 10788
+    sha256: DA5E8E7C02405E8B73BFEF33EF2A89A67560C1FA2342D436505846C9C18EB2D4
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07LocalOceanDistrict.cpp
+    bytes: 31848
+    sha256: 0437A1AFB5CAAB2508C633C6ECD48393365A661B4D58CFDD20D4544F88B37A0D
+
+verification:
+  focused_contracts:
+    command: python -m unittest Build.Automation.test_m07_v6n_water_ab_contract Tools.tests.test_m07_local_ocean_boundary_clipping Tools.tests.test_m07_v6m_shore_transition
+    result: passed
+    tests: 14
+  protected_provenance:
+    command: python -m unittest Tools.tests.test_fused_prototype_provenance
+    result: passed
+    tests: 7
+  serialized_titan_editor_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NBuild_20260727T153557Z/TitanEditor_UBT.log
+    bytes: 12319
+    sha256: 390CF63593276E4863A0B8AE6187176A35686175CEFB299DAE6652228A61AA8C
+    result: succeeded
+    elapsed_seconds: 44.41
+  contained_first_apply_failure:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterAB_20260727T154001Z/v6n_apply.json
+    bytes: 904
+    sha256: 247227E67D8A1BD482EE454F73FC41DA74FF7B9245BE3277AB2DA8C7438AB1AD
+    cause: duplicate_load_legitimately_marked_only_successor_map_dirty_before_save
+    successor_deleted: true
+    diagnostic_material_deleted: true
+    base_map_preserved: true
+    production_modified: false
+    provider_used: false
+  authenticated_successful_chain:
+    material:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterAB_20260727T154311Z/v6n_material.json
+      bytes: 2461
+      sha256: C7D532EE27859825DBE31EF769B9BAD148B04FFF087331772ED89428816FDE64
+      status: passed
+    apply:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterAB_20260727T154311Z/v6n_apply.json
+      bytes: 5666
+      sha256: 257F9364A5FDAD85388A10A10B1215ECFA53DDB63A3E09212098DACB66342DF9
+      status: passed
+    fresh_process_audit:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterAB_20260727T154311Z/v6n_audit.json
+      bytes: 4129
+      sha256: 047F2CF6CF94433DD4E158163296406F0CEF0DB41C8D69B0BEE1759635B11559
+      status: passed
+      evidence_class: fresh_process_ue58_nullrhi_asset_audit
+    dirty_packages: 0
+    forbidden_landscape_actors: 0
+    forbidden_landscape_streaming_proxy_actors: 0
+    forbidden_water_body_ocean_actors: 0
+  canonical_record:
+    integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NCanonical_20260727T1308Z/project_knowledge_integrity_final.json
+    bytes: 1784
+    sha256: B963715DD11E8525AB3871D55CC72D2C44A40CA54EF311F88E73D1237D07C654
+    result: passed
+    errors: 0
+    warnings: 0
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterABRealGPU_20260727T130144Z/capture_result.json
+    bytes: 15635
+    sha256: 43B12E5897A051BD0FF46842C306AF5F67A804BF90B52CDB812DE74DAD6D96DD
+    status: passed_pending_pixel_review
+  pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterABRealGPU_20260727T130144Z/pixel_review.json
+    bytes: 5400
+    sha256: 92890A6D4F5F2635B81104181A2FDFF288669071760C0C9CF2819C4C689B13CB
+    status: diagnostic_owner_narrowed_visual_fit_failed
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_exit_code: 0
+  initial_free_ram_gib: 35.699
+  minimum_observed_free_ram_gib: 30.43
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterABRealGPU_20260727T130144Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 1893565
+    sha256: 16D193470A376CD1FA586E765F5CD1EED36A5E43546EB0D6989410F788ED3F2D
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterABRealGPU_20260727T130144Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 1905748
+    sha256: FEB840C9DB547C860344D93B136228D57AE5BD532D85691FE282118AEF83BEA9
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6NWaterABRealGPU_20260727T130144Z/M07_IslandDistrict_R15_V10_Standalone.log
+    bytes: 318792
+    sha256: 47EBB7FB9A1398B5E74D121B3244414D7E565A9324F65E3CB2EA8F239AEB741E
+
+pixel_findings:
+  matched_wide_rgb_mae_0_to_255: 95.61595916748047
+  matched_near_rgb_mae_0_to_255: 89.3846435546875
+  wide_streak_only_roi:
+    xyxy: [650, 610, 820, 820]
+    v6m_vertical_gradient_abs_mean: 1.0865614414215088
+    v6n_vertical_gradient_abs_mean: 0.5930064916610718
+    reduction_percent: 45.42
+    v6m_vertical_gradient_pixels_gt_12: 352
+    v6n_vertical_gradient_pixels_gt_12: 173
+    threshold_count_reduction_percent: 50.85
+  near_streak_only_roi:
+    xyxy: [500, 630, 740, 900]
+    v6m_vertical_gradient_abs_mean: 1.853550672531128
+    v6n_vertical_gradient_abs_mean: 0.6090470552444458
+    reduction_percent: 67.14
+    v6m_vertical_gradient_pixels_gt_12: 1882
+    v6n_vertical_gradient_pixels_gt_12: 364
+    threshold_count_reduction_percent: 80.66
+
+verified:
+  - exact material/apply/audit chain proves the V6M and V6N ocean mesh geometry and V6L-derived topology are byte-canonically identical under the native geometry digest
+  - the long bright vertically fanned streak below the left cliff is absent in both exact-camera V6N frames
+  - changing only the complete water material path is sufficient to remove the streak, so unchanged ocean topology alone does not own it
+  - the provider-off D3D12 SM6 run exited cleanly with no material fallback and no provider listener before, during, or after
+  - protected production maps, V7/V8/V9 predecessors, V6M base/source/material, vendor source, and all 27 fused authoring inputs remain unchanged
+
+remaining_failures:
+  - the V6N diagnostic material does not preserve the vendor material graph's effective water surface presentation or position relative to the higher sand foundation; most local ocean is occluded and only a narrow blue horizon band remains
+  - because the entire vendor material graph was replaced, this run does not isolate reflection alone, refraction alone, normals, vertex-position offset, depth composition, or another graph stage
+  - large pale projected silhouettes remain on the exposed sand and are not accepted
+  - the exposed compact terrain remains a broad flat peach apron rather than an authored beach transition
+  - island composition visual acceptance, gameplay, performance, Chaos, and production integration remain false
+
+acceptance:
+  scratch_build_and_fresh_audit: true
+  provider_off_d3d12_runtime: true
+  boundary_clipped_shoreline_preserved: true
+  unchanged_geometry_chain: true
+  diagnostic_vertical_streak_removed: true
+  vendor_water_material_path_owns_streak: true
+  reflection_or_refraction_stage_specifically_isolated: false
+  diagnostic_ocean_coverage_preserved: false
+  natural_beach_transition: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V6L as the shoreline-topology rollback and V6M/V6N as failed diagnostic
+  evidence. In one new scratch successor, preserve the vendor material graph's
+  effective vertex-position and surface-coverage behavior while replacing only
+  the water shading or reflection stage, then repeat these exact cameras. Do
+  not repeat scalar-only Normal tuning. Only after that stage is isolated
+  should the separate signed-distance nonuniform berm/cove beach profile be
+  authored. Preserve the exact Region 15 plus [7, 10, 18, 23, 20, 12] local
+  ocean district, provider isolation, protected hashes, vendor source, and all
+  27 fused authoring inputs.
+
+claim_limit: >-
+  This proves one scratch-only V6N diagnostic material successor, fresh UE 5.8
+  structural audit, provider-off D3D12 SM6 capture, and exact-camera pixel
+  review with unchanged ocean geometry and protected hashes. It narrows the
+  left-cliff streak to the complete vendor water material/rendering path, not
+  the unchanged topology. It does not prove the exact responsible material
+  stage, accept the V6N diagnostic water or shoreline, or establish island
+  composition, gameplay, collision, navigation, performance, Chaos,
+  surface-to-orbit, human visual, or production acceptance.

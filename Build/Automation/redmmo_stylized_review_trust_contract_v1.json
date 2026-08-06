@@ -1,0 +1,26 @@
+{
+  "approval_enabled": false,
+  "attestation_schema": "redmmotitan.stylized_source_review_attestation.v1",
+  "authorization_subject_bindings": [
+    "decision_file_sha256",
+    "decisions_semantic_sha256",
+    "final_destination_set_sha256",
+    "final_stable_id_set_sha256",
+    "review_request_file_sha256",
+    "review_request_sha256",
+    "reviewer_id",
+    "reviewer_public_key_fingerprint_sha256",
+    "taxonomy_file_sha256",
+    "taxonomy_sha256"
+  ],
+  "caller_supplied_trust_roots_allowed": false,
+  "claim_limit": "This contract configures no reviewer key and grants no import authority.",
+  "contract_sha256": "547A46F55307DF57B07E59E7BAD3F513AB6769633DC2568FCE5224305DC5928A",
+  "contract_version": 1,
+  "private_keys_permitted_in_repository": false,
+  "schema": "redmmotitan.stylized_source_review_trust_contract.v1",
+  "signature_algorithm": "ed25519",
+  "trust_anchor_source": "externally_provisioned_pinned_public_key",
+  "trust_anchor_status": "not_configured",
+  "trusted_reviewer_key_fingerprints_sha256": []
+}

@@ -1,0 +1,174 @@
+schema_version: 1
+id: DEF-0002
+title: Fighter can settle nose-down and remain immobilized after reboarding
+status: open
+severity: critical
+found_utc: "2026-07-21"
+owner_domain: vehicle_gravity_and_landing
+
+affected:
+  map_asset_path: /Game/RedMMO/Maps/RedPlanetGen
+  vehicle_class: ARedShip
+  navigation_ui: compass
+
+observed: >-
+  After returning from space, the fighter settled nose-first into the sand. The
+  player could exit and reboard, but the fighter could no longer fly and the
+  compass heading rotated continuously.
+
+expected: >-
+  A crash landing may be rough, but reboarding must restore a valid dominant
+  gravity body, radial up vector, flight state, control authority, and stable
+  compass heading so the craft can take off.
+
+impact:
+  blocked_claims: [fighter_landing_accepted, fighter_reboard_accepted, gravity_transition_accepted]
+
+evidence:
+  playtest: ProjectKnowledge/playtests/2026-07-21-space-flight-asteroid-landing.yaml
+  static_source_contract: ProjectKnowledge/evidence/2026-07-22-def-0002-fighter-reboard-source-contract-static.yaml
+  current_source_identity_reconciliation: ProjectKnowledge/evidence/2026-07-22-def-0002-post-def-0003-source-identity-reconciliation-static.yaml
+  gravity_acceptance_telemetry: ProjectKnowledge/evidence/2026-07-22-def-0002-gravity-acceptance-telemetry-static.yaml
+  current_source_identity_after_hud_ability_feed: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-feed-static.yaml
+  compass_body_identity_safeguard: ProjectKnowledge/evidence/2026-07-23-def-0002-compass-body-identity-static.yaml
+  landing_parking_clearance_transaction: ProjectKnowledge/evidence/2026-07-23-def-0002-landing-parking-clearance-transaction-compile.yaml
+  landing_parking_route_preflight_source: ProjectKnowledge/evidence/2026-07-24-def-0002-placement-route-corridor-source-static.yaml
+  beginplay_root_correction_safeguard: ProjectKnowledge/evidence/2026-07-24-def-0002-beginplay-root-correction-source-static.yaml
+  clamp_surface_recovery_safeguard: ProjectKnowledge/evidence/2026-07-24-def-0002-clamp-surface-recovery-source-static.yaml
+  current_target_links: ProjectKnowledge/evidence/2026-07-23-m05-registry-build-nullrhi.yaml
+
+current_source_reconciliation:
+  verified_existing_safeguards:
+    - dominant gravity body selection refreshes before the local-controller early return
+    - exit and reboard clear stale local, server, boost, movement, and velocity state
+    - exact owned-terrain parking and landing use the dominant body's radial-up frame
+    - local and server W or positive-lift input can release a settled landing lock
+    - ship compass heading uses a spherical tangent frame and caches its last-valid fallback with the movement component's existing stable gravity-body ID
+    - the compass invalidates that cache on body change, NAME_None, missing movement, or a non-ship HUD reference and reuses it only when nonempty stable IDs match
+    - an explicit read-only snapshot compares cached and queried stable body IDs, centers, radii, and radial-up vectors without mutating flight state
+    - the snapshot optionally requires settled ship-up alignment and reports role, net mode, authority, landing-assist, settled state, and explicit failure reasons
+    - landing alignment, settled repin, unpossessed descent, touchdown, and normal parking commit through one reversible fitted-envelope endpoint transaction
+    - the transaction analytically composes the target fitted box, checks native fitted/root and exact matching-PlanetGen endpoint clearance, verifies the target pose, and reverts on any failed postcondition
+    - rejected normal exit preserves pilot, possession, transform, velocity, input, fire, and boost state; failed placement removes only inward radial velocity
+    - the transaction now preflights the complete native sphere route and either the fixed-rotation fitted-box native/exact route or conservative two-degree fitted-box screw-motion segments before committing
+    - route input is bounded to 100 m and ninety segments, preserves the scaled fitted-envelope offset and live collision response mask, and fails closed before mutation
+    - BeginPlay no longer directly teleports the ship root; only authority with movement and a configured fitted hull attempts the existing bounded reversible transaction after planet-frame assignment
+    - BeginPlay requests immediate replication only after transaction success; unavailable prerequisites or a rejected route/postcheck preserve the pose and log without a raw fallback
+    - ClampToPlanetSurface no longer contains its three raw root corrections; eligible exact-terrain penetration or legacy-void correction delegates to one authority-owned bounded fitted-envelope transaction
+    - exact recovery binds the caller's PlanetGen line witness to component and chunk identity, accepts only clean-behind-shell or matching start-penetration initial state, and requires native plus reciprocal exact route provenance
+    - authored crater descent, matching PlanetGen NoHit deferral, rejection-only inward-velocity containment, endpoint postchecks, and scoped rollback are structurally enforced
+  critical_open_gaps:
+    - passive fitted-envelope recovery is intentionally disabled
+    - the route preflight is source-verified but not freshly compiled or executed; active matching-PlanetGen coverage, conservative false rejects, and worst-case one-frame query cost remain unproved
+    - normal surface parking above the 100 m local bound fails closed unless an established orbital or emergency path applies
+    - native fitted-box and rotation-changing initial-overlap recovery remain fail-closed
+    - the Clamp surface-recovery safeguard is uncompiled and unexecuted; Chaos start-overlap, reciprocal normals, endpoint clearance, rollback, repeated-call cost, seam behavior, and authority replication remain unproved
+    - strict same-component and same-chunk provenance can conservatively reject valid recovery near active-chunk or cube-face seams, while reciprocal nearest-hit sweeps cannot prove exactly one terrain crossing
+    - the 100 m bound cannot recover every possible deep fall beneath terrain whose authored displacement exceeds that local distance
+    - BeginPlay has no deferred recovery retry if its fitted hull becomes ready after the one initial attempt
+    - the new telemetry has not passed runtime console or Blueprint invocation
+    - the body-keyed compass safeguard lacks current nose-radial reboard runtime evidence
+  latest_clearance_source_files_modified: 4
+  latest_clearance_test_files_added: 1
+  latest_clearance_test_files_modified: 1
+  collision_or_landing_behavior_changed_in_clearance_slice: true
+  offline_clearance_contract_tests_passed: 8
+  focused_current_contract_tests_passed: 27
+  broad_current_regression_tests_passed: 133
+  protected_provenance_tests_passed_in_clearance_slice: 15
+  isolated_translation_units_compiled: 2
+  full_target_uht_verified_in_clearance_slice: false
+  current_full_target_links_verified_later: true
+  current_ship_header_sha256: A1AD0B47338298AAE77EE4BF2985DD9E06C0A25F4E54BA3261B463F2410E7F3B
+  current_ship_source_sha256: 311286285B4C07FEC63880D1F5C8D2AE72A5B88656C35F3433161960B5CC66A5
+  current_ship_movement_header_sha256: C6F4262F4A8B3A35211B04B84A23A67AF78F79CFAE5337C4D4ABAD4620A66CA4
+  current_ship_movement_source_sha256: C757E7ACBBAA84BEDB49E14357E753E5B6846FE46A2BCECFB414EEEB1FBB9D86
+  current_placement_contract_sha256: CE2881EC31F135F0AA39DA5503929F99E4DFDBFB3BF424C61273692A9F772E7E
+  current_beginplay_placement_contract_sha256: 528FFFB504870B212FD09B1C6D269DB7230D1AC04169480DA5AD1E690777F3A6
+  latest_beginplay_source_files_modified: 1
+  latest_beginplay_test_files_added: 1
+  collision_or_landing_behavior_changed_in_beginplay_slice: true
+  latest_beginplay_source_compiled: false
+  latest_beginplay_source_executed: false
+  focused_beginplay_contract_tests_passed: 9
+  combined_current_def0002_contract_tests_after_beginplay: 37
+  protected_provenance_tests_passed_in_beginplay_slice: 15
+  full_static_discovery_passed_after_beginplay: 516
+  beginplay_mutation_probes_rejected: 40
+  independent_beginplay_reviews_completed: 2
+  latest_clamp_source_files_modified: 2
+  latest_clamp_test_files_added: 1
+  collision_or_landing_behavior_changed_in_clamp_slice: true
+  latest_clamp_source_compiled: false
+  latest_clamp_source_executed: false
+  focused_clamp_surface_recovery_contract_tests_passed: 7
+  combined_current_def0002_contract_tests_after_clamp: 44
+  protected_provenance_tests_passed_in_clamp_slice: 15
+  full_static_discovery_passed_after_clamp: 523
+  clamp_surface_recovery_mutation_probes_rejected: 84
+  independent_clamp_design_reviews_completed: 1
+  targeted_clamp_lineage_bypass_rechecks_passed: 1
+  latest_route_source_files_modified: 2
+  latest_route_test_files_modified: 1
+  collision_or_landing_behavior_changed_in_route_slice: true
+  latest_route_source_compiled: false
+  latest_route_source_executed: false
+  focused_route_contract_tests_passed: 9
+  combined_current_def0002_contract_tests_passed: 28
+  protected_provenance_tests_passed_in_route_slice: 15
+  route_mutation_probes_rejected: 12
+  bounded_cross_domain_regressions_passed: 153
+  bounded_cross_domain_regressions_total: 154
+  bounded_cross_domain_unrelated_failures: 1
+  full_static_discovery_passed: 496
+  full_static_discovery_total: 504
+  full_static_discovery_unrelated_findings: 8
+  latest_compass_source_files_modified: 2
+  latest_compass_test_files_added: 1
+  collision_or_landing_behavior_changed_in_compass_slice: false
+  offline_compass_body_identity_contract_tests_passed: 6
+  combined_current_regression_tests_passed: 125
+  independent_compass_reboard_telemetry_tests_passed: 19
+  latest_telemetry_source_files_modified: 3
+  latest_telemetry_test_files_added: 1
+  collision_or_landing_behavior_changed_in_latest_slice: false
+  offline_contract_tests_passed: 6
+  offline_telemetry_contract_tests_passed: 7
+  combined_telemetry_reboard_provenance_tests_passed: 20
+  current_player_header_sha256: CFEDDEBDB59E9A3ECFB3EE203CA1C1C01D4CA84D86FCFF363066DE10C34B3E31
+  current_player_source_sha256: 45F8D3FBD72CEC08F52EC1FE071EFB1840A386AC46236EAD3DA3B8C04A2372A9
+  source_contract_tests_revalidated: 6
+  telemetry_contract_tests_revalidated_after_hud_ability_feed: 7
+  fighter_reboard_contract_tests_revalidated_after_hud_ability_feed: 6
+  protected_provenance_tests_passed: 7
+  historical_static_evidence_rewritten: false
+  current_target_currency:
+    audited_project_inputs: 885
+    titan_newer_project_inputs: 22
+    titan_editor_newer_project_inputs: 9
+    build_proofs_supplied: 0
+  status_reason: >-
+    Current source is newer than the reproducing playtest and contains meaningful
+    recovery safeguards, a body-keyed compass fallback, and explicit read-only
+    gravity-frame telemetry. Reversible endpoint clearance now covers landing and
+    normal parking. A newer bounded source route preflight covers complete native
+    sphere translation plus fixed or rotating fitted-box corridors before one
+    atomic commit, but it is not included in the prior translation-unit or full
+    target build evidence. BeginPlay now delegates its one eligible authority
+    correction to that same fail-closed transaction only when the fitted hull is
+    ready; it no longer has a direct transform fallback. ClampToPlanetSurface
+    now delegates eligible exact-terrain penetration and legacy-void correction
+    to one authority-owned bounded fitted-envelope transaction, without its
+    three prior raw root writes. The Clamp path is uncompiled and unexecuted;
+    strict component/chunk provenance may conservatively reject seams, and
+    Chaos start-overlap, reciprocal normals, endpoint rollback, repeated-call
+    cost, authority replication, broader fitted-hull hard-lock recovery,
+    runtime, and real-GPU evidence remain open. Build/static evidence cannot
+    satisfy this gameplay defect.
+
+acceptance_to_close:
+  - reproduce planet approach, landing, exit, reboard, and takeoff on a real GPU
+  - compile and invoke gravity acceptance snapshots to log dominant gravity body and radial up agreement before landing and after reboard, requiring frame pass and settled alignment where applicable
+  - prove the ship cannot remain hard-locked nose-down after a recoverable landing
+  - compile and execute the bounded route preflight and prove landing and parking cannot cross native or matching-PlanetGen blockers
+  - prove compass yaw remains stable while stationary and follows the active body frame

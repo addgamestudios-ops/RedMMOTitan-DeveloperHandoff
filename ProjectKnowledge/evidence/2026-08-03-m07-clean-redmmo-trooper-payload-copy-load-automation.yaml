@@ -1,0 +1,79 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-trooper-payload-copy-load.automation.2026-08-03
+captured_utc: "2026-08-03T03:27:56Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: focalrig-free-trooper-rifle-vfx-copy-and-package-load
+evidence_class: automation
+result: passed_135_exact_packages_loaded_with_zero_dirty_packages_binding_pending
+
+inputs:
+  current_closure_report_sha256: 9C3A99E72C6303F84024C9F681F0E700C79B61132D251DEA8B8F48C8859443D7
+  bounded_payload_report_sha256: C6FCC289DDD3DC5B36041C736169084ADA50B5B88AF38BB085934B04607B128B
+  policy: exact_package_allowlist_no_clobber_no_maps_no_customization_no_focalrig
+
+transactions:
+  A12_strict_payload:
+    package_count: 128
+    bytes: 118284320
+    copied_missing: 124
+    retained_existing_exact: 4
+    post_manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TitanStrictPayload_A12_20260803_060715/strict_payload_manifest_post.json
+    post_manifest_sha256: 5A1FE625098BC233EE4B8D5BB995FDC103705B41BC894AD64A3C92C333C80AEA
+    rollback_plan_sha256: D8924120C5A188643DDFCF91A2D4B60FE8770F3BCB2B54B0DC7D4C8C27FD9E12
+  A13_base_locomotion:
+    package_count: 7
+    bytes: 2353831
+    post_manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TitanLocomotionPayload_A13_20260803_061035/locomotion_payload_manifest_post.json
+    post_manifest_sha256: 8E8D40724FEA5BB27DE21F3ABA92E6E11A14F67D72A8A1F488488A3346E929CD
+    rollback_plan_sha256: 1AA82E8A6439D7EC93E101AA9C40749F9E406A87B17897F39BCDDCF265DD046E
+  combined:
+    unique_packages: 135
+    bytes: 120638151
+    exact_destination_packages: 135
+    Action_Male_and_Female_packages: 0
+    FocalRig_packages: 0
+    maps: 0
+
+load_verification:
+  script: Build/Automation/verify_clean_redmmo_trooper_payload_load.py
+  script_sha256: 179FC658C4C11DE9C2552B2BEF0D42C6AC687F60E5872C3404839A014E12B383
+  accepted_run: A14R2
+  entry_map: /Engine/Maps/Entry
+  rendering: NullRHI
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperPayloadLoad_A14R2_20260803_032740Z/trooper_payload_load_report.json
+  report_sha256: 9F274119844FFA566A73A749C655ED91E5EB8E1A42FB23DD520BAF04CACA41A2
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperPayloadLoad_A14R2_20260803_032740Z/UnrealEditor-Cmd.log
+  log_sha256: 432D5A0555C30A9541511BDA7B9B00B9A4E44E4EDAFB9574895F7457D3B2390E
+  package_count: 135
+  loaded_asset_count: 135
+  dirty_content_before_after: [0, 0]
+  dirty_maps_before_after: [0, 0]
+  forbidden_payloads_absent: true
+  shutdown: clean_LogExit_Exiting
+  plugin_observation: >-
+    The UE log shows ModelContextProtocol modules mounted despite the command
+    line disable flag. No listener existed on ports 5353, 8000 or 8765 before
+    launch, but this run must not be represented as plugin-disabled.
+  discarded_first_run:
+    report_sha256: 3B73BEE294A59693B4B9C2EFC26AA8B5552D919DB3CEA0FBDE1FC44CC3768E50
+    log_sha256: 8EF093A50D0BE427FDB68E21796E38F3E8A52682704DB17D5CEEF22FD575A8E5
+    reason: verifier_called_nonexistent_UE58_Python_request_exit_after_pass_report
+
+preservation:
+  clean_home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  map_or_config_saved: false
+  seed_terrain_markers_or_grass_changed: false
+
+claim_limit: >-
+  This proves exact copy and UE package loading with no dirty-state drift. It
+  does not compile or bind a Trooper Blueprint, GameMode or home map, prove
+  animation, weapon, collision, damage, input, radial movement, visuals, PIE,
+  replication, multiplayer, cook, package or standalone play.
+
+next_safe_action: >-
+  Create no-clobber project-owned Trooper pawn, bolt, Enhanced Input and
+  GameMode assets, compile them, then verify fresh reload before any map bind.

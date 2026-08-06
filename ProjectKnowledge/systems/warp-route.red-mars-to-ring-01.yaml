@@ -1,0 +1,36 @@
+schema_version: 1
+record: celestial.warp_route
+
+id: warp-route.red.mars-to-ring-01
+display_name: Mars to Red Ring Prototype 01
+status: retired_not_started
+authority: server
+
+origin_body_id: planet.red.mars
+destination_body_id: planet.red.ring-01
+
+state_machine:
+  - target
+  - validate
+  - spool
+  - align
+  - preload
+  - transit
+  - decelerate
+  - gravity_capture
+  - cooldown
+
+admission_requires:
+  - destination stable ID resolves in the celestial registry
+  - destination streaming zone reports ready
+  - ship is not destroyed, docked, or hard-colliding
+  - server owns route admission and arrival transform
+
+prototype_reference:
+  source: ProjectKnowledge/references/code-like-me-planet-tutorials.yaml
+  reusable_idea: line_trace_target_and_gravity_boundary_arrival
+  rejected_shortcut: local_MoveComponentTo_without_server_or_streaming_authority
+
+implementation:
+  status: retired_with_legacy_destination
+  next_gate: create a new route ID only after PlanetGen 1.5 ACLMRingWorld has a reviewed stable body ID

@@ -1,0 +1,145 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r10k.pack-demo-ground-stones-dense-grass-real-gpu.2026-08-02
+captured_utc: "2026-08-02T10:30:18Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r10k-pack-demo-ground-compact-stones-dense-tall-highlighted-grass
+evidence_class: real_gpu_visual
+result: passed_structural_and_real_gpu_pending_human_acceptance
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  source_r10j_home_map_sha256: 42799CDD137E5077F614672F883F07C632C9CDBE37E1C3B8934CFD44C4B9C486
+  persisted_r10k_home_map_sha256: F4EA0389A16CFF265D3F5752F7D6074DC1495AA561D3D5A3A936A9B4CBCF7466
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10K_20260802_130427_A01
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10K_20260802_130427_A01/pre_r10k_manifest.json
+  manifest_sha256: BB6516D613480355F68CC34520AABC84D16305A996446B065A190021DF1834DD
+  file_count: 9
+
+persisted_changes:
+  scope: project_owned_ppg_presentation_bindings_only
+  ground:
+    material: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10K/Materials/MI_PPG_Home_PackDemoGround_R10K
+    demo_reference: /Game/StylizedRocksPack_01/Common/Landscape/Materials/MI_Landscape_Simple
+    base_color: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_BC
+    normal: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_N
+    orm: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_ORM
+    uv_scale: 0.55
+    specular: 0.02
+    tint: [1.0, 1.0, 1.0, 1.0]
+  grass:
+    source_mesh: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+    project_master: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10K/Materials/M_Grass_PaintedTip_R10K
+    density_before: 90.0
+    density_after: 110.0
+    scale_before: [0.72, 1.25]
+    scale_after: [0.82, 1.40]
+    highlight_amount: 0.68
+    highlight_density: 0.75
+    emissive: false
+  stones:
+    - source: /Game/StylizedRocksPack_01/Stones/Meshes/SM_StoneVanilla_Focal_01
+      project_alias: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10K/Meshes/SM_StoneVanilla_Focal_01_Normalized_R10K
+      envelope_cm: 220.0
+      lod_count: 4
+      simple_collision_shapes: 2
+    - source: /Game/StylizedRocksPack_01/Stones/Meshes/SM_StoneVanilla_Medium_01
+      project_alias: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10K/Meshes/SM_StoneVanilla_Medium_01_Normalized_R10K
+      envelope_cm: 140.0
+      lod_count: 4
+      simple_collision_shapes: 1
+  changed_biome_bindings: [Craters, Hills, Mountains]
+  unchanged:
+    - PPG seed and biome marker logic
+    - generated terrain geometry and placement rules
+    - tree slot, character, ship, water, flight, gameplay, and PlanetGen destination
+    - vendor source packages and protected production maps
+
+structural_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/build_r10k_demo_corrected_presentation_a02_result.json
+    sha256: 737C16AD4EA9AE29260B3CF1FE0230B66ECEF7D45ACC28DA40EB61A17E141BEC
+    status: PASS_STATIC_SERIALIZATION_PENDING_FRESH_RELOAD_AND_GPU
+    created_project_owned_packages: 12
+  build_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/run_r10k_build_guard_a02_result.json
+    sha256: B34A28EC9ABB571F8B5C827A4E43EC3EE2F7079996A3A236D21BFFAA0818D4F9
+  fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/verify_r10k_fresh_reload_result.json
+    sha256: 4BA212DE205F976668FCB2A0B4BDB51A29B74AF5658B4E4D0DCF966FFB8504C4
+    status: PASS_FRESH_RELOAD_AND_MAPCHECK_PENDING_REAL_GPU
+    map_check_errors: 0
+    map_check_warnings: 0
+    dirty_packages: 0
+  profile:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Config/RedMMO/PPGStylizedFoliageProfiles/HomeWorld_Presentation_R10K.json
+    sha256: 3CC0EA23267071986C17D4E17E33155B4C4C78C28B876258155C4500A8C75B14
+
+real_gpu_evidence:
+  guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/run_r10k_gpu_capture_guard_result.json
+    sha256: 69942D85596B3FC8B26F6C771C32FD0AE4F5C4B2D69171365220A568174E75CA
+    status: PASS_REAL_GPU_PENDING_HUMAN_VISUAL_ACCEPTANCE
+    free_physical_gib_at_launch: 47.056
+    minimum_free_physical_gib: 40.423
+    free_gpu_memory_mib_at_launch: 9431
+    editor_pid: 22288
+    editor_exit_code: 0
+    unreal_process_count_after: 0
+  capture_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/capture_r10k_surface_resolved_d3d12_result.json
+    sha256: A84E25127EE5E8AEFAB840D304FE0BAD180B1C6EB6F4DAB9C046DB5E6C54BE8B
+    evidence_class: real_gpu
+    evidence_subclass: d3d12_editor_preview_after_authoritative_no_save_pie_surface_trace
+    rhi: D3D12 SM6
+    adapter: NVIDIA GeForce RTX 3080
+    map_saved: false
+    actors_moved: false
+    map_hash_before_after_equal: true
+    radial_clearance_cm: 228.9210102558136
+    signed_normal_clearance_cm: 229.8972390059011
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10K_20260802_130427/RedMMO_Home_R10K_pack_demo_ground_stones_dense_tall_highlighted_grass_1920x1080.png
+    sha256: E847FB25C7F6268D086B4F938DD617A4234428B9D24180CF1CC1878848A4C074
+    dimensions: [1920, 1080]
+    bytes: 2769679
+
+visual_review:
+  human_accepted: false
+  confirmed_in_frame:
+    - pack-demo grass ground textures are visible across the generated terrain
+    - compact rounded stone clusters replace the rejected oversized guessed rock pair
+    - grass coverage is denser and the blades read taller than R10J
+    - painted blade-tip highlights are visible without an emissive connection
+  remaining_findings:
+    - the ground and grass are still strongly saturated green and require the user's art-direction judgment
+    - the bright white sky and horizon remain outside this ground-rock-grass correction scope
+    - this frame does not establish tree, character, ship, water, flight, collision, performance, cook, package, or full-planet acceptance
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  legacy_or_production_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed_after: true
+  unreal_process_count_after: 0
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R10K proves that the real clean-Red PPG home map now persists the exact
+  StylizedRocksPack_01 demo grass texture family, compact Stones Focal/Medium
+  aliases, and the requested denser, taller, stronger-highlight grass controls.
+  Fresh reload, MapCheck 0/0, protected hashes, and a player-scale RTX 3080
+  D3D12 SM6 frame pass. Human visual acceptance remains pending, and no broader
+  gameplay, water, sky, performance, cook, package, or full-planet claim is made.
+
+next_safe_action: >-
+  Present the exact R10K frame for human review. If its saturated green balance
+  is rejected, retain the verified ground/stone identities and make only one
+  bounded project-owned hue/value correction; do not guess another texture or
+  rock family, change PPG seed/marker logic, or touch vendor source packages.

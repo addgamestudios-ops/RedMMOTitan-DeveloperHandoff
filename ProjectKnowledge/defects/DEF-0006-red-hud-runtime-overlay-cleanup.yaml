@@ -1,0 +1,68 @@
+schema_version: 1
+id: DEF-0006
+title: Replacement HUD has orphan legacy masks, missing sight, static compass, and ammo counters
+status: implemented_awaiting_build_and_runtime_acceptance
+reported_at: 2026-07-21
+evidence:
+  screenshot: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-21063a75-83fd-4956-8c52-e5cc1d3b07fb.png
+  source_hardening: ProjectKnowledge/evidence/2026-07-22-def-0006-hud-runtime-source-hardening-static.yaml
+  current_source_identity_reconciliation: ProjectKnowledge/evidence/2026-07-22-def-0006-post-def-0003-source-identity-reconciliation-static.yaml
+  current_source_identity_after_ability_feed: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-feed-static.yaml
+  current_target_currency_reconciliation: ProjectKnowledge/evidence/2026-07-22-m09-post-def-0002-target-currency-reconciliation-static.yaml
+  partial_native_ultrawide_visual: ProjectKnowledge/evidence/2026-07-23-def-0004-ultrawide-mining-receipt-real-gpu.yaml
+observed:
+  - Orphan health bars and black masks remain at legacy coordinates.
+  - The gameplay targeting sight is missing.
+  - Compass artwork has no dynamic heading or degree value.
+  - Weapon cards show ammunition despite the heat-only weapon design.
+  - Ability and utility art overlaps the weapon cards.
+implementation:
+  summary: >-
+    Preserved the nonoverlapping baseline geometry; made the compass a visible
+    layout-owned live element driven by the existing spherical tangent heading;
+    connected live shield, health, fuel, and two-slot heat/overheat state;
+    covered baked sample ammunition with opaque heat telemetry; registered the
+    legacy data/loadout HUD weakly across possession changes; and stopped the
+    compact target-reactive cyan sight whenever the pixel HUD is intentionally
+    collapsed.
+  files:
+    - Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    - Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    - Source/RedMMO/RedHUD.h
+    - Source/RedMMO/RedHUD.cpp
+    - Source/RedMMO/RedPlayerCharacter.cpp
+    - Tools/tests/test_def0006_red_hud_runtime_contract.py
+current_source_reconciliation:
+  red_player_character_sha256: 893E8AF9AB1CB82F3819A9A0A3832492CE01BDEF8F2712D0D7FC71338E405EEC
+  red_hud_widget_sha256: 851A91A478B3E256F24CF974DDA09D07574BBF7D3CC24FF80F1B99704C521240
+  red_mmo_editor_dll_sha256: 42E614DFD8B3DB17A25CBDF3AC3CF2C3D4F574A5D34E89DFC666DF7919F5B476
+  red_hud_runtime_editor_dll_sha256: 08BFA9F836BCB53E12B31261E4CB93741C4644DF7182B65CE5A8E9CD85817EAA
+  latest_serialized_editor_build: succeeded_4_actions
+  hud_contract_tests: 6_of_6_passed
+  combined_mining_hud_contract_tests: 49_of_49_passed
+  protected_provenance_tests: 7_of_7_passed
+  target_currency_newer_inputs: {Titan: 38, TitanEditor: 26}
+  note: >-
+    The latest native-ultrawide mining-receipt slice rebuilt and linked the
+    current shared RedMMO and RedHUDRuntime editor products and all six DEF-0006
+    source contracts still pass. Its exact 3440x1440 pixels partially exercise
+    the current default HUD layout, but do not exercise compass rotation, both
+    weapon heat cycles, sight targeting, controller input, or the complete
+    overlap matrix. Historical evidence remains unchanged.
+acceptance_gate:
+  evidence_class: real_gpu_gameplay_ui
+  steps:
+    - Verify no orphan bars or blank black masks at 16:9 and ultrawide resolutions.
+    - Rotate through 360 degrees and verify compass heading and degrees update.
+    - Fire both weapons through overheat and verify heat/cooldown presentation.
+    - Verify the cyan sight is centered and changes when targeting a pawn.
+    - Verify utility, ability, and weapon elements do not overlap.
+blocker: >-
+  Current RedMMO and RedHUDRuntime editor products now compile and link under a
+  serialized safe resource gate, all six focused source contracts pass, and one
+  exact 3440x1440 D3D12 run accepts the default mining-receipt placement without
+  broad overlap. DEF-0006 remains open because that bounded run did not rotate
+  the compass through 360 degrees, fire both weapons through heat and overheat,
+  target a pawn with the cyan sight, exercise controller input, or verify the
+  complete 16:9 and ultrawide element-overlap matrix. Run those explicit
+  real-GPU gameplay-UI gates before closure.

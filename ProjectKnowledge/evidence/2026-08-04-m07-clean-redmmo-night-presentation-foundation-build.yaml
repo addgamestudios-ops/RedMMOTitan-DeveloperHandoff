@@ -1,0 +1,86 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-night-presentation-foundation.build.2026-08-04
+captured_utc: "2026-08-04T23:57:46Z"
+module_id: M07
+system: presentation.clean-redmmo-planet-aware-night-and-space
+slice: pure-body-relative-night-star-and-fill-weights
+evidence_class: build
+result: passed_editor_module_build_runtime_binding_and_visuals_pending
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  descriptor_sha256_before_after: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  r17_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenterFoundation_20260804T2350Z/rollback.yaml
+  manifest_sha256: 6D0E58B498F18A9CC41C5E5D9F746D1748940C2B3D25C52A8EF82E3A5C8DC8B4
+  scope: three new source files only
+
+source:
+  public_header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlanetNightPresentation.h
+    sha256: 66BAF74D20519E2C21DAA77A7228B97D70BF607F39A61FD90B88A239E99E84AF
+  implementation:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlanetNightPresentation.cpp
+    sha256: 1715AE27CFB3C15356B57B3A47DEA3E56E61C8415C30CF29EBFB4237F3094428
+  automation_tests:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlanetNightPresentationTests.cpp
+    sha256: 3C17828635E604D90EC8A22CB3E254ECA03E9EDD830EA0967010105A5EBAF080
+    scenarios_compiled_not_executed:
+      - surface_day
+      - surface_night
+      - orbit
+      - monotonic_altitude_transition
+      - invalid_frame_fails_closed
+
+contract:
+  - requires an explicit stable body ID, center and physical radius
+  - derives radial up and altitude without using actor visual scale
+  - derives day/night hemisphere weight from radial up and sun direction
+  - derives a configurable atmosphere-to-space fade and optical-depth proxy
+  - emits separate bounded star-visibility and navigable-night-fill weights
+  - spawns no actor, changes no light, owns no terrain or gravity and saves nothing
+
+build:
+  target: RedMMOEditor Win64 Development
+  engine: UE 5.8.1
+  serialized_max_parallel_actions: 1
+  no_ubt_makefiles: true
+  result: succeeded
+  actions: 5
+  elapsed_seconds: 312.83
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenterFoundation_20260804T2350Z/RedMMOEditor_build.log
+  log_sha256: 93EDD1FF38B3E52D881E96F798009BDB8CF2828A168AEA8D1C655E6D0F8A91CC
+  module_dll: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+  module_dll_sha256: 6BE08AF9C2D469E9254B89A2F69720FA56B38409D0EC08303631D525027C4F18
+
+protection:
+  content_or_map_changed: false
+  ppg_seed_geometry_or_markers_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  desktop_control_used: false
+  unreal_process_count_after: 0
+  provider_ports_5353_8000_8765_closed: true
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This build proves only that the deterministic planet-relative calculation
+  and five development automation scenarios compile into RedMMOEditor. The
+  tests have not executed, no presenter/material/light is bound to the map, and
+  this does not prove night pixels, stars, moonlight, orbit transition,
+  gameplay, standalone, package, replication or multiplayer behavior.
+
+next_safe_action: >-
+  Execute the five RedMMO.Presentation.NightSky automation tests in one fresh
+  provider-off editor using a materially different launcher from the stalled
+  UnrealEditor-Cmd R17 audit. If they pass, implement the smallest project-owned
+  presenter/material boundary that consumes these weights without a fixed
+  vendor skybox, then require matched real-GPU day, night and orbit evidence
+  before any visual claim.

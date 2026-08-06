@@ -1,0 +1,186 @@
+schema_version: 1
+id: evidence.m07.stylized-planet-presentation-adapter.source-static.2026-07-30
+captured_utc: "2026-07-30T16:51:11Z"
+module_id: M07
+system: world-authoring.stylized-planet-presentation
+slice: query-only-planetgen14-presentation-hooks-and-authored-hub-blend
+evidence_class: static
+result: passed_offline_source_contract_build_runtime_and_visual_pending
+
+scope:
+  authorized:
+    - inspect the authoritative ProjectKnowledge records and active project integration
+    - inspect installed PlanetGen and PPG descriptors and source-level presentation extension points
+    - add one reversible project-owned scratch presentation adapter
+    - expose stylized terrain, water, foliage, and rock hooks without applying them
+    - consume authenticated hub reservation weights as a hard core plus geodesic blend ring
+  explicitly_not_run:
+    - Unreal Editor, Unreal commandlet, UHT, UBT, cook, package, PIE, or dedicated server
+    - map, material, data-asset, palette, mesh, texture, or vendor-plugin mutation
+    - terrain regeneration, terrain-height edit, collision rebuild, water-radius or sea-datum edit
+    - atmosphere, cloud, gravity, movement, replication, or streaming mutation
+    - PlanetGen upgrade, removal, or replacement
+    - PPG enablement or project integration
+
+preflight:
+  authoritative_project: D:/RedMMOTitan
+  worktree_materially_dirty_before_slice: true
+  unrelated_dirty_work_preserved: true
+  physical_ram_total_gib: 63.87
+  physical_ram_free_gib: 47.89
+  free_d_drive_gib: 984.39
+  active_texture_import:
+    process: UnrealEditor-Cmd.exe
+    observed_pid: 13360
+    project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+    launched_or_controlled_by_this_slice: false
+    checkpoint_path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Saved/Diagnostics/styled_assets_import_checkpoint.json
+    checkpoint_last_write_utc: "2026-07-30T16:48:54.0460451Z"
+    cursor: 17328
+    total: 23599
+    imported: 16794
+    skipped_existing: 333
+    failed_count: 201
+    status: pending_next_batch
+  execution_decision: offline_source_only
+
+installed_version_evidence:
+  active_project_declaration:
+    path: Titan.uproject
+    PlanetGen_enabled: true
+    PPG_declared: false
+  project_pinned_planetgen:
+    descriptor: Plugins/PlanetGenPinned_1_4_0_RedMMO/PlanetGen.uplugin
+    version_name: 1.4.0-redmmo-50km-phase1
+    engine_version: 5.8.0
+    sha256: 4AE63D950CB510C0F7DDBE9EEE574C834A06D39109CF47C947F85BD6551C221E
+    resolution: project_copy_overrides_engine_copy_without_changing_module_identity
+  engine_planetgen:
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5/PlanetGen.uplugin
+    version_name: 1.4.0
+    engine_version: 5.8.0
+    sha256: 521CF9879BBDCA4BF701B95C2EFF5A75782A12AA523D9C8441FE1F81DB4C4E91
+  separately_installed_ppg:
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/PPG.uplugin
+    version_name: "1.0"
+    engine_version: 5.8.0
+    sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+    active_in_titan: false
+
+verified_extension_points:
+  active_planetgen_1_4:
+    terrain:
+      - ACLMPlanet.TerrainMaterial is one material shared by generated chunks
+      - vertex colors encode R water, G grass, B rock, and A snow
+      - UV1 encodes X beach and Y desert sand
+      - the project fork exposes authored RGBA biome weights through the existing macro-surface path
+    biomes:
+      - climate slots are 0 tundra, 1 boreal, 2 desert, and 3 tropical
+      - climate selection affects snow, rock, vegetation density, desert sand, and foliage filtering
+      - the internal climate index is retained for foliage but is not a separate public terrain-material slot
+    foliage:
+      - ACLMPlanet.FoliageAssets accepts UPlanetGenBiomeFoliageAsset mesh and placement records
+      - ACLMPlanet.GrassAssets accepts UPlanetGenGrassAsset ground-cover records
+      - source supports density, height, slope, scale, jitter, clustering, collision, and climate filters
+    water:
+      - ACLMPlanet.WaterMaterial is presentation-selectable
+      - water geometry and sea datum remain owned by ACLMPlanet and are not adapter inputs
+    atmosphere:
+      - ACLMPlanetSunSky exposes separate atmosphere, volumetric-cloud, and sun references and kilometre settings
+      - the adapter has no atmosphere or cloud fields
+    gravity:
+      - UPlanetGenGravitySourceComponent and UPlanetGenGravitySubsystem expose logical gravity volumes
+      - ACLMPlanet owns an internal gravity source, gated by bProvidePlanetGravity
+      - the adapter has no gravity, radius, or movement fields
+    multiplayer:
+      - UPlanetGenGravityMovementComponent extends saved-move/network-prediction behavior
+      - APlanetGenGravityCharacter replicates jetpack state
+      - the adapter contains no replication declarations and does not change multiplayer behavior
+  inactive_ppg_1_0:
+    PlanetData_header_sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+    FoliageData_header_sha256: A6086644FC15B39A8F6FC16B0BFB8395D11DF89C0A7705F768DC3C1E06471AFF
+    future_hooks:
+      - UPlanetData separates visible surface, generation, biome-mask, water, and per-biome foliage assets
+      - UFoliageData exposes weighted meshes, density masks, height, slope, clustering, collision, WPO, and LODs
+      - APlanetSpawner exposes a volumetric-cloud actor and parameter refresh
+    current_limit: Titan does not declare or link PPG, so this slice does not claim a working PPG runtime binding
+
+implementation:
+  adapter_header:
+    path: Source/RedMMO/WorldAuthoring/RedStylizedPlanetPresentationAdapter.h
+    bytes: 10605
+    sha256: 94B5348B64A813A0E28381D5ACE3F2ED78728E54C80D3F8D03A846C98FC9B622
+  adapter_source:
+    path: Source/RedMMO/WorldAuthoring/RedStylizedPlanetPresentationAdapter.cpp
+    bytes: 8203
+    sha256: B99526B7F43DA17E6FF7AE44DB68B02C8F8395513F76D0D7AD25B64BBC8B360A
+  deferred_unreal_automation:
+    path: Source/RedMMO/WorldAuthoring/RedStylizedPlanetPresentationAdapterTests.cpp
+    bytes: 7539
+    sha256: B1A2E5202474AB6104CF09C8A390E0DFC1A5B962E2FDEE791E5C25A1919BD63D
+  offline_contract:
+    path: Tools/tests/test_stylized_planet_presentation_adapter_source.py
+    bytes: 2997
+    sha256: 0E75E167FC719C5C6099265F52782D0A9CD6C921BB962212F663E9306EEF520F
+  behavior:
+    - decodes generator-owned surface-layer signals without changing them
+    - selects a global PlanetGen stylized terrain hook or a future named-PPG biome hook
+    - selects a stylized global water-material hook without changing water geometry
+    - exposes only palette entries that have meshes, are PCG-approved, are not hand-placement-only, and have an eligible foliage or rock role
+    - converts authenticated Foliage, Rock, and Water reservation weights into authored-hub and procedural-presentation weights
+    - invalid reservation queries fail closed with full authored protection and zero procedural placement weight
+    - does not apply any returned hook; a later scratch-only consumer is required
+
+verification:
+  command: python -m unittest Tools.tests.test_stylized_planet_presentation_adapter_source -v
+  result: 4_of_4_passed
+  verified:
+    - active project resolves the pinned PlanetGen 1.4 fork and does not enable PPG
+    - adapter source contains no material application, planet regeneration, sea-level, gravity, collision, or replication mutation
+    - authenticated foliage, rock, and water reservation queries are present
+    - deferred Unreal tests cover signal mapping, approved-entry filtering, blend-ring math, and fail-closed protection
+  deferred:
+    - C++ compile and UHT
+    - RedMMO.WorldAuthoring.StylizedPlanetPresentation.Mapping automation
+    - RedMMO.WorldAuthoring.StylizedPlanetPresentation.HubBlend automation
+    - scratch material/profile authoring and binding
+    - runtime, real-GPU visual, performance, and multiplayer evidence
+
+protection:
+  production_map:
+    path: Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_plugin_modified: false
+  config_or_uproject_modified: false
+  asset_or_map_modified: false
+  import_process_interrupted: false
+
+rollback:
+  type: source_only_new_files
+  action:
+    - remove the three RedStylizedPlanetPresentationAdapter C++ files
+    - remove Tools/tests/test_stylized_planet_presentation_adapter_source.py
+    - remove this evidence record and its ProjectKnowledge index entry
+  preexisting_file_overwritten: false
+
+claim_limit: >-
+  This is static source and descriptor evidence only. The adapter is not compiled,
+  instantiated, bound to a planet, or executed by Unreal. No material, foliage,
+  rock, water, hub, atmosphere, gravity, collision, terrain, multiplayer, map,
+  FPS, visual, or player acceptance is claimed. The PPG 1.0 package is installed
+  but not enabled in Titan, and the active source contract is the pinned PlanetGen
+  1.4 RedMMO fork.
+
+next_approval_gate: >-
+  Wait until the separate texture-import queue is idle. Then request approval for
+  one serialized TitanEditor compile plus the two focused automation tests. If they
+  pass, request a separate content-mutation approval to duplicate a tiny project-
+  owned stylized material, water material, palette, and presentation profile into a
+  disposable scratch map. Only that later slice may bind the adapter and collect
+  matched surface, flight, and orbit captures with mandatory frame-time metrics.

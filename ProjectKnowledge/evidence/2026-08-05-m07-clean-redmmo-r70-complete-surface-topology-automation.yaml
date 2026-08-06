@@ -1,0 +1,143 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r70-complete-surface-topology.2026-08-05
+captured_utc: "2026-08-05T22:55:36Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r70-compiled-read-only-complete-six-biome-surface-topology
+evidence_class: automation
+result: pass_complete_named_reroute_resolution_and_six_role_surface_closure
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 52.83
+  commit_headroom_gib: 56.83
+  gpu: NVIDIA_GeForce_RTX_3080
+  free_gpu_vram_mib: 9137
+  free_d_drive_gib: 767.32
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+implementation:
+  purpose: >-
+    Expose only the public engine data needed to follow
+    UMaterialExpressionNamedRerouteUsage to its declaration, authenticate its
+    GUID, and read the declaration input. The bridge contains no setter, save,
+    regeneration, material-edit or map API.
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGFoliageDiagnostics.h
+    sha256: C04B35F4528431CEBFF123B7664AD9F5D6D1D76BAE93AFF907A687B4D7BD79BC
+  implementation:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGFoliageDiagnostics.cpp
+    sha256: 366EAF660316DB1DC07E3EFAEA369E43D83C89DB4277108798DB90D896D13C44
+  audit_driver:
+    path: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_surface_topology_r70.py
+    sha256: 6F45305FA8935CDC017C6C7FFD7B0890F234C1858D7CF3323B899FC5672ECA5E
+
+build:
+  target: RedMMOEditor_Win64_Development
+  result: succeeded
+  serialized_actions: 5
+  total_seconds: 15.20
+  binary:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 78EFF5DF6AAEA92C93246C22DE9755313AE5CE90793758C9B4A2BB2820BC8C31
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceTopologyBridge_R70_20260805T2241Z/build.log
+    sha256: 630DF9EC268831CC89F42838FCE9EC2D6995355FC81A526AA49BAFFD0091085F
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  renderer: D3D12_RenderOffscreen
+  provider_plugins_disabled: true
+  result_status: PASS_R70_COMPLETE_SIX_BIOME_SURFACE_TOPOLOGY_READ_ONLY
+  output_identity: RedProfile.PresentationRoles;Order=Craters,Mountains,Desert,Hills,Poles,Ocean
+  named_reroute_usages: 38
+  declarations_resolved: 38
+  declaration_guids_matched: 38
+  unresolved_trace_points: 0
+  save_called: false
+  regeneration_called: false
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceTopologyBridge_R70_20260805T2241Z/Audit/result_d3d12.json
+    sha256: A3915D56D05D5182510DAC8836660D3DCE70E9C725808E1D6C2C69E6DFDF254A
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceTopologyBridge_R70_20260805T2241Z/topology_audit_d3d12_clean.log
+    sha256: 840EF313FD97313DB130C08F53E6F05C50F294535883BA315036C91BBF3762DF
+  clean_exit: true
+
+branch_topology:
+  Craters: {nodes: 135, edges: 380, named_reroutes: 10, functions: 7, textures: 15, signature: 8FA440403A4FE3DED8F664C9E5639C174BF0D882600FB29786BFE243A792D743}
+  Mountains: {nodes: 135, edges: 380, named_reroutes: 10, functions: 7, textures: 15, signature: 8FA440403A4FE3DED8F664C9E5639C174BF0D882600FB29786BFE243A792D743}
+  Desert: {nodes: 62, edges: 173, named_reroutes: 3, functions: 4, textures: 10, signature: 7258ADE56B3C3E90407672092A22C4A831C122E892570B5EAF38DC83B570379B}
+  Hills: {nodes: 135, edges: 380, named_reroutes: 10, functions: 7, textures: 15, signature: 8FA440403A4FE3DED8F664C9E5639C174BF0D882600FB29786BFE243A792D743}
+  Poles: {nodes: 58, edges: 155, named_reroutes: 3, functions: 3, textures: 7, signature: 9EE5FFFF43F58AEB099D322D13A9A81487A05CA1CCC1996E193DCA8614630DDE}
+  Ocean: {nodes: 37, edges: 111, named_reroutes: 2, functions: 1, textures: 7, signature: 222A074EA2184D67CBC27F908FEF49A825AB0FD3EFB7C415EDB13074FD109954}
+  signature_groups:
+    - [Craters, Mountains, Hills]
+    - [Desert]
+    - [Poles]
+    - [Ocean]
+
+diagnosis:
+  proven:
+    - all six PlanetBiomeMaterialOutput role branches are now traversable to exact source closure
+    - every named-reroute usage in those closures resolves to a declaration and has a matching GUID
+    - Craters, Mountains and Hills currently share one identical presentation signature
+    - Desert, Poles and Ocean each have a distinct presentation signature and exact dependency closure
+  implication: >-
+    R69 proved that all six seeded categories emit. R70 proves their surface
+    graph topology is intact and isolates the whole-green result to authored
+    presentation: three land roles are intentionally identical today, while
+    the three distinct roles require a role-specific project-owned visual
+    branch and runtime review rather than more seed, remap or topology audits.
+
+no_palms_rule:
+  retained_asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+  retained_sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  note: >-
+    R70 made no foliage, map or content-package write. R66 remains
+    authoritative; no palm binding, component or instance was introduced.
+
+harness_notes:
+  - >-
+      The first completed read-only pass produced the same PASS result before
+      a NullRHI-only PPG WarmupGenerationPipeline shutdown assertion involving
+      FallbackMaterialProxy. That process was closed and is not used as the
+      acceptance run.
+  - >-
+      The corrected D3D12 RenderOffscreen pass wrote an independent result,
+      logged the PASS marker and exited with process code zero.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeSurfaceTopologyBridge_R70_20260805T2241Z
+  manifest_sha256: 988CC0D02E671B1307839FF7BD33C41D68E692F34E8B7D76B8225E5249D41DB0
+  used: false
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 56EA5F830A8F581C1844B956EBABA556B45E200C397443F37BA921766862FC1A
+  r66_no_palms_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  r67_surface_sha256_before_after: 745381295CDC76754B9FD347CC85CEBEC3151B042C366CDA40F1908163B8A4F7
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  map_or_content_saves: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R70 is compiled static-graph and automation evidence, not player-scale visual
+  acceptance. It does not prove visible desert, beach, coast, water, continent
+  silhouettes, smoother terrain, gameplay, standalone, packaging, replication,
+  multiplayer or developer-handoff readiness.
+
+next_safe_action: >-
+  Preserve seed 1337, R66 zero palms, R67 ground, R68 night, terrain, water,
+  foliage and every seeded placement. Use the exact R70 branch closure to make
+  one rollback-backed project-owned role-presentation successor: retain the
+  approved grassland closure for Hills, assign verified stylized rock treatment
+  to Mountains/Craters, retain the verified SoStylized sand closure for Desert,
+  and expose distinct Poles/Ocean colors without adding manual water or props.
+  Then perform one regeneration, fresh reload, MapCheck and real-D3D12
+  player-scale review. Do not reintroduce palms or mutate topology/seed.

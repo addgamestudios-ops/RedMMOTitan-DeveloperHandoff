@@ -1,0 +1,185 @@
+schema_version: 1
+id: evidence.M07.nwiro-restricted-probe-candidate-source-contract-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T10:24:44Z
+result: passed_immutable_candidate_source_contract_only_with_runtime_forbidden
+
+scope:
+  objective: >-
+    Freeze and validate the exact source lineage and fail-closed requirements
+    for a future isolated Nwiro Integration Kit restricted metadata-probe fork
+    without creating that fork, touching the Marketplace installation, or
+    launching Unreal, Nwiro, MCP, a provider, or a network transport.
+  performed:
+    - inventory the complete installed Integration Kit 1.0.9 tree rather than only the prior eleven critical files or 84-file first-party module
+    - bind the exact descriptor, Resources, all Source files, bundled miniz source, and license as the only future fork input
+    - exclude vendor Binaries and Intermediate from candidate lineage
+    - require two consecutive matching complete content and topology observations
+    - authenticate per-file reads through stable handles and reject ancestor, type, path identity, hard-link, reparse, symlink, and named-stream drift
+    - freeze twenty-two required restricted-mode controls as unimplemented and unaccepted
+    - keep every candidate, build, installation, Unreal, MCP, network, provider, asset, map, and runtime authority false
+    - independently review the final exact hashes after correcting whole-tree overclaim, directory-swap, ADS, and parent-path provenance defects
+  not_performed:
+    - create the isolated fork root, source candidate, candidate manifest, or delta manifest
+    - modify, copy, compile, install, enable, load, or exercise any Nwiro plugin
+    - initialize MCP, list tools, call find_assets, bind a port, or contact a provider
+    - load, upload, migrate, convert, place, render, or modify either environment pack
+    - create or modify a map, asset, plugin configuration, Codex configuration, or protected checkpoint
+    - claim an atomic whole-tree snapshot, concurrent-writer resistance, candidate acceptance, runtime behavior, curved fit, visuals, gameplay, performance, or real-GPU acceptance
+
+preflight_and_final_state:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 10.029
+  commit_headroom_gib: 16.577
+  d_drive_free_gib: 1076.944
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4056
+    free_vram_mib: 5998
+  exact_unreal_or_build_process_count: 0
+  decision: >-
+    Physical RAM remained below the one-editor floor. The bounded slice stayed
+    offline and static; no Unreal, Nwiro, MCP, build, cook, package, import,
+    provider, network, or real-GPU process was started.
+
+artifacts:
+  immutable_candidate_source_contract:
+    path: Build/Automation/redmmo_nwiro_restricted_probe_candidate_contract_v1.json
+    bytes: 13799
+    sha256: AD53BE2585A6B03F74C53A36EE6A30318F318ACC5F2798E664CBD37BCBEDC7DE
+  offline_validator:
+    path: Tools/validate_redmmo_nwiro_restricted_probe_candidate_contract.py
+    bytes: 53011
+    sha256: A829BC5E131BA7812E1F003F2BEA3E684D6DCA2D7CFEFAFC5048502BCBBE3B02
+  adversarial_tests:
+    path: Tools/tests/test_validate_redmmo_nwiro_restricted_probe_candidate_contract.py
+    bytes: 14988
+    sha256: 3CBC0B556EBB9AEF929EFFED2E0C509F25A53BFCDD20E5B5247C359879BF095C
+
+baseline_observation:
+  plugin: Nwiro Integration Kit
+  version: 1.0.9
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4
+  consecutive_complete_observation_count: 2
+  installed_tree:
+    file_count: 106
+    directory_count_excluding_root: 29
+    total_bytes: 130151566
+    record_set_sha256: DF5067FAEB002FCC10F52D212AB9C8133973D28070EB4D5C969A4205F0A833F0
+    topology_sha256: 6CC8D966C1D40CB319082823BB51FB8B420132A64FDDC8BA01562786B0A4B11C
+  future_fork_input:
+    included_roots:
+      - NwiroIntegrationKit.uplugin
+      - Resources
+      - Source
+    file_count: 90
+    directory_count_excluding_root: 10
+    total_bytes: 2201579
+    record_set_sha256: F1D91F85B8D7BE403D3AEFAA3348CE65B4CDC6EC52F1627CB141339C39FD1D4A
+    topology_sha256: 16DC68F9DDEFB5A957822EFB58A129BC11C18BFE98B8121B4E3010C1606EA3AD
+    source_file_count: 87
+    source_total_bytes: 2153385
+    source_record_set_sha256: 2F77617A4BB84E662E73BD9EF6F09FD5880B19E81A7E030B7C43F16440402670
+    includes_bundled_miniz_and_license: true
+    includes_vendor_binaries: false
+    includes_vendor_intermediate: false
+  whole_tree_snapshot_stability_proven: false
+  concurrent_mutation_resistance_proven: false
+
+candidate_state:
+  staging_root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1
+  staging_root_absent: true
+  candidate_source_present: false
+  candidate_manifest_present: false
+  fork_skeleton_present: false
+  candidate_static_accepted: false
+  candidate_runtime_accepted: false
+  required_control_count: 22
+  implemented_control_count: 0
+  accepted_control_count: 0
+  build_authorized: false
+  install_authorized: false
+  unreal_launch_authorized: false
+  mcp_initialize_authorized: false
+  mcp_tool_call_authorized: false
+  network_authorized: false
+  provider_call_authorized: false
+  runtime_authorized: false
+
+verification:
+  standalone_validator:
+    command: python -B Tools/validate_redmmo_nwiro_restricted_probe_candidate_contract.py
+    exit_code: 0
+    reported_status: candidate_contract_only_source_absent_runtime_forbidden
+    reported_complete_observation_passes: 2
+    reported_runtime_authorized: false
+  focused_candidate_contract_tests:
+    run: 19
+    passed: 18
+    skipped: 1
+    failed: 0
+    skip_reason: Windows denied creation of the privilege-dependent symlink fixture
+  combined_candidate_contract_baseline_audit_firewall_and_metadata_tests:
+    run: 67
+    passed: 66
+    skipped: 1
+    failed: 0
+  independent_final_review:
+    final_p0_findings: 0
+    final_p1_findings: 0
+    final_p2_findings: 0
+    reviewer_executed_validator_and_tests: true
+    initial_findings:
+      - the first 84-file draft omitted three Source/ThirdParty/miniz files and did not bind the complete legitimate fork input
+      - a topology-only final pass could miss content mutation after an earlier file was hashed
+      - directories were not identity-rechecked when popped and could race to a junction
+      - ADS denial initially covered plugin files but not directories, the contract, or parent inputs
+      - the ordinary contract and parent reader initially did not validate its ancestor chain or complete post-read path state
+    corrections:
+      - bind all 106 installed files and exact 90-file descriptor-plus-Resources-plus-Source fork input
+      - require two matching full content passes and explicitly disclaim atomic snapshot and concurrent-writer proof
+      - recheck directory identity, type, reparse state, and named streams before and after enumeration
+      - apply ancestor, stable-handle, final-path, link-count, mtime, and ADS checks to contract and parent reads
+      - add hard-link, file ADS, directory ADS, parent-reader ADS, post-hash mutation, and privilege-conditional symlink regressions
+  canonical_queue:
+    sha256: 1DB3EDC5E4F9ED5A69F75D9B2CDF3B85CC76E68C7C929B889DFDA4FA276C80E2
+  canonical_integrity:
+    result: pass
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 159
+    report_path: D:/RedMMOTitanWindowsData/Diagnostics/M07_NwiroCandidateSourceContract_20260725_1024Z/integrity_final.json
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is static, contract-only evidence. It records two matching complete
+  observations of the current installed vendor tree and exact future source
+  lineage, and it freezes requirements for a later isolated candidate. It does
+  not retain all tree handles as one atomic snapshot and does not resist or
+  authorize a concurrent writer. It creates and accepts no candidate, proves no
+  C++ semantics, build, binary, loaded module, endpoint, MCP behavior, provider
+  behavior, Asset Registry visibility, asset load, migration, placement, map,
+  visual, gameplay, performance, or real-GPU result.
+
+remaining_blockers:
+  - create the exact isolated project-owned fork skeleton outside active Unreal plugin discovery
+  - generate and authenticate separate baseline, candidate, and complete delta manifests with every path classified
+  - implement all twenty-two default-off restricted-mode controls and prove them with adversarial native behavior tests
+  - independently review candidate source, compile it in isolation, bind build provenance and output hashes, and create a separate runtime-authorization artifact
+  - keep both environment packs allows_usage_with_ai false and complete explicit external rights review
+  - obtain authoritative Asset Registry closure, isolated UE 5.8 conversion, exact migration, isolated mini-hub map, and real-GPU acceptance later
+
+next_safe_action: >-
+  In a separate bounded slice, create only the isolated default-off fork
+  skeleton from the authenticated 90-file descriptor, Resources, and Source
+  input. Keep it outside active plugin discovery, exclude vendor Binaries and
+  Intermediate, emit exact candidate and delta manifests, and do not compile,
+  install, launch Unreal, initialize MCP, or call a tool.

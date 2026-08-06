@@ -1,0 +1,135 @@
+schema_version: 1
+id: evidence.m07.seven-region-island-district-v4.real-gpu.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T00:37:55Z"
+evidence_class: real_gpu_visual
+result: scratch_island_district_rendered_visual_and_gameplay_fit_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V4
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_enabled: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+vendor_closure:
+  package_count: 265
+  present_packages: 261
+  missing_or_stale_packages:
+    - /Game/Zenscape-WildLands/Texture/Fog/T_Cloud_Mask
+    - /Game/Zenscape-WildLands/Texture/Fog/T_Cloud_Tile
+    - /Game/Zenscape_Island/Landscape/Texture/RVT_Landscape
+    - /Game/Zenscape_Island/Landscape/Texture/RVT_Landscape_Height
+  closure_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_VendorDemoMapClosure_20260727T000700Z/vendor_demo_map_closure.json
+    sha256: 041A847E1DBA3E77F20AABC8344A5468AC8907DCFC92D5B0E1A165C09F05DD66
+  stage_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_VendorDemoMapClosureStage_20260727T000835Z/closure_stage.json
+    sha256: 71EBE912A65934104E43FDA89E7EE8FA3F5FE933C8070A7579AE79439B3C45FB
+
+scratch_implementation:
+  authored_island_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource
+  authored_source_sha256: 9CA35B22913FF98BAA8129EE718B2608738B744A9D4827824D41D47F303236A4
+  source_prep_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_VendorIslandSourcePrep_20260727T001144Z/vendor_island_source_prep.json
+    sha256: F8DB969F2D9E61A527E51FE610890693F38DC6E8C4A923902C0A857D1178BD75
+  removed_demo_global_actor_count: 15
+  retained:
+    - vendor landscapes
+    - authored foliage
+    - rocks and plants
+    - local island effects
+  local_ocean:
+    actor_class: ARedM07LocalOceanDistrict
+    ocean_triangles: 129248
+    beach_transition_triangles: 37768
+    material: /Game/Zenscape_Island/Material/MI_Ocean
+    global_shell: false
+  beach_adapter: /Game/RedMMO/Staging/M07/Materials/M_M07_VendorBeachSand_CurvedAdapter
+  scratch_map:
+    bytes: 293425954
+    sha256: 179695C3FC45194B515C4630F2B65AF2A2E11E2BF1C705666FF3107D39FA9F19
+  build_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV4Build_20260727T032028Z/island_district_v4_build.json
+    sha256: 5B41BFFF607B7EC98E648DB9EF383E456AC506EBC25AB106AA4390F29A7D36E2
+
+real_gpu:
+  process:
+    executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+    pid: 6620
+    mode: standalone_game
+    clean_exit_requested_by_capture_harness: true
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  exact_map_loaded: true
+  game_mode: RedGameMode
+  ai_provider_ports_8000_or_5353_observed: false
+  ordinary_cmdlink_port_1985_observed: true
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV4RealGPU_20260727T003714Z/M07_IslandDistrict_R15_V4_Wide.png
+    bytes: 2437375
+    sha256: 8DBD67638B7461698F3BE579A1D1DF566F208BA3147CCE1A67FCC195D783A654
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV4RealGPU_20260727T003714Z/M07_IslandDistrict_R15_V4_Near.png
+    bytes: 2358297
+    sha256: 0DBA63C0F5A925C6CE2CE93DAF9D3E51927313CEB11EC389D867727AE634FB3B
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV4RealGPU_20260727T003714Z/M07_IslandDistrict_R15_V4_Standalone.log
+    sha256: 89758186BA7C4F0E08B6466C834E8F76FC2A7C8D1C56ADA9F3689CB7E32353C7
+
+observed_failures:
+  - planetary lighting and exposure clip the beach and vegetation while leaving large rock faces nearly black
+  - a hard rectangular authored-landscape footprint remains visible instead of a natural perimeter blend
+  - the beach or desert transition band is too bright and broad and does not read as the vendor shoreline
+  - the two missing vendor RVT packages produce repeated cliff and rock material load errors, so rock fidelity is not accepted
+  - gameplay RestartPlayer began near radius 850775 cm, then the existing surface resolver snapped the pawn about 63023 cm to the lowered PlanetGen basin beneath the imported island
+
+acceptance:
+  authentic_island_composition_present: true
+  seven_region_local_ocean_geometry_present: true
+  real_gpu_pixels_captured: true
+  gameplay_surface_routing: false
+  lighting_and_exposure: false
+  shoreline_and_perimeter_blend: false
+  rock_material_fidelity: false
+  local_ocean_visual_acceptance: false
+  performance: false
+  chaos_layer_implemented: false
+  human_visual_acceptance: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Create a scratch-only V5 successor that first routes player surface resolution
+  to the authored Region-15 island surface, then replaces the hard rectangular
+  landscape edge with an explicit local-height mask and narrower shoreline
+  feather. Adapt the affected cliff and rock materials away from the two absent
+  RVT packages and set a controlled planetary-sun exposure. Repeat the same
+  provider-off D3D12 wide and near capture before any human acceptance. Keep the
+  bounded Chaos layer deferred until the island district has passed this visual
+  and gameplay-surface gate.
+
+claim_limit: >-
+  This proves that one authentic vendor-derived island composition plus a
+  seven-region local ocean and beach geometry can be loaded and rendered on the
+  disposable spherical scratch planet under D3D12 SM6. It does not prove a
+  playable island, correct player surface routing, accepted lighting, shoreline,
+  rock materials, water, collision, navigation, performance, Chaos, surface to
+  orbit behavior, or production integration.

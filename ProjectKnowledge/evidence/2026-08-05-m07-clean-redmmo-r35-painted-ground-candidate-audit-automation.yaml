@@ -1,0 +1,120 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r35-painted-ground-candidate-audit.2026-08-05
+captured_utc: "2026-08-05T14:08:43Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r35-installed-painted-ground-candidate-audit
+evidence_class: automation
+result: passed_read_only_shortlist_identified_binding_not_yet_changed
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.81
+  commit_headroom_gib: 49.57
+  free_gpu_vram_mib: 7712
+  free_d_drive_gib: 767.95
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+audit:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_painted_ground_candidates_r35.py
+  driver_sha256: DDA6D12CA27287A40E286E8594409277B791A63A1FB8EB732B3BF25081C705B2
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PaintedGroundCandidates_R35_20260805T1410Z/candidate_audit.json
+  result_sha256: 21C870E5A85321DF5BBFF91A1BC0C60D3B514D9C15C6D3CA6B610AE6920335A7
+  terminal_status: PASS_READ_ONLY_CANDIDATES_EXPORTED
+  renderer: D3D12
+  editor_exit_code: 0
+  elapsed_seconds: 37.4
+  texture_records: 12
+  diagnostic_pngs: 11
+  map_loaded: false
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+
+verified_candidates:
+  preferred_painted_clutter_color:
+    asset: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    companion_present_on_disk: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+    exported_png: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PaintedGroundCandidates_R35_20260805T1410Z/exports/T_Grass1_BC.png
+    exported_png_sha256: 0A543AC27EB9697CC30152A49D3997994B6E5F5A9F2EB25E514872B717472512
+    visual_finding: >-
+      The export contains deliberately painted low-frequency grass/clutter,
+      tiny plant rosettes and sparse pebble-like color marks. It is materially
+      different from the current large repeated leaf-stroke texture and is the
+      strongest audited match for a hand-painted underlayer.
+    gate: >-
+      Only the color texture was opened by Unreal in this audit. The companion
+      roughness asset is present, but its semantics and the exact flat-normal or
+      project-owned packed-mask route remain unverified before binding.
+  painted_grass_alternatives:
+    - asset: /Game/Zenscape_Savanna/Model/Grass/Grass/Textures/T_Grass_Tile_C
+      exported_png_sha256: B428133A8E1F808FF3F4EE433C869E943C495CA36D119782237C64AC6D6C5CEE
+      finding: painted directional grass strokes; greener and more repetitive than the preferred candidate
+    - asset: /Game/Zenscape_Savanna/Model/Grass/Grass/Textures/T_Grass_Tile_SplatMap_01_C
+      exported_png_sha256: 9BF61CEC56047BB3835979750C013CFF646F5989776F39912BE63D9BCECC19EE
+      finding: low-frequency painted green variation without readable leaf clutter
+    - asset: /Game/Zenscape_Savanna/Model/Grass/Grass/Textures/T_Grass_Tile_SplatMap_C_02
+      exported_png_sha256: 3E1488A11C7CBBB3C53726A94453D0B1689B515B9C6247E76F7D948746C1FB51
+      finding: darker low-frequency painted green variation; Island and Savanna copies export byte-identically
+    - asset: /Game/Zenscape_Savanna/Model/Grass/Grass/Textures/T_Grass_Tile_SplatMap_C_03
+      exported_png_sha256: CBD1F9586BFEF497C2D1A2B6F0BC76014E80FD9DAE7B51659CD6D1085AF3C7DC
+      finding: ochre painted variation suited to a dry biome, not the primary grassland underlayer
+  rejected_for_surface_base:
+    - asset: /Game/AlienJungle/Textures/T_bushAleaf_c
+      reason: visually a large leaf-card atlas rather than a seamless ground underlayer
+    - asset: /Game/AlienJungle/Textures/T_groundMossA_c
+      reason: dependency-complete landscape family but visually high-frequency photographic moss rather than the requested hand-painted style
+    - asset: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_BC
+      reason: current active family contains large repeated pale leaf strokes and R34 already falsified scale-only correction through the exposed instance control
+
+material_closure_findings:
+  alien_jungle_leaf_ground: >-
+    MI_bushA_leafGround, MI_bushB_leafGround and MI_bushC_leafGround expose
+    UVscale, normal, roughness, AO, color-variation and hue controls with full
+    BC/normal/MRA/opacity closures, but they are card/prop materials and their
+    large atlas imagery is not a valid planet surface base.
+  alien_jungle_landscape: >-
+    MI_landscape exposes dependency-closed dirt, moss, rock and root texture
+    families, but its vendor tessellated landscape parent is not directly
+    compatible with the PPG surface and its exported moss family is not the
+    requested painted style.
+  preferred_candidate_binding: >-
+    T_Grass1_BC is a real visual candidate, but no surface package was changed.
+    The next transaction must inspect T_Grass1_R semantics and construct a
+    project-owned PPG-compatible flat-normal/roughness closure before any
+    rollback-backed surface successor is attempted.
+
+canonical_validation:
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R35_20260805T1415Z.json
+  integrity_report_sha256: 351E69BCEBD3B32DE0CB0F43043796133A689DB70E6FB1224184AAFCBC84BBD2
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  active_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R35 is read-only Unreal automation plus diagnostic source-pixel review. It
+  proves exact installed asset identities and narrows the candidate set; it
+  does not prove a PPG material binding, in-world appearance, grass visibility,
+  terrain or biome acceptance, gameplay, standalone, replication or multiplayer.
+
+next_safe_action: >-
+  Inspect the exact SoStylized T_Grass1_R semantics and its source material use,
+  then create a rollback-backed project-owned PPG surface successor using
+  T_Grass1_BC only if a flat-normal and correct roughness/mask closure is proven.
+  Preserve the restored R33/R34 surface, R32 grass parent, R29 eligibility,
+  all seeded placements, terrain, seed, topology, water and spawn. Require a
+  fresh grass-visible normal-lit player-scale D3D12 comparison without any
+  transient visibility change before retaining a surface write.

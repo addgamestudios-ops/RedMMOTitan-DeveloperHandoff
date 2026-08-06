@@ -1,0 +1,206 @@
+schema_version: 1
+id: EVIDENCE-2026-07-25-UNREAL-AI-INTEGRATION-MEMORY-RECOVERY
+captured_at: 2026-07-25
+module: unreal_editor_ai_integration_recovery
+evidence_class: static
+result: physical_ram_blocker_confirmed_and_duplicate_bridge_headroom_recovered
+
+requested_action:
+  - recover enough memory for one safe Unreal Editor launch
+  - verify Epic UE 5.8 ModelContextProtocol endpoint
+  - inventory UAIP, Nwiro, StudioTwin, VibeUE, and other local AI integrations
+  - preserve project RAM guardrails, user work, applications, caches, and installations
+
+preflight:
+  authoritative_checkout: D:/RedMMOTitan
+  unreal_editors_running: 0
+  physical_ram:
+    total_gb: 31.87
+    initial_free_gb: 9.82
+    stable_prelaunch_samples_gb: [9.90, 9.96, 9.98]
+  commit:
+    limit_gb: 54.87
+    initial_free_gb: 23.45
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mb: 10240
+    initial_free_vram_mb: 7732
+  disk:
+    d_free_gb: 1105.39
+  endpoint_listeners:
+    port_8000: 0
+    port_8765: 0
+  process_disposition:
+    unreal_duplicates_found: 0
+    codex_app_instances_found: 1
+    user_applications_closed: 0
+    epic_launcher_closed: false
+
+bounded_editor_attempt:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  engine_version: "5.8.0 release CL 55116800"
+  project: D:/RedMMOTitan/Titan.uproject
+  pid: 8888
+  map: /Engine/Maps/Templates/Template_Default
+  arguments:
+    - -NullRHI
+    - -NoSound
+    - -NoSplash
+    - -Unattended
+    - -NoPause
+    - -NoCompile
+    - -NoLiveCoding
+    - -NoSourceControl
+    - -ModelContextProtocolStartServer
+  safety_floor_free_physical_gb: 8.0
+  observed_progress:
+    - time_local: "01:30:33"
+      editor_private_gb: 0.02
+      free_physical_gb: 9.90
+      port_8000_listening: false
+    - time_local: "01:32:45"
+      editor_private_gb: 1.30
+      free_physical_gb: 8.24
+      loaded_ai_foundation: UnrealEditor-ToolsetRegistry.dll
+      port_8000_listening: false
+    - time_local: "01:33:17"
+      editor_private_gb: 1.96
+      free_physical_gb: 7.37
+      port_8000_listening: false
+  action:
+    - The exact launched UnrealEditor PID was stopped when the physical-RAM guard crossed 8 GiB.
+    - The editor remained responsive, but it had not reached ModelContextProtocol, UAIP, or Nwiro endpoint startup.
+    - No runtime, visual, gameplay, package, multiplayer, or current MCP-live claim was made.
+
+duplicate_uaip_bridge_recovery:
+  identity:
+    codex_parent_pid: 37780
+    command: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge/.venv/Scripts/python.exe
+    argument: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge/thin_proxy.py
+  before:
+    identical_proxy_processes: 18
+    proxy_pairs: 9
+    working_set_mb: 573.5
+    private_mb: 410.8
+    free_physical_gb: 8.95
+  action:
+    stopped_older_duplicate_processes: 16
+    retained_newest_proxy_processes: 2
+    stopped_proxy_pairs: 8
+    retained_proxy_pairs: 1
+  after:
+    free_physical_gb_immediate: 9.37
+    final_free_physical_gb: 9.54
+    final_free_commit_gb: 23.17
+    unreal_editors_running: 0
+    port_8000_listeners: 0
+    port_8765_listeners: 0
+  safety:
+    - Exact thin-proxy command lines and parent-child relationships were verified before termination.
+    - The Codex application and its active server process were not terminated.
+    - No cache, asset, project configuration, plugin installation, or unrelated process was removed or changed.
+
+installed_ai_integrations:
+  epic_model_context_protocol:
+    installation: D:/UE_5.8/Engine/Plugins/Experimental/ModelContextProtocol/ModelContextProtocol.uplugin
+    project_enabled: true
+    configured_endpoint: http://127.0.0.1:8000/mcp
+    auto_start: true
+    tool_search: true
+    current_live: false
+    historical_live_proof:
+      - D:/RedMMOTitan/Saved/Logs/Titan-backup-2026.07.23-10.23.56.log
+      - D:/RedMMOTitan/Saved/Logs/Titan-backup-2026.07.23-10.18.46.log
+    historical_observation: server_started_on_port_8000_with_toolsets
+  uaip:
+    installation: D:/UE_5.8/Engine/Plugins/Marketplace/UnrealAI7e71c887d91fV2/UnrealAIIntegrationPlatform.uplugin
+    plugin_version: "1.0.0"
+    project_enabled_editor_only: true
+    transports: [HTTP, WebSocket, MCP_via_HTTP]
+    bridge:
+      path: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge
+      version: "1.1.2"
+      default_endpoint: http://localhost:8765/mcp
+      codex_server_name: uaip_titan
+      codex_registration: C:/Users/user/.codex/config.toml
+      project_path_from_codex_env: D:/RedMMOTitan/Titan.uproject
+      editor_path_from_codex_env: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+      scenario_enabled: false
+    current_live: false
+    historical_live_proof:
+      - D:/RedMMOTitan/Saved/Logs/Titan-backup-2026.07.23-10.23.56.log
+      - D:/RedMMOTitan/Saved/UAIP/Sessions
+    historical_observation: localhost_only_MCP_server_started_on_8765_and_successful_automation_calls_exist
+  nwiro:
+    integration_kit:
+      installation: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/NwiroIntegrationKit.uplugin
+      version: "1.0.9"
+      project_enabled: true
+      declared_clients: [Claude_Code, Codex_CLI, Cursor, Windsurf]
+      declared_protocol: MCP
+    pro:
+      installation: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Nwiro.uplugin
+      version: "1.1.9"
+      project_enabled: true
+    installed_after_last_successful_editor_session: true
+    configured_endpoint_found: false
+    current_live: false
+    claim_limit: Installed and project-enabled only; the RAM-aborted editor attempt did not reach either Nwiro module.
+  studio_twin:
+    project_entry_found: false
+    plugin_descriptor_found: false
+    plugin_binary_found: false
+    epic_install_manifest_found: false
+    installed: false
+  vibeue:
+    project_entry_found: true
+    project_enabled_flag: true
+    platform_deny_list: [Win64]
+    plugin_descriptor_found: false
+    plugin_binary_found: false
+    installed_for_windows: false
+  epic_ai_assistant:
+    installation: D:/UE_5.8/Engine/Plugins/Experimental/AIAssistant/AIAssistant.uplugin
+    historical_module_load_proof: D:/RedMMOTitan/Saved/Logs/Titan-backup-2026.07.23-10.23.56.log
+    embedded_url: https://dev.epicgames.com/community/assistant/embedded
+    external_mcp_endpoint_found: false
+  unavailable_project_entries:
+    - name: MCPClientToolset
+      enabled: false
+      implication: The editor is not configured to aggregate external MCP servers as a client.
+    - name: BpGeneratorUltimate
+      enabled_flag: true
+      platform_deny_list: [Win64]
+      plugin_descriptor_found: false
+
+orchestration_compatibility:
+  shared_editor_tool_backend:
+    status: architecturally_compatible_but_not_currently_live
+    candidates: [Epic_ModelContextProtocol, UAIP_MCP_Bridge, Nwiro_Integration_Kit]
+    rule: Use one serialized mutating editor client at a time because all clients share one mutable editor and project state.
+  shared_prompt_bus:
+    provided_by_installed_plugins: false
+    note: The installed MCP transports expose Unreal tools; they do not dispatch one prompt to multiple independent models or normalize model answers.
+  codex_as_judge:
+    feasible_external_pattern: true
+    requirements:
+      - an external coordinator dispatches an identical versioned prompt to independent proposer models
+      - proposer outputs and Unreal evidence are stored separately and immutably
+      - Codex judges against a declared rubric without concurrent editor mutation
+      - only the selected action is serialized through one live Unreal MCP backend
+    current_runtime_verified: false
+
+retry_when:
+  - Reclaim enough physical RAM that a full editor startup remains above the 8 GiB abort floor.
+  - Do not treat a Codex restart as the durable duplicate-proxy remedy; the restarted client can create another stdio proxy pair for each live MCP client session.
+  - Prevent reaccumulation by migrating uaip_titan from the auto-launching stdio bridge to the editor's direct Streamable HTTP endpoint after guarded editor startup, subject to a deliberate user-approved Codex configuration change.
+  - Do not close unrelated user applications automatically; obtain a user decision if additional headroom requires that.
+  - Retry one editor only, then require a live process, a port 8000 listener, a successful MCP initialize request, and explicit Nwiro and UAIP module-load evidence.
+
+claim_limit: >-
+  This is static inventory plus resource-safety evidence from a bounded NullRHI
+  editor attempt. Historical July 23 logs prove that UAIP and Epic MCP worked
+  then, but neither endpoint is live now. Nwiro is installed but was not reached
+  by the current startup. StudioTwin and a usable Win64 VibeUE installation are
+  absent. No visual, gameplay, package, multiplayer, or current live-MCP gate is
+  satisfied.

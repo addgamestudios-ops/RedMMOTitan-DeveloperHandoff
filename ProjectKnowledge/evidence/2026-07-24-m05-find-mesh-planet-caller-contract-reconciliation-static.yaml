@@ -1,0 +1,195 @@
+schema_version: 1
+id: EVIDENCE-2026-07-24-M05-FIND-MESH-PLANET-CALLER-CONTRACT-RECONCILIATION-STATIC
+captured_at: "2026-07-24T06:02:00Z"
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed_stale_caller_census_reconciled_fail_closed
+
+scope:
+  changed_project_files:
+    - Tools/tests/test_planet_pcg_runtime_registry_contract.py
+  gameplay_source_files_changed: 0
+  unreal_asset_or_map_files_changed: 0
+  config_or_plugin_files_changed: 0
+  build_outputs_changed: false
+  unreal_or_build_processes_launched: 0
+  canonical_defect_created: false
+  ownership: M05_static_contract_drift
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_worktree:
+    total_entries: 1527
+    modified_entries: 60
+    untracked_entries: 1467
+    preservation: unrelated_entries_untouched
+  stale_git_index_lock:
+    path: D:/RedMMOTitan/.git/index.lock
+    bytes: 0
+    last_write_utc: "2026-07-17T06:57:35Z"
+    action: left_untouched
+  memory_samples:
+    count: 3
+    free_physical_gib_range: [14.95, 15.41]
+    free_commit_gib_range: [30.22, 30.65]
+    package_gate_required_free_physical_gib: "18-20 sustained"
+    decision: no_unreal_build_cook_or_package
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    free_vram_mib: 8582
+    utilization_percent: 0
+  free_disk_gib:
+    D: 1140.03
+  unreal_or_build_processes: 0
+  latest_unreal_log:
+    path: Saved/Logs/Titan.log
+    last_write_utc: "2026-07-23T13:49:22Z"
+    terminal_state: clean_exit
+  project_knowledge_integrity_prerecord:
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_053543_PlanetPcgContract/project_knowledge_integrity_prerecord.json
+    report_sha256: 9BD1273EC2225267C4E8D699D7DB9A9C573641AC8214AA94E37C7736B09CC313
+
+corrected_stale_finding:
+  prior_contract:
+    expected_find_mesh_planet_call_census:
+      three_argument: 9
+      four_argument: 17
+      five_argument: 0
+    focused_result: 11_of_12_passed
+    first_failure: "four-argument calls were 22 rather than the frozen count 17"
+    masked_next_failure: "one reviewed five-argument editor-automation call existed rather than the frozen count 0"
+  current_census:
+    three_argument: 9
+    four_argument: 22
+    five_argument: 1
+    unsupported_argument_counts: 0
+  root_cause: >-
+    The two RedGravity ABI files remained byte-identical to the M05 compatibility
+    checkpoint. Five later supported four-argument calls and one strict
+    five-argument editor-automation call made the aggregate caller census stale.
+  historical_label_correction: >-
+    This is M05 runtime-reservation-registry contract drift. Historical later
+    evidence that narratively called it an M07 Planet PCG failure remains
+    immutable and is prospectively superseded by this ownership record.
+
+reviewed_additive_callers:
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    lines: [2246, 2884]
+    arity: 4
+    scope_guard: "#if !UE_BUILD_SHIPPING at line 1183 through line 3877"
+    role: development_only_DEF0008_and_DEF0003_audit_paths
+  - path: Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    lines: [254, 576, 731]
+    arity: 4
+    scope_guard: WITH_DEV_AUTOMATION_TESTS_and_WITH_EDITOR
+    role: editor_only_two_client_automation
+  - path: Source/RedMMO/Tests/RedDEF0003ActualFieldPIETests.cpp
+    lines: [527]
+    arity: 5
+    scope_guard: WITH_DEV_AUTOMATION_TESTS_and_WITH_EDITOR
+    role: editor_only_strict_unique_planet_nominal_radius_query
+
+implemented:
+  - Extracted the nested-parenthesis call scanner into one reusable fail-closed helper that preserves source offsets.
+  - C++ line comments, block comments, quoted strings, character literals, and raw-string bodies are masked before token and delimiter parsing so non-code text cannot create or truncate a call.
+  - Exact C++ identifier boundaries are matched with arbitrary whitespace or masked comments before the opening parenthesis; prefixed lookalike identifiers are ignored.
+  - Empty calls are recorded as unsupported arity zero instead of being silently skipped.
+  - Unterminated FindMeshPlanet call syntax now raises instead of being silently skipped.
+  - Every normalized path, signature, and duplicate multiplicity recorded by the M05 compatibility checkpoint is retained as a legacy anchor.
+  - Later three- and four-argument callers are accepted only because they use an existing supported overload.
+  - The sole five-argument caller is exact-path allowlisted and its exact source offsets must fall inside the true branch of the unique guarded DEF-0003 editor PIE test block, before any depth-one else or elif.
+  - Any other five-argument location or any unsupported arity fails the contract.
+  - Comment-only, string-only, empty-call, literal-parenthesis six-argument, and unterminated-call mutants are exercised; unsupported shapes fail closed.
+  - RedGravity declarations, definitions, wrappers, and caller source were not changed.
+
+files:
+  - path: Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    preimage_sha256: 420AC3C965539A4B3C81B95AA2704D7B35CFB3C0348B7F616AE80BC720AE8F83
+    postimage_sha256: C8E5CC16AFCB274BCE95CDD9C26B816B1AD722BC7C08A13405DB3D54F8CCB80F
+  - path: Source/RedMMO/RedGravityBodies.h
+    sha256: 3463210BC06B2E22355E5B27A662D434C97F835D4D2A87805F53394DBE257911
+    state: byte_identical_to_linked_M05_compatibility_evidence
+  - path: Source/RedMMO/RedGravityBodies.cpp
+    sha256: F4E4E275247F3CB5D4B594C1FDFA917BAB88E32D8F7FA92CDB12779539FA2CD5
+    state: byte_identical_to_linked_M05_compatibility_evidence
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: 0CAC31368C11B9938D72733846789259FA2D94FE78B6E8D3E6EFDF505FC5A0A4
+    state: unchanged_by_this_slice
+  - path: Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    sha256: D5857BD92C0358B87A1E34E294032D3C0BBD21977BDC263E712690DB7E67E511
+    state: unchanged_by_this_slice
+  - path: Source/RedMMO/Tests/RedDEF0003ActualFieldPIETests.cpp
+    sha256: A6D2F2399FCF1E31A5D340B9627373C24DEAF6A5BEA9D6FD0337B6F4766B44B6
+    state: unchanged_by_this_slice
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+    state: unchanged
+
+verification:
+  focused_runtime_registry_contract:
+    command: "python -B -m unittest Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: 13_of_13_passed
+    stderr_log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_053543_PlanetPcgContract/planet_pcg_runtime_registry_focused_final.stderr.log
+    stderr_log_sha256: 4D184FFF3CC16DA071233E0258CCA408DEC80382582088E532523C5274DF8EC2
+  combined_M05_offline:
+    command: "python -m unittest Tools.tests.test_audit_world_authoring_packages Tools.tests.test_planet_pcg_reservations Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: 31_of_31_passed
+    stderr_log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_053543_PlanetPcgContract/m05_combined_offline_final.stderr.log
+    stderr_log_sha256: A5D0B2540CB0B08348D009828283003A052AEE31CF7608996BDB3F9E4C8714E9
+  full_static_discovery:
+    command: "python -m unittest discover -s Tools/tests -p test_*.py -v"
+    result: 500_of_506_passed_with_5_failures_and_1_error
+    former_planet_pcg_failure_present: false
+    remaining_unrelated_findings:
+      - DEF-0005 compile-link evidence lineage: one error and one failure
+      - Night T03 cook guard and Milky Way binding: four failures
+    stdout_log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_053543_PlanetPcgContract/full_static_discovery_final.stdout.log
+    stdout_log_sha256: 9BEA21BC9DF952848BC6CCCF9AD07085FF7FAA645257360772A3B4439EB1C7E7
+    stderr_log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_053543_PlanetPcgContract/full_static_discovery_final.stderr.log
+    stderr_log_sha256: E806EB85718F707985652ED23B7F5E637C6EE53F11871BB23761585C1C22F8AC
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M05_FindMeshPlanetCallerContract_20260724_084700
+  exact_preimages:
+    - Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/INDEX.yaml
+  preimage_copy_hashes_verified: 4_of_4
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  all_match: true
+
+canonical_sync:
+  prior_module_queue_sha256: 19AEC3D757838B16CEE10C9F7F32F67BB0ECCE9AE8156C47C90D9DE6CD387CBC
+  module_queue_sha256_after: DF77BF79F55A4CD020ECFB77318E692C286600BB385E15338EC0DD52EFFD3260
+  module_status: in_progress
+  retry_count_after: 2
+  status_advanced: false
+
+preservation:
+  - Protected checkpoints, production and fused maps, fused heightfield, artist repositories and handoffs, vendor content, user assets, and unrelated dirty work were not modified.
+  - Surface dressing remains disabled and no PCG, WorldGen, celestial-frame producer, map actor, asset, or runtime adapter was enabled.
+  - No Unreal Editor, UHT, UnrealBuildTool, cook, package, runtime, multiplayer, or real-GPU process was launched.
+
+limitations:
+  - This is Python static-contract evidence, not compilation or execution of the C++ registry.
+  - The prior M05 build and NullRHI evidence is not refreshed by this slice.
+  - No authority-owned celestial-frame producer is wired, so production lookup still intentionally fails closed.
+  - Frame lifecycle, PlanetGen live-radius authentication, client replication, decoded asset state, authored masks, runtime placement, multiplayer, and visible overlap remain unverified.
+  - The remaining DEF-0005 and Night T03 full-discovery findings are outside this one-module slice and remain open.
+
+claim_limit: >-
+  This evidence proves only that the stale M05 FindMeshPlanet caller census was
+  reconciled without changing the ABI or losing the recorded legacy caller
+  families, that reviewed additive call shapes remain scoped, and that the
+  focused and combined offline contracts pass. It does not prove a build, C++
+  execution, production wiring, runtime placement, rendering, gameplay,
+  packaging, Steam transport, or multiplayer acceptance.

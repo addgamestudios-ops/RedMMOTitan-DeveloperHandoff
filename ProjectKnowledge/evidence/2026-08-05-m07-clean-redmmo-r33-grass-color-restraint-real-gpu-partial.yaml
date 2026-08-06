@@ -1,0 +1,133 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r33-grass-color-restraint-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T13:43:03Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r33-project-owned-grass-color-restraint
+evidence_class: real_gpu_visual
+result: partial_normal_view_less_neon_but_isolated_unlit_gate_failed
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.86
+  commit_headroom_gib: 49.73
+  free_gpu_vram_mib: 7776
+  free_d_drive_gib: 767.96
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_parent_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  seed: 1337
+  map_saved: false
+
+writes:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N.uasset
+    before_sha256: DD8E4BEE5ECB06FE126E1662E1D35475AC0441BB4FD2015BD1BF59C44952C82E
+    after_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N.uasset
+    before_sha256: 9EC5A7261F8C9606931DD596A4F71F7ADD8D746F6C5C5055523E2951939E6CC1
+    after_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  - path: D:/RedMMOTitan/Build/Automation/apply_verify_redmmo_grass_color_r33.py
+    sha256: 851F7F19E56D90767C0A6D700022475FBB9D4AF78A6BDEC7CE4DCDBE876D0159
+
+parameters:
+  material_a_color: [0.035, 0.140, 0.018, 1.0]
+  material_b_color: [0.045, 0.180, 0.024, 1.0]
+  material_a_highlight: [0.080, 0.220, 0.035, 1.0]
+  material_b_highlight: [0.110, 0.280, 0.050, 1.0]
+  grass_color_intensity: 0.82
+  grass_color_contrast: 0.96
+  grass_color_saturation: -0.05
+  grass_color_min_value: 0.72
+  grass_color_max_value: 0.95
+  unchanged_controls:
+    - PPG density and distribution
+    - local mesh scale and height
+    - highlight amount, density and gradient contrast
+    - mesh identities, cull, LOD, eligibility, seed and topology
+
+automation:
+  render_backend: D3D12
+  render_mode: RenderOffscreen
+  resolution: [1280, 720]
+  provider_plugins_disabled: true
+  passing_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33C_20260805T1400Z/result.json
+  passing_result_sha256: 48842F58FFB76B1B6F351CAECFEE9EBAE520B3BA13C6FA024C76F29FC2A9F189
+  passing_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33C_20260805T1400Z/unreal.log
+  passing_log_sha256: 8026CB80A4B83D3B367CD883940AA4F60C220764F5E2F6006C4D5C1E07046052
+  terminal_status: PASS_R33_GRASS_COLOR_SAVED_AND_D3D12_CAPTURED_PENDING_PIXEL_REVIEW
+  capture_only_postimage_recheck: true
+  capture_only_serialized_changes: [false, false]
+  earlier_same_slice_attempts:
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33_20260805T1340Z
+      result: normal_view_improved_but_unlit_black
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33B_20260805T1350Z
+      result: raised_value_range_did_not_restore_unlit
+
+runtime:
+  generation_phase: COMPLETE
+  approved_grass_components: 196
+  total_reported_instances: 2218356
+  hidden_non_grass_primitives_for_unlit_capture: 1582
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+captures:
+  grass_only_unlit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33C_20260805T1400Z/grass_only_unlit_r33.png
+    sha256: A0DE39F81BA47B14FB69493F767E476796E44AFF38340CBF9F2FB1FDBE50CCEA
+    bytes: 18571
+    nonblack_pixel_ratio_gt_8: 0.000078
+    independent_review: >-
+      The isolated unlit capture is still black except for the crosshair. A
+      no-write delayed recapture produced the same exact image, so transient
+      shader warmup is falsified; the unlit material gate remains failed.
+  player_scale_normal_lit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassColor_R33C_20260805T1400Z/player_scale_normal_lit_r33.png
+    sha256: B93CE58ABE1D513F3D638E498B0395A2D660A68F1ACACD88FD6F1210B602DDE4
+    bytes: 1560145
+    mean_rgb: [43.971, 108.591, 28.629]
+    nonblack_pixel_ratio_gt_8: 0.917486
+    green_dominant_pixel_ratio: 0.803099
+    saturated_green_pixel_ratio: 0.058908
+    comparison_to_r32: >-
+      Saturated-green coverage fell from 30.4646 percent to 5.8908 percent and
+      mean green fell from 127.110 to 108.591. Dense grass remains clearly
+      visible at player scale. This is a material improvement, not acceptance:
+      the ground is still uniformly green, palms are repetitive and sky is black.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeGrassColor_R33_20260805T1335Z
+  manifest_sha256: A9ADAD1A17277121FB5F130F01C22EB4AEF79B14E176815B41EBC079D69A78BC
+  policy: authenticate current two postimage hashes and restore the exact R32 preimages
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  R33 is real-D3D12 evidence that the persisted grass is materially less neon
+  and remains dense in the normal player view. The isolated unlit gate fails,
+  the whole biome is not visually accepted, and gameplay, standalone,
+  replication, multiplayer and player approval are not claimed.
+
+next_safe_action: >-
+  Retain the R33 normal-view color improvement and record the unlit debug path
+  as an exact blocker rather than repeating it. Move on to the independent
+  project-owned painted ground-underlayer slice: inspect the active R10M/R15
+  ground material bindings and make one rollback-backed low-frequency
+  hand-painted green/leaf-scale correction without touching terrain, seed,
+  grass placement, water or topology. Require a normal-lit player-scale D3D12
+  comparison. Surface stars/moon remain a separate queued presenter slice.

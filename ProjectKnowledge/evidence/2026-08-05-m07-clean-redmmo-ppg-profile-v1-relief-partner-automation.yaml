@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-relief-partner-automation.2026-08-05
+captured_utc: "2026-08-05T04:54:01Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-direct-relief-partner-topology
+evidence_class: automation
+result: pass_read_only_missing_partners_mapped
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  generation_material: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  first_pid: 8256
+  canonical_pid: 24004
+  minimum_observed_free_physical_ram_gib: 47.22
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+  desktop_control: false
+
+topology:
+  expression_count: 122
+  normal_edge_count: 148
+  elevation_output: MaterialExpressionPlanetElevationOutput_0
+  exact_output_order: [Craters, Mountains, Desert, Ocean, Hills, Poles]
+  unresolved_roles:
+    Craters:
+      branch_root: MaterialExpressionAdd_0
+      parameters: [CratersDetaliNoise]
+      planet_noise: [MaterialExpressionPlanetNoise_1]
+      missing_profile_partners: [HeightScale, HeightBias]
+    Mountains:
+      branch_root: MaterialExpressionReroute_0
+      parameters: [MountainsHeight, MountainDetails]
+      planet_noise: [MaterialExpressionPlanetNoise_0]
+      missing_profile_partners: [HeightBias]
+    Desert:
+      branch_root: MaterialExpressionDivide_0
+      parameters: []
+      literal_constants: [0.30000001192092896, 0.6000000238418579]
+      planet_noise: [MaterialExpressionPlanetNoise_3, MaterialExpressionPlanetNoise_4]
+      missing_profile_partners: [HeightScale, HeightBias]
+    Hills:
+      branch_root: MaterialExpressionAdd_3
+      parameters: [HillsDetails, HIllsHeight]
+      missing_profile_partners: [HeightBias]
+  controls_not_reclassified:
+    - CratersDetaliNoise
+    - MountainDetails
+    - HillsDetails
+  note: >-
+    Detail-amplitude parameters and Desert literals are recorded exactly but
+    are not relabeled as missing height or bias controls. Creating those
+    project-owned partners would be a later graph-extension transaction.
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ReliefPartners_20260805_0447_R02/audit_redmmo_ppg_profile_v1_relief_partners_result.json
+    sha256: 52E095553D110DF21A3FF474D68F725E116D88B134328CFBD5B6E1B699E0D7AE
+  retained_first_attempt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ReliefPartners_20260805_0447/audit_redmmo_ppg_profile_v1_relief_partners_result.json
+    sha256: 8C11CE1E373088E55D4C2920C5EDBC143FF104ABFD039BC182AAF554D79E02A5
+    disposition: >-
+      Failed before publishing branch records because its expected exact
+      parameter list was overstrict; the canonical retry records discovered
+      branch-local parameters without assuming names.
+  audit_script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_relief_partners.py
+    sha256: DA7F3B93E7D83467E31BC04C3B2F552ECD2BCDA57ACF88D562799C7349954E2D
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ReliefPartners_20260805_0447_R02/project_knowledge_integrity_after.json
+    sha256: 5483023BC50BED8B9C50AF06E9764E45C18D3E08F3524F6F903627845D1C04C7
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - all six exact PlanetElevationOutput biome inputs are connected and directly traced
+    - Craters and Desert have no role-local scalar height or bias parameter in their normal upstream closure
+    - Mountains and Hills retain their known height scalar but have no role-local bias scalar in their normal upstream closure
+    - existing detail parameters and Desert constants remain distinct and unmodified
+    - no save, regeneration, map binding or desktop-control action occurred
+  not_verified:
+    - no missing relief control was created, tagged or connected
+    - ProfileV1 remains unbound and no visible planet, gameplay or runtime state changed
+    - DetailNoise, shoreline flattening and role-specific surface selection remain fail-closed
+
+next_safe_action: >-
+  Read-only audit the native shoreline-smoothing path and determine whether one
+  existing connected expression can safely represent ShorelineFlattenThreshold.
+  Do not create a parameter, bind ProfileV1, regenerate or save the home map.

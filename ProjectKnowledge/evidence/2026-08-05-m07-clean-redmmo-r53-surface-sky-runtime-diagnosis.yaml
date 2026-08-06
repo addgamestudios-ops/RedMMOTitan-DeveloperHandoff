@@ -1,0 +1,152 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r53-surface-sky-runtime-diagnosis.2026-08-05
+captured_utc: "2026-08-05T18:58:14Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r53-read-only-surface-sky-runtime-diagnosis
+evidence_class: automation
+result: full_night_state_proven_and_volumetric_cloud_planet_radius_mismatch_isolated
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count: 194
+  free_physical_ram_gib: 53.59
+  commit_headroom_gib: 56.29
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.48
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 56B94B4988CBD7E9CEC2E3CC062801372BE47569AF661D541B776219B1087A60
+  desktop_control: false
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  provider_plugins_disabled: true
+  save_called: false
+  driver: D:/RedMMOTitan/Build/Automation/diagnose_redmmo_surface_sky_r53.py
+  driver_sha256: EA3A2264468947C5750F06182A1F49FE095AF034D9E9083E2CCDD19D01F7771A
+  first_attempt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceSky_R53_20260805T1855Z/result.json
+    status: failed_safely_on_harness_only_get_planet_accessor_assumption
+    mutation: none
+  passing_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceSky_R53B_20260805T1858Z/result.json
+    sha256: 7EA917F19E5BBC3571F1204216B75E0CFD7084FB1D3EF101E2E3123D178BB29D
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceSky_R53B_20260805T1858Z/unreal.log
+    sha256: 8044984DF6FA469770179C51081FF1BDDE3B374741E28D1BAF72477D6323DE7E
+
+runtime:
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  pawn_class: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  camera_location_cm: [191297894.99443248, 196950314.12188256, -421017759.8003842]
+  ppg_center_cm: [0.0, 0.0, -300000000.0]
+  ppg_planet_radius_km: 3000.0
+  camera_altitude_from_ppg_nominal_km: 0.4934435707837343
+  solar:
+    atmosphere_sun_count: 1
+    atmosphere_sun_index: 0
+    visible: true
+    intensity_lux: 6.0
+    solar_dot: -0.742219153553847
+    classification: full_night
+  sky_atmosphere:
+    count: 1
+    visible: true
+    transform_mode: PLANET_CENTER_AT_COMPONENT_TRANSFORM
+    actor_center_cm: [0.0, 0.0, -300000000.0]
+    bottom_radius_km: 2999.0
+    atmosphere_height_km: 60.0
+    ppg_center_offset_km: 0.0
+    camera_altitude_from_atmosphere_bottom_km: 1.493443570783711
+  skylight:
+    count: 1
+    visible: true
+    intensity: 1.0
+    real_time_capture: true
+    lower_hemisphere_is_black: false
+  night_presenter:
+    count: 1
+    label: RED_NightPresenter_R18
+    last_frame_resolved: true
+    night_hemisphere_weight: 1.0
+    star_visibility_weight: 0.18000000715255737
+    night_fill_weight: 0.1599999964237213
+    star_dome_visible: true
+    star_dome_radius_km: 500.0
+    star_material: /Game/RedMMO/Environment/M_RedAnalyticStarDome
+    star_material_flags: {domain: Surface, blend: Opaque, shading: Unlit, two_sided: true, is_sky: true, disable_depth_test: false}
+  volumetric_cloud:
+    count: 1
+    visible: true
+    actor_center_cm: [0.0, 0.0, -300000000.0]
+    component_planet_radius_km: 6360.0
+    ppg_planet_radius_km: 3000.0
+    radius_mismatch_km: 3360.0
+    layer_bottom_altitude_km: 3.0
+    layer_height_km: 5.0
+
+source_correlation:
+  analytic_star_authoring:
+    path: D:/RedMMOTitan/Build/Automation/create_red_analytic_star_dome_material.py
+    sha256: BCEF71D2390929F715069633C30ADFA079C91E4AD2EC1C2ACF314E276FE30101
+    finding: >-
+      The analytic pattern is derived from CameraVectorWS only and does not
+      consume absolute world position, so large surface coordinates are not
+      the remaining pattern-input explanation.
+  installed_ppg_cloud_update:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/PlanetSpawner.cpp
+    sha256: 6C73A5BCA90629364CF60062713B72B6E85C14A4454FB04A3D4E1FD6B79291F8
+    lines: [2719, 2750]
+    finding: >-
+      UpdateVolumetricCloudParameters writes PlanetLocation and PlanetRadius
+      only into a dynamic cloud material. It does not update the live
+      UVolumetricCloudComponent PlanetRadius property, which remained at the
+      engine-scale 6360 km value during the 3000 km PPG world run.
+
+diagnosis:
+  proven:
+    - the R52 black sky is the saved full-night hemisphere, not a missing or disabled sun and not a daylight SkyAtmosphere failure
+    - the SkyAtmosphere is correctly centered on the PPG body and its 2999 km bottom radius is consistent with the 3000 km nominal planet
+    - the R18 presenter resolves and makes its camera-relative star dome visible with star weight 0.18 and navigable fill weight 0.16
+    - the star pattern is camera-direction based rather than absolute-position based
+    - the live VolumetricCloud component is mis-scaled by 3360 km relative to the PPG body even though its dynamic material receives PPG parameters
+  exact_open_causality: >-
+    The cloud component radius mismatch is the first concrete composition-frame
+    defect remaining after the aligned atmosphere and resolved presenter, but
+    R53 is read-only and does not prove by pixels that this mismatch alone
+    suppresses the surface stars. The star material also retains depth testing.
+  visual_reference: >-
+    R52 supplies the lifecycle-stable existing-viewport real-GPU frame showing
+    the black surface sky. R53 intentionally produced no new screenshot and
+    changed no runtime property.
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  dirty_packages_after: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R53 is a no-save runtime and installed-source diagnosis. It proves the saved
+  viewpoint is full night, the sun/atmosphere/skylight/presenter bindings exist,
+  the atmosphere is correctly aligned, and the cloud component radius is not.
+  It does not claim the cloud mismatch is the sole pixel cause, does not fix or
+  accept the sky, and does not prove a moon, art acceptance, gameplay,
+  standalone, replication or multiplayer behavior.
+
+next_safe_action: >-
+  Run one no-save, same-camera, existing-viewport R54 discriminator that changes
+  only the PIE-world VolumetricCloudComponent PlanetRadius from 6360 km to the
+  authenticated 3000 km PPG radius, captures before/after without the high-res
+  path, restores the transient value, and preserves R18 orbit star parameters,
+  grass, foliage, surface, seed, map and vendor assets. Do not combine a star
+  material depth change in the same slice.

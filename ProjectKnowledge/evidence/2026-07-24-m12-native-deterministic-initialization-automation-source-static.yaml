@@ -1,0 +1,203 @@
+schema_version: 1
+id: evidence.m12.native-deterministic-initialization-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T02:40:32.6130252Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-deterministic-initialization-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only deterministic-initialization scenario to the existing M12 backend test translation unit
+    - prove identical canonical inputs produce identical revision-zero authority content and portable checkpoints in two fresh backend instances
+    - prove duplicate stable-ID initialization rejects without changing the existing authority volume
+    - prove detached generated-output request bytes bind the canonical checkpoint payload while process-local capability identities remain distinct
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - actor, map, output adapter, persistence adapter, collision cook, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1521
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [3.119, 3.062, 3.071]
+  commit_used_gib_samples: [45.194, 45.245, 45.257]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [9.678, 9.627, 9.615]
+  disk_c_free_gib: 123.118
+  disk_d_free_gib: 1139.827
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2550
+  vram_free_mib: 7504
+  gpu_utilization_percent: 12
+  gpu_temperature_c: 42
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_under_severe_physical_memory_pressure
+  action_decision: one_non_packaging_source_only_M12_deterministic_initialization_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 94088
+    sha256: F49346DA9567D65750673102FEE8E499994D0872BEC5170273EEACC29ABA8C8E
+    added_automation_name: RedMMO.Mining.VoxelBackend.DeterministicInitialization
+    total_native_automation_scenarios_in_file: 5
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 61257
+    sha256: 5200B1520F76E23DF6AA6854CE86643B01EF56EF8FFA849760E3E904D6576F4F
+    total_contracts: 24
+    new_deterministic_initialization_contracts: 5
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  bounded_fixture:
+    - one canonical deterministic 16-cubed volume with 8-cubed chunks is initialized in exactly two fresh local backend instances
+    - every one of the eight chunks begins at revision zero and exposes the same stable ID, coordinate, content hash, and authority generation in both instances
+    - no edit, completion, persistence, restore, release, invalidation, journal-capacity, actor, map, or runtime operation enters the scenario
+  canonical_checkpoint_identity:
+    - both full revision-zero checkpoints contain eight chunks in deterministic order
+    - checkpoint manifests, per-chunk canonical payload fingerprints, and canonical RLE bytes match exactly
+    - every manifest, payload, and authority content fingerprint is checked for canonical SHA-256 shape
+  duplicate_initialization_atomicity:
+    - duplicate initialization of the live stable ID returns the exact collision error
+    - live revision, authority generation, full checkpoint manifest, all eight checkpoint payloads, and all eight chunk revision identities remain exact
+    - the first later build request still receives attempt token one
+  detached_build_snapshot:
+    - one Presentation request per backend binds the same canonical spec, source revision, role, profile, and density-material bytes
+    - each 512-byte detached authority snapshot is rehashed and bound to its matching checkpoint payload fingerprint
+    - backend-instance capability GUIDs remain valid and distinct and are excluded from portable deterministic identity
+    - queueing cannot advance canonical revision or fabricate Presentation or Collision readiness
+  isolation:
+    - all five native automation macros and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - every registration is ProductFilter and has one exact automation path
+    - no actor, world, map, Inventory, mesh adapter, voxel plugin, Steam, or filesystem adapter is referenced
+
+verification:
+  native_source_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeDeterministicInitialization_20260724T022948Z/native_contract_strengthened_stderr.log
+    bytes: 5548
+    sha256: 0E0EAC279B35841C154CE3886EE322EAA94AF65995E4C859064B5BF41E48DDC1
+    result: 24_of_24_passed
+    new_deterministic_initialization_source_contracts: 5_of_5_passed
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeDeterministicInitialization_20260724T022948Z/m12_deterministic_initialization_focused_final_stderr.log
+    bytes: 21352
+    sha256: 05B806EA510AF33C990CF0F3738F3F8458008D4A45891BEC234FDCE6760AE3C3
+    result: 96_of_96_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 72
+      native_automation_source_contracts: 24
+      new_deterministic_initialization_source_contracts: 5
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeDeterministicInitialization_20260724T022948Z/protected_provenance_stderr.log
+    bytes: 1507
+    sha256: EB1644917F62FE866C435BB7BA3FC49CFBC826E0B95DC7A4328AAD12FFCCD5BF
+    result: 7_of_7_passed
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeDeterministicInitialization_20260724T022948Z/m12_deterministic_initialization_final_static_regressions_stderr.log
+    bytes: 26656
+    sha256: 08D3B478ECB84746F4460ABA8B3C3DD5CE12FA4476EC32DB98CA729A429C45EF
+    result: 123_of_123_passed
+    composition:
+      focused_M12_source_and_model_contracts: 96
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeDeterministicInitialization_20260724T022948Z/project_knowledge_integrity_postrecord.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 113
+  independent_review:
+    api_compile_plausibility: no_obvious_UE58_signature_include_macro_type_or_test_API_blocker
+    semantic_review: twin_initialization_checkpoint_duplicate_rejection_and_detached_snapshot_branches_match_the_current_backend_API
+    source_contract_review: exact_registration_scope_chunk_fields_checkpoint_payloads_and_capability_boundaries_are_pinned
+    final_review: clean_no_remaining_static_contract_or_compile_plausibility_blocker
+    review_fixes:
+      - hash each detached build snapshot and bind it to the selected checkpoint payload rather than proving only twin byte equality
+      - reread all eight chunk revision identities after duplicate rejection
+      - require exactly two backend declarations and three initialization calls while forbidding unrelated edit persistence restore lifecycle and capacity operations
+      - describe the public caller-mutable build request as a detached authority snapshot rather than API-enforced immutable storage
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeDeterministicInitialization_20260724T022948Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeDeterministicInitialization_20260724T022948Z/preimage_manifest.json
+  manifest_bytes: 1259
+  manifest_sha256: C6832D48695786DFC16DCAF6897350DEAB749C0C9B07BEC9C1AC4320AA2962FA
+  absent_before_marker: D:/RedMMOTitanWindowsData/Rollback/M12_NativeDeterministicInitialization_20260724T022948Z/absent_before.json
+  absent_before_marker_bytes: 227
+  absent_before_marker_sha256: A9B48C60C9E6EC133BF85359DDB8238C617FBDB644153F45A554A0008065160E
+  exact_records: 7
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+canonical_queue:
+  path: D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json
+  bytes: 222864
+  sha256: F566A23C09E29D31425F0B1E2A52BE33BDCFBAFC326D1D712ECCD70438F71F66
+  m12_evidence_records: 10
+
+postflight:
+  captured_utc: "2026-07-24T02:48:00Z"
+  physical_ram_free_gib_samples: [16.561, 16.531, 16.474]
+  commit_used_gib_samples: [24.979, 24.978, 25.067]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [29.893, 29.894, 29.805]
+  vram_total_mib: 10240
+  vram_used_mib: 2075
+  vram_free_mib: 7979
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 34
+  disk_c_free_gib: 123.115
+  disk_d_free_gib: 1140.032
+  unreal_build_cook_or_package_processes: 0
+  unreal_build_cook_package_or_native_compile_launched_by_slice: false
+  stale_zero_byte_git_index_lock_preserved: true
+  packaging_gate: remained_closed_below_sustained_18_to_20_gib_physical_ram
+
+claim_limit: >-
+  This is static source evidence. The fifth native automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute the
+  C++ backend. A generated build request is a detached caller-mutable value and
+  its equality is not installed-artifact attestation. This evidence does not
+  prove an installed mesh or collision artifact, deformation, suction,
+  Inventory credit, rendering, gameplay, performance, packaging, Steam, or
+  multiplayer behavior.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute all five exact RedMMO.Mining.VoxelBackend native
+  automation scenarios. If physical RAM remains unsafe for compilation, the
+  next independent source slice is multi-volume isolation, followed separately
+  by same-revision equivocation and journal-capacity release before adapter
+  work.

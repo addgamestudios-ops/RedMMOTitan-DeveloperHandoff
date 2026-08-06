@@ -1,0 +1,85 @@
+schema_version: 1
+id: evidence.m07.planetgen17-shoreline-material-capability.2026-08-05
+captured_utc: "2026-08-05T02:23:30Z"
+module_id: M07
+system: world-authoring.planetgen17
+slice: shoreline-dry-wet-sand-capability-audit
+evidence_class: static
+result: built_in_beach_and_underwater_layers_without_explicit_dry_wet_pair
+
+installed_plugin:
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5
+  descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5/PlanetGen.uplugin
+  descriptor_sha256: 79135CFFE9381E25A4CFF739AE53F7111C57E1ACA3AD74530C20CF81175EB318
+  version_name: 1.7.0
+  engine_version: 5.8.0
+
+verified_native_capability:
+  public_controls:
+    source: Source/PlanetGen/Public/PlanetGen/CLMPlanet.h
+    sha256: 2098B7DFD67F24C2C3D1E3A98C0294FC4BA6539B6564D19CC23DD29A92FD6715
+    controls:
+      - SeaLevel
+      - BeachHeight
+      - BeachFlattenStrength
+      - bEnableWater
+      - WaterMaterial
+  terrain_weights:
+    source: Source/PlanetGen/Private/PlanetGen/CLMPlanetChunk.cpp
+    sha256: 99189E8483F4387363BDE6E4703DCD73681344CDC0DB893266A110D5F81778BB
+    mapping:
+      vertex_color_r: underwater mask below sea level
+      uv1_x: beach shoreline sand, full below sea level and fading upward through BeachHeight
+      uv1_y: separate climate-driven desert or arid sand
+    shoreline_shape: >-
+      ApplyBeachFlattenTo creates a configurable gentle shelf above sea level;
+      it is geometry shaping and does not itself author a distinct wet-sand
+      material band.
+
+verified_example_materials:
+  - asset: /PlanetGen/Materials/Landscape/M_Planet
+    sha256: 496DDAF76B9730279D9DA8CF1072C675FE433E0CD900711822EC0760BC20AAFA
+    observed_functions: [MFI_Sand, MFI_Underwater]
+  - asset: /PlanetGen/Materials/Landscape/MFI_Sand
+    sha256: D7A3D63A31FCAC880FE4C7011DC04A66D88DB066C9CCF3842E0D224AFACE15C9
+    observed_inputs: [Sand, Sand_N, tint, DepthBias]
+  - asset: /PlanetGen/Materials/Landscape/MFI_Underwater
+    sha256: 256A6285379F2178463393BC620200C5BF765AC14F51894CE5FFBB42B6EAD682
+    observed_inputs: [Sand, Sand_N, tint, DepthBias, Roughness]
+  - asset: /PlanetGen/Materials/Water/M_PlanetWater
+    sha256: F6E96C9D7379854AF824E111DEE6E3D5BC62A5B757028A9CF911671F5DEAFBE6
+  - asset: /PlanetGen/Materials/Water/MI_Water
+    sha256: 6FAA2187D4346FBE6D6F2B950C573BF97FA716E6FC651DBC9BB78818DA07561E
+
+finding: >-
+  PlanetGen 1.7 has genuine built-in shoreline support: a sea-level water
+  owner, a configurable flattened beach band, a beach-sand weight, a distinct
+  underwater weight, and a separate desert-sand weight. Its stock material
+  graph also separates sand and underwater functions. It does not expose
+  independent named dry-sand and wet-sand shoreline masks or a dedicated wet
+  strip above the waterline. Therefore the installed plugin provides a useful
+  deterministic shoreline foundation, but the desired narrow dry-to-wet sand
+  transition still needs a project-owned material treatment driven from these
+  existing weights and sea-level distance; it is not already a complete stock
+  feature.
+
+protection:
+  plugin_or_project_content_changed: false
+  unreal_or_build_process_started: false
+  providers_called: false
+  desktop_control_used: false
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This is an installed-source and serialized-asset-name audit only. It does not
+  prove the stock material's rendered appearance, a project-owned wet-sand
+  implementation, coastline continuity, water quality, gameplay, packaging,
+  replication, multiplayer, or human acceptance.
+
+next_safe_action: >-
+  Keep the result as a future shoreline design input. The immediate dependency
+  gate remains the confirmation-authorized official UAIP and WorldGen installs,
+  descriptor verification and one serialized TitanEditor compile. Do not
+  mutate a planet material or map during plugin installation.

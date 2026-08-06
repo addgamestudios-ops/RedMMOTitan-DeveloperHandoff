@@ -1,0 +1,151 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0002-POST-DEF-0003-SOURCE-IDENTITY-RECONCILIATION-STATIC
+captured_at: "2026-07-22T13:44:02.4547180Z"
+module: M02
+slice: DEF-0002-post-DEF-0003-source-identity-reconciliation
+evidence_class: static
+result: passed_current_source_identity_reconciled_defect_remains_open
+
+authorization_and_scope:
+  bounded_defect: DEF-0002
+  intended_change: >-
+    Revalidate the existing fighter landing, reboard, and compass source
+    contracts against the shared player source changed by DEF-0003 and reconcile
+    only DEF-0002's mutable evidence identity.
+  gameplay_source_modified: false
+  canonical_files_modified:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml
+    - ProjectKnowledge/evidence/2026-07-22-def-0002-post-def-0003-source-identity-reconciliation-static.yaml
+  explicitly_preserved:
+    - all ship, player, movement, HUD, and gameplay source
+    - all Config, map, asset, plugin, package, and build-product bytes
+    - all production maps, protected checkpoints, artist repositories, handoffs, user assets, and unrelated dirty work
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 60
+  individual_untracked_files_before: 1308
+  conflicts_before: 0
+  two_snapshot_key_file_drift: 0
+  unreal_build_cook_package_overlap_count: 0
+
+resource_gate:
+  sustained_samples: 6
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [10.177, 10.540]
+  free_commit_gib_range: [20.378, 20.689]
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_free_vram_mib_range: [8937, 8950]
+  gpu_utilization_percent_range: [11, 16]
+  gpu_temperature_c: 42
+  free_disk_gib:
+    C: 132.829
+    D: 1141.734
+  decision: >-
+    The 14 GiB T02 real-GPU gate and the 18-20 GiB packaging gate were closed.
+    No Unreal, Titan, UBT, UAT, build, cook, package, shader, IoStore, Zen, or
+    real-GPU process was launched.
+
+current_source_identity:
+  - path: Source/RedMMO/RedShip.cpp
+    sha256: B750E9E6A81530BCFC95B15C697C97371058F00A6C237123C7103ACA6FEFC02D
+  - path: Source/RedMMO/RedShip.h
+    sha256: CB9B6A70AF7A05E710A227BC7D1A2E16F5BD54985E32633ADF44E9B0D6F663BF
+  - path: Source/RedMMO/RedShipMovementComponent.cpp
+    sha256: 9CEBD528B3C61C430D52C89AC336C6FF4C0175B8AA3A63A5016187A322D86328
+  - path: Source/RedMMO/RedShipMovementComponent.h
+    sha256: B67AD2ADCFB9E93E863A3CE21ADFDD01F0C3579F14488424F5497ABA84C6B9DB
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749
+    reconciliation: changed_after_original_DEF_0002_evidence_by_DEF_0003
+  - path: Tools/tests/test_def0002_ship_reboard_contract.py
+    sha256: 3E1A87FBAD3218A83000A234112841D32C7A3C15FEC2838B01B796F51DF15B40
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_def0002_ship_reboard_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 13_of_13_passed
+  fighter_reboard_contract_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_PostDEF0003_Reconcile_20260722_1338/offline_contract_and_provenance_tests.log
+  log_sha256: D5992898A41A34CE8E7D8869D4D9614281C67753655FB29AF5BA872BFBC81B67
+  contracts_revalidated:
+    - dominant-body refresh ordering and stable body-frame state
+    - exact-terrain radial parking and landing-assist inputs
+    - reboard state reset and local plus server takeoff release
+    - radial-up touchdown alignment and velocity clearing
+    - tangent-frame ship compass with stable fallback and replacement-HUD forwarding
+    - explicit fitted passive-recovery limitation and open defect state
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_M09Reconcile_1317/target_currency.json
+  report_sha256: 1946458838F6E35D26D07A3CAEC387F65AF259D3676796BB14593654AD4BB7B0
+  input_count: 874
+  input_manifest_sha256: 45BBE3263C84B978CBF3FB27EBAC49451A232971E94454F9CCDD8DE83ECF71D4
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 33
+  titan_editor_newer_project_inputs: 21
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_or_zen_started: false
+  note: >-
+    The latest guarded package attempt produced no current archive. The July 17
+    archive remains the last successful but currency-unverified archive.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002EvidenceReconcile_20260722_1338
+  exact_files:
+    - {name: current_state.yaml, sha256: 325385F44A3842AA20E59471C2F7D96BC3734CDE1535173DB0EC7842CC3FE112}
+    - {name: DEF-0002-fighter-landing-gravity-recovery.yaml, sha256: F88651898E69C7FFCF0F8821FA026B45500CFCD5B840EC4DB56E695F4F9C354A}
+    - {name: INDEX.yaml, sha256: D42346A3D7FD56B5A35ACEC3988E3EDBDC58F069EC230243C2CC8357FA6516C7}
+    - {name: redmmotitan_module_queue.json, sha256: D685AC8B32FF0E67FEF4A77557940DC6B36B1EF5F021DFBF9FA148928BE91060}
+
+canonical_sync:
+  module_queue_sha256: BC10A745B6EBF07E5E468595A3D0B00835EE197CE85529AE7AAB635321AADF2D
+  current_state_snapshot_sha256: BC10A745B6EBF07E5E468595A3D0B00835EE197CE85529AE7AAB635321AADF2D
+  historical_DEF_0002_evidence_rewritten: false
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_topology: 9_of_9_passed
+  protected_source_rasters: 135_of_135_passed
+  safe8_embedded_manifest: 338_of_338_passed
+
+remaining_acceptance:
+  - implement bounded collision-aware fitted-envelope passive recovery
+  - add reversible exact/native landing and parking post-clearance validation
+  - expose dominant body ID and radial-up agreement acceptance telemetry
+  - compile current TitanEditor and Titan targets with exact proofs under a safe resource gate
+  - run real-GPU landing, exit, reboard, takeoff, stationary compass, replication, and multiplayer acceptance
+
+claim_limit: >-
+  Static tests prove the existing DEF-0002 contracts still hold against the
+  current shared player-source identity. They do not prove compilation,
+  collision recovery, landing, reboard, takeoff, compass behavior, rendering,
+  packaging, replication, or multiplayer. DEF-0002 remains open.
+
+next_safe_action: >-
+  In a later M02 implementation slice, add collision-aware fitted-envelope
+  recovery, reversible landing and parking clearance, and acceptance telemetry.
+  The project-wide next action remains M00's capped T02 close, translated, and
+  oblique sparkle captures once its separate 14 GiB physical-RAM gate passes.

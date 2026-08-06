@@ -1,0 +1,212 @@
+schema_version: 1
+id: evidence.m12.journal-checkpoint-persistence.static.2026-07-24
+captured_utc: "2026-07-24T00:17:36.2485910Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: hash-chained-journal-export-and-checkpoint-persistence-acknowledgement-boundary
+evidence_class: static
+result: passed_static_source_and_behavioral_model_uncompiled_unwired
+
+scope:
+  authorized:
+    - retain one canonical bounded operation after each accepted authoritative edit
+    - export the exact detached journal suffix after an explicitly acknowledged checkpoint
+    - issue one process-local capability for an exact captured checkpoint
+    - compact only the acknowledged journal prefix while preserving later accepted edits
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - actor, map, mesh adapter, collision cook, replicated DTO, replay, import, suction, or Inventory integration
+    - production map, production asteroid field, protected checkpoint, artist repository, handoff, vendor source, or supplied-asset mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 160
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [1.320, 1.035, 1.324]
+  commit_used_gib_samples: [43.600, 43.608, 43.557]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [11.272, 11.265, 11.315]
+  disk_c_free_gib: 123.403
+  disk_d_free_gib: 1140.560
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 3000
+  vram_free_mib: 7054
+  gpu_utilization_percent: 17
+  gpu_temperature_c: 41
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_offline_M12_journal_checkpoint_persistence_slice
+
+postflight:
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_free_gib_samples: [2.722, 2.993, 3.210]
+  commit_used_gib_samples: [44.474, 44.186, 43.963]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [10.398, 10.686, 10.909]
+  disk_c_free_gib: 123.172
+  disk_d_free_gib: 1140.550
+  vram_used_mib: 2523
+  vram_free_mib: 7531
+  gpu_utilization_percent: 11
+  gpu_temperature_c: 42
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_cook_or_package_launched: false
+  syntax_only_probe:
+    result: inconclusive_terminated_under_memory_pressure
+    output_binary_created: false
+    source_diagnostics_emitted: false
+    accepted_as_compile_or_build_evidence: false
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+implementation:
+  source:
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.h, bytes: 19223, sha256: 84A835E3517EDF6FE1824149B83AF7AB14BD5B6F7996EAB934C43DC508FF9978}
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.cpp, bytes: 54693, sha256: 0EF754EB799C856E2C16DB7FDACA41FCBBDD6EE7E95A194D954870008EAA6E22}
+    - {path: Source/RedMMO/Mining/RedVoxelAsteroidBackend.h, bytes: 5430, sha256: 31863EDE6EC7A81026E83D474BCE55786678BD541DD94DB141BD0B63515784C9}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h, bytes: 3526, sha256: 59D34FD70DC8A9B1D97DBC7BBEA2F3289CAB11E19A5CA3CA0328B36C5DB5518B}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp, bytes: 80650, sha256: A31572109209338DDBAE4EAE07D8D0D9DD54264F6A7841C49B536DFBCC001A2C}
+  focused_test:
+    path: Tools/tests/test_m12_journal_checkpoint_persistence_contract.py
+    bytes: 26462
+    sha256: F741829108BEAF0B7911D25CA9251BB41B71F7A97DE7E53BCA769AB126E471EC
+  runtime_consumer_added: false
+  persistence_adapter_added: false
+  serialization_or_replay_added: false
+  project_build_rule_plugin_map_or_asset_modified: false
+
+operation_journal_contract:
+  accepted_operation:
+    - binds target, volume-spec fingerprint, generated operation ID, collector, mining tool, algorithm version, prior and applied revision, request sequence, prediction token, brush center, surface normal, radius, removed-cell count, exact result fingerprint, prior operation fingerprint, and canonical operation fingerprint
+    - vector coordinates use exact double bits and radius uses exact float bits rather than locale-sensitive formatting or raw struct memory
+    - operation IDs and per-collector request sequences are unique inside the retained suffix
+    - a repeated prediction token with a distinct request sequence remains legal because request sequence is the authoritative idempotency boundary
+  bounded_export:
+    - fails before an explicitly acknowledged checkpoint base exists
+    - contains exactly base-plus-one through current revision in deterministic order
+    - validates every operation and exact prior-revision and prior-hash link
+    - rejects gaps, reorder, tampering, duplicate operation IDs, duplicate per-collector sequences, foreign target or spec, and malformed fingerprints
+    - public canonicalization refuses more than the immutable 512-operation hard ceiling before string construction
+    - returned operations are detached copies and export does not mutate authority state
+
+checkpoint_acknowledgement_contract:
+  issuance:
+    - full bounded checkpoint remains freshly inspected by CaptureCheckpointSet
+    - reusable request validation cross-checks ticket and checkpoint target, spec, revision, manifest, generation metadata, seed, and material table
+    - ticket binds exact expected base acknowledgement state, base revision, base manifest, base history tail, checkpoint revision, checkpoint manifest, checkpoint history tail, authority generation, backend-instance GUID, and monotonic request token
+    - reissue supersedes the older pending capability without consuming a token on failure
+  acknowledgement:
+    - accepts only the exact live pending ticket after target, spec, authority generation, backend instance, and expected base compare-and-swap checks
+    - same-revision checkpoint capture cannot replace an acknowledged base with a conflicting manifest
+    - verifies the checkpoint history tail against the exact live journal prefix
+    - stages the later suffix before atomically advancing the acknowledged base and replacing the retained journal
+    - exact duplicate acknowledgement of the current base is idempotent and does not discard later edits
+    - stale, superseded, cross-volume, cross-instance, post-restore, post-recreate, malformed, gapped, or conflicting acknowledgement fails without mutation
+    - acknowledgement is a trusted adapter declaration only and does not prove filesystem fsync, replication, or external storage health
+  restore:
+    - successful restore advances authority generation, clears pending and prior acknowledgement capabilities, and establishes an unacknowledged journal base at the restored revision
+    - export remains blocked until the restored authority captures and explicitly acknowledges a fresh checkpoint
+
+verification:
+  baseline:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_JournalCheckpointAck_20260723_233731Z/baseline.stderr.log
+    bytes: 26442
+    sha256: 289153E6C0FFF9AF49742CA8C83D07F858E03590CCCBC19F8EE226BD05BBB91E
+    result: 59_of_59_passed
+    composition: prior_focused_M12_52_plus_protected_provenance_7
+  focused_persistence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_JournalCheckpointAck_20260723_233731Z/m12_journal_checkpoint_focused.stderr.log
+    bytes: 32834
+    sha256: A58A1B1A1B5858A59CD35C3D949B3F56962019D218592BD390CFACBE8D05EA59
+    result: 72_of_72_passed
+    composition:
+      capability_contracts: 8
+      authority_contracts: 14
+      sparse_backend_contracts: 16
+      generated_output_completion_contracts: 14
+      journal_checkpoint_persistence_contracts: 20
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_JournalCheckpointAck_20260723_233731Z/protected_provenance_post.stderr.log
+    bytes: 3740
+    sha256: B076E5CD246C6E15A69F63FD21399D2C9F82D912C852B27B584279DD74460798
+    result: 7_of_7_passed
+  canonical_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 221742
+    sha256: 5E05D9DE579B8BE1C17D722F38DD027DFE58AB06CC169A96170AFEC5D4D67153
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_JournalCheckpointAck_20260723_233731Z/m12_journal_checkpoint_final_static_regressions.stderr.log
+    bytes: 43560
+    sha256: 9542F1E15BF5914E62AC86B5AE102A161E893EB9EDBB0F9C51B1CFBF00FF4787
+    result: 99_of_99_passed
+    composition: focused_M12_72_plus_protected_provenance_7_plus_ProjectKnowledge_integrity_contracts_20
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_JournalCheckpointAck_20260723_233731Z/integrity_canonical.json
+    bytes: 1782
+    sha256: 8BE0C741398BAF12BD4C0EA3B589D679E2767146988CAF904E1E1DEE184AD208
+    result: passed_with_0_findings
+    indexed_evidence_count: 108
+
+independent_review:
+  design_and_atomicity:
+    result: no_remaining_actionable_boundary_blocker_after_fixes
+    fixes_from_review:
+      - same-revision checkpoint manifest equivocation rejection
+      - operation and per-collector sequence uniqueness without overconstraining prediction-token reuse
+      - apply-path preflight before any density commit
+      - bounded public journal canonicalization before allocation
+      - explicit separation from replay, import, replication, and client late-join DTOs
+    limit: read_only_source_review_not_native_execution
+  adversarial:
+    result: no_remaining_actionable_stale_cross_volume_restore_partial_commit_or_capacity_blocker
+    limit: read_only_source_review_not_native_execution
+  compile_audit:
+    result: no_obvious_signature_header_API_format_or_warning_as_error_blocker
+    limit: syntax_only_probe_stalled_and_was_terminated_without_diagnostics_not_compile_evidence
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_JournalCheckpointAck_20260723_233731Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_JournalCheckpointAck_20260723_233731Z/rollback_manifest.json
+  manifest_bytes: 2280
+  manifest_sha256: 6563C0067BE863F2FE45D7E0E7C4C8C2E77EE31505F1F45CF9DED3C8D0180A1C
+  exact_preimages_recorded: 9
+  new_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+claim_limit: >-
+  Static source inspection and an independent Python behavioral model only. The
+  model does not execute the C++ backend. The brief syntax-only compiler probe
+  stalled under severe memory pressure, emitted no source diagnostic, was
+  terminated, and is not accepted as compile or build evidence. The ticket and
+  SHA-256 values are process-local replay and integrity guards, not signatures.
+  No persistence adapter wrote, flushed, reloaded, imported, or replayed data.
+  This evidence does not prove C++ compilation, crash recovery, disk-full
+  behavior, restart recovery, client late join, actor deformation, installed
+  mesh, collision, suction, Inventory, rendering, gameplay, profiling,
+  packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and add native C++ automation that directly executes operation
+  append, bounded export, ticket reissue, prefix acknowledgement, suffix
+  preservation, duplicate acknowledgement, restore invalidation, same-revision
+  equivocation, capacity release, and lifecycle ABA. Then add a trusted
+  versioned persistence adapter with atomic write, flush, restart load,
+  corruption, disk-full, migration, and replay tests. Keep actor, map, mesh,
+  collision, suction, Inventory, real-GPU, multiplayer, and package work as
+  separate acceptance slices.

@@ -1,0 +1,79 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-surface-to-orbit-warp-capability-static.2026-08-05
+captured_utc: "2026-08-05T00:13:21Z"
+module_id: M07
+system: gameplay.clean-redmmo-surface-to-orbit-and-warp
+slice: offline-source-and-architecture-capability-audit
+evidence_class: static
+result: local_flight_present_authoritative_travel_not_implemented
+
+project:
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  provider_ports_closed: [5353, 8000, 8765]
+  unreal_launched: false
+  package_or_map_loaded: false
+
+tooling:
+  audit_script:
+    path: Build/Automation/audit_clean_redmmo_surface_to_orbit_warp.py
+    sha256: 2807305C55AE1E493A3123CBB7398DDFFA6C89AA1850C37E9787A00036B4418F
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceToOrbitWarpAudit_20260805T001321Z/surface_to_orbit_warp_audit.json
+    sha256: EB124E54F3ABFCD4030DB3916B2F72E0EB4FA5C5B3858CA504E14D0C77521D52
+  deterministic_contracts:
+    implemented_source_checks: 11
+    absent_runtime_checks: 6
+    protected_hash_checks: 2
+    result: pass
+
+verified_present_in_clean_source:
+  - replicated StarSparrow pawn and movement with server flight-input and exit RPC boundaries
+  - independent forward, strafe, ascent/descent, pitch, yaw, roll and boost inputs
+  - stable home-body frame lookup, owned-PPG-surface collision sweep and nominal-surface altitude measurement
+  - authoritative possession and return-to-Trooper transaction boundaries
+  - pure build-verified but runtime-unbound night/space calculation for altitude, optical-depth proxy, star visibility and night fill
+
+not_found_in_audited_clean_runtime_source:
+  - authoritative warp phase/state-machine implementation
+  - server warp-request RPC or route-admission implementation
+  - runtime celestial destination registry or destination-body resolver
+  - sector or World Partition streaming transition implementation
+  - map, seamless-server or client travel implementation
+  - explicit atmosphere-versus-vacuum flight-state implementation
+
+canonical_architecture:
+  adr: ProjectKnowledge/decisions/ADR-0002-server-authoritative-warp-state-machine.md
+  adr_status: accepted_as_architecture_implementation_not_started
+  required_states: [target, validate, spool, align, preload, transit, decelerate, gravity_capture, cooldown]
+  recorded_route: ProjectKnowledge/systems/warp-route.red-mars-to-ring-01.yaml
+  route_status: retired_not_started_with_legacy_destination
+
+protection:
+  content_or_map_changed: false
+  production_or_protected_content_changed: false
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  providers_called: false
+  desktop_control_used: false
+
+claim_limit: >-
+  This is deterministic offline source and architecture evidence. It does not
+  prove compilation beyond the previously recorded A01/night builds, physical
+  input, sustained surface-to-orbit flight, atmosphere transition, stars,
+  warp, sector streaming, standalone, replication, multiplayer or visuals.
+
+blocker: >-
+  Clean RedMMO has a local replicated flight foundation and altitude value, but
+  no authoritative destination registry, warp admission/state machine, sector
+  readiness, travel handoff or atmosphere/vacuum flight state. The only
+  recorded route is explicitly retired because its legacy destination lacks a
+  reviewed current stable body ID.
+
+next_safe_action: >-
+  Audit the existing project-owned RedCelestialFrameRegistry implementation in
+  legacy RedMMOTitan against ADR-0001 and clean RedMMO's PPG body-frame source.
+  If dependency-prunable, port only a pure stable-ID registry foundation plus
+  focused offline/native contracts; do not bind a destination, stream a sector,
+  mutate a map, or claim warp until a reviewed destination body ID and readiness
+  contract exist.

@@ -1,0 +1,38 @@
+schema_version: 1
+id: evidence.hud.layout-persistence.2026-07-21.static-01
+captured_local: "2026-07-21T20:43:00+03:00"
+evidence_class: static
+scope: exact_art_hud_saved_layout_backend_integration
+
+implemented_source_contract:
+  - existing HUD element IDs 0 through 5 remain stable
+  - party, enemy, and utility groups are appended as IDs 6 through 8
+  - exact-art HUD exposes move, scale, opacity, hidden, locked, reset, and save operations
+  - operations use the existing per-local-player VibeMMOHUDLayoutSubsystem save path
+  - player, compass, minimap, ability, weapon, party, enemy, and utility widgets resolve to independent groups
+
+affected_source:
+  - Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOHUDLayoutTypes.h
+  - Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Data/VibeMMOHUDLayoutTypes.cpp
+  - Plugins/RedHUD/Source/RedHUDRuntime/RedHUDRuntime.Build.cs
+  - Plugins/RedHUD/RedHUD.uplugin
+  - Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+  - Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+
+compile_gate: pending
+blocker:
+  reason: the user-facing real-GPU HUD playtest and its Live Coding session remain open and responsive
+  process_id: 19008
+  live_coding_process_id: 10652
+  attempted_build_result: "UnrealBuildTool exit 6: Unable to build while Live Coding is active"
+  attempted_build_log: D:/RedMMOTitanWindowsData/Diagnostics/HUD_LayoutPersistence_20260721/TitanEditor_build.log
+  policy: do not terminate the playtest or compile/hot-reload underneath it
+
+claim_limit: >-
+  This is source-level evidence only. It does not prove compilation, persistence
+  across restart, mouse dragging, controller interaction, or visual appearance.
+
+next_safe_action: >-
+  After the current client closes, run one single-worker TitanEditor compile,
+  then a bounded real-GPU layout mutation/save/restart/restore test. Drag handles
+  and separate on-foot/ship profiles remain later independent modules.

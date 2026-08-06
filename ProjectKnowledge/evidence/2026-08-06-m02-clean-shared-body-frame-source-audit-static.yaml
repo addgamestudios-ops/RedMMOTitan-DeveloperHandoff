@@ -1,0 +1,155 @@
+schema_version: 1
+id: evidence.m02.clean-shared-body-frame-source-audit-static
+module: M02
+evidence_class: static
+status: accepted_partial_blocker_narrowed
+timestamp_utc: 2026-08-06T11:49:04Z
+scope: >-
+  Read-only clean-RedMMO audit of whether terrain, gravity, native water,
+  player and starter-ship placement, ship movement, atmosphere, clouds, the
+  analytic moon presenter, and radar share the current PPG/ProfileV1 body
+  frame. No Unreal process was launched and no map, profile, package, source,
+  Config, plugin, vendor, protected input, fused face, or user-asset byte
+  changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 196
+  free_physical_ram_gib: 50.96
+  commit_headroom_gib: 54.96
+  gpu_free_mib: 9110
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+static_checks:
+  schema: m02-clean-shared-body-frame-static-checks.v1
+  checks_passed: 40
+  checks_failed: 0
+frame_authority:
+  stable_id: planet.red.mars
+  active_clean_line:
+    owner: unique_APlanetSpawner
+    center_rule: APlanetSpawner_actor_location
+    nominal_radius_rule: PlanetData_PlanetRadius_times_uniform_actor_scale
+    exact_reflected_center_cm: [0.0, 0.0, -300000000.0]
+    exact_reflected_radius_cm: 300000000.0
+    source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGSurfaceAuthority.cpp
+    source_sha256: 823094E2C229EC289E0905FA18765C7BE6EF253100C159712D44E0787F6A7487
+  stable_registry_boundary:
+    source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedCelestialFrameRegistry.h
+    source_sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    runtime_producer_wired: false
+    finding: >-
+      The registry explicitly remains a source-only checkpoint and no
+      non-test, non-registry translation unit calls RegisterOrUpdate. Current
+      clean consumers therefore share the direct unique-PPG adapter, not the
+      stable revisioned celestial registry.
+subsystem_matrix:
+  terrain:
+    static_status: same_ppg_owner_and_frame
+    basis: >-
+      Owned contacts require a ready UChunkObject whose outer, PlanetData,
+      component, and mesh all belong to the unique APlanetSpawner.
+    source_lines: RedPPGSurfaceAuthority.cpp:105-174,177-206
+  gravity:
+    static_status: same_ppg_center
+    basis: >-
+      FindMeshPlanet resolves the strict PPG body first and the dominant home
+      body copies PPG center and datum/peak radii under planet.red.mars.
+    source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedGravityBodies.cpp
+    source_sha256: 33A8B2D8F1F84A0E0BE492A6DC245133BD161EE68F4902ABC8419E2C5A449A09
+    source_lines: RedGravityBodies.cpp:194-219,273-296
+  native_water:
+    static_status: same_ppg_owner_center_and_nominal_radius
+    basis: >-
+      ProfileV1 requires normalized water datum zero at PlanetRadius; the exact
+      R80 reflection found 291 native-water components owned by the same
+      PlanetSpawnerBP_C_1 and radius 300000000 cm.
+    source_hashes:
+      RedPPGWorldProfile_cpp: 48ACB71B969D8DBD066EC57E166948D8B91E76CBEC3F01351C8B464E74C36624
+      RedPPGWorldProfile_h: 68BA1DB8CF7B5470F868502764571F57D13050646DE9A62314F6CBD06CBE8D37
+  player_and_starter_ship_spawn:
+    static_status: same_ppg_center_radius_and_owned_surface
+    basis: >-
+      GameMode resolves one PPG frame, derives radial player and ship placement
+      from its center/radii, and accepts only owned PPG terrain traces.
+    source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    source_sha256: B0ED7072BEC4731A331C6F45EFB1B682EAD96E91E45D3F48CA6798283AEA4169
+    source_lines: RedPPGGameplayGameMode.cpp:87-104,167-225,298-371
+  ships:
+    static_status: same_ppg_center_radius_and_owned_surface
+    basis: >-
+      Ship movement caches Frame.StableId, Center, and NominalRadius and routes
+      collision, parking, and recovery through owned PPG terrain queries.
+    source_hashes:
+      RedShipMovementComponent_cpp: 73B3D24B07268967514758572D2C8BF3B482D073A368D78F098D373E04E623B1
+      RedShip_cpp: B3257E11A00D81F324F5D123EDD6CAF9B5F64DB2891828360D4C8817230BBED2
+  atmosphere:
+    static_status: same_center_near_matching_radius_but_not_registry_bound
+    basis: >-
+      Exact R53 runtime diagnosis found zero PPG-center offset and a 2999 km
+      atmosphere bottom radius against the 3000 km PPG body. The night
+      presenter also consumes the live PPG center/radius, but source does not
+      bind the SkyAtmosphere actor through the revisioned registry.
+  clouds:
+    static_status: center_aligned_radius_mismatch
+    basis: >-
+      Exact R54 evidence found the persisted/restored VolumetricCloud
+      PlanetRadius at 6360 km. A transient 3000 km discriminator was restored
+      without save, so current ProfileV1 terrain is 3000 km while cloud radius
+      remains 6360 km.
+  moon:
+    static_status: ppg_driven_analytic_presentation_only
+    basis: >-
+      RedPlanetNightPresenter derives day/night weights from the live PPG
+      center/radius, but the moon is a viewer-relative non-colliding visual
+      disc, not a physical stable-ID celestial body or gameplay frame.
+    source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlanetNightPresenter.cpp
+    source_sha256: 6647CF79C65220C0A95A62AB6D331163C1C11422DF11E78D06407DF31F4814D0
+    source_lines: RedPlanetNightPresenter.cpp:165-229
+  radar:
+    static_status: absent_not_traceable
+    basis: >-
+      Case-insensitive radar/minimap scans found zero hits in clean Source,
+      Config, Content filenames, and the exact R88 IoStore listing. Therefore
+      no radar consumer exists that can be accepted as using the frame.
+prior_exact_runtime_inputs:
+  profile_water_and_frame:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Verify4/result.json
+    sha256: 477EF2648B8E238E8D994B856E95D18CBC894A0A869E56768D0F45382A6D06CD
+  atmosphere:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceSky_R53B_20260805T1858Z/result.json
+    sha256: 7EA917F19E5BBC3571F1204216B75E0CFD7084FB1D3EF101E2E3123D178BB29D
+  clouds:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CloudRadiusSurfaceSky_R54_20260805T1910Z/result.json
+    sha256: EC4DDFC378C10E5D617BB8EE881A801BB01431BD81E6D3E1B9843B4A62C1E633
+  r88_iostore:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/iostore_list.txt
+    sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+protected_identities:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+finding: >-
+  Clean RedMMO has a coherent direct-PPG frame for terrain, native water,
+  gravity, player/ship placement, ship movement, and analytic night/moon
+  presentation. M02's full shared-frame bullet remains unmet because clouds use
+  a mismatched 6360 km radius, radar is absent, the moon is presentation-only,
+  and the revisioned celestial registry has no runtime producer. This is
+  separate from the already-proven 300000000 cm versus protected 795774.715 cm
+  planet-core boundary.
+rollback: not_applicable_read_only_static_audit
+claim_limit: >-
+  Static source/hash inspection plus reuse of named exact prior runtime reports.
+  This does not newly execute or render Unreal, prove current runtime registry
+  publication, physical moon/radar behavior, cloud correction, traversal,
+  controls, packaging, replication, multiplayer, or human playability.
+next_safe_action: >-
+  Rotate to another independent authorized module. A later separately
+  authorized M02 implementation slice should first wire one authority-owned
+  PPG producer into RedCelestialFrameRegistry, then bind/validate atmosphere
+  and clouds from that exact frame and persist the cloud radius at the intended
+  ProfileV1 scale before adding a frame-aware radar consumer. Do not merge,
+  rescale, regenerate, or promote either planet-core line from this audit.

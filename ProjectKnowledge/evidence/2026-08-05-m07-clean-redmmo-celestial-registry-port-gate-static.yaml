@@ -1,0 +1,103 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-celestial-registry-port-gate-static.2026-08-05
+captured_utc: "2026-08-05T00:23:45Z"
+module_id: M07
+system: identity.clean-redmmo-celestial-frame-registry
+slice: authenticated-legacy-source-portability-and-wiring-audit
+evidence_class: static
+result: source_dependency_prunable_port_ready_but_unwired
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  unreal_launched: false
+  package_or_map_loaded: false
+  provider_ports_closed: [5353, 8000, 8765]
+
+tooling:
+  audit_script:
+    path: Build/Automation/audit_clean_redmmo_celestial_registry_port.py
+    sha256: 1DDB01AB06A89F086E974F5F515CF306A4ADC002C9837E21AD04FEB57207F6CA
+  audit_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortAudit_20260805T002345Z/celestial_registry_port_audit.json
+    sha256: 8D845039BFE74A3CAA530B687E9A91906C8F22366C9A3F11BF809C4CEA722D1D
+  focused_offline_contracts:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortAudit_20260805T002345Z/registry_port_focused_contracts.log
+    sha256: CEF206D38CFA50EBCC6BFEA72F9FEE3991423792F5E61EF0F6FF728A9988D1A8
+    result: 3_of_3_passed
+  retained_broad_test_drift:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortAudit_20260805T002345Z/legacy_registry_offline_contracts.log
+    sha256: 1A6373169271A3513C7508DCDE9CA59C4C1D8D8AD42C2A062EECD5A2E6D66F2B
+    result: 12_of_13_passed_one_historical_integration_assertion_stale
+
+authenticated_source:
+  files:
+    - path: Source/RedMMO/RedCelestialFrameRegistry.h
+      sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    - path: Source/RedMMO/RedCelestialFrameRegistry.cpp
+      sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+  prior_compile_and_native_test_evidence:
+    - ProjectKnowledge/evidence/2026-07-23-m05-registry-build-nullrhi.yaml
+  source_identity_matches_prior_evidence: true
+
+portability:
+  includes: [CoreMinimal.h, Engine/World.h, GameFramework/Actor.h, RedCelestialFrameRegistry.h]
+  plugin_or_vendor_headers: []
+  clean_module_dependencies_already_present: [Core, CoreUObject, Engine]
+  clean_registry_symbols_currently_absent: true
+  exact_source_port_without_semantic_rewrite: supported
+
+registry_contracts:
+  passed_static_checks: 10
+  verified:
+    - server-or-standalone authority-owned registration only
+    - immutable namespaced stable ID with center, nominal radius and revision snapshot
+    - sequential revision and retained high-water tombstone
+    - sticky duplicate-authority conflict and fail-closed exact lookup
+    - cleanup-only world removal
+    - snapshot contains values and no UObject pointer
+
+clean_ppg_fit:
+  home_body_id: planet.red.mars
+  unique_typed_ppg_owner: true
+  center_and_nominal_radius_available: true
+  current_registry_producer: absent
+  current_client_replicated_snapshot: absent
+  producer_lifecycle_revision_policy: absent
+  conclusion: >-
+    The pure registry source can be copied into clean RedMMO, but a later
+    separately reviewed PPG authority adapter must own registration revisions,
+    cleanup and any client-visible replicated snapshot.
+
+historical_test_drift:
+  failing_test: test_project_owned_runtime_integration_remains_unwired_and_dressing_suppressed
+  cause: >-
+    The old combined M05 test still requires zero QueryFeatureProtection
+    consumers, while a later RedStylizedPlanetPresentationAdapter now consumes
+    that API. The same scan confirms zero production RegisterOrUpdate callsites.
+  disposition: >-
+    Retain the failure as historical contract drift. Do not weaken or edit it in
+    this M07 port gate; it does not invalidate the three focused frame-registry
+    contracts or authorize copying the presentation adapter.
+
+protection:
+  content_or_map_changed: false
+  production_or_protected_content_changed: false
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  providers_called: false
+  desktop_control_used: false
+
+claim_limit: >-
+  This proves authenticated source portability and focused offline contracts.
+  It does not copy or compile clean source, bind a PPG producer, replicate a
+  client snapshot, implement warp, load Unreal, or prove runtime, visuals,
+  standalone, travel or multiplayer.
+
+next_safe_action: >-
+  Create a no-clobber rollback manifest, copy only the two authenticated
+  registry files into clean RedMMO Public and Private, add focused clean-module
+  source contracts, and run one serialized RedMMOEditor development build. Do
+  not add a producer, destination, warp route, client snapshot or map binding in
+  that source-only tranche.

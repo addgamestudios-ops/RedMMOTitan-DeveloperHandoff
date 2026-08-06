@@ -1,0 +1,133 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r76-oasis-water-real-gpu-failed-restored.2026-08-06
+captured_utc: "2026-08-06T00:47:41Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r76-project-owned-native-ppg-oasis-water-successor
+evidence_class: real_gpu_visual
+result: runtime_pass_visual_fail_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib_before: 52.78
+  free_physical_ram_gib_after: 52.66
+  commit_headroom_gib_after: 55.08
+  gpu_free_vram_mib_before: 9110
+  gpu_free_vram_mib_after: 9064
+  free_d_drive_gib_after: 767.28
+  unreal_or_build_processes_before_after: 0
+  provider_ports_closed_before_after: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1OasisWater_R76_20260806T0026Z
+  manifest_sha256: 2C91A57F8F80FDAFCC02D8B611E971CFB5B4C41420FF1A0AE0408448A79BEC98
+  original_profile_sha256: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+  failed_visual_record: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1OasisWater_R76_20260806T0026Z/failed_visual_candidate.json
+  failed_parent_preserved_sha256: 62A00B4FF41BDB9C88907126C76D54C05595E17841355FFDF804C8B5AB7E4250
+  failed_instance_preserved_sha256: 3B0AAFB59A2DD7DD65709958F7ACDE6A27C73A0CBEA1991B8EE04B992A2A3687
+
+applied_candidate:
+  parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_OasisWater_R76
+  instance: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_OasisWater_R76
+  parent_sha256: 62A00B4FF41BDB9C88907126C76D54C05595E17841355FFDF804C8B5AB7E4250
+  instance_sha256: 3B0AAFB59A2DD7DD65709958F7ACDE6A27C73A0CBEA1991B8EE04B992A2A3687
+  profile_sha256_while_bound: F733E34812872D5E0986DB9DAB6B7D61EA06E2FDCBC31DF99AC592BC2ED37F5B
+  inherited_required_interface: [HeightMap, PlanetRadius]
+  oasis_normal_inputs:
+    - /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_01_N
+    - /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_02_N
+  oasis_absorption_coefficient: [0.2809999883, 0.07194299996, 0.05415099896, 1.0]
+  surface_tint: [0.03, 0.32, 0.36, 1.0]
+  surface_tint_amount: 0.38
+  normal_amount: 0.42
+  home_map_saved: false
+  generation_called_by_apply: false
+  vendor_assets_edited: false
+
+runtime:
+  renderer: D3D12
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_check: {errors: 0, warnings: 0}
+  seed: 1337
+  seed_changed: false
+  player_pawn_class: BP_RedTrooperPlayer_A01_C
+  land_role: Desert
+  submerged_role: Desert
+  pair_angular_separation_degrees: 0.0048411536044211745
+  native_water_component_count: 290
+  native_water_visible_main_pass_count: 289
+  runtime_material_ancestry:
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_OasisWater_R76
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_OasisWater_R76
+  manual_plane_or_standin_created: false
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R76_20260806T0026Z/Verify2/Capture/R76_seeded_desert_coast_oasis_ppg_water_lit.png
+  capture_bytes: 835176
+  capture_sha256: 1C1146BD0BF245F96668C8B0BFC5BF1742D5222B43CB7F0E04E0A9E8205F4B74
+
+matched_visual_review:
+  baseline_capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeededCoastWater_R74_20260806T0001Z/Capture/R74_seeded_desert_coast_native_water_lit.png
+  baseline_capture_sha256: 80F1AAA10EAE5741EC322CFF1FF9AC0A5A0DD33AA835C69D975805BECF0F9E95
+  same_camera_water_roi: {x_min: 700, x_max: 1000, y_min: 205, y_max: 300}
+  baseline_roi_mean_luma: 0.7432127595
+  r76_roi_mean_luma: 0.2425514609
+  baseline_dark_fraction_below_0_15: 0.0
+  r76_dark_fraction_below_0_15: 0.4070877193
+  proven:
+    - The seed-derived shoreline still follows generated terrain and no rectangular plane appears.
+    - The exact R74 coast is materially changed, with a visible aqua shoreline edge and dark-blue body.
+    - The Trooper remains visible at player scale and no palm appears.
+  rejection:
+    - The main water body is nearly black and directly repeats the user's rejected dark-water defect.
+    - Copying the Oasis demo absorption coefficient into the PPG single-layer-water successor is not a visually acceptable transfer at this planetary exposure and scale.
+  overall_art_acceptance: fail
+
+execution:
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_oasis_water_r76.py
+  apply_driver_sha256: 8042BBA11A533F78C62325C855B3E790BD645CA9D1D548F18C3AE78958AA94B5
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R76_20260806T0026Z/Apply/result.json
+  apply_result_sha256: 2A1716260D1BBB024EE3B1E95732F5D60A00F54ADAD25D029109EA09C442C50E
+  apply_status: PASS_R76_PROJECT_OWNED_PPG_OASIS_WATER_APPLIED
+  verify_driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_oasis_water_r76.py
+  verify_driver_sha256: E64E1B88E0D19ADDB61777EB32941D9B1C0CFF59CE80F18C3FF680A86D3E4793
+  verify_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R76_20260806T0026Z/Verify2/result.json
+  verify_result_sha256: 05C7AED4C9D8C2E84794DD5793E2DDA2334F2859B3CAD309CCB2042ED72794F0
+  verify_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R76_20260806T0026Z/R76_verify_attempt3.log
+  verify_log_sha256: 9954D8B99F382C23189FE25A6FC9844C4312DB77B39C715B2BD9A0C710D4AC03
+  harness_note: >-
+    The final verifier reached fresh-reload PIE, MapCheck, exact runtime material
+    ancestry and the completed capture, then its result publisher raised a
+    wrapper-only missing now key. The result therefore remains FAIL rather than
+    being rewritten; the captured runtime facts and image are retained as
+    negative visual evidence. Earlier attempts failed before mutation on an
+    apply-log no-clobber path and before PIE on an inherited R74 evidence path.
+
+restored_state:
+  decision: rejected_and_restored
+  profile_v1_sha256_after: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+  home_map_sha256_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_test_sha256_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  active_parent_absent: true
+  active_instance_absent: true
+  retained_baseline: R73 profile with R74 stock native PPG water
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+next_safe_action: >-
+  Do not retain or repeat R76's copied Oasis absorption coefficient. A later
+  bounded R77 water transaction may preserve the proven PPG HeightMap and
+  PlanetRadius graph plus the verified Oasis normal textures, but must use a
+  controlled low-absorption aqua/deep-blue coefficient set calibrated against
+  the exact R74 coast. Reject and restore again if the body remains dark or the
+  shoreline becomes a hard band. Do not add a plane, change seed/topology,
+  place foliage, reintroduce palms or edit vendor assets.
+
+claim_limit: >-
+  R76 proves a PPG-compatible project-owned successor can render on 290 native
+  water chunks at the exact seeded coast while preserving the map and seed. It
+  is rejected and no longer active because its main water body is nearly black.
+  This does not prove accepted water or shoreline art, beach bands, terrain
+  smoothing, hands-on controls, standalone packaging, replication, multiplayer
+  or user acceptance.

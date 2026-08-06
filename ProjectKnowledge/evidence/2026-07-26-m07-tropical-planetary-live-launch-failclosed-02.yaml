@@ -1,0 +1,170 @@
+schema_version: 1
+id: evidence.m07.tropical-planetary-live-launch.failclosed-02.2026-07-26
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: tropical-island-biome-native-snap-live-validation-attempt-02
+evidence_class: automation
+captured_utc: "2026-07-26T13:57:28Z"
+result: failed_closed_before_python_snap_save_or_visual_capture
+
+authorization:
+  approved_operation: >-
+    Exactly one guarded isolated M07 Unreal launch, with native snap and save
+    restricted to the disposable scratch map only if validation reached that
+    boundary, followed by real-GPU screenshot capture.
+  launches_performed: 1
+  retry_performed: false
+
+scope:
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map_package: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_maps_or_assets_modified: false
+  authoring_inputs_modified: false
+  providers_enabled_or_used: false
+  PIE_started: false
+  validation_python_started: false
+  native_snap_executed: false
+  pre_snap_backup_created: false
+  scratch_map_saved: false
+  screenshot_files_created: false
+  real_gpu_visual_acceptance: false
+
+launcher:
+  path: D:/RedMMOTitan/Build/Automation/Start-M07TropicalBiomeLiveValidation.ps1
+  bytes: 195689
+  sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+  parser_errors: 0
+  independent_reviews: 2
+  independent_review_result: go_within_sampled_normal_operation_boundary
+  no_launch_process_probes:
+    result: passed
+    native_binding_cases: 26
+    process_classification_cases: 28
+    listener_cases: 6
+  no_launch_sensor_probes:
+    result: passed
+    fail_closed_sensor_cases: 9
+    exact_process_handle_stop_cases: 2
+    malformed_live_audit_type_rejections: 14
+  sustained_preflight:
+    result: passed
+    samples: 6
+    minimum_free_physical_gib: 47.382
+    minimum_free_commit_gib: 62.932
+
+runtime:
+  run_directory: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_135209_740Z_a54e09a2
+  controller_directory: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/controller_authorized_20260726_135209_356Z
+  editor_pid: 9588
+  monitor_result: guard_aborted_exact_editor_only
+  monitor_samples: 22
+  monitor_sensor_failures: 0
+  minimum_monitor_free_physical_gib: 45.921
+  minimum_monitor_free_commit_gib: 61.268
+  allowed_core_trace_listeners_observed: 1
+  allowed_editor_udp_11111_listeners_observed: 0
+  unexpected_editor_owned_listeners_observed: 0
+  new_zen_processes_observed: 0
+  new_external_trace_servers_observed: 0
+  live_audit_created: false
+  stop:
+    requested: true
+    stopped: true
+    exact_pid_only: 9588
+    retained_process_handle_used: true
+    process_tree_or_name_kill_used: false
+    proves_exact_editor_stopped: true
+
+startup_sequence:
+  first_turnkey_process:
+    disposition: allowed
+    pid: 4148
+    parent_pid: 3212
+    name: dotnet.exe
+    creation_utc: "2026-07-26T13:53:07.5657220Z"
+    operation: Turnkey SDK detection for all platforms
+    report_file: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Intermediate/TurnkeyReport_0.log
+    completed_exit_code: 0
+  second_turnkey_process:
+    disposition: rejected_as_second_distinct_sampled_startup_process
+    pid: 23580
+    parent_pid: 24416
+    name: dotnet.exe
+    creation_utc: "2026-07-26T13:53:43.2745850Z"
+    operation: Turnkey device detection for Win64@DESKTOP-9MA6DG9
+    report_file: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Intermediate/TurnkeyReport_1.log
+    executable_path: D:/UE_5.8/Engine/Build/BatchFiles/../../Binaries/ThirdParty/DotNet/10.0/win-x64/dotnet.exe
+    executable_path_attestation:
+      source: wmi_executable_path
+      success: true
+      strict_absolute_dos_path: true
+    parent_executable_path: C:/Windows/System32/cmd.exe
+    parent_executable_path_attestation:
+      source: wmi_executable_path
+      success: true
+      strict_absolute_dos_path: true
+
+blocker:
+  summary: >-
+    The repaired blank-WMI native path fallback was not the failing gate. It
+    successfully allowed the first normal Turnkey VerifySdk process. After that
+    process completed, Unreal launched a second sequential, WMI-path-attested
+    Turnkey VerifySdk process for Win64 device detection. The reviewed guard
+    contract allowed only one distinct sampled startup dotnet identity, so it
+    treated PID 23580 as overlap and failed closed before Python could run.
+  exact_guard_reason: "another Unreal editor/cmd/build process appeared: dotnet.exe:23580"
+  required_offline_repair: >-
+    Model and independently review the exact normal sequential pair: one
+    all-platform SDK-detection process using TurnkeyReport_0 followed by one
+    Win64 device-detection process using TurnkeyReport_1. Continue to reject
+    concurrency, a third identity, reordered operations, different projects,
+    paths, payloads, devices, parents, or output roots.
+
+artifacts:
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_135209_740Z_a54e09a2/launch_evidence.json
+    bytes: 25005
+    sha256: 8F558ECD6549181D0FB768E32E24C352B4E585718312D46B88A0CF75A9730C3A
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_135209_740Z_a54e09a2/monitor_evidence.json
+    bytes: 290606
+    sha256: 58EDC649EFE1673B90AB12C84BCD387E26744C105ED034DF021DD32CBC4FC0D0
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_135209_740Z_a54e09a2/UnrealEditor.log
+    bytes: 119413
+    sha256: 01D069205193F1D57B76BA26BD7DF4026AFE0E1161539D6F38778BEADC4AC6F2
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/controller_authorized_20260726_135209_356Z/controller.stdout.log
+    bytes: 4482
+    sha256: 432EFCDA56746412F61C97548346881C72CFD91BA71FA692407414802DD9C3D4
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/controller_authorized_20260726_135209_356Z/controller.stderr.log
+    bytes: 594
+    sha256: 43D524B56E6C3BB0ACD75889671B4FA6826D93912DACE3FD7CB31EAFE5601968
+
+post_run_integrity:
+  relevant_unreal_or_build_process_count: 0
+  scratch_map:
+    bytes: 12497095
+    sha256: FBB0EED0191099B99833CA829834BA08DB5786204ED27A04BA38F053B4F1B491
+    unchanged: true
+  authoring_audit:
+    bytes: 38421
+    sha256: 1A1A0A98030D1A7BC6AE1F2617805E9E1080D367051266BFCFF04335CA446ADA
+    unchanged: true
+  protected:
+    Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_hashes_match: true
+
+planet_authoring_contract:
+  invariant_id: INV-STREAM-001
+  statement: >-
+    The 27 square regions remain overlapping tangent-local authoring inputs
+    fused before runtime; they are not runtime World Partition cells.
+
+acceptance:
+  visual_review_ready: false
+  exact_remaining_gate: >-
+    Complete the bounded no-launch sequential-Turnkey guard repair and
+    independent exact-byte review. A later live attempt must be a separately
+    bounded single launch; this authorization was consumed and no unchanged
+    retry occurred.
+  production_migration_allowed: false

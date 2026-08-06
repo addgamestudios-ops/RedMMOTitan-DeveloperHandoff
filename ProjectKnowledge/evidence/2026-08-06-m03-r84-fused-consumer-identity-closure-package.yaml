@@ -1,0 +1,94 @@
+schema_version: 1
+id: evidence.m03.r84-fused-consumer-identity-closure-package
+module: M03
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T05:17:35Z
+scope: >-
+  Read-only exact-identity closure audit between the protected six-face fused
+  terrain source, the clean RedMMO project, and the current R84 packaged
+  container listing. No Unreal process was launched and no map, profile,
+  source raster, fused output, source, Config, plugin, content package, vendor
+  asset, package, or rollback byte was changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.15
+  commit_headroom_gib: 54.34
+  gpu_free_mib: 9112
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+protected_fused_source:
+  root: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches
+  manifest: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches/RED_MacroWorld.json
+  manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  face_raster_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+audit_contract:
+  exact_identity_terms:
+    - MacroFacesFromPatches
+    - RED_MacroWorld
+    - RED_Height_PX
+    - RED_Height_NX
+    - RED_Height_PY
+    - RED_Height_NY
+    - RED_Height_PZ
+    - RED_Height_NZ
+    - RED_Land_PX
+    - RED_Land_NX
+    - RED_Land_PY
+    - RED_Land_NY
+    - RED_Land_PZ
+    - RED_Land_NZ
+    - RED_Biomes_PX
+    - RED_Biomes_NX
+    - RED_Biomes_PY
+    - RED_Biomes_NY
+    - RED_Biomes_PZ
+    - RED_Biomes_NZ
+  searched_project_roots:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Config
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Plugins
+  searched_content_root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content
+  source_config_plugin_exact_identity_hit_count: 0
+  content_filename_exact_identity_hit_count: 0
+  serialized_uasset_umap_ascii_identity_hit_count: 0
+r84_package_index:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R84_Playable_20260806_0310Z/Windows
+  file_count: 51
+  total_bytes: 1452474808
+  tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/M09_R84_PackageGameplayClosure_20260806T0424Z/RedMMO-Windows-utoc-list.log
+  iostore_listing_encoding: UTF-16LE
+  iostore_listing_sha256: DCF8648090BFA3D2BE395FBEE8387B196D3DEA5B2375953F454FE07D60B4F567
+  inspected_line_count: 3234
+  exact_identity_hit_count: 0
+finding: >-
+  The clean RedMMO source, Config, plugins, Content filenames, serialized
+  uasset/umap ASCII strings, and the R84 IoStore directory index expose zero
+  occurrence of every protected fused-root, manifest, height, land, and biome
+  identity tested. Therefore R84 has no traceable exact-name/path closure to
+  the protected fused-face dataset. Clean RedMMO consumer binding remains
+  unproved and must not be inferred from the older fused prototype evidence.
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+postcheck:
+  active_unreal_build_package_process_count: 0
+rollback: not_applicable_no_project_or_package_mutation
+claim_limit: >-
+  Exact-name/path absence does not exclude a relabeled, embedded, transformed,
+  or mathematically similar derivative. This record does not prove terrain
+  pixels, collision, hub flatness, water or shoreline agreement, foliage or
+  PCG placement, player or vehicle traversal, runtime package currency,
+  replication, or multiplayer acceptance.
+next_safe_action: >-
+  Keep the 27 source patches and six fused faces immutable. Do not regenerate
+  or promote them into the current PPG world. After the R84 human control and
+  day/night gate, create a separate rollback-backed clean-RedMMO consumer
+  adapter only if the user authorizes replacing or augmenting the current PPG
+  terrain contract; require explicit asset-path provenance plus fresh runtime,
+  real-GPU, collision, traversal, and package evidence.

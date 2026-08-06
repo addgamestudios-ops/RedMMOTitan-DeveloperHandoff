@@ -1,0 +1,226 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0004-LEGACY-HUD-CAPTURE-RESIDUAL-LIFECYCLE-INVENTORY-STATIC
+captured_at: "2026-07-22T19:58:49Z"
+module: module.M09.windows-development-package
+defect: DEF-0004
+slice: legacy-hud-capture-residual-lifecycle-inventory
+evidence_class: static
+result: inventory_complete_no_safe_static_lifecycle_mutation_runtime_open
+
+authorization_and_scope:
+  intended_work: >-
+    Inventory the remaining legacy portrait/minimap timer wakes, prewarm calls,
+    render-target lifetime, persistent render state, consumer ownership, and
+    fallback/loadout visibility transitions after the hidden-root capture gate.
+  production_files_modified: 0
+  test_files_added: 1
+  canonical_files_modified: 4
+  decision: blocker_record_only_no_production_lifecycle_change
+  explicitly_preserved:
+    - the prior hidden-root recurring CaptureScene visibility guard
+    - initial portrait and minimap prewarm behavior
+    - timer cadence, alternation, render-target binding, and teardown
+    - visible legacy fallback and interactive ability-loadout behavior
+    - replacement minimap and party fail-closed behavior
+    - gameplay input, authority, prediction, and replication
+    - production maps, protected checkpoints, artist repositories and handoffs, user assets, and unrelated dirty work
+  not_attempted:
+    - any timer pause, resume, clear-on-hide, or lazy-restart mutation
+    - prewarm deferral or render-target allocation, release, brush-rebind, or persistence mutation
+    - Unreal Editor, UBT, UHT, build, cook, package, shader, Zen, or IoStore work
+    - runtime, real-GPU, visual, gameplay, Steam, or multiplayer acceptance
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1353
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_count: 0
+    competing_project_writer_before_slice: false
+    uaip_mcp_thin_proxy_pairs_without_editor: 4
+  resource_samples:
+    sample_count: 9
+    duration_seconds: 23.1
+    physical_free_gib: {minimum: 7.272, maximum: 7.751, average: 7.514}
+    commit_headroom_gib: {minimum: 17.472, maximum: 17.938, average: 17.674}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1428_to_1429, free_mib: 8625_to_8626}
+    disk_free_gib: {C: 132.54, D: 1141.72}
+  decision: static_offline_only
+  latest_package_evidence:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_or_package_started: false
+    archive_or_ready_marker_created: false
+
+static_inventory:
+  capture_components: 2
+  component_policy:
+    capture_every_frame_false_assignments: 2
+    capture_on_movement_false_assignments: 2
+    always_persist_rendering_state_assignments:
+      constructor: 2
+      local_hud_creation: 2
+  render_targets:
+    portrait: {format: RTF_RGBA8, width: 256, height: 320}
+    minimap: {format: RTF_RGBA8, width: 512, height: 512}
+    minimum_logical_rgba8_bytes: 1376256
+    minimum_logical_rgba8_mib: 1.3125
+    excluded_from_minimum: [RHI_overhead, alignment, history, driver_allocation]
+    ownership: transient_player_properties_detached_and_released_only_in_DestroyLocalHUD
+  prewarm:
+    CaptureScene_calls: 2
+    timing: synchronous_after_target_binding_before_timer_start
+  recurring_timer:
+    period_seconds: 0.15
+    scheduled_callback_wakes_per_second: 6.6667
+    SetTimer_owners: 1
+    ClearTimer_owners: 1
+    PauseTimer_calls: 0
+    UnPauseTimer_calls: 0
+    CaptureScene_callsites: 2
+    behavior: alternates_one_portrait_or_minimap_branch_after_the_existing_visibility_gate
+  consumers:
+    portrait_render_target: UVibeMMOHUDWidget_SetPortraitResource_only
+    minimap_render_target: UVibeMMOHUDWidget_SetMinimapResource_only
+    replacement_ARedHUD_render_target_consumers: 0
+  lifecycle_entry_points:
+    create_attempts: [BeginPlay, PawnClientRestart, PossessedBy]
+    teardown: EndPlay_calls_DestroyLocalHUD
+    visibility_owners:
+      - ARedPlayerCharacter_TryCreateLocalHUD
+      - ARedPlayerCharacter_ToggleAbilityLoadout
+      - ARedPlayerCharacter_CloseAbilityLoadout
+      - ARedHUD_BeginPlay_RegisterLegacyCombatHUD_DrawHUD_ReconcileCombatHUDLayers
+      - UVibeMMOHUDWidget_constructor_and_ability_overlay
+  mode_boundary:
+    refresh_reads_surface_or_space_mode: false
+    finding: >-
+      RefreshHudCaptures alternates the two legacy capture branches without a
+      surface/space-mode contract, while Tick derives displayed minimap mode
+      from possession/view-target state as well as the requested flag.
+
+no_mutation_decision:
+  timer_pause_or_clear_on_hide: >-
+    No single visibility owner or resume contract spans HUD/pawn BeginPlay
+    ordering, loadout open/close, replacement-HUD failure fallback,
+    PawnClientRestart, possession changes, travel, and destruction. A timer
+    that self-clears has no current restart path.
+  prewarm_deferral: >-
+    Deferral can expose blank portrait/minimap resources until the alternating
+    timer services both targets. The recurring path deliberately interleaves one
+    capture per callback for the documented Metal concern, while the two
+    synchronous prewarm calls and actual Metal safety remain runtime-unverified.
+  render_target_release_or_persistent_state_disable: >-
+    Releasing or detaching targets changes Slate brush resource lifetime,
+    UObject/GC ownership, rebind order, capture history, and first-visible-frame
+    hitch behavior. Static source cannot prove those transitions safe.
+  proportionality: >-
+    The residual hidden topology includes 6.6667 scheduled guarded callback
+    wakes per second plus the retained targets and rendering state; actual CPU,
+    GPU, and RHI-memory cost or savings require measurement before accepting
+    lifecycle risk.
+  independent_review: pass_inventory_and_blocker_record_no_source_change
+
+changed_files:
+  - path: Tools/tests/test_def0004_legacy_hud_capture_residual_inventory_contract.py
+    pre_state: absent
+    post_sha256: 31AB12691593089E01E317E531DCA5CD6BBD241266FB78FD43E3786CB2D0F3C5
+    post_bytes: 9603
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004LegacyHudCaptureResidualInventory_20260722_1954
+  test_file_absent_before: true
+  files:
+    - {name: INDEX.yaml, sha256: 51BCC46921A366DCD0A7D6A36ABA2F062B63AD1BB5EAD27A33DD55D17FDD11BF}
+    - {name: current_state.yaml, sha256: 33188178CF6B4240952809C1F17F8B82F44A16C878C7C0D5583D171D143029D1}
+    - {name: DEF-0004-pixel-exact-hud-static-composite.yaml, sha256: F0842066A1DDED31AB0CC27AE08656B674EFFBF7B80DC928D0D7C06417B0DA23}
+    - {name: redmmotitan_module_queue.json, sha256: 46B714B5DD5D2490FF408CE4D253B68EBCE7302843BDD5D80EAF0BC9AF0E4603}
+    - {name: RedPlayerCharacter.cpp, sha256: 1F6FA8570C86CC1A44C0C329964FC8CBE58BBEBFE1B02E5458AD9A33CF0D3D6F}
+    - {name: RedPlayerCharacter.h, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+    - {name: RedHUD.cpp, sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599}
+    - {name: VibeMMOHUDWidget.cpp, sha256: D882F421749E035A6A1491E622EBF58AF73CDBD235F178C99C988AFCC411EEC3}
+
+verification:
+  focused_inventory_tests: 7_of_7_passed
+  combined_hud_shared_and_provenance_tests: 125_of_125_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureResidualInventory_20260722_1954/offline_contract_and_provenance_tests.log
+  log_sha256: 048A3966E3A5A241015FF143BCD580BA05349699480677D76C7D95527999D30C
+  exit_record: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureResidualInventory_20260722_1954/offline_contract_and_provenance_tests.exit.txt
+  exit_record_sha256: 13BF7B3039C63BF5A50491FA3CFD8EB4E699D1BA1436315AEF9CBE5711530354
+  currency_and_package_guard_tests:
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureResidualInventory_20260722_1954/currency_and_package_guard_tests.log
+    log_sha256: 58E30AA566C64A0168CDA07DB53CC04BDF5DBC56037795788E942ACC489014E3
+
+target_currency:
+  tool: Tools/audit_windows_target_currency.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureResidualInventory_20260722_1954/target_currency.json
+  report_sha256: 94AA6FF114B90E67C0992606682F920778523A555A360EB931A07D52C8CA0EB4
+  captured_utc: "2026-07-22T19:57:33.536344Z"
+  input_count: 874
+  input_manifest_sha256: 29EC28DD1090F93BA14DAC625249DE18E9804B419BAE41547436643D5040E93B
+  gate_result: refused_fail_closed
+  skip_build_allowed: false
+  build_proofs_supplied: 0
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, proof_status: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, proof_status: missing}
+
+protection:
+  result: pass
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_zip_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_source_rasters: 135_of_135_matched
+  supplied_hud_assets: 56_of_56_matched
+  vibe_sources: 8_of_8_matched
+  safe8_manifest_members: 338_of_338_matched
+  artist_repository_shapes_unchanged: true
+
+canonical_reconciliation:
+  queue:
+    retry_before: 16
+    retry_after: 17
+    evidence_count_before: 37
+    evidence_count_after: 38
+    pre_sha256: 46B714B5DD5D2490FF408CE4D253B68EBCE7302843BDD5D80EAF0BC9AF0E4603
+    post_sha256: 977F77BBF67828C52932075FFBF5D4BA46928014A6697DCC1607AAF5E3B24347
+  index_post_sha256: 808EE3BFCC53150953A872934BC4F5A7C41D3BFF06FAA21DEA3E36D1C7FEDF66
+  current_state_post_sha256: 914DC238DDC818ECB7D023E7D283C85ECBD7BCAD5DBB3B28F0FEEF16ED43DFBD
+  defect_post_sha256: D8A114DE126A9D0BFA78ADAC8A3A02B99CA28DB25599CF046F7437FC185FDFC6
+  current_state_queue_snapshot_matches: true
+
+remaining_blockers:
+  - no compile or UHT evidence exists for the current RedMMO and RedHUDRuntime sources
+  - no runtime evidence proves timer stop/resume, prewarm, possession, fallback, travel, or teardown transitions
+  - no real-GPU profile measures callback, scene-capture, retained RHI-memory, or first-visible-frame behavior
+  - the timer still wakes while hidden and prewarm, render targets, and persistent rendering state remain
+  - party and replacement-minimap presentation remain fail-closed pending reviewed authoritative contracts
+  - current pixels, gameplay, packaging, Steam transport, and multiplayer remain unverified
+
+claim_limit: >-
+  Static source inventory proves the current ownership, call-site, allocation,
+  visibility, and teardown topology and explains why no lifecycle mutation was
+  accepted. It does not prove compilation, UHT, callback cost, GPU or RHI-memory
+  savings, pause/resume correctness, first-visible-frame behavior, visuals,
+  gameplay, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  Keep Unreal, builds, packaging, and real-GPU work closed below the sustained
+  resource gate. Do not revisit the capture lifecycle until a guarded compile is
+  current and a bounded real-GPU profile can measure normal pixel-HUD, visible
+  fallback, loadout open/close, replacement failure, possession/restart, travel,
+  and teardown transitions. While resources remain low, select a different
+  independent static/offline module from the canonical queue.

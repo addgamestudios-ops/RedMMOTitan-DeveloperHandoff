@@ -1,0 +1,503 @@
+﻿schema_version: 1
+knowledge_version: 1
+project: RedMMOTitan
+path_convention: repo_relative_forward_slash
+
+purpose: >-
+  Compact routing for durable project facts, constraints, reusable authoring
+  records, defects, acceptance gates, and architecture decisions. Long build
+  history stays in the existing queue and domain specifications.
+
+authoritative_sources:
+  work_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    owns: module_status_and_detailed_evidence_history
+  current_snapshot:
+    path: ProjectKnowledge/current_state.yaml
+    owns: concise_verified_state_and_open_risks
+  invariants:
+    path: ProjectKnowledge/invariants.yaml
+    owns: cross_domain_non_negotiable_rules
+
+domain_specs:
+  - path: docs/PLANET_50KM_IMPLEMENTATION_SPEC.md
+    domains: [planet_geometry, fused_authoring_inputs, water, collision, streaming, acceptance]
+  - path: docs/PLANETGEN_PINNED_FORK.md
+    domains: [planetgen_fork, rollback, test_profile]
+  - path: docs/PLANET_TERRAIN_AUTHORING_PLAN.md
+    domains: [macro_heightfield, masks, runtime_consumers]
+  - path: docs/PLANET_PATCH_AUTHORING_GUIDE.md
+    domains: [tangent_patches, bake_workflow, protected_authority]
+  - path: docs/WORLD_AUTHORING_WORKFLOW.md
+    domains: [manual_placement, pcg_reservations, artist_workflow]
+  - path: docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS.md
+    domains: [repository_storage, report_publication, recovery_harness, durability_acceptance]
+  - path: docs/MODULAR_BUILD_QUEUE.md
+    domains: [narrative_build_history]
+  - path: docs/WINDOWS_STEAM.md
+    domains: [packaging, multiplayer, hands_on_runtime_checks]
+
+templates:
+  planet: ProjectKnowledge/templates/planet.yaml
+  atmosphere: ProjectKnowledge/templates/atmosphere.yaml
+  moon: ProjectKnowledge/templates/moon.yaml
+  ring_world: ProjectKnowledge/templates/ring-world.yaml
+  asteroid_field: ProjectKnowledge/templates/asteroid-field.yaml
+  warp_route: ProjectKnowledge/templates/warp-route.yaml
+
+references:
+  - ProjectKnowledge/references/epic-level-design-fundamentals-3VKJ-2026-07-28.yaml
+  - ProjectKnowledge/references/code-like-me-planet-tutorials.yaml
+  - ProjectKnowledge/references/user-seamless-planet-streaming-commandline-2026-07-23.yaml
+  - ProjectKnowledge/references/youtube-ue5-cpp-compile-pipeline-ce0fiknbpmw-2026-07-24.yaml
+  - ProjectKnowledge/references/youtube-ue57-steam-multiplayer-ga-5ejeleju-2026-07-24.yaml
+
+systems:
+  - ProjectKnowledge/systems/on-foot-voxel-asteroid-mining.yaml
+  - ProjectKnowledge/systems/atmosphere.red-mars.yaml
+  - ProjectKnowledge/systems/ring-world.red-ring-01.yaml
+  - ProjectKnowledge/systems/moons.red-ring-01.yaml
+  - ProjectKnowledge/systems/asteroid-field.red-ring-01-mineable.yaml
+  - ProjectKnowledge/systems/asteroid-field.red-mars-deep-space.yaml
+  - ProjectKnowledge/systems/warp-route.red-mars-to-ring-01.yaml
+
+evidence:
+  - ProjectKnowledge/evidence/2026-08-07-r92-dependency-focalrig-worldgen-unblock-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-clean-ppg-celestial-frame-producer-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-clean-ppg-celestial-frame-producer-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-clean-shared-body-frame-source-audit-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-recovery-dry-run-source-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r89-jetpack-runtime-input-timing-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r89-clean-jetpack-producer-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r88-onfoot-jetpack-producer-closure-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r88-jetpack-hud-resource-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-r88-planet-core-profile-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m06-r88-native-water-ownership-package-boundary.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r88-m04-m05-handoff-supplement-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-r88-celestial-registry-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m04-r88-ppg-streaming-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-r88-gameplay-asset-package-closure.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r88-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-r88-fused-consumer-identity-closure-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-redmmo-r88-grounded-footstep-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r88-a01-grounded-footsteps-runtime.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r87-a01-grounded-footstep-ownership-audit.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-r87-fused-consumer-identity-closure-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r87-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r87-rifle-presentation-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r86-infantry-presentation-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r86-infantry-presentation-runtime-pixel-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r86-locomotion-single-node-guard-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r86-infantry-presentation-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-infantry-presentation-candidate-closure-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r85-projectile-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m06-t04-exact-zero-build-plugin-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r85-projectile-launcher-lifecycle-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r85-projectile-d3d12-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r85-native-infantry-bolt-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m11-planetgen17-ringworld-availability-protection-drift-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-r84-gameplay-asset-package-closure.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-celestial-frame-registry-native-execution-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-clean-r84-trooper-weapon-animation-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m04-streaming-lod-current-capability-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-fused-core-current-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-protected-27-input-provenance-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-r84-fused-consumer-identity-closure-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r84-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m12-worldgen-config-decision-blocked-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r84-motion-vector-cvar-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r83-night-material-cook-closure-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r82-ppg-uvguard-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r81-ppg-uvchanneldata-ensure-root-cause-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r80-playable-development-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r80-shoreline-bands-real-gpu-retained.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r79-sea-datum-material-capability-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r78-low-absorption-water-real-gpu-retained.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r77-stock-absorption-water-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r76-oasis-water-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r75-oasis-water-adapter-closure-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-clean-redmmo-r74-seeded-coast-water-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r73-biome-presentation-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r72-multi-biome-views-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r71-role-surface-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r70-complete-surface-topology-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r69-runtime-biome-distribution-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r68-visual-moon-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r67-painted-leaf-ground-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r66-seeded-palms-disabled-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r65-seeded-palm-binding-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r64-ground-hue-separation-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r63-matched-ground-grass-palette-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r62-sostylized-ground-dense-grass-real-gpu-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r61-legacy-humanoid-dependency-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r60-a01-entry-flight-exit-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r59-starter-ship-ppg-parking-runtime.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r58-star-density-persisted-build-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r57-star-density-candidate-real-gpu-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r56-star-density-real-gpu-proven-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r55-sky-atmosphere-visibility-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r54-cloud-radius-surface-sky-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r53-surface-sky-runtime-diagnosis.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r52-grass-existing-viewport-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r51-grass-capture-source-correlation-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r50-grass-lifecycle-capture-confound-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r49-grass-wpo-zero-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r48-grass-opaque-blend-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r47-grass-opacity-wpo-dither-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r46-grass-depth-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r45-grass-pivot-depth-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r44-biome-remap-grass-eligibility-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r43-grass-render-state-recreate-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r42-surface-night-stars-occluded-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r41-grass-instance-refresh-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r40-grass-capture-state-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r39-grass-material-readiness-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r38-grass-default-visibility-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r37-sostylized-ground-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r36-sostylized-grass-closure-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r35-painted-ground-candidate-audit-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r31-grass-pixel-isolation-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r32-grass-material-readable-color-visual-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r33-grass-color-restraint-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r34-painted-ground-scale-real-gpu-failed-restored.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r30-grass-dispatch-render-state-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r29-grass-eligibility-persistence-runtime-visual-fail.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r28-grass-sky-runtime-diagnostic.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r27-land-spawn-movement-grass-visual-fail.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r26-land-playerstart-reload-mapcheck-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r25-land-playerstart-persistence-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r24-swept-grounding-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r23-local-native-collision-fit-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r22-streamed-biome-authority-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r21-multidirection-land-probe-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r20-seeded-land-start-scan-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r19-underwater-spawn-authority-real-gpu-diagnostic.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-night-presenter-r18-real-gpu-partial.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-night-presentation-automation-pass.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-profile-v1-ocean-foliage-role-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-playerstart-biome-real-pie.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-foliage-eligibility-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-pie-gameplay-pass-visual-fail.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-playerstart-surface-falsified-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-home-binding-reload-mapcheck-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-home-binding-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-shoreline-value-persistence-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-shoreline-control-adapter-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-per-biome-shoreline-flatten-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-elevation-aggregation-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-shoreline-flatten-global-pin-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-ppg-installed-flatten-example-wiring-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-shoreline-smoothing-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-relief-partner-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-detail-noise-topology-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-surface-branch-mapping-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-graph-identity-reload-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-graph-identity-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-graph-mapping-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-successor-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-world-profile-adapter-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-world-profile-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-world-profile-build.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-ppg10-continent-biome-water-path-capability-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-planetgen17-continent-biome-terrain-controls-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-planetgen17-shoreline-material-capability-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-projectknowledge-evidence-taxonomy-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m12-titan-editor-retry-worldgen-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m12-absent-uaip-descriptor-disable-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m12-titan-editor-compile-required-plugin-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-automation-nullrhi-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-tests-build.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-source-port-build.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-port-gate-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-surface-to-orbit-warp-capability-static.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-night-presentation-automation-startup-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-night-presentation-foundation-build.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r17-runtime-remap-audit-startup-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r17-seeded-biome-gameplay-pass-visual-failed.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r17-biome-output-contract-read-only.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r16-biome-authority-read-only-pass.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-home-night-stack-read-only-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r16-smooth-terrain-gameplay-real-gpu-grass-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-trooper-starsparrow-automated-real-d3d12-pie.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-star-sparrow-content-copy-static.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-trooper-payload-copy-load-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-onfoot-native-combat-build.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-radial-kernel-build.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-titan-gameplay-current-dependency-closure-static.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-gameplay-registry-facade-static.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-native-module-bootstrap-build.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-titan-gameplay-migration-audit-static.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-r16b-grounded-footsteps-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-r16a-water-plane-removal-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-pre-r15-playable-restore-real-pie.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-ship-anchor-r14-real-pie-failed.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-character-ship-camera-r13-real-pie.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-flight-r11-real-pie.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-home-r10o-actual-playerstart-dense-grass-smoothed-relief-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-home-r10m-painted-ground-dense-tall-grass-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-home-r10k-pack-demo-ground-stones-dense-grass-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-home-r10h-presentation-correction-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-02-m07-clean-redmmo-ppg-home-r09-direct-foliage-rebind-real-gpu-failed.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-fab-stylized-rocks-stones-ue58-delivery-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-ppg-home-r07-guarded-build-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-real-ppg-home-r06-player-review-failed.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-real-ppg-home-stylized-region-r06-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-ppg-stylized-presentation-r02-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-tropical-sand-material-review-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-ppg-planetgen-coexistence-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-30-m07-stylized-planet-presentation-adapter-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6p-reflection-captures-sky-real-gpu-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6o-reflection-stage-real-gpu-diagnostic.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6n-water-material-path-real-gpu-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6m-real-gpu-visual-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6l-shoreline-pass-overall-visual-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6k-real-gpu-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-island-district-v6f-real-gpu-failed.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-seven-region-island-district-v5-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-27-m07-seven-region-island-district-v4-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-rock-rvt-light-adaptation-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-tile-v3-rock-layout-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-scratch-craft-collision-build-pie-runtime-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-scratch-craft-collision-correction-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-biome-v2-source-selection-static.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-resolved-surface-target-probe-preparation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-resolved-surface-probe-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-region15-macro-land-candidate-scan.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-region15-land-water-probe-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-planetary-region15-real-gpu-diagnostic.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-planetary-live-launch-failclosed-02.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-native-path-attestation-guard-static.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-planetary-live-launch-failclosed.yaml
+  - ProjectKnowledge/evidence/2026-07-26-m07-tropical-planetary-live-launch-guard-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-tropical-ue58-isolated-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-stylized-raw-library-audit-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-unified-ai-orchestration-dry-run-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-savanna-ue58-asset-registry-closure-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-25-unreal-ai-integration-live-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-direct-coordinator-runtime-manifest-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-replay-private-bootstrap-stage2-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-activation-parent-replay-publication-hold-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-lifecycle-session-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-activation-ownership-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-restricted-probe-candidate-skeleton-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-restricted-probe-candidate-source-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-row-resolver-deployment-readonly-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-morph-row-canonicalization-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-brute-linked-preset-candidate-readonly-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-protocol-1-2-deployment-readonly-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-local-mcp-bridge-readonly-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-cc5-local-mcp-bridge-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-m07-nwiro-restricted-probe-baseline-source-audit-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-nwiro-predispatch-client-firewall-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-nwiro-metadata-dry-run-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-crosspack-minihub-source-selection-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-uaip-lifecycle-ram-upgrade-guard-static.yaml
+  - ProjectKnowledge/evidence/2026-07-25-unreal-ai-integration-memory-recovery-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-stylized-source-review-request-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-stylized-source-quarantine-resolution-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-stylized-source-semantic-taxonomy-overlay-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-stylized-trees-bounded-import-taxonomy-finding-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-stylized-source-texture-import-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-disposable-volume-recovery-harness-design-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m09-steam-multiplayer-video-reference-review-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m09-ue5-cpp-compile-pipeline-reference-review-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-fab-environment-pack-acquisition-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-write-through-publication-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-native-file-id-info-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-manifest-parent-stability-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-direct-api-reauthentication-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-manifest-handle-authentication-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-publication-parent-identity-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-windows-path-identity-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-stable-handle-hashing-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0004-authored-vitals-depletion-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0004-replacement-surface-minimap-presenter-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-restore-verifier-semantic-schema-hardening-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-isolated-restore-verifier-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m07-content-project-plugin-source-storage-manifest-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-generation-cas-release-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0002-clamp-surface-recovery-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0002-beginplay-root-correction-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m00-night-t03-contract-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0005-shuttle-ramp-lineage-contract-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m05-find-mesh-planet-caller-contract-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0004-quest-producer-domain-scope-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-def-0002-placement-route-corridor-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-journal-capacity-release-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-same-revision-equivocation-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-multi-volume-isolation-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-deterministic-initialization-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-generated-output-role-isolation-stale-completion-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-persistence-ticket-reissue-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-checkpoint-restore-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-native-journal-automation-source-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-journal-checkpoint-persistence-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-generated-output-completion-boundary-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-in-memory-sparse-density-backend-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-backend-neutral-authority-contracts-static.yaml
+  - ProjectKnowledge/evidence/2026-07-24-m12-voxel-capability-audit-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m07-asset-curation-manifest-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m07-asset-registry-catalog-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m07-asset-library-architecture-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m01-design-export-translation-completion-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m10-missing-evidence-id-repair-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m10-noncanonical-evidence-class-repair-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m10-missing-evidence-class-repair-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m10-malformed-sha-repair-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m10-legacy-schema-version-repair-static.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m07-grass-gpu-defaults-static-build.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-controller-resource-inventory-d3d12-ultrawide.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-controller-resource-inventory-d3d12-16x9.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-grid-polish-d3d12-16x9.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-d3d12-16x9.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-implementation-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-ultrawide-mining-receipt-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0008-deep-space-harness-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0004-mining-receipt-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-client-projectile-rpc-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-destruction-reward-audio-automation.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-late-join-multiplayer.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-destruction-pixels-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-depletion-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-cull-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-member-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-two-client-pie-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-depletion-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-23-m05-registry-build-nullrhi.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0003-sequence-uht-repair-compile.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0002-landing-parking-clearance-transaction-compile.yaml
+  - ProjectKnowledge/evidence/2026-07-23-def-0002-compass-body-identity-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-recursive-orphan-discovery-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-completed-evidence-compatibility-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-high-gate-semantics-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-schema-version-strict-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-current-state-queue-shape-hardening-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m10-project-knowledge-integrity-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0001-safe8-artist-atmosphere-root-cause-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-legacy-hud-capture-residual-lifecycle-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-legacy-hud-capture-visibility-gate-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-presentation-dedup-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-keyboard-ability-consumer-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-minimap-producer-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-party-producer-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-snapshot-producer-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-consumable-producer-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-quest-producer-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-feed-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-enemy-feed-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m09-post-def-0002-target-currency-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0002-gravity-acceptance-telemetry-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-noop-feedback-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-customizer-route-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0004-current-functional-hud-gap-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0002-post-def-0003-source-identity-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0006-post-def-0003-source-identity-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m09-target-currency-current-state-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0003-asteroid-depletion-source-implementation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0003-asteroid-depletion-source-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0002-fighter-reboard-source-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0006-hud-runtime-source-hardening-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0005-shuttle-ramp-build-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m09-target-currency-fail-closed-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-def-0007-build-evidence-pointer-reconciliation-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m09-fused-source-ready-marker-contract-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m03-fused-prototype-ascent-water-provenance-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-windows-package-sustained-preflight-phase-hardening.yaml
+  - ProjectKnowledge/evidence/2026-07-22-windows-package-atmosphere-test-runtime-abort.yaml
+  - ProjectKnowledge/evidence/2026-07-22-windows-package-atmosphere-test-resource-refusal.yaml
+  - ProjectKnowledge/evidence/2026-07-22-hi5-terminator-runtime-startup-blocker.yaml
+  - ProjectKnowledge/evidence/2026-07-22-hi5-terminator-real-gpu-resource-refusal.yaml
+  - ProjectKnowledge/evidence/2026-07-21-hi5-terminator-fade-build.yaml
+  - ProjectKnowledge/evidence/2026-07-21-red-hud-layout-persistence-static.yaml
+  - ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-guard.yaml
+  - ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-preparation.yaml
+  - ProjectKnowledge/evidence/2026-07-21-so-stylized-fine-sand-sparkle-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-red-mars-starfield-hi5-clouds-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-red-mars-atmosphere-decoupling-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-20-ring-system-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-gravity-selection-foundation.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-a-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-b-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-c-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-obsolete-saturn-disabled-runtime.yaml
+  - ProjectKnowledge/evidence/2026-07-21-red-mars-deep-space-asteroids-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-windows-package-memory-scope-hardening.yaml
+  - ProjectKnowledge/evidence/2026-07-21-runtime-asset-reference-repair.yaml
+  - ProjectKnowledge/evidence/2026-07-21-planetgen15-local-availability-recheck.yaml
+  - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry.yaml
+  - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-02.yaml
+  - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-03.yaml
+  - ProjectKnowledge/evidence/2026-07-21-runtime-asset-reference-repair-compile-reconciliation.yaml
+  - ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-functionality-audit.yaml
+  - ProjectKnowledge/evidence/2026-07-21-streaming-lod-static-audit.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m05-feature-aware-reservation-query-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m05-runtime-reservation-registry-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m05-world-resolved-protection-query-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m05-serialized-authoring-marker-inventory-static.yaml
+  - ProjectKnowledge/evidence/2026-07-22-m05-stable-celestial-frame-registry-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r89d-jetpack-frame-timing-native-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-clean-celestial-registry-native-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-r89e-jetpack-producer-state-native-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-clean-ppg-celestial-frame-producer-runtime.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r90-current-playable-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r90-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-r90-celestial-frame-integration-currentness-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-client-celestial-snapshot-boundary-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-r90-fused-consumer-identity-currentness-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-r90-gameplay-asset-package-closure.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m04-r90-ppg-streaming-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m06-r90-native-water-ownership-package-boundary.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m02-r90-planet-core-profile-boundary-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-r90-no-palms-authority-dormant-assets-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r90-jetpack-hud-resource-currentness-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-clean-jetpack-hud-consumer-source-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-staging-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-hud-editor-build.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-object-load-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-hud-fuel-state-injection-blocked.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m06-r90-water-capture-readiness-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m05-client-celestial-snapshot-build-automation.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r91-current-playable-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r91-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r92-developer-handoff-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m10-r92-agent-takeover-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m03-r92-fused-consumer-identity-currentness-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-r92-no-palms-currentness-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-cook-rule-static.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m07-r91-no-palms-currentness-package.yaml
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r92-player-status-cook-closure-package.yaml
+
+defects:
+  - ProjectKnowledge/defects/DEF-0001-artist-atmosphere-scale.yaml
+  - ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml
+  - ProjectKnowledge/defects/DEF-0003-asteroid-depletion-disappears.yaml
+  - ProjectKnowledge/defects/DEF-0004-pixel-exact-hud-static-composite.yaml
+  - ProjectKnowledge/defects/DEF-0005-shuttle-loading-ramp-nonwalkable.yaml
+  - ProjectKnowledge/defects/DEF-0006-red-hud-runtime-overlay-cleanup.yaml
+  - ProjectKnowledge/defects/DEF-0007-hi5-cloud-terminator-volume-steps.yaml
+  - ProjectKnowledge/defects/DEF-0008-audit-asteroid-atmospheric-placement.yaml
+
+playtests:
+  - ProjectKnowledge/playtests/2026-07-21-hud-atmosphere-flight-review.yaml
+  - ProjectKnowledge/playtests/2026-07-21-space-flight-asteroid-landing.yaml
+  - ProjectKnowledge/playtests/2026-08-03-redmmo-pre-r15-locomotion-baseline-visual-gameplay-reject.yaml
+
+acceptance:
+  planetary_system: ProjectKnowledge/acceptance/planetary-system.yaml
+
+decisions:
+  - ProjectKnowledge/decisions/ADR-0001-celestial-registry-and-gravity.md
+  - ProjectKnowledge/decisions/ADR-0002-server-authoritative-warp-state-machine.md
+  - ProjectKnowledge/decisions/ADR-0003-planet-first-tile-factory.md
+  - ProjectKnowledge/decisions/ADR-0004-social-sharding-and-performance-observability.md
+  - ProjectKnowledge/decisions/ADR-0005-ppg-first-stylized-new-world.md
+
+maintenance_rules:
+  - "Link to long specifications; do not restate their implementation history here."
+  - "Use immutable stable IDs in templates, saves, replication, evidence, and routes."
+  - "Update current_state only after evidence meets ProjectKnowledge/invariants.yaml."
+  - "Do not use this index to silently override the module queue."

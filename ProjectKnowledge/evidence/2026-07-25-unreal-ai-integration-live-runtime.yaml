@@ -1,0 +1,299 @@
+schema_version: 1
+id: evidence.unreal-ai-integration-live-runtime.2026-07-25
+evidence_class: automation
+module: unreal_editor_ai_integration_recovery
+captured_utc: 2026-07-25T16:31:24Z
+finalized_utc: 2026-07-25T16:47:15Z
+result: passed
+result_detail: live_d3d12_editor_three_local_mcp_services_readonly_verified
+
+scope:
+  objective: >-
+    Retry the previously RAM-blocked Unreal Engine 5.8 AI-integration launch
+    after the physical-memory upgrade, using one guarded editor process, then
+    require live module, listener, protocol-initialize, and read-only request
+    evidence before describing any endpoint as operational.
+  performed:
+    - read the canonical ProjectKnowledge index, invariants, current state, queue, active defects, protected hashes, latest evidence, and canonical next action
+    - verify git state, physical RAM, commit headroom, GPU VRAM, D-drive space, and absence of an existing Unreal or build process
+    - launch exactly one Unreal Editor through the project-owned guarded launcher with real D3D12 rendering
+    - monitor only the launched editor PID after the 600-second wrapper timeout
+    - verify the production default map loaded and completed MapCheck
+    - initialize the official Epic MCP endpoint and complete notifications/initialized, tools/list, and the read-only list_toolsets tool call
+    - initialize and list tools from the live UAIP and Nwiro Integration Kit localhost MCP endpoints
+    - close only the temporary validation MCP sessions
+  not_performed:
+    - call an asset-, level-, material-, landscape-, foliage-, PCG-, or provider-mutation tool
+    - save a map or asset
+    - generate, import, migrate, place, or convert environment-pack content
+    - change Codex MCP registration or any plugin configuration
+    - build, cook, package, launch PIE, or perform a gameplay or visual acceptance run
+    - create or claim a shared multi-model prompt bus, judge, or unified orchestrator
+
+preflight:
+  authoritative_checkout: D:/RedMMOTitan
+  git:
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    branch: main
+    status_entries_preserved: 187
+  physical_ram:
+    total_gib: 63.872
+    free_gib: 55.307
+  commit:
+    limit_gib: 83.872
+    committed_gib: 9.959
+    headroom_gib: 73.914
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 816
+    free_vram_mib: 9238
+  disk:
+    d_free_gib: 1071.908
+  existing_processes:
+    unreal_or_build_process_count: 0
+  endpoint_listeners:
+    port_5353: 0
+    port_8000: 0
+    port_8765: 0
+
+guarded_editor:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  project: D:/RedMMOTitan/Titan.uproject
+  pid: 20332
+  renderer: D3D12_SM6
+  arguments:
+    - -NoSplash
+    - -uaip-mcp-enable
+    - -uaip-http-port=8765
+    - -ModelContextProtocolStartServer
+  guard:
+    launcher: D:/RedMMOTitan/Build/Automation/Start-UnrealAIEditorGuarded.ps1
+    minimum_preflight_free_physical_gib: 16
+    minimum_preflight_commit_headroom_gib: 16
+    abort_floor_free_physical_gib: 8
+    configured_startup_timeout_seconds: 600
+    wrapper_result: timed_out_before_slow_project_startup_completed
+    editor_disposition: >-
+      The wrapper does not terminate the editor on startup timeout. The same
+      single editor remained responsive and was monitored manually; no second
+      launch occurred and the abort floor was never approached.
+  log: D:/RedMMOTitan/Saved/Logs/Titan.log
+  startup:
+    module_loads:
+      - ModelContextProtocol
+      - ModelContextProtocolEngine
+      - ModelContextProtocolEditor
+      - ToolsetRegistry
+      - NwiroRuntime
+      - Nwiro
+      - NwiroIntegrationKit
+      - UAIPCore
+      - UAIPTransportHTTP
+    engine_initialized_utc: 2026-07-25T16:26:33Z
+    map: /Game/RedMMO/Maps/RedPlanetGen
+    map_check:
+      errors: 0
+      warnings: 0
+
+live_mcp_validation:
+  epic_model_context_protocol:
+    endpoint: http://127.0.0.1:8000/mcp
+    listener_pid: 20332
+    server_start_utc: 2026-07-25T16:26:21Z
+    initialize:
+      http_status: 200
+      requested_protocol: "2025-11-25"
+      negotiated_protocol: "2025-11-25"
+      session_header_present: true
+    initialized_notification_http_status: 202
+    tools_list:
+      http_status: 200
+      tool_count: 3
+      tools: [list_toolsets, describe_toolset, call_tool]
+    read_only_tool_call:
+      name: list_toolsets
+      http_status: 200
+      response_transport: text/event-stream
+      discovered_toolset_count: 20
+      result_received: true
+  uaip:
+    endpoint: http://127.0.0.1:8765/mcp
+    listener_pid: 20332
+    server_start_utc: 2026-07-25T16:26:18Z
+    localhost_only: true
+    initialize:
+      http_status: 200
+      negotiated_protocol: "2024-11-05"
+      server_name: UAIP
+      server_version: "1.0.0"
+    initialized_notification_http_status: 200
+    tools_list:
+      http_status: 200
+      tool_count: 5
+      tools:
+        - uaip_execute
+        - uaip_list_commands
+        - uaip_describe_command
+        - uaip_query_capabilities
+        - uaip_run_scenario
+  nwiro_integration_kit:
+    endpoint: http://127.0.0.1:5353/mcp
+    listener_pid: 20332
+    server_start_utc: 2026-07-25T16:26:31Z
+    initialize:
+      http_status: 200
+      negotiated_protocol: "2025-03-26"
+      server_name: nwiro
+      server_version: "1.0.0"
+      session_header_present: true
+    initialized_notification_http_status: 202
+    tools_list:
+      http_status: 200
+      tool_count: 224
+      environment_capabilities_observed:
+        - find_materials
+        - inspect_material
+        - find_textures
+        - find_static_meshes
+        - search_assets
+        - read_asset
+        - get_level_info
+        - create_landscape
+        - get_landscape_info
+        - add_foliage_type
+        - paint_foliage
+        - get_foliage_stats
+        - get_world_partition_info
+        - create_pcg_graph
+        - spawn_pcg_volume
+        - pcg_generate
+        - add_pcg_node
+    mutation_or_provider_tool_call_count: 0
+  validation_sessions_closed:
+    captured_epic_session_http_status: [202]
+    nwiro_session_http_status: 200
+
+artifacts:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/UnrealAIIntegrationLiveMCP_20260725_163823Z
+  no_clobber_created: true
+  files:
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealAIIntegrationLiveMCP_20260725_163823Z/runtime_log_excerpt.txt
+      captured_utc: 2026-07-25T16:38:23Z
+      bytes: 1936
+      sha256: E111ECAEE0180C2F5DAD8469EC5ED946F95790F793BBDB7B2B16D6909A8E7F1B
+      contents: bounded_immutable_module_listener_engine_and_mapcheck_log_excerpt
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealAIIntegrationLiveMCP_20260725_163823Z/runtime_renderer_map_excerpt.txt
+      captured_utc: 2026-07-25T16:45:48Z
+      bytes: 1204
+      sha256: 06D5226958A4C26CE840BF56E761FEA2D2B62D368CB5ECF159A8ECFEBBB33DF2
+      contents: bounded_immutable_D3D12_SM6_RTX3080_RedPlanetGen_load_world_and_MapCheck_log_excerpt
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealAIIntegrationLiveMCP_20260725_163823Z/mcp_transcript_redacted.yaml
+      captured_utc: 2026-07-25T16:38:23Z
+      bytes: 6352
+      sha256: E77E5761B68407D3472CAB767765C26EDCA0009EEF01F6B7844B48A0BD7DC38B
+      contents: >-
+        redacted request and response byte counts and SHA-256 digests,
+        session-token presence and digest only, listener ownership, tool-name
+        set digests, HTTP statuses, and the exact no-mutation boundary
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealAIIntegrationLiveMCP_20260725_163823Z/uaip_proxy_inventory.yaml
+      captured_utc: 2026-07-25T16:41:00Z
+      bytes: 1961
+      sha256: 7DC13EBCB13A15CEC8F2CAEB8696519DD21F8D3D639AFEF778A137BC989EABEF
+      contents: exact_readonly_Codex_owned_UAIP_proxy_parent_child_inventory
+  session_tokens_recorded_raw: false
+  count_reconciliation: >-
+    Nwiro's startup log declares 209 tools while its actual tools/list response
+    contains 224 entries. The transcript binds the 224-entry response bytes and
+    sorted name-set digest without assuming why the registry counts differ.
+
+postflight:
+  captured_utc: 2026-07-25T16:31:24Z
+  editor:
+    pid: 20332
+    alive: true
+    responding: true
+    private_gib: 7.279
+  uaip_stdio_bridge:
+    codex_owned_proxy_processes: 16
+    two_process_pairs: 8
+    processes_terminated: 0
+    note: >-
+      Current Codex clients re-created eight UAIP stdio proxy pairs. They were
+      preserved because they belong to live clients and free physical RAM
+      remained safely above the abort floor.
+  listeners:
+    port_5353_pid: 20332
+    port_8000_pid: 20332
+    port_8765_pid: 20332
+  physical_ram:
+    total_gib: 63.872
+    free_gib: 42.604
+  commit:
+    limit_gib: 83.872
+    committed_gib: 27.991
+    headroom_gib: 55.881
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4668
+    free_vram_mib: 5386
+  disk:
+    d_free_gib: 1072.204
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap:
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap:
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap:
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset:
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+integration_status:
+  installed_mounted_and_live:
+    - official Epic ModelContextProtocol
+    - UAIP localhost MCP transport
+    - Nwiro Pro runtime
+    - Nwiro Integration Kit localhost MCP transport
+  static_coordinator_groundwork:
+    status: present_but_not_published_or_live
+    note: >-
+      The separate M07 restricted Nwiro coordinator and replay sources remain
+      offline review artifacts. They were not invoked by this validation and
+      do not combine the three live endpoints.
+  unified_multi_model_judge_orchestrator:
+    status: not_implemented_or_live
+    note: >-
+      Three independent localhost tool services are operational against the
+      same editor. No verified component fans one prompt out to multiple models,
+      ranks their answers, or serializes a selected cross-service action.
+
+claim_limit: >-
+  This is live automation and protocol evidence from one real-D3D12 Unreal
+  Editor process. It proves editor initialization, module loads, three
+  localhost listeners, successful MCP initialization and read-only discovery
+  requests, and an error-free MapCheck for the existing production default map.
+  It is not a screenshot or human visual acceptance, gameplay or PIE evidence,
+  a build/cook/package result, Nwiro generation or placement evidence, provider
+  authorization, an environment-pack conversion, or a unified multi-model
+  prompt bus, ranker, judge, or orchestrator.
+
+remaining_blockers:
+  - update the guarded launcher's startup-timeout behavior for this unusually slow project while preserving continuous 8-GiB abort-floor monitoring and exact-PID ownership
+  - replace the per-client UAIP stdio proxy lifecycle with a deliberate user-approved direct local HTTP registration or another reviewed durable ownership model; eight live client pairs currently exist
+  - keep any Codex MCP registration change separate and user-approved
+  - keep Nwiro generation, provider calls, imports, migrations, map authoring, and visual acceptance behind their existing exact-asset and rights gates
+  - design and independently review a separate external multi-model coordinator before claiming cross-AI orchestration
+
+next_safe_action: >-
+  Perform a read-only inventory of the recently acquired environment packs,
+  current project maps, and staging roots, then select one exact, rights-reviewed
+  Desert-plus-Tropical dependency closure for an isolated UE 5.8 conversion and
+  mini-hub map. Do not modify the production map or invoke a provider/generation
+  tool during that inventory.

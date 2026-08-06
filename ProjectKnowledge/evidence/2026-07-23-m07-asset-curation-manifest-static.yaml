@@ -1,0 +1,231 @@
+schema_version: 1
+id: evidence.m07.asset-curation-manifest.static.2026-07-23
+captured_utc: "2026-07-23T20:14:57Z"
+module_id: M07
+system: world-authoring.asset-library-curation
+slice: deterministic-no-approval-art-library-curation-manifest
+evidence_class: static
+result: passed_static_candidate_curation_manifest
+
+scope:
+  authorized:
+    - classify the canonical 2066-record Asset Registry candidate report into a deterministic external review manifest
+    - retain every candidate exactly once while separating primary, support, deferred, and technical or reference dispositions
+    - attach explicit unresolved provenance, license, visual, performance, and approval state
+    - form provisional name-based review batches without creating Unreal assets or Content Browser collections
+    - verify that all vendor package trees and protected provenance remain unchanged
+  explicitly_not_run:
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - vendor package load, save, move, rename, duplicate, delete, redirector fixup, or source edit
+    - project-owned palette, catalog UObject, Content Browser collection, material instance, thumbnail, or review-map authoring
+    - license approval, visual approval, dependency proof, PBR approval, or performance acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed: 158
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_at_slice_start: 10.859
+  commit_limit_gib: 54.872
+  commit_free_gib_at_slice_start: 25.323
+  disk_d_free_gib: 1140.753
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_at_slice_start: 7648
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_offline_static_M07_curation_slice
+
+input:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/asset_registry_catalog_candidates.json
+  bytes: 1755856
+  sha256: BCA2E210798080E7770412BC2C425DAB81FF0E0CB0BEB7067E5BE9B3B6B17831
+  evidence_class: static
+  status: candidate_only
+  candidates: 2066
+  input_hash_unchanged_after_generation: true
+
+implementation:
+  manifest_builder:
+    path: Tools/build_redmmo_asset_curation_manifest.py
+    bytes: 29222
+    sha256: 0899FB9ED6C80C6021CECD59BD962CD13201AA1FDEAAFCDDEE8E2056EA67D5E8
+    contracts:
+      - authenticates package root, package path, object path, and the exporter stable-ID formula for every candidate
+      - reconciles exact report root, class, basename-collision, and total counts
+      - requires immutable-source, unreviewed, license-review, and visual-performance-review gates
+      - fails closed on malformed identity, roles, tags, gates, report drift, duplicates, or output reuse
+      - rejects linked or reparse Content roots, pack roots, nested directories, and files
+      - treats provenance traversal or read failure as an error rather than evidence of absence
+      - restricts input and atomic no-clobber output to D:/RedMMOTitanWindowsData/Diagnostics
+      - creates no Unreal package, Content Browser collection, palette, or approved record
+  tests:
+    path: Tools/tests/test_build_redmmo_asset_curation_manifest.py
+    bytes: 15278
+    sha256: F7D037748AC3E9865334F9E9D1C0D781D4D542F8BD4821BBF2CEFDFB57FCFC48
+    focused_result: 10_of_10_passed
+  architecture_record:
+    path: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md
+    bytes: 21621
+    sha256: 5707A46547D314FFA1DD93FCCF2BD66592B2092511BA192491173AE1A943F633
+
+independent_review:
+  result: no_remaining_blocker_for_canonical_static_evidence_sync
+  blocking_findings_closed:
+    - candidate source identity was initially trusted rather than authenticated across the package, root, object, and stable-ID fields
+    - report root counts were not initially reconciled with the authenticated records
+    - a linked Content root, nested reparse point, or unreadable subtree could initially look like absent provenance
+    - review batches initially omitted same-family support dependencies
+  final_confirmation:
+    - all 2066 candidate IDs and object paths are unique and authenticated
+    - every primary review batch exactly partitions primary and same-family support IDs
+    - approval and no-clobber gates remain fail closed
+    - ten focused tests and a reversed-order deterministic build pass
+  nonblocking_limits:
+    - family grouping is a deterministic name-based triage hint, not an Unreal dependency graph
+    - the manifest-internal signature covers a triage subset, so the full output file SHA-256 is authoritative
+
+manifest:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/art_library_curation_manifest.json
+    bytes: 3900552
+    sha256: A0896D500938126C7BA8120933B18E671E05CE4469F543D188B6007376D353CA
+    status: unreviewed_no_assets_approved
+  deterministic_repeat:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/art_library_curation_manifest_repeat.json
+    bytes: 3900552
+    sha256: A0896D500938126C7BA8120933B18E671E05CE4469F543D188B6007376D353CA
+    byte_identical: true
+  completeness:
+    input_candidates: 2066
+    manifest_entries: 2066
+    unique_stable_candidate_ids: 2066
+    unique_object_paths: 2066
+    missing_ids: 0
+    extra_ids: 0
+    missing_object_paths: 0
+    extra_object_paths: 0
+    disposition_sum: 2066
+  roots:
+    - {root: /Game/SoStylized, entries: 729}
+    - {root: /Game/StylizedDesertOasis, entries: 166}
+    - {root: /Game/AlienJungle, entries: 498}
+    - {root: /Game/TropicalAlienWorld, entries: 137}
+    - {root: /Game/Alien_Grass_Pack, entries: 231}
+    - {root: /Game/Alien_Plants_Pack, entries: 305}
+  dispositions:
+    primary_environment_candidate: 1284
+    support_dependency_candidate: 721
+    deferred_specialty_candidate: 29
+    excluded_technical_or_reference: 32
+  technical_or_reference_breakdown:
+    object_redirector: 1
+    map_build_data_registry: 8
+    reference_world: 13
+    demo_input_action: 9
+    demo_input_mapping_context: 1
+  review_batches:
+    primary_family_batches: 644
+    batches_with_same_family_support_dependencies: 67
+    same_family_support_dependencies_included: 160
+    primary_entries_partitioned: 1284
+    approval_status: not_approved
+  approval_and_provenance:
+    local_provenance_files_found: 0
+    source_pack_license_approvals: 0
+    entry_license_approvals: 0
+    entry_asset_approvals: 0
+    entries_with_approved_roles: 0
+    interpretation: all_six_sources_and_all_candidates_require_human_provenance_and_license_review
+
+post_manifest_integrity:
+  inventory:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/post_manifest_asset_library_inventory.json
+    bytes: 5161444
+    sha256: 387B695FA2A09766533BF0DDD5CAF11695A2A15EF252F068B6A50ACA9571778C
+    packages: 7353
+    assets: 7294
+    maps: 59
+    inventory_signature_sha256: 89C0FB3ABFD6A12C1A13719A036E2A47B84DD4CAE82A5F74F6C6BCD06301EF31
+    matches_pre_manifest_signature: true
+  focused_static_and_protected_provenance:
+    result: 27_of_27_passed
+    suites:
+      - Tools.tests.test_build_redmmo_asset_curation_manifest
+      - Tools.tests.test_export_redmmo_asset_registry_catalog
+      - Tools.tests.test_audit_redmmo_asset_library
+      - Tools.tests.test_fused_prototype_provenance
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/focused_static_and_provenance_tests.log
+      bytes: 12196
+      sha256: 1974954EF0F340DACE56E7492367D313F80BF1CF1C94F8209A57F8697845B986
+  canonical_integrity:
+    live_audit:
+      result: passed
+      error_count: 0
+      warning_count: 0
+      report: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/project_knowledge_integrity.json
+      bytes: 1708
+      sha256: 893C0814CC9426A7CD0E9ED75540B0D5C613B84BEA7BFCC02421DFE708CDF78D
+    combined_tests:
+      result: 47_of_47_passed
+      suites:
+        - Tools.tests.test_project_knowledge_integrity
+        - Tools.tests.test_build_redmmo_asset_curation_manifest
+        - Tools.tests.test_export_redmmo_asset_registry_catalog
+        - Tools.tests.test_audit_redmmo_asset_library
+        - Tools.tests.test_fused_prototype_provenance
+      log:
+        path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetCurationManifest_20260723_201351Z/combined_integrity_and_curation_tests.log
+        bytes: 20480
+        sha256: F2592ADBCC443E98CA31A3A697C05C2A07B5137F02D41B3DA2714AE6E9F4D151
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_AssetCurationManifest_20260723_200641Z
+  exact_preimages:
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 12790, sha256: 58E11F89FD3A15F1D5384DAAF231890D01F1654E36C1BE3C12D4A9257358BEFD}
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 91212, sha256: A6DBD8487BBDA7F02732064103CC60A80057DE6F186C22BF08F5EE484E8C94A4}
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 214297, sha256: 0B8505F14BF586D0E91C3D06BA421C5C1FCFABEB21851FC0228D60247EA272D6}
+    - {path: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md, bytes: 20395, sha256: C0C901DD87A7A21B7042B007F3C0A428C98981FDE458DFC8F10EE3E778FEEC11}
+  new_builder_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_source_rasters: 135_of_135_exact
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_content_modified: false
+  content_browser_collection_created: false
+  package_tree_signature_changed: false
+
+canonical_sync:
+  module: M07
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: 20914BB5E245C2822CBCB1A7361A594B78A07BCFE1CAB3732A41282DF3266E4C
+
+claim_limit: >-
+  This is static external-manifest and package-tree integrity evidence. It proves
+  deterministic authentication, retention, and review disposition of the 2,066
+  Asset Registry candidates without modifying Unreal content. It does not prove
+  license rights, true dependency closure, PBR or hand-painted quality,
+  appearance, collision, LOD or Nanite suitability, shader or foliage cost,
+  runtime streaming, natural placement, gameplay, package currency, Steam, or
+  multiplayer.
+
+next_safe_action: >-
+  Preserve all six vendor roots. Obtain the purchase, source-version, and license
+  records needed for human review. Use the manifest to inspect one small coherent
+  family and verify its actual Unreal dependencies, then author one project-owned
+  RedWorldAssetPalette or catalog entry and one isolated review map without
+  editing vendor packages. Any appearance, PBR, placement, grass-cost, traversal,
+  or streaming claim still requires real-GPU evidence. Do not package below the
+  sustained 18-20 GiB physical-RAM gate.

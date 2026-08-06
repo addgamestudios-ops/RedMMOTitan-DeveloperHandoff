@@ -1,0 +1,22 @@
+schema_version: 1
+id: EVIDENCE-2026-07-21-HI5-TERMINATOR-FADE-BUILD
+captured_at: 2026-07-21
+module: atmosphere_cloud_presentation
+evidence_class: build
+result: passed
+scope:
+  - Source/RedMMO/RedGameMode.h
+  - Source/RedMMO/RedGameMode.cpp
+artifacts:
+  build_log: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260721_235829_stdout.log
+  build_log_sha256: BD6DA4797434CCABA65D8A80628C429C77947D3F7B963FAF04A6D0A5BF761524
+  object: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedGameMode.cpp.obj
+  diagnostics: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedGameMode.cpp.sarif
+  editor_binary: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+observed:
+  - The preserved log records Compile [x64] RedGameMode.cpp.
+  - The preserved log records Link [x64] UnrealEditor-RedMMO.dll.
+  - The preserved log records WriteMetadata TitanEditor.target and Result Succeeded in 59.19 seconds.
+limits:
+  - This evidence proves compilation and linking only.
+  - DEF-0007 remains awaiting a real-GPU visual acceptance pass at the terminator.

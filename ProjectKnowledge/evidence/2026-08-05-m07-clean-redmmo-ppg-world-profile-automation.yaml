@@ -1,0 +1,89 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-world-profile-automation.2026-08-05
+captured_utc: "2026-08-05T03:30:40Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: inert-profile-focused-automation
+evidence_class: automation
+result: two_of_two_contracts_passed_real_d3d12_host_profile_remains_inert
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  display_project: clean RedMMO
+
+discarded_first_attempt:
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfile_D3D12_20260805T0323Z
+  runtime_log_sha256: EDB2AB838CADB52B8E5748FAD68B7D562415E50480A225441B9CF02A144B31C2
+  result: zero_tests_discovered_or_executed
+  exact_cause: >-
+    Start-Process flattened the quoted multi-word TestExit value. Unreal parsed
+    only "Automation", satisfied that condition immediately after startup, and
+    exited before test discovery. This is retained as launcher evidence and is
+    not counted as a test run.
+
+corrected_run:
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfile_D3D12_Retry_20260805T0327Z
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe
+  host: WindowsEditor D3D12_SM6
+  retained_editor_pid: 8272
+  exit_code: 0
+  elapsed_seconds: 43.47
+  ram_abort: false
+  timeout: false
+  minimum_free_physical_ram_gib: 46.61
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfile_D3D12_Retry_20260805T0327Z/runtime.log
+  runtime_log_sha256: 1F822D2E200D1396D6F69BA56DC496DCA3C72BC957873DC8DA4C3407205D9096
+  guard_summary: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfile_D3D12_Retry_20260805T0327Z/guard_summary.json
+  guard_summary_sha256: 132A10B3E8782F1FC328DE166619F0B90DA18C0B10B5BE29B6C1A4C284AC3BE6
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfile_D3D12_Retry_20260805T0327Z/report/index.json
+  report_sha256: 5D4D099C3404AD44AF71A1601D2523D90A858D5BD318C56FFC1942F59EAEFDC7
+  discovered_tests: 2
+  succeeded: 2
+  succeeded_with_warnings: 0
+  failed: 0
+  not_run: 0
+  tests:
+    - name: RedMMO.WorldAuthoring.PPGWorldProfile.DefaultContract
+      result: Success
+      warnings: 0
+      errors: 0
+    - name: RedMMO.WorldAuthoring.PPGWorldProfile.FailClosed
+      result: Success
+      warnings: 0
+      errors: 0
+
+provider_and_process_boundary:
+  desktop_control_used: false
+  provider_calls_made: false
+  mcp_http_server_started: false
+  note: >-
+    The enabled ModelContextProtocol module initialized its tool registry, but
+    its configured HTTP auto-start remained off; the log contains no MCP server
+    start or port-8000 line, and post-run checks found no provider listener.
+  relevant_processes_remaining: 0
+  provider_listeners_remaining: 0
+
+protection:
+  home_map:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    sha256: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+    changed: false
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  content_or_map_written: false
+
+claim_limit: >-
+  This proves only the profile's native DefaultContract and FailClosed
+  automation on a real D3D12 editor host. The profile remains deliberately
+  inert: no adapter, data-asset successor, material binding, regeneration,
+  runtime consumer or map mutation exists. It does not prove continents,
+  biome visuals, shoreline, grass, traversal, stars, standalone, replication,
+  multiplayer, packaging or human acceptance.
+
+next_safe_action: >-
+  Keep the profile inert until a separately checkpointed editor adapter can
+  apply it to a duplicated PPG data/material successor, then require reload,
+  MapCheck, movement, coastline and materially different real-GPU evidence.
+  Official UAIP and WorldGen installation remains separately action-time
+  confirmation-gated and was not performed by this slice.

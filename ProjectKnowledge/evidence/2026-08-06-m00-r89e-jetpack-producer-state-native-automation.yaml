@@ -1,0 +1,101 @@
+schema_version: 1
+id: evidence.m00.r89e-jetpack-producer-state-native-automation
+module: M00
+evidence_class: automation
+status: accepted_partial_native_producer_state
+timestamp_utc: 2026-08-06T12:38:54Z
+scope: >-
+  One rollback-backed native/editor automation slice for the clean R89 jetpack
+  producer state machine. A development-only friend test exercises the existing
+  private authority path in a transient standalone authority world. No
+  production behavior, map, asset, Config, plugin, package, vendor source, user
+  asset, HUD, presentation, CC5, or Blender content changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_dirty_default_count: 60
+  git_dirty_expanded_count: 2411
+  free_physical_ram_gib: 51.00
+  commit_headroom_gib: 53.62
+  gpu_free_mib: 9133
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.38
+  active_unreal_build_package_process_count: 0
+implementation:
+  production_cpp_changed: false
+  development_only_header_change: >-
+    WITH_DEV_AUTOMATION_TESTS grants only
+    FRedJetpackProducerStateMachineTest access to existing private producer
+    state and methods.
+  native_test: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedJetpackProducerTests.cpp
+  test_name: RedMMO.Gameplay.Jetpack.ProducerStateMachine
+verification:
+  original_r89_source_contract:
+    result: pass
+    checks_passed: 19
+    checks_total: 19
+  editor_build:
+    result: succeeded
+    target: RedMMOEditor Win64 Development
+    command_guard: -NoUBTMakefiles
+    compiled: RedJetpackProducerTests.cpp
+    linked: UnrealEditor-RedMMO.dll
+    seconds: 5.91
+  disclosed_first_attempt:
+    result: no_test_matched
+    exact_cause: >-
+      The first ordinary build reused a stale UBT makefile and did not discover
+      the newly added source file. The runner exited cleanly with zero matching
+      tests; no gameplay result was inferred.
+    log: D:/RedMMOTitan/Diagnostics/R89EJetpackProducerNativeGPU_20260806T1238Z/RedMMO_R89E_JetpackProducerNativeGPU.log
+  final_automation:
+    renderer: real_gpu_RenderOffscreen
+    result: success
+    unreal_exit_code: 0
+    tests_found: 1
+    tests_completed_success: 1
+    log: D:/RedMMOTitan/Diagnostics/R89EJetpackProducerNativeGPU_Retry_20260806T1239Z/RedMMO_R89E_JetpackProducerNativeGPU_Retry.log
+  accepted_native_assertions:
+    - accepted second tap engages
+    - held engagement enters MOVE_Falling and produces upward lift
+    - normal thrust drains 18 fuel per second
+    - release stops thrust and regenerates 22 fuel per second
+    - Sprint intent boosts lift and adds 12 fuel per second drain
+    - exhaustion clamps fuel to zero and locks regeneration until release
+    - release clears exhaustion lock and resumes regeneration
+    - released grounded state remains grounded and non-thrusting
+    - StarSparrow possession disengages jetpack, stops thrust and boost, disables movement and collision, and hides the on-foot pawn
+hashes:
+  player_header_sha256: 66D0200197BC36CFBDCC28515596A180E99C3D08D8CB02B5A95F88CF59527AE1
+  player_cpp_sha256: A687179FAC8E7279DEBD23037523371AE0E074142632B279F3AD0754737EE2C7
+  producer_test_sha256: 275928B454F1B89005505D06E66D252C1FC97DFECCCF247F2108C81BA326CE21
+  editor_module_sha256: A7930B17E8B0192457D2D35A777ED1863AB529F082D4731597A8F2070A9AC81C
+  passing_log_sha256: 7520BFF7D650B09F36590F7D9C15B018B637C47D5375EBA6D4F825E9763B9333
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM00R89EJetpackProducerNative_20260806T1236Z
+  restore_player_header: RedPlayerCharacter.h
+  remove_new_file: RedJetpackProducerTests.cpp
+  preserved_editor_binaries: BinariesWin64
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  clean_home_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 50.98
+  commit_headroom_gib_after: 53.60
+  gpu_free_mib_after: 9131
+  d_drive_free_gib_after: 756.31
+acceptance_boundary:
+  proves:
+    - native authority producer state transitions and documented rates
+    - radial falling/lift path executes in a transient authority world
+    - exhaustion/release and ship-shutdown invariants execute
+  does_not_prove:
+    - exact ProfileV1 home behavior or generated-surface landing
+    - physical keyboard/controller timing or gameplay feel
+    - visuals, audio, HUD, packaging, standalone, replication, or multiplayer
+next_safe_action: >-
+  Rotate next wake. Later M00 work must run one exact-home no-save physical-path
+  acceptance, then separately build and smoke a current successor package; do
+  not infer those gates from transient native automation.

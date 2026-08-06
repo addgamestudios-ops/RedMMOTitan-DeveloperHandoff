@@ -1,0 +1,193 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-stable-handle-hashing.static.2026-07-24
+captured_utc: "2026-07-24T11:12:58Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: stable-opened-file-identity-hashing-and-aba-regression
+evidence_class: static
+result: passed_static_stable_handle_hash_boundary_with_parent_namespace_races_open
+
+scope:
+  authorized:
+    - close the reproduced restored-file ABA false success at the hashing boundary
+    - bind every restored-file digest to the same opened descriptor whose identity matches the discovery snapshot
+    - add one deterministic no-sleep temporary-fixture regression that is red before the fix and green after it
+  explicitly_not_run:
+    - Windows extended-path isolation hardening, diagnostics-parent publication hardening, native CreateFile reparse handling, or direct-API reauthentication
+    - external target access, payload copy, actual restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1489
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  background_unreal_mcp_thin_proxy_python_processes_preserved: 8
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib: 13.189
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 28.690
+  disk_c_free_gib: 124.408
+  disk_d_free_gib: 1139.989
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8572
+  gpu_utilization_percent: 0
+  packaging_and_M12_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_stable_handle_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_M12_and_this_M07_static_slice
+
+reproduced_pre_fix_defect:
+  sequence:
+    - discovery records one same-length corrupt restored file B
+    - immediately before hashing, B is atomically displaced and manifest-valid file A is moved onto the target path
+    - the old pathname-based hash reads A
+    - before the old post-hash pathname check, A is moved back out and original B is restored with its prior Windows metadata and identity
+  pre_fix_result: verifier_returned_success_while_final_target_remained_corrupt_B
+  deterministic_regression:
+    sleeps_or_threads: false
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z/aba_regression_red_before_fix.log
+      bytes: 2828
+      sha256: 18FB68004575396910A4C4432670128BA70BF24412D40D8357E2D97218A6C573
+    expected_red_observation: RestoreVerificationError_not_raised
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 57006
+    sha256: 706D8BFD15015E05070810EB6A2593B086B9B86E3A930324F56F238250BD26DF
+    changes:
+      - constructs one shared FileMetadata record from both pathname lstat and descriptor-bound fstat results
+      - opens each restored file once with os.open, binary mode on Windows, and O_NOFOLLOW where the host exposes it
+      - requires the opened handle to remain regular, single-linked, online, non-reparse, and backed by a usable inode identity
+      - requires the complete opened-handle metadata to equal the discovery snapshot before reading any bytes
+      - requires the pathname to name that same open handle before and after hashing while the handle remains open
+      - hashes and counts bytes only through that descriptor, then requires unchanged handle metadata and exact opened size
+      - retains the existing post-close pathname metadata check and complete second tree discovery
+      - publishes stable_opened_file_identity_hashing true and narrows the report claim to the tested hash boundary
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 29114
+    sha256: 384897792CF6EC1D93577DC5DBF4571A3584C6259A6AE18F564AF079D0CF5F4D
+    added_contract:
+      - test_aba_path_replacement_between_discovery_and_open_fails_closed
+    post_fix_observation:
+      - opened manifest-valid A has a different descriptor-bound identity from discovered corrupt B
+      - verification raises restored file identity changed before hashing
+      - the fixture restores and retains corrupt B at the target plus valid A at its trusted staging path
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  strict_structure_validated_after_handle_hardening: true
+  entries: 8228
+  plugins: 4
+  protected_inputs: 4
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z
+  focused_restore_verifier:
+    result: 13_of_13_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z/focused_restore_verifier_tests.log
+      bytes: 6814
+      sha256: 9D2595FCCC14F386EA509718DDB322D6E117D4BE6591F956ACD214BB15B36D0F
+  focused_static_and_provenance:
+    result: 80_of_80_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z/focused_static_and_provenance_tests.log
+      bytes: 34122
+      sha256: 99522434619618E5912347DDCE74EECEF96A95BB79A9DF7CF9CBE0011F4B2398
+  full_offline_test_discovery:
+    result: 553_of_553_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z/full_offline_test_discovery.log
+      bytes: 246310
+      sha256: DDD082CA3111EDB3CC7F23307EBA66722BDF1A345B8029F7F6B79A6063A284DA
+  python_compile: passed
+  whitespace_check: passed_with_only_existing_line_ending_conversion_warnings
+  canonical_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 129
+    queue_sha256: 5124251AEB90CED6A0CAD694C13068E4FE0381C2CA2D41A924B7C09C666BCE6C
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierStableHandle_20260724_1105Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: 4671E87D0D150C72F925D9127B68C47500CD08371A93B21CE17B6015116E27E3
+
+remaining_security_findings:
+  status: open_not_fixed_in_this_bounded_slice
+  claim_boundary:
+    closed:
+      - the demonstrated swap-in-different-file-for-hash then restore-original ABA sequence
+      - opened-handle identity or metadata differing from the discovery snapshot at either hash boundary
+      - pathname identity differing from the still-open handle at either observed hash boundary
+    not_closed:
+      - a complete namespace swap and restoration occurring only between two observations after the correct file handle is already open
+      - parent-directory or restore-root junction and alias races
+      - privileged in-place content mutation with restoration of both content and metadata between observations
+      - native Windows reparse-open semantics because Python exposes no O_NOFOLLOW on Windows
+      - higher-assurance ReFS, network-share, or adversarial file-ID guarantees
+  next_independent_offline_priority:
+    - compare Windows directory and file identities so extended-path aliases cannot bypass active-project or restore-output isolation
+    - bind report publication to one validated diagnostics-parent identity so a junction swap cannot redirect output
+    - bound manifest reads on one stable handle and reject unsafe Windows output names
+    - reauthenticate direct verify_isolated_restore inputs rather than relying only on the CLI call chain
+  operational_gates_still_open:
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierStableHandle_20260724_1105Z
+  exact_preimages: 5
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, canonical-manifest parsing, and synthetic-fixture
+  evidence only. The tested path-replacement ABA is closed by binding each hash
+  to one stable opened-file identity, but parent-directory aliases and every
+  privileged namespace or in-place mutation race are not closed. No external
+  target was supplied, no RedMMOTitan payload was copied or restored, and the
+  verifier was not executed against the 8228-file payload or an actual restored
+  tree. This is not Unreal load or save, build, runtime, visual, gameplay,
+  package, Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  While physical RAM remains below the sustained Unreal compile and package
+  gate, harden M07 Windows path identity so extended-path aliases cannot bypass
+  active-project and restore-output isolation. Keep diagnostics-parent
+  publication identity, manifest-handle reads, direct-API reauthentication,
+  external copy, ACL proof, and one actual isolated restore-and-rehash execution
+  as separate bounded gates.

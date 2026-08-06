@@ -1,0 +1,22 @@
+schema_version: 1
+kind: external_learning_reference
+title: Level Design Fundamentals
+publisher: Epic Developer Community
+url: https://dev.epicgames.com/community/learning/tutorials/3VKJ/unreal-engine-fortnite-level-design-fundamentals
+added_utc: 2026-07-28T18:30:00Z
+scope:
+  - M07 procedural-terrain authoring
+  - scratch island-district reviews
+  - future production-zone design
+required_application:
+  - Begin each procedural island as a readable playable landform, not a geometric primitive.
+  - Define player-accessible shoreline, approach routes, landmarks, sightlines, and safe traversal before foliage and props.
+  - Validate the authored shape at player height and from the minimap; static mesh counts or a clean editor load are not acceptance.
+  - Keep the full-planet sand terrain authoritative outside the locally authored Region-15 island and six-tile ocean ring.
+  - Treat local-to-world transforms, collision, spawn position, and water/land contact as pre-visual gates.
+project_specific_non_goals:
+  - This reference does not authorize production-map changes.
+  - It does not override the 27 fused tangent-local authoring-input invariant or the Region-15 plus six-neighbor scope.
+evidence_limit: >-
+  The linked Community tutorial is retained as design guidance. It is not itself
+  evidence that any RedMMOTitan terrain or play space has passed review.

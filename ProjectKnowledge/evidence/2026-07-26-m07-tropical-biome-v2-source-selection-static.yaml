@@ -1,0 +1,210 @@
+schema_version: 1
+id: evidence.m07.tropical-biome-v2-source-selection-static.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T18:47:03Z"
+evidence_class: static
+result: passed_exact_selection_and_density_contract_live_gates_closed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  source_vendor_project: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs
+  full_visual_review_scratch: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2
+  production_modified: false
+  scratch_source_modified: false
+  scratch_automation_modified: true
+  scratch_content_modified: false
+  vendor_source_modified: false
+  map_saved: false
+  pie_entered: false
+  providers_enabled: false
+  editor_launched: false
+  existing_editor_reused: false
+
+motivation:
+  - the current 17-actor stage is a diagnostic smoke test, not the dense Tropical environment requested by the user
+  - its four unique meshes and underwater placement explain the sparse blue silhouette result
+  - the next iteration needs an authenticated island-kit selection and a nonuniform radial dressing contract before any package copy or map mutation
+
+current_v1_facts:
+  actor_count: 17
+  unique_mesh_count: 4
+  actors:
+    SM_Cliff_01: 1
+    SM_CoconutTree_01: 5
+    SM_Plant_01: 8
+    SM_Coral_01: 3
+  collision_enabled_actor_count: 0
+  authored_land_weight_at_all_actor_origins: 0.0
+  water_depth_below_datum_m:
+    minimum: 116.06540
+    maximum: 116.14967
+  visual_fit_accepted: false
+  shading_step_fixed: false
+
+authenticated_inputs:
+  vendor_source_tree:
+    file_count: 334
+    bytes: 559398662
+    sha256: 610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732
+  region15_reservation:
+    path: D:/RedMMOTitan/docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+    reservation_id: R15_CoralCanopyCoast_MainHub
+    stable_seed: 3354735782
+    protected_core_radius_cm: 23881.257706
+    ecological_blend_width_cm: 15920.838471
+    total_biome_radius_cm: 39802.096176
+
+scratch_automation:
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/M07_TropicalBiomeV2_seed_manifest.yaml
+    bytes: 18900
+    sha256: 3B67EE97E7DC4B1450A06370B053707128B664540C79A63AADB3026C030A06B4
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_tropical_biome_v2_seed_manifest.py
+    bytes: 11039
+    sha256: 04E2B09542035C98A8E1A7A467C2D74C3E2653CD964CCCC17801AD67809C2356
+
+exact_source_selection:
+  package_count: 35
+  source_and_full_visual_scratch_identity_matches: 35
+  aggregate_identity_sha256: 8CEED27E8585DD144809F8ACA064357B85EF578F5E1FF77E46A2CFFD13A5A742
+  already_present_in_reduced_v1: 7
+  absent_from_reduced_v1: 28
+  roles:
+    terrain_textures: 3
+    hero_cliffs: 4
+    midscale_geology: 3
+    canopy_trees: 3
+    understory: 9
+    groundcover: 3
+    coastal_geology: 4
+    underwater: 6
+  excluded_vendor_architecture:
+    - /Game/Zenscape_Island/Material/Landscape/MI_Landscape
+    - /Game/Zenscape_Island/Blueprint/BP_WaterPlane
+    - /Game/Zenscape_Island/Blueprint/BP_RiverSpline
+  ownership:
+    planet_terrain: RedMMO
+    water_datum_and_ocean: RedMMO
+    sky_atmosphere_and_sun: RedMMO
+    vendor_demo_map_overlay_allowed: false
+
+v2_density_contract:
+  stable_biome_id: biome.red-mars.region-15.tropical-island-v2
+  mapping: FPlanetRegionService::ExpMapDirection
+  algorithm_revision: redmmo.radial-biome-poisson.v1
+  prng: pcg32_xsh_rr_64_32
+  poisson: bridson_2d_k30
+  grove_centers: 11
+  uniform_rows_rings_or_grids_allowed: false
+  requested_instances:
+    hero_cliff: 28
+    coastal_geology: 16
+    midscale_geology: 140
+    canopy_tree: 120
+    understory: 900
+    groundcover: 4000
+    underwater_separate_layer: 240
+  repeated_mesh_implementation: HISM
+  maximum_individual_environment_actors: 100
+  main_path_width_cm: 600.0
+  secondary_path_width_cm: 300.0
+  spawn_clearing_radius_cm: 1500.0
+  build_pad_diameter_cm: 2000.0
+  canopy_gap_fraction: [0.25, 0.40]
+  core_and_blend_domains_explicit: true
+  generator_implemented: false
+  deterministic_instance_manifest_generated: false
+
+verification:
+  offline_contract_tests:
+    passed: 8
+    failed: 0
+  python_compile: passed
+  exact_source_hashes:
+    passed: 35
+    failed: 0
+  full_visual_scratch_hashes:
+    passed: 35
+    failed: 0
+  reduced_v1_presence_flags:
+    present_and_identical: 7
+    absent_as_declared: 28
+  reservation_file_and_values_authenticated: true
+  independent_exact_byte_review:
+    remaining_p0_p2_blockers: 0
+    reviewed_manifest_sha256: 3B67EE97E7DC4B1450A06370B053707128B664540C79A63AADB3026C030A06B4
+    reviewed_test_sha256: 04E2B09542035C98A8E1A7A467C2D74C3E2653CD964CCCC17801AD67809C2356
+  project_knowledge_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeV2Static_20260726_184703Z_final/project_knowledge_integrity.json
+  unreal_asset_registry_closure: not_run
+  ue58_bounded_load_no_dirty: not_run
+  generator_execution: not_implemented
+  map_placement: not_run
+  real_gpu_v2_visual: not_run
+
+resource_and_process_boundary:
+  captured_utc: "2026-07-26T18:37:47Z"
+  free_physical_ram_gib: 39.16
+  commit_headroom_gib: 51.96
+  gpu: NVIDIA GeForce RTX 3080
+  gpu_vram_free_mib: 5573
+  d_free_gib: 1038.19
+  existing_editor_pid: 2000
+  other_unreal_or_build_processes: 0
+  editor_policy: >-
+    The one existing provider-off scratch editor remained open and untouched.
+    No second editor, build, UHT, cook, package, commandlet, map automation, or
+    provider process was started.
+
+scratch_integrity:
+  map:
+    sha256_before: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+    sha256_after: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+
+acceptance:
+  exact_v2_source_selection_ready: true
+  density_design_contract_ready: true
+  dependency_closure_ready: false
+  source_copy_authorized: false
+  placement_authorized: false
+  resolved_dry_core_passed: false
+  coastal_land_water_transition_passed: false
+  visual_fit: false
+  shading_fixed: false
+  full_tropical_environment_present: false
+  production_integration: false
+
+next_safe_action: >-
+  When the existing scratch editor is no longer in use, build the exact
+  reviewed scratch TitanEditor revision and run the prepared read-only
+  resolved-surface 34-point dry-core probe. If that passes, run a separate
+  provider-off, read-only UE 5.8 Asset Registry fixed-point dependency closure
+  and bounded-load/no-dirty probe for these exact 35 packages in the isolated
+  full vendor project. Do not copy, generate, place, snap, save, or render V2
+  content until both gates pass and the resulting closure is independently
+  reviewed. A true island shoreline later requires an expanded resolved-surface
+  probe through the 39802.096176 cm ecological blend radius.
+
+claim_limit: >-
+  This is static source-selection and density-contract evidence. It does not
+  prove a generated layout, UE 5.8 dependency closure, package copy, dry
+  terrain, shoreline, underwater gameplay, collision, navigation, buildability,
+  water rendering, shading correction, dense Tropical visuals, culling, HLOD,
+  performance, seams, surface-to-orbit behavior, player gameplay, or production
+  integration.

@@ -1,0 +1,108 @@
+schema_version: 1
+id: evidence.m00.clean-r85-projectile-launcher-lifecycle-blocked
+module: M00
+evidence_class: automation
+status: blocked_before_projectile_launcher_lifecycle
+timestamp_utc: 2026-08-06T05:36:29Z
+scope: >-
+  One bounded return to the clean-RedMMO R85 native infantry projectile
+  acceptance slice. Two provider-off D3D12 launcher corrections were tested
+  without saving maps, content, Config, Blueprints, materials, plugins, vendor
+  packages, source, or a playable package. No projectile or capture was
+  produced, so runtime and visual acceptance remain false.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 51.91
+  commit_headroom_gib: 53.97
+  gpu_free_mib: 9108
+  gpu_used_mib: 946
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+r85d_execute_python_attempt:
+  renderer: D3D12_SM6_RenderOffscreen
+  result: blocked_launcher_auto_quit_after_first_pie_tick
+  environment_gate:
+    REDMMO_A01_RIFLE_READY_PROFILE: 1
+    verified_active: true
+  verified_before_auto_quit:
+    map_check_errors: 0
+    map_check_warnings: 0
+    actor_count: 12
+    generation_seed: 1337
+    native_water_enabled: true
+    validator_status: RUNNING
+    validator_phase: WAIT_GENERATION
+    rifle_ready_idle: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Idle_Rifle
+    rifle_ready_walk: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Sprint_Fwd_Rifle
+    rifle_ready_run: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Sprint_Fwd_Rifle
+  exact_blocker: >-
+    The -ExecutePythonScript command-line mode returned from the asynchronous
+    bootstrap and issued QUIT_EDITOR immediately after the first PIE generation
+    tick. The rifle-ready mismatch is fixed, but this launcher mode cannot keep
+    the multi-frame validator alive.
+  state:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R85D_20260806T0522Z/state.json
+    sha256: 4F0052A5217936E439072251DC6735B2B1EC5491414DFE14BDC5D24CDAC6D933
+    bytes: 10002
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_Launch_R85D_20260806T0522Z/UnrealEditor_R85D.log
+    sha256: 2B1D5A43C76F35745615AFEA83A618B3A0433BCA01F5FD9EF8F244BF0A25B4DC
+    bytes: 259557
+r85e_exec_cmds_attempt:
+  renderer: D3D12_SM6_RenderOffscreen
+  result: blocked_launcher_argument_quoting_before_validator_bootstrap
+  exact_blocker: >-
+    PowerShell Start-Process joined the ArgumentList without retaining quotes
+    around the ExecCmds value. Unreal received and logged only "Cmd: py"; the
+    script path became a separate command-line token, so the validator never
+    bootstrapped and no report or state file was created. PPG independently
+    generated 213 chunks, but that is not projectile evidence.
+  validator_bootstrap_marker_count: 0
+  command_py_only_marker_count: 1
+  ppg_generation_complete_marker_count: 1
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_Launch_R85E_20260806T0527Z/UnrealEditor_R85E.log
+    sha256: 2BDB4BA51C1F88D642B6C248477072F7114C86B51B5892EEB0188B046B7A1969
+    bytes: 249739
+  teardown:
+    exact_unreal_pid: 2256
+    command_line_authenticated_to_r85e_redmmo: true
+    stopped_after_outer_guard: true
+    broad_process_kill_used: false
+postcheck:
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+  free_physical_ram_gib: 52.19
+  commit_headroom_gib: 54.34
+  gpu_free_mib: 9158
+  gpu_used_mib: 896
+preserved:
+  source_bolt_sha256: 74214A105BF180D72D9EAA469216FB61082ADB70FE191AF47463A9E4C05ED05E
+  editor_module_sha256: 55B98B7AF5765CE14D5B82247EECF3913022CD8530A04ED07B63C1B037D1E008
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  protected_production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_fused_asset_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_prewater_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+rollback: >-
+  No persistent project mutation occurred. R85D self-exited; R85E PID 2256
+  was identity-checked and stopped after the bounded outer guard.
+claim_limit: >-
+  This proves the rifle-ready profile gate is now active, D3D12 startup,
+  current-map authentication, and MapCheck zero errors and warnings for R85D,
+  plus two exact launcher lifecycle failures. It does not prove projectile
+  spawn, native tracer identity, projectile pixels, muzzle art, fire or recoil
+  animation, physical input, packaging, replication, multiplayer, Steam, or
+  human acceptance.
+next_safe_action: >-
+  Rotate to an independent authorized module on the next wake. On a later M00
+  return, launch with the proven R60 lifecycle using one explicitly quoted
+  Arguments string containing "-ExecCmds=py D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r85_projectile_pie.py";
+  require the validator bootstrap marker before waiting and do not use
+  -ExecutePythonScript or an unquoted Start-Process ArgumentList again.

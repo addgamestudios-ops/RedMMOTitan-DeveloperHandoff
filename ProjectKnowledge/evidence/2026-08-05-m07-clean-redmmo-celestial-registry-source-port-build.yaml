@@ -1,0 +1,88 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-celestial-registry-source-port-build.2026-08-05
+captured_utc: "2026-08-05T00:36:32Z"
+module_id: M07
+system: identity.clean-redmmo-celestial-frame-registry
+slice: exact-authenticated-source-port-and-editor-build
+evidence_class: build
+result: passed_exact_unwired_source_port_and_serialized_editor_build
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  descriptor_or_build_rules_changed: false
+  content_or_map_changed: false
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeRedMMOCelestialRegistryPort_20260805T0030Z/manifest.yaml
+  manifest_sha256: 79BBAE5DFC26C5D5745424B42141E989A8956D92F1974DE3C72EAF1B768243C4
+  target_state_before: both_target_files_absent
+  rollback_scope: remove_only_the_two_exact_new_source_files_then_rebuild
+
+source:
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedCelestialFrameRegistry.h
+    sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    exact_legacy_match: true
+  implementation:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistry.cpp
+    sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+    exact_legacy_match: true
+  semantic_changes_from_authenticated_source: none
+
+static_verification:
+  verifier:
+    path: Build/Automation/verify_clean_redmmo_celestial_registry_port.py
+    sha256: 8322FCBA822818B983E4D5CE839B33543E24B07D98C6B7E0955D8FA8E42656E6
+  prebuild_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortBuild_20260805T0030Z/prebuild_verification.json
+    sha256: 5BF17F7A57A98128663E5575B12EADBC4FDBC6CA71D5D6262A5F5C24F866676F
+  postbuild_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortBuild_20260805T0030Z/postbuild_verification.json
+    sha256: 2EC114A8DB987D4745464AA12CEAE4C725B748FCDE8D3EB731CFE5E7ABD2F31A
+  exact_copies: 2
+  producer_callsites: 0
+  consumer_callsites: 0
+  protected_hash_checks: passed
+
+build:
+  target: RedMMOEditor Win64 Development
+  engine: UE 5.8.1
+  command_flags: [-WaitMutex, -NoHotReloadFromIDE, -NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  result: succeeded
+  actions: 4
+  elapsed_seconds: 106.57
+  compiler_errors: 0
+  compiler_warnings: 0
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryPortBuild_20260805T0030Z/RedMMOEditor_build.log
+    sha256: 61768D44172C878CF3F9B3D247920B3C46EE0C8AA3D908F2F083719611714B8D
+  module_dll:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: B046ED1C4042BC70459CE36910FBCF550C1E179DBA8DEF8E778D851052115D52
+
+protection:
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  r17_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_editor_launched: false
+  provider_ports_closed: [5353, 8000, 8765]
+  providers_called: false
+  desktop_control_used: false
+  final_unreal_or_build_process_count: 0
+
+claim_limit: >-
+  The exact stable-ID registry now compiles and links inside clean RedMMO. It is
+  intentionally inert: no producer or consumer is wired and no native registry
+  scenario executed in this tranche. This does not prove PPG registration,
+  cleanup lifecycle, client replication, warp, runtime, visuals, standalone,
+  travel or multiplayer.
+
+next_safe_action: >-
+  Add project-owned development automation scenarios for authority registration,
+  exact lookup, sequential update, unregister tombstone, competing-authority
+  conflict and cleanup behavior, then run one serialized editor build. Keep the
+  registry unwired; execute the tests in a separately bounded process only after
+  their source and build gates pass.

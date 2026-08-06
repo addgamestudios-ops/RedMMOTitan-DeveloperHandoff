@@ -1,0 +1,273 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-native-file-id-info.static.2026-07-24
+captured_utc: "2026-07-24T15:24:41Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: native-windows-128-bit-file-identity
+evidence_class: static
+result: passed_static_native_file_identity_with_external_restore_and_acl_gates_open
+
+scope:
+  authorized:
+    - evaluate and integrate native Windows FILE_ID_INFO without weakening existing local-NTFS path and handle boundaries
+    - retain the legacy Windows identity fields used only for Python stat compatibility
+    - verify the canonical manifest loader and diagnostic report publication through the native identity path
+  explicitly_not_run:
+    - ReFS, UNC, DFS, SMB, mapped-drive, or other network-filesystem support
+    - parent-directory durability flush, power-loss testing, external target access, payload copy, actual 8228-file restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed_before_evidence: 1495
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  other_active_codex_agents_at_start: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_start: 17.688
+  physical_ram_free_gib_final_snapshot: 17.062
+  commit_limit_gib: 54.872
+  commit_headroom_gib_start: 35.784
+  commit_headroom_gib_final_snapshot: 35.405
+  disk_c_free_gib_final_snapshot: 123.573
+  disk_d_free_gib_final_snapshot: 1139.977
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_final_snapshot: 8686
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_native_file_identity_slice
+  initial_snapshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/preflight.json
+    bytes: 4521
+    sha256: 7DE64D2284AD20C5A772D3E7E42083F6C9452D2E2F5C869DE985080067724688
+  final_snapshot_before_canonical_update:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/final_preflight_before_canonical.json
+    bytes: 3071
+    sha256: 23CEC1F46036B48D1ABDACA98071FAEDC46777EB55E084BD4BCB97FC47067CCA
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_this_M07_static_slice
+
+evaluation:
+  observed_local_ntfs_contract:
+    - Python stat and the legacy Windows handle API reported the same 32-bit volume and 64-bit file-index values
+    - FILE_ID_INFO reported a distinct 64-bit volume serial plus a complete 16-byte identifier for both the canonical manifest and its parent
+    - the observed NTFS identifiers had zero upper bytes, but the implementation treats all 16 bytes as opaque and retains them exactly
+  probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/file_id_info_probe_before_implementation.log
+    bytes: 1097
+    sha256: C0E9779C12D9C68E27F6F152D84DF725B8EABB23657AB3579A855F1C16A0259B
+  regression_red_before_implementation:
+    result: missing_native_identity_fields_reproduced
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/native_file_identity_red_before_implementation.log
+      bytes: 1121
+      sha256: F5938258623BC8A6B3A457018314B50D57F2417B4533271F85DEB682191570D2
+
+reference_basis:
+  - title: Microsoft FILE_ID_INFO
+    url: https://learn.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-file_id_info
+    applied: compare open Windows handles with the complete volume serial and 128-bit file identifier
+  - title: Microsoft FILE_ID_128
+    url: https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-file_id_128
+    applied: retain the identifier as an opaque 16-byte sequence
+  - title: Microsoft FILE_INFO_BY_HANDLE_CLASS
+    url: https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ne-minwinbase-file_info_by_handle_class
+    applied: use FileIdInfo class 18 with GetFileInformationByHandleEx
+  - title: Microsoft BY_HANDLE_FILE_INFORMATION
+    url: https://learn.microsoft.com/en-us/windows/win32/api/fileapi/ns-fileapi-by_handle_file_information
+    applied: retain the legacy identity only for existing Python stat bridges
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 99395
+    sha256: C371B3978E8B3516A03E537195D505F3B03811C9EFA1A4E76AB4B71409CD7C88
+    changes:
+      - defines FileIdInfo class 18 and the natural-layout 24-byte FILE_ID_INFO representation containing an unsigned 64-bit volume serial and opaque 16-byte identifier
+      - extends immutable Windows handle metadata with identity_volume_serial and file_id_128 while preserving legacy volume_serial and file_id fields for Python stat comparisons
+      - queries both Windows identity APIs for every retained file or directory handle and refuses a failed native query, zero native volume serial, or all-zero native identifier
+      - makes frozen-dataclass revalidation include the full native identity automatically
+      - compares manifest and parent volumes with the native 64-bit serial
+      - compares report temporary-file handles before and after writing with the exact native volume serial and all 16 identifier bytes
+      - preserves local-NTFS enforcement, retained-parent relative opens, no-delete manifest-parent sharing, reparse checks, legacy path bridges, and non-Windows behavior
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 75504
+    sha256: 0BF5281EF4C9ED5EF01A31B6AFDAA6C156399204FD12BDF4367C95E61AFC91E3
+    added_contracts:
+      - a live D-resident NTFS handle returns stable repeated native identity while retaining its Python stat bridge
+      - the deterministic API contract uses class 18 and a 24-byte result, preserves nonzero upper identifier bytes and a greater-than-32-bit volume serial, and distinguishes identities that differ only in the upper identifier bytes
+      - unavailable native identity and all-zero native identity fail without a legacy fallback
+      - both native identity contracts are explicitly Windows-only
+
+canonical_validation:
+  manifest_path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  stable_handle_observed_sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  direct_snapshot_observed_sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  entries: 8228
+  plugins: 4
+  diagnostic_publication:
+    output: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/native_identity_publication_probe.json
+    bytes: 51
+    sha256: CFFAD1D8AC5329676481F4EA058A9E5C44D2F6C8F013BA42C76C0F8E1CF41C0E
+    second_write_refused: true
+    staging_files_remaining: 0
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/canonical_manifest_and_publication_validation_final.log
+    bytes: 635
+    sha256: 5D332A936799DE23FBA2A557B7632F6C94D216233FC02695FE8B16BCE345FAA7
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z
+  focused_native_identity_contracts:
+    result: 2_of_2_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/native_file_identity_2_tests_final.log
+      bytes: 559
+      sha256: B9E21D9A662208E48B8FF39F87C321E5F731E03F80B7B629EAF96F6F510CBD4A
+  complete_restore_verifier:
+    result: 32_of_32_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/restore_verifier_32_tests_final.log
+      bytes: 7324
+      sha256: 5430C9B99281C31C4463D794D2080D3FED4A58EAF2302CDC95304472EB22E3DB
+  focused_static_and_provenance:
+    result: 99_of_99_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/focused_static_and_provenance_99_tests_final.log
+      bytes: 20844
+      sha256: 7294D87C8FB02059C109C980B90F8AA15ED41012F8BBD63CECC64BBB39752769
+  full_offline_test_discovery:
+    result: 572_of_572_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/full_tools_test_discovery_572_final.log
+      bytes: 877
+      sha256: 5E32B5896429B89EF6A00F5FFE13AEFC737BE42A99B1E19552C91544A7C624DC
+  python_compile:
+    result: passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/python_compile_final.json
+      bytes: 682
+      sha256: 6268224E94CAF990D53681B00F561E86743D62BA729F8F0F17B1A02D69184ECB
+  whitespace_and_line_length:
+    result: passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/static_quality_checks_final.json
+      bytes: 1292
+      sha256: A983E4A336160D17AA2D4BC9429B936C1C13EE28EB917E5069EB7664A742A377
+  canonical_integrity_pre_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/project_knowledge_integrity_pre_evidence.json
+      bytes: 1782
+      sha256: 6702C35D0E129D094C362F62A1FD8D3792AB8559A5C78B2FB22192BE855EB273
+  canonical_integrity_post_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 135
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: 488A8D0F9EC8763B4416B8D1F55825F83E99DCE9D70FB78470BEF6B6536C59C1
+  canonical_integrity_final:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/project_knowledge_integrity_final.json
+      bytes: 1782
+      sha256: 0A607425854C6CDA90D572D420A7C8CF063E60CDC87DDE2BD4DEE3874DF6EBF9
+  project_knowledge_integrity_contracts:
+    result: 20_of_20_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierFileIdInfo_20260724_1511Z/project_knowledge_integrity_20_tests_final.log
+      bytes: 4201
+      sha256: BE6C46C51BCB6CF314ADD713C0A22747FA93F077EEA2593A18DEB557D6F1B0BE
+
+canonical_final_hashes:
+  queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 244423
+    sha256: 5D57EC79E632412A89BE8188B29C504999E0B655BD18AAA6872293992230EA4F
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 142581
+    sha256: F333FB3DD3BB918E92E53518C32871D664A96E36266501361F4F65790D9FF0AC
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 16218
+    sha256: 061CD65D13B77DF772E3BA6D876E5FFFBD2A63433D982B6EAB2D86DCBE2669D0
+
+independent_review:
+  result: no_blocking_design_callsite_or_test_finding
+  conclusions:
+    - official API review confirmed FileIdInfo class 18, the natural 24-byte layout, and exact volume-plus-identifier comparison
+    - implementation review confirmed the additive dual-track model preserves existing Python path bridges
+    - callsite review confirmed all native handle-to-handle continuity checks now include the full identity
+    - test review confirmed nonzero upper bytes, high-byte-only inequality, unavailable-query refusal, zero-identity refusal, and live local-NTFS coverage
+  review_edits_to_project: false
+  unreal_or_build_process_run_by_reviewers: false
+
+remaining_operational_gates:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - evaluate parent-directory durability flush and power-loss consistency without changing the no-clobber publication contract
+    - keep ReFS and network-filesystem support separate from the tested local-NTFS boundary
+  operational_gates_still_open:
+    - path-to-native-handle bridges remain legacy and are accepted only under the current local-NTFS gate
+    - no parent-directory durability flush or power-loss consistency evidence
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierFileIdInfo_20260724_1511Z
+  exact_preimages: 5
+  preimage_hashes:
+    queue: A17F7176BFAB376850E1F1245AD3B6510280558105602147BD9D1275F19B36DC
+    current_state: 47B4DCA653413A059C4DA77881CC8C280ED3CB277C0BA35961032545F262925B
+    index: D041846214D2A4919EFA7808DBF67A532A2FE51DEBF13AF61854468A2489F24C
+    verifier: 801A112A62B1F20F551464453E0D391E2AD3ECA5224DF1DE5D82FEA0332B5D23
+    tests: 30613B1B48A5AC9048000C7C12DC432AAC3C91270D5A293733CE382549C8B394
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, official API, deterministic fixture, live local-NTFS
+  handle, canonical manifest, diagnostic publication, and offline test evidence
+  only. Native Windows handles now retain and compare the complete 64-bit volume
+  serial plus opaque 16-byte file identifier; legacy fields remain only for
+  Python stat bridges under the existing local-NTFS gate. This does not approve
+  ReFS or network filesystems, prove parent-directory power-loss durability,
+  access external storage, inspect ACLs, or verify an actual restored payload.
+  No RedMMOTitan payload was copied or restored. This is not Unreal load or save,
+  build, runtime, visual, gameplay, package, Steam, or multiplayer evidence.

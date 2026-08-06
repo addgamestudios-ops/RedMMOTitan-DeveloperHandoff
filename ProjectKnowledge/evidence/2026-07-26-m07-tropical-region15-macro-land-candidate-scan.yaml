@@ -1,0 +1,137 @@
+schema_version: 1
+id: evidence.m07.tropical-region15.macro-land-candidate-scan.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T16:49:51Z"
+evidence_class: automation
+result: passed_no_macro_only_relocation_candidate
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_modified: false
+  scratch_modified: false
+  map_saved: false
+  pie_entered: false
+  providers_enabled: false
+  editor_reused: true
+  editor_pid: 2000
+
+authenticated_live_export:
+  macro_asset: /Game/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield
+  resolution: 257
+  cube_faces: 6
+  map:
+    bytes: 107056719
+    sha256_before: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+    sha256_after: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+  dirty_content_packages_before: 0
+  dirty_content_packages_after: 0
+  dirty_map_packages_before: 0
+  dirty_map_packages_after: 0
+  canonical_sourceart_byte_match: all_six_height_r16_and_land_l8_rasters
+
+rejected_v1:
+  offset_cm: [-64000, 100000]
+  status: rejected_before_action
+  reasons:
+    - normalized radius-plus-tangent displacement was gnomonic, not the project-native exponential map
+    - the mapping error at that offset was approximately 869.35 cm along the surface
+    - exact exponential-map ring minimum macro height was only approximately 581.63 cm
+    - low thresholds did not cover the current 1500 cm detail review bound or 2400 cm beach band
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/region15_macro_land_candidate_scan.json
+    bytes: 104880
+    sha256: AB898AAFE564C75A069E67C25900B8585F7F8FE61601A30CF9491AB2B2F75ADD
+  retained_script:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/scan_region15_macro_land_candidates_v1_rejected.py
+    bytes: 21718
+    sha256: 00206D6A5FF6CBA794F8705AD10A7024AC12ED6AAC2BA976D8ACBE1B81CC7177
+
+corrected_v2:
+  placement_mapping: RedPlanet::FPlanetRegionService::ExpMapDirection
+  composition: region_anchor_to_candidate_then_candidate_to_actor_and_ring_offsets
+  region15_tangent_search_radius_cm: 250000
+  coarse_step_cm: 10000
+  refine_radius_cm: 12000
+  refine_step_cm: 2000
+  coarse_candidates_evaluated: 1961
+  refined_candidates_evaluated: 2611
+  exact_actor_footprint_samples: 17
+  flatten_core_radius_cm: 23881.25770576344
+  flatten_core_ring_samples: 16
+  review_bounds:
+    detail_amplitude_cm: 1500
+    beach_band_cm: 2400
+    additional_margin_cm: 100
+    flat_height_range_max_cm: 1000
+  candidates_clearing_detail_bound: 0
+  candidates_clearing_beach_plus_detail_bound: 0
+  status: no_macro_only_relocation_candidate
+  resolved_surface_query_target:
+    offset_from_region15_cm: [-114000, 112000]
+    tangent_distance_cm: 159812.3900077838
+    macro_land_weight_min: 1.0
+    macro_height_cm_min: 1436.7113704006952
+    macro_height_cm_max: 1558.4515450342915
+    macro_height_range_cm: 121.74017463359633
+    authorization: read_only_query_target_only
+  script:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/scan_region15_macro_land_candidates_v2_expmap.py
+    bytes: 15818
+    sha256: C23F640044AEBF3440AE899398D918DA586337396D958A0CD670EFC7A627D0C9
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/region15_macro_land_candidate_scan_v2_expmap.json
+    bytes: 30356
+    sha256: 6E4840DF4700D1A543F679E63ECF598C86F17EE74C6183D231AC643ECE972752
+
+artifacts:
+  live_export_script:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/export_m07_macro_heightfield_readonly.py
+    bytes: 7204
+    sha256: 3729E30AABAD61BD795605F3786E8D51688013D0D2E0A3A7CF9E4AE91B069DB3
+  live_macro_export:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/macro_heightfield_live_export.json.gz
+    bytes: 840041
+    sha256: B8050382D944CBFF69F214DA921D99105A1E462FCA7FFC38EFEF898D98DC4074
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+
+acceptance:
+  authenticated_live_macro_export: true
+  native_expmap_scan_completed: true
+  unsafe_v1_rejected_before_action: true
+  macro_only_relocation_candidate: false
+  fresh_final_resolved_surface_sample: false
+  cluster_relocated: false
+  map_saved: false
+  clean_real_gpu_recapture: false
+  visual_fit: false
+  terrain_or_prop_collision: false
+  water_or_shoreline: false
+  gameplay: false
+  production_integration: false
+
+next_safe_action: >-
+  Add or use a narrowly scoped read-only SampleResolvedSurface or exact
+  active-terrain query at the corrected exponential-map target and every
+  actor/core-ring sample. Do not move, native-snap, or save the 17 managed
+  actors from macro evidence alone.
+
+claim_limit: >-
+  This proves the live fused macro arrays and a corrected bounded native
+  exponential-map scan. It also invalidates the prior gnomonic proposal before
+  any action. No macro-only candidate clears the current detail and
+  beach-plus-detail review bounds. It does not freshly sample the final
+  noise/stamp/beach-resolved surface, authorize relocation, or accept
+  collision, water, shoreline, gameplay, seams, LOD, performance, real-GPU
+  visual fit, surface-to-orbit behavior, or production integration. The 27
+  tangent-flat surfaces remain fused authoring inputs, not runtime cells.

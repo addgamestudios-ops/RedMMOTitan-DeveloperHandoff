@@ -1,0 +1,77 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r16a-water-plane-removal.automation.2026-08-03
+captured_utc: "2026-08-03T00:43:55Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r16a-remove-rejected-r06-water-plane
+evidence_class: automation
+result: pass_exact_actor_removal_fresh_reload_mapcheck
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+  map_sha256_after: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_R16_SeededWaterAudioVehicle_20260803_003500_A01/manifest.json
+  manifest_sha256: 5E1E6B5385270DEC607F836E56DB45C22ABB12C458B6929C16A0DC1FDF0429D6
+  map_preimage_sha256: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+
+transaction:
+  interface: single_guarded_unreal_python_editor_transaction
+  script: Build/Automation/remove_redmmo_r06_water_plane_r16a.py
+  script_sha256: 9143C0483A525766082688031AA46E01A0E9C6055F5D14BC16ACEFA934B1E50A
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R16A_RemoveRejectedWaterPlane_20260803_003500/remove_redmmo_r06_water_plane_r16a_result.json
+  result_sha256: 117E5AAEBBB542ACA36506FF153FA0848B16664AEF170F388884CC78DC2E9770
+  actor_count_before: 13
+  actor_count_after: 12
+  exact_removed_actor:
+    label: RedMMO_StylizedPilot_OasisWater_R06
+    class: StaticMeshActor
+    mesh: /Engine/BasicShapes/Plane
+    material: /Game/StylizedDesertOasis/Materials/Instances/Environment/MI_Water
+    scale: [90.0, 60.0, 1.0]
+  replacement_water_added: false
+  manual_placement_added: false
+  ppg_seed_or_markers_changed: false
+
+fresh_reload:
+  script: Build/Automation/verify_redmmo_r16a_water_plane_removal.py
+  script_sha256: CF17CB5E4CBBCB147A9FADE6DDA1CE3C2DE8F9B51F9A1C27B42286E7FCF16AF7
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R16A_RemoveRejectedWaterPlane_20260803_003500/verify_redmmo_r16a_water_plane_removal_result.json
+  result_sha256: 371BABDE8144CFA726E8DB50AA81CB2EC7A3A1C1ACA7A70966E3170C12909C67
+  r06_actor_count: 0
+  map_check_errors: 0
+  map_check_warnings: 0
+  dirty_packages: 0
+  map_saved_by_verifier: false
+
+seeded_water_contract:
+  ppg_planet_data: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/DA_PPG_HomeWorld_StylizedBinding_R10O
+  generate_water: true
+  retained_native_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  implementation_fact: PPG emits radial water only for generated chunks whose minimum seeded elevation falls below zero; the shoreline is the terrain and PlanetRadius intersection.
+  public_limit: No public WaterBiome, Basin, Shoreline, SeaLevel, or OceanLevel category was found.
+  oasis_direct_binding_blocker: The unchanged Oasis MI_Water closure lacks PPG HeightMap and PlanetRadius parameters and is not a safe direct replacement.
+
+failed_attempt:
+  renderer: NullRHI
+  result: aborted_before_script_with_FallbackMaterialProxy_assertion
+  map_sha256_after_abort: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+  retry_change: reran once with D3D12 RenderOffscreen and corrected quoted ExecCmds
+
+preservation:
+  provider_ports_closed: [5353, 8000, 8765]
+  protected_hashes_unchanged: true
+  r10o_planet_data_unchanged: true
+  r10o_foliage_profile_unchanged: true
+  r10n_generation_material_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_limit: >-
+  This proves only exact removal of the rejected manual square plane and fresh
+  serialized map health. It does not prove a visible seeded basin at the player
+  region, Oasis water adaptation, beach or wet-sand layers, rivers, swimming,
+  gameplay, or real-GPU visual acceptance.

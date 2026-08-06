@@ -1,0 +1,105 @@
+schema_version: 1
+id: evidence.m00.r89d-jetpack-frame-timing-native-automation
+module: M00
+evidence_class: automation
+status: accepted_partial_native_timing_contract
+timestamp_utc: 2026-08-06T12:21:27Z
+scope: >-
+  One rollback-backed native/editor automation slice replacing the
+  nondeterministic Python callback timing assertion for R89 jetpack double-tap
+  recognition. Production now delegates its existing Unreal world-game-time
+  timestamps to one deterministic helper, and one native test exercises fixed
+  60 Hz frame intervals. No map, asset, Config, plugin, package, vendor source,
+  user asset, HUD, presentation, CC5, or Blender content was changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_dirty_default_count: 196
+  free_physical_ram_gib: 50.93
+  commit_headroom_gib: 53.62
+  gpu_free_mib: 9093
+  d_drive_free_gib: 756.53
+  active_unreal_build_package_process_count: 0
+implementation:
+  production_clock: UWorld.GetTimeSeconds
+  helper: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedJetpackTiming.h
+  production_consumer: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+  native_test: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedJetpackTimingTests.cpp
+  test_name: RedMMO.Gameplay.Jetpack.FrameTimedDoubleTap
+  covered_frame_intervals_at_60_hz:
+    rejected_too_fast: 2
+    accepted_engaging: 6
+    accepted_boundary: 18
+    accepted_non_engaging_late: 19
+  fail_closed_cases:
+    - reversed_game_time
+    - non_finite_or_invalid_timing_configuration
+verification:
+  original_r89_static_contract:
+    result: pass
+    checks_passed: 19
+    checks_total: 19
+  editor_build:
+    result: succeeded
+    target: RedMMOEditor Win64 Development
+    compiled:
+      - RedJetpackTimingTests.cpp
+      - RedPlayerCharacter.cpp
+    linked: UnrealEditor-RedMMO.dll
+    total_seconds: 16.00
+  null_rhi_attempt:
+    result: failed_before_test_execution
+    exact_blocker: >-
+      Installed PPG ComputeShader WarmupGenerationPipeline asserted on a null
+      FallbackMaterialProxy under -NullRHI before the queued test could start.
+      This is a headless runner/plugin incompatibility, not a jetpack result.
+    log: D:/RedMMOTitan/Diagnostics/R89DJetpackFrameTimingNative_20260806T1219Z/RedMMO_R89D_JetpackFrameTimingNative.log
+  real_gpu_offscreen_attempt:
+    renderer: real_gpu_RenderOffscreen
+    result: success
+    unreal_exit_code: 0
+    tests_found: 1
+    tests_completed_success: 1
+    log: D:/RedMMOTitan/Diagnostics/R89DJetpackFrameTimingNativeGPU_20260806T1221Z/RedMMO_R89D_JetpackFrameTimingNativeGPU.log
+hashes:
+  timing_helper_sha256: 18B9878AD4DE55F84D7976825DB1A6829EC2613014BFB4CC241FC7320469A438
+  timing_test_sha256: 17D10313A247FA45897F6B25A1DCA7F8E77EE88348432168EE6B31FBF0F67BFE
+  player_cpp_sha256: A687179FAC8E7279DEBD23037523371AE0E074142632B279F3AD0754737EE2C7
+  editor_module_sha256: CE8F43CCE0475503F242B723938D94644CFF50DE3DD9A7AAE0BA7AF8612FAF3B
+  passing_log_sha256: 5E7031E6E0AFBBECF56E1F74B8B03857CFF9D9DC4847D727C307F63BE799F096
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM00R89JetpackFrameTimingNative_20260806T1214Z
+  restore_player_cpp: RedPlayerCharacter.cpp
+  remove_new_files:
+    - RedJetpackTiming.h
+    - RedJetpackTimingTests.cpp
+  preserved_editor_binaries: BinariesWin64
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 51.00
+  commit_headroom_gib_after: 53.68
+  gpu_free_mib_after: 9158
+  d_drive_free_gib_after: 756.46
+acceptance_boundary:
+  proves:
+    - production double-tap timing is evaluated from Unreal world game time
+    - exact native 60 Hz timing boundaries pass deterministically
+    - original R89 server-owned producer source contract remains intact
+    - current RedMMOEditor module compiles and links
+  does_not_prove:
+    - physical input timing or gameplay feel
+    - fuel drain or regeneration
+    - radial lift or landing
+    - Sprint boost or exhaustion-until-release
+    - StarSparrow possession shutdown
+    - HUD, presentation, audio, packaging, standalone, replication, or multiplayer
+next_safe_action: >-
+  Rotate on the next wake. On a later M00 return, use the native timing contract
+  as the driver boundary for one no-save exact-home producer acceptance covering
+  fuel, radial lift, Sprint boost, exhaustion/release, landing, and StarSparrow
+  shutdown; do not repeat the Python callback timing assertion.

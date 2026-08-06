@@ -1,0 +1,110 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-gameplay-registry-facade.static.2026-08-03
+captured_utc: "2026-08-03T02:27:03Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: package-era-registry-provenance-and-blueprint-compatible-native-facade
+evidence_class: static
+result: pass_inputs_authenticated_current_dependency_closure_and_blueprint_load_still_pending
+
+package_registry_candidate:
+  source_pak: D:/RedMMOTitan/Saved/StagedBuilds/Windows/Titan/Content/Paks/Titan-Windows.pak
+  source_pak_size: 11686234
+  source_pak_last_write_utc: "2026-07-17T07:07:54.4280748Z"
+  source_pak_sha256: 359FDCE6F8C99F21C6FA6D9D7DAA102E6F9CDC50AC9F1A97E2C6B7B8458D9638
+  ufs_manifest: D:/RedMMOTitan/Saved/StagedBuilds/Windows/Manifest_UFSFiles_Win64.txt
+  ufs_manifest_sha256: 3787D233EFB937FCC4C40EE6419AF9627567042F0F923AEB41D6759EC3417BF5
+  extracted_registry: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/CookedRegistry/Titan/AssetRegistry.bin
+  extracted_registry_size: 1745036
+  extracted_registry_sha256: C5CC2EA71F8D61F5BD54DEDECFEBEC4EB371A2E54CB246DDB8FF925E496401F8
+  extraction_tool: D:/UE_5.8/Engine/Binaries/Win64/UnrealPak.exe
+  extraction_changed_project_or_content: false
+  provenance_limit: >-
+    The registry is an authenticated July 17 staged-package snapshot. It can
+    provide package-era cooked dependencies only; it cannot prove the current
+    editor/source dependency closure, current plugin availability, Blueprint
+    compilation, or current runtime loadability.
+
+blueprint_native_compatibility:
+  asset: /Game/RedMMO/Characters/BP_RedGameplayCharacter
+  native_parent: /Script/RedMMO.RedPlayerCharacter
+  policy: preserve_reflected_facade_before_pruning_implementation
+  reason: >-
+    The retained Blueprint serializes inherited native properties, functions,
+    and default subobjects. Removing or renaming reflected members before a
+    successful editor load and Blueprint compile risks an unversioned native
+    property-schema mismatch.
+  serialized_component_names_observed:
+    - SpringArm
+    - Camera
+    - RadialGravity
+    - FootstepTrail
+    - WeaponMesh
+    - PortraitCapture
+    - MinimapCapture
+    - BoardGlow
+    - HoverboardMesh
+    - SpeedTrail
+    - JetpackActor
+    - JetpackMesh
+    - JetpackTankL
+    - JetpackTankR
+    - JetpackExhaust
+    - JetpackExhaustL
+    - JetpackExhaustR
+    - JetpackFlame
+    - JetpackPlumeCone
+    - JetpackPlumeConeL
+    - JetpackPlumeConeR
+    - JetpackThrustAudio
+    - PlumeLight
+    - PlumeSmoke
+  serialized_native_callable_names_observed: [Turn]
+  first_pass_rule: >-
+    Keep excluded reflected component names as inert, hidden, unbound
+    compatibility subobjects. Prune their implementation and includes first;
+    remove reflected members only after authoritative dependency closure,
+    editor Asset Registry load, Blueprint compilation, reparent/resave review,
+    reload, and MapCheck prove the removal safe.
+  minimum_active_core:
+    - RedCharacterMovement
+    - RadialGravityComponent
+    - SpringArm_and_Camera
+    - capsule_and_visible_skeletal_mesh
+    - WeaponMesh
+    - radial_surface_selection_and_snap
+    - on_foot_input_subset
+    - movement_animation_values
+    - aim_fire_replication_and_stripped_RedBolt
+  behavior_excluded_but_facade_retained_initially:
+    - vehicle_boarding_and_ship_control
+    - hoverboard_jetpack_grapple_and_slam
+    - mining_resources_and_enemy_waves
+    - shoreline_water_sky_atmosphere_and_biome_mutation
+    - orbital_drop_and_space_scenery
+
+hard_dependency_gates:
+  focal_rig: CR_RedTrooperFocalAim_contains_Script_FocalRig_classes_descriptor_not_currently_proven
+  hud: WBP_VibeMMOHUD_parents_Script_VibeMMOUIKit_VibeMMOHUDWidget
+  content: current_recursive_source_dependency_allowlist_not_yet_emitted
+
+preservation:
+  clean_home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  project_or_content_changed: false
+  gameplay_packages_copied_or_bound: false
+  unreal_editor_launched: false
+  provider_or_desktop_control_used: false
+
+claim_limit: >-
+  This authenticates one package-era registry input and the required first-pass
+  native compatibility boundary. It does not decode or accept the current
+  recursive source dependency closure, add player classes, load or compile the
+  Blueprint, migrate content, bind a GameMode, run Unreal, or prove runtime,
+  visuals, audio, replication, multiplayer, cook, package, or standalone play.
+
+next_safe_action: >-
+  Build a provider-off offline registry reader or commandlet against the clean
+  compiled module, emit the exact July 17 hard/soft package-era closure as a
+  historical cross-check, then obtain a current editor/source Asset Registry
+  closure before copying content. Implement the legacy-compatible reflected
+  facade only after its exact plugin and package allowlist is closed.

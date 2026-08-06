@@ -1,0 +1,57 @@
+schema_version: 1
+record: celestial.ring_world
+
+id: planet.red.ring-01
+display_name: Red Ring Prototype 01
+status: retired_runtime_disabled_visual_pending
+production_enabled: false
+authority: server
+
+frame:
+  parent_body_id: planet.red.mars
+  relative_center_cm: [-2800000.0, 1600000.0, 800000.0]
+  tilt_degrees: [17.0, -12.0, 28.0]
+
+central_body:
+  radius_cm: 250000.0
+  runtime_component: RingWorldBody
+  collision_enabled: false
+  gravity_enabled: false
+  role: presentation_and_navigation_landmark
+
+rings:
+  - id: ring.red.ring-01.inner
+    inner_radius_cm: 355000.0
+    outer_radius_cm: 445000.0
+    collision_enabled: false
+  - id: ring.red.ring-01.middle
+    inner_radius_cm: 460000.0
+    outer_radius_cm: 540000.0
+    collision_enabled: false
+  - id: ring.red.ring-01.outer
+    inner_radius_cm: 557500.0
+    outer_radius_cm: 635000.0
+    collision_enabled: false
+
+moon_ids:
+  - moon.red.ring-01.a
+  - moon.red.ring-01.b
+  - moon.red.ring-01.c
+asteroid_field_ids:
+  - asteroid-field.red.ring-01.mineable
+streaming_profile_id: streaming.ring-world.red-ring-01
+
+implementation:
+  source: Source/RedMMO/RedSpaceScenery.cpp
+  runtime_identity_binding: retired
+  disable_gate: bEnableLegacySaturnPrototype=false
+
+evidence:
+  status: retired_runtime_disabled_visual_pending
+  artifacts:
+    - ProjectKnowledge/evidence/2026-07-20-ring-system-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-21-obsolete-saturn-disabled-runtime.yaml
+
+open_findings:
+  - "Current runtime disable is proven; orbit-view visual absence remains pending."
+  - "PlanetGen 1.5 ACLMRingWorld is the intended replacement and is not installed locally."

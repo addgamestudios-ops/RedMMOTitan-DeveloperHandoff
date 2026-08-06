@@ -1,0 +1,32 @@
+schema_version: 1
+template: celestial.ring_world
+
+id: "ring-world.<slug>"
+display_name: "<artist-facing name>"
+status: specified
+authority: server
+
+frame:
+  center_cm: [null, null, null]
+  tilt_degrees: [null, null, null]
+
+central_body:
+  radius_cm: null
+  collision_enabled: false
+  gravity_enabled: false
+
+rings:
+  - id: "ring.<slug>.primary"
+    inner_radius_cm: null
+    outer_radius_cm: null
+    thickness_cm: null
+    material_id: "material.ring.<slug>"
+    collision_enabled: false
+
+moon_ids: []
+asteroid_field_ids: []
+streaming_profile_id: "streaming.ring-world.<slug>"
+
+evidence:
+  status: specified
+  artifacts: []

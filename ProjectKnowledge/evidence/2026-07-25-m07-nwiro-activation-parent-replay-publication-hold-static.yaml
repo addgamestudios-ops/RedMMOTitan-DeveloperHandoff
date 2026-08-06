@@ -1,0 +1,159 @@
+schema_version: 1
+id: evidence.M07.nwiro-activation-parent-replay-publication-hold-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T14:06:34.709644Z
+result: blocked_before_publication_authenticated_execution_bootstrap_required
+
+scope:
+  objective: >-
+    Reconstruct the authenticated parent activation revision as one external,
+    private, fixed-path, no-clobber historical replay so its unchanged 16
+    source and 6 manifest assertions can run without repinning history.
+  performed:
+    - implement an exact 87-current-file plus 3-authenticated-rollback-file replay publisher
+    - add complete exact-document manifest verification and adversarial rehashed-forgery rejection
+    - reject reparse traversal and bind path identities during private ACL sealing and inspection
+    - preverify the complete transaction before no-clobber rename and reverify identity, tree, manifest, ACL, lineage, and protected hashes after commit
+    - compile historical Python modules from authenticated source bytes under retained read locks instead of consulting cached bytecode
+    - pin exact 16 plus 6 historical methods, exact four candidate and four rollback scan-proxy calls, in-memory override restoration, and full postflight verification
+    - run 14 focused replay-publisher contracts and 30 current lifecycle/publisher contracts
+    - obtain two independent exact-revision reviews and conservatively honor the stricter publication verdict
+  not_performed:
+    - publish the replay bundle or create a replay transaction
+    - execute the 22 historical assertions against a published replay
+    - compile, build, install, enable, load, or run the Nwiro candidate
+    - launch Unreal, initialize MCP, call a provider, use network transport, or touch any asset or map
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  physical_ram_free_gib: 8.262
+  commit_headroom_gib: 15.641
+  d_drive_free_gib: 1076.94
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_before: 1611F48A93B617035331C657BD67967BF91AB81EDC0E5A3D56DDB11BFDBDF26C
+  decision: >-
+    Physical RAM was below every Unreal and packaging gate, so the slice
+    remained offline and source-static.
+
+tooling:
+  publisher:
+    path: Tools/create_redmmo_nwiro_activation_replay.py
+    bytes: 73579
+    sha256: C4D718666C602CB981C4603A8D621FD34BAFBEF64E93E2D48773C6921AB6D1BA
+  publisher_tests:
+    path: Tools/tests/test_create_redmmo_nwiro_activation_replay.py
+    bytes: 9971
+    sha256: 8C563D619937D4EF993B9A40AFCA780DC1BC93819A5E321BBB147150F102BDF9
+  execution_authorization:
+    path: Build/Automation/redmmo_nwiro_activation_replay_execution_authorization_v1.json
+    bytes: 7699
+    sha256: E72E8426A1F9DD35326F3259B359C6460BD584B9F0B889AFE142D0942074410A
+  target:
+    bundle_root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationReplayV1
+    present: false
+    reserved_transaction_orphan_count: 0
+
+verified_design_closures:
+  exact_manifest_document_reconstruction: true
+  semantically_rehashed_lineage_forgery_refused: true
+  semantically_rehashed_reconstruction_forgery_refused: true
+  semantically_rehashed_claim_limit_forgery_refused: true
+  reparse_safe_acl_enumeration_and_path_identity_binding: true
+  transaction_full_preverification_before_no_clobber_commit: true
+  full_committed_bundle_postverification_implemented: true
+  historical_module_pyc_and_shadow_import_bypass_refused: true
+  historical_module_exact_source_execution_under_retained_file_locks: true
+  source_ancestor_path_atomicity_proven: false
+  historical_physical_identity_recreated: false
+  power_loss_durability_proven: false
+
+verification:
+  focused_replay_publisher_contracts:
+    command: python -B -m unittest Tools.tests.test_create_redmmo_nwiro_activation_replay -v
+    run: 14
+    passed: 14
+    failed: 0
+    errors: 0
+  current_lifecycle_and_publisher_contracts:
+    command: >-
+      python -B -m unittest Tools.tests.test_redmmo_nwiro_lifecycle_source
+      Tools.tests.test_generate_redmmo_nwiro_lifecycle_manifests -v
+    run: 30
+    passed: 30
+    failed: 0
+    errors: 0
+  authenticated_historical_module_execution_preflight:
+    passed: true
+    historical_source_method_count: 16
+    historical_manifest_method_count: 6
+    exact_generator_binding: true
+  independent_reviews:
+    permissive_review:
+      p0: 0
+      p1: 0
+      verdict: safe_to_publish_inside_stated_static_claim
+    adversarial_bootstrap_review:
+      p0: 0
+      p1: 1
+      verdict: hold_publication
+      reproduced: >-
+        Preloaded fake top-level helper modules can bind poisoned
+        _move_no_clobber and _scan_two_pass before the broadly writable
+        project publisher performs any source hash or authorization check.
+    conservative_resolution: hold_publication
+
+blocker:
+  id: nwiro_activation_replay_authenticated_execution_bootstrap
+  severity: P1
+  exact_condition: >-
+    The project-owned publisher and its security-critical helper imports live
+    under an inherited ACL that grants Authenticated Users Modify. Python
+    executes those files before the publisher can authenticate their approved
+    bytes, so later hashes cannot prove which code already ran. This bootstrap
+    paradox can undermine the no-clobber and nonmutation controls.
+  required_closure: >-
+    Create an independently trusted private-ACL bootstrap or sealed launcher
+    that retains handles to, hashes, and compiles the exact authenticated
+    publisher and helper source bytes before any of those modules execute.
+    Re-review that launcher before allowing the one-time publication.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 6.652
+  commit_headroom_gib: 29.353
+  d_drive_free_gib: 1076.72
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4281
+    free_vram_mib: 5773
+  exact_unreal_or_build_process_count: 0
+  replay_target_present: false
+  replay_transaction_orphan_count: 0
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_installation_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This is durable static evidence of a reviewed publication hold and of the
+  exact offline publisher/test design only. It is not replay publication,
+  historical-suite acceptance, candidate acceptance, a build, installation,
+  Nwiro, MCP, provider, Unreal, asset, map, visual, gameplay, or real-GPU
+  evidence.
+
+next_safe_action: >-
+  On the next heartbeat, implement and independently review only the private
+  authenticated-execution bootstrap for this exact replay publisher. Keep the
+  fixed replay target absent until the bootstrap has no P0/P1 finding; do not
+  compile, install, launch Unreal, initialize MCP, contact a provider, or touch
+  any asset or map.

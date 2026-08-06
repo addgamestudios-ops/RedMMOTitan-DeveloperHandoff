@@ -1,0 +1,281 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-ACTUAL-FIELD-TWO-CLIENT-DESTRUCTION-PIXELS-REAL-GPU
+captured_at: "2026-07-23T09:35:45Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-field-stable-member-two-client-visible-destruction-flash-and-debris
+evidence_class: real_gpu_visual
+result: pass_bounded_actual_field_two_client_visible_destruction_pixels
+
+scope:
+  authorized:
+    - extend the existing editor-only actual-field two-client depletion harness
+    - obtain deterministic real-GPU Client 1 destruction-flash and debris pixels
+    - preserve the already accepted stable-member, reward, receipt, inventory, peer, and replacement-HUD gates
+    - compile current TitanEditor and Titan Win64 Development targets
+    - extend the focused offline DEF-0003 contracts
+  explicitly_preserved:
+    - all production gameplay, maps, protected planet checkpoints, and production VFX assets
+    - the actual member stable identity, transform, scale, presentation cutoff, and network relevancy
+    - all twenty-three peer field members
+    - artist repositories, artist handoffs, supplied art, user assets, and unrelated dirty work
+  not_run:
+    - player-controlled travel into the field
+    - projectile or client-originated mining RPC delivery
+    - simultaneous wire-path final-hit arrival
+    - live-session late join, audio, restart persistence, or respawn acceptance
+    - Windows packaging
+    - Steam transport, two-account multiplayer, or capacity testing
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  preexisting_dirty_entry_count: 154
+  preexisting_dirty_entry_count_with_expanded_untracked_files: 1442
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003DestructionPixels_20260723_121742
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003DestructionPixels_20260723_121742/MANIFEST.md
+  manifest_sha256: 3A799824211AD5F4EF3E597AF7D996A9DD3AF7F939505A83C54E4174B84C2796
+  prechange_harness_sha256: EC58E58092CAC3E707C75D20DE51E2A6D3D0855DE7C40C687AE4CD86E6E7B8A7
+  prechange_contract_sha256: C7F902317E80BB14940BBA04CEE2D2C2E8B8B6152649959044719ACA5AE22326
+
+implementation:
+  production_runtime_changed: false
+  production_vfx_changed: false
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldTwoClientDepletionPIETests.cpp
+    sha256: 515C57A4F396C694D26192AEFC1C8634600BB3BBB39CCD56D81EA664AA842EB4
+    automation_name: RedMMO.Mining.DEF0003.ActualFieldTwoClientDepletionPIE
+    behavior:
+      - makes Client 1 the primary UE 5.8 PIE window through the reflected PrimaryPIEClientIndex setting
+      - requests a 1280 by 720 or larger Client 1 window and reads the real viewport pixels directly
+      - keeps the existing before and transition framing for actual member asteroid-field.red.mars.deep-space/0x4F524531/23 and its full replacement-HUD tally
+      - uses a bounded destruction-only camera 300 m from the explosion, 55 degree FOV, and a tangent-space black backdrop
+      - requires at least 1000 central luminous flash pixels and at least 100 central warm flash pixels
+      - requires exactly twelve simulating debris components and at least six recently rendered projected pixel-sized pieces
+      - requires four hot-material pieces, at least three projected hot pieces, and at least three hot pieces matched to warm pixels
+      - requires same-size flash and debris captures, at least three moving hot pieces, and at least 256 changed central pixels
+      - requires later luminous and warm counts to decay below 75 percent of the flash counts
+      - retains the existing exactly-once remote reward, receipt, inventory, full HUD-text, stable identity, cutoff, and twenty-three-pristine-peer gates
+  focused_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: E3131ED027CECFA1AC66A1C0A97EF20B021E670ADDBAF2288FBEB5A6BFAAC29C
+    result: 21_of_21_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/contract_tests_final.log
+      sha256: D211C58D51088411E0B5AE77D406274DCB241F660C3D16C61FBE9A3C6BB70FA8
+    mutation_guard: >-
+      The new contract pins primary Client 1, viewport pixel reads, flash,
+      debris projection and recent-render gates, hot-piece pixel matching,
+      motion, same-size captures, decay, and explicit destructionPixels,
+      flashPixels, debrisPixels, and debrisMotion result markers.
+
+resource_and_process_gate:
+  machine:
+    total_physical_ram_gib: 31.872
+    gpu: NVIDIA GeForce RTX 3080
+    dedicated_vram_mib: 10240
+  final_free_physical_ram_gib: 17.644
+  final_free_commit_headroom_gib: 35.358
+  final_free_vram_mib: 8796
+  final_free_disk_d_gib: 1141.144
+  final_free_disk_c_gib: 130.202
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched. Free physical RAM was not sustainably inside
+    the required 18-20 GiB packaging range, so this slice remained an
+    editor/build/runtime acceptance slice only.
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    elapsed_seconds: 14.74
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/TitanEditor_build_final.log
+      sha256: 4E7E3A7481B7A834C6A785FD070ED8E1DC0829077524F5E259B54C71B2B145B3
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: 398FAD4C0280CB5CB46AF3005717BE7D4F2B1E6B75BAA9A4398AA69C13ACB2E0
+  titan:
+    target: Titan Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    elapsed_seconds: 20.78
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/Titan_build_final.log
+      sha256: AB11B149866E560941B1F91317245FF372C9096CF8D04E7D1EB40D63AC660013
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/Titan.exe
+      sha256: B8E7914CFE3D7C8F9421CD75858035856B7AC0B23B39B7AA643EF7913AC610B0
+
+runtime_acceptance:
+  evidence_class: real_gpu_visual
+  renderer: D3D12 SM6
+  editor_process_count: 1
+  topology:
+    pie_worlds: 2
+    listen_server_worlds: 1
+    remote_client_worlds: 1
+    online_subsystem: disabled
+  automation:
+    result: pass_1_fail_0
+    total_elapsed_seconds: 8.880588
+    test_elapsed_seconds: 8.837877
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/UAIP_RunAutomationTest_Final.json
+      sha256: 0DE9304400AE87C7F0774E470910C8F5641A461BF15180AB48C6EEB9592C7362
+    report_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/UAIP_RunAutomationTest_Final.log
+      sha256: 96FF0DD70CB2DE2F97CCF90A59F66BDC21751F7AD970BCBCA021DC9A20D67531
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/Titan_Final.log
+      sha256: C197EA3DAD50F621A974CC09AEFA8AB65248E4F3B15093A3C88FAC130AE6C469
+  identity_reward_and_hud:
+    stable_id: asteroid-field.red.mars.deep-space/0x4F524531/23
+    authority_member_count: 24
+    authority_other_pristine_members: 23
+    ore_authority_and_client_before: [6000, 6000]
+    aggregate_iron_delta: 6
+    remote_iron_server_and_client: [6, 6]
+    host_iron: 0
+    post_depletion_hit_extracted: 0
+    receipt_count_authority_and_client: [1, 1]
+    final_hud_text: "STONE 0   IRON 6   CRYSTAL 0"
+    cutoff_overridden: false
+  flash_pixels:
+    capture_elapsed_seconds: 0.123
+    viewport_pixels: [1280, 722]
+    central_luminous_pixels: 3334
+    central_warm_pixels: 201
+    threshold_luminous_pixels: 1000
+    threshold_warm_pixels: 100
+    accepted: true
+  debris_pixels:
+    simulating_count_a_and_b: [12, 12]
+    recently_rendered_count_a_and_b: [12, 12]
+    projected_count_a_and_b: [12, 12]
+    hot_material_count_a_and_b: [4, 4]
+    hot_projected_count_a_and_b: [4, 4]
+    hot_pixel_matched_count_a_and_b: [4, 4]
+    moving_hot_piece_count: 4
+    changed_central_pixels: 1843
+    max_projected_width_pixels_a_and_b: [14.95, 15.25]
+    accepted: true
+  flash_decay:
+    luminous_flash_and_late: [3334, 714]
+    warm_flash_and_late: [201, 74]
+    accepted: true
+  final_replication:
+    phase_authority_and_client: [Depleted, Depleted]
+    sequence_authority_and_client: [2, 2]
+    explosion_count_authority_and_client: [1, 1]
+    simulating_debris_count_authority_and_client: [12, 12]
+  result_marker: >-
+    RED_DEF0003_FIELD_MP_DEPLETION_RESULT acceptancePass=1
+    evidenceClass=real_gpu_visual topology=in_process_two_client
+    actualFieldMember=1 stableIdentity=1 exactOnceReward=1 remoteHUDParity=1
+    destructionPixels=1 flashPixels=1 debrisPixels=1 debrisMotion=1
+    pristinePeers=23 cutoffOverridden=0 testTeleport=1
+    playerControlledTravel=0 projectileDelivery=0 clientOriginatedRPC=0
+    steamTransport=0
+  teardown:
+    pie_ended: true
+    acceptance_pass: true
+    editor_shutdown_without_saving: true
+    final_unreal_process_count: 0
+
+visual_evidence:
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/DEF0003_Field_MP_Depletion_Before.png
+    sha256: CFB5723F27824038912450082EE14DA57AFF5C657BB6D292F32FB7063883C39B
+    finding: actual target is readable and the full baseline HUD text is visible
+  transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/DEF0003_Field_MP_Depletion_Transition.png
+    sha256: 098432441E2C1092099587DBA0071AD0B99B417AB8503A6BAEEEB321CCE93316
+    finding: intact target remains visible and the full rewarded HUD text is readable
+  explosion:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/DEF0003_Field_MP_Depletion_Explosion.png
+    sha256: ED65B59F167A2C887C3C699A4387BE1EC6180AE583779B12A86D90CCDA8D4579
+    finding: a centered red-white destruction flash is visibly resolved against the black backdrop
+  debris_a:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/DEF0003_Field_MP_Depletion_Debris_A.png
+    sha256: FDF648AA087AF1100BFD5C7F52BFB0476E5173049FBE8A7E9A36AAC8BE7C32AF
+    finding: four pink hot pieces and additional gray shards are visibly resolved
+  debris_b:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/DEF0003_Field_MP_Depletion_Debris_B.png
+    sha256: C2BD9085C5D39FB18670FAB95AF40196F9DB9E2E9F4D292B438A9A6A83ACC116
+    finding: the hot pieces and shards are visibly displaced from their debris-A positions
+  inspection: all_five_full_frames_manually_inspected
+  visual_limit: >-
+    The five frames and direct pixel gates accept a readable actual-field
+    target, baseline and rewarded HUD, centered destruction flash, debris
+    pieces, and debris motion. The forward-shading multiple-directional-light
+    warning remains visible in gameplay frames, so this is not warning-free
+    marketing or final visual-polish acceptance.
+
+known_nonblocking_runtime_warnings:
+  - the optional Voxel collision-invoker class is absent and ship code reports its raycast fallback
+  - r.MotionVectorSimulation reports a render-thread safety warning
+  - teardown reports one attempted SpawnActor while the world is already tearing down
+  - gameplay frames retain the multiple-directional-light forward-shading warning
+  - the UAIP report retains these engine warnings under FailMessages while the test result and summary remain Pass 1 and Fail 0
+
+protection:
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+remaining_gates:
+  - player-controlled travel and naturally acquired mining range
+  - projectile or client-originated mining RPC delivery
+  - simultaneous client-originated final-hit contention if required
+  - live-session late join during Depleting, inside and outside the FX replay window, and after Depleted
+  - destruction and reward audio
+  - explicit restart persistence or respawn semantics
+  - warning-free final presentation
+  - packaged Windows, Steam transport, two-account acceptance, and capacity testing
+
+canonical_sync:
+  module_status: incomplete_retry
+  retry_count: 35
+  queue_sha256_after: FEC1ACAE2AA7E20527E3D14474FB49AC5313D46D8180EA4162735935BB122DDA
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+  yaml_parse: 6_of_6_passed
+  integrity_audit:
+    result: historical_failures_unchanged_new_slice_zero
+    error_count: 64
+    warning_count: 0
+    finding_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientDestructionPixels_20260723_121742/project_knowledge_integrity.json
+      sha256: 171A517EC8020869F629ECC065B3B777B8E9717CF2409998C971D0A761993554
+
+claim_limit: >-
+  This is real RTX 3080 D3D12 visual and runtime evidence for one actual
+  production field member in one local UnrealEditor process with a listen
+  server and Client 1. It accepts visible Client 1 destruction flash, debris
+  pieces, debris motion, flash decay, stable identity, replicated depletion,
+  exactly-once remote reward, receipt, remote inventory, full replacement-HUD
+  text, and twenty-three pristine authority peers. It used a bounded test
+  teleport, direct authority mining calls, a transient close destruction
+  camera, and a black pixel-test backdrop. It does not prove player-controlled
+  travel, projectile or client-originated RPC delivery, simultaneous wire
+  arrival, late join, audio, restart persistence, warning-free visual polish,
+  packaging, Steam, two accounts, performance capacity, or broad multiplayer.

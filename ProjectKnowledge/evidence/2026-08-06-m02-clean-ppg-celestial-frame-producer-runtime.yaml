@@ -1,0 +1,120 @@
+schema_version: 1
+id: evidence.m02.clean-ppg-celestial-frame-producer-runtime
+module: M02
+evidence_class: automation
+supplemental_evidence_classes: [real_gpu]
+status: accepted_partial
+timestamp_utc: 2026-08-06T12:49:01Z
+scope: >-
+  One bounded no-save authority game-world execution of the compiled clean
+  ProfileV1 PPG celestial-frame producer in the exact home map. The run proved
+  initial publication plus the producer's immediate exact registry lookup,
+  allowed PPG generation and the project-owned floating-origin re-resolution,
+  then shut down normally. It did not save a package, mutate a map or profile,
+  cook, package, exercise a client, or bridge the separate fused-core line.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 51.06
+  commit_headroom_gib: 53.66
+  gpu_free_mib: 9086
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.31
+  active_unreal_build_package_process_count: 0
+  package_attempted: false
+
+execution:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  launch_mode: editor_executable_game_world
+  authority_scope: standalone_authority_game_mode
+  bound_game_mode: GM_RedTrooperPPG_A01_C
+  renderer: D3D12_SM6_RenderOffscreen
+  adapter: NVIDIA_GeForce_RTX_3080
+  adapter_dedicated_vram_mb: 10053
+  bounded_exit: benchmark_seconds_180
+  exact_unreal_process_count: 1
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M02_PPGCelestialRuntime_20260806T124801Z/RedMMO_M02_PPGCelestialRuntime.log
+    sha256: E4ABC21CFA4D3D2F2A96683BCA4BC0B3BF3E01331EABEBA077E87B26307E8A36
+    bytes: 188313
+
+runtime_result:
+  world_brought_up_for_play: true
+  producer_owner: ARedPPGGameplayGameMode
+  published_stable_id: planet.red.mars
+  published_revision: 1
+  published_center_cm: [0.0, 0.0, -300000000.0]
+  published_nominal_radius_cm: 300000000.0
+  exact_lookup_verified_by_success_marker: true
+  exact_lookup_contract: >-
+    The production success marker is emitted only after ResolveExact returns
+    the same revision, center, and nominal radius as the accepted registration.
+  ppg_generation_completed: true
+  ppg_generation_seconds: 3.22395
+  generated_chunk_count: 516
+  floating_origin_shift_and_home_body_reresolve_logged: true
+  runtime_revision_advance_observed: false
+  clean_engine_shutdown: true
+  object_subsystem_closed: true
+  fatal_error_hits: 0
+  assertion_failed_hits: 0
+  ensure_failed_hits: 0
+  publication_failure_hits: 0
+  exact_revision_teardown_failure_hits: 0
+
+source_identity:
+  game_mode_implementation_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  game_mode_header_sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+  registry_implementation_sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+  registry_header_sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+  editor_module_sha256: A7930B17E8B0192457D2D35A777ED1863AB529F082D4731597A8F2070A9AC81C
+  source_files_changed_during_slice: 0
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  protected_maps_assets_profile_vendor_user_assets_modified: false
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 50.83
+  commit_headroom_gib_after: 53.45
+  gpu_free_mib_after: 9156
+
+rollback: not_applicable_no_project_or_package_mutation
+
+project_knowledge_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M02_PPGCelestialRuntime_20260806T124801Z/project_knowledge_integrity.json
+  result: pass_0_errors_0_warnings
+
+finding: >-
+  The compiled clean producer now has real authority-world and real-GPU
+  evidence for initial ProfileV1 publication and its exact in-process registry
+  lookup, followed by normal world shutdown without a publication or
+  exact-revision teardown failure. The observed body is the current 3000 km
+  ProfileV1 planet, not M02's protected 795774.715 cm fused-core target.
+
+blockers:
+  - no_runtime_center_or_radius_mutation_to_prove_revision_advance
+  - no_client_snapshot_or_replication_consumer
+  - radar_or_minimap_consumer_absent
+  - volumetric_cloud_radius_remains_6360_km_not_3000_km
+  - protected_795774_715_cm_fused_core_remains_separate_from_ProfileV1
+  - no_current_package_visual_traversal_collision_multiplayer_or_human_acceptance
+
+next_safe_action: >-
+  Rotate away from M02 on the next wake. Later M02 slices should separately
+  test a real center/radius mutation and client snapshot ordering, then address
+  radar, clouds, and an explicitly approved fused-core/ProfileV1 integration
+  design before any rescale, merge, map mutation, or package promotion.
+
+claim_limit: >-
+  Runtime and real-GPU evidence for the current exact-home authority producer's
+  initial publication, exact lookup, generation-time re-resolution, and clean
+  teardown only. No 795774.715 cm fused-world, visual, traversal, collision,
+  package, replication, multiplayer, Steam, or human acceptance is claimed.

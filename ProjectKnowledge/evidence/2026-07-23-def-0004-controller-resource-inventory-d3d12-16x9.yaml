@@ -1,0 +1,299 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-CONTROLLER-RESOURCE-INVENTORY-D3D12-16X9
+captured_utc: "2026-07-23T19:04:06Z"
+module_id: M09
+defect_id: DEF-0004
+system: ui.pause-menu.resource-inventory.controller
+slice: synthetic-engine-controller-route-and-real-gpu-visual-acceptance
+evidence_class: real_gpu_visual
+result: passed
+
+scope:
+  accepted:
+    - Gamepad Start opens the existing pause menu through the production HUD binding
+    - initial controller focus is assigned after UI-only input mode and is visibly discernible on Resume
+    - D-pad and A navigate the project-owned deterministic route from Inventory to Resources and Iron
+    - Resources visual slot 1 maps to stable item 3 and presents the selected Iron detail at quantity 0
+    - an authoritative production RegisterMiningHit refresh changes the visible resource cards from 0/0/0 to 0/6/0
+    - Iron selection, stable item identity, detail text, and visible focus survive the live refresh
+    - Gamepad B closes the menu, restores game input, hides the cursor, and leaves no permanent resource tally
+    - the allowed owner-only MINING YIELD / IRON +6 receipt remains transient after close
+  explicitly_not_accepted:
+    - physical-controller, HID, XInput, or GameInput device acceptance
+    - controller backend discovery, firmware, reconnect, hot-plug, or platform remapping
+    - ultrawide Inventory layout
+    - durable resource persistence across respawn, travel, reconnect, restart, or account login
+    - broad DEF-0004 or DEF-0006 gameplay-HUD acceptance
+    - Windows packaging, Steam transport, or two-account acceptance
+
+baseline:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    materially_dirty_before_slice: true
+    unrelated_dirty_work_preserved: true
+  canonical_queue_sha256_before: E27EB401174461DDD01653374C43B13ACBBA4D04ADFDC48E3DBCBF9E4BD3BE8D
+  resources_before_final_runtime:
+    physical_ram_free_gib: 14.886
+    d_free_gib: 1140.870
+    gpu: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_used_mib: 2484
+    vram_free_mib: 7570
+    overlapping_unreal_build_cook_or_package_processes: 0
+  package_gate:
+    result: closed
+    reason: >-
+      Free physical RAM remained below the mandatory sustained 18-20 GiB
+      packaging floor. No cook, package, archive, or package pointer was
+      launched or changed.
+
+controller_provenance:
+  route: synthetic_engine_controller_callback
+  injection: FSlateApplication_ProcessKeyDownEvent_and_ProcessKeyUpEvent
+  physical_controller_tested: false
+  xinput_slots_connected: 0
+  observed_hid_note: >-
+    A Razer Tartarus HID was present, but all XInput slots returned
+    ERROR_DEVICE_NOT_CONNECTED. No virtual HID driver was installed and no
+    physical-controller claim is made.
+  claim: >-
+    Synthetic UE gamepad FKeys exercised the production controller navigation
+    route in a real D3D12 game window. Resulting menu state, focus, selection,
+    live refresh, pixels, and close state are accepted; OS controller-device
+    routing remains pending.
+
+implementation:
+  behavior:
+    - binds Gamepad Start to the existing pause-menu toggle
+    - applies initial focus only after UI-only input ownership is established
+    - owns deterministic primary-menu, Inventory-category, and Inventory-grid controller regions in RedMMO source
+    - swallows repeated A, B, and Start activation while permitting bounded D-pad repeat navigation
+    - transfers controller focus into Inventory categories only when Inventory was controller-invoked
+    - uses named Vibe category and slot controls without modifying Vibe source
+    - keeps mouse and keyboard behavior intact
+  production_sources:
+    - path: Source/RedMMO/RedHUD.cpp
+      bytes: 17445
+      sha256: A76F2CC470CA45C8348F87F435DFC355D5F39B569CB68951D9C5578B0CF27692
+    - path: Source/RedMMO/RedPauseMenuWidget.h
+      bytes: 7109
+      sha256: 029F3743D1E24A0371F8970BB456503BDC75B86A30B136C458231C62DFFDDC07
+    - path: Source/RedMMO/RedPauseMenuWidget.cpp
+      bytes: 66361
+      sha256: 9DDF31D3404796B5608CE10522A4126A58737C4D246BD4F157F87AE1C3AD7BF7
+  test_and_harness_sources:
+    - path: Source/RedMMO/RedPlayerCharacter.cpp
+      bytes: 404147
+      sha256: 6F81E550D335379D91C8D994502A8CDAEC7C6FED7593ADE0E2FB4201C6705BCF
+    - path: Source/RedMMO/Tests/RedUIControlBindingTests.cpp
+      bytes: 18902
+      sha256: 579CDDADCD76C904C8EE9CBF334E24083F04A157B229027DEDE5659E13AF35FE
+    - path: Tools/tests/test_def0004_resource_inventory_contract.py
+      bytes: 16360
+      sha256: DB83764FE4513C735D1192E7BCF6428F514EB0ACD8107F375DA1A0BA7F96479C
+  gameplay_authority_or_replication_modified: false
+  vibe_source_or_supplied_art_modified: false
+  production_map_asset_or_field_modified: false
+
+validation:
+  focused_static_contracts:
+    command: python Tools/tests/test_def0004_resource_inventory_contract.py
+    result: passed
+    tests: 13
+  independent_read_only_review:
+    result: passed_no_blocking_correctness_or_safety_finding
+    verified:
+      - Start binding and post-input-mode initial focus
+      - deterministic Start, D-pad, A, and B ownership
+      - A, B, and Start repeat suppression
+      - stable Resources-to-Iron mapping
+      - controller and legacy audit mutual exclusion
+      - no direct-call fallback in the controller runtime branch
+      - selected Iron detail and focus retention across live refresh
+    non_blocking_test_gaps:
+      - compiled automation does not directly exercise bIsRepeat=true
+      - the Python contract does not structurally prohibit a future direct-call fallback inside the controller branch
+  visual_review:
+    result: passed
+    notes:
+      - Resume focus is visibly distinguished by the cyan focused treatment
+      - selected Iron is visibly distinguished by the gold slot and detail treatment
+      - quantity 0 and quantity 6 frames are complete, readable, and unclipped
+      - the closed frame contains no Inventory and no permanent Stone, Iron, or Crystal tally
+
+build:
+  target: TitanEditor Win64 Development
+  result: succeeded
+  actions: 4
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_AggregateInitFixBuild_20260723_2205/build.log
+    bytes: 20002
+    sha256: B1A656E30874F946582C6A270DB5E564AB23FAD722EE864C3B62D89DD3A9FF04
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4215296
+    sha256: 00A12B11BCAAFBD16ABCA33CF1D9099100F02B391D5F510D70CD7D28A057D210
+  known_warning_scope: pre_existing_UnrealAIIntegrationPlatform_plugin_dependency_warnings
+
+native_automation:
+  test: RedMMO.UI.Controls.NoDeadEnds
+  renderer: NullRHI
+  result: passed
+  succeeded: 1
+  failed: 0
+  warnings: 0
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_FinalAutomationPostRuntime_20260723_2215/AutomationReport/index.json
+    bytes: 1100
+    sha256: 654DBC848E2AEA9BD0F315F2A500F38D203472EDFB2415F3D54D082F591CF247
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_FinalAutomationPostRuntime_20260723_2215/ControllerInventory_Automation.log
+    bytes: 381741
+    sha256: 979CE9E6269858CE327F8E575A1805EE96EDFBA5720B3950B9B296DA1D9631A3
+  claim_limit: NullRHI authenticates native widget behavior but supplies no visual evidence
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen?Listen
+  renderer: D3D12_SM6
+  gpu: NVIDIA GeForce RTX 3080
+  viewport: 1280x720
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_AggregateFix_20260723_2210
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_AggregateFix_20260723_2210/RedMMOTitan.log
+    bytes: 359562
+    sha256: CF766FE5823B1B5EE4765C7764EB828D1FF2553EDE558622E529C5FDCF00147D
+  assertions:
+    controller_open:
+      marker: RED_DEF0004_CONTROLLER_OPEN
+      result: passed
+      visible: true
+      region: PrimaryMenu
+      focused: Button_0
+      has_focus: true
+    iron_selection:
+      marker: RED_DEF0004_CONTROLLER_IRON_SELECT
+      result: passed
+      category: Resources
+      visual_slot: 1
+      stable_item: 3
+      name: IRON
+      quantity: 0
+    authoritative_mining_refresh:
+      marker: RED_DEF0004_CONTROLLER_REFRESH
+      result: passed
+      category: Resources
+      visual_slot: 1
+      stable_item: 3
+      exact_quantity_card_texts: 0/6/0
+      selected_detail_quantity: 6
+      focus_retained: true
+    controller_close:
+      marker: RED_DEF0004_CONTROLLER_CLOSE
+      result: passed
+      visible: false
+      mouse_cursor: false
+      persistent_tally_visible: false
+    aggregate:
+      marker: RED_DEF0004_CONTROLLER_RESULT
+      pass: true
+      synthetic_route_pass: true
+      real_gpu_artifacts_pass: true
+      physical_controller_tested: false
+  clean_log_scan:
+    fatal_or_low_level_fatal: 0
+    unhandled_exception: 0
+    gpu_crashed_or_device_removed: 0
+    assertion_or_ensure: 0
+    out_of_memory: 0
+    error_lines: 0
+  clean_exit: true
+
+durable_visuals:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_AggregateFix_20260723_2210/captures
+  accepted_frames:
+    - name: DEF0003_Controller_OverviewOpen.png
+      bytes: 160641
+      sha256: 1BFB132AE77797F532DB7A1F902BF7C7B1059F0055101192A1ECD0B5C94B509D
+      proves: controller-open Overview with visibly focused Resume and readable B close hint
+    - name: DEF0003_Controller_Resources_Iron0_Selected.png
+      bytes: 138323
+      sha256: 1E8B5FAD747CA58E9F978D01228D2249279CEDA0296148E8CD452B8CF386DBE6
+      proves: Resources active, visibly selected Iron, quantity 0 cards, and readable Iron detail
+    - name: DEF0003_Controller_Resources_Iron6_Selected.png
+      bytes: 146128
+      sha256: DE0DB3FE59C9FAE443E7406513AEDBE0D315B48D15A6363FFB7F985B0F898040
+      proves: live quantity 6 repaint with visibly retained Iron selection and updated detail
+    - name: DEF0003_Controller_Closed.png
+      bytes: 142785
+      sha256: B7725DD5A5ABF54E1619039B6DEB6DE820411C6EF6EDC1B656DCA0C37924961F
+      proves: menu close, restored combat HUD, absent permanent tally, and allowed transient receipt
+
+rejected_evidence:
+  - root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_20260723_1905
+    reason: >-
+      A controller-invoked Inventory action left focus on the primary menu and
+      the following D-pad inputs reached Character. The production focus
+      transition was corrected and this run is not used for acceptance.
+  - root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_FocusFix_20260723_1920
+    reason: >-
+      Production routing and pixels passed, but the harness compared resource
+      locals before reading the Inventory totals. The assertion ordering was
+      corrected and this run is not used for acceptance.
+  - root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_D3D12_16x9_RefreshOrderFix_20260723_2200
+    reason: >-
+      All individual route checkpoints passed, but the fail-closed aggregate
+      began false and could never become true. A static guard now pins the
+      correct true initializer and this run is not used for acceptance.
+
+protection:
+  protected_file_hashes: 8_of_8_exact
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  supplied_art_or_vibe_source_modified: false
+  production_map_or_asset_modified: false
+  artist_repository_or_handoff_modified: false
+  package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M09_DEF0004_ControllerInventory_20260723_1825
+  exact_source_and_test_preimages_retained: true
+  canonical_preimages_retained: true
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 24
+  queue_sha256_after: 901AD31B93F953F5F3C3DF274D294B7004AB8E2FFF709ABB004D614A9C9065D8
+  current_state_queue_hash_matches: true
+  defect_status: open
+
+canonical_validation:
+  queue_json_parse: passed
+  project_knowledge_audit:
+    result: passed
+    errors: 0
+    warnings: 0
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_ControllerInventory_CanonicalValidation_20260723_2225/project_knowledge_integrity.json
+    bytes: 1707
+    sha256: F1B7DD15F769621379A5DB7DD11830C2B97E117EEDCC39D9E788F5D68A8E3A50
+  focused_and_integrity_unit_tests: 27_of_27_passed
+  current_state_queue_hash_matches: true
+
+remaining_blockers:
+  - physical-controller and Windows controller-backend acceptance
+  - ultrawide Inventory acceptance
+  - durable resource-total ownership across respawn, travel, reconnect, restart, and account login
+  - broad DEF-0004 and DEF-0006 gameplay-HUD acceptance
+  - a fresh currency-valid Windows package and Steam/two-account regression
+
+claim_limit: >-
+  This accepts only the bounded synthetic UE controller route and its real-GPU
+  1280x720 pixels for pause-menu open, Inventory-to-Resources navigation, Iron
+  selection, authoritative 0/0/0-to-0/6/0 refresh with retained focus, and B
+  close. It does not claim that a physical controller, Windows controller
+  backend, ultrawide Inventory, persistence, broad HUD, packaging, Steam, or
+  two-account path has passed.

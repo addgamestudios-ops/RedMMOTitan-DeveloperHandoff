@@ -1,0 +1,75 @@
+schema_version: 1
+acceptance_id: acceptance.planetary-system.v1
+scope: planets_moons_ring_worlds_asteroid_fields_gravity_atmosphere_water_streaming_and_warp
+
+required_gates:
+  - id: PS-IDENTITY-001
+    requirement: "Every body, field, authoring region, and warp route has a unique immutable stable ID resolvable after save/load and late join."
+    evidence_level: multiplayer_runtime
+
+  - id: PS-FRAME-001
+    requirement: "Terrain, water, atmosphere, gravity, collision, spawn, radar, and presentation agree on each body's center and radius."
+    evidence_level: runtime
+
+  - id: PS-TERRAIN-001
+    requirement: "The 27 tangent-local authoring regions fuse into the macro surface without becoming runtime World Partition cells."
+    evidence_level: build_and_runtime
+
+  - id: PS-STREAM-001
+    requirement: "PlanetGen surface chunks stream independently from World Partition authored hubs, props, encounters, navigation, and dressing."
+    evidence_level: runtime
+
+  - id: PS-GRAVITY-001
+    requirement: "The server deterministically selects and replicates the dominant gravity body across planet/moon influence overlaps, with client reconciliation."
+    evidence_level: multiplayer_runtime
+
+  - id: PS-ATMOSPHERE-001
+    requirement: "Atmosphere dimensions are explicit, unit-scale, body-relative, and proportionally accepted at surface and orbit."
+    evidence_level: real_gpu_visual
+
+  - id: PS-WATER-001
+    requirement: "Visible water, collision/query water, shoreline, and authored masks share one body-relative sea datum."
+    evidence_level: runtime_and_real_gpu_visual
+
+  - id: PS-RING-MOON-001
+    requirement: "Ring body/bands and every registered moon appear at intended scale; playable moons provide collision and authoritative gravity."
+    evidence_level: packaged_real_gpu_and_multiplayer_runtime
+
+  - id: PS-MINING-001
+    requirement: "Mineable asteroid IDs, variants, ore, depletion, hit authority, replication, and late-join state remain deterministic."
+    evidence_level: multiplayer_runtime
+
+  - id: PS-WARP-001
+    requirement: "The server validates route, vehicle, departure, phase changes, destination readiness, and deterministic arrival."
+    evidence_level: packaged_multiplayer_runtime
+
+  - id: PS-PROTECTION-001
+    requirement: "The protected 50 km checkpoint hash is unchanged by authoring, streaming, travel, and acceptance runs."
+    evidence_level: before_after_hash
+
+evidence_policy:
+  build_only:
+    can_satisfy: [compile_and_link_substeps]
+    cannot_satisfy: [runtime, multiplayer_runtime, real_gpu_visual]
+  null_rhi:
+    can_satisfy: [load, structure, log_contract, deterministic_query, clean_shutdown]
+    cannot_satisfy: [real_gpu_visual, atmosphere_visual, water_visual, ring_visual]
+  visual:
+    requires:
+      - real GPU and named RHI
+      - map and camera context
+      - durable capture path
+      - explicit pass or fail against the gate
+  multiplayer:
+    requires:
+      - authoritative server evidence
+      - at least one remote client path
+      - replicated stable IDs and state
+
+exit_rule: >-
+  All required gates must pass with durable evidence, no blocking open defect may
+  affect the claim, and the protected checkpoint must remain unchanged.
+
+currently_blocking:
+  - DEF-0001
+  - feature.celestial.ring-moons-mining.2026-07-20 runtime and visual gates

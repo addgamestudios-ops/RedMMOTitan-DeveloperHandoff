@@ -1,0 +1,111 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r46-grass-depth.2026-08-05
+captured_utc: "2026-08-05T17:03:37Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r46-approved-grass-depth-only-successor
+evidence_class: real_gpu_visual
+evidence_classes: [automation, fresh_reload_pie_real_gpu, visual_review, rollback]
+result: depth_only_correction_does_not_restore_readable_grass_and_was_removed
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 49.40
+  commit_headroom_gib: 49.29
+  free_gpu_vram_mib: 7958
+  free_d_drive_gib: 767.63
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+transaction:
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1GrassDepth_R46_20260805T1650Z
+  manifest_sha256: A34AD5063DD44AA69EDFCCF6BD13AFF4E8DA911CA040CBD6D234BCF3DB7E3F73
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_grass_depth_r46.py
+  apply_driver_sha256: 74D4456BC57C5E0F97E97D5DA795680BC02FB0ABDABFD3F77470E63CA8653ECD
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDepth_R46_20260805T1652Z/apply_result.json
+  apply_result_sha256: 0BAB8632240878494B12A96736D29C99B297C0A02D89CD381101C86590162A20
+  temporary_foliage_asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_GrassDepth_R46
+  changed_only:
+    - duplicated project-owned R29 foliage data
+    - changed approved grass DepthOffset from 20.0 cm to -50.0 cm
+    - rebound ProfileV1 Craters, Hills and Mountains to the temporary successor
+  preserved:
+    - seed 1337
+    - density 90
+    - scale 1.0-1.55
+    - NONE eligibility mask and no inversion
+    - exact approved A/B grass aliases
+    - seeded distribution, home map, surface and vendor packages
+
+runtime:
+  verifier: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_depth_r46_lit_first.py
+  verifier_sha256: 288A79EE2A5FF76F5D09A79860DFC446036483920BAEBAEB0DF46EF232E1CB95
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDepth_R46B_20260805T1700Z/verify_result.json
+  result_sha256: BE3FE8B9BDB0D240260690370964324759DC2969F6EC78EA28B81421828FEA89
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDepth_R46B_20260805T1700Z/unreal.log
+  log_sha256: 298C28DAF2DD73E3A332D7BD3C59253ADB288479D7AFB4270EC6240E138A8D3C
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDepth_R46B_20260805T1700Z/R46_untouched_lit_first_depth_corrected.png
+  screenshot_sha256: 9EA2EDEC82DA048118E142B85B7602A8BF3C2C915B03AECD7D6461D4B3745775
+  renderer: real_D3D12_RenderOffscreen
+  generation: COMPLETE
+  exact_camera_delta:
+    location_cm_max_abs: 0.00019040703773498535
+    rotation_deg_max_abs: 0.0
+    fov_max_abs: 0.0
+  pre_capture_census:
+    approved_components: 196
+    seeded_instances: 2218356
+    visible: 196
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    positive_last_render: 76
+  capture_mutations:
+    view_mode_command: false
+    visibility_cycle: false
+    component_property_write: false
+    save: false
+  visual_result: >-
+    The untouched player-scale Lit-first frame still shows a smooth green floor
+    with no readable DenseTall grass in the near or mid ground. Correcting the
+    authenticated pivot/depth defect is therefore insufficient to solve the
+    missing-grass pixel failure.
+  verifier_boundary: >-
+    The strict verifier reported post-capture readiness drift while stopping
+    PIE. The valid COMPLETE generation, exact pre-capture census and captured
+    pixels remain retained, but the run is a runtime/visual FAIL rather than a
+    pass.
+
+rollback:
+  driver: D:/RedMMOTitan/Build/Automation/rollback_redmmo_profile_v1_grass_depth_r46.py
+  driver_sha256: 29B753BFE0EE1BE9EA45AE0DB40EC3191950F0899A9299C360E8CC9F4E554F1C
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDepth_R46Rollback_20260805T1703Z/rollback_result.json
+  result_sha256: 2BD3BF9FF584E2E66B628455BA07B9193CC9C86AC84485E8E21A8698685CA6B2
+  log_sha256: 97812A2D5AFE7575DBA0FDDFB12D6BC0698B8D455E49C0A580E83481A13357EF
+  r46_asset_removed: true
+  profile_v1_byte_exact_preimage_restored: true
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  approved_mesh_a_sha256: 6F215104F1374403194D8AB4DA79B3FF16CCBF86472746E5CD433E03118B2443
+  approved_mesh_b_sha256: 3C50C87B594CE012F680EF51BA306C2DF09FDAED10C06F7F60AFA4E62F678475
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R46 falsifies the depth-only repair. It does not prove accepted grass,
+  biome art, gameplay, standalone, replication, multiplayer or player
+  acceptance.
+
+next_safe_action: >-
+  Do not repeat depth, remap, eligibility, visibility, density, cull,
+  instance-refresh, render-state or identical capture loops. The next bounded
+  grass diagnostic is a read-only exact R32/R10N opacity, WPO, dither and
+  material-vertex displacement path audit against the approved mesh bounds and
+  default PPG draw contract; only a proven causal control may authorize another
+  rollback-backed visual transaction.

@@ -1,0 +1,94 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M05-WORLD-RESOLVED-PROTECTION-QUERY-STATIC
+captured_at: 2026-07-22
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed_source_and_offline_contract
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree: pre_existing_dirty_worktree_preserved
+implemented:
+  - The public Blueprint protection query no longer accepts a caller-authored planet center. It accepts a WorldContextObject, the canonical body ID, feature tag, and world point.
+  - The query resolves the home PlanetGen frame through RedGravity, reads the raw reflected PlanetRadius instead of inferring it from gameplay datum or peak radii, and rejects nominal-radius drift beyond 1 cm from the protected 50 km profile.
+  - The new five-argument frame resolver requires exactly one valid PlanetGen actor during cold resolution and fails closed on an ambiguous world. The existing four-argument exported resolver and all legacy three/four-argument call sites retain their prior symbol and first-candidate behavior.
+  - Worker-thread calls fail closed before world lookup or actor/cache access. A future asynchronous PCG or WorldGen adapter must consume a game-thread-owned immutable frame snapshot.
+  - The private synthetic-center geodesic helper is not reflected and is exposed only to the focused automation-test class.
+  - Authored C++ protection tests now cover every reservation center, all blocked feature tags, exact hard and blend boundaries, half blend, outside range, wrong body, unknown tags, zero direction, wrong/invalid radius, invalid coordinates, null context, and a context without a world.
+  - The registry remains query-only and unwired. It does not activate PCG or WorldGen, spawn actors, alter maps, or enable surface dressing.
+files:
+  - path: Source/RedMMO/RedGravityBodies.h
+    sha256: 3463210BC06B2E22355E5B27A662D434C97F835D4D2A87805F53394DBE257911
+    note: shared dirty source; only the overload/documentation hunk belongs to this slice
+  - path: Source/RedMMO/RedGravityBodies.cpp
+    sha256: F4E4E275247F3CB5D4B594C1FDFA917BAB88E32D8F7FA92CDB12779539FA2CD5
+    note: shared dirty source; only raw-radius, strict-uniqueness, and compatibility-wrapper hunks belong to this slice
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.h
+    sha256: F76C06514AD53BAE8611105AE676FB43696CC13B52C4E40874936005A70D05C9
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.cpp
+    sha256: 3D5D3C3575EC9D8E57FB5A88A07BD762F471CBC5449E068D2B91E44F310DCA1F
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    sha256: DD7727552B95A92DC2038C205EAD1071BAC217ED439FB617422544878A1AF43A
+  - path: Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    sha256: D71EF30D9DC45E680032112CA7CC55683661D6FAECD5C5E96E2AFFD9A6BBD994
+verification:
+  offline_tests:
+    command: "python -m unittest Tools.tests.test_planet_pcg_reservations Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: "16/16 passed"
+  dataset_check:
+    command: "python Tools/generate_planet_pcg_reservations.py --check"
+    result: "RED_PCG_RESERVATIONS_CURRENT count=27 dataset=D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5"
+  static_ue58_review:
+    result: no_obvious_cpp_or_uht_blocker_found
+    notes:
+      - The global automation-test forward declaration matches the friended IMPLEMENT_SIMPLE_AUTOMATION_TEST class.
+      - The WorldContextObject signature and ReturnNull world lookup match UE 5.8 patterns.
+      - Local caller audit found 9 legacy three-argument and 18 legacy four-argument calls; none requires source edits and no local function-pointer or decltype use was found.
+      - Static inspection cannot prove generated code, compile, link, export compatibility, or C++ automation execution.
+  reservation_dataset_sha256: D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5
+resource_gate:
+  samples: 12
+  free_physical_ram_gib_range: [10.824, 11.110]
+  free_virtual_or_commit_headroom_gib_range: [21.961, 22.282]
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  free_vram_mib: 8959
+  free_disk_gib:
+    C: 129.08
+    D: 1141.74
+  unreal_or_build_processes: 0
+  action: "No UHT, UnrealBuildTool, Unreal Editor, runtime, cook, package, or real-GPU process was launched."
+protected_foundation:
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json
+    sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json
+    sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+preservation:
+  - Protected checkpoints, production maps, artist repositories and handoffs, vendor plugins, binary assets, generated reservation data, and unrelated dirty work were not modified.
+  - Surface dressing remains disabled; no PCG graph, WorldGen adapter, exclusion volume, map actor, or production asset was created or changed.
+remaining_risks:
+  - The strict resolver identifies RED Mars only as the sole valid CLMPlanet candidate with the expected radius; the actor itself is not authenticated by an immutable stable celestial ID, so ADR-0001 remains open.
+  - Uniqueness and reflected radii are cached after successful discovery. A later streamed/spawned duplicate or runtime property mutation is not revalidated by this interim resolver.
+  - Actor iteration and the cache are game-thread-only. Production worker tasks must not call this path directly.
+  - No valid UWorld fixture exercised missing or duplicate PlanetGen branches. The C++ tests are authored but have not compiled or run.
+  - The registry has no reviewed production PCG/WorldGen consumer, and serialized maps/DataAssets have not been inspected for overrides.
+  - Dedicated road, lake, river, and handplaced-structure masks remain absent; authority rasters are not PCG masks.
+claim_limit: >-
+  This evidence proves source structure, offline dataset parity, fail-closed policy,
+  and compatibility intent only. It does not prove UHT, compile/link, exported DLL
+  compatibility, actual C++ execution, runtime body resolution, asset-registry
+  state, placement, multiplayer behavior, rendered overlap clearance, or visual
+  and gameplay acceptance.
+next_safe_action: >-
+  After free physical RAM remains materially above the 12 GiB compile floor,
+  preferably at least 14 GiB sustained, run one serial TitanEditor build and the
+  two RedMMO.WorldAuthoring.HubReservations automation tests. Add valid-world
+  missing and duplicate PlanetGen fixtures, then replace the interim sole-actor
+  inference with an immutable stable-ID celestial frame before reviewing an
+  adapter. Keep packaging deferred until 18-20 GiB remains sustainably free.
+rollback:
+  - Revert only the public world-context query, private synthetic helper, raw-nominal-radius overload, strict-resolution, game-thread guard, and associated test hunks recorded here.
+  - Do not delete or replace shared RedGravityBodies files, the prior registry baseline, maps, assets, artist content, vendor content, or unrelated dirty work.

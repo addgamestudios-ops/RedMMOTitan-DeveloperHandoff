@@ -1,0 +1,121 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-world-profile-adapter-automation.2026-08-05
+captured_utc: "2026-08-05T03:42:30Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: no-save-transient-profile-adapter
+evidence_class: automation
+result: adapter_build_and_two_focused_d3d12_contracts_passed_home_planet_unchanged
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  display_project: clean RedMMO
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGWorldProfileAdapter_20260805T0334Z
+  preserved_preimages:
+    - RedPPGWorldProfile.h
+    - RedPPGWorldProfile.cpp
+    - RedPPGWorldProfileTests.cpp
+    - RedMMO.Build.cs
+    - RedMMO.uproject
+  target_files_previously_absent: true
+
+writes:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGWorldProfileAdapter.h
+    sha256: F2720014D1BBD249ADE7EC20DE5E3A7813DC88CAFAD20A7AAECDB42142F858B5
+    role: auditable transient-apply plan and fail-closed adapter contract
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGWorldProfileAdapter.cpp
+    sha256: 62014F4B8398B2D4A6D0F9FB4A81A0ED0E57F1E047F011BA2C61D2DD58814541
+    role: public-PPG-field mapping to a transient duplicate only
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGWorldProfileAdapterTests.cpp
+    sha256: ED119BD74376EE0D6434429FD9AD7F9237D11E28A7C10FF6DD767F86295AD8A5
+    role: exact seeded-order, source-preservation and graph-control fail-closed contracts
+
+adapter_contract:
+  direct_transient_controls:
+    - GenerationSeed
+    - BiomeCellResolution
+    - BiomeCellSeed
+    - BiomeTransition
+    - bHeightBlendBiomeMaterials
+    - BiomeMaterialHeightBlendSmoothness
+    - BiomeVoronoiWarpStrength
+    - BiomeVoronoiWarpScale
+    - bGenerateWater
+    - foliage-disable only for profile slots explicitly marked false
+  preserves:
+    - source UPlanetData object and package
+    - exact biome slot names, order and FGuid identities
+    - planet radius, noise height, recursion/LOD and all material references
+    - foliage data for slots allowed by the profile
+  fails_closed_on:
+    - biome count mismatch
+    - empty or duplicate source biome names
+    - any seeded biome order mismatch
+  graph_controls_left_explicitly_unresolved:
+    - ContinentalNoise
+    - DetailNoise
+    - per-biome height scale and bias
+    - presentation material roles
+    - shoreline flatten threshold
+  no_save_or_regenerate_path: true
+
+build:
+  target: RedMMOEditor Win64 Development
+  command_policy: serialized_MaxParallelActions_1_NoUba
+  result: succeeded
+  actions: 6
+  elapsed_seconds: 133.38
+  compiler_warnings: 0
+  compiler_errors: 0
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGWorldProfileAdapter_20260805T0334Z.log
+  log_sha256: 0D8A3681966D089EC1BB8F64BBE80D1D565FA64F6BFC94A171B0E19F441EB670
+  editor_module_sha256: 5AC6DA55D40932C8B77724E1B3823063B0F22898D4D1A60AE0D32D086E01D534
+
+automation:
+  host: WindowsEditor D3D12_SM6
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGWorldProfileAdapter_D3D12_20260805T0337Z
+  retained_editor_pid: 2996
+  elapsed_seconds: 26.94
+  minimum_free_physical_ram_gib: 46.53
+  exit_code: 0
+  ram_abort: false
+  timeout: false
+  runtime_log_sha256: 559658B88C44CB6BD7BE6B0EBF6D4A4EE3DCBC50A9292995C3FC319C333A5CE2
+  guard_summary_sha256: E7EEC0B125E7DC56D0EAFEDFD78792473ECB7E19464764D6441419882231ADFA
+  report_sha256: 1EC3F9290C99354C18B4926EF90401A67B4A28B3A9B5847BD1048DADBA440EE9
+  succeeded: 2
+  failed: 0
+  warnings: 0
+  tests:
+    - RedMMO.WorldAuthoring.PPGWorldProfileAdapter.FailClosed
+    - RedMMO.WorldAuthoring.PPGWorldProfileAdapter.TransientClone
+
+protection:
+  home_map_sha256: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  project_descriptor_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  build_rules_sha256: 2848C6CAEBD45625D3AE3AECC45A6D7DC183199C25F8FAB15859BB412AD25906
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  content_or_map_modified: false
+  desktop_control_used: false
+  provider_calls_made: false
+  relevant_processes_remaining: 0
+  provider_listeners_remaining: 0
+
+claim_limit: >-
+  This is build and automation evidence for a transient, no-save adapter. The
+  visible PPG home planet was not regenerated or changed. No project-owned
+  generation, biome-mask or surface-material successor exists yet, and the
+  unresolved graph controls were deliberately not guessed. This does not prove
+  continent, biome, shoreline, grass, terrain, traversal or visual acceptance.
+
+next_safe_action: >-
+  In one separately checkpointed editor transaction, duplicate the exact R17
+  PlanetData plus generation, biome-mask and surface materials into a named
+  project-owned successor. Extend the adapter only against those exact graph
+  nodes, produce a dry-run diff, then apply/save the successor without binding
+  the home map until reload and MapCheck pass. Real-GPU and movement evidence
+  remain later gates.

@@ -1,0 +1,114 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r64-ground-hue-separation-real-gpu-failed-restored.2026-08-05
+captured_utc: "2026-08-05T21:27:20Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r64-transient-warm-olive-painted-ground-under-unchanged-approved-grass
+evidence_class: real_gpu_visual
+result: fail_warmer_ground_still_increases_monochrome_green_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 53.24
+  commit_headroom_gib: 55.85
+  gpu_dedicated_used_gib: 0.90
+  free_d_drive_gib: 767.33
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  map_saved: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+
+transient_candidate:
+  changed_asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+  ground_textures:
+    base_color: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    roughness: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+    normal: /Engine/EngineMaterials/DefaultNormal
+  ground_tints:
+    tint_a: [0.92, 0.80, 0.48, 1.0]
+    tint_b: [0.58, 0.48, 0.22, 1.0]
+  temporary_surface_sha256: D593E680F0C247E0F14D2390C5D4D0491C3B55F37ACDE5D05C4F6A511B8D9C3A
+  unchanged:
+    - approved grass material instances and meshes
+    - density, height, scale, cull, LOD and eligibility
+    - seed, terrain, topology, placements and map
+    - palms, character, ship, gameplay and sky
+
+runtime:
+  render_backend: D3D12
+  render_mode: RenderOffscreen existing game viewport
+  generation_phase: COMPLETE
+  approved_grass_components: 196
+  total_reported_instances: 2218356
+  registered_components: 196
+  instance_data_ready_components: 196
+  scene_proxy_components: 196
+  readiness_stable: true
+  post_capture_samples: 163
+  dirty_packages_after: {content: [], maps: []}
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+
+visual_review:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GroundHueSeparation_R64_20260805T2124Z/Capture/R64_warm_olive_painted_ground_approved_dense_grass_existing_viewport.png
+  capture_sha256: 406329EA1CDDBDAF4A1BC759BDEBBFCA6906B7D9A3BFEED9F18340FA7F9C1661
+  capture_size: [1014, 550]
+  matched_lower_75_percent_metrics:
+    r62_mean_saturation: 0.525015
+    r64_mean_saturation: 0.660508
+    r62_saturated_green_ratio: 0.376196
+    r64_saturated_green_ratio: 0.911116
+    r62_vivid_ratio: 0.316802
+    r64_vivid_ratio: 0.714639
+  independent_review: >-
+    The warmer olive ground is slightly distinguishable from the unchanged
+    blades, but the existing texture/material response still resolves as a
+    broad green field. Saturated-green and vivid coverage are both materially
+    worse than R62, painted leaf detail remains unreadable, palms remain
+    repetitive and the sky remains black. Do not persist this candidate.
+
+automation:
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_ground_hue_separation_r64.py
+  apply_driver_sha256: C76053671165D04885B20268377F68D4E3C9AC7D1FC40E5271BA6010FAE8BA36
+  capture_driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_ground_hue_separation_existing_viewport_r64.py
+  capture_driver_sha256: 60A8B2782B44FCA3E9B6FC185FE9415E7C47E848C84374DF330290936B26509D
+  apply_result_sha256: 28B68A528B3251171D1A51D2F7F1FCA89FAE7EE5ACA29BC90448886837FC7F02
+  apply_log_sha256: 8715817812739071BE80E2F0891C6B57C5A5ECD9D53C6BF5F760FC34A7D70DFC
+  capture_result_sha256: 014D3E0F26778EDB3BD6E2A8A6A5BF9AEF3B360E958FC709945F7400F4B101BC
+  capture_log_sha256: DA13448E9703D5D27153810C5DBEBA4EB0DDD1F6677F4190FD6DBD0BCEF6C820
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeGroundHueSeparation_R64_20260805T2124Z
+  manifest_sha256: 0D6FD39C0C5336C2075D10ED54023110ECC313EC3A2A375E7C230D89EE3731D9
+  used: true
+  restored_surface_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  grass_a_sha256_before_after: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  grass_b_sha256_before_after: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R64 is a transient real-D3D12 visual rejection. It persists no material or
+  map change and does not prove art acceptance, physical input feel,
+  standalone/package, replication, multiplayer or a developer handoff build.
+
+next_safe_action: >-
+  Stop palette-only tint iterations against this active surface branch. The
+  next independent visual-art diagnostic should inspect supported seeded palm
+  category bindings and determine whether repetitive palms can be disabled or
+  replaced without manual placement or seed/distribution changes. A future
+  ground candidate needs a materially different painted texture/branch, not
+  another tint of the same closure. R60 hands-on control feel remains user-bound.

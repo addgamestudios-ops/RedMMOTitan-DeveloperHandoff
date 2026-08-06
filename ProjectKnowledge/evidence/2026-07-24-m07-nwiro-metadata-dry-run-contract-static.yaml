@@ -1,0 +1,237 @@
+schema_version: 1
+id: evidence.M07.nwiro-metadata-dry-run-contract-static.2026-07-24
+evidence_class: static
+module: M07
+captured_utc: 2026-07-24T23:31:28Z
+result: passed_with_runtime_generation_import_migration_and_map_gates_closed
+
+scope:
+  objective: >-
+    Prepare one generation-disabled, local-only NWIRO metadata dry-run
+    contract for the exact cross-pack mini-hub candidate set while physical
+    memory is below the one-editor floor.
+  performed:
+    - inspect the exact installed Nwiro Pro and Integration Kit descriptors, Win64 binaries, tool definitions, dispatch, and asset-search implementations
+    - define one static non-executable contract with a singleton positive allowlist for find_assets
+    - bind the contract to the exact project, plugin, binary, source, request, manifest, source-tree, and nine candidate identities
+    - implement a fail-closed offline validator plus pure no-I/O annotated tool-definition, exact request/response, and complete MCP JSON-RPC envelope firewall functions
+    - publish one authenticated no-clobber diagnostics report on D
+  not_performed:
+    - launch Unreal Editor or either NWIRO UI or module
+    - initialize MCP, call tools/list, call find_assets, or connect any endpoint
+    - call Meshy, Tripo, ElevenLabs, fal.ai, another provider, or a remote model
+    - load, render, upload, import, migrate, convert, modify, or place any vendor asset
+    - create or modify a map, actor, landscape, PCG graph, material, foliage, package, or protected checkpoint
+    - claim NWIRO Pro environment generation, a playable mini-hub, curved-tile fit, or real-GPU acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  existing_worktree_entries: 171
+  physical_ram_free_gib: 5.437
+  commit_headroom_gib: 19.091
+  d_drive_free_gib: 1105.343
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 2564
+    free_vram_mib: 7490
+  exact_unreal_or_build_process_count: 0
+  decision: >-
+    Do not launch Unreal or package. Continue only the canonical offline M07
+    contract slice.
+
+source_audit:
+  allowed_tool:
+    name: find_assets
+    behavior: >-
+      Both inspected implementations query the local Unreal Asset Registry
+      and return only name, object path, class, and count without loading a
+      package UObject, rendering a thumbnail, writing a file, or calling a
+      provider.
+    wrapper_constraints:
+      - exact nonempty searchTerm
+      - exact recognized classFilter
+      - exact approved /Game package-directory path
+      - maxResults 2 so substring ambiguity is observable rather than hidden
+      - require exactly one returned record matching the pinned name, object path, and class
+      - require the exact annotated tools/list definition and its pinned canonical digest
+      - require an exact tools/call JSON-RPC envelope, request id, one text content item, strict nested JSON, and no error or extra fields
+  deliberately_not_allowed:
+    - find_static_meshes is a redundant alias and adds no required capability
+    - read_asset loads a UObject and reflects its properties
+    - get_asset_thumbnail loads or renders and writes a PNG
+    - search_assets, find_textures, and find_materials are broader unscoped searches
+    - plugin.*, ue.*, and mcp.* namespaces may acquire dynamic or mutating tools
+    - every unknown tool is denied
+  high_risk_routes:
+    explicitly_denied:
+      - generate_3d_model_meshy
+      - generate_texture_meshy
+      - generate_3d_model_tripo
+      - list_voices_elevenlabs
+      - generate_voice_elevenlabs
+      - generate_sfx_elevenlabs
+      - generate_music_elevenlabs
+      - generate_material_fal
+      - execute_python
+      - spawn_actor
+      - create_landscape
+      - set_landscape_material
+      - add_foliage_type
+      - paint_foliage
+      - erase_foliage
+      - create_pcg_graph
+      - pcg_generate
+      - create_material
+      - apply_material
+      - save_level
+      - import_data_table_json
+    vendor_headless_permission_bypass_fixed: false
+    vendor_bridge_null_provider_gate_fixed: false
+    raw_mcp_direct_path_blocked: false
+    predispatch_wrapper_implemented: false
+    disposition: >-
+      The JSON contract cannot constrain raw NWIRO dispatch. No runtime probe
+      is authorized until a deterministic local pre-dispatch wrapper or an
+      independently evidenced equivalent blocks the raw endpoint and enforces
+      the exact tool, argument, schema, and response contract.
+
+artifacts:
+  contract:
+    path: Build/Automation/redmmo_nwiro_metadata_dry_run_contract_v1.json
+    bytes: 14804
+    sha256: B388D2869D0B13A798A1128705B650EC3CCE071DC5BD8441184C359BBE7D9E68
+    semantic_sha256: F7CB349CB67DD2BC22FF76265ACB5DB1C0EFAB473AF895034B7C6651EE856F1D
+    status: static_dry_run_only
+    execution_authorized: false
+    enabled_query_count: 0
+    exact_query_template_count: 9
+    future_single_probe_candidate_id: RED-FAB-ASSET-8021792003EC13E7D10DBB1B
+  validator:
+    path: Tools/validate_redmmo_nwiro_metadata_dry_run.py
+    bytes: 59012
+    sha256: 88F420A5F6D83927177145EBAE6AAE401B91D880747EEF4CCDDA189B3E958C15
+  tests:
+    path: Tools/tests/test_validate_redmmo_nwiro_metadata_dry_run.py
+    bytes: 20609
+    sha256: 5005A85B7F70973861485DECCBBB4B3441802EC0E7B3D8C10FFA4D1AE4ECC85D
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_NwiroMetadataDryRun_20260724_2300Z/validation_report_v4.json
+    bytes: 5111
+    sha256: BEE4AF38BC58A144671362BDB02F7B961192D7C90A59065B00D8EABA4C8D69F1
+    contract_sha256: B388D2869D0B13A798A1128705B650EC3CCE071DC5BD8441184C359BBE7D9E68
+    contract_semantic_sha256: F7CB349CB67DD2BC22FF76265ACB5DB1C0EFAB473AF895034B7C6651EE856F1D
+    authenticated_input_count: 11
+    allowed_tools: [find_assets]
+    enabled_query_count: 0
+
+authenticated_identities:
+  project_descriptor_sha256: 0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23
+  nwiro_pro:
+    version: 1.1.9
+    descriptor_sha256: 2E264C661C1DE87207031F6607FE0D97C375511085091BC742AA298DF7EEB79D
+    binary_sha256: E76E6EE3A609E424A8116AEB7A5EDE180CF20055679707CEFA964A9D4BF08453
+    tool_dispatch_source_sha256: E26EB78630F51311D3A0536F68EEA2CA37792E06B3E254F70B5042865DFE10FA
+    asset_tools_source_sha256: F558B723A3927E2D6F01015A3EEC16F5D55CDF8CD498AE5604B35AB5F6F6F189
+  nwiro_integration_kit:
+    version: 1.0.9
+    descriptor_sha256: D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E
+    binary_sha256: 6C72757C068FAD28174C9A2F2F4960C6FA69C908E993E854AC94454540A43C0C
+    mcp_server_source_sha256: 34C1BB2E81A7FFF742D043EC8E983783C047BA9C5ABBA4BE9CDB4806AD7CD8D7
+    asset_tools_source_sha256: E30B47D984781D45B5C34B9C8F595AED9769725F80F2BB7223889C1E6C5FC519
+  crosspack_request_sha256: C2791F1FD3D4472D8B433E964335E5BFE44B449C64AE9D9500497B050BC2DF09
+  crosspack_manifest_sha256: 331427762643D2C3A5CFEF7FAB88C5985310B1768C1683BB0685D53C859CAC37
+  crosspack_manifest_semantic_sha256: 8D61DE6B1A7561E746BC893A2C1BBB440589D3CC80DDD65801C6A8D529512517
+  savanna_tree_sha256: 69F083AF85959AF5DA257D36B5B374C3766C242791D9ED9DC9452F5C445EC661
+  tropical_tree_sha256: 610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732
+
+verification:
+  py_compile_exit_code: 0
+  focused_nwiro_contracts:
+    run: 22
+    passed: 22
+    failed: 0
+  combined_nwiro_and_crosspack_contracts:
+    run: 36
+    passed: 36
+    failed: 0
+  report_publication:
+    first_write_exit_code: 0
+    second_same_path_exit_code: 2
+    second_same_path_result: refused_existing_report
+  contract_controls:
+    duplicate_keys_rejected: true
+    nonfinite_numbers_rejected: true
+    unknown_fields_rejected: true
+    exact_external_identities_hard_pinned: true
+    plugin_binaries_authenticated: true
+    manifest_semantic_digest_recomputed: true
+    all_inputs_read_as_single_bounded_snapshots: true
+    reads_enforce_size_before_full_file_allocation: true
+    prepublication_reauthentication: true
+    deterministic_report_bytes_tested: true
+    exact_annotated_tool_definition_firewall_tested: true
+    pure_request_firewall_tested: true
+    pure_response_firewall_tested: true
+    raw_jsonrpc_request_envelope_firewall_tested: true
+    raw_jsonrpc_response_and_nested_text_firewall_tested: true
+  independent_review:
+    initial_findings:
+      - P1 contract-supplied identities were self-authenticating
+      - P1 declarative policy did not close the raw MCP path
+      - P2 input hash-and-reread TOCTOU evidence gap
+      - P2 report authority and determinism test gaps
+    corrections:
+      - hard-coded the exact project, plugin, descriptor, binary, source, request, manifest, source-tree, and candidate identities
+      - made wrapper, raw-MCP, headless, and bridge-null blockers explicitly false
+      - added pure exact tool-definition, request, and response validators
+      - moved authentication to single bounded byte snapshots and added prepublication reauthentication
+      - separated NWIRO or Unreal write prohibition from the one validator diagnostics-report publication
+      - accepted only the exact vendor-added read-only annotations and pinned the full tool-definition digest
+      - added strict raw JSON-RPC request and response envelope validation including nested text JSON and exact request-id matching
+      - bounded file reads to max_bytes plus one before any full-file allocation
+    final_rereview:
+      p0_findings: 0
+      p1_findings: 0
+      p2_findings: 0
+      focused_tests_rerun: 22
+      focused_tests_passed: 22
+      unreal_actions_performed: false
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  Static offline contract and source-inspection evidence only. It proves the
+  exact current files that define the proposed client-side metadata boundary,
+  a singleton find_assets allowlist, nine disabled exact candidate queries,
+  deterministic validation, and closed contract authority. It does not prove
+  that Nwiro Pro or Integration Kit starts, that MCP initializes, that
+  tools/list matches, that find_assets runs, or that a runtime firewall blocks
+  direct raw MCP calls. The known headless permission and bridge-null provider
+  bypasses remain unfixed. No pack byte, derived pixel, thumbnail, property,
+  prompt, image, attachment, credential, provider job, credit, import,
+  migration, conversion, placement, map, curved-tile blend, visual, gameplay,
+  performance, or real-GPU evidence was produced.
+
+remaining_blockers:
+  - implement and independently test a deterministic local pre-dispatch wrapper that never exposes raw NWIRO MCP to a model
+  - require exact observed find_assets definition and schema plus the pinned one-query request and one-record response firewall
+  - independently block or fix the Integration Kit headless permission bypass and paid-provider bridge-null bypass before any runtime probe
+  - keep both packs' allows_usage_with_ai false byte boundary and complete explicit rights review
+  - obtain authoritative Asset Registry dependency closure and isolated UE 5.8 forward-conversion evidence
+  - migrate only an approved exact closure into a new isolated project-owned mini-hub map
+  - capture real-GPU editor and playtest evidence before claiming environment, curved-fit, or NWIRO workflow success
+
+next_safe_action: >-
+  While physical RAM remains below the one-editor floor, implement only the
+  deterministic local NWIRO pre-dispatch firewall around the exact pinned
+  Savanna T_Sand_basecolor find_assets probe. It must reject every other tool,
+  argument, schema, response, namespace, endpoint exposure, provider route,
+  and raw model access before transmission. Do not launch Unreal, initialize
+  MCP, or call a NWIRO tool until that wrapper and an independent bypass-block
+  review pass. Keep all nine query templates disabled and Tropical unmounted.

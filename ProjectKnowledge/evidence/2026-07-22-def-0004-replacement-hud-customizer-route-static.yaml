@@ -1,0 +1,165 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0004-REPLACEMENT-HUD-CUSTOMIZER-ROUTE-STATIC
+captured_at: "2026-07-22T14:35:22.2596581Z"
+module: module.M09.windows-development-package
+slice: DEF-0004-replacement-HUD-customizer-route
+evidence_class: static
+result: passed_replacement_customizer_route_source_implemented_defect_remains_open
+
+authorization_and_scope:
+  bounded_defect: DEF-0004
+  intended_change: >-
+    Route the visible pause-menu HUD customization page to the active
+    URedHUDWidget, retain the legacy widget's existing data and loadout duties,
+    and exclude the replacement reticle until it maps to a real widget.
+  modified_source:
+    - Source/RedMMO/RedHUD.h
+    - Source/RedMMO/RedHUD.cpp
+    - Source/RedMMO/RedPauseMenuWidget.h
+    - Source/RedMMO/RedPauseMenuWidget.cpp
+  modified_tests:
+    - Tools/tests/test_def0004_pixel_hud_current_contract.py
+  added_tests:
+    - Tools/tests/test_def0004_pixel_hud_customizer_route_contract.py
+  explicitly_excluded:
+    - replacement gameplay-domain feeds
+    - plugin source, layout enums, and supplied HUD art
+    - maps, assets, configuration, packaging, and runtime work
+
+resource_gate:
+  sustained_samples: 6
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [10.023, 10.311]
+  free_commit_gib_range: [20.388, 20.696]
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_free_vram_mib_range: [8941, 8954]
+  gpu_utilization_percent_range: [10, 13]
+  gpu_temperature_c: 43
+  free_disk_gib:
+    C: 132.829
+    D: 1141.733
+  overlapping_unreal_build_or_continuation_processes: 0
+  decision: >-
+    The 14 GiB T02 real-GPU gate and the 18-20 GiB packaging gate were closed.
+    No Unreal, build, cook, package, shader, Zen, IoStore, or real-GPU process
+    was launched.
+
+implementation:
+  replacement_route:
+    - ARedHUD exposes its validity-checked active URedHUDWidget
+    - every visible move, scale, opacity, visibility, lock, element reset, and reset-all action resolves URedHUDWidget
+    - legacy UVibeMMOHUDWidget customization references were removed from the pause menu while its gameplay data and loadout paths remain unchanged elsewhere
+  transaction:
+    - preview snapshots the existing per-local-player FVibeMMOHUDLayoutProfile
+    - Cancel restores and synchronously saves through UVibeMMOHUDLayoutSubsystem even if the replacement widget disappears
+    - a failed restore retains the active transaction instead of discarding its rollback snapshot
+    - Apply synchronously saves through the same local-player subsystem and refreshes the rollback baseline only after success
+  dead_control_prevention:
+    - the selectable replacement list contains eight currently mapped groups
+    - Reticle is excluded because URedHUDWidget still maps no replacement reticle widget
+  known_static_caveat:
+    - >-
+      URedHUDWidget mutation methods can report success for clamped or
+      already-default no-ops, so limit/reset feedback still needs runtime
+      hardening and acceptance.
+
+source_identity:
+  changed:
+    - {path: Source/RedMMO/RedHUD.h, before_sha256: 72B733A08EE0C6073D676F8646EC6BDF392755672AF46A17B4C0BE70CF2B9592, after_sha256: 216C87AF7D141F2ECB14DC58DA95E4E63A180714BAABD70B090E3BB9B0D76625}
+    - {path: Source/RedMMO/RedHUD.cpp, before_sha256: CB6EB26843274F35C70696B01D11FF82A826C2F4B3347C2DEA21909B7FC1EA8A, after_sha256: B8955DDC25E3FF6DAB875862F1A14D17FF3D9222A03E5AF3036D6EF296C483F9}
+    - {path: Source/RedMMO/RedPauseMenuWidget.h, before_sha256: 356DCE9D9038BBAB34D0BF780279C837E7DD927554AF626A972E6A17CDCB7BA2, after_sha256: 6808AC36F7789F34597EB367E0CF42548B6378C8DDD82D4AA7E3DF84D767F040}
+    - {path: Source/RedMMO/RedPauseMenuWidget.cpp, before_sha256: C5CE269A033F1CE8DEBD54A9370E6DC355413BB203B016C8FCD719484F0EEEAD, after_sha256: 22806693A1A181ED4C25680E470D7E2F9489165A52038FEB2344E5815DE015FE}
+    - {path: Tools/tests/test_def0004_pixel_hud_current_contract.py, before_sha256: E4FD735E389595EF50BC82DE86F53D0E2F53A0062109C9F889C009C336AEEF63, after_sha256: 0661B28841F626FA4B636AC2000ED28070BEEB673A5632060F8E86E561A6E881}
+  added:
+    - {path: Tools/tests/test_def0004_pixel_hud_customizer_route_contract.py, sha256: B418F87281578CF20478CE8382D385181B3CF5950DD662074C8B6C652483F0AC}
+  unchanged_shared_inputs:
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DEAFFEC023269CDEDB82E13E77F866223C3A019AE332CD9AF3154B414B9AC4B1}
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, sha256: A90C79200B89F75AB7C3BEF8D4C3DE1291D89EA4546757D6DEB757D040B5AF67}
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDLayout.h, sha256: CD6A0BF877C9864D5D040854E1C6C2D0A8CC84FB7862AAC94399BFC1EB1CAF10}
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp, sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068}
+    - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749}
+    - {path: Source/RedMMO/Tests/RedUIControlBindingTests.cpp, sha256: 07F28DE93C540CEFA2C789949259776CFBA2AE4F8F645ECFEC5E80CA1CDEB16F}
+
+verification:
+  command: >-
+    python -B -m unittest
+    Tools.tests.test_def0004_pixel_hud_customizer_route_contract
+    Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 27_of_27_passed
+  replacement_route_tests: 6_of_6_passed
+  current_DEF_0004_inventory_tests: 8_of_8_passed
+  DEF_0006_regression_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementCustomizerRoute_20260722_1409_retry2/offline_contract_and_provenance_tests.log
+  log_sha256: 2B177393E708DB6C43D06A5766543022671F48267405D7AF74ACBAB8E770413F
+  diagnostic_retry_history: >-
+    The first diagnostic invocation stopped after one passing test because
+    Windows PowerShell promoted unittest stderr to a native-command error. The
+    first separated-stream retry completed 27/27. The final retained retry2 ran
+    after the Apply-without-preview guard and also completed 27/27.
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004CustomizerRoute_1409_retry2/target_currency.json
+  report_sha256: 42B513949619E818A395D32B7CE15FF47DD1F66A8B164FA5040C28DB93056431
+  input_count: 874
+  input_manifest_sha256: D411D005F0E2D7D6EE84E2FC1AA22B1F5D929D594689BAC27D83DB9B3EE4D015
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 35
+  titan_editor_newer_project_inputs: 23
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_or_zen_started: false
+  current_attempt_archive_exists: false
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004CustomizerRoute_20260722_1409
+  exact_backup_count: 9
+  total_file_count_with_manifest: 10
+  pre_slice_manifest_sha256: 1D213F839081C250AF423D89C6641365519D4F05A9DF172EC368F916006B8DBF
+  new_test_absent_before: true
+  new_evidence_absent_before: true
+
+canonical_sync:
+  module_queue_sha256: D19AEF58A5B1F34DE35F06C62BA6CC529CBCE7D78621C813F917D498A1ADB46D
+  current_state_snapshot_sha256: D19AEF58A5B1F34DE35F06C62BA6CC529CBCE7D78621C813F917D498A1ADB46D
+  M09_status: incomplete_retry
+  M09_retry_count: 6
+  DEF_0004_status: open
+  project_wide_next_action_changed: false
+
+supplied_hud_art_identity:
+  root: Content/UI/RedHUD/Textures
+  uasset_count: 56
+  manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  modified: false
+
+remaining_acceptance:
+  - compile current RedHUDRuntime and RedMMO sources with exact target proofs
+  - harden and runtime-test limit and already-default feedback semantics
+  - prove pause-menu move, scale, opacity, hide, lock, reset, cancel, Apply, and save/restart behavior
+  - bind abilities, party, quest, minimap, consumables, enemy presentation, and remaining represented systems
+  - map the replacement reticle and remaining represented layout groups before exposing them
+  - add real handlers or visually remove interactivity from represented painted controls
+  - run real-GPU 16:9 and ultrawide pixel, overlap, controller, and gameplay acceptance
+
+claim_limit: >-
+  This proves a replacement-HUD customizer source route, transaction wiring,
+  dead-reticle filtering, exact rollback, and offline contracts only. It does
+  not prove C++ compilation, UHT, persistence across restart, mouse/controller
+  operation, visible pixel placement, gameplay feeds, packaging, or multiplayer.
+  DEF-0004 remains open.
+
+next_safe_action: >-
+  Under a safe build gate, compile current TitanEditor and execute a bounded
+  replacement-HUD customization test covering move, cancel, Apply, restart,
+  limit feedback, and controller operation. The project-wide next action remains
+  M00's capped T02 close, translated, and oblique real-GPU sparkle captures once
+  its separate 14 GiB physical-RAM gate passes.

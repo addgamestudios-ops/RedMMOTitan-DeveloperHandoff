@@ -1,0 +1,223 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0002-LANDING-PARKING-CLEARANCE-TRANSACTION-COMPILE
+captured_at: "2026-07-23T03:28:29Z"
+module: M02
+slice: DEF-0002-landing-parking-clearance-transaction
+evidence_class: build
+result: isolated_translation_units_compiled_full_target_uht_blocked_runtime_unverified
+
+authorization_and_scope:
+  bounded_defect: DEF-0002
+  intended_change: >-
+    Replace landing-assist and normal surface-parking pose teleports with one
+    reversible fitted-envelope endpoint-clearance transaction while preserving
+    the pilot and flight state when no clear parking pose can be committed.
+  gameplay_movement_changed: true
+  production_files_modified:
+    - Source/RedMMO/RedShip.cpp
+    - Source/RedMMO/RedShip.h
+    - Source/RedMMO/RedShipMovementComponent.cpp
+    - Source/RedMMO/RedShipMovementComponent.h
+  test_files_added:
+    - Tools/tests/test_def0002_ship_placement_transaction_contract.py
+  test_files_modified:
+    - Tools/tests/test_def0002_ship_reboard_contract.py
+  canonical_files_updated:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0002-landing-parking-clearance-transaction-compile.yaml
+  explicitly_preserved:
+    - production maps, protected checkpoints, fused prototype, fused heightfield, and source rasters
+    - artist repositories, artist handoffs, HUD art, plugins, packages, user assets, and unrelated dirty work
+    - canonical DEF-0003 asteroid implementation bytes despite its independent UHT error
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  conflicts_before: 0
+  other_continuation_overlap_count: 0
+  unreal_build_cook_package_overlap_count_before: 0
+  build_policy: one_serial_process_no_packaging
+
+resource_gate:
+  sustained_samples: 6
+  minimum_free_physical_ram_gib: 21.067
+  minimum_free_commit_headroom_gib: 40.917
+  rtx_3080_free_vram_mib: 8746
+  unreal_or_build_processes: 0
+  decision: >-
+    The sustained physical-RAM gate permitted one serial compile attempt. No
+    cook or packaging was launched. Later free physical RAM was 18.089 GiB,
+    which remained adequate for the bounded translation-unit compile but was
+    not used to authorize packaging.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002LandingParkingClearance_20260723_054255
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002LandingParkingClearance_20260723_054255/pre_slice_manifest.yaml
+  manifest_sha256: 40A1E736D424A4691256D92D194F9B7946BE5650980A361A854174FD1C7F4A60
+  exact_pre_edit_files: 5_of_5
+  absent_before:
+    - Tools/tests/test_def0002_ship_placement_transaction_contract.py
+  note: >-
+    The checkpoint contains exact pre-edit dirty working-tree bytes and does
+    not substitute repository HEAD for user or unrelated work.
+
+implemented_contract:
+  placement_transaction:
+    - requires a movable registered query-enabled root and its live attached fitted UBox envelope
+    - rejects nonfinite target location or nonnormalized target rotation before mutation
+    - analytically composes the fitted-envelope target location and rotation from the root target pose
+    - opens one deferred FScopedMovementUpdate and commits through Super::MoveUpdatedComponentImpl
+    - probes fitted-envelope native overlap, root native overlap, and exact matching-PlanetGen endpoint clearance
+    - verifies the root reached the requested pose and reverts the scoped move on any failed postcondition
+  landing_assist:
+    - incremental alignment, settled repin, unpossessed descent, and touchdown all use the transaction
+    - landing settles only after a successful commit and only authority publishes the settled state
+    - each failed placement removes only negative radial velocity and leaves tangential/outward velocity intact
+  normal_surface_exit:
+    - commits the radial fitted-support parking transform before releasing the pilot
+    - rejects exit before input, velocity, possession, fire, boost, or pilot state changes when parking is not clear
+    - emergency and orbital exits explicitly preserve their established surface-parking bypass
+  scope_limit: >-
+    The transaction proves the requested endpoint only. It does not sweep or
+    prove the full route between current and target poses.
+
+source_identity_after:
+  - {path: Source/RedMMO/RedShip.cpp, bytes: 75439, sha256: 5C692891140FCCF6C0DA45B08CD730472A0383B0D68CC586962B9627CD02C484}
+  - {path: Source/RedMMO/RedShip.h, bytes: 14338, sha256: A1AD0B47338298AAE77EE4BF2985DD9E06C0A25F4E54BA3261B463F2410E7F3B}
+  - {path: Source/RedMMO/RedShipMovementComponent.cpp, bytes: 55544, sha256: D2E3BB13FD336648909BA6CF1D611AF0C2FBCECFE56E969ABB6F8E0D6D779B34}
+  - {path: Source/RedMMO/RedShipMovementComponent.h, bytes: 9230, sha256: 8ADBEF8E47949C882EA787FBEF77BF80FBC1F3FCF808C395322615F1C7703136}
+  - {path: Tools/tests/test_def0002_ship_placement_transaction_contract.py, bytes: 34054, sha256: EC900F08080C691F19F9CAA4FAD2AC4FAF66358E567218F56F344FCF71B8BF4B}
+  - {path: Tools/tests/test_def0002_ship_reboard_contract.py, bytes: 6191, sha256: 2FFFAE0CFC8891B9354678E2A3EBB2A49F2B9D8F4746AE72079370E5366E71DE}
+
+full_target_attempt:
+  target: TitanEditor Win64 Development
+  result: failed_before_changed_translation_unit_compilation
+  terminal_phase: UHT
+  exit_result: OtherCompilationError
+  blocker: >-
+    Source/RedMMO/RedMineableAsteroid.h line 34 exposes uint32 Sequence to
+    Blueprint. That preserved file belongs to canonical DEF-0003/M00 and was
+    not changed in this M02 slice.
+  blocking_source_sha256: 95AE8393B4544ACEE23E89506B055DDACA28204F346F5B3F7512A29C124B99EA
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_ClearPlacementBuild_20260723_060747/UnrealBuildTool.log
+  log_sha256: D46780D8671CF88547DDE8EFF836FC2B385D73C067F4A148F4BBC3C58E44470D
+  uht_verified: false
+  target_link_verified: false
+
+isolated_translation_unit_compile:
+  result: 2_of_2_passed
+  compiler: D:/VS2022BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe
+  working_directory: D:/UE_5.8/Engine/Source
+  environment_boundary: >-
+    Current source compiled serially with the retained TitanEditor response,
+    shared-response, PCH, definitions, and generated-header environment. The
+    response files were retained rather than freshly produced by the blocked
+    UHT run, so this is not full target, UHT, module-link, or runtime evidence.
+  compile_environment_hashes:
+    red_ship_response: 75C870E041A59FD4D0623D81FA8B2D28EFAF997AC8790299CB2D14CED6362B58
+    movement_response: C0E4B4DB6F7F104F567B8B98C2AF41FDB71192E66378B44E3FFF09F1088A2D4D
+    shared_response: A9B7C70FF00218FF82F0BACAF1E413FBC802ED322F7D58444A57AE9102C2E17F
+    definitions: B433043417CC1FB30666428B8152A27DB18AC630932E9C5EC2DE19BE20B7ECE4
+    pch: 68BAB772205665E26D56878CD53CCBFC0D3A008E3F7DFF840E78C7F3A68D9F86
+  outputs:
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_ClearPlacement_TUCompile_20260723_061815/RedShip.cpp.obj
+      sha256: C0839CE39DC3386B10971B58AFA47A68DAB085930A0DFCF25441F0D979299FA2
+      log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_ClearPlacement_TUCompile_20260723_061815/RedShip.compile.log
+      log_sha256: E3ECF19BA1826D95E750E7E301303B7214ED8DC7D75C071BCEA58E987A2C2138
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_ClearPlacement_TUCompile_20260723_061815/RedShipMovementComponent.cpp.obj
+      sha256: A938BEA06393F52348396E830A6F315553EB6BBBFE8211B28CB2A2ACE69CB9DC
+      log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_ClearPlacement_TUCompile_20260723_061815/RedShipMovementComponent.compile.log
+      log_sha256: A97E3FAFAC195CFBBA45AFF18825E44C1D1E9E8CF48B3DCA3E13961F7DE0D9D9
+
+verification:
+  focused_current_result: 27_of_27_passed
+  focused_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/focused_27_tests.log
+  focused_log_sha256: D92E3D17ACF5AA24C99FFFD43C48463BAB1C040BB89437250902AA00D6528292
+  broad_current_result: 133_of_133_passed
+  broad_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/broad_133_tests.log
+  broad_log_sha256: FFB8BDD647E863DB9755D9058D24EAB119962DF0001E692CDF8B4F3C4DBF88C4
+  protected_provenance_result: 15_of_15_passed
+  protected_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/protection_15_tests.log
+  protected_log_sha256: 3DF0811F1C6D14CE1759FC332FB6CD11222B528A4C77330B2B157BCB09DE8B09
+  full_discovery_result: 326_of_330_passed_with_4_preexisting_night_t03_failures
+  full_discovery_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/full_discovery_330_tests.log
+  full_discovery_log_sha256: AA43E163F1518B33DE17ADAF37C023AAB035DB119746107419A2619C02BB4F5D
+  unrelated_failures:
+    - test_night_t03_cook_guard.NightT03CookGuardTests.test_milky_way_sky_dependencies_are_explicit_and_validated
+    - test_night_t03_milkyway_binding.NightT03MilkyWayBindingTests.test_has_project_owned_hard_reference_and_engine_sky_mesh
+    - test_night_t03_milkyway_binding.NightT03MilkyWayBindingTests.test_selection_is_scoped_to_night_t03
+    - test_night_t03_milkyway_binding.NightT03MilkyWayBindingTests.test_sky_radius_is_derived_from_mesh_bounds
+  mutation_guards: >-
+    Contract fixtures reject missing or ignored endpoint probes, forced success,
+    unreachable rollback, comment-only evidence, raw actor/component teleports,
+    conditional or absent inward-velocity stops, extra placement calls, changed
+    placement conditions, and pre-rejection flight or possession mutations.
+  runtime_verified: false
+  visual_or_gameplay_verified: false
+  replication_verified: false
+  multiplayer_verified: false
+
+canonical_sync:
+  module_queue_sha256: BD50987CA616BDAE4627CFC62E99451D2DBD6401C441BBCA2AAEF70DD5BB4E90
+  module_status: queued
+  module_retry_count: 17
+  defect_status: open
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/target_currency.json
+  report_sha256: DE91335AEC86DF9A2E3414160F9578A77E8983BE3171CA27D4C6B5753429ABE4
+  captured_at: "2026-07-23T03:31:13.010889Z"
+  input_count: 874
+  input_manifest_sha256: D394FFB91D822AE6ADE60A95EB42458C5FCB7DB91C6B7E487D79F6395484E2E4
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 39
+  titan_editor_newer_project_inputs: 27
+  build_proofs_supplied: 0
+
+canonical_integrity_audit:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_LandingParkingClearance_20260723_062104/project_knowledge_integrity_final.json
+  exit_code: 1
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_source_rasters: 135_of_135_exact
+  unrelated_def0005_link_response_restored_sha256: ABABD63BD9722D8791D748F584A95207D46468128B9271CEBBD9BA2A656B18C6
+
+remaining_acceptance:
+  - resolve the independent DEF-0003 UHT blocker under its own rollback and evidence boundary
+  - run full current TitanEditor and Titan UHT, compile, and link proofs
+  - add route or swept-corridor validation if a landing or parking target can cross blocking geometry
+  - implement bounded passive fitted-envelope and native or rotation-changing initial-overlap recovery
+  - replace or separately guard BeginPlay and ClampToPlanetSurface unswept root corrections
+  - invoke gravity snapshots before landing and after reboard in runtime
+  - run real-GPU landing, rejected exit, committed exit, reboard, takeoff, stationary compass, and nose-radial transition acceptance
+  - run two-client authority, replication, late-join, and multiplayer acceptance
+
+claim_limit: >-
+  Static contracts and isolated C++ translation-unit compilation prove that the
+  bounded endpoint transaction is present and type-correct in the retained
+  TitanEditor compile environment. They do not prove target-wide UHT/link,
+  route clearance, runtime collision behavior, landing feel, playability,
+  rendering, packaging, replication, or multiplayer. DEF-0002 remains open.
+
+next_safe_action: >-
+  Preserve this M02 slice. Repair the unrelated DEF-0003 Blueprint-exposed
+  uint32 field as its own bounded module, then rerun full current target builds
+  before a controlled real-GPU DEF-0002 landing and reboard acceptance run.

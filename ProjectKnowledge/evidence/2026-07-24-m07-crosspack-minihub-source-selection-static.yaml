@@ -1,0 +1,258 @@
+schema_version: 1
+id: evidence.m07.crosspack-minihub-source-selection.static.2026-07-24
+captured_utc: "2026-07-24T22:47:35Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: pinned-desert-and-tropical-source-selection-for-isolated-minihub-review
+evidence_class: static
+result: passed_with_all_execution_and_acceptance_gates_closed
+
+scope:
+  authorized:
+    - authenticate the exact locally present Desert Savanna and isolated Tropical Island and Underwater source trees
+    - define a nine-package exact-path, exact-ID, size, hash, class, and proposed-role candidate allowlist
+    - record a conservative bounded offline serialized-reference closure for later Unreal review
+    - audit the installed Nwiro Pro and Integration Kit data and provider boundaries without launching either plugin
+  explicitly_not_run:
+    - approve, migrate, convert, duplicate, move, rename, delete, overwrite, or save any vendor or project package
+    - launch Unreal Editor, Nwiro, an MCP endpoint, Meshy, Tripo, fal.ai, build, cook, package, or a real-GPU client
+    - create, load, edit, or save the requested isolated mini-hub map or any protected production, checkpoint, fused, vendor, test, or artist map
+    - upload a mesh, texture, material, map, image, source file, derived pixel payload, or provider prompt
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  worktree_status_entry_count_at_final_pre_record_check: 171
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  free_physical_gib_at_final_pre_record_check: 7.782
+  free_commit_gib_at_final_pre_record_check: 21.815
+  free_d_drive_gib_at_final_pre_record_check: 1105.385
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2264
+  vram_free_mib: 7790
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  selected_work_mode: offline_static_only
+  rollback:
+    path: D:/RedMMOTitanWindowsData/Rollback/M07_CrosspackMinihubSelection_20260724_2232Z
+    files:
+      INDEX.yaml: E70D3425A972312F70D4B97791C5A35337E527D5C524CEFB4A85163830B26DDD
+      current_state.yaml: E0A845BB673B6C0348FA2557ED132224F20420393344A10D192013B8718D3328
+      redmmotitan_module_queue.json: C63530A6C18D1ABACEF600CB228546C862F9423FEF1063CBBA3D44218BA189FC
+  canonical_record_rollback:
+    path: D:/RedMMOTitanWindowsData/Rollback/M07_CrosspackMinihubCanonicalRecord_20260724_2251Z
+    files:
+      INDEX.yaml: CA7B04EB3C8983900289C57D719CD01E815E0E11EA8AC2F6DD1272C71501ABC8
+      current_state.yaml: 7FC9AA3B0865B7E3B6034A6711C2D7D4D7D71FFD1810224A0D33980494713E73
+      redmmotitan_module_queue.json: C63530A6C18D1ABACEF600CB228546C862F9423FEF1063CBBA3D44218BA189FC
+
+authenticated_sources:
+  desert_savanna:
+    pack_id: fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e
+    listing_id: 12ec20bd-ce21-4d3d-8051-13ffb0fe851e
+    canonical_root: D:/RedMMOTitan/Content/Zenscape_Savanna
+    source_state: project_present_vendor_packages_not_opened_or_forward_converted_under_ue58
+    source_file_count: 321
+    source_bytes: 750355516
+    source_tree_sha256: 69F083AF85959AF5DA257D36B5B374C3766C242791D9ED9DC9452F5C445EC661
+    declared_unreal_versions: ["5.3", "5.4", "5.5", "5.6"]
+    declared_ue58_support: false
+  tropical_island_and_underwater:
+    pack_id: fab.934c1286-7388-4aa5-a300-e0a7cdf65675
+    listing_id: 934c1286-7388-4aa5-a300-e0a7cdf65675
+    canonical_root: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/Content/Zenscape_Island
+    source_state: isolated_vendor_project_not_migrated
+    source_file_count: 334
+    source_bytes: 559398662
+    source_tree_sha256: 610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732
+    declared_unreal_versions: ["5.4", "5.5", "5.6"]
+    declared_ue58_support: false
+    project_descriptor:
+      path: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/StylizedNatureTropicalIs.uproject
+      bytes: 175
+      sha256: 3ABBBF335CC8A1E66BF87F3EAF5804B74890840B493AA57BA7BDD910607CD1AD
+      engine_association: "5.4"
+
+selection_contract:
+  request:
+    path: Build/Automation/redmmo_crosspack_minihub_selection_request_v1.json
+    sha256: C2791F1FD3D4472D8B433E964335E5BFE44B449C64AE9D9500497B050BC2DF09
+    request_status: candidate_only
+    selection_method: explicit_exact_path_allowlist
+    no_category_fallback: true
+    approval_enabled: false
+    reviewer_public_key_count: 0
+  tool:
+    path: Tools/build_redmmo_crosspack_hub_selection.py
+    sha256: 2D0D579E6DFD8A53135F13693E1560502DFFE8214673F68774F462DD756F3AFA
+  tests:
+    path: Tools/tests/test_build_redmmo_crosspack_hub_selection.py
+    sha256: 657F700E2C11958D801DB1FCF9A58E3D87B2CFF5A3DD2BD8F98A976C89F0F7EE
+  output:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CrosspackMinihubSelection_20260724_2209Z/selection_manifest_v3.json
+    bytes: 35935
+    file_sha256: 331427762643D2C3A5CFEF7FAB88C5985310B1768C1683BB0685D53C859CAC37
+    semantic_sha256: 8D61DE6B1A7561E746BC893A2C1BBB440589D3CC80DDD65801C6A8D529512517
+    selected_primary_count: 9
+    offline_serialized_reference_closure_count: 68
+    selected_plus_dependency_counts: 9_plus_59
+    savanna_closure_count: 23
+    tropical_closure_count: 45
+    selection_ready: false
+    migration_ready: false
+    nwiro_ready: false
+    map_authoring_ready: false
+  publication_safety:
+    - canonical source roots, complete tree identities, and the Tropical descriptor byte identity are pinned in project-owned code
+    - source-root ancestors reject links and reparse points
+    - every candidate must match its pinned path, stable ID, byte count, SHA-256, expected class, and proposed role
+    - the exact nine-member set is required and category fallback is absent
+    - both trees and the Tropical descriptor are reauthenticated before and after no-clobber publication
+    - a failed post-publication source check removes the newly created output
+
+selected_candidates:
+  - stable_candidate_id: RED-FAB-ASSET-8021792003EC13E7D10DBB1B
+    pack: desert_savanna
+    relative_source_path: Landscape/Texture/T_Sand_basecolor.uasset
+    source_sha256: B1B8AE3AD73DE7DD4DD4215E7D420FA273FA63C897675047B9CE922BA19E9C55
+    proposed_role: desert_ground_basecolor
+  - stable_candidate_id: RED-FAB-ASSET-0136F15C7D44ADF6C94C719B
+    pack: desert_savanna
+    relative_source_path: Landscape/Texture/T_Sand_normal.uasset
+    source_sha256: F03811DD1E78ECBEE5D8DA1BD4D045DD70E32B9860228C0D4CEBB06A65DC0606
+    proposed_role: desert_ground_normal
+  - stable_candidate_id: RED-FAB-ASSET-A4ECC3D88041390347B5EB9E
+    pack: desert_savanna
+    relative_source_path: Landscape/Texture/T_Sand_Roughness.uasset
+    source_sha256: C8558DA672079509E2CA0E88F366F8AC09990C10D0C218356CD9C72CE5ECD541
+    proposed_role: desert_ground_roughness
+  - stable_candidate_id: RED-FAB-ASSET-55D22F834072AFF6229BB14A
+    pack: desert_savanna
+    relative_source_path: Model/Rocks/SM_RockRoundDesert_02.uasset
+    source_sha256: C2FA1CB56A81BB9F3436D386326794F7515C6B2470EDF2F884F003463E62C1DF
+    proposed_role: desert_geology_anchor
+  - stable_candidate_id: RED-FAB-ASSET-A4F6D5680DC132465128D65B
+    pack: desert_savanna
+    relative_source_path: Model/Tree/SM_AcaciaTree_01.uasset
+    source_sha256: 320F5A8419D63B85BE354E1C1A34B9F5A63A2B817923DF4D9A323259D6AE4EC8
+    proposed_role: savanna_canopy_anchor
+  - stable_candidate_id: RED-FAB-ASSET-020D6DAAE70219B6F907C75B
+    pack: tropical_island_and_underwater
+    relative_source_path: Model/Tree/SM_CoconutTree_01.uasset
+    source_sha256: 925C3DA342358836CEB7F6EAC0933D2B2742459C0F39CB1FFA8D5EA9E4FE82F9
+    proposed_role: shoreline_canopy_anchor
+  - stable_candidate_id: RED-FAB-ASSET-71C6AF42FBE6C8C807395EC0
+    pack: tropical_island_and_underwater
+    relative_source_path: Model/Plants/SM_Plant_01.uasset
+    source_sha256: B169632CBB5B73C27616143437B9FD046542260EC60E901E08326453CD46FD7E
+    proposed_role: tropical_ground_accent
+  - stable_candidate_id: RED-FAB-ASSET-3897AB32061911E704F9DEB4
+    pack: tropical_island_and_underwater
+    relative_source_path: Model/Plants/SM_Coral_01.uasset
+    source_sha256: D3889034815975E9819CF9439FB657E0D04E139A0EF95555EFA6DE9F8C877CEA
+    proposed_role: shallow_water_accent
+  - stable_candidate_id: RED-FAB-ASSET-F3C4A00B0686FACCA17356E9
+    pack: tropical_island_and_underwater
+    relative_source_path: Blueprint/BP_WaterPlane.uasset
+    source_sha256: 7AD89A327D9E2D93F6416CA703114827438895B5AB42161A7DF2BC7B1419D219
+    proposed_role: water_system_candidate
+
+nwiro_static_audit:
+  project_configuration:
+    nwiro_pro_enabled: true
+    nwiro_integration_kit_enabled: true
+  nwiro_pro:
+    version: "1.1.9"
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Nwiro.uplugin
+    descriptor_sha256: 2E264C661C1DE87207031F6607FE0D97C375511085091BC742AA298DF7EEB79D
+  nwiro_integration_kit:
+    version: "1.0.9"
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/NwiroIntegrationKit.uplugin
+    descriptor_sha256: D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E
+  confirmed_boundary:
+    - local Unreal package-path placement implementations load existing assets locally and need not upload vendor package bytes
+    - the remote Nwiro frontend and selected model may receive package names, paths, classes, tool arguments, and results
+    - attaching an image reads and base64-encodes its complete bytes for external use
+    - Meshy text-to-3D, Meshy texturing, Tripo, and fal.ai PBR routes are external provider operations
+  blocking_finding:
+    severity: P1
+    finding: >-
+      The inspected Meshy, Tripo, and fal.ai extension-consent checks reject
+      only when the chat bridge exists and reports the extension disabled. A
+      direct or headless MCP call with no bridge instance can bypass that
+      check and submit a credit-bearing job when a stored API key exists.
+    disposition: >-
+      Every generation tool remains forbidden until the provider gate is made
+      fail-closed or a separately evidenced runtime control blocks direct
+      invocation and explicit session consent is proven.
+  runtime_evidence_search:
+    saved_and_diagnostics_log_matches: 0
+    module_startup_proven: false
+    mcp_initialize_proven: false
+    tools_list_proven: false
+    asset_query_proven: false
+    placement_proven: false
+    generation_proven: false
+
+verification:
+  py_compile_exit_code: 0
+  focused_crosspack_contracts:
+    run: 14
+    passed: 14
+    failed: 0
+  combined_crosspack_curation_review_request_contracts:
+    run: 34
+    passed: 34
+    failed: 0
+  independent_manifest_reconstruction:
+    byte_identical: true
+    source_and_candidate_mismatches: 0
+  independent_review:
+    initial_findings:
+      - P1 unpinned source-root and tree provenance
+      - P1 generated rather than independently pinned candidate identities
+      - P2 source and descriptor mutation window before publication
+    corrected: true
+    rereview_remaining_p0_p2: 0
+  project_knowledge_integrity:
+    audit_exit_code: 0
+    error_count: 0
+    warning_count: 0
+    queue_sha256: 8553F98FC010D3A9286CD00DF9727362C134B150CF125E8B0A7301726490AF20
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_CrosspackMinihubSelection_20260724_2209Z/project_knowledge_integrity_20260724_2258.json
+    focused_contracts_run: 20
+    focused_contracts_passed: 20
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is static, review-only source-selection and plugin-source evidence. It
+  proves the current bytes of two local source trees, nine exact candidate
+  packages, a conservative 68-package ASCII serialized-reference closure, and
+  installed/enabled Nwiro descriptors. The closure is not authoritative Unreal
+  Asset Registry dependency proof. Candidate identity is not rights approval,
+  UE 5.8 compatibility, artistic acceptance, migration authority, Nwiro use,
+  a material, a map, a playable environment, curved-tile blending, foliage
+  quality, performance, or real-GPU evidence. No mini-hub exists yet. Nwiro has
+  not been launched, connected, queried, or used. All selection, migration,
+  Nwiro, and map-authoring readiness flags remain false.
+
+remaining_blockers:
+  - externally review the exact pack rights and the allows_usage_with_ai false boundary without uploading vendor or derived bytes
+  - obtain authoritative UE 5.8 Asset Registry dependency closure and isolated forward-conversion evidence
+  - close or independently block Nwiro's direct paid-provider fail-open route before any plugin launch or generation call
+  - prove one read-only Nwiro metadata session before any local package-path placement attempt
+  - migrate only an explicitly approved exact package closure into a separate project-owned staging namespace
+  - create a new isolated mini-hub map with no protected-map mutation
+  - obtain real-GPU editor and playtest evidence for both pack sources, curved-surface fit, seams, materials, foliage, water, culling, overdraw, and performance
+
+next_safe_action:
+  - keep Unreal and all provider tools closed while physical RAM is below the editor floor
+  - prepare a local-only Nwiro dry-run contract that exposes only read-only metadata discovery and forbids every generation tool
+  - on a later one-editor slice with safe RAM, first prove module startup, MCP initialize, tools/list, and one read-only exact-path metadata query
+  - only after rights, dependencies, UE 5.8 conversion, and Nwiro boundaries pass should the exact approved closure be migrated into a new isolated mini-hub map

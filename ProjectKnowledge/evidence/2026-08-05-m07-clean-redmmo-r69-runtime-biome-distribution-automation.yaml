@@ -1,0 +1,151 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r69-runtime-biome-distribution.2026-08-05
+captured_utc: "2026-08-05T22:35:48Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r69-full-seeded-runtime-biome-distribution-census
+evidence_class: automation
+result: pass_all_six_profile_biomes_emitted_no_save
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 52.77
+  commit_headroom_gib: 55.45
+  gpu: NVIDIA_GeForce_RTX_3080
+  free_gpu_vram_mib: 9191
+  free_d_drive_gib: 767.32
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  renderer: D3D12_RenderOffscreen
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_runtime_biome_distribution_r69.py
+  driver_sha256: AD52B72B6E2824AC92D79768F526F2520C8B45C1FEBF66C31E3F11C4C7064764
+  provider_plugins_disabled: true
+  ppg_generation: COMPLETE
+  map_check: {errors: 0, warnings: 0}
+  directions: 32
+  deterministic_direction_method: fibonacci_sphere
+  unique_runtime_chunk_samples: 3569
+  generation_called: false
+  persistent_writes: false
+  dirty_packages_after: 0
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_RuntimeBiomeDistribution_R69B_20260805T2234Z/result.json
+    sha256: C1AACD401021E331C8035D89E9A801B79F017E0F7E73F9FD3A79CE34295D8E7D
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_RuntimeBiomeDistribution_R69B_20260805T2234Z/unreal.log
+    sha256: E62CC09149F14688C9695E17E15C7B67147A610EB7EE738D2DA6924F18A905B5
+
+runtime_distribution:
+  emitted_biomes: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+  missing_biomes: []
+  above_sea_samples: 1375
+  below_sea_samples: 2194
+  Craters:
+    samples: 922
+    percent: 25.8336
+    above_sea: 648
+    below_sea: 274
+    mean_dominant_strength: 0.9899
+  Hills:
+    samples: 374
+    percent: 10.4791
+    above_sea: 374
+    below_sea: 0
+    mean_dominant_strength: 0.9701
+  Mountains:
+    samples: 116
+    percent: 3.2502
+    above_sea: 112
+    below_sea: 4
+    mean_dominant_strength: 0.8581
+  Desert:
+    samples: 366
+    percent: 10.2550
+    above_sea: 216
+    below_sea: 150
+    mean_dominant_strength: 0.9712
+  Ocean:
+    samples: 1715
+    percent: 48.0527
+    above_sea: 0
+    below_sea: 1715
+    mean_dominant_strength: 0.9992
+  Poles:
+    samples: 76
+    percent: 2.1294
+    above_sea: 25
+    below_sea: 51
+    mean_dominant_strength: 1.0000
+
+diagnosis:
+  proven:
+    - current seed 1337 emits every configured ProfileV1 biome at runtime
+    - Ocean is the dominant category for 48.0527 percent of sampled chunks and every Ocean-dominant sample is below sea level
+    - Desert is present in 10.2550 percent of sampled chunks, including 216 above-sea samples
+    - the current planet is not uniformly one generated biome despite the visually uniform green presentation
+  falsified:
+    - missing Desert generation as the cause of no visible desert
+    - missing Ocean generation or absence of below-sea basins as the cause of no visible coast-ocean distinction
+    - an all-Craters or all-grassland seed output
+  remaining_boundary: >-
+    R44 already proved the persisted by-name surface remap is exact. R69 now
+    proves all six seeded categories are emitted. The active defect therefore
+    lies in role-specific surface presentation and water/shore visibility, not
+    in seed or biome-category emission. The next materially different route is
+    a project-owned compiled read-only topology bridge that resolves named
+    reroute declaration identity and produces complete exact per-biome surface
+    closure; do not repeat the blocked Python-reflection trace.
+
+no_palms_rule:
+  retained_asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+  retained_sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  note: >-
+    R69 made no foliage or package write, so R66 remains authoritative and no
+    palm component or instance can be reintroduced by this read-only census.
+
+harness_notes:
+  - >-
+      The first invocation used ExecutePythonScript, which let the editor exit
+      after bootstrap before the registered tick callback completed. It saved
+      no package and retained an exact map backup at
+      D:/RedMMOTitanWindowsData/Rollback/BeforeRuntimeBiomeDistribution_R69_20260805T2230Z.
+  - >-
+      The corrected R69B invocation used the established offscreen ExecCmds
+      Python path and completed all 32 directions.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRuntimeBiomeDistribution_R69B_20260805T2234Z
+  manifest_sha256: 5D3DBBABB54ABB1B4B22F4E52AEC3F01E49FFC8579E71B5E8BEA63B830F904AA
+  map_copy_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  used: false
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 56EA5F830A8F581C1844B956EBABA556B45E200C397443F37BA921766862FC1A
+  r66_no_palms_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  r67_surface_sha256_before_after: 745381295CDC76754B9FD347CC85CEBEC3151B042C366CDA40F1908163B8A4F7
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  map_or_content_saves: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R69 is live D3D12 seeded biome-distribution evidence, not visual acceptance.
+  It does not prove visible distinct desert, beach, coast, water, continent
+  silhouettes, paths, gameplay, standalone, packaging, replication,
+  multiplayer, or developer-handoff readiness.
+
+next_safe_action: >-
+  Preserve seed 1337, R66 zero-palms foliage, R67 ground, R68 night, terrain,
+  water and placements. Add one project-owned compiled read-only material-
+  topology diagnostic that resolves named reroute declaration pointers/guids
+  and emits complete Craters/Hills/Mountains/Desert/Ocean/Poles surface closure.
+  Use that exact closure to plan a later role-specific project-owned branch;
+  make no surface or map mutation in the diagnostic slice.

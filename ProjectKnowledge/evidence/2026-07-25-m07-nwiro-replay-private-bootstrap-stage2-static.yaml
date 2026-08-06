@@ -1,0 +1,188 @@
+schema_version: 1
+id: evidence.M07.nwiro-replay-private-bootstrap-stage2-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T14:44:38.7686774Z
+result: stage2_source_verified_operational_hold_for_trusted_coordinator
+
+scope:
+  objective: >-
+    Close the prior project-module pre-authentication defect with a fixed,
+    private second-stage launcher that authenticates the complete replay graph
+    before compiling any project module.
+  performed:
+    - implement one stdlib-only fixed-path second-stage launcher review source
+    - bind one canonical authorization to the exact launcher and five exact graph members
+    - require Python isolated/no-site/no-bytecode-write flags -I -S -B
+    - require one exact mode and reject preloaded project module names
+    - authenticate private parent, bundle root, and exact inventory ACLs
+    - retain read-only/no-write/no-delete file handles to both sealed and live project graph members through publisher return
+    - require byte equality plus exact length and SHA-256 before first project compile
+    - compile exact captured contract, creator, and publisher bytes in fixed order with original project __file__ values
+    - verify every imported helper object binding before and after publisher entrypoint execution
+    - add sealed and live tamper, launcher tamper, authorization tamper, ordering, cleanup, binding, AST, canonical JSON, and pyc-boundary contracts
+    - run 12 focused bootstrap contracts plus the prior 14 replay and 30 current lifecycle/manifest contracts
+  not_performed:
+    - execute the review copy from the broadly writable project tree
+    - implement or run the independently trusted direct coordinator
+    - publish the private bootstrap bundle or replay bundle
+    - execute the 22 historical assertions
+    - compile, install, launch Unreal, initialize MCP, use network, call a provider, or touch an asset or map
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  physical_ram_free_gib: 7.859
+  commit_headroom_gib: 12.502
+  d_drive_free_gib: 1073.552
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4185
+    free_vram_mib: 5869
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_before: 4CD4C3D2446464CAB50344CB3C8974FCA8B9A53C4D02008EF866603F59DF73CF
+  decision: >-
+    Physical RAM was below every Unreal and packaging gate, so the slice
+    remained entirely offline and source-static.
+
+tooling:
+  stage2_launcher:
+    path: Tools/run_redmmo_nwiro_activation_replay_sealed.py
+    bytes: 30222
+    sha256: D27FED1D4D917D616316AA35746BCC9951C821C34BD24A0477A7095E1A5E72DA
+    project_tree_execution_authorized: false
+  bootstrap_authorization:
+    path: Build/Automation/redmmo_nwiro_activation_replay_bootstrap_execution_authorization_v1.json
+    bytes: 2987
+    sha256: 70E38DF14A052ED797B8260EE7F7C4156F077D9C1F43A641E1216B9A7027E56C
+  stage2_tests:
+    path: Tools/tests/test_run_redmmo_nwiro_activation_replay_sealed.py
+    bytes: 16057
+    sha256: 0FC1939367C11BB44F9AB02BE25CE6AE46385FF2A87528FFB44F7BC09367E71C
+  bootstrap_target:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroActivationReplayBootstrapV1
+    present: false
+    owned_transaction_orphan_count: 0
+  replay_target:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationReplayV1
+    present: false
+    owned_transaction_orphan_count: 0
+
+verified_stage2_properties:
+  stdlib_only_review_source: true
+  fixed_private_bundle_path: true
+  exact_modes_only: true
+  isolated_no_site_no_project_graph_pyc_flags_required: true
+  private_parent_root_and_entry_acl_check_implemented: true
+  complete_graph_authenticated_before_first_project_compile: true
+  sealed_and_live_project_copies_retained_and_byte_equal: true
+  project_graph_loaded_only_from_authenticated_source_bytes: true
+  project_graph_pyc_read_or_write_used: false
+  fixed_contract_creator_publisher_order: true
+  original_project_file_bindings_on_all_three_modules: true
+  imported_helper_object_identity_verified_before_and_after_entrypoint: true
+  preloaded_exact_project_module_names_refused: true
+  sys_path_empty_before_exact_project_module_execution: true
+  project_tree_launcher_execution_authorized: false
+  trusted_external_coordinator_implemented: false
+  sealed_bundle_published: false
+  replay_bundle_published: false
+
+verification:
+  focused_stage2_bootstrap_contracts:
+    command: >-
+      C:/Users/user/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe
+      -I -S -B
+      D:/RedMMOTitan/Tools/tests/test_run_redmmo_nwiro_activation_replay_sealed.py
+      -v
+    run: 12
+    passed: 12
+    failed: 0
+    errors: 0
+  existing_replay_lifecycle_manifest_contracts:
+    command: >-
+      python -B -m unittest
+      Tools.tests.test_create_redmmo_nwiro_activation_replay
+      Tools.tests.test_redmmo_nwiro_lifecycle_source
+      Tools.tests.test_generate_redmmo_nwiro_lifecycle_manifests -v
+    run: 44
+    passed: 44
+    failed: 0
+    errors: 0
+  total_relevant_offline_contracts:
+    run: 56
+    passed: 56
+    failed: 0
+    errors: 0
+  independent_reviews:
+    security:
+      p0: 0
+      stage2_graph_verdict: conditionally_sound_under_pinned_process_assumptions
+      operational_verdict: hold
+    tests:
+      p0: 0
+      p1: 1
+      operational_verdict: no_real_seal_or_publish
+
+blocker:
+  id: nwiro_activation_replay_trusted_coordinator
+  severity: P1
+  exact_condition: >-
+    Python necessarily executes the stage-two launcher before that launcher can
+    hash itself. The project review copy and its authorization are not an
+    independent trust anchor. A direct coordinator outside the inherited
+    project ACL still must carry literal launcher and authorization hashes,
+    pin and authenticate the absolute Python interpreter and required stdlib,
+    sanitize the startup environment, acquire a fixed process mutex, copy every
+    source from the same retained handle into an already-private random
+    transaction, publish no-clobber, retain launcher/root identities through
+    child exit, bind one exact mode, and independently postverify bundle,
+    replay, ACL, identity, orphan, and protected hashes.
+  required_closure: >-
+    Implement and independently review only that direct coordinator protocol.
+    Add the remaining real Windows negative gates for interpreter isolation,
+    ACL/reparse/ADS/hardlink drift, sharing violations, exception cleanup,
+    second-publish no-clobber, concurrency, and postflight identity. Keep both
+    fixed targets absent until no P0/P1 remains.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 3.242
+  commit_headroom_gib: 6.623
+  d_drive_free_gib: 1072.426
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4664
+    free_vram_mib: 5390
+  exact_unreal_or_build_process_count: 0
+  bootstrap_target_present: false
+  bootstrap_transaction_orphan_count: 0
+  replay_target_present: false
+  replay_transaction_orphan_count: 0
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_installation_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This is durable static evidence for the exact second-stage launcher,
+  authorization, and tests only. It does not authenticate the code that would
+  start the launcher, does not authorize direct execution from the project
+  tree, and is not bootstrap publication, replay publication, historical-suite
+  acceptance, candidate acceptance, build, installation, Nwiro, MCP, provider,
+  Unreal, asset, map, visual, gameplay, or real-GPU evidence.
+
+next_safe_action: >-
+  On the next heartbeat, implement and independently review only the direct
+  same-handle private coordinator and its real Windows negative contracts.
+  Keep both fixed targets absent and do not compile, install, launch Unreal,
+  initialize MCP, contact a provider, or touch any asset or map.

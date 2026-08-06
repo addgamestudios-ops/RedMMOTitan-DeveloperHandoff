@@ -1,0 +1,91 @@
+schema_version: 1
+id: evidence.atmosphere.red-mars.decoupling.2026-07-21.gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T08:21:19+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_NightWater_T04
+target: atmosphere.red.mars
+
+action:
+  - reduce only the rendered atmosphere contract from 8.0 km to 1.8 km while retaining the 8.0 km gameplay ascent
+  - enforce unit world scale on the canonical server and client SkyAtmosphere component paths
+  - add a runtime contract for body radius, bottom radius, component height, visible top, gameplay transition, scale, and active component count
+  - compile TitanEditor with one parallel action
+  - launch one bounded 1280x720 D3D12 listen-server diagnostic with texture streaming capped at 1024 MB and frame rate capped at 45
+  - execute the genuine F7 shoreline and F9 25 km inward orbit paths and inspect both frames
+
+result:
+  editor_compile_gate: pass
+  runtime_contract_gate: pass
+  surface_night_proportion_gate: pass
+  orbit_proportion_gate: pass
+  clean_exit_gate: pass
+  daylight_surface_color_gate: pending
+  visual_shell_crossing_gate: pending
+  cloud_distribution_gate: pending
+  artist_handoff_archive_gate: pending
+  observed:
+    - runtime reported nominal surface 7.96 km, bottom radius 7.46 km, component height 2.30 km, and visible top 1.80 km above nominal terrain
+    - runtime reported the gameplay transition independently at 8.40 km
+    - runtime reported unit scale, two serialized components, exactly one active canonical component, and pass=1 on all six assertions
+    - the prior orbit frame showed a connected white/cyan corona approaching the scale of the solid body
+    - the new orbit frame has no planet-sized white/cyan shell and fades from the body to black star space without the prior oversized layer
+    - the night shoreline frame contains no overhead ocean/atmosphere shell or broad white fill
+    - the bounded process exited normally with no fatal, assertion, OOM, GPU-crash, or device-removal marker
+  claim_limit: >-
+    This accepts the main fused runtime's atmosphere geometry and its separation
+    from the gameplay transition. It does not accept daytime baby-blue art,
+    planet-wide HI-5 clouds, water presentation, ascent crossing feel, or the
+    SAFE8 artist archive, whose map does not run this GameMode override.
+
+artifacts:
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/TitanEditor_build_20260721_081012.log
+    sha256: 8D5DE5005A0885868EDF3BDB147D67537DC50B28F956A469CEC00DFC3B09767B
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/AtmosphereThinShell_RealGPU.log
+    sha256: 3588AC240ABE5B544E8154648DB82203C383D021BD161DA196FC24EAB1BA8FB2
+    markers:
+      atmosphere_contract_pass: 6
+      atmosphere_contract_fail: 0
+      shoreline_capture: 1
+      orbit_capture: 1
+      clean_exit: 1
+      fatal: 0
+      out_of_video_memory: 0
+      gpu_crash: 0
+      device_removed: 0
+  orbit_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/RealGPU_Captures_ThinShell/NightWater_T04_Orbit.png
+    sha256: 3E70BC42D6C4FC12A7F34554D8BBCBFF0CD8B9FF2EA44BF0416BBFC9F15672D2
+  surface_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/RealGPU_Captures_ThinShell/NightWater_T04_Shore.png
+    sha256: 7AD9E01E1B51D434FA6DBC7BC61F5969D8ACDC2BEA74B5FF15750898C6BEC3FB
+  rejected_baseline_orbit_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AsteroidDeepSpace_20260721/RealGPU_Captures_Final/NightWater_T04_Orbit.png
+    sha256: BF9FBAEF5D1F926092DFC26CB1AB25C77E354FB43DA9FF6C21EF2511884A5D58
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: EBEFF1BD16630C95332C63F19190E8C3147A7353690C76EF5FF183E4454DFB5D
+  source:
+    - Source/RedMMO/RedPlanetPresentationTuning.h
+    - Source/RedMMO/RedGameMode.cpp
+    - Source/RedMMO/RedPlayerCharacter.cpp
+
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  modified: false
+
+machine_safety_audit:
+  peak_observed_vram_used_mb: 3504
+  minimum_observed_free_ram_gb: 6.48
+  post_exit_free_ram_gb: 10.46
+  post_exit_free_vram_mb: 7595
+  unreal_process_count_after_exit: 0
+
+next_safe_action: >-
+  Restore the restrained project starfield and distribute the installed HI-5
+  cloud volumes planet-wide inside the now-accepted thin visual shell, with a
+  bounded real-GPU surface and orbit review.

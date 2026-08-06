@@ -1,0 +1,91 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-shoreline-smoothing-automation.2026-08-05
+captured_utc: "2026-08-05T05:02:14Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-native-shoreline-smoothing-read-only
+evidence_class: automation
+result: pass_native_capability_absent_from_profile_graph
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  generation_material: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  launched_pid: 22856
+  minimum_observed_free_physical_ram_gib: 46.82
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+  desktop_control: false
+
+installed_native_capability:
+  plugin: PPG 1.0
+  class: MaterialExpressionPlanetFlattenElevation
+  inputs: [Elevation, Water Level, Threshold]
+  default_water_level: 0.0
+  default_threshold: 0.005
+  behavior: >-
+    Computes absolute elevation distance from water level, applies smoothstep
+    from zero to threshold, then lerps water level to original elevation.
+  source_hashes:
+    header: 371F09B0035803983821ED75EEBD8312FD20BCAC458CD79563917997065EC658
+    cpp: 142CCABEEF9CFF1C46B629A234D6F3AEE8CCDC0D04707C972BDCCD6D1435A5E0
+    shader: 358B2E37ABE6E5E8B8C32030E36717E6D2712DD7789F95C7236562B6554F8DD4
+
+profile_graph:
+  expression_count: 122
+  normal_edge_count: 148
+  generate_native_radial_water: true
+  native_flatten_node_count: 0
+  native_flatten_edges: []
+  shoreline_like_scalar_parameters: []
+  exact_shoreline_flatten_threshold_count: 0
+  can_map_existing_connected_threshold: false
+  conclusion: >-
+    Native radial water is enabled, but ProfileV1 generation contains neither
+    the native flatten node nor any shoreline-like threshold scalar. No
+    existing connected expression can safely receive the profile control.
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ShorelineSmoothing_20260805_0458/audit_redmmo_ppg_profile_v1_shoreline_smoothing_result.json
+    sha256: 63A8BF70077D88E877E889CAE48F65070AF19A7F69898E7356C4BF053B65CB69
+  audit_script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_shoreline_smoothing.py
+    sha256: C74BB8517FD72CDF258DBCB161EA93019252C018F11DD49F05848695C337FD2F
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ShorelineSmoothing_20260805_0458/project_knowledge_integrity_after.json
+    sha256: A7A0441FBB9AA4C96AFD7139F8667B32C58C2987577A4E80FCD317632462FF1B
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - installed PPG provides one native flatten-elevation class with exact source behavior
+    - ProfileV1 generation contains zero instances and zero connected edges for that class
+    - ProfileV1 contains no shoreline-like scalar parameter and no exact ShorelineFlattenThreshold
+    - native radial water remains enabled on the unbound ProfileV1 PlanetData
+    - no save, regeneration, graph edit, map binding or desktop-control action occurred
+  not_verified:
+    - no native example wiring has yet been authenticated
+    - no flatten node or threshold parameter was created
+    - ProfileV1 remains unbound and no shoreline, visual or gameplay state changed
+
+next_safe_action: >-
+  Read-only find an installed PPG example generation material that actually uses
+  MaterialExpressionPlanetFlattenElevation and record its exact input/output
+  wiring and defaults. Do not create the ProfileV1 node until that authoritative
+  example or an equivalent source-backed wiring contract is proven.

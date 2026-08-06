@@ -1,0 +1,82 @@
+schema_version: 1
+id: evidence.gravity-selection.2026-07-21.foundation-01
+evidence_class: automation
+captured_local: "2026-07-21T01:08:49+03:00"
+platform: Windows
+rhi: NullRHI
+target: feature.celestial.ring-moons-mining.2026-07-20
+scope: deterministic_gravity_identity_and_selection_foundation
+
+implementation:
+  stable_ids:
+    - planet.red.mars
+    - moon.red.mars.primary
+    - moon.red.ring-01.a
+    - moon.red.ring-01.b
+    - moon.red.ring-01.c
+  ordering:
+    - explicit priority descending
+    - surface distance quantized to a 0.1 cm bucket ascending
+    - stable ID lexical ascending
+  hysteresis:
+    - applies only between equal-priority bodies
+    - retains the previous body through its influence-radius exit margin
+  fail_closed:
+    - duplicate stable IDs
+  stateful_consumers:
+    - RedCharacterMovement
+    - RadialGravityComponent
+    - RedShipMovementComponent
+
+result:
+  compile_and_link_gate: pass
+  deterministic_query_gate: pass
+  runtime_transition_gate: pending
+  multiplayer_replication_gate: pending
+  observed:
+    - exactly one focused automation test was discovered and executed
+    - test completed with Success, zero warnings, and zero errors
+    - protected 50 km checkpoint hash remained unchanged
+  claim_limit: >-
+    This proves pure selection logic and its compiled editor integration only.
+    NullRHI does not prove moon landing, collision feel, gravity transition feel,
+    ship flight, visual presentation, packaged behavior, or multiplayer authority.
+
+automation_coverage:
+  - influence-volume exclusion
+  - higher priority wins even at greater surface distance
+  - higher priority bypasses lower-priority hysteresis
+  - deterministic lexical tie-break
+  - equal-priority hold and eventual switch
+  - previous-body influence exit band
+  - candidate-order permutation invariance including a three-body near tie
+  - duplicate-ID rejection
+  - malformed-candidate rejection
+  - separate scoring radius and returned physical radius
+  - missing previous-ID deterministic fallback
+
+artifacts:
+  final_incremental_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingGravity_20260721_004624/TitanEditor_priority_fix.stdout.log
+    sha256: 34A3E38CFB4F90D86CB1CDA00482E35BC87A33D072E25078EE0DBBB213E1F00B
+  automation_runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingGravity_20260721_004624/GravitySelection_runtime2.log
+    sha256: 18409A1C4CE37D429849C8A83CBCDC69B82790AF2B41E8241388987372EFCA56
+    marker_lines: [2557, 2590, 2599, 2603, 2613]
+  automation_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingGravity_20260721_004624/AutomationReport2/index.json
+    sha256: 7D63C09E4C9E466A965D84928DAB97BAE66F161E9B04B9D2C596D142AD3B7F49
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 6CE4CFA9449E26EFC824E56D9A17FF32F5924E69DBFA588BADDBE126FC03EE98
+
+protection:
+  checkpoint_path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256_before_and_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  unchanged: true
+
+known_remaining_risks:
+  - dominant body ID is not server replicated or client reconciled
+  - character movement and radial gravity may hold different local body IDs
+  - shuttle and bot gravity queries remain stateless
+  - teleport and ship-exit resets do not yet clear or reseed body identity

@@ -1,0 +1,187 @@
+schema_version: 1
+id: evidence.M07.nwiro-direct-coordinator-runtime-manifest-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T15:19:16.8431325Z
+result: python_runtime_manifest_verified_coordinator_still_on_hold
+
+scope:
+  objective: >-
+    Close the interpreter-path ambiguity in the pending direct coordinator by
+    producing and independently checking one exact manifest of the complete
+    physical CPython 3.11.15 runtime tree.
+  performed:
+    - reject the mutable uv convenience junction as the canonical runtime root
+    - select the physical CPython 3.11.15 directory with no reparse ancestor
+    - generate one canonical no-clobber review manifest for the entire runtime tree
+    - pin Python isolated startup identity and flags -I -S -B
+    - bind all 366 runtime directories and 4206 runtime files by path, bytes, and SHA-256
+    - recompute and verify exact topology and record-set digests
+    - compare every current runtime file byte-for-byte against the manifest
+    - run seven focused manifest contracts and replay the prior 56 relevant contracts
+    - obtain an independent raw-content and live-tree review
+  not_performed:
+    - treat the manifest as execution authorization
+    - implement or execute the direct trusted coordinator
+    - publish the private bootstrap bundle or replay bundle
+    - execute any project module from the broadly writable project tree
+    - compile, install, launch Unreal, initialize MCP, use network, call a provider, or touch an asset or map
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  physical_ram_free_gib: 4.878
+  commit_headroom_gib: 7.379
+  d_drive_free_gib: 1072.231
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4642
+    free_vram_mib: 5412
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_before: 18B9B75C1D25941E992980A41D2DD13EAF00DC23BBBB699A45D31C7797BAC0CB
+  decision: >-
+    Physical RAM was far below the Unreal and packaging gates, so this slice
+    remained entirely offline and source-static.
+
+runtime_manifest:
+  path: Build/Automation/redmmo_nwiro_replay_python_runtime_manifest_v1.json
+  bytes: 622905
+  sha256: A6CBE97F22C8AB928059FFF83F7887D5819B2AF45E1FE9494BA34AD6EA4E215A
+  status: review_input_not_execution_authority
+  runtime_root: C:/Users/user/AppData/Roaming/uv/python/cpython-3.11.15-windows-x86_64-none
+  runtime_root_is_physical_nonreparse: true
+  python_executable: C:/Users/user/AppData/Roaming/uv/python/cpython-3.11.15-windows-x86_64-none/python.exe
+  python_version: "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]"
+  python_executable_bytes: 91648
+  python_executable_sha256: AE7E969410D751D010C2CA03394FE5C53230FBF48CA7D368B897E455ECA14FBA
+  python311_dll_bytes: 5842944
+  python311_dll_sha256: E1B53C741751563ECA9EAC70378DE5BE36994ADAC8C27E8EC375971579E23B50
+  required_flags:
+    - -I
+    - -S
+    - -B
+  isolated_attestation:
+    isolated: 1
+    no_site: 1
+    dont_write_bytecode: 1
+    safe_path: true
+  directory_count_excluding_root: 366
+  file_count: 4206
+  total_bytes: 74504291
+  unique_casefolded_path_count: 4572
+  topology_sha256: 1271147F093E605C143239A3BED6EE91CA7361AFC71912550C75B07CF98511C1
+  record_set_sha256: A46015AB7005B36A0FCCEA9389426A1DDFD57E41DBC0D66EF86270A6C028CDAE
+  current_tree_missing_records: 0
+  current_tree_extra_records: 0
+  current_tree_byte_or_hash_mismatches: 0
+  current_tree_reparse_entries: 0
+  python311_zip_present: false
+
+tooling:
+  generator_review_source:
+    path: Tools/generate_redmmo_nwiro_replay_coordinator_runtime_manifest.py
+    bytes: 16040
+    sha256: D6AEBA5310BEC920538BF8BD249D1CF680181BD5638AD61F53944D345A5D6BCF
+  focused_tests:
+    path: Tools/tests/test_generate_redmmo_nwiro_replay_coordinator_runtime_manifest.py
+    bytes: 9950
+    sha256: C9677E85E928D9D0B0FBA4B24D993A02038CC30FD4B53F700EF8124F3C308C92
+  producer_lineage_note: >-
+    The manifest was emitted before a later performance-only edit to the
+    generator review source. The artifact was independently validated by raw
+    canonical content and a fresh whole-tree comparison, but this evidence
+    does not claim that the current generator bytes produced the artifact.
+
+verification:
+  focused_runtime_manifest_contracts:
+    command: >-
+      C:/Users/user/AppData/Roaming/uv/python/cpython-3.11.15-windows-x86_64-none/python.exe
+      -I -S -B
+      D:/RedMMOTitan/Tools/tests/test_generate_redmmo_nwiro_replay_coordinator_runtime_manifest.py
+      -v
+    run: 7
+    passed: 7
+    failed: 0
+    errors: 0
+  focused_stage2_bootstrap_contracts:
+    run: 12
+    passed: 12
+    failed: 0
+    errors: 0
+  existing_replay_lifecycle_manifest_contracts:
+    run: 44
+    passed: 44
+    failed: 0
+    errors: 0
+  total_relevant_offline_contracts:
+    run: 63
+    passed: 63
+    failed: 0
+    errors: 0
+  independent_review:
+    p0: 0
+    p1_inside_non_authoritative_manifest_claim: 0
+    verdict: durable_static_evidence
+
+blocker:
+  id: nwiro_activation_replay_trusted_coordinator
+  severity: P1
+  exact_condition: >-
+    The runtime manifest does not make the Python namespace immutable and is
+    not a launch authority. In particular, Python places the currently absent
+    python311.zip ahead of DLLs and Lib on sys.path. The direct OS-rooted
+    coordinator still must prevent new or shadow runtime entries, authenticate
+    the coordinator capsule outside the inherited project ACL, validate exact
+    ACL, ADS, hardlink, reparse, and physical identities, hold the complete
+    source/runtime namespace through child exit, same-handle-copy the seven
+    fixed bootstrap entries, bind one publish mode under a fixed mutex,
+    publish no-clobber, and independently postverify the replay, protected
+    hashes, identities, ACLs, and orphan state.
+  required_closure: >-
+    Implement a direct System32 PowerShell/.NET or native coordinator capsule
+    delivered by the trusted host rather than executed from a project path.
+    Add the complete real-Windows attack matrix before any fixed-target
+    publication. Directory-handle sharing alone must not be treated as proof
+    that new runtime children cannot appear.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 6.279
+  commit_headroom_gib: 6.450
+  d_drive_free_gib: 1072.164
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4543
+    free_vram_mib: 5511
+  exact_unreal_or_build_process_count: 0
+  bootstrap_target_present: false
+  bootstrap_transaction_orphan_count: 0
+  replay_target_present: false
+  replay_transaction_orphan_count: 0
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_installation_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This is durable static evidence only for one exact physical Python runtime
+  manifest and its current whole-tree match. It is not execution authorization,
+  a sealed runtime, a trusted coordinator, bootstrap or replay publication,
+  historical-suite acceptance, candidate acceptance, build, installation,
+  Nwiro, MCP, provider, Unreal, asset, map, visual, gameplay, or real-GPU
+  evidence.
+
+next_safe_action: >-
+  Implement and independently review the smallest fail-closed direct
+  coordinator capsule and its disposable real-Windows negative harness. Keep
+  both fixed targets absent and do not compile, install, launch Unreal,
+  initialize MCP, contact a provider, or touch any asset or map.

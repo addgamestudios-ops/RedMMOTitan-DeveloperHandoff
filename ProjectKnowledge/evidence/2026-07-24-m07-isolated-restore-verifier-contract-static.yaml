@@ -1,0 +1,201 @@
+schema_version: 1
+id: evidence.m07.isolated-restore-verifier-contract.static.2026-07-24
+captured_utc: "2026-07-24T09:53:24Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: offline-isolated-restore-verifier-source-and-synthetic-fixture-contract
+evidence_class: static
+result: passed_static_verifier_source_and_synthetic_fixture_contracts
+
+scope:
+  authorized:
+    - add one project-owned read-only verifier for a future isolated restore of the authenticated Content, project-descriptor, and project-plugin manifest scope
+    - require a caller-supplied raw manifest SHA-256 trust anchor before JSON parsing or restored-tree traversal
+    - use only synthetic temporary fixtures to exercise complete restore rehashing and adversarial failure cases
+    - validate the existing 8228-entry canonical manifest structure and raw digest without scanning the live project as a restore
+  explicitly_not_run:
+    - external target access, external payload copy, project-payload restore, actual restore-tree verification, ACL inspection, owner inspection, retention test, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, vendor, supplied-art, artist-handoff, source-raster, or Unreal-package mutation
+    - named-NTFS-stream preservation, source empty-directory preservation, or adversarial Windows handle-swap closure
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1482
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  other_redmmotitan_continuation_processes_observed: 0
+  physical_ram_total_gib: 31.87
+  physical_ram_free_gib_samples: [14.20, 14.21, 14.20]
+  commit_limit_gib: 54.87
+  commit_headroom_gib_samples: [29.65, 29.66, 29.66]
+  disk_c_free_gib: 124.68
+  disk_d_free_gib: 1140.00
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  packaging_and_M12_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_restore_verifier_tooling_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_M12_and_this_M07_static_slice
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 48395
+    sha256: FCA2B4060076F10723298DD32895EF8F5641D0A58B89EB17EF821E5269EBCD3D
+    trust_contract:
+      - requires --expected-manifest-sha256 and compares it with the raw stable manifest bytes before JSON parsing
+      - rejects linked, reparse, non-regular, hard-linked, changed, oversized, noncanonical, duplicate-key, non-finite, unknown-schema, and type-confused manifests
+      - recomputes entry, path-set, Content, plugin, descriptor, protected-input, count, and byte aggregates instead of trusting stored summary fields
+    path_and_scope_contract:
+      - rejects absolute, UNC, device, drive, backslash, dot-segment, ADS-colon, control, forbidden-character, trailing-dot-or-space, reserved-device, non-NFC, overlong, duplicate, case-colliding, and file-directory-conflicting manifest paths
+      - binds Titan.uproject to project_descriptor with null plugin ID, Content paths to project_content with null plugin ID, and each Plugins direct root to its exact declared plugin ID and descriptor
+      - refuses an active-project restore root and requires the manifest and diagnostics report to remain outside the restored tree
+    restore_contract:
+      - performs a complete scandir and lstat traversal without following links
+      - rejects reparses, non-regular files, hard links, duplicate file identities, offline or recall-on-access placeholders, unsafe names, extra files, missing files, extra empty directories, and directory topology outside manifest-implied parents
+      - compares declared size, streams SHA-256 in bounded blocks, compares metadata before and after every hash, then repeats complete tree discovery
+      - recomputes and requires the exact payload and path-set signatures
+    output_contract:
+      - emits one canonical JSON report only below D:/RedMMOTitanWindowsData/Diagnostics
+      - rejects existing output, output inside the restore, and lexical or resolved reparse escape
+      - uses same-directory flush, fsync, and no-clobber rename on the target Windows platform
+    explicit_limits:
+      - never copies, repairs, deletes, normalizes, or modifies manifest or payload files
+      - cannot establish external-media origin, access control, retention, source empty-directory preservation, named stream preservation, or full adversarial handle-swap safety
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 19576
+    sha256: FF8EE200B37B801CA576D01CA3255F6DDFEC05478BF96610AAA8D37889FFE2E7
+    focused_result: 10_of_10_passed
+    synthetic_happy_path:
+      complete_manifest_scope_copied_to_temporary_restore: true
+      exact_tree_rehashed_twice_byte_identically: true
+      source_and_restore_bytes_unchanged: true
+      external_project_payload_used: false
+    adversarial_cases:
+      - wrong raw trust-anchor digest
+      - noncanonical and duplicate-key JSON
+      - unknown schema, boolean-as-integer, signed-64-bit overflow, lowercase digest, backslash, traversal, and ADS path mutants
+      - directory-prefix case collision and file-directory conflict
+      - missing, unexpected, same-size-changed, size-changed, and extra-empty-directory restored trees
+      - reparse, hard-link, concurrent-file-mutation, active-project-root, manifest-in-restore, output-in-restore, output-outside-diagnostics, and output-reuse cases
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  strict_structure_validated: true
+  entries: 8228
+  bytes: 10490519650
+  payload_set_signature_sha256: A9B618EE1B51E381AA02C5350C97D4BE96CF892C18429D094AFEDA715570CD77
+  path_set_signature_sha256: E40E2A68FC035E023A5A6A273723F3E5937E29855E54D43ADBCAE3E245F4D9BA
+  actual_restore_tree_supplied_or_scanned: false
+
+independent_review:
+  result: no_static_tooling_blocker_with_explicit_operational_limits
+  trust_findings:
+    - the internal payload signature is not manifest authenticity, so raw manifest SHA-256 remains a mandatory out-of-band caller input
+    - untrusted consumer paths require stricter validation than builder-originated as_posix paths
+    - exact file and manifest-implied directory sets must reject excluded generated roots and unlisted empty directories in the candidate restore
+  residual_explicit_limits:
+    - a path-based Python scanner does not close adversarial Windows handle-replacement races
+    - ordinary traversal does not authenticate ACLs, owners, named streams, original timestamps, physical-media independence, or retention
+    - the source manifest covers Titan.uproject, Content, and non-generated local-plugin inputs, not the complete top-level Source, Config, Build, Tools, or generated products
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_IsolatedRestoreVerifier_20260724_0952Z
+  focused_static_and_provenance:
+    result: 77_of_77_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IsolatedRestoreVerifier_20260724_0952Z/focused_static_and_provenance_tests.log
+      bytes: 32742
+      sha256: BCA96CED04999C4A8403F5575ACA239CE95AD33F8E464DB936BDB9957BECA796
+  full_offline_test_discovery:
+    result: 545_of_545_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IsolatedRestoreVerifier_20260724_0952Z/full_offline_test_discovery.log
+      bytes: 2422
+      sha256: 4FADAA1783B22F5A7916647818758880D7C668E5152EAE93530316738551932B
+  canonical_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 126
+    queue_sha256: 8E654328B8070BE9430925FC8B8040AA1BCAA8A01450BC6BB7DC47117A5B8FBE
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IsolatedRestoreVerifier_20260724_0952Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: 247F0CC6C594BC7F78F17BA064FDC5BCAEBB57F0AD26AF0236E1119C46A605F8
+  post_verifier_package_inventory:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IsolatedRestoreVerifier_20260724_0952Z/post_verifier_asset_library_inventory.json
+    bytes: 5161444
+    sha256: 387B695FA2A09766533BF0DDD5CAF11695A2A15EF252F068B6A50ACA9571778C
+    packages: 7353
+    assets: 7294
+    maps: 59
+    package_bytes: 10449604064
+    inventory_signature_sha256: 89C0FB3ABFD6A12C1A13719A036E2A47B84DD4CAE82A5F74F6C6BCD06301EF31
+    matches_pre_slice_signature: true
+
+verification_state:
+  external_target_supplied: false
+  external_storage_copied: false
+  project_payload_copied_or_restored: false
+  actual_restore_created: false
+  actual_restore_verified: false
+  external_storage_access_control_verified: false
+  phase_0_storage_gate_closed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_IsolatedRestoreVerifier_20260724_093749Z
+  exact_canonical_preimages: 3
+  new_verifier_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+  package_tree_signature_changed: false
+
+claim_limit: >-
+  Static verifier-source and synthetic-fixture evidence only. It proves that
+  tooling is prepared to compare a future caller-supplied candidate root with
+  the pinned manifest and reject the tested mismatch cases. No external target
+  was supplied or accessed, no RedMMOTitan payload was copied or restored, and
+  the verifier was not executed against the 8228-file payload or any actual
+  restored tree. ACLs, owners, timestamps, named streams, retention, physical
+  storage independence, original empty-directory topology, handle-level
+  adversarial replacement, restore usability, and disaster recovery remain
+  unverified. This is not Unreal load or save, build, runtime, visual, gameplay,
+  package, Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  Copy the authenticated source-input scope to a private access-controlled
+  external store, obtain independent ACL evidence, restore it into a separate
+  empty isolated destination, execute the verifier with manifest SHA-256
+  FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00,
+  and retain the exact no-clobber report. Do not close the Phase 0 storage gate
+  until those operational steps pass. Separately obtain provenance and license
+  records, review one coherent family and its real dependencies, and author one
+  project-owned palette or catalog entry plus one isolated review map.

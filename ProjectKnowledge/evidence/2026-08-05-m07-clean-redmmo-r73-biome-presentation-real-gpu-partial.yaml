@@ -1,0 +1,146 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r73-biome-presentation-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T23:57:17Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r73-project-owned-hill-mountain-foliage-split-and-ocean-role-correction
+evidence_class: real_gpu_visual
+result: runtime_pass_visual_partial
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib_before: 52.81
+  free_physical_ram_gib_after: 52.60
+  commit_headroom_gib_before: 59.29
+  commit_headroom_gib_after: 55.02
+  gpu_free_vram_mib_before: 9096
+  gpu_free_vram_mib_after: 9106
+  free_d_drive_gib_before: 767.31
+  free_d_drive_gib_after: 767.29
+  unreal_or_build_processes_before_after: 0
+  provider_ports_closed_before_after: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  home_map_saved: false
+  generation_called_by_apply_or_verify: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before: BD5E46F3132A6A8947C1258AB18C0F152DD4836755A414B9CC876E3BD0D6CB0D
+  profile_v1_sha256_after: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+  r66_no_palms_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1BiomePresentation_R73_20260805T2343Z
+  manifest_sha256: 69A387245A52A73D10E7BFBB4C2398C31A28C57DEC4F44910CF0CD4B48D920E7
+  records: 8
+  restore_route: Restore the byte-exact ProfileV1 preimage and delete the three new R73 project-owned packages; home/protected maps need no restore because they remained exact.
+
+writes:
+  - asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+    sha256: 4499F76A4B541D92BB7CCF66EA4C8B55C2AA0AC0CEEA4D4AFB964D2807EE7A1D
+    change: R66 duplicate with only grass entry density 90 changed to 0; palm stays 0 and rock stays 0.6000000238418579.
+  - asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_BiomePresentation_R73
+    sha256: 8D33435C91E0FE4813D5077991EDC6990AD5257395F67D6F5FDACBCE4F260992
+    change: R71 duplicate with only Ocean BaseColor changed to a texture-preserving SoStylized sand-to-aqua lerp at blend 0.78.
+  - asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_BiomePresentation_R73
+    sha256: 17C83A43FCB0AB9B22AC7EF499D53A8B7B2435B3F709CA585374E64F48371E91
+    change: project-owned instance of the R73 parent.
+  - asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+    sha256: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+    change: Craters and Mountains bind the R73 rock-only profile; Hills retains R66; planet_material binds the R73 instance.
+
+execution:
+  checkpoint_driver: D:/RedMMOTitan/Build/Automation/create_redmmo_profile_v1_r73_checkpoint.py
+  checkpoint_driver_sha256: AFE3F0CD738BDF512C06DFFA5F5C6BFAB2BBB5B6E9FCF2D500B4DCB2E734D520
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_biome_presentation_r73.py
+  apply_driver_sha256: 5BE4E86822FF9A816993D1AF736731E4454D84D82DC478E29F7155A01901423B
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Apply/result.json
+  apply_result_sha256: EBB5F79DDFF61779EAA00B38798024ADA7948291846ACF469BE6AD2A86E8DF32
+  verify_driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_biome_presentation_r73.py
+  verify_driver_sha256: AF5FFFF887E0B5587BE16314DC8813C335A2B4A62D234AF127163C053B156C66
+  verify_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Verify/result.json
+  verify_result_sha256: B9E54A2C2E87DC6EFCA664DB45E79C61D9B40B08F2140482EB080DA3105A5446
+  renderer: D3D12
+  view_mode: Unlit
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn_class: BP_RedTrooperPlayer_A01_C
+  dirty_packages_after: {content: [], maps: []}
+  status: PASS_R73_FRESH_RELOAD_MAPCHECK_FOUR_ROLE_D3D12_NO_SAVE
+  harness_note: The first R73 verification launch accidentally passed no arguments through ProcessStartInfo.ArgumentList, started one bare hidden editor, and the exact process was stopped before project load or script execution; the corrected direct command completed the audit.
+
+serialized_runtime_contract:
+  Hills: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+  Mountains: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+  Craters: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+  Desert: null
+  Ocean: null
+  Poles: null
+  r66_density: [0.0, 90.0, 0.6000000238418579]
+  r73_rock_only_density: [0.0, 0.0, 0.6000000238418579]
+  palm_density: 0.0
+
+deterministic_samples:
+  Hills:
+    direction: [0.4212191481735607, -0.53125, 0.7350835780453403]
+    dominant_strength: 1.0
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Verify/Capture/R73_hills_player_surface_unlit.png
+    capture_sha256: 60BDB80BB7079915BCF88D3EA7BCE62BC4EF1C8B1180172E4ACE3FC9DE7756D7
+  Desert:
+    direction: [0.04692456666828282, 0.84375, -0.5346812345154763]
+    dominant_strength: 1.0
+    local_flatness: 0.9987479615747468
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Verify/Capture/R73_desert_player_surface_unlit.png
+    capture_sha256: 77401ECFCA15A611A2BEA45BA0565F01E42DF49A4F137BDEBD0DD3685F0A152A
+  Mountains:
+    direction: [-0.20889049343814645, 0.59375, 0.7770622235388668]
+    dominant_strength: 0.9365234375
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Verify/Capture/R73_mountains_player_surface_unlit.png
+    capture_sha256: C4E84E931ED841890C8F5057A82A1C7668C99505B5CA186ACA519194C01DDED9
+  Ocean:
+    direction: [0.3797986477904189, 0.78125, 0.4953800809848628]
+    dominant_strength: 1.0
+    sea_authority_alpha: 0.568359375
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1BiomePresentation_R73_20260805T2343Z/Verify/Capture/R73_ocean_player_surface_unlit.png
+    capture_sha256: 2869119CC49CFFDD2828D6BDA54BA4E97B3D19DED0EDFCEE60F76BACD7B9916D
+
+independent_visual_review:
+  proven:
+    - Hills retains the exact approved dense tall grass while the Mountains frame now contains no inherited grass field and still shows scattered approved stylized rocks.
+    - the corrected Desert camera no longer intersects the Trooper and shows a distinct warm sand role.
+    - the Ocean-role sample now renders clearly aqua instead of the R72 pale-tan result; all four frames are byte-distinct.
+    - no palm is visible, the exact serialized palm density is zero in both active foliage profiles, and no tree/palm slot was added.
+  retained_defects:
+    - the Ocean frame proves only submerged terrain color; it remains visually flat and does not prove a shoreline, beach transition, PPG water rendering, depth bands or coast composition.
+    - Unlit view removes day/night as a confounder; its black background is not night acceptance and does not supersede R68.
+    - no frame proves terrain smoothing, continent silhouette, paths, physical controls, standalone packaging, replication or multiplayer.
+  overall_art_acceptance: partial
+
+retention_decision: >-
+  Retain R73. It closes the specific shared-grass defect without manual placement
+  and makes the Ocean role visibly aqua while preserving the home map, seed,
+  topology, water system and seeded placement logic. It is not a developer
+  handoff build because the seeded coast/water presentation and lit hands-on
+  gameplay gates remain open.
+
+next_safe_action: >-
+  Perform one read-only or no-save R74 coast/water capability slice against the
+  exact retained R73 ProfileV1: identify the installed PPG public seeded
+  shoreline/water binding and capture one above-sea Desert or Hills sample
+  adjacent to an Ocean sample in Lit D3D12. Do not add a plane, move terrain,
+  change seed/topology, place foliage, reintroduce palms, or replace the PPG
+  water system. If no public seeded coast/water hook exists, record that exact
+  blocker and rotate to the independent physical-control acceptance slice.
+
+claim_limit: >-
+  R73 proves serialized role-specific foliage bindings, a zero-palm contract,
+  fresh reload, MapCheck 0/0 and four real-GPU Unlit role views. It does not
+  prove final lit biome art, shoreline/water behavior, terrain smoothing,
+  hands-on controls, standalone packaging, replication, multiplayer or user
+  acceptance.

@@ -1,0 +1,66 @@
+schema_version: 1
+id: evidence.m12.worldgen-config-decision-blocked-static
+module: M12
+evidence_class: static
+status: blocked
+timestamp_utc: 2026-08-06T03:18:00Z
+scope: >-
+  Read-only provenance and configuration decision for the next missing plugin
+  that blocks the serialized legacy TitanEditor compile. No project descriptor,
+  source, map, asset, plugin, engine file, package, or build product changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.67
+  commit_headroom_gib: 54.59
+  gpu_free_mib: 9108
+  d_drive_free_gib: 759.39
+  active_unreal_build_package_process_count: 0
+installed_worldgen_state:
+  expected_root: D:/UE_5.8/Engine/Plugins/Marketplace/WorldGenab6305bc725eV5
+  recursive_file_count: 1
+  descriptor_count: 0
+  source_file_count: 0
+  binary_file_count: 0
+  content_file_count: 0
+  only_file: D:/UE_5.8/Engine/Plugins/Marketplace/WorldGenab6305bc725eV5/Intermediate/Build/Win64/x64/UnrealEditor/Development/WorldGen/Definitions.WorldGen.h
+  only_file_sha256: 9284DF79FC071A6FE3AB3B36C499613E36426455B1758C8EB7521A50E07CCDAB
+project_contract:
+  descriptor: D:/RedMMOTitan/Titan.uproject
+  descriptor_sha256: E5FADD8BA6C825521DBC5556CB0BDC23C911ADC57A31F1D42D0DC92E39B2AEB1
+  json_parse: passed
+  worldgen_enabled: true
+  compiled_module_dependency: false
+  diagnostic_soft_asset_reference: /WorldGen/Materials/Water/MI_Water.MI_Water
+  diagnostic_soft_asset_reference_file: D:/RedMMOTitan/Source/RedMMO/RedPlanetPresentationTuning.h
+  repository_test_requires_enabled_plugin: D:/RedMMOTitan/Tools/tests/test_planet_pcg_runtime_registry_contract.py
+focused_contract_run:
+  command: python -m unittest D:/RedMMOTitan/Tools/tests/test_planet_pcg_runtime_registry_contract.py
+  tests_run: 13
+  failures: 1
+  failure: >-
+    test_project_owned_runtime_integration_remains_unwired_and_dressing_suppressed
+    found an existing project-owned adapter callsite in
+    RedStylizedPlanetPresentationAdapter.cpp where it expected none.
+  significance: >-
+    The current repository contract cannot certify a mechanical WorldGen
+    descriptor disable even before changing its explicit enabled-plugin
+    expectation. This is separate from the absent local payload.
+decision: >-
+  Do not disable WorldGen mechanically, do not bypass the official installer,
+  and do not substitute a similarly named plugin. A safe correction needs
+  either the official compatible payload restored through an explicitly
+  authorized visible Launcher action, or a separate reviewed change that
+  removes the obsolete diagnostic asset dependency and updates the project
+  authoring contract. Neither action belongs in this read-only slice.
+preserved:
+  titan_uproject_sha256: E5FADD8BA6C825521DBC5556CB0BDC23C911ADC57A31F1D42D0DC92E39B2AEB1
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+rollback: not_applicable_no_mutation
+next_safe_action: >-
+  Rotate to another independent authorized module on the next wake. Return to
+  M12 only for an official WorldGen install action or a separately reviewed
+  diagnostic-reference and contract cleanup; then rerun the serialized compile
+  and nine exact native scenarios.

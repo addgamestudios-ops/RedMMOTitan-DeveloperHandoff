@@ -1,0 +1,178 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M10-MALFORMED-SHA-REPAIR-STATIC
+captured_at: "2026-07-23T15:43:20Z"
+module: M10
+slice: malformed-sha-repair
+evidence_class: static
+result: passed_one_authenticated_sha_repair_audit_backlog_reduced_62_to_61_m10_stays_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Repair only the sole PKI016 malformed SHA-256 value in the indexed
+    historical DEF-0004 ability-dedup hash-correction evidence by replacing an
+    outcome word in a digest field with the directly computed preserved SAFE8
+    archive digest.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_record_modified:
+    - ProjectKnowledge/evidence/2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml
+  canonical_records_reconciled_after_verification:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_deferred:
+    - the same historical record's separate missing evidence_class finding
+    - every other missing evidence ID or evidence-class normalization
+    - the completed M01 evidence-resolution finding
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build, cook, package, runtime, real-GPU, gameplay, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_dirty_entries: 60
+    untracked_entries: 1402
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  resources:
+    physical_ram_free_gib: {minimum: 14.798, maximum: 14.818}
+    commit_headroom_minimum_gib: 30.109
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 2588
+    gpu_free_mib: 7466
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    exit_code: 1
+    terminal_phase: UBT_UBA_build_before_cook
+    status: stale_failed_attempt_not_a_valid_package
+
+repair:
+  record:
+    path: ProjectKnowledge/evidence/2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml
+    field: direct_verification.safe8_archive_sha256
+    pre_value: exact
+    post_value: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+    pre_bytes: 6767
+    pre_sha256: F3121AE49E1FD02798B74B60DD8A03030AE06D696652689E72366844164C455E
+    post_bytes: 6826
+    post_sha256: 7A2F703A3FB356189354B5A78F90A7BB88D3538EFB78E4E87B37D3437FB2866A
+  exact_diff: one_scalar_value_replacement
+  preserved_archive:
+    path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+    bytes: 168175582
+    sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  authentication:
+    fresh_archive_hash_matches_field: true
+    matches_same_record_corrected_fields_value: true
+    matches_historical_protected_hash_diagnostic: true
+    historical_semantics_preserved: true
+
+verification:
+  pre_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MalformedSHARepair_20260723_154320Z/integrity_pre.json
+    bytes: 17406
+    sha256: B3385C61B34C920465C9FE7353C23ADC7B16B007C8BE4D003906CC35A4F212C1
+    expected_exit_code: 1
+    finding_count: 62
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI022: 1}
+  post_repair_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MalformedSHARepair_20260723_154320Z/integrity_post.json
+    bytes: 17068
+    sha256: 4A5180DA6291FD37AD66E8C4AC04F43F0EDEF22B6995CD21E35EA93C9ECA2A32
+    expected_exit_code: 1
+    finding_count: 61
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI022: 1}
+    exact_delta: PKI016_1_to_0_all_other_categories_unchanged
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MalformedSHARepair_20260723_154320Z/combined_static_regressions.log
+    bytes: 18162
+    sha256: 4FFA4A91ADB610DC9C0A663E01286C85083FF727D2B4ED9130DE82376A309BD2
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  independent_read_only_review:
+    result: pass
+    confirmed:
+      - PKI016 identifies one field and no other SHA syntax failure
+      - the fresh archive digest matches the same record and historical diagnostics
+      - replacing the outcome word preserves and improves the digest field's semantics
+      - the record retains one separate PKI011 missing-evidence-class finding
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_source_rasters: 135_of_135_exact
+  safe8_archive_unchanged: true
+  result: pass_no_drift
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M10_MalformedSHARepair_20260723_154320Z
+  retained_preimages:
+    - 2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml
+    - INDEX.yaml
+    - current_state.yaml
+    - redmmotitan_module_queue.json
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MalformedSHARepair_20260723_154320Z/integrity_final.json
+    bytes: 17068
+    sha256: 2FA69FD765E729F2BD8CF30C5E8DDB02D021ED6309744E9F7F805065685D159C
+    expected_exit_code: 1
+    result: failed_closed_with_61_independent_legacy_findings_and_no_PKI016
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MalformedSHARepair_20260723_154320Z/final_integrity_and_provenance_tests.log
+    bytes: 12020
+    sha256: E3A63E12EC985A3E2E6E85A12BFC030577471B78E715482BAD12E10F3F5EC357
+    result: 27_of_27_passed
+  canonical_hashes:
+    index_sha256: B8B1C673FAC5BC2256E902A85F6B5329C403889A3E394C296076A6284A3056B7
+    current_state_sha256: 3EF9DB81880AD80D8761225EBE4445F93C837535D64773DE0E8DBCF4E05B5C43
+    module_queue_sha256: 9EAA4FB222ABC6291CF04E47470A7901212A69C2E61E29392825AB0AFFAF74B5
+    queue_snapshot_matches_current_state: true
+  note: >-
+    This immutable final-report pointer was appended after the final audit. The
+    record already had its stable ID, schema_version, module, evidence class,
+    result, and repair facts during that audit, so the pointer does not alter
+    the reported finding categories.
+
+remaining_m10_blockers:
+  live_metadata_findings: 61
+  categories:
+    missing_evidence_ids: 23
+    missing_evidence_classes: 17
+    noncanonical_evidence_classes: 20
+    completed_modules_without_resolvable_indexed_evidence: 1
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This is static metadata repair and protected-provenance evidence only. It
+  removes exactly one malformed-SHA finding; it does not add the same record's
+  missing evidence class, repair another legacy category, complete M10, or
+  prove Unreal execution, build, runtime, visuals, gameplay, packaging, Steam,
+  or multiplayer behavior.
+
+next_safe_action: >-
+  Keep M10 queued. Return to the canonical bounded M09 D3D12 16:9 resource
+  inventory visual and interactivity acceptance when host resources safely
+  permit one Unreal process; otherwise take one different isolated offline
+  metadata category without combining it with gameplay, HUD, maps, or artist
+  work.

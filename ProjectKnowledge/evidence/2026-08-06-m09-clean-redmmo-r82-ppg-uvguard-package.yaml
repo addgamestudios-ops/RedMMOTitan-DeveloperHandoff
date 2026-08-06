@@ -1,0 +1,105 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r82-ppg-uvguard-package
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T02:50:00Z
+scope: >-
+  One rollback-backed RedMMO-owned pre-streaming UV-metadata compatibility
+  guard, clean Win64 Development compilation, full home-map cook and archive,
+  and bounded offscreen D3D12 packaged smoke. PlanetGen vendor source, the PPG
+  home map, seed, topology, and biome bindings were preserved.
+source_change:
+  module_entry:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedMMO.cpp
+    sha256: 734EE665444FCDE98B02FB8F36CF4996B738900871A25EC512977D0D8456992C
+  guard_header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGUVChannelGuard.h
+    sha256: 913344D06616E31090E23DE0CA696E5F6EB22D41DF420ED86D645D1EDA991521
+  guard_source:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGUVChannelGuard.cpp
+    sha256: 1C39D237BAD6F103C1255B9E0E2D317035BB5029E64426B215B373ED413FC814
+  behavior: >-
+    FRedPPGUVChannelGuard subscribes to OnWorldPostActorTick, scans only
+    APlanetSpawner-owned UStaticMeshComponents, rejects persistent meshes, and
+    initializes only missing FMeshUVChannelInfo records on transient runtime
+    meshes before UGameEngine's later texture-streaming update.
+  cvar: red.PPG.UVChannelGuard=1
+build:
+  target: RedMMO Win64 Development
+  result: success
+  compile_warnings_after_correction: 0
+  uat_result: success
+  uat_exit_code: 0
+  uat_elapsed: 0h_1m_57s
+  cooked_total_packages: 1417
+  cooked_runtime_packages: 1410
+  iostore_packages: 1410
+  uat_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R82_UVGuardPackage_20260806T0243Z/uat_stdout.log
+  uat_log_sha256: F72E8EC17984B9D39F93FD04B98AE881E9EE41FFC4CCB92B2C03420992942811
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R82_Playable_20260806_0243Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R82_Playable_20260806_0243Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  file_count: 51
+  total_bytes: 1452435841
+  tree_sha256: 54DD6875BF07B48470C83E46BC3699552C7B1B08AA2D18EAE8639D4BE631D50B
+  tree_hash_contract: >-
+    SHA-256 of UTF-8 LF-terminated lines sorted by case-folded relative path;
+    each line is relative/path|byte_length|file_sha256.
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: A81BA603DB9DDB6CAEC3280A79B6D4C8499DEF1AA48C93F306BA92741BA41A40
+  handoff_readme_sha256: 01559337326369BA1C730C90ECF938A5545304E0E246B789B9755CD2527B9C95
+  saved_directories_after_cleanup: 0
+smoke:
+  renderer: D3D12
+  resolution: 1280x720
+  mode: offscreen_unattended_no_sound
+  guard_activation: >-
+    RED_PPG_UV_GUARD active world=RedMMO_PPG_HomeWorld first_meshes=4 first_slots=4
+  handled_ensure_count: 0
+  uvchanneldata_marker_count: 0
+  assertion_count: 0
+  fatal_count: 0
+  bad_export_count: 0
+  gpu_crash_count: 0
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 4449.18
+  trooper_surface_placement: true
+  starsparrow_surface_spawn: true
+  starsparrow_surface_park: true
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R82_UVGuardPackage_20260806T0243Z/Smoke/packaged_smoke.log
+  log_sha256: 10917CE07317343A9CE2BB3A8F25CA738938232A9C0E4B03A91D521BDBFF1E9D
+  stopped_processes:
+    - launcher_pid_16016
+    - exact_child_pid_14468
+known_nonfatal_warnings:
+  - >-
+    Optional runtime lookups for /Game/RedMMO/Environment/M_RedAnalyticStarDome
+    and M_RedAnalyticMoon_R68 were not present in the cooked package. Final
+    night star and moon presentation remains open.
+  - >-
+    r.MotionVectorSimulation is still reported as used from the render thread
+    without ECVF_RenderThreadSafe.
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  vendor_chunk_source_sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  vendor_nanite_source_sha256: 6D496BBC9E5C1D4FD6363AE0F8242BA921FD46C69734C5902DD3338447F8A8A1
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforePPGUVChannelGuard_R82_20260806T0240Z
+  original_module_entry_sha256: D0FE9244AAAD906ED7D2B6104B2C3618C7AC018D8DDFC53EC479E9DB837FDC11
+claim_limit: >-
+  R82 is a real launchable Win64 Development candidate whose guard, package,
+  D3D12 boot, 516-chunk PPG generation, Trooper placement, and StarSparrow
+  placement passed with zero ensure, UVChannelData, assertion, fatal,
+  bad-export, or GPU-crash markers. It does not prove physical input feel,
+  final night presentation, final terrain or biome art, replication,
+  multiplayer, persistence, or interplanetary traversal.
+next_safe_action: >-
+  User or developer launches RedMMO.exe and performs the physical on-foot and
+  Trooper-to-StarSparrow control checklist. Independently isolate the two
+  uncooked optional night-material lookups through cook dependency closure,
+  without touching the home map or restarting visual camera-probe loops.

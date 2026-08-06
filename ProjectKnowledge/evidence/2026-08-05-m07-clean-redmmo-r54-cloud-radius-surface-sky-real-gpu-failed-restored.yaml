@@ -1,0 +1,127 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r54-cloud-radius-surface-sky-real-gpu-failed-restored.2026-08-05
+captured_utc: "2026-08-05T19:10:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r54-transient-volumetric-cloud-component-radius-discriminator
+evidence_class: real_gpu_visual
+result: cloud_component_radius_correction_does_not_restore_surface_stars_and_is_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 50.58
+  commit_headroom_gib: 53.21
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.48
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: B4E76DC0A1246CCEC007A6D71A48866CD347DBB2ED6107DE741197A187B130DE
+  desktop_control: false
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  viewport_request: [1280, 720]
+  captured_existing_viewport: [1014, 550]
+  capture_api: URedPPGFoliageDiagnostics::RequestViewportScreenshot_to_FScreenshotRequest
+  provider_plugins_disabled: true
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_cloud_radius_surface_sky_r54.py
+  driver_sha256: 7B5961C137C476F4A963BDEE8231881F21DE71933EE8A289C2CB17349F373ADC
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CloudRadiusSurfaceSky_R54_20260805T1910Z/result.json
+    sha256: EC4DDFC378C10E5D617BB8EE881A801BB01431BD81E6D3E1B9843B4A62C1E633
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CloudRadiusSurfaceSky_R54_20260805T1910Z/unreal.log
+    sha256: 3C1181B320229CD9712BB6FB15A60A1A182362879FB209E20351F3110E2E7439
+
+control:
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  property: VolumetricCloudComponent.PlanetRadius
+  original_radius_km: 6360.0
+  tested_radius_km: 3000.0
+  restored_radius_km: 6360.0
+  camera_location_cm: [191297894.99436527, 196950314.12181333, -421017759.80034167]
+  camera_rotation_deg: [20.411666768959616, -46.37008029227468, 111.80009049544569]
+  camera_location_delta_cm: 0.0
+  camera_rotation_max_delta_deg: 0.0
+  grass_before_test_after:
+    components: [196, 196, 196]
+    instances: [2218356, 2218356, 2218356]
+    registered: [196, 196, 196]
+    instance_data_ready: [196, 196, 196]
+    scene_proxy: [196, 196, 196]
+    identity_sha256: 03B36A71F1F701CBF38AEB117CCCE96D0384E089C620820A4794198B9F0D407B
+
+captures:
+  baseline_6360km:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CloudRadiusSurfaceSky_R54_20260805T1910Z/R54_cloud_radius_6360km.png
+    sha256: D80EACE5A1ADDE3A66E045510B9817B5D593B46A769FC5A25C5E041A61D65C85
+    bytes: 1015737
+    independent_review: >-
+      Dense green grass, repeated palms and the Trooper remain readable, while
+      the exposed full-night sky is uniformly black with no readable stars.
+  corrected_3000km:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CloudRadiusSurfaceSky_R54_20260805T1910Z/R54_cloud_radius_3000km.png
+    sha256: D0D91B3E268B3D6A02C4403093DA3F0D20DCD7C62C37D110DB0A3AC87B2B3AF0
+    bytes: 1013912
+    independent_review: >-
+      The same grass, palms, Trooper and uniformly black starless sky remain.
+      Correcting the cloud component radius alone produces no usable sky fix.
+  top_80_pixel_metrics:
+    baseline_exact_black_fraction: 0.45400641025641025
+    corrected_exact_black_fraction: 0.4541420118343195
+    baseline_nearblack_mask_pixels: 37711
+    corrected_on_same_mask_nearblack_fraction: 0.9873246532841876
+    corrected_on_same_mask_neutral_bright_pixels: 0
+    corrected_on_same_mask_nearwhite_pixels: 0
+    note: >-
+      Moving foliage changes other pixels between sequential frames. The mask
+      is defined from baseline near-black sky pixels; no neutral-bright or
+      near-white star pixel appears at the corrected radius.
+
+diagnosis:
+  proven:
+    - the 6360 km VolumetricCloud component radius is inconsistent with the 3000 km PPG body and remains a separate cloud-geometry correctness defect
+    - changing only that PIE-world component property to 3000 km at the exact saved camera does not restore any readable surface star pixels
+    - the cloud-radius mismatch is therefore falsified as the black surface sky cause by itself
+    - the selected DenseTall grass census and render readiness remain exact across the test
+  remaining_surface_star_blocker: >-
+    The failure is downstream in SkyAtmosphere-to-star-dome composition or in
+    the Opaque IsSky material/depth/view-direction presentation. R42 already
+    falsified star visibility values 0.45 and 0.75, and R53 proves the analytic
+    graph is CameraVectorWS-only. Do not repeat visibility or cloud-radius tests.
+
+restoration:
+  transient_property_retained: false
+  radius_restored_before_pie_stop: true
+  persistent_save_called: false
+  dirty_packages_after: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  rollback_artifact: not_required_transient_pie_value_restored_and_packages_byte_exact
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary: >-
+  R54 is a matched existing-viewport real-GPU failed discriminator with exact
+  transient restoration. It falsifies cloud component radius as the surface-
+  star cause by itself. It does not correct or accept the cloud system, night
+  sky, grass/foliage art, moon, gameplay, standalone, replication or
+  multiplayer behavior.
+
+next_safe_action: >-
+  Run one no-save same-camera R55 composition discriminator that changes only
+  the PIE-world SkyAtmosphere component visibility off for the second existing-
+  viewport capture, restores it before stop, and preserves the star material,
+  presenter weights, cloud radius, grass, foliage, surface, seed, map and vendor
+  state. If stars appear, isolate atmosphere composition policy; if they do not,
+  rotate next to a project-owned star-dome material/depth discriminator.

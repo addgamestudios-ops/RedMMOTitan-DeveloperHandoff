@@ -1,0 +1,122 @@
+schema_version: 1
+id: evidence.m00.r89-jetpack-runtime-input-timing-blocked
+module: M00
+evidence_class: automation
+status: blocked_nondeterministic_python_input_timing
+timestamp_utc: 2026-08-06T11:28:13Z
+scope: >-
+  One bounded no-save provider-off D3D12 RenderOffscreen acceptance slice for
+  the compiled clean-RedMMO R89 native jetpack producer. The exact ProfileV1
+  home, A01 Enhanced Input actions, server-owned jetpack getters, MapCheck,
+  teardown, write guards, and protected hashes were exercised. No production
+  map, content, Config, source, plugin, vendor package, user asset, or playable
+  package was changed by this slice.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_dirty_default_count: 196
+  git_dirty_expanded_count: 2383
+  free_physical_ram_gib: 51.33
+  commit_headroom_gib: 53.65
+  gpu_free_mib: 9095
+  gpu_utilization_percent: 13
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+runtime:
+  renderer: D3D12_SM6_RenderOffscreen
+  gpu: NVIDIA GeForce RTX 3080
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  game_mode: /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01.GM_RedTrooperPPG_A01_C
+  ppg_profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  generation_seed: 1337
+  native_water_enabled: true
+  map_check_errors: 0
+  map_check_warnings: 0
+  provider_ports_closed_before: [5353, 8000, 8765]
+  real_input_actions:
+    jump: /Game/RedMMO/Gameplay/Trooper/A01/Input/IA_RedJump
+    sprint: /Game/RedMMO/Gameplay/Trooper/A01/Input/IA_RedSprint
+  ordinary_single_jump_preserved: true
+  server_double_tap_window_seconds: 0.30
+trials:
+  - id: R89B
+    result: fail_closed_harness_wall_clock_bound
+    failed_phase: R89_TAP2_PRESS
+    observation: >-
+      The real second Jump injection engaged the authority pawn and reported
+      engaged=true and thrusting=true. The harness then rejected its own
+      non-authoritative Python callback wall-clock observation of 0.469 seconds,
+      even though the compiled server can only engage inside its 0.30-second
+      game-time window. This proved the gameplay path was reached but not the
+      remaining fuel, boost, exhaustion, landing, or ship-shutdown gates.
+  - id: R89C
+    result: fail_closed_double_tap_timeout
+    failed_phase: R89_TAP2_PRESS
+    observation: >-
+      After removing the invalid wall-clock ceiling, the same callback-driven
+      press/release/press sequence did not engage before the one-second harness
+      timeout. Ordinary single Jump still passed. The pair of outcomes proves
+      the Python ticker cannot deterministically place both transitions inside
+      the 0.30-second server game-time window on this generated world.
+blocker:
+  exact_cause: >-
+    The current Python ticker/input-injection adapter is not a deterministic
+    clock for the producer's 0.30-second native game-time double-tap contract.
+    Repeating this harness would conflate automation callback scheduling with
+    gameplay behavior. A frame-timed native/editor automation probe is required
+    before the downstream fuel, radial lift, Sprint boost, exhaustion/release,
+    landing, and StarSparrow possession-shutdown gates can be accepted.
+  gameplay_defect_proven: false
+  full_runtime_producer_gate_passed: false
+  visual_acceptance: false
+  package_currentness: false
+artifacts:
+  validator:
+    path: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r89_jetpack_producer_pie.py
+    sha256: C83A9C51257F3EBCF2D50EAAB74B7AEF295AEF453A7E8FD4A51C08FD6252E8E0
+  r89b_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R89B_20260806T112519Z/result.json
+    sha256: 9BE25B884E8F1EACD0383B70378E0979046C0F4BC4F20F92337CDA0B88582ED4
+  r89b_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R89B_JetpackRuntime_20260806T112519Z/UnrealEditor_R89B.log
+    sha256: 2DD38A6A5FCA8B901AC685687B5FB2A42712658B35150B10FCA52EBD4EB26115
+  r89c_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R89C_20260806T112639Z/result.json
+    sha256: E06791CFEE0B03775B7E6585E5DB2AA1D60001A67F30D2C0C3B3D50E7FE1968D
+  r89c_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R89C_JetpackRuntime_20260806T112639Z/UnrealEditor_R89C.log
+    sha256: EC9C2EDF788A9C970BA518DC25F997BF9C3E54ED7D8E43F07A8D7D33E2A610D2
+rollback:
+  production_rollback_required: false
+  retained_diagnostics_only_file: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r89_jetpack_producer_pie.py
+  launcher_only_process: >-
+    One initial argumentless UnrealEditor process created by an unsupported
+    ProcessStartInfo.ArgumentList path was authenticated as PID 12036 and
+    terminated before retry. It opened no project and produced no report.
+preserved:
+  player_header_sha256: 41CC0642D3E1E70A05381C990C0DF5AC0C9E150F4DCC8FD97003A2ABD24FC425
+  player_cpp_sha256: D871AF7CEAA5329F2AA7DF739CA81108F8DEC4C437F2A54A2C61B1FDA9D645D4
+  editor_module_sha256: A38F4D6124E2F5B169E28BF06F2CCD3AAF09C34C48B30413A4D805DA2B344711
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  active_unreal_build_package_process_count_after: 0
+  provider_ports_closed_after: [5353, 8000, 8765]
+  free_physical_ram_gib_after: 51.25
+  commit_headroom_gib_after: 53.65
+  gpu_free_mib_after: 9156
+  d_drive_free_gib_after: 756.60
+claim_limit: >-
+  This proves exact no-save D3D12 startup, current source/module identity,
+  ProfileV1 home authentication, MapCheck 0/0, ordinary Jump preservation, one
+  real authority engagement observation, one nondeterministic retry failure,
+  clean teardown, and zero persistent writes only. It does not accept the full
+  jetpack producer, pixels, audio, physical controls, HUD, presentation,
+  packaging, standalone, correction quality, replication, or multiplayer.
+next_safe_action: >-
+  Rotate to the next independent authorized safe queue module on the next wake.
+  On a later M00 return, replace the callback-timed double-tap driver with one
+  frame-timed native/editor automation probe, then run the remaining producer
+  gates once; do not repeat the current Python timing path.

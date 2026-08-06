@@ -1,0 +1,141 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r29-grass-eligibility-persistence-runtime-visual-fail.2026-08-05
+captured_utc: "2026-08-05T12:42:40Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r29-profile-v1-grass-density-mask-eligibility-successor
+evidence_class: real_gpu_visual
+result: persistence_and_runtime_component_proximity_pass_visual_grass_pixels_fail
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_v1_sha256_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  successor_foliage_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_GrassEligible_R29
+  successor_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  seed_before_after: 1337
+  map_saved: false
+  profile_saved: true
+  generation_called_explicitly: false
+
+mutation:
+  changed_profile_fields:
+    - biome_data[0].foliage_data
+    - biome_data[1].foliage_data
+    - biome_data[2].foliage_data
+  changed_biomes: [Craters, Hills, Mountains]
+  grass_entry_change:
+    density_vertex_color_channel: {before: BLUE, after: NONE}
+    invert_density_vertex_color_mask: {before: true, after: false}
+  preserved:
+    - all non-grass foliage entries and fields
+    - approved DenseTall A/B mesh identities
+    - density 90, scale 1.0-1.55 and cull distance 50000 cm
+    - planet radius, noise height, seed and recursion levels
+    - planet, generation and biome-mask materials
+    - native water enablement, materials and simulation data
+    - PlayerStart, map actors and terrain topology
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  map_check: {errors: 0, warnings: 0}
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  pawn_class: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  pawn_elevation_above_native_sea_cm: 49233.173628509045
+  tangent_walk_cm: 506.20581365318526
+  max_tangent_speed_cm_s: 600.0000013595712
+  approved_visible_grass_component_count: 196
+  approved_pie_world_owned_components_within_500m: 4
+  nearest_approved_component_origin_cm: 49655.58387754035
+  registration_render_state_python_api_exposed: false
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+visual_review:
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibilityReloadPIE_R29C_20260805T1245Z/player_scale_grass_eligibility_r29c.png
+  screenshot_sha256: D8E173DA5C42B23AC00C5C1C078E6F459EFA96884DE63D4AAB1E2CE9D2AF1E66
+  resolution: [1280, 720]
+  result: fail
+  observed:
+    - no readable DenseTall grass blades or dense ground coverage at player scale
+    - nearly uniform saturated green ground remains
+    - dense repeated Oasis palms dominate the visible biome
+    - the frame is on the dark hemisphere and the background remains black
+  diagnosis: >-
+    Removing the inherited BLUE inverted eligibility mask changes the saved
+    ProfileV1 binding and produces approved grass component origins at the
+    500 m cull boundary, but it does not produce readable player-scale grass
+    pixels. Eligibility was one blocker, not the final draw/dispatch blocker.
+    The next slice must inspect the PPGGPUFoliageComponent instance counts,
+    dispatch transforms, material relevance and cull/LOD path for the four
+    near components; it must not repeat this mask change or recapture the same
+    frame without a material runtime change.
+
+canonical_attempts:
+  apply_script:
+    path: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_grass_eligibility_r29.py
+    sha256: EB02D64058E75BCE036BA9BC3161FCA8EFE40E4824535A2589C46FA9846BCC77
+  passing_apply:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibility_R29B_20260805T1235Z/apply_result.json
+    result_sha256: 93FC50F246D53D6CE98225BA345A35FFD53FDF938404CE1A572E162CB3DE9CD2
+    log_sha256: 4D32DB2B5E0C9B9FDFD99AD86A3BE02534054B8DB5A580BA8543660228298370
+    status: PASS_R29B_GRASS_ELIGIBILITY_SUCCESSOR_BOUND
+  verify_script:
+    path: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_grass_eligibility_r29.py
+    sha256: 7A15A217F4BAD8BDB4C0384625E904283DE5337726B0F8A621472A55E0A3F3B5
+  passing_runtime:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibilityReloadPIE_R29C_20260805T1245Z/result.json
+    result_sha256: DE2B581F1DAF11AFF5F785067C9FC2F7D797B89FE522229CABC82BB8BC8C58B3
+    log_sha256: EFA6976531EDF4511B1C6796C0322BCB9FD19024536CF41897564CC94297C667
+    status: PASS_R29C_FRESH_RELOAD_MAPCHECK_RUNTIME_NEAR_GRASS_PENDING_PIXEL_REVIEW
+  discarded_apply:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibility_R29_20260805T1230Z/apply_result.json
+    result_sha256: C3A8DD3F644A684C882EC57C4A819E2CB4613ECBDF6A6DF1574DE15F47415AEE
+    log_sha256: 5529C4254FBBE15951079D58936F290336B4F6FBB5E60E6AA28997A4231C8C00
+    cause: verifier_called_to_dict_on_PlanetData_before_profile_write
+    profile_changed: false
+  discarded_runtime:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibilityReloadPIE_R29_20260805T1240Z/result.json
+    result_sha256: A61B30133D83203CCAB638974311BF5019430BD0E3189805C4A9A1ED590B2541
+    log_sha256: AF2584AF1B9D0CD1D6A3CA2A4DD2A039F34A9B20D542F1891F7CE08056549319
+    cause: PPGGPUFoliageComponent_registration_methods_not_exposed_to_Unreal_Python
+    project_changed: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1GrassEligibility_R29_20260805T1230Z
+  manifest_sha256: 0FE6A355F2FC7968B464A73C32DEDCB8EA54BD17F7EE55C25ABC247AFF28A663
+  preimage_sha256: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  The rollback-backed foliage successor persisted and reloads with MapCheck
+  0/0. Runtime generation, grounding and radial walking pass, and approved
+  DenseTall component origins now exist at the cull boundary. The required
+  real-GPU frame still has no readable grass blades, so grass presentation is
+  rejected. Night, broader biome art, standalone, replication, multiplayer and
+  player acceptance remain open.
+
+next_safe_action: >-
+  Keep the R29 successor and exact rollback. In one no-save provider-off D3D12
+  diagnostic, inspect the four near PPGGPUFoliageComponent objects through the
+  installed PPG public APIs and source: actual dispatched instance count,
+  per-component origin/transform, material relevance, effective draw distance
+  and LOD/cull decisions. If the supported control identifies one project-owned
+  mesh/material/cull correction, apply it under a new rollback and require
+  visible player-scale blades. Do not repeat the mask edit, move PlayerStart,
+  change seed/topology/water or recapture unchanged pixels.

@@ -1,0 +1,153 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r44-biome-remap-grass-eligibility.2026-08-05
+captured_utc: "2026-08-05T16:29:49Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r44-profile-v1-biome-remap-and-grass-eligibility
+evidence_class: automation
+result: persisted_remap_and_grass_eligibility_match_installed_ppg_contract
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 49.54
+  commit_headroom_gib: 49.36
+  free_gpu_vram_mib: 7972
+  free_d_drive_gib: 767.63
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+diagnostics_bridge:
+  checkpoint: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1BiomeMapDiagnostics_R44_20260805T1627Z
+  manifest_sha256: 95E4B165EE43EA916FBE825C24A6B3DC1F08733FC9390919D5F9B8AD05546F3F
+  header_preimage_sha256: D2135016C15CFFA0EFCBF8F5EA248B1E7276A49CA3900E997618FEBABBB6B6EE
+  source_preimage_sha256: 7E9E2A9FF103F6662000D4EBF3FB32615C7241D2DFC6060DB3FFC7AFAF1BA30A
+  retained_scope: >-
+    Added one read-only function to the existing project-owned
+    RedPPGFoliageDiagnostics library. It copies the four installed PPG
+    PlanetData entry-map arrays into a Blueprint/Python-visible result and
+    exposes no setter, regeneration, save or mutation path.
+  header_sha256: 227376BA7C71801385D25491033EF743CA2699703D736626645C784051771AEC
+  source_sha256: 4D2D0F065118AA1269079460E30F392475FAA075A9D77C31C1DF397C661D44B6
+  build_log: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+  build_log_sha256: 6F5DE11A665C6146FD43B8B0EED1DD4E26FBD990AC43988F950630C37A61E351
+  build_result: succeeded_5_actions_26.62_seconds
+  binary_sha256: 21081D7DA8239FD6606868808BB48234117B81C9A27ACBC7E25CA7F5D713FA30
+
+automation:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_biome_remap_eligibility_r44.py
+  driver_sha256: 2D14C39C8E986844B3D28C4A0A58A49E5CAE06AD4205E59BEA6DE87670422A5F
+  renderer: D3D12_renderoffscreen
+  provider_off: true
+  home_map_loaded: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  pie_or_regeneration: false
+  persistent_writes: false
+  dirty_packages_after: 0
+  first_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RemapEligibility_R44_20260805T1625Z/result.json
+    result_sha256: 7086E71BCE282997CBA9B427F4A21DF65C225E53CB9875D7C7D3BDB53DC10781
+    exact_blocker: installed material-output input arrays are not exposed to Unreal Python
+  second_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RemapEligibility_R44B_20260805T1628Z/result.json
+    result_sha256: 58FB62475D5718230135F49A168DA7EA141290279DF0C0CC382728EF8E7085EF
+    exact_blocker: installed PlanetData entry-map arrays are not exposed to Unreal Python
+  passing_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RemapEligibility_R44C_20260805T1630Z/result.json
+    result_sha256: 29BA0889544D5E6604FEB04F9DE19117C6F4C9627BC2E2FFF10572E1CE8774C5
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RemapEligibility_R44C_20260805T1630Z_unreal.log
+    log_sha256: 4E688B2B8C5B2B9E10C98467CD6BA3763357F67ACDD065A42588DB11C42CBF6C
+    status: PASS_READ_ONLY_CONTRACT_AUDIT
+
+persisted_entry_maps:
+  planet_biome_order: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+  surface:
+    material_output_order: [Craters, Mountains, Desert, Hills, Poles, Ocean]
+    actual: [0, 3, 1, 2, 5, 4]
+    expected_by_name: [0, 3, 1, 2, 5, 4]
+    matches: true
+  biome_mask:
+    material_output_order: [Craters, Mountains, Desert, Ocean, Hills, Poles]
+    actual: [0, 4, 1, 2, 3, 5]
+    expected_by_name: [0, 4, 1, 2, 3, 5]
+    matches: true
+  terrain:
+    material_output_order: [Craters, Mountains, Desert, Ocean, Hills, Poles]
+    actual: [0, 4, 1, 2, 3, 5]
+    expected_by_name: [0, 4, 1, 2, 3, 5]
+    matches: true
+  vertex_color:
+    material_output_order: [Craters, Mountains, Desert, Hills]
+    actual: [0, 3, 1, 2, -1, -1]
+    expected_by_name: [0, 3, 1, 2, -1, -1]
+    matches: true
+    note: >-
+      Ocean and Poles intentionally have no vertex-color output entry and no
+      foliage binding. Their minus-one mapping is exact by-name behavior, not
+      the grass defect.
+  identity_fallback_would_be_wrong: true
+
+approved_grass_contract:
+  foliage_asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_GrassEligible_R29
+  bound_biomes: [Craters, Hills, Mountains]
+  entry_index: 1
+  exact_meshes:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  density: 90.0
+  density_vertex_color_channel: NONE
+  invert_density_mask: false
+  spawn_distance: 1
+  slope_degrees: [0, 30]
+  scale: [1.0, 1.5499999523162842]
+  matches_r29: true
+
+spawner_contract:
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  biome_foliage_minimum_blend_strength: 0.05000000074505806
+  global_foliage_density_scale: 1.0
+  max_foliage_instances_per_chunk: 100000
+
+diagnosis:
+  proven: >-
+    The exact current ProfileV1 surface, mask, terrain and vertex-color maps
+    all equal installed PPG's by-name expected maps. The approved R29 grass
+    entry is bound to the three intended land biomes and retains its exact
+    NONE/no-invert eligibility, density, scale and A/B mesh identities.
+  falsified: >-
+    A stale or identity SurfaceMaterialBiomeEntryMap, an incorrect biome-mask
+    or terrain map, and the R29 grass eligibility binding are not the current
+    cause of missing grass pixels.
+  remaining_boundary: >-
+    R31 proved the geometry exists when isolated while R43 proved component
+    render-state recreation is insufficient. The next supported diagnostic is
+    grass-versus-surface depth, mesh pivot and GPU instance placement/material
+    depth authority; do not repeat remap, eligibility, visibility, density,
+    cull, render-state or identical capture loops.
+  separate_load_warning: >-
+    The fresh editor again reported the two known Action_Male_and_Female
+    skeleton references to absent /Engine/EngineMeshes/Humanoid. R44 did not
+    alter or accept those dependencies.
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  map_or_content_saves: 0
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R44 is fresh D3D12 read-only automation plus a compiled read-only diagnostic
+  bridge. It proves persisted mapping and eligibility contracts only. It does
+  not prove visible grass, accepted biome art, gameplay, standalone,
+  replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Inspect grass-versus-generated-surface depth, approved mesh pivots and the
+  GPU instance placement/material-depth path without changing the approved
+  grass selection, seed, density, placements or surface and without another
+  unchanged beauty capture.

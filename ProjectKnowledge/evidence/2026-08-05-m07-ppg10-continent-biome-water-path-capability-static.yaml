@@ -1,0 +1,103 @@
+schema_version: 1
+id: evidence.m07.ppg10-continent-biome-water-path-capability.2026-08-05
+captured_utc: "2026-08-05T03:05:49Z"
+module_id: M07
+system: world-authoring.ppg10
+slice: continent-biome-water-smoothing-and-authored-path-capability-audit
+evidence_class: static
+result: deterministic_material_graph_controls_and_radial_water_present_hydrology_and_authored_paths_absent
+
+installed_plugin:
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  descriptor: PPG.uplugin
+  descriptor_sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+  version_name: "1.0"
+  engine_version: 5.8.0
+
+source_evidence:
+  planet_data:
+    path: Source/PPG/Public/PlanetData.h
+    sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+  noise_node:
+    path: Source/PPG/Public/MaterialExpressionPlanetNoise.h
+    sha256: 27CD7E3C1D856A06EEC5067A43A94CC366DEDC9555017ED5CB377204DFDB926C
+  biome_mask_output:
+    path: Source/PPG/Public/MaterialExpressionPlanetBiomeMaskOutput.h
+    sha256: 2068A198A3B851D974AABCBBEB8B14379AD610BB1BFD9B99F33CD31351EC9B1D
+  elevation_output:
+    path: Source/PPG/Public/MaterialExpressionPlanetElevationOutput.h
+    sha256: D4569CA1055B5C1EE9154F385D2ED38A431427FD790E8273C27359BA6F58A6A5
+  shoreline_flatten_node:
+    path: Source/PPG/Public/MaterialExpressionPlanetFlattenElevation.h
+    sha256: 371F09B0035803983821ED75EEBD8312FD20BCAC458CD79563917997065EC658
+  planet_spawner:
+    path: Source/PPG/Public/PlanetSpawner.h
+    sha256: 4A950D5ED6E482426EB5AF4E0D9312D04B5A5B4B2321B3748DE1738356DBB7B2
+  water_mesh_implementation:
+    path: Source/PPG/Private/ChunkObject.cpp
+    sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+
+verified_controls:
+  deterministic_planet:
+    - PlanetData exposes PlanetRadius, NoiseHeight and stable GenerationSeed; identical data and seed produce identical terrain
+    - GenerationMaterial owns terrain height and vertex colors, BiomeMaskMaterial chooses biome IDs, and PlanetMaterial owns visible biome materials
+  continent_and_relief_authoring:
+    - Planet Noise exposes FBM, crater, Voronoi, erosion and tectonic modes with BaseFrequency and Octaves
+    - FBM RidgePower and extensive erosion strength, scale, detail, ridge rounding, crease rounding, input rounding, octave rounding, onset, lacunarity and gain controls allow lower-frequency broader landforms and less jagged runnable relief when authored deliberately
+    - Planet Elevation Output accepts one global height plus one height input per named biome, so continent-scale height and biome-specific relief can be composed in the deterministic generation material
+  seeded_biomes:
+    - Planet Biome Mask Output supports one to sixteen named masks
+    - BiomeCellResolution controls the number of Voronoi cells per cube-face edge and BiomeCellSeed fixes the layout
+    - BiomeTransition, material-height blend smoothness, Voronoi warp strength and warp scale control seeded boundary shape and blending
+    - PlanetData stores per-biome foliage assets and PlanetSpawner exposes a minimum biome-blend strength for foliage eligibility
+  water_and_shoreline:
+    - PlanetData owns native water enable, near and far water materials, simulation data and tessellation settings
+    - visible water is generated only for generated terrain chunks whose minimum normalized elevation is below zero
+    - water vertices lie on the constant PlanetRadius sphere, so terrain generation and seed determine where coast or below-sea-level basin coverage appears
+    - Planet Flatten Elevation smooths elevation only near the global water level through WaterLevel and Threshold
+
+absent_supported_controls:
+  source_scope: complete_installed_Source_PPG_tree
+  exact_zero_file_matches: [river, lake, spline, plateau, stamp, reservation]
+  notes:
+    - the only road hits are unrelated broadphase identifiers
+    - path hits are filesystem or water-path-length wording, not an authored-path API
+    - the only flatten implementation is global water-level shoreline flattening, not a localized pad or arbitrary terrain stamp
+  missing_public_capabilities:
+    - no native river network, downhill river spline, lake classifier or hydrology graph
+    - no road, trail or authored path generator
+    - no localized build pad, plateau, terrain stamp or construction-clearance API
+    - no handcrafted feature reservation or exclusion API
+
+finding: >-
+  Installed PPG 1.0 can preserve a deterministic seed while producing larger
+  continent-like forms, distinct seeded biomes, smoother broad hills, per-biome
+  materials and foliage, and a radial sea-level ocean by editing the supported
+  material graphs and their public node controls. It does not expose a named
+  one-click continent generator: continent scale is authored through global
+  low-frequency elevation and biome masks. Its native water is a constant-radius
+  sea surface selected by negative generated elevation, not a hydrology system.
+  Rivers, classified lakes, roads or pathways, local build pads and protected
+  handcrafted reservations therefore require project-owned deterministic
+  extensions and must not be claimed as hidden PPG features.
+
+protection:
+  plugin_or_project_content_changed: false
+  unreal_or_build_process_started: false
+  providers_called: false
+  desktop_control_used: false
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This is installed-source capability evidence only. It does not alter or
+  regenerate the PPG home world, prove accepted continent shape, biome visuals,
+  coastlines, grass, traversal, rivers, lakes, paths, buildability, runtime,
+  real-GPU presentation, packaging, replication, multiplayer or human review.
+
+next_safe_action: >-
+  Preserve the audited controls for a later checkpointed PPG successor. The
+  immediate dependency gate remains the exact official UAIP and WorldGen
+  installs after required action-time confirmation, complete payload
+  verification, and one serialized TitanEditor compile.

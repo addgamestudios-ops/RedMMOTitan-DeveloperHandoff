@@ -1,0 +1,139 @@
+schema_version: 1
+id: evidence.2026-07-24.m09.steam-multiplayer-video-reference-review-static
+captured_utc: "2026-07-24T17:50:15Z"
+module_id: M09
+evidence_class: static
+result: pass_reference_review_existing_sik_architecture_retained_no_runtime_or_dedicated_server_claim
+
+scope:
+  selected_slice: >-
+    Review the user-supplied UE 5.7-or-newer Steam multiplayer tutorial against
+    current Epic and Valve documentation and the exact RedMMOTitan UE 5.8
+    Steam/session implementation, then record bounded adoption and unsafe
+    shortcut rules without changing runtime configuration.
+  production_source_files_modified: 0
+  build_automation_files_modified: 0
+  maps_or_content_assets_modified: 0
+  plugin_or_steam_configuration_files_modified: 0
+  artist_vendor_vibe_handoff_or_user_assets_modified: false
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    status_entries: 162
+    stale_zero_byte_index_lock_preserved: true
+    unrelated_dirty_work_preserved: true
+  resources:
+    total_physical_gib: 31.872
+    free_physical_gib: 10.086
+    commit_headroom_gib: 22.639
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib: 7477
+    c_free_gib: 121.384
+    d_free_gib: 1138.612
+  overlap:
+    unreal_editor_build_cook_package_or_game_processes: 0
+  gate_decision: >-
+    Free physical RAM was far below the sustained 18-20 GiB packaging gate.
+    No Unreal, compiler, cook, package, game, Steam login, network session, or
+    real-GPU process was launched. The slice stayed static.
+
+review:
+  reference:
+    path: ProjectKnowledge/references/youtube-ue57-steam-multiplayer-ga-5ejeleju-2026-07-24.yaml
+    title: "How to create a Multiplayer Game using Steam | Unreal Engine 5.7+ | Pt. 1"
+    url: https://youtu.be/Ga-5eJElejU
+    reviewed_material:
+      - complete_auto_generated_english_caption_sequence
+      - published_description_and_configuration_snippet
+  primary_sources:
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/online-subsystem-in-unreal-engine
+    - https://dev.epicgames.com/documentation/unreal-engine/online-subsystem-steam-interface-in-unreal-engine?lang=en-US
+    - https://dev.epicgames.com/documentation/unreal-engine/using-steam-sockets-in-unreal-engine
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-dedicated-servers-in-unreal-engine
+    - https://partner.steamgames.com/doc/sdk/api/example?l=english
+    - https://partner.steamgames.com/doc/features/multiplayer/game_servers
+    - https://partner.steamgames.com/doc/sdk/uploading/distributing_gs?l=english
+    - https://partner.steamgames.com/doc/features/multiplayer/networking
+  local_sources:
+    - Titan.uproject
+    - Plugins/SteamIntegrationKit/SteamIntegrationKit.uplugin
+    - Plugins/SteamIntegrationKit/Source/SteamIntegrationKit/SteamIntegrationKit.Build.cs
+    - Config/DefaultEngine.ini
+    - Source/Titan.Target.cs
+    - Source/RedMMO/RedGameInstance.h
+    - Source/RedMMO/RedGameInstance.cpp
+    - Source/RedMMO/RedGameMode.cpp
+    - docs/WINDOWS_STEAM.md
+
+findings:
+  tutorial_scope:
+    - introductory third-party Advanced Sessions and listen-session setup
+    - App ID 480 development configuration, Steam initialization, and menu or lobby UI
+    - no dedicated-server target, persistence, authority, deployment, load, security, or MMO sharding design
+  current_project_state:
+    - SIK 1.9 is already the sole active provider and supplies replacement OnlineSubsystemSteam and SteamSockets modules
+    - the disabled Epic stock provider entries are intentional and prevent duplicate module ownership
+    - RedGameInstance already implements filtered eight-slot create, start, find, join, invite, reconnect, leave, travel, and failure cleanup
+    - current hosting is a listen server and there is no Server.Target.cs
+    - App ID 480 remains development-only and no real Steam Library SKU or dedicated-server tool is claimed
+  decision:
+    - do not install Advanced Sessions
+    - do not enable Epic stock Steam providers beside SIK
+    - do not replace RedGameInstance or paste the tutorial configuration
+    - retain the tutorial only as a separate-process session-flow test checklist
+  bounded_follow_up:
+    - first obtain a fresh currency-valid package when the resource gate passes
+    - then run the strict two-machine or two-account invite, find, join, travel, reconnect, gameplay, and log regression
+    - design a dedicated-server target and Steamworks TOOL or depot workflow only as a separate authorized architecture slice
+
+latest_build_evidence:
+  prior_context_only: true
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  relationship_to_current_source: predates_current_minimap_and_authored_vitals_source_changes
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_checkpoint_artist_vendor_handoff_user_asset_or_package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M09_SteamVideoReference_20260724_174916Z
+  exact_pre_slice_canonical_files: 3
+  exact_pre_slice_bytes_retained: true
+
+verification:
+  yaml_and_json_parse: passed
+  project_knowledge_integrity:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M09_SteamVideoReference_20260724_1750Z/project_knowledge_integrity.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 140
+    indexed_route_count: 180
+    queue_sha256: EF58F3922BE83D2B04509BB409ADE196E5D4CE2FDB79D926D54EB634A85BCB07
+  protected_hash_recheck: passed_all_four_exact
+
+remaining_blockers:
+  - current RedHUDRuntime, TitanEditor, and Titan compile and link evidence is absent
+  - current build-time target-currency proofs and a fresh package are absent
+  - real two-account Steam transport and full multiplayer gameplay regression are absent
+  - a real project App ID, entitled branch, depot, and tester flow are absent
+  - no dedicated-server target, Steam Game Server deployment, load evidence, or persistence backend exists
+
+next_safe_action: >-
+  Keep M09 incomplete_retry. Retain SIK and the current session source. When
+  sustained physical RAM satisfies the project gate, produce exact current
+  TitanEditor and Titan build proofs, a fresh guarded package, and then the
+  strict distinct-account Steam regression. Treat any dedicated-server work as
+  a separate architecture and implementation slice.
+
+claim_limit: >-
+  This evidence proves only a bounded external-reference review, official and
+  local source comparison, and a no-change architecture decision. It does not
+  prove compilation, linkage, module loading, package currency, Steam
+  initialization, lobby discovery, transport, gameplay replication, scale,
+  persistence, or a dedicated server.

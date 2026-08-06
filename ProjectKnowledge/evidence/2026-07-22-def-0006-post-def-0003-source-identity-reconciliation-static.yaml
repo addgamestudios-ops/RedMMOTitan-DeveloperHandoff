@@ -1,0 +1,138 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0006-POST-DEF-0003-SOURCE-IDENTITY-RECONCILIATION-STATIC
+captured_at: "2026-07-22T13:32:32.3205488Z"
+module: red_hud_runtime_overlay_cleanup
+slice: DEF-0006-post-DEF-0003-source-identity-reconciliation
+evidence_class: static
+result: passed_current_source_identity_reconciled_runtime_acceptance_still_open
+
+authorization_and_scope:
+  bounded_defect: DEF-0006
+  intended_change: >-
+    Revalidate the existing HUD source contracts against the shared player source
+    changed by DEF-0003 and reconcile only DEF-0006's mutable evidence identity.
+  source_or_art_modified: false
+  canonical_files_modified:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0006-red-hud-runtime-overlay-cleanup.yaml
+    - ProjectKnowledge/evidence/2026-07-22-def-0006-post-def-0003-source-identity-reconciliation-static.yaml
+  explicitly_preserved:
+    - all HUD source and supplied HUD art
+    - all Source, Config, map, asset, plugin, package, and build-product bytes
+    - all production maps, protected checkpoints, artist repositories, handoffs, user assets, and unrelated dirty work
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 60
+  individual_untracked_files_before: 1307
+  conflicts_before: 0
+  two_snapshot_key_file_drift: 0
+  unreal_build_cook_package_overlap_count: 0
+
+resource_gate:
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [10.168, 10.647]
+  free_commit_gib_range: [20.260, 20.775]
+  rtx_3080_free_vram_mib_range: [8940, 8954]
+  gpu_utilization_percent_range: [11, 15]
+  gpu_temperature_c: 42
+  free_disk_gib:
+    C: 132.846
+    D: 1141.734
+  decision: >-
+    The 14 GiB T02 real-GPU gate and safe Unreal/build gates were closed. No
+    Unreal, Titan, UBT, UAT, build, cook, package, shader, IoStore, Zen, or
+    real-GPU process was launched.
+
+current_source_identity:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    sha256: DEAFFEC023269CDEDB82E13E77F866223C3A019AE332CD9AF3154B414B9AC4B1
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    sha256: A90C79200B89F75AB7C3BEF8D4C3DE1291D89EA4546757D6DEB757D040B5AF67
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp
+    sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068
+  - path: Source/RedMMO/RedHUD.h
+    sha256: 72B733A08EE0C6073D676F8646EC6BDF392755672AF46A17B4C0BE70CF2B9592
+  - path: Source/RedMMO/RedHUD.cpp
+    sha256: CB6EB26843274F35C70696B01D11FF82A826C2F4B3347C2DEA21909B7FC1EA8A
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749
+    reconciliation: changed_after_original_DEF_0006_evidence_by_DEF_0003
+  - path: Tools/tests/test_def0006_red_hud_runtime_contract.py
+    sha256: F876D4144D518DDEE942EB2AA5A06C87D5528CED75C16979F91FD270FFBD84BB
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 13_of_13_passed
+  hud_contract_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0006_PostDEF0003_Reconcile_20260722_1328/offline_contract_and_provenance_tests.log
+  log_sha256: 49D511D9DF7020CF372DABC1BC05628E9A8652DE997DB2B7679D70AF16D0DE0E
+  hud_contracts_revalidated:
+    - live layout-owned spherical tangent-frame compass forwarding
+    - player vitals and two-slot heat, overheat, cooldown, and equipped state
+    - opaque baked-ammo masks and strict mask, rail, and text order
+    - player live masks contained inside supplied status art
+    - nonoverlapping weapon, ability, and utility baseline geometry
+    - weak legacy-layer registration and canvas-sight visibility lifecycle
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_M09Reconcile_1317/target_currency.json
+  report_sha256: 1946458838F6E35D26D07A3CAEC387F65AF259D3676796BB14593654AD4BB7B0
+  input_count: 874
+  input_manifest_sha256: 45BBE3263C84B978CBF3FB27EBAC49451A232971E94454F9CCDD8DE83ECF71D4
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 33
+  titan_editor_newer_project_inputs: 21
+  build_proofs_supplied: 0
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0006EvidenceReconcile_20260722_1328
+  exact_files:
+    - {name: current_state.yaml, sha256: 26DBEC93A40FB4745954B0E026B02290A9D9A9386B46B41BA5B7BAA235DACB08}
+    - {name: DEF-0006-red-hud-runtime-overlay-cleanup.yaml, sha256: 5E00E7CD8C3F6E26A2307DAD6BB8EE63527D382168AB335B6835FD99CB7418D5}
+    - {name: INDEX.yaml, sha256: 8842AE619A37F56338724F7591DD1647867EE079C6D67C898E358D3E9B3DD7B0}
+    - {name: redmmotitan_module_queue.json, sha256: 64BCC58BA86882CE40E5AFCAD04DBCC305295B17969F32C64586B85DA2B9FAC8}
+
+canonical_sync:
+  module_queue_sha256: D685AC8B32FF0E67FEF4A77557940DC6B36B1EF5F021DFBF9FA148928BE91060
+  current_state_snapshot_sha256: D685AC8B32FF0E67FEF4A77557940DC6B36B1EF5F021DFBF9FA148928BE91060
+  historical_DEF_0006_evidence_rewritten: false
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_source_rasters: 135_of_135_passed
+  safe8_embedded_manifest: 338_of_338_passed
+
+remaining_acceptance:
+  - compile and link current RedHUDRuntime and RedMMO sources under a safe resource gate
+  - real-GPU 16:9 and ultrawide verification of compass, both heat slots, sight targeting, layer cleanup, and overlaps
+  - mouse and controller interaction acceptance for every implemented control
+  - DEF-0004's separate complete bindings and independently customizable element scope
+
+claim_limit: >-
+  Static tests prove the existing DEF-0006 contracts still hold against the
+  current shared player-source identity. They do not prove compilation, UHT,
+  rendering, input, gameplay, ultrawide layout, packaging, or multiplayer.
+  DEF-0006 remains implemented_awaiting_build_and_runtime_acceptance.
+
+next_safe_action: >-
+  When resources permit, build current TitanEditor and Titan separately with
+  exact proofs, then run the bounded real-GPU DEF-0006 gate at 16:9 and ultrawide.
+  The project-wide next action remains M00's capped T02 close, translated, and
+  oblique sparkle captures once its separate 14 GiB physical-RAM gate passes.

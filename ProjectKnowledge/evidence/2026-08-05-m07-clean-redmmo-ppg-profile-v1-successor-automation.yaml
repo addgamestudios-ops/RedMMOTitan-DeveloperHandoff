@@ -1,0 +1,76 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-successor-automation.2026-08-05
+captured_utc: "2026-08-05T03:50:00Z"
+module_id: M07
+evidence_class: automation
+status: pass_project_owned_successor_created_unbound
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  source_planet: /Game/RedMMO/World/PPG/HomeWorld/SeededBiomeSurface/R17/DA_PPG_HomeWorld_SeededBiomeSurface_R17
+  target_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  map_mutation: false
+  profile_value_mutation: false
+  provider_use: false
+  desktop_control: false
+
+result:
+  editor_host: UnrealEditor-Cmd UE 5.8.1 D3D12 RenderOffscreen
+  exit_code: 0
+  elapsed_seconds: 33.2
+  free_ram_gib_after: 47.94
+  status: PASS_PROJECT_OWNED_PROFILE_V1_SUCCESSOR_CREATED_UNBOUND
+  created_packages:
+    - path: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+      sha256: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+    - path: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+      sha256: 7414FB332551219CC51A3EA4B530E10AF0987252C3FFD2EB4FDBB8AF0BC0476E
+    - path: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_BiomeMask
+      sha256: 8AF61A4497705494BE42A7EAC3332A19FFC1661146145BC9BF2A9E15E7CFB49D
+    - path: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+      sha256: AD32E640D9A2EF73F58360914599AAD782C65B234795623EA67E9DCCD54E49D4
+  preserved:
+    generation_seed: 1337
+    planet_radius_cm: 300000000.0
+    noise_height_cm: 600000.0
+    generate_water: true
+    water_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+    biome_order: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+    seeded_foliage_bindings: unchanged
+    source_package_hashes: unchanged
+    dirty_packages_after: []
+
+hash_gates:
+  clean_home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  protected_test_map_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  automation_script:
+    path: Build/Automation/build_redmmo_ppg_profile_v1_successor.py
+    sha256: 1EB32E08C48C73F81CBE6914C2D033F0A699067CD0548EC6D15FDBC2BF838424
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1Successor_20260805_0345/build_redmmo_ppg_profile_v1_successor_result.json
+    sha256: 1640C9FF11683F1347AEF58261B89DE9DD48DD78C7857D37D35D94FCBB1CBCFB
+  rollback:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1Successor_20260805T0345Z
+    manifest_sha256: 69BEE7BCCFF7D742D4E12FBA0BC3D82A2035FB90249A82D137F0170F3ACE1CB1
+    restore: delete only /Game/RedMMO/WorldAuthoring/PPG/ProfileV1 while Unreal is closed
+
+claim_boundary:
+  verified:
+    - exact R17 PlanetData and three active material assets were duplicated into a project-owned folder
+    - the duplicate PlanetData points only to the three duplicated materials
+    - source assets, clean home map and protected production maps remain byte-exact
+  not_verified:
+    - no profile controls were applied to material graph nodes
+    - the new PlanetData is not bound to the home map
+    - no regeneration, MapCheck, PIE, visual, traversal, biome, shoreline, grass, night, space, standalone, replication or multiplayer acceptance occurred
+
+next_safe_action: >-
+  In one separate no-map-change editor transaction, inspect the three ProfileV1
+  material graphs by exact expression identity, publish a fail-closed mapping
+  from the named world-profile controls to supported graph nodes, and refuse any
+  ambiguous or absent node. Do not bind ProfileV1 PlanetData to the home map or
+  regenerate the planet until that mapping has automation evidence and a second
+  rollback.

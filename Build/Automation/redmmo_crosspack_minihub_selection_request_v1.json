@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "request_id": "redmmo-crosspack-minihub-source-selection",
+  "request_status": "candidate_only",
+  "selection_method": "explicit_exact_path_allowlist",
+  "no_category_fallback": true,
+  "intended_use": "isolated_redmmo_crosspack_minihub_review",
+  "packs": [
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "title": "Stylized Nature - Desert Savanna Environment",
+      "listing_id": "12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "mount_root": "/Game/Zenscape_Savanna",
+      "source_policy": "vendor_source_immutable",
+      "fab_license": "Standard License",
+      "allows_usage_with_ai": false,
+      "declared_unreal_versions": [
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6"
+      ],
+      "source_engine_association": null,
+      "local_source_state": "project_present_unvalidated_vendor_packages"
+    },
+    {
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "title": "Stylized Nature - Tropical Island and Underwater Environment",
+      "listing_id": "934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "mount_root": "/Game/Zenscape_Island",
+      "source_policy": "vendor_source_immutable",
+      "fab_license": "Standard License",
+      "allows_usage_with_ai": false,
+      "declared_unreal_versions": [
+        "5.4",
+        "5.5",
+        "5.6"
+      ],
+      "source_engine_association": "5.4",
+      "local_source_state": "isolated_vendor_project_unvalidated_for_migration"
+    }
+  ],
+  "candidates": [
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "relative_source_path": "Landscape/Texture/T_Sand_basecolor.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-8021792003EC13E7D10DBB1B",
+      "source_bytes": 2268109,
+      "source_sha256": "B1B8AE3AD73DE7DD4DD4215E7D420FA273FA63C897675047B9CE922BA19E9C55",
+      "expected_asset_kind": "Texture2D",
+      "proposed_role": "desert_ground_basecolor"
+    },
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "relative_source_path": "Landscape/Texture/T_Sand_normal.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-0136F15C7D44ADF6C94C719B",
+      "source_bytes": 14941055,
+      "source_sha256": "F03811DD1E78ECBEE5D8DA1BD4D045DD70E32B9860228C0D4CEBB06A65DC0606",
+      "expected_asset_kind": "Texture2D",
+      "proposed_role": "desert_ground_normal"
+    },
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "relative_source_path": "Landscape/Texture/T_Sand_Roughness.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-A4ECC3D88041390347B5EB9E",
+      "source_bytes": 1380500,
+      "source_sha256": "C8558DA672079509E2CA0E88F366F8AC09990C10D0C218356CD9C72CE5ECD541",
+      "expected_asset_kind": "Texture2D",
+      "proposed_role": "desert_ground_roughness"
+    },
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "relative_source_path": "Model/Rocks/SM_RockRoundDesert_02.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-55D22F834072AFF6229BB14A",
+      "source_bytes": 462968,
+      "source_sha256": "C2FA1CB56A81BB9F3436D386326794F7515C6B2470EDF2F884F003463E62C1DF",
+      "expected_asset_kind": "StaticMesh",
+      "proposed_role": "desert_geology_anchor"
+    },
+    {
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "relative_source_path": "Model/Tree/SM_AcaciaTree_01.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-A4F6D5680DC132465128D65B",
+      "source_bytes": 1486386,
+      "source_sha256": "320F5A8419D63B85BE354E1C1A34B9F5A63A2B817923DF4D9A323259D6AE4EC8",
+      "expected_asset_kind": "StaticMesh",
+      "proposed_role": "savanna_canopy_anchor"
+    },
+    {
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "relative_source_path": "Model/Tree/SM_CoconutTree_01.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-020D6DAAE70219B6F907C75B",
+      "source_bytes": 152377,
+      "source_sha256": "925C3DA342358836CEB7F6EAC0933D2B2742459C0F39CB1FFA8D5EA9E4FE82F9",
+      "expected_asset_kind": "StaticMesh",
+      "proposed_role": "shoreline_canopy_anchor"
+    },
+    {
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "relative_source_path": "Model/Plants/SM_Plant_01.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-71C6AF42FBE6C8C807395EC0",
+      "source_bytes": 56344,
+      "source_sha256": "B169632CBB5B73C27616143437B9FD046542260EC60E901E08326453CD46FD7E",
+      "expected_asset_kind": "StaticMesh",
+      "proposed_role": "tropical_ground_accent"
+    },
+    {
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "relative_source_path": "Model/Plants/SM_Coral_01.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-3897AB32061911E704F9DEB4",
+      "source_bytes": 23931,
+      "source_sha256": "D3889034815975E9819CF9439FB657E0D04E139A0EF95555EFA6DE9F8C877CEA",
+      "expected_asset_kind": "StaticMesh",
+      "proposed_role": "shallow_water_accent"
+    },
+    {
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "relative_source_path": "Blueprint/BP_WaterPlane.uasset",
+      "stable_candidate_id": "RED-FAB-ASSET-F3C4A00B0686FACCA17356E9",
+      "source_bytes": 73604,
+      "source_sha256": "7AD89A327D9E2D93F6416CA703114827438895B5AB42161A7DF2BC7B1419D219",
+      "expected_asset_kind": "Blueprint",
+      "proposed_role": "water_system_candidate"
+    }
+  ],
+  "review_gates": {
+    "source_identity_reviewed": false,
+    "rights_and_noai_boundary_reviewed": false,
+    "ue58_compatibility_reviewed": false,
+    "dependency_closure_reviewed": false,
+    "visual_style_reviewed": false,
+    "performance_reviewed": false,
+    "nwiro_metadata_only_workflow_reviewed": false,
+    "migration_approved": false,
+    "map_placement_approved": false
+  },
+  "authority": {
+    "approval_enabled": false,
+    "reviewer_public_keys": [],
+    "caller_supplied_trust_roots_allowed": false
+  }
+}

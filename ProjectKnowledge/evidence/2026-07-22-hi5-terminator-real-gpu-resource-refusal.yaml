@@ -1,0 +1,23 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-HI5-TERMINATOR-RESOURCE-REFUSAL
+captured_at: 2026-07-22
+module: atmosphere_cloud_presentation
+evidence_class: static
+result: refused_safely
+requested_gate: real_gpu_visual
+observed:
+  gpu_vram_used_mb: 7452
+  gpu_vram_total_mb: 10240
+  gpu_utilization_percent: 99
+  free_physical_ram_mb_initial_sample: 154
+  foreground_heavy_process: D:/SteamLibrary/steamapps/common/Wildgate/Nebula/Binaries/Win64/NebulaClientSteam-Win64-Shipping.exe
+  foreground_heavy_process_ram_gb: 4.66
+action:
+  - Did not launch UnrealEditor or the packaged client.
+  - Did not terminate or interrupt the user's running game.
+  - Left the compiled HI-5 terminator fade implementation unchanged.
+retry_when:
+  - The user has finished the running game.
+  - VRAM and physical RAM satisfy the bounded real-GPU launch thresholds.
+claim_limit: >-
+  This is resource-safety evidence only. It does not visually accept DEF-0007.

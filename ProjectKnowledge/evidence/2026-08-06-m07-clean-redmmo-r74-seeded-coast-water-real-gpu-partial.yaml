@@ -1,0 +1,131 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r74-seeded-coast-water-real-gpu-partial.2026-08-06
+captured_utc: "2026-08-06T00:08:17Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r74-native-seeded-coast-water-capability-and-player-view
+evidence_class: real_gpu_visual
+result: runtime_pass_visual_partial
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib_before: 52.74
+  free_physical_ram_gib_after: 52.63
+  commit_headroom_gib_before: 55.19
+  commit_headroom_gib_after: 55.04
+  gpu_free_vram_mib_before: 9125
+  gpu_free_vram_mib_after: 9120
+  free_d_drive_gib_before_after: 767.29
+  unreal_or_build_processes_before_after: 0
+  provider_ports_closed_before_after: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  home_map_saved: false
+  generation_called_by_audit: false
+  manual_plane_or_standin_created: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  dirty_packages_after: {content: [], maps: []}
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1SeededCoastWaterAudit_R74_20260806T0001Z
+  manifest_sha256: F7607A587E1E2EDED50AF0E0E9A331A79DB65914FBD9B4BF6D6913E0F71A73F0
+  records: 2
+  note: Read-only audit checkpoint; no project package changed, so no restore is required.
+
+installed_ppg_contract:
+  plugin: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  descriptor_version: "1.0"
+  engine_version: "5.8"
+  planet_data_source: Source/PPG/Public/PlanetData.h
+  planet_data_source_sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+  public_water_controls_lines: 165-178
+  chunk_source: Source/PPG/Private/ChunkObject.cpp
+  chunk_source_sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  water_generation_lines: 2173-2201
+  water_component_lines: 2428-2502
+  proven:
+    - UPlanetData publicly exposes bGenerateWater, WaterMaterial, FarWaterMaterial and WaterSimulationData.
+    - Native water is generated when ChunkMinHeight is below zero and bGenerateWater is true; this condition is elevation-driven and has no Ocean-biome-role dependency.
+    - Native water geometry is authored at PlanetData.PlanetRadius, assigned without collision, and receives HeightMap, PlanetRadius and planet-surface transform parameters through a dynamic material instance.
+  native_water_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  native_water_material_sha256: 9DBBB204894F64FAC06F2D6A37348892D65345DA16329F6F35E1D416743A4E84
+
+serialized_profile_contract:
+  generate_water: true
+  water_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  far_water_material: null
+  water_simulation_data: /PPG/Water/WaveData
+  planet_radius_cm: 300000000.0
+  shoreline_flatten_node_count: 6
+  shoreline_flatten_threshold: 0.012
+  generation_material_sha256: 5165A27F0423735256EEE768739CE9547FEF7849BCA05540AAD63DF5BA1D96E3
+
+execution:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_seeded_coast_water_r74.py
+  driver_sha256: 824310F4C6698F17C86859A97616D505C58597559B19B5A0192444FD4D980061
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeededCoastWater_R74_20260806T0001Z/result.json
+  result_sha256: 8037E4F757432BD45B355617727244BBA9987FB72CB280B76F9C28483C26CB10
+  verify_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeededCoastWater_R74_20260806T0001Z/verify.log
+  verify_log_sha256: 8703E45057758AD82DCD5AE7E499DD715BF70D6882EC2ECFFDBD0E450C7C63A5
+  renderer: D3D12
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn_class: BP_RedTrooperPlayer_A01_C
+  status: PASS_R74_NATIVE_PPG_SEEDED_COAST_WATER_LIT_NO_SAVE
+
+runtime_sample:
+  land_role: Desert
+  submerged_role: Desert
+  pair_angular_separation_degrees: 0.0048411536044211745
+  land_sea_authority_alpha: 0.99951171875
+  submerged_sea_authority_alpha: 0.99658203125
+  native_water_component_count: 292
+  native_water_visible_main_pass_count: 289
+  native_water_collision: NoCollision
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeededCoastWater_R74_20260806T0001Z/Capture/R74_seeded_desert_coast_native_water_lit.png
+  capture_bytes: 797109
+  capture_sha256: 80F1AAA10EAE5741EC322CFF1FF9AC0A5A0DD33AA835C69D975805BECF0F9E95
+  sun_dot: 0.9377218076738284
+  note: The harness issued viewmode lit and the frame contains directional shadows; its inherited result metadata incorrectly retained capture_view_mode Unlit and is not used as proof of the command state.
+
+independent_visual_review:
+  proven:
+    - The fresh player-scale frame is materially different from R73 and visibly contains native water over a seeded below-sea basin adjacent to above-sea Desert terrain.
+    - The shoreline follows the generated terrain boundary; there is no rectangular water plane, manual water actor, foliage placement or stand-in.
+    - The Trooper is visible at player scale, the scene is sunlit, and no palm is visible.
+  retained_defects:
+    - The stock PPG water reads pale and washed out rather than the requested stylized aqua/deep-blue Oasis presentation.
+    - The boundary does not yet show authored dry-sand, wet-sand and submerged depth bands; it is a native geometric coast capability proof, not accepted shoreline art.
+    - The surrounding Desert cliffs remain jagged and repetitive; terrain smoothing, continent/path composition and running traversal are untested here.
+  overall_art_acceptance: partial
+
+retention_decision: >-
+  Retain R73 unchanged. R74 proves that the saved ProfileV1 already has a
+  native, seed-derived, elevation-driven PPG coast/water path and that a real
+  coastline can be sampled without any manual plane or terrain/seed change.
+  No R74 project package mutation is retained.
+
+next_safe_action: >-
+  Audit the exact parameter and dependency closure required for one
+  project-owned PPG-compatible stylized water adapter that preserves the native
+  HeightMap, PlanetRadius and planet-surface transform contract. Do not bind the
+  Oasis demo material directly unless it proves those required parameters; do
+  not add a plane or change seed/topology. If a compatible adapter cannot be
+  built from owned material functions without vendor edits, record that blocker
+  and rotate to physical-control acceptance.
+
+claim_limit: >-
+  R74 proves public native water capability, 292 runtime native-water
+  components, one seed-derived Desert sea-datum boundary, MapCheck 0/0 and one
+  fresh D3D12 player-scale coast frame. It does not prove accepted water art,
+  dry/wet beach bands, rivers, terrain smoothing, continent composition,
+  hands-on controls, standalone packaging, replication, multiplayer or user
+  acceptance.

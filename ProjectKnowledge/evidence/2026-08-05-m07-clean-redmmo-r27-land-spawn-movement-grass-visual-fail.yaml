@@ -1,0 +1,106 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r27-land-spawn-movement-grass-visual-fail.2026-08-05
+captured_utc: "2026-08-05T12:07:58Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r27-saved-land-spawn-grounding-radial-movement-and-grass-pixel-review
+evidence_class: real_gpu_visual
+result: runtime_land_spawn_and_radial_movement_pass_grass_and_surface_sky_visual_fail
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: false
+  content_saved: false
+  generation_called_explicitly: false
+  pie_started: true
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  resolution: [1280, 720]
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  pawn_class: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  spawn:
+    location: [191298046.0331874, 196950107.2359238, -421017582.0771286]
+    moving_on_ground: true
+    falling: false
+    tangent_speed_cm_s: 0.0
+    radial_elevation_above_native_sea_cm: 49233.17374420166
+    actor_up_dot_radial: 1.0
+  radial_walk:
+    tangent_displacement_cm: 500.2358992050405
+    max_tangent_speed_cm_s: 600.0000014364286
+    radial_elevation_after_cm: 49235.07764351368
+    actor_up_dot_radial: 0.9999999999986101
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+foliage_runtime:
+  static_mesh_component_count: 718
+  approved_visible_component_count: 196
+  approved_meshes:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  component_identity_result: pass
+  player_scale_pixel_result: fail_grass_blades_and_dense_coverage_not_readable
+
+real_gpu_review:
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R26LandSpawnGrassPIE_R27_20260805T1210Z/player_scale_land_grass.png
+    sha256: 7385D8E813D21C29C532D936D7A0B8C662618408E345D847C4CC780C63671191
+    bytes: 1242692
+  observations:
+    - the Trooper is visibly grounded on open generated terrain with no overhead water surface or enclosing water layer in the frame
+    - the approved DenseTall components are present in runtime data but do not produce readable player-scale grass coverage; the ground reads as a nearly uniform saturated green surface
+    - dense repeated Oasis palms dominate the view and do not substitute for the requested grass coverage
+    - the visible surface sky is pure black despite the lit ground and foliage, so surface-day or surface-night presentation is not accepted
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_r26_land_spawn_grass_pie_r27.py
+    sha256: 1FA686B491943DBA8137060D8CDB715EB3BB81A6284CB75FA201511CC0799C13
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R26LandSpawnGrassPIE_R27_20260805T1210Z/result.json
+    sha256: 4D4C9BC55880FCC6277DA8CEC0A998F70171E9FE9515E5108A968D7518F9C1A2
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R26LandSpawnGrassPIE_R27_20260805T1210Z/unreal.log
+    sha256: 820DAD02D20AC0C188E693D05379D2C9CAF30FD783A391C23E22C001097F44DA
+  terminal_status: PASS_R27_RUNTIME_LAND_SPAWN_MOVEMENT_GRASS_COMPONENTS_PENDING_PIXEL_REVIEW
+
+rollback:
+  retained_from_r25: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1R24LandPlayerStart_R25_20260805T1150Z
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves fresh runtime generation, saved above-sea land spawn grounding,
+  radial walking and emission of the exact approved DenseTall grass component
+  identities without saving or dirtying a package. It does not prove visible
+  grass coverage: the independently reviewed real-GPU frame fails that gate.
+  The black surface sky also leaves matched day/night presentation open. No
+  broader gameplay, standalone, replication, multiplayer or player approval is
+  claimed.
+
+next_safe_action: >-
+  Do not repeat the same frame. Run one bounded no-save rendering diagnostic at
+  this verified land spawn that isolates the approved grass mesh material,
+  per-component scale, cull/LOD and PPG dispatch bounds, and separately inspects
+  why the bound R18 surface sky is black. Preserve seed, terrain topology,
+  PlayerStart, native water, approved grass identities and all rollbacks.

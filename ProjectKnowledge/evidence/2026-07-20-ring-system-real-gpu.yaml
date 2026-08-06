@@ -1,0 +1,51 @@
+schema_version: 1
+id: evidence.ring-system.2026-07-20.real-gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T00:03:39+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+target: feature.celestial.ring-moons-mining.2026-07-20
+
+launch_profile:
+  resolution: 1280x720
+  screen_percentage: 60
+  texture_pool_mb: 1024
+  fps_cap: 45
+  audio_disabled: true
+
+action:
+  - launch the production map in a real GPU game window
+  - use the developer console to move to the ring-system test position
+  - capture the central body, bands, dense starfield, and mineable belt together
+
+result:
+  runtime_gate: pass_partial
+  visual_presence_gate: pass_partial
+  visual_acceptance_gate: fail_pending_art_pass
+  observed:
+    - ring central body rendered
+    - three ring bands rendered
+    - dense stars rendered
+    - multiple mineable asteroid meshes rendered around the ring
+  findings:
+    - ring bands are over-bright and visually flat
+    - capture does not prove individual moon collision, gravity, or landing
+
+artifacts:
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingSystem_20260720_220803/RuntimeRingVisual_F12.log
+    sha256: 6D6965772F01CC2C5E7F841AFE3AC4B8A4FA7BDA8AB88868D92C1F22048020EE
+    marker_lines: [2117, 2135, 2155, 2156]
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingSystem_20260720_220803/VisualEvidence/ring-world-and-mineable-belt-real-gpu.jpg
+    sha256: A56ACABFF493D66237E517916668C85E722472457C7592DFE0F7876C26203AA1
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 39A06CAD330CE796B8BC6F76AD3CE69CEB2318DDEA4FF7B2AEC562DE4FC2EDCF
+
+memory_stability:
+  one_runtime_only: true
+  free_ram_before_close_gb: 6.48
+  free_ram_after_close_and_ui_kernel_reset_gb: 11.23
+  note: "Reset the computer-use Node kernel immediately after a GPU visual test."

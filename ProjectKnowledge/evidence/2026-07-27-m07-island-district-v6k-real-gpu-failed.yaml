@@ -1,0 +1,216 @@
+schema_version: 1
+id: evidence.m07.island-district-v6k.real-gpu-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T09:49:30Z"
+evidence_class: real_gpu_visual
+result: scratch_v6k_partial_shore_and_reflection_improvement_visual_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  scratch_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10Rollback_PreV6K_20260727T092721Z
+  pre_v6k_map_sha256: 840EEB62DA26D26F02A77EE14266749A5E93E749BF63FCF401B27EA2DD4ADE88
+  pre_v6k_source_sha256: 8EF1962D08F787925977DAE0077EA8B7E8B7D159BBF029CCA7954E87678BD941
+  experimental_unused_material_sha256: 4EC28F8CB3681771CBCE86D1FC120472D3B2C60AF1AD7372FE50E82B6A0FC142
+  note: >-
+    The experimental zero-distortion material was never referenced by a map
+    and is retained only in the rollback quarantine.
+
+scratch_implementation:
+  surface_contract: V6K
+  local_ocean_material:
+    asset: /Game/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_ReflectionTuned_V6K
+    file: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Content/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_ReflectionTuned_V6K.uasset
+    bytes: 4791
+    sha256: 6D60D65E523CF4DD60DECC0C8D4D567A0526E08D38FEF2632EC6DD92E39A474B
+    parent: /Game/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_VendorAdapter_V6I
+    vendor_parent: /Game/Zenscape_Island/Material/Water/MI_Ocean
+    overridden_scalars:
+      Refraction: 1.0
+      Roughness: 0.18
+      Specular: 0.5
+    preserved_scalars:
+      Distortion_Scale: 800.0
+      Distortion_Scale_02: 600.0
+      Normal: 0.5
+  local_ocean_topology:
+    compact_inner_dry_mask_enabled: true
+    compact_inner_dry_mask_clearance_cm: 0.0
+    expected_full_triangle_count: 3274240
+    retained_triangle_count: 3260197
+    removed_whole_triangle_count: 14043
+    maximum_retained_mask_signed_distance_cm: -2.951184034347534
+  compact_terrain:
+    source_landscape_actor_count: 0
+    source_foliage_actor_count: 0
+    source_foliage_instances_before_removal: 2132
+    source_foliage_instances_after_removal: 0
+    source_dressing_actor_count: 33
+    vertex_count: 92517
+    triangle_count: 183612
+    rvt_binding_count: 0
+  dependency_closure:
+    geology_packages: 26
+    geology_runtime_virtual_texture_packages: []
+    geology_rvt_named_packages: []
+    local_ocean_packages: 8
+    local_ocean_runtime_virtual_texture_packages: []
+    local_ocean_rvt_named_packages: []
+  scratch_map:
+    bytes: 1165239323
+    sha256: 566556583CBB590A720B5E453C4CFEEE83657DE04CAA6CC77F3B06590489C814
+  scratch_source:
+    bytes: 59872774
+    sha256: A6AE343A3C935AF9838018B47D9A43027EF0DB0776830B0699F5455EB87B8242
+
+durable_reports:
+  material_creation:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_LocalOceanReflectionTunedV6K_20260727T093752Z/local_ocean_reflection_tuned_v6k.json
+    bytes: 2300
+    sha256: 63BDC4787863EF1C366BC98C464084041D204DDFBE82AA2E73DD00A04E4B6CFB
+    status: passed
+  seed:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KBuild_20260727T093830Z/island_district_v10_v6k_seed.json
+    bytes: 1697
+    sha256: CA8D2FF8FCFAD1DA8434F3DF8FC9253C63ADB5C660433ED589D80438BEE59CD4
+    status: passed
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KBuild_20260727T093830Z/island_district_v10_v6k_build.json
+    bytes: 64374
+    sha256: C04A049C8C1966F959758B0263E571C843FB3A87D463E03B7E13FE19E39CD61A
+    status: passed
+    evidence_class: scratch_editor_map_mutation
+  fresh_process_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KBuild_20260727T093830Z/island_district_v10_v6k_audit.json
+    bytes: 52215
+    sha256: E088A81127759B802FC1F30218D04C75E769B2758C52226227CD612D0E42CFC0
+    status: passed
+    evidence_class: fresh_process_ue58_nullrhi_asset_audit
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KRealGPU_20260727T094740Z/capture_result.json
+    bytes: 9480
+    sha256: D5B7D164C6D27B416FFE5CC76DAC30FE14249222DB5E2F11D3864418714F4E4B
+    status: passed_pending_pixel_review
+  pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KRealGPU_20260727T094740Z/pixel_review.json
+    bytes: 3425
+    sha256: 2B004CF4CAC6367FF3B97187C47546A21BE86A644C52D65B175E2024FBDDFA94
+    status: failed_visual_acceptance_partial_improvement
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_exit_code: 0
+  minimum_observed_free_ram_gib: 31.519
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  missing_instanced_usage_warnings: 0
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KRealGPU_20260727T094740Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 1339198
+    sha256: F83829E4FC506800DB9B22A45389B46A8BA51420B56FFBA021942D12A0FDCDF7
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KRealGPU_20260727T094740Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 1491436
+    sha256: 0B8B4F62F2D1567AC16841B37CF16244563E525703FBAEE548E33B9F963CBC93
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6KRealGPU_20260727T094740Z/M07_IslandDistrict_R15_V10_Standalone.log
+    bytes: 318951
+    sha256: 77D6E6529362869600C4511C112900C3D76C6E03C96A476C20B9EBDBC1063C4E
+
+matched_camera_pixel_metrics:
+  wide_pink_apron_pixels:
+    v6i: 33855
+    v6j: 0
+    v6k: 17641
+    v6k_reduction_from_v6i_percent: 47.89
+  near_pink_apron_pixels:
+    v6i: 56792
+    v6j: 39
+    v6k: 31008
+    v6k_reduction_from_v6i_percent: 45.40
+  near_blue_water_roi_percent:
+    v6i: 79.781
+    v6j: 89.339
+    v6k: 84.521
+  whole_lower_near_smear_proxy_pixels:
+    v6i: 8824
+    v6j: 15561
+    v6k: 8785
+  shared_lower_left_water_smear_proxy_pixels:
+    v6i: 6272
+    v6j: 6253
+    v6k: 4298
+    v6k_reduction_from_v6i_percent: 31.47
+    v6k_reduction_from_v6j_percent: 31.26
+
+verified_improvements:
+  - the zero-margin mask restores island land submerged by the continuous-water V6J experiment
+  - the pale-pink apron proxy is smaller than V6I in both matched views
+  - reflection tuning reduces the shared lower-left streak proxy without disabling vendor UV animation
+  - source Landscape, foliage instances, RVT closure, SM6 fallback, and default-material fallback gates remain closed
+  - the final seed, build, audit, and D3D12 capture remained provider-off and preserved all protected hashes
+
+remaining_failures:
+  - the whole-triangle mask deletion produces a broad pale-pink dry cutout with a serrated polygonal shoreline
+  - dark water holes and discontinuities around the geology prevent a coherent authored island silhouette
+  - a long downward reflection streak remains below the left cliff cluster
+  - the island district is not ready for human approval or production migration
+
+acceptance:
+  scratch_build_and_fresh_audit: true
+  provider_off_d3d12_runtime: true
+  residual_landscape_or_foliage_references: false
+  legacy_rvt_or_default_material_artifacts: false
+  dry_land_visibility: partial
+  reflection_tuning: partial
+  natural_shoreline: false
+  foreground_reflection_artifact_eliminated: false
+  local_ocean_visual_acceptance: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V6K as a provider-off, structurally passing, visually failed scratch
+  rollback point. Do not repeat it unchanged. Replace whole-triangle inner-mask
+  deletion with scratch-only boundary-clipped shoreline topology that
+  interpolates intersection vertices against the terrain-aware compact-island
+  contour. Then reduce the remaining reflection response without zeroing the
+  vendor UV animation, rebuild from pinned V7, and repeat the exact provider-
+  off D3D12 wide and near cameras. Production migration remains forbidden.
+
+claim_limit: >-
+  This proves one scratch-only V6K map mutation, fresh UE 5.8 audit, provider-
+  off D3D12 SM6 capture, and human pixel review with protected hashes
+  unchanged. It does not accept the visible shoreline, local ocean,
+  foreground reflection, island composition, gameplay, collision, navigation,
+  performance, Chaos, surface-to-orbit behavior, or production integration.

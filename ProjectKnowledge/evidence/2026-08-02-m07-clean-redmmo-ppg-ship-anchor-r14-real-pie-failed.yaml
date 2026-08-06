@@ -1,0 +1,73 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-ship-anchor-r14.real-pie-failed.2026-08-02
+captured_utc: "2026-08-02T20:47:33Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r14-no-save-normal-spawn-runtime-ship-anchor-probe
+evidence_class: automation
+evidence_subclass: real_d3d12_pie_runtime_collision_readback
+result: failed_no_authoritative_ppg_surface_hit
+
+project:
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256_before: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+  home_map_sha256_after: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+
+probe:
+  script: D:/RedMMOTitan/Build/Automation/probe_redmmo_ppg_runtime_ship_anchor_r14.py
+  script_sha256: 73960C465B11929DF30CC36FF9519498E575297FA78020FD08BEBFF45C4F8DB0
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_RuntimeShipAnchor_R14_20260802/probe_redmmo_ppg_runtime_ship_anchor_r14_result.json
+  result_sha256: B6626A563DF7DC450CA78560306E5A89150C4CB1AE22A9E29D67A1057F2E4B71
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_RuntimeShipAnchor_R14_20260802/probe_r14_runtime_ship_anchor.log
+  log_sha256: 998D6F349B545856942C56C949C4A9031240C4C5F9F65814541607C122761394
+  status: FAIL
+  error: No authoritative collision hit owned by the unique PPG spawner
+  allowlisted_query_collision_terrain_components: 135
+  visibility_trace_accepted_ppg_terrain: false
+  pawn_trace_available: false
+  pawn_trace_error: "Trace type unavailable: ECC_PAWN"
+
+runtime_state:
+  engine: UE_5.8.1
+  rhi: D3D12_SM6
+  gpu: NVIDIA_RTX_3080
+  ppg_generation_complete: true
+  generated_chunks_reported_by_log: 432
+  pawn_grounded: true
+  pawn_speed_cm_s: 0.0
+  pawn_settled_consecutive_frames: 60
+  pawn_location_cm: [1399.9942934796086, -116.77401823719573, 1574.0053428607714]
+  clean_pie_end: true
+  dirty_packages_after: []
+
+write_contract:
+  map_or_asset_save: false
+  actor_or_pawn_transform_write: false
+  input_injection: false
+  planet_regeneration_requested: false
+  ship_anchor_authorized: false
+
+protection:
+  home_map_unchanged: true
+  protected_checkpoint_hashes_exact: true
+  providers_called: false
+  provider_ports_5353_8000_8765_closed: true
+  unrelated_dirty_work_preserved: true
+  unreal_processes_after_close: 0
+
+claim_limit: >-
+  R14 proves only that a normal-spawn, provider-off, no-save real PIE probe reached
+  completed PPG generation and a fully settled grounded pawn, then failed to find
+  a PlanetSpawner-owned blocking surface hit at the proposed nearby ship anchor.
+  It does not authorize moving or saving the StarSparrow and does not prove ship
+  landing contact, collision, boarding, or travel. It also does not prove that
+  PPG terrain collision is globally absent; only the two tested query paths
+  failed. The home map, protected maps, and unrelated content remained unchanged.
+
+next_safe_action: >-
+  Defer the ship anchor mutation. Before retrying, identify and validate the
+  actual PPG generated-terrain query or collision channel in a separate
+  read-only/static slice; do not repeat this unchanged trace. The independent
+  next M07 environment slice may proceed with bounded continent/biome topology
+  design and validation while ship grounding remains explicitly unresolved.

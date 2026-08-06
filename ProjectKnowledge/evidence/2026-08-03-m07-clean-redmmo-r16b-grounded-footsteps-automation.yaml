@@ -1,0 +1,80 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r16b-grounded-footsteps.automation.2026-08-03
+captured_utc: "2026-08-03T00:58:47Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r16b-project-owned-grounded-footstep-gate
+evidence_class: automation
+result: pass_static_compile_fresh_reload_mapcheck_with_known_warning
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/RedMMO_R16B_GroundedFootsteps_20260803_005400_A01
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_R16B_GroundedFootsteps_20260803_005400_A01/manifest.json
+  manifest_sha256: 9CD80E01307C307F2DB48FC05473065DAB2BED57376C5EDCF87FE704CB018538
+  pawn_preimage: BP_RedPlanetCharacter_R11.pre_r16b.uasset
+  pawn_preimage_sha256: 65A0413D1921F8ED2F6E4E3893B1C6B5CA3A0D1F7BCFC9AF9BF987940ECDC11E
+
+transaction:
+  interface: guarded_hidden_d3d12_renderoffscreen_unreal_python
+  script: Build/Automation/build_redmmo_grounded_footsteps_r16b.py
+  script_sha256: AE66EC2AA19AED8323D9D21C6028F1B03105305D896F21B1BC5D2312196D67F5
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R16B_GroundedFootsteps_20260803_004400/build_redmmo_grounded_footsteps_r16b_result.json
+  result_sha256: 5BD453EBB6B95E0F252DCF0FB43D91D3A7D7A9ACD4C836F73D0018191DCFEE04
+  status: PASS_STATIC_COMPILE_SAVE
+  project_owned_anim_blueprint: /Game/RedMMO/Gameplay/Player/Animation/ABP_RedPlanetGroundedAudio_R16
+  anim_blueprint_sha256: 50F31A9AAD43F46FBC2620E670810EB18B5AA565CB89758BB9133BD3FA490758
+  pawn: /Game/RedMMO/Gameplay/Player/BP_RedPlanetCharacter_R11
+  pawn_sha256_after: E20639B7DDA6C7D667E20FBB8201B1F12BC217281D17A56E6FAABB0FFB626351
+  graph_compile_errors: 0
+  graph_compile_warnings: 0
+  pawn_compile_errors: 0
+  pawn_compile_warnings: 0
+
+grounded_audio_contract:
+  query: TryGetPawnOwner -> GetMovementComponent -> IsMovingOnGround
+  walk_notify: AnimNotify_Footstep -> Branch.true -> PlaySound2D
+  run_notify: AnimNotify_FootstepRun -> Branch.true -> PlaySound2D
+  false_paths: unconnected_silent
+  source_vendor_anim_blueprint: /Game/SoStylized/Demo/Pawn/Mannequin/Animations/ThirdPerson_AnimBP
+  source_vendor_sha256_unchanged: 6E4FCBE46EF2CD932DF12A45E7EC456F487372D70E171FC36699EABE99AB7BB9
+  vendor_assets_changed: false
+
+fresh_reload:
+  script: Build/Automation/verify_redmmo_grounded_footsteps_r16b.py
+  script_sha256: 738FEF5858FF9B89D075A57E84EE0C8F813075A311EFA463E2A9329225BCC92A
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R16B_GroundedFootsteps_20260803_004400/verify_redmmo_grounded_footsteps_r16b_result.json
+  result_sha256: 6F0A9EBCC9AC4319A5295ABB3152B28615BBC5F554FCFBDC8FCCC68DD0F2B6F5
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R16B_GroundedFootsteps_20260803_004400/verify_redmmo_grounded_footsteps_r16b.log
+  log_sha256: 1587724C1269503EB4578E0C7E38782FA0762CF52A6CC442B134F8928D527FBF
+  serialized_graph_readback: pass
+  serialized_pawn_anim_class_readback: pass
+  rejected_r06_water_actor_count: 0
+  map_actor_count: 12
+  map_check_errors: 0
+  map_check_warnings: 1
+  map_check_warning: Floor_0 large actor receives a pre-shadow and may cause an extreme performance hit unless dynamic shadow is disabled
+  dirty_packages: 0
+  map_saved_by_verifier: false
+
+preservation:
+  provider_ports_closed: [5353, 8000, 8765]
+  protected_hashes_unchanged: true
+  ppg_seed_or_markers_changed: false
+  home_map_changed: false
+  water_changed: false
+  input_mapping_changed: false
+  fighter_or_ship_changed: false
+  production_redmmotitan_changed: false
+
+claim_limit: >-
+  This proves a project-owned grounded-state gate, clean Blueprint compilation,
+  persisted pawn rebind, fresh serialized graph readback, and map reload health.
+  It does not prove audible output or silence in real PIE because this guarded
+  automation ran with sound disabled. Ground walk/run audible, jump/fall/flying
+  silent, and post-landing audio resume remain runtime acceptance gates. The
+  existing Floor_0 pre-shadow warning is recorded and was not changed by R16B.

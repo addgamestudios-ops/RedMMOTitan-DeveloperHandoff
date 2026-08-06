@@ -1,0 +1,228 @@
+schema_version: 1
+id: evidence.M07.cc5-local-mcp-bridge-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T01:05:03Z
+result: passed_project_owned_local_cc5_mcp_bridge_static_and_stdio_contract
+
+scope:
+  objective: >-
+    Build a minimal project-owned local Model Context Protocol bridge for
+    Character Creator 5.11 that keeps every RLPy call inside CC5, exposes no
+    arbitrary execution or network surface, and supports inspection, exact
+    allowlisted character shaping, and explicit non-overwriting project
+    version snapshots.
+  performed:
+    - inspect the installed CC5 5.11 host, embedded Python 3.8 RLPy API, plugin loading convention, shaping API, timer and event callbacks, and SaveProject signature
+    - implement a Python 3.8-compatible in-CC5 RLPy plugin with timer-polled authenticated filesystem IPC
+    - implement a separate Python 3.10+ FastMCP stdio server with five exact tools
+    - bind every morph mutation to the inspected plugin instance, project epoch and selected RIObject ID
+    - bind project version snapshots to the inspected project-session identity
+    - publish snapshots through private staging and Windows no-replace MoveFileExW with size, SHA-256 and rename-identity verification
+    - fail closed on non-NTFS storage, reparse points, a non-private DACL, unexpected owner, config hard links, missing runtime directories and broad local principals
+    - throttle durable status publication and ACL scans to a one-second heartbeat while retaining full validation immediately before operations
+    - document reviewed private-ACL installation, dependency, plugin copy, launch and Caricature Mixer allowlisting steps
+    - run independent security review through correction and final zero-P0-through-P2 verdict
+  not_performed:
+    - install mcp 1.28.1 or another dependency
+    - copy or activate the plugin in the CC5 installation
+    - create the private runtime config, token, queue or saved-project directories
+    - change Codex MCP configuration
+    - call RLPy, select or modify a character, enumerate live morph IDs, or save a CC project
+    - control, restart or close the already-running CC5 process
+    - launch Unreal, build, cook, package, import, migrate, modify a map, or touch a protected game asset
+    - claim live CC5, Caricature Mixer, morph, save, visual, gameplay or real-GPU acceptance
+
+installed_cc5_static_compatibility:
+  executable:
+    path: D:/cc5/Character Creator 5/Bin64/CharacterCreator.exe
+    file_product_version: 5.11.1908.1
+    installed_product_build: 5.11.1909.1
+    sha256: 8D0C5551E564E2CEC247CBB36E312BFC9F1E4EDDD1FD6928BC2DBAEB8570D1BE
+  embedded_python: 3.8.8
+  rlpy_stub:
+    path: D:/cc5/Character Creator 5/Bin64/RLPy.py
+    sha256: B13AAE054951FB0FCBE087BF1091A585009714A668086308AB30D919D2F82F3D
+  rlpy_extension:
+    path: D:/cc5/Character Creator 5/Bin64/_RLPy.pyd
+    sha256: 81BE664D2F08782B816EA695C49A08E432E3D973B6C7EA0F7572149C2EEA0B0D
+  plugin_drop_root: D:/cc5/Character Creator 5/Bin64/OpenPlugin
+  exact_api_surface_inspected:
+    - RScene.GetSelectedObjects
+    - RIObject.GetID
+    - RIAvatar.GetAvatarShapingComponent
+    - RIAvatarShapingComponent.GetShapingMorphCatergoryNames
+    - RIAvatarShapingComponent.GetShapingMorphIDs
+    - RIAvatarShapingComponent.GetShapingMorphDisplayNames
+    - RIAvatarShapingComponent.GetShapingMorphMinMax
+    - RIAvatarShapingComponent.GetShapingMorphWeight
+    - RIAvatarShapingComponent.SetShapingMorphWeight
+    - RApplication.GetCurrentProjectPath
+    - REventHandler.RegisterCallback
+    - RPyTimer
+    - RFileIO.SaveProject
+  caricature_mixer:
+    local_matching_content_file_count: 24
+    limitation: >-
+      Installed content filenames are not authoritative live shaping IDs.
+      Exact IDs, display names and min/max values must be discovered through a
+      live read-only CC5 session before any alias is allowlisted.
+
+architecture_and_security:
+  external_transport: stdio_only
+  ipc: authenticated_bounded_json_files_under_fixed_private_ntfs_root
+  fixed_storage_root: D:/RedMMOTitanWindowsData/CC5MCPBridge
+  generic_dispatch_or_arbitrary_python_tool: false
+  network_listener_or_client: false
+  shell_or_subprocess_surface: false
+  arbitrary_path_input: false
+  registry_access: false
+  tool_allowlist:
+    - cc5_get_bridge_status
+    - cc5_inspect_active_character
+    - cc5_list_active_character_morphs
+    - cc5_set_approved_morph
+    - cc5_save_project_as
+  authentication:
+    algorithm: HMAC-SHA256
+    token_written_to_queue: false
+    request_expiry_and_uuidv4_replay_binding: true
+  mutation_binding:
+    plugin_instance_uuid: true
+    project_epoch_and_path_fingerprint: true
+    selected_character_riobject_id: true
+    binding_rechecked_immediately_before_write: true
+    rollback_to_previous_value_on_write_or_readback_failure: true
+    uncertain_mutation_reported_explicitly: true
+  save_boundary:
+    simple_version_name_only: true
+    target_replace_allowed: false
+    native_publication: MoveFileExW_WRITE_THROUGH_without_REPLACE_EXISTING
+    collision_file_deleted: false
+    unknown_active_staging_binding_deleted: false
+    session_rebind_to_final_claimed: false
+  acl_boundary:
+    enabled_root_requires_inheritance_disabled: true
+    permitted_allow_aces: [current_user, SYSTEM, Builtin_Administrators]
+    inherited_authenticated_users_acl_is_rejected: true
+    same_user_and_elevated_administrator_processes_are_trusted: true
+    directory_handles_pinned_against_same_user_race: false
+
+artifacts:
+  - {path: Tools/CC5MCP/__init__.py, bytes: 58, sha256: 0B60719A9232E04BEFE120C8AB735C58931BDD5845EA4EDEB62277B42C9875AB}
+  - {path: Tools/CC5MCP/protocol.py, bytes: 26249, sha256: 179E83F4986BDD35098DD2EC2B3D759276F90602D41F292250D8F8CE92BCC164}
+  - {path: Tools/CC5MCP/server.py, bytes: 4094, sha256: 868A5B41C1ECCA1CCC05BB25867C8324376A082D5AAA1BE74563F7AF30711A67}
+  - {path: Tools/CC5MCP/requirements.txt, bytes: 77, sha256: 202E6C57BB6262106548D94FACDAC9CFFE33B25E15F4A958105FB4C6F83FB590}
+  - {path: Tools/CC5MCP/config.example.json, bytes: 361, sha256: B9B0FAB6F431D936587BFD28B392D2E415362EEA82F96A706EBB37BA48A3FEAB}
+  - {path: Tools/CC5MCP/README.md, bytes: 10603, sha256: 456A223FD729B7CA52E6F47329F77F804800C819B6C67DF904B78ED247DFF5AE}
+  - {path: Tools/CC5MCP/cc5_plugin/__init__.py, bytes: 59, sha256: E2A74C1BA934AC50BAD13047F8D2F665435322D396F25E16A602FE38F22D9053}
+  - {path: Tools/CC5MCP/cc5_plugin/bridge_core.py, bytes: 18546, sha256: EE6AACACBC108DCE585FB8FDB6DC2C796BF75B6706AC2F4821FD7907B4A5DBBD}
+  - {path: Tools/CC5MCP/cc5_plugin/main.py, bytes: 28059, sha256: 0CE90EC9FA20EFF45A04D602D60F31CE9DFED81308698E595C7BD77033AD298D}
+  - {path: Tools/CC5MCP/cc5_plugin/windows_security.py, bytes: 14236, sha256: 922182E34294DBBF75BC98AA7508DE4B14350B0626DC60BB44FD6682DA322061}
+  - {path: Tools/tests/test_cc5_mcp_bridge.py, bytes: 23340, sha256: 58CF5F60D7572AF6E9BB50BD344C4EF659F94F6947F0F2A50F31D7D8477028E6}
+
+verification:
+  focused_tests:
+    command: python -m unittest Tools.tests.test_cc5_mcp_bridge -v
+    run: 24
+    passed: 24
+    failed: 0
+  python_compile:
+    result: pass
+    files: 5
+    plugin_feature_version: Python_3_8
+  external_mcp_stdio_handshake:
+    result: pass
+    initialize_succeeded: true
+    exact_five_tool_list_succeeded: true
+    installed_test_interpreter_mcp_version: 1.26.0
+    pinned_requirement: mcp==1.28.1
+    pinned_requirement_installed_or_exercised: false
+  native_windows_controls:
+    broad_parent_acl_rejected: true
+    existing_target_no_replace_test_passed: true
+    reparse_resolution_rejected: true
+    collision_cleanup_preserved_preexisting_file: true
+    unknown_binding_cleanup_is_conservative: true
+    success_and_error_heartbeat_backoff_tested: true
+  independent_review:
+    final_p0_findings: 0
+    final_p1_findings: 0
+    final_p2_findings: 0
+    reviewed_main_sha256: 0CE90EC9FA20EFF45A04D602D60F31CE9DFED81308698E595C7BD77033AD298D
+    reviewed_bridge_core_sha256: EE6AACACBC108DCE585FB8FDB6DC2C796BF75B6706AC2F4821FD7907B4A5DBBD
+
+canonical_integrity:
+  command: >-
+    python Tools/audit_project_knowledge_integrity.py
+    --project-root D:/RedMMOTitan
+    --output
+    D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_20260725_0110Z_final/integrity.json
+  output: D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_20260725_0110Z_final/integrity.json
+  result: pass
+  error_count: 0
+  warning_count: 0
+  indexed_evidence_count: 152
+
+preflight_and_final_observation:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  observed_worktree_entries_before_canonical_update: 176
+  physical_ram_free_gib: 3.040
+  commit_headroom_gib: 8.165
+  d_drive_free_gib: 1077.925
+  gpu: {name: NVIDIA GeForce RTX 3080, total_vram_mib: 10240, used_vram_mib: 4123, free_vram_mib: 5931}
+  exact_unreal_or_build_process_count: 0
+  already_running_cc5:
+    count: 1
+    pid: 26672
+    action_taken: none
+  decision: >-
+    RAM was below every Unreal launch and package gate, and CC5 was already
+    running. This slice remained offline/static and did not interact with
+    either host.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_CC5MCP_20260725_010503Z
+  index_sha256: 94B48C075691F239BE3199CEDB04816235801E0C04210CA66124BF594BC0B96E
+  current_state_sha256: D4259C5CB804B63B4EF43174E229AD5D80FD200AB64845D7FECEDA0FF7627B3E
+  queue_sha256: A8A149F56DEEEEA6AF7802D66A74F8CD231BD943C77FD8ABD82E7EAD69449AF3
+
+incident_note: >-
+  One accidental system-Python import attempt against the vendor RLPy wrapper
+  failed on its Python 3.8 ABI and created only
+  D:/cc5/Character Creator 5/Bin64/__pycache__/RLPy.cpython-311.pyc. That exact
+  generated file was removed immediately; the vendor RLPy.py and _RLPy.pyd
+  remain present at their recorded original hashes. No vendor source, plugin,
+  content or configuration was changed.
+
+claim_limit: >-
+  Static source, native filesystem-control, unit-test and external MCP
+  initialize/list-tools evidence only. It proves the project-owned server
+  exposes exactly five stdio tools and the offline queue/security contracts
+  pass on Windows. It does not prove the plugin loads in CC5, that RLPy calls
+  work at runtime, that Caricature Mixer IDs are correct, that a morph is
+  reversible in a real character, that SaveProject snapshot semantics match
+  the static design, or that the pinned mcp 1.28.1 environment works.
+
+remaining_blockers:
+  - close CC5 before reviewing and copying the four plugin Python files
+  - create the fixed private NTFS runtime tree and verify its protected ACL
+  - create a noncommitted config and token, initially disabled with an empty morph allowlist
+  - install pinned mcp 1.28.1 into a separate reviewed Python 3.10+ environment
+  - obtain a live authenticated CC5 heartbeat and run inspect/list only on a disposable Caricature Mixer test character
+  - externally review exact live morph IDs and safe min/max values before adding individual aliases
+  - test one small reversible allowlisted morph and explicit named snapshot with live CC5 evidence
+  - add the server to Codex MCP configuration only after the standalone smoke test and separate authorization
+
+next_safe_action: >-
+  With CC5 closed and explicit setup authorization, apply the documented
+  private ACL, copy only the four reviewed plugin files, install the pinned MCP
+  dependency in an isolated external environment, and perform a read-only
+  heartbeat plus inspect/list smoke test before authorizing any mutation.

@@ -1,0 +1,69 @@
+schema_version: 1
+id: evidence.m07.r92-no-palms-currentness-package
+module: M07
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T19:25:00Z
+scope: >-
+  One bounded read-only currentness audit that R92 preserves the exact active
+  no-palms ProfileV1 authority (R66/R73) while only adding the PlayerStatus HUD
+  cooked path versus R91. No Unreal process was launched and no project or
+  package byte changed.
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/M07_R92_NoPalmsCurrentness_20260806T1925Z/transaction_intent.yaml
+  verifier: D:/RedMMOTitanWindowsData/Diagnostics/M07_R92_NoPalmsCurrentness_20260806T1925Z/audit_r92_no_palms_currentness.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_R92_NoPalmsCurrentness_20260806T1925Z/r92_no_palms_currentness.json
+  focused_checks: 29_of_29_passed
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z/Windows
+  tree_sha256: 11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409
+  file_count: 50
+  total_bytes: 1455490099
+  r91_tree_preserved_exact: true
+  r91_to_r92_added_paths:
+    - ../../../RedMMO/Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.uasset
+  r91_to_r92_removed_paths: []
+active_authority:
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  no_palms_r66_sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  rock_only_r73_sha256: 4499F76A4B541D92BB7CCF66EA4C8B55C2AA0AC0CEEA4D4AFB964D2807EE7A1D
+  no_palms_r66_foliage_densities: [0.0, 90.0, 0.6000000238418579]
+  rock_only_r73_foliage_densities: [0.0, 0.0, 0.6000000238418579]
+  active_palm_tree_category_density: 0.0
+  r92_no_palms_r66_uasset_entry_count: 1
+  r92_rock_only_r73_uasset_entry_count: 1
+  runtime_bindings_from_authenticated_r80:
+    Craters: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+    Hills: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+    Mountains: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+    Desert: null
+    Ocean: null
+    Poles: null
+dormant_cooked_palm_boundary:
+  project_palm_alias_uasset_entry_count: 1
+  vendor_stylized_desert_oasis_palm_uasset_entry_count: 9
+  vendor_stylized_desert_oasis_palm_total_entry_count_including_bulk: 16
+prior_exact_profile_real_gpu_census:
+  r66_evidence: ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r66-seeded-palms-disabled-real-gpu.yaml
+  r66_palm_component_count: 0
+  r66_palm_instance_count: 0
+  r66_visible_repeated_palms: false
+finding: >-
+  R92 preserves the exact active no-palms R66 / rock-only R73 ProfileV1 authority
+  while adding only the PlayerStatus HUD cooked path versus R91. Dormant cooked
+  palm bytes remain present but are not active spawn bindings, components, or
+  instances under the authenticated profile hashes.
+blocker: >-
+  No direct visible R92 player-scale palm census was captured in this slice.
+  Dormant owned/vendor palm bytes remain cooked; wider biome art and physical
+  control acceptance remain open.
+claim_limit: >-
+  Package/static currentness plus referenced prior runtime and real-GPU evidence
+  for exact unchanged active profile hashes. No direct R92 visual, hands-on,
+  gameplay, standalone, replication, multiplayer, performance, or final-art
+  acceptance.
+next_safe_action: >-
+  Leave human R92 checklist notes in the pack handoff. Preserve R66/R73 and
+  hard zero-palms. Rotate unattended work to an independent authorized module;
+  do not reintroduce palms.
+rollback: not_applicable_no_project_or_package_mutation

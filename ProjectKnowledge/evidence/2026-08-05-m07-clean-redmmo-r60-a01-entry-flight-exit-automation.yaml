@@ -1,0 +1,121 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r60-a01-entry-flight-exit-automation.2026-08-05
+captured_utc: "2026-08-05T20:44:00Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r60-a01-trooper-starsparrow-entry-flight-exit
+evidence_class: automation
+result: pass_automated_real_d3d12_pie_a01_trooper_starsparrow
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_untracked_omitted: 60
+  free_physical_ram_gib: 53.46
+  commit_headroom_gib: 55.97
+  free_gpu_vram_mib: 9138
+  free_d_drive_gib: 767.45
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 853A623A9997AA92D3FF61F9894A19696BB568ACF761D6F42756194D786CA022
+
+transaction:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_R60_20260805T2024Z/transaction_manifest.yaml
+  manifest_sha256: AF38DF95C5126077FDE8C54720BFAB5C85012D84E1B741CA074CF5D75D2805D9
+  home_map_mutated: false
+  package_save_called: false
+  config_mutated: false
+  seed_or_terrain_changed: false
+  foliage_or_seeded_obstacle_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen_PIE
+  nullrhi_forbidden: true
+  provider_plugins_disabled: true
+  driver: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_trooper_starsparrow_a01_pie_r60.py
+  driver_sha256: E9C20CEC5DA867655A93F231738B4CC49BBDE29DD6FA4D036F25D87BC62311C2
+  historical_validator_unchanged: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_trooper_starsparrow_a01_pie.py
+  result_file: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R60_Attempt6_20260805T2024Z/result.json
+  result_sha256: E3BF132EAE21A955CCF058099066916227BF53825FCD4158EA9A969EAC7FB85B
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_R60_20260805T2024Z/attempt6.unreal.log
+  log_sha256: 61A37FD826A06D10572A3DE497D61B39C6B838B86C7ABE23D7622A99E8FE7416
+  mapcheck: {errors: 0, warnings: 0}
+  ppg_generation: {phase: COMPLETE, progress: 1.0, collision_enabled: true}
+  on_foot:
+    walk_distance_cm: 546.62
+    walk_max_speed_cm_s: 600.0
+    sprint_distance_cm: 861.50
+    sprint_max_speed_cm_s: 1000.0
+    jump_takeoff_radial_speed_cm_s: 144.39
+    landed_radial_up_dot: 1.0
+    server_authoritative_rifle_projectile: true
+    projectile_muzzle_distance_cm: 40.14
+  approach:
+    actions: [IA_RedLook, IA_RedMove, IA_RedSprint]
+    distance_to_ship_cm: 1100.07
+  entry:
+    key: F
+    action: IA_RedInteract
+    exact_starsparrow_possessed: true
+    pilot_relation_established: true
+    on_foot_context_disabled: true
+    ship_context_enabled: true
+    trooper_hidden_and_collision_disabled: true
+  flight:
+    authentic_ppg_surface_gap_cm_at_parking: 15.0
+    ascent_action: SpaceBar
+    ascent_radial_delta_cm: 1709.37
+    forward_action: W
+    forward_delta_cm: 1929.09
+    forward_dot: 1.0
+    strafe_action: D
+    strafe_delta_cm: 979.75
+    strafe_right_dot: 1.0
+    descent_action: LeftControl
+    descent_radial_delta_cm: -1140.07
+    mouse_look_forward_dot_after: 0.5135
+    roll_up_dot_after: 0.4434
+    cruise_speed_cm_s: 5999.97
+    boost_speed_cm_s: 11999.98
+    boost_ratio: 2.0
+  exit:
+    key: F
+    action: IA_RedShipExit
+    trooper_repossessed: true
+    on_foot_context_restored: true
+    capsule_gap_above_owned_ppg_surface_cm: 10.0
+    separated_from_ship_envelope: true
+  save_called: false
+  dirty_content_or_maps_after: 0
+
+harness_adaptation:
+  attempts_1_to_3: current-provenance selection failures before PIE
+  attempts_4_to_5: current radial pawn camera-tangent approach failures
+  attempt_6: >-
+    Passed after the adapter drove the serialized IA_RedLook action used by the
+    current private CameraTangentForward path, followed by actual movement and
+    vehicle actions. No pawn teleport or project mutation was used.
+
+protected_state:
+  uproject_sha256_before_after: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R60 proves automated execution through the project's serialized InputAction
+  paths in one fresh real-D3D12 no-save PIE. It does not prove physical
+  keyboard, mouse or controller feel, user hands-on visuals, audio or footsteps,
+  sustained cruise translation, standalone packaging, replication, multiplayer,
+  travel, biome art acceptance or a developer handoff build.
+
+next_safe_action: >-
+  Run one separate visible hands-on PIE to confirm physical F, WASD, mouse and
+  controller feel and camera steering. Only after that acceptance should a
+  separate packaging-readiness and developer-build slice begin.

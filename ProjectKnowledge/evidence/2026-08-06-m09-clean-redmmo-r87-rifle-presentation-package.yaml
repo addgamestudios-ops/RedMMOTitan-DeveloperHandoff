@@ -1,0 +1,126 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r87-rifle-presentation-package
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T07:48:00Z
+scope: >-
+  One guarded full Win64 Development build, cook, stage, Pak/IoStore archive,
+  exact cooked-content audit, and bounded offscreen D3D12 packaged smoke. R87
+  carries the already accepted R85 compact projectile and R86 Trooper rifle
+  animation/muzzle/restoration corrections into a fresh package. No map, PPG
+  profile, seed, terrain, biome, foliage, vendor source, or user asset changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 195
+  free_physical_ram_gib: 51.44
+  commit_headroom_gib: 53.76
+  gpu_free_mib: 9095
+  d_drive_free_gib: 759.34
+  active_unreal_build_package_process_count: 0
+build:
+  target: RedMMO Win64 Development
+  result: success
+  uat_exit_code: 0
+  elapsed_seconds: 152.8
+  build_cook_run_seconds: 146.14
+  compiled_project_sources:
+    - RedPPGFoliageDiagnostics.cpp
+    - RedShip.cpp
+    - RedBolt.cpp
+    - RedPlayerCharacter.cpp
+    - RedPPGGameplayGameMode.cpp
+  cooked_total_packages: 1535
+  cooked_packages: 1464
+  cooked_platform_skipped_packages: 71
+  iostore_ordered_packages: 1464
+  uat_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_Package_20260806_0740Z/uat_stdout.log
+  uat_log_bytes: 185172
+  uat_log_sha256: 18C99F7A1DDB88B5D5A21F3BE74F1F091DAE2C1BC00BF2DF22228279E1FC8DA8
+package:
+  archive_root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R87_Playable_20260806_0740Z
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R87_Playable_20260806_0740Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R87_Playable_20260806_0740Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  file_count: 52
+  total_bytes: 1454596335
+  tree_sha256: AC541BE2EA91C80A3FD9B8722C1F8B7E42EADB08BABAA3F60C0986131317FA6D
+  tree_hash_contract: >-
+    SHA-256 of UTF-8 LF-terminated lines sorted by case-folded relative path;
+    each line is relative/path|byte_length|file_sha256.
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 3911436C03D865E3E8962EC2B81FD2ED90807B5B1A7BF2A2EF1FE818679F12C5
+cooked_content_audit:
+  listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_Package_20260806_0740Z/iostore_list.txt
+  listing_bytes: 1219036
+  listing_sha256: EB287B2A40EA7BA0C41D0CF36B952E631CF55CE613DEE3065ACF041547886DBF
+  listed_files: 3288
+  uassets: 1461
+  umaps: 3
+  a01_uassets: 18
+  profile_v1_uassets: 9
+  required_present_once:
+    - RedMMO/Anims/Rifle/A_Rifle_Fire_Single.uasset
+    - ProjectilesVol1/Effects/P_Flash_17.uasset
+    - ProjectilesVol1/Materials/MI_Flash26a.uasset
+    - ProjectilesVol1/Materials/M_Circle41a.uasset
+    - ProjectilesVol1/Textures/T_Circle41.uasset
+    - ProjectilesVol1/Textures/T_Flash26.uasset
+    - ProjectilesVol1/Textures/T_Noise41.uasset
+    - RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.uasset
+    - RedMMO/Gameplay/Trooper/A01/Combat/BP_RedBolt_Trooper_A01.uasset
+    - RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+  rejected_absent:
+    P_Flash_4: 0
+    SM_Conus: 0
+smoke:
+  renderer: D3D12 SM6
+  gpu: NVIDIA GeForce RTX 3080
+  resolution: 1280x720
+  mode: offscreen_unattended_no_sound
+  runtime_compatibility_marker: RED_MOTION_VECTOR_CVAR_R84
+  uv_guard_marker: RED_PPG_UV_GUARD active
+  game_class: GM_RedTrooperPPG_A01_C
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 4298.08
+  trooper_surface_placement: true
+  starsparrow_surface_spawn_and_park: true
+  warning_line_count: 0
+  error_line_count: 0
+  assertion_count: 0
+  ensure_count: 0
+  fatal_count: 0
+  bad_export_count: 0
+  gpu_crash_or_device_loss_count: 0
+  exact_processes_stopped_after_gate:
+    - 20616
+    - 19168
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_Package_20260806_0740Z/Smoke_20260806T0744Z/packaged_smoke.log
+  log_bytes: 83905
+  log_sha256: 9B551B9C007229780077EED6A650D209707975E1C99E39A2A4E0B2C8D9FB33CD
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  ppg_seed: 1337
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  vendor_sources: unchanged
+postcheck:
+  active_unreal_build_package_process_count: 0
+claim_limit: >-
+  R87 proves package currency for the accepted R85/R86 rifle/projectile slice,
+  exact cooked closure, and a clean real-D3D12 startup through PPG generation,
+  Trooper placement, and StarSparrow parking. It does not accept physical
+  keyboard/mouse controls, overall PPG terrain/grass/biome/day-night visuals,
+  replication, multiplayer, persistence, final art, or space traversal. It is
+  a launchable candidate, not a completed playable-baseline claim.
+next_safe_action: >-
+  Preserve R87 and rotate to the next independent authorized acceptance slice.
+  Before calling it the user-ready playable baseline, require hands-on physical
+  on-foot/rifle/ship controls and fresh player-scale PPG terrain, grass, biome,
+  shoreline, and day/night review.

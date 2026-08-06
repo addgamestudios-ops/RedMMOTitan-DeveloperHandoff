@@ -1,0 +1,161 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r52-grass-existing-viewport.2026-08-05
+captured_utc: "2026-08-05T18:47:02Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r52-non-resizing-existing-viewport-grass-lifecycle-and-visual
+evidence_class: real_gpu_visual
+result: grass_is_dense_and_visible_in_unconfounded_existing_viewport_but_scene_art_remains_rejected
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 53.73
+  commit_headroom_gib: 57.73
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.55
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: CB6AD0FB2D4510F8E65F8A3516AB768FCA1211F2AB6245D93015E8DF12D3B3B7
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeViewportScreenshotBridge_R52_20260805T1835Z
+  manifest_sha256: 680B49DB302F577FC7775623DF76A3F506E4583C49E46B82418B240748F0B086
+  preimages:
+    diagnostics_header_sha256: 227376BA7C71801385D25491033EF743CA2699703D736626645C784051771AEC
+    diagnostics_source_sha256: 4D2D0F065118AA1269079460E30F392475FAA075A9D77C31C1DF397C661D44B6
+    editor_module_sha256: 21081D7DA8239FD6606868808BB48234117B81C9A27ACBC7E25CA7F5D713FA30
+    editor_pdb_sha256: 5CAFCB745D878D4769F63DB59649B794D4EDD4AFA9464A7CBB3076C18681CAA4
+
+diagnostics_bridge:
+  scope: >-
+    One project-owned Blueprint/Python-visible function calls the exact-filename
+    FScreenshotRequest existing-viewport overload with UI false, filename
+    suffix false, HDR false, an empty crop rect and game-viewport restriction
+    true. It exposes no resolution input, component mutation, map save,
+    regeneration, material, foliage or asset write.
+  header: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGFoliageDiagnostics.h
+  header_sha256: 796EFD4BD6779FEB5D312C5A9B44BE097DEEF5C608F342D95B95651BB513AD94
+  source: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGFoliageDiagnostics.cpp
+  source_sha256: 9E95FAB31E7EEBB15551BE445E6481417304E7E43A44EF0C9D6ECE1722ABB18D
+  build:
+    target: RedMMOEditor Win64 Development
+    result: succeeded
+    actions: 5
+    total_seconds: 351.40
+    log: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+    log_sha256: 35F93DCE18DC7770C5ABBB6D4D67CDE5AC9190D02F0E48E706206D84E7EA7BA1
+    editor_module_sha256: 22C2AE57A79AA6FC8E5CBFB4865AB6915826C058FE7119E28D63A2F4576A1801
+    editor_pdb_sha256: 344EBFBF5A68166A5FA26450B7BE3DB48985EABC954F935C4855A0DBC4752CFB
+
+automation:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_viewport_capture_lifecycle_r52.py
+  driver_sha256: 20617E1AD5B70343416D81A27B5ED65C6CF570829B0E7B7F9AE87A405C5EBCDA
+  renderer: real_D3D12_RenderOffscreen
+  requested_window_resolution: [1280, 720]
+  capture_api: FScreenshotRequest_RequestScreenshot_existing_viewport
+  provider_off: true
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  first_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ViewportCaptureLifecycle_R52_20260805T1843Z/result.json
+    result_sha256: BEB4A75A23C18CA2D212DAE3E5A02F232032EF609228B996C917E171A7E21B54
+    log_sha256: E67D59174D6B47BB801281C3A4A1A6B8CD3F7F8A1AFB8B7D3536D9BFF08CCE4B
+    exact_harness_error: sampler_rejected_expected_pre_generation_absence_of_foliage_actor
+    capture_requested: false
+    disposition: >-
+      The attempt stopped PIE and exited cleanly before capture or mutation. The
+      harness was corrected to represent the expected pre-generation absence as
+      a zero census; no project source rebuild or content change was required.
+  passing_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ViewportCaptureLifecycle_R52B_20260805T1846Z/result.json
+    result_sha256: D7E3653CD5D393EE76CD5773A5818B589760468F2D3F121AA0E5DE0734975B57
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ViewportCaptureLifecycle_R52B_20260805T1846Z/unreal.log
+    log_sha256: 0AF87CE095A05BA842E116B1081FEF8C7E32A75715A50ACAC0D3082A9730F724
+    status: PASS_R52_NON_RESIZING_CAPTURE_LIFECYCLE_STABLE
+    total_samples: 424
+    post_request_samples: 163
+    pre_capture:
+      components: 196
+      instances: 2218356
+      registered: 196
+      instance_data_ready: 196
+      scene_proxy: 196
+      positive_last_render: 76
+      identity_sha256: E10BD2EC363A80CDABA00A0FD6C8ACC860E078332DF180E80954384E2AFEA80F
+    post_capture_minima:
+      components: 196
+      instances: 2218356
+      registered: 196
+      instance_data_ready: 196
+      scene_proxy: 196
+    identity_hash_changed: false
+    capture_requested_utc: "2026-08-05T18:46:44.796235Z"
+    capture_file_ready_utc: "2026-08-05T18:46:45.291674Z"
+    capture_ready_latency_seconds: 0.495439
+    dirty_packages_after: 0
+
+real_gpu_visual:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ViewportCaptureLifecycle_R52B_20260805T1846Z/R52_existing_viewport.png
+  capture_sha256: B912B30C7A015236259F6EF8C5FFA5D77E531FC0B0BA2D66CAB174C25923BE94
+  capture_bytes: 1010961
+  captured_game_viewport_pixels: [1014, 550]
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  camera_location: [191297894.994472, 196950314.121923, -421017759.800409]
+  camera_rotation_degrees: [20.411667, -46.370080, 111.800090]
+  independent_review:
+    grass_visibility: pass
+    near_ground: dense_readable_blades
+    mid_ground: continuous_dense_coverage
+    trooper_visible: true
+    overall_art_acceptance: fail
+    defects:
+      - grass and ground remain strongly saturated green and need later restrained art tuning
+      - palms are highly repetitive and overcrowded
+      - the surface sky is pure black despite the lit foreground
+  interpretation: >-
+    Unlike the confounded high-resolution captures, the existing-viewport file
+    visibly contains dense approved grass across near and mid ground while all
+    196 components remain instance-data-ready throughout file production. The
+    saved PPG grass binding therefore does render; the prior missing-grass files
+    were capture-path artifacts. This is not approval of the current biome art.
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_parent_sha256: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  map_or_content_saves: 0
+  project_content_mutated: false
+  vendor_source_mutated: false
+  dirty_count_after: 194
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  free_physical_ram_gib_after: 53.66
+  commit_headroom_gib_after: 57.66
+  free_gpu_vram_mib_after: 9215
+  free_d_drive_gib_after: 767.48
+  final_queue_sha256: 56B94B4988CBD7E9CEC2E3CC062801372BE47569AF661D541B776219B1087A60
+
+claim_boundary: >-
+  R52 is build, automation and real-D3D12 visual evidence for the exact saved
+  grass presentation through an unconfounded existing-viewport capture. It is
+  not biome visual acceptance, player playtest, standalone, replication or
+  multiplayer evidence. The retained diagnostics bridge changes only project-
+  owned source and the editor module binary.
+
+next_safe_action: >-
+  Preserve the proven existing-viewport capture route and stop all high-
+  resolution grass recaptures. The next independent bounded M07 slice is a
+  read-only runtime diagnosis of the pure-black surface sky at this valid lit
+  land viewpoint: record solar dot, sun/directional-light state, atmosphere and
+  skylight bindings, night-presenter weights, analytic-star material state and
+  depth/composition behavior. Do not alter the accepted R18 orbit star policy,
+  grass, foliage, surface, seed, distribution, map or vendor assets in that
+  diagnostic. Repetitive palms and saturated grass/ground remain later separate
+  art corrections.

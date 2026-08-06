@@ -1,0 +1,160 @@
+schema_version: 1
+id: evidence.m09.r88-gameplay-asset-package-closure
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T09:32:25Z
+scope: >-
+  One read-only M09 exact archive-hash, existing IoStore directory-index, and
+  R87-to-R88 entry-delta audit of the current R88 Windows Development package.
+  No Unreal, build, cook, package, runtime, desktop-control, map, source, asset,
+  Config, plugin, vendor, or user-asset process was launched or changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 195
+  dirty_entry_count_expanded_untracked: 2372
+  free_physical_ram_gib: 51.39
+  commit_headroom_gib: 53.61
+  gpu_free_mib: 9094
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 12
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+artifact:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows/RedMMO.exe
+  file_count: 52
+  total_bytes: 1454676382
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  tree_hash_reverified_now: true
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+  project_utoc_sha256: 01AE23505B7F3EC027CE7FE08C8E7439E41D6BB756888645AEFAD7747209BBB2
+  project_ucas_sha256: D7FC1CE433562136D28F540305E40497A4F5CD7C297992AA36D729EFB9FFAE7D
+  project_pak_sha256: BE6CD69DC131D23C7F3D0CA4D044E08D3512D064A53FBE8741C4E383E767A0C3
+project_container_listing:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/iostore_list.txt
+  actual_encoding: utf-16-le-with-bom
+  sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+  line_count: 3301
+  entry_count: 3295
+  uasset_entry_count: 1465
+  umap_entry_count: 3
+  note: >-
+    The BOM was honored directly for this audit. This decoding observation
+    does not change the listing bytes or any prior package-content result.
+closure_counts:
+  a01_uassets: 18
+  profile_v1_uassets: 9
+  action_trooper_uassets: 122
+  action_trooper_fire_shoot_aim_recoil_named_assets: 0
+  projectiles_vol1_uassets: 18
+  grounded_step_uassets: 4
+a01_closure:
+  gameplay_blueprints_present_once:
+    - RedMMO/Gameplay/Trooper/A01/Combat/BP_RedBolt_Trooper_A01
+    - RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+    - RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01
+    - RedMMO/Gameplay/Trooper/A01/Ship/BP_RedModularStarSparrow_Trooper_A01
+  input_assets_present:
+    - IA_RedADS
+    - IA_RedFire
+    - IA_RedInteract
+    - IA_RedJump
+    - IA_RedLook
+    - IA_RedMove
+    - IA_RedShipBoost
+    - IA_RedShipExit
+    - IA_RedShipLook
+    - IA_RedShipMove
+    - IA_RedShipRoll
+    - IA_RedSprint
+    - IMC_RedShip_A01
+    - IMC_RedTrooper_A01
+rifle_projectile_closure_present_once:
+  - RedMMO/Anims/Rifle/A_Rifle_Fire_Single
+  - RedMMO/Materials/M_BoltTracer
+  - ProjectilesVol1/Effects/P_Hit_3
+  - ProjectilesVol1/Effects/P_Flash_17
+  - ProjectilesVol1/Materials/MI_Flash26a
+  - ProjectilesVol1/Materials/M_Circle41a
+  - ProjectilesVol1/Textures/T_Circle41
+  - ProjectilesVol1/Textures/T_Flash26
+  - ProjectilesVol1/Textures/T_Noise41
+rejected_absent:
+  P_Flash_4: 0
+  SM_Conus: 0
+grounded_step_closure_present_once:
+  - SoStylized/Sounds/Step/SC_Steps_Dirt
+  - SoStylized/Sounds/Step/S_Step_Dirt01
+  - SoStylized/Sounds/Step/S_Step_Dirt02
+  - SoStylized/Sounds/Step/S_Step_Dirt03
+profile_v1_closure:
+  uasset_count: 9
+  includes:
+    - DA_PPG_ProfileV1_PlanetData
+    - DA_PPG_ProfileV1_NoPalms_R66
+    - DA_PPG_ProfileV1_RockOnly_R73
+    - M_PPG_ProfileV1_ShorelineBands_R80
+    - MI_PPG_ProfileV1_ShorelineBands_R80
+    - M_PPG_ProfileV1_OasisWater_R78
+    - MI_PPG_ProfileV1_OasisWater_R78
+    - M_PPG_ProfileV1_BiomeMask
+    - M_PPG_ProfileV1_Generation
+r87_to_r88_exact_entry_delta:
+  r87_listing_sha256: EB287B2A40EA7BA0C41D0CF36B952E631CF55CE613DEE3065ACF041547886DBF
+  added_entry_count: 7
+  removed_entry_count: 0
+  added_entries:
+    - SoStylized/Sounds/Step/SC_Steps_Dirt.uasset
+    - SoStylized/Sounds/Step/S_Step_Dirt01.uasset
+    - SoStylized/Sounds/Step/S_Step_Dirt01.ubulk
+    - SoStylized/Sounds/Step/S_Step_Dirt02.uasset
+    - SoStylized/Sounds/Step/S_Step_Dirt02.ubulk
+    - SoStylized/Sounds/Step/S_Step_Dirt03.uasset
+    - SoStylized/Sounds/Step/S_Step_Dirt03.ubulk
+  interpretation: >-
+    R88 adds exactly the grounded dirt cue, three wave assets, and their three
+    bulk payloads to R87's unchanged listed closure. It removes no listed entry.
+report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M09_R88_PackageGameplayClosure_20260806T0928Z/package_closure.json
+  byte_length: 3991
+  sha256: D7347847D5381FF4CCA2AB84452126C05AC7F8CC2C7AD5DCD981C22CA3D0F9F7
+  source_replay: passed
+source_package_evidence:
+  path: ProjectKnowledge/evidence/2026-08-06-m00-clean-redmmo-r88-grounded-footstep-package.yaml
+  sha256: 6A559B76F05007C1FE0D451D8930B27C1FA288FA93D662072F3EBB2AA2C7C1ED
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_provenance_tests: 7_of_7_passed
+  tangent_authoring_inputs: preserved
+  fused_faces: preserved
+postcheck:
+  active_unreal_build_package_process_count: 0
+verification:
+  report_source_replay: passed
+  project_knowledge_integrity_audit: passed_zero_findings
+  focused_integrity_and_fused_provenance_tests: 27_of_27_passed
+  yaml_and_json_parse: passed
+  queue_snapshot_sha256: C09554FC809EC3516C1260B7EB63B5C89A0B4A0E176A187D08C98AC69930B13E
+rollback: >-
+  Remove only this evidence/index/state/queue linkage and the external audit
+  report. No package or project rollback is required because no package,
+  project, source, map, asset, Config, plugin, vendor, or user byte changed.
+claim_limit: >-
+  Exact archive and package directory-index evidence only. This proves named
+  cooked entries and the exact R87-to-R88 footstep delta. It does not prove
+  physical keyboard, mouse or controller behavior, audible cadence or mix,
+  visuals, damage, replication, multiplayer, persistence, Steam, performance,
+  protected fused-continent consumption, or human playability.
+next_safe_action: >-
+  Preserve R88 and require the visible human hands-on controls, audio and PPG
+  review before a user-ready playable claim. Because unattended automation
+  cannot satisfy that gate, rotate next to one independent read-only M04 R88
+  packaged streaming-capability boundary audit without launching Unreal.

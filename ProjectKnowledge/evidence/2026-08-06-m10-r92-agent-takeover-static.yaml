@@ -1,0 +1,135 @@
+schema_version: 1
+id: evidence.m10.r92-agent-takeover-static
+module: M10
+evidence_class: static
+status: accepted_partial_dependency_and_human_gates_open
+timestamp_utc: 2026-08-06T18:07:20Z
+scope: >-
+  One latest no-clobber agent-takeover handoff for R92, including canonical
+  resume order, exact playable baseline, current blockers, verified GitHub
+  remote-read currentness, dirty-work safeguards, protected boundaries and an
+  updated in-place active 30-minute continuation heartbeat. No Unreal, build,
+  cook, package, runtime, map, source, Config, asset, plugin, vendor, user-asset,
+  CC5 or Blender work ran.
+
+handoff:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/LATEST_AGENT_TAKEOVER_R92.md
+  bytes: 10055
+  sha256: AF10716B63E45FF2E0E8A7AFAF8AA5E0F45A377E80918D6370A808275AF56DEF
+  verification_script: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/verify_latest_agent_takeover.py
+  verification_script_bytes: 5930
+  verification_script_sha256: 7BC5A527A48F135D49F6D6833542D36F329282BC4505218F524788AB003DAAEB
+  verification_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/takeover_verification.json
+  verification_report_bytes: 970
+  verification_report_sha256: 50E4ED8BE3AABA488D56886CFEC626BB275BBFD17A8677CEDC174E3219F74EF8
+  focused_checks: 22_of_22_passed
+  reference_checks: 12_of_12_passed
+
+verification:
+  focused_project_knowledge_and_fused_tests: 37_of_37_passed
+  focused_tests_stdout: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/project_knowledge_and_fused_tests.txt
+  focused_tests_stdout_bytes: 400
+  focused_tests_stdout_sha256: A83AB33A7926BECCDB83979D04B8A325443AE7CE6935FD7048F53861CA92EDD0
+  focused_tests_stderr: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/project_knowledge_and_fused_tests.stderr.txt
+  focused_tests_stderr_bytes: 15518
+  focused_tests_stderr_sha256: 9787BCF1715CC9744A617F5936EA6604B67A3448F28B38A870B3F145A617759E
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_AgentTakeover_20260806T1805Z/project_knowledge_integrity.json
+  canonical_integrity_report_bytes: 1836
+  canonical_integrity_report_sha256: 3500B6CFA3C3E3AD2F1234C7DA1D7962AC0B5E5B3B123D1F817204F7FCFC3976
+  canonical_integrity_result: pass
+  canonical_integrity_errors: 0
+  canonical_integrity_warnings: 0
+
+playable_baseline:
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z/Windows/RedMMO.exe
+  tree_sha256: 11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409
+  player_status_cooked_entry_count: 1
+  player_status_missing_startup_warning_count: 0
+  exact_home_ppg_chunks: 516
+  package_and_d3d12_startup_evidence: ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r92-player-status-cook-closure-package.yaml
+
+github:
+  repository_root: D:/RedMMOTitan
+  branch: main
+  local_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  origin: https://github.com/addgamestudios-ops/RedMMOTitan.git
+  remote_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  ls_remote_origin_head_exit: 0
+  remote_read_currentness_verified: true
+  credential_helper: manager
+  github_cli_installed: false
+  push_permission_verified: false
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2467
+  guard: >-
+    Do not reset, clean, restore, bulk-stage, commit or push unrelated dirty
+    work. A matching read-only remote HEAD is not proof of push permission.
+
+automation:
+  id: redmmotitan-10-minute-continuation
+  stable_id_retained: true
+  name: RedMMOTitan 30-minute continuation
+  kind: heartbeat
+  status: ACTIVE
+  interval_minutes: 30
+  target_thread_id: 019f86ef-089b-7300-af08-2a3a49978a6a
+  config: C:/Users/user/.codex/automations/redmmotitan-10-minute-continuation/automation.toml
+  config_bytes: 2398
+  config_sha256: 4CB17393FA2D22B0D1F9BAA67A8A4163AC171A0FAB65FB3300D027E58760E3BA
+  update_mode: existing_heartbeat_updated_in_place_no_duplicate
+  completion_contract: >-
+    Continue one bounded authorized safe slice per wake. Record blockers and
+    rotate while other safe work exists. Stop only on genuine evidence-backed
+    completion or when every remaining item requires new authority/external
+    state and that condition is durably recorded.
+
+interrupted_noncanonical_work:
+  module: M03
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/M03_R92_FusedConsumerIdentityCurrentness_20260806T1803Z
+  verifier_created: true
+  verifier_executed: false
+  report_exists: false
+  canonical_evidence_created: false
+  claim: none
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  tangent_authoring_inputs_count: 27
+  fused_faces_count: 6
+  project_or_package_bytes_changed: false
+
+queue:
+  snapshot_sha256: C350497D22CC6AD67E80514011EDD54C112AB6FDDDA7FE566904C64A8A4FC7BB
+  module_status: queued
+  retry_count: 21
+
+blocker: >-
+  GitHub remote read access and currentness are verified, but GitHub CLI and
+  push permission are unverified. Authored fuel pixels, human controls,
+  perceived audio, current PPG visuals, protected fused consumption, M04
+  traversal/performance/two-process evidence, M05 real server/two-client
+  transport, replication, multiplayer, persistence, dedicated server, Steam,
+  warp and final art remain open. M10 remains dependency-blocked.
+
+rollback: >-
+  Delete only the new external takeover directory and this evidence/index/
+  state/queue linkage if withdrawn. Revert the automation interval by updating
+  the existing heartbeat through the app; do not edit its TOML manually. R92,
+  the editable project and protected content require no rollback.
+
+claim_limit: >-
+  Static takeover currentness, GitHub remote-read verification and automation
+  configuration only. No GitHub push permission, new build/runtime, visual,
+  controls, audio, gameplay, fused-world, replication, multiplayer or human
+  acceptance is claimed.
+
+next_safe_action: >-
+  Another agent opens this handoff, then resumes from canonical ProjectKnowledge.
+  The user/developer can play R92 against its checklist. On unattended work,
+  independently review and either run the interrupted read-only M03 verifier as
+  one slice or choose the canonical next authorized safe module.

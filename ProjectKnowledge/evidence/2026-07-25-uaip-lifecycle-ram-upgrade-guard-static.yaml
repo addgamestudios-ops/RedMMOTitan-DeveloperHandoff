@@ -1,0 +1,185 @@
+schema_version: 1
+id: EVIDENCE-2026-07-25-UAIP-LIFECYCLE-RAM-UPGRADE-GUARD
+captured_at: 2026-07-25
+module: unreal_editor_ai_integration_recovery
+evidence_class: static
+result: uaip_duplication_lifecycle_confirmed_guard_added_and_128gb_upgrade_verified
+
+uaip_proxy_lifecycle:
+  deployed_bridge:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge
+    version: "1.1.2"
+    transport: stdio
+  codex_registration:
+    path: C:/Users/user/.codex/config.toml
+    server: uaip_titan
+    command: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge/.venv/Scripts/python.exe
+    argument: D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge/thin_proxy.py
+  verified_cause:
+    - Codex starts a local process for each stdio MCP client session.
+    - thin_proxy.py owns one stdio server until that client's input stream closes.
+    - the venv launcher resolves to a second Python runtime process, so one logical client appears as a two-process pair.
+    - each proxy constructs its own LifecycleManager.
+    - Saved/UAIP/mcp_proxy.lock is acquired only inside ensure_editor_running and therefore prevents concurrent editor launches, not duplicate proxy processes.
+    - the first non-status UAIP tool call can auto-launch Unreal without a physical-RAM preflight.
+    - an age-based or singleton-at-startup process killer would be unsafe because each live stdio process can carry a distinct active Codex connection.
+  safe_cleanup_rule:
+    - match both the exact Python executable chain and exact thin_proxy.py argument
+    - terminate only an orphan whose root Codex parent no longer exists
+    - never terminate a proxy merely because it is older while its Codex parent is live
+    - never terminate unrelated Python, Codex, editor, or user-application processes
+  live_followup:
+    local_time: "2026-07-25T01:46:27+03:00"
+    live_proxy_pairs: 1
+    wrapper_pid: 35408
+    runtime_pid: 32696
+    root_codex_pid: 37780
+    combined_working_set_mib: 63.6
+    combined_private_mib: 45.6
+    duplicate_reaccumulation_after_cleanup: false
+
+durable_prevention:
+  implemented:
+    path: Build/Automation/Start-UnrealAIEditorGuarded.ps1
+    behavior:
+      - refuses a second Unreal editor
+      - samples sustained physical-RAM and commit headroom before launch
+      - defaults to 16 GiB free physical and 16 GiB free commit before launch
+      - preserves the 8 GiB physical-RAM abort floor
+      - launches one exact editor PID with UAIP port 8765 and Epic MCP port 8000 enabled
+      - stops only the PID it launched if the 8 GiB floor is crossed
+      - reports listeners without claiming MCP acceptance
+    validation:
+      powershell_parser_errors: 0
+      preflight_samples_free_physical_gib: [6.99, 7.06, 7.03]
+      preflight_min_free_commit_gib: 20.94
+      result: correctly_refused_without_starting_unreal
+      unreal_processes_after: 0
+      ports_8000_8765_after: 0
+  proposed_codex_configuration_migration:
+    status: not_applied_to_preserve_active_codex_connection_and_require_user_decision
+    rationale:
+      - Codex officially supports Streamable HTTP MCP servers through a url entry.
+      - UAIP's in-editor MCP server already exposes http://127.0.0.1:8765/mcp.
+      - direct HTTP registration eliminates the per-client Python proxy pairs and removes the bridge's unguarded editor auto-launch path.
+    exact_target: C:/Users/user/.codex/config.toml
+    proposed_replacement:
+      - "[mcp_servers.uaip_titan]"
+      - "url = 'http://127.0.0.1:8765/mcp'"
+      - "enabled = true"
+      - "required = false"
+    tradeoffs:
+      - the guarded editor must already be running before UAIP is available
+      - bridge-only uaip_get_editor_status, uaip_reload_config, auto-launch, artifact inlining, and version-check behavior are not provided by direct HTTP
+      - configuration should take effect only on a later normal Codex MCP initialization; restarting Codex is not a RAM remedy
+    rejected_unsafe_change: adding_a_singleton_lock_at_thin_proxy_startup
+
+live_resource_pressure:
+  system_ram_gib: 31.87
+  local_time_014432_free_physical_gib: 9.24
+  local_time_014627_free_physical_gib: 7.06
+  free_commit_gib_at_014432: 22.86
+  largest_existing_process_families:
+    chrome:
+      local_time_014432_working_set_gib: 4.418
+      local_time_014627_working_set_gib: 7.212
+      local_time_014627_process_count: 40
+    chatgpt:
+      working_set_gib: 1.517
+      process_count: 11
+    steamwebhelper:
+      private_gib: 0.975
+    epic_launcher_and_helpers:
+      private_gib: 1.766
+  interpretation:
+    - the approximately 2.82 GiB physical-RAM loss during read-only inspection tracked Chrome working-set growth, not UAIP proxy reaccumulation
+    - no user application was closed
+    - current physical RAM is below even the preserved 8 GiB runtime floor and far below the new 16 GiB guarded launch floor
+  non_blockers:
+    free_commit_gib: 20.94
+    gpu: NVIDIA GeForce RTX 3080
+    free_vram_mib: 7762
+    d_free_gib: 1105.39
+  current_endpoints:
+    unreal_processes: 0
+    port_8000_listeners: 0
+    port_8765_listeners: 0
+
+memory_hardware:
+  system_model: Gigabyte Technology Co., Ltd. B560 HD3
+  motherboard:
+    manufacturer: Gigabyte Technology Co., Ltd.
+    model: B560 HD3
+    revision_reported_by_smbios: x.x
+    bios_version: F5
+    sockets: 4
+    supported_capacity_gb: 128
+    maximum_single_dimm_gb: 32
+    architecture: dual_channel
+  cpu:
+    model: Intel Core i9-11900K
+    official_maximum_memory_gb: 128
+    official_memory_type: DDR4-3200
+    memory_channels: 2
+    ecc_supported: false
+  installed:
+    total_gib: 31.87
+    populated_slots: 2
+    empty_slots: 2
+    modules:
+      - locator: Controller0-ChannelA-DIMM1
+        manufacturer: Kingston
+        part_number: KF3200C16D4/16GX
+        capacity_gib: 16
+        windows_reported_speed_mts: 2400
+        configured_speed_mts: 2400
+      - locator: Controller0-ChannelB-DIMM1
+        manufacturer: Kingston
+        part_number: KF3200C16D4/16GX
+        capacity_gib: 16
+        windows_reported_speed_mts: 2400
+        configured_speed_mts: 2400
+    note: The part number is marketed as DDR4-3200, but Windows SMBIOS reports both modules currently configured at 2400 MT/s.
+  manufacturer_sources:
+    motherboard_spec: https://www.gigabyte.com/us/Motherboard/B560-HD3-rev-1x/sp
+    motherboard_qvl: https://download.gigabyte.com/FileList/Memory/mb_memory_b560m-hd3_210204.pdf
+    cpu_spec: https://www.intel.com/content/www/us/en/products/sku/212325/intel-core-i911900k-processor-16m-cache-up-to-5-30-ghz/specifications.html
+  recommended_maximum_stable_kit:
+    capacity_gb: 128
+    layout: 4x32_GB_single_factory_matched_kit
+    type: DDR4_non_ECC_unbuffered
+    speed: DDR4-3200
+    timing_target: CL16
+    qvl_primary_part: G.Skill F4-3200C16Q-128GVK
+    qvl_alternatives:
+      - Corsair CMK128GX4M4C3200C16 version 5.49
+      - HyperX HX432C16FB3K4/128
+    installation_rule:
+      - remove both current modules
+      - install the complete matched four-module kit
+      - do not mix the current 2x16 kit with any new modules
+  aggressive_qvl_option:
+    part: G.Skill F4-3600C18Q-128GVK
+    capacity_gb: 128
+    qualification: motherboard_QVL_but_above_the_CPU_official_DDR4_3200_rate
+    recommendation: not_preferred_for_maximum_Unreal_and_AI_stability
+  firmware_note:
+    current_bios: F5
+    latest_non_beta_observed_on_manufacturer_support_page: F17
+    action_taken: none
+    safe_next_step: treat any BIOS update and XMP enablement as a separate technician-controlled change with rollback planning and memory testing
+
+prioritized_next_actions:
+  - Replace the current 32 GB modules with one matched 128 GB 4x32 DDR4-3200 CL16 kit from the board QVL.
+  - Until the upgrade, start Unreal only through Build/Automation/Start-UnrealAIEditorGuarded.ps1 after existing applications naturally leave at least 16 GiB free physical RAM.
+  - With explicit user approval, migrate uaip_titan from stdio command/args to the direct Streamable HTTP URL so future Codex clients cannot multiply thin-proxy pairs or auto-launch around the guard.
+  - Apply orphan-only UAIP cleanup; never age-kill a proxy whose Codex parent is live.
+  - After hardware installation, validate the full 128 GB at DDR4-3200 with an extended memory test before Unreal packaging or AI orchestration.
+
+claim_limit: >-
+  Static source, configuration, hardware, and live resource evidence plus a
+  safely refused guarded-launch preflight. No editor was launched, no endpoint
+  is currently live, and no runtime, visual, gameplay, package, multiplayer, or
+  current MCP acceptance is claimed. No user application, credential, license,
+  plugin installation, global Codex configuration, BIOS setting, or RAM timing
+  was changed.

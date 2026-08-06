@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.sand.so-stylized.mask-probe-preparation.2026-07-21
+captured_local: "2026-07-21T16:43:53+03:00"
+platform: Windows
+evidence_class: static
+target: presentation.sand.so-stylized
+module_id: M00
+
+scope:
+  result: prepared_runtime_unverified
+  unreal_launched: false
+  material_asset_changed: false
+  material_compiled: false
+  real_gpu_visual_acceptance: false
+  exact_target: /Game/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02
+  project_owned_target_only: true
+  production_material_changed: false
+  vendor_assets_changed: false
+  production_map_changed: false
+
+prepared_probe:
+  script:
+    path: Build/Automation/prepare_red_sand_sparkle_mask_probe.py
+    sha256: 06A8F0765B4F369E5DA5FC2B0F81C5F2DCFF69B775DDC66BD5E27314A323FFA9
+  policy_tests:
+    path: Tools/tests/test_prepare_red_sand_sparkle_mask_probe.py
+    sha256: 60117CC01CD1D5C209E1AFAE2CD170FCCDAE089E31B3867B62EB92DDB565770B
+    result: pass
+    test_count: 9
+  python_compile: pass
+  explicit_write_flag: -RedSandSparkleMaskProbeWrite
+  desired_switches:
+    SimpleSparkle?: true
+    SparklShrinkNear?: false
+  held_switches:
+    DesertSandSparkle?: true
+    SandRippleNormals?: true
+    SparkleProject3D?: false
+    SparkleIntensityVariance?: true
+    SparkleDayAndWeather?: false
+    NeedWorldRotation?: true
+  held_scalars:
+    Desert Sand Scale: 1024.0
+    Desert Sand Normal Texture Scale: 2400.0
+    Desert Sparkle Scale: 1600.0
+    Desert Sparkle Brightness: 120.0
+    Desert Sparkle Contrast: 8.0
+    Desert Sparkle Tolerance: 0.75
+    Desert Sparkle Speed: 1.0
+    Desert Sparkle Fade Start: 1000.0
+    Desert Sparkle Fade End: 5000.0
+    Desert Sparkle Shrink Amount: 0.3
+    Desert Sparkle Shrink Near Distance: 500.0
+    Desert Sparkle Shrink Far Distance: 2500.0
+  held_color_rgba: [1.0, 0.78, 0.35, 1.0]
+
+fail_closed_controls:
+  - refuses execution without the exact command-line write flag
+  - refuses pre-existing dirty map or content packages
+  - resolves exactly one existing .uasset or .umap per project package
+  - validates the exact target, allowlisted package root, parent, switches, scalars, and color before editing
+  - rejects partial probe switch states
+  - batches two static-switch writes into one material update
+  - requires exactly the target package to become dirty after an edit and no package to be dirty on an idempotent run
+  - contains one exact save_asset call and no directory or bulk-save call
+  - hashes vendor functions, the diagnostic parent/function instance, the production biome material, and the protected map before and after
+  - creates a hash-named baseline backup on D before the first edit
+  - restores the target file byte-for-byte if a failure occurs after the save
+  - does not create a misleading rollback backup when the probe state is already prepared
+  - a rollback run is terminal; the commandlet must exit before any later Unreal attempt because its loaded in-memory instance remains modified
+
+offline_acceptance:
+  py_compile: pass
+  unit_tests: "9 passed"
+  second_read_only_review: "no remaining runtime-critical static blocker"
+  diagnostic_log: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleMaskProbe/offline_policy_tests_20260721.log
+
+host_resource_gate:
+  decision: no_go_unreal
+  sustained_sample_seconds: 12
+  initial_free_ram_gib: 13.518
+  minimum_free_ram_gib: 13.100
+  final_free_ram_gib: 13.100
+  later_free_ram_gib: 11.195
+  minimum_free_commit_headroom_gib: 24.917
+  gpu_total_mib: 10240
+  gpu_used_mib: 2265
+  gpu_free_mib: 7789
+  d_drive_free_gib: 1141.341
+  blocker_process_count: 0
+  reason: >-
+    Physical RAM did not maintain a material margin above the 12 GiB hard
+    floor and later fell below that floor. Launching Unreal would repeat the
+    project's demonstrated memory-pressure and machine-freeze risk.
+
+hash_guard:
+  target_before_and_after:
+    path: Content/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02.uasset
+    sha256: 3E9582E09AD57EEC9FD6C7B2A3F15379B5F714F0749B1B6B2B0DB560C3E1E8B5
+  protected_map_before_and_after:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_foundation_marker_before_and_after:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+
+claim_limit: >-
+  This evidence proves only that the isolated project-owned write probe is
+  statically prepared and fail-closed. No Unreal asset was changed, no material
+  permutation was compiled, and no GPU or visual sparkle gate was attempted.
+  Gold sparkle remains incomplete.
+
+next_safe_action: >-
+  When physical RAM has a sustained material margin above the hard floor, run
+  the exact flagged probe commandlet as a terminal process, verify effective
+  switches, held values, target/protected hashes, and material compilation,
+  then run the existing capped real-GPU close, translated, and oblique capture
+  sequence. Do not promote or package the material until restrained gold
+  sparkle is visibly accepted.

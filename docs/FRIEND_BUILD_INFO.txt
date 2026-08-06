@@ -1,0 +1,17 @@
+RED MMO TITAN - BUILD INFO TEMPLATE NOTICE
+
+Do not copy this file into a friend build. It intentionally contains no build date,
+executable digest, or runtime-success claims.
+
+Tools/create_windows_friend_artifact.py generates BUILD_INFO.txt from the explicit
+successful UAT archive. The generated file records:
+
+- immutable artifact name;
+- packaging-time UTC timestamp and source revision;
+- configuration, source archive, and UAT-log SHA-256;
+- Steam development App ID 480 boundary;
+- exact Titan/Binaries/Win64/Titan.exe SHA-256;
+- Runtime multiplayer acceptance: UNVERIFIED by this static builder.
+
+Only a separate two-machine/two-account runtime acceptance report may claim Steam
+host/find/join, replication, combat, respawn, grapple, or craft possession.

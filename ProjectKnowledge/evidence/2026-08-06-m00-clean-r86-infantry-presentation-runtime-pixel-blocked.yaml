@@ -1,0 +1,132 @@
+schema_version: 1
+id: evidence.m00.clean-r86-infantry-presentation-runtime-pixel-blocked
+module: M00
+evidence_class: real_gpu_visual
+status: runtime_accepted_pixel_capture_rejected
+timestamp_utc: 2026-08-06T07:22:38Z
+scope: >-
+  One bounded provider-off D3D12 SM6 R86 PIE acceptance slice on the exact saved
+  clean RedMMO ProfileV1 home map. The runtime gate proves the intentional
+  Trooper animation Blueprint before fire, exact A_Rifle_Fire_Single during the
+  real Enhanced Input fire path, exact P_Flash_17 at the rifle muzzle, restored
+  animation Blueprint ownership after 0.20 seconds, and continued tangent
+  locomotion. Pixel review rejects the run because only the pre-fire frame is a
+  valid player-scale game view; the fire and restored captures switched to an
+  editor overview and cannot prove visible muzzle or body-pose pixels.
+runtime:
+  renderer: D3D12 SM6 RenderOffscreen
+  provider_plugins_disabled: true
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  seed: 1337
+  map_check_errors: 0
+  map_check_warnings: 0
+  real_enhanced_input_fire: true
+  before:
+    animation_mode: AnimationBlueprint
+    anim_class: /Game/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall.ABP_ThirdPerson_Female_Tall_C
+    tangent_displacement_cm: 1254.9830585016787
+  fire:
+    animation_mode: AnimationSingleNode
+    active_animation: /Game/RedMMO/Anims/Rifle/A_Rifle_Fire_Single
+    muzzle_system: /Game/ProjectilesVol1/Effects/P_Flash_17
+    muzzle_distance_cm: 0.0
+    authoritative_bolt_spawned: true
+    tangent_displacement_cm: 1629.5420608771244
+  restored:
+    animation_mode: AnimationBlueprint
+    anim_class: /Game/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall.ABP_ThirdPerson_Female_Tall_C
+    post_fire_displacement_cm: 164.8989602686661
+    tangent_displacement_cm: 1794.4410211457905
+  severe_log_match_count: 0
+  pie_stopped_cleanly: true
+  active_unreal_build_package_process_count_after: 0
+  provider_listener_count_after: 0
+pixel_review:
+  decision: rejected
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T071741Z/before.png
+    sha256: 40A42B11529DCF375CE5F2026AC6E541CE1BEDAE16939FC8D093E38379666FAF
+    bytes: 630480
+    finding: >-
+      Valid player-scale game frame. The Trooper is visibly running with the
+      rifle and the parked StarSparrow is visible ahead.
+  fire:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T071741Z/fire.png
+    sha256: 54E277E22FF00497A931B4608D7B3086896F4FA1B886F57BEF868DDF6309F8DB
+    bytes: 821623
+    finding: >-
+      Invalid acceptance frame. It shows a distant editor overview rather than
+      the player camera, so it proves neither muzzle pixels nor fire-body pose.
+  restored:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T071741Z/restored.png
+    sha256: BC2BAC3FF1CB1432D8228EE887016E72028A4EC3212CC6D51B163AED1C07A00A
+    bytes: 812150
+    finding: >-
+      Invalid acceptance frame. It shows the same distant editor overview, so
+      it cannot visually prove restored running animation or continued motion.
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T071741Z/result.json
+    sha256: 3793FA6A8776A883247D8F0C662DFD1D30E923FB2FF5737DEE21844408322D37
+    bytes: 1464981
+    note: >-
+      Its status says pending pixel review and its three-player-scale metadata
+      is not accepted; this evidence record is the authoritative pixel verdict.
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealEditor_R86_20260806T071741Z.log
+    sha256: 84E6820968272393B1A2E8A01AC55D42DA1095888198437A86279D0D38202213
+    bytes: 261352
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R86_ABPFireFallback_20260806T071400Z_RedMMOEditor_build.log
+    sha256: CE3BB8E177149C016894B89ED394296DDBFA5767AF4C70D10BBFB0A0DD35B9E3
+    bytes: 9229
+validator:
+  path: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r86_infantry_presentation_pie.py
+  sha256: 16A2330646621B1D213EAE2CB51EB52E4F03C78773D263E36E874CF77295F56B
+source_change:
+  cpp:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+    sha256: 48910C2BBA6A9BEE27A919B5B266C826B4AA7CC8B46F687CB5E20B8C2250677D
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlayerCharacter.h
+    sha256: F07B9521FE29D8C574DC0E909E1473BEA2146C2A2E783027BCA3F916E622592C
+  editor_module:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: A625F22ACB87F9183097DE30FCD043E093B2E79906953A9F9D04B50852DC8287
+  behavior: >-
+    On fire, retain intentional AnimationBlueprint ownership, play the exact
+    fire sequence in bounded single-node mode, then restore AnimationBlueprint
+    mode and the retained exact class after 0.20 seconds.
+animation_blueprint:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall.uasset
+  sha256: 3F4DBD956EFCD7128B47F53C0592F2E896F42336B5426CBCEEEE84C153EAABE2
+  note: >-
+    The asset contains the intended locomotion state machine and BlendSpace
+    player but no montage slot, requiring the bounded ownership handoff.
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M00_R86_ABPFireFallback_20260806T071214Z
+  cpp_preimage_sha256: 7BF20653F177E0D248C57143EA1351A15EFAD86C7FBC37CE3254CF228B6ADD7B
+  header_preimage_sha256: 3AC4380C21CB63915BDD3D2B9AF0048FA814ECB4D96BA8ED3B6409572FE36C3C
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  runtime_tracked_hashes_unchanged: true
+  runtime_config_tree_unchanged: true
+  dirty_content_packages_after: []
+  dirty_map_packages_after: []
+claim_limit: >-
+  The exact animation and muzzle runtime state transition is accepted, but the
+  R86 infantry presentation is not visually accepted. This does not prove
+  visible muzzle pixels, fire-body pose, restored locomotion pixels, physical
+  controls, an updated package, overall PPG biome/grass/day/night quality,
+  replication, multiplayer, space traversal, or user hands-on playability.
+next_safe_action: >-
+  Preserve the compiled gameplay correction and all PPG data. On the next M00
+  retry, repair only the diagnostics capture route so the game viewport remains
+  selected for the fire and restored frames, then rerun the same provider-off
+  D3D12 gate. Require all three frames at player scale before visual acceptance.

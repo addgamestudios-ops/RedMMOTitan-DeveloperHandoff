@@ -1,0 +1,29 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-HI5-TERMINATOR-STARTUP-BLOCKER
+captured_at: 2026-07-22
+module: atmosphere_cloud_presentation
+evidence_class: static
+result: incomplete_retry
+map: /Game/RedMMO/Maps/RedPlanetGen
+rhi: D3D12
+launch_profile:
+  resolution: 1280x720
+  screen_percentage: 60
+  texture_pool_mb: 1024
+  max_fps: 45
+observed:
+  - Preflight passed with 11.73 GB free physical RAM and 8.49 GB free VRAM.
+  - UnrealEditor remained in engine, Niagara, and enabled editor-plugin initialization for approximately five minutes.
+  - The production map never reached gameplay, so no terminator image was captured.
+  - No out-of-video-memory, GPU-crash, or fatal marker occurred during the bounded attempt.
+action:
+  - Stopped only the test UnrealEditor process after the bounded startup window.
+  - Preserved the full startup log.
+artifacts:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260722_RealGPU/AtmosphereTerminator_RealGPU.log
+next_safe_action:
+  - Remove or disable unneeded editor-only plugin loading from game-mode validation, or use the next guarded packaged client.
+  - Repeat the accelerated 30-second day/night terminator capture on a real GPU.
+claim_limit: >-
+  The HI-5 fade remains build verified but visually unaccepted. This attempt proves
+  only safe startup behavior and the current excessive editor-game launch latency.

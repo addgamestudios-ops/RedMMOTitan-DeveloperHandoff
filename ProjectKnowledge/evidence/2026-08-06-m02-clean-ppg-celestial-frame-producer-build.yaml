@@ -1,0 +1,138 @@
+schema_version: 1
+id: evidence.m02.clean-ppg-celestial-frame-producer-build
+module: M02
+evidence_class: build
+supplemental_evidence_classes: [static_source_contract]
+status: build_verified_runtime_pending
+timestamp_utc: 2026-08-06T12:04:00Z
+scope: >-
+  One serialized clean RedMMOEditor Win64 Development compile/link for the
+  authority-owned ProfileV1 PPG celestial-frame registry producer. The wake
+  regenerated UBT makefiles, ran UHT, compiled the registry, registry tests and
+  GameMode, linked the editor module, repeated the five focused static
+  contracts, and stopped. It did not launch Unreal runtime, mutate maps,
+  profiles, atmosphere, clouds, radar, vendor or user assets, cook, or package.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 50.90
+  commit_headroom_gib: 53.55
+  gpu_free_mib: 9081
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.6
+  active_unreal_build_package_process_count: 0
+  producer_source_hashes_matched_static_evidence: true
+  package_attempted: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeM02CleanPPGCelestialProducerBuild_20260806T1203Z
+  files:
+    - name: RedMMOEditor.target
+      sha256: 99913ABA38977C6F09B0CB32232428FB597CDE05EF9BB673D4CD16204D8789D3
+      bytes: 949424
+    - name: UnrealEditor-RedMMO.dll
+      sha256: A38F4D6124E2F5B169E28BF06F2CCD3AAF09C34C48B30413A4D805DA2B344711
+      bytes: 841216
+    - name: UnrealEditor-RedMMO.pdb
+      sha256: DA5BC6B5459C888C1662AA114554326C61268FBD2E102A6F2C9CDF5F8D91377B
+      bytes: 75165696
+  required: false
+
+build:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  target: RedMMOEditor Win64 Development
+  engine: 5.8.1
+  bundled_dotnet: D:/UE_5.8/Engine/Binaries/ThirdParty/DotNet/10.0/win-x64/dotnet.exe
+  unreal_build_tool: D:/UE_5.8/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll
+  flags:
+    - -WaitMutex
+    - -NoHotReload
+    - -NoUBA
+    - -MaxParallelActions=1
+    - -NoUBTMakefiles
+  exit_code: 0
+  result: succeeded
+  uht_seconds: 7.9124168
+  actions: 7
+  total_execution_seconds: 31.98
+  compiled:
+    - Module.RedMMO.cpp
+    - RedCelestialFrameRegistry.cpp
+    - RedCelestialFrameRegistryTests.cpp
+    - RedPPGGameplayGameMode.cpp
+  linked: UnrealEditor-RedMMO.dll
+  severe_log_hits: 0
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M02_CleanPPGCelestialProducerBuild_20260806T1203Z/RedMMOEditor_M02_PPGCelestialProducer_20260806T1203Z.log
+    sha256: 7020CA67B496302C6A8EBFFB255A9674B0DAD6835E3206CC9ABFB0FBCA57FA29
+    bytes: 9063
+
+post_build_artifacts:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: D91B62C3F507A0F8027D9758C2A4D3C84864334154BA3772EBD812FBCCE4D313
+    bytes: 845824
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.pdb
+    sha256: 5F1DAB5C953651E373EF0F3B22A747AC24AA06F2F370517C0FB2890C195C053E
+    bytes: 75198464
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/RedMMOEditor.target
+    sha256: 99913ABA38977C6F09B0CB32232428FB597CDE05EF9BB673D4CD16204D8789D3
+    bytes: 949424
+
+source_identity:
+  game_mode_header_sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+  game_mode_implementation_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  registry_header_sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+  source_files_changed_during_build_slice: 0
+
+static_verification:
+  script: D:/RedMMOTitan/Tools/tests/test_clean_redmmo_ppg_celestial_frame_producer_contract.py
+  result: PASS_5_of_5
+
+project_knowledge_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M02_CleanPPGCelestialProducerBuild_20260806T1203Z/project_knowledge_integrity.json
+  result: pass_0_errors_0_warnings
+  bounded_metadata_repairs:
+    - canonicalized_the_producer_static_evidence_id_and_class
+    - renamed_one_non_scalar_preserved_sha256_container
+    - renamed_two_non_scalar_shared_frame_source_sha256_containers
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  protected_maps_assets_profile_vendor_user_assets_modified: false
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 50.92
+  gpu_free_mib_after: 9080
+
+finding: >-
+  The clean authority-owned PPG celestial-frame producer is now build-verified:
+  UHT, its production GameMode and registry translation units, the native
+  registry tests translation unit, and the editor module all compile and link.
+  This removes the compile/link blocker only. The registry has not been
+  exercised in a real server or standalone world.
+
+blockers:
+  - no_runtime_registry_publication_or_exact_lookup_evidence
+  - no_client_snapshot_or_replication_consumer
+  - radar_or_minimap_consumer_absent
+  - volumetric_cloud_radius_remains_6360_km_not_3000_km
+  - protected_795774_715_cm_fused_core_remains_separate_from_ProfileV1
+  - no_visual_gameplay_package_multiplayer_or_human_acceptance
+
+next_safe_action: >-
+  Rotate away from M02 on the next wake. Later, after a separately bounded
+  runtime plan and exact source/artifact hashes, run one no-save authority-only
+  standalone or listen-world registry lifecycle acceptance that proves initial
+  publication, exact lookup, floating-origin revision advance, and teardown.
+  Keep client snapshots, radar, clouds, fused-core bridging and packaging as
+  separate later slices.
+
+claim_limit: >-
+  Static source and RedMMOEditor build evidence only. No runtime, visual,
+  gameplay, standalone, package, replication, multiplayer, Steam, or human
+  acceptance is claimed.

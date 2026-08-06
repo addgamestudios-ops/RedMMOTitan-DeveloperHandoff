@@ -1,0 +1,261 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-DEPLETION-REAL-GPU
+captured_at: "2026-07-23T05:37:20Z"
+module: M00
+defect: DEF-0003
+slice: one-client-authoritative-depletion-hud-and-destruction
+evidence_class: real_gpu_visual
+result: one_client_depletion_runtime_visual_and_hud_pass_multiplayer_audio_and_persistence_open
+
+scope:
+  authorized:
+    - run one bounded non-Shipping one-client D3D12 depletion acceptance
+    - repair the replacement HUD resource-tally bridge exposed by the first run
+    - delay the explosion until the intact two-second transition completes
+    - compile the current TitanEditor and Titan Win64 Development targets
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - fused terrain assets and retained rollback maps
+    - artist repositories, supplied HUD textures, Vibe sources, and SAFE8 handoff
+    - unrelated dirty work and existing source ownership
+  not_run:
+    - packaging
+    - Steam transport
+    - two-client or remote-client multiplayer
+    - late join
+    - server restart persistence
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  preexisting_dirty_entry_count: 154
+  worktree_policy: >-
+    The worktree was already materially dirty. Relevant tracked and untracked
+    bytes were backed up directly on D; Git was not used as rollback authority,
+    and unrelated entries were not cleaned, staged, reset, or overwritten.
+
+rollback:
+  harness_and_canonical:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003RealGPUHarness_20260723_080255
+    manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003RealGPUHarness_20260723_080255/pre_slice_manifest.yaml
+    manifest_sha256: DB54A1BEF34AADFE637A3CA656A6F9498907E7A3A9BE7A76B71A7652BEF2C436
+  replacement_hud_bridge:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003HUDVisibility_20260723_082000
+    manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003HUDVisibility_20260723_082000/pre_edit_manifest.yaml
+    manifest_sha256: E9B7F63A36DFACEACF5CD88B1F4715FCC3FE23B74C677D7BE330939EE0332728
+  explosion_timing:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ExplosionTiming_20260723_084000
+    manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ExplosionTiming_20260723_084000/pre_edit_manifest.yaml
+    manifest_sha256: 0FD17E4F7611D0336819523261A4D0E4DDCE58ADF47D8B1CFCC9750D8AEA3CDB
+
+implementation:
+  depletion:
+    - authoritative reward remains immediate when ore reaches zero
+    - collision shuts down immediately while the intact mesh remains visible
+    - the finite-range explosion and client-local debris now start only after the two-second transition, when the intact mesh is hidden
+    - synchronized server time retains a world-time fallback
+  replacement_hud:
+    - authoritative Stone, Iron, and Crystal totals feed a dedicated replacement-HUD tally
+    - the tally belongs to the live StatusPanel rather than the dormant consumable group or aggregate snapshot
+    - initial HUD creation, possession restart, direct updates, and replicated resource updates refresh the tally
+    - the acceptance query compares the exact visible presentation string
+  bounded_harness:
+    - opt-in flag is RedDEF0003DepletionAutoCapture and is unavailable in Shipping
+    - the harness uses the production pawn, HUD, mining hit path, listen map, and resource inventory
+    - only the transient audit asteroid's explosion and receipt actors count
+    - camera framing derives from the spawned asteroid bounds
+    - the harness captures UI-inclusive before, reward, transition, explosion, debris, and after frames
+    - acceptance requires all runtime phases plus the replacement HUD at reward and final cleanup
+
+source_identities:
+  - path: Source/RedMMO/RedMineableAsteroid.cpp
+    sha256: 931D36F077CF4526596E9FB059688D219E01DB1AF919BE6903511A09A97988A0
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: CBC53EA90AF88DC30E4FD644A0033582F66CC8C96C8CC3C0E15F928C9DA095A5
+  - path: Source/RedMMO/RedHUD.h
+    sha256: 6AB48F9191B6AE4EC5C2BEC1A2B9081F882EE922BCF954ED3BE67AE352D16431
+  - path: Source/RedMMO/RedHUD.cpp
+    sha256: EF09BB3D9A4DB0FB30A5A800A5204936C33AB25586D3D7C1FE123413ED59734D
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    sha256: C9E82CBCDFA5D9937BFB776BC089839B6693D22633090F75FE19854B5E7731EA
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    sha256: F8B3E77318FC7D80FEF55E20F81107F3DFF32FD23C35FDDB8EE9ECD81A9CF9DF
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: 14959EBABA3598C5D52DCD3FE1351E3701ED08BBB810FA7077342C80AD8FC77D
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    serialized_actions: 5
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Final_20260723_083034/TitanEditor_explosion_timing_rebuild.stdout.log
+    log_sha256: EAF6EEE5F6C01FE2AF14BBCC7792471D3A0FCFAD9A71CE7BC6A03EB8D6BDD427
+    output: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    output_sha256: 407B70C852205019A93A5E8BBB5B7355A77E94E30556073ED9DC24D0C63ADBCE
+  titan_game:
+    target: Titan Win64 Development
+    result: succeeded
+    serialized_actions: 12
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Titan_final_build.log
+    log_sha256: 9DAC02D32D88EF1CCA5F70DC39F24367A02393690896E6CC53F6AA7B6664D4B3
+    output: D:/RedMMOTitan/Binaries/Win64/Titan.exe
+    output_sha256: 7A47FFD4D53276BC7EE2A72CC278DEE2DC08D33D753FAC4D88DB57A163E1F727
+  focused_regressions:
+    result: 34_of_34_passed
+    suites:
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_pixel_hud_current_contract
+      - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/focused_regressions.log
+    log_sha256: A9E465F0A447B7A0F2AED30527B86A2EBC5B2EDED7E45AF2D191DC8FF590B98C
+
+resource_and_process_gate:
+  machine:
+    total_physical_ram_gib: 31.872
+    gpu: NVIDIA GeForce RTX 3080
+    dedicated_vram_mib: 10240
+  sustained_prelaunch_samples: 12
+  prelaunch_free_physical_ram_gib_range: [17.86, 18.38]
+  prelaunch_free_commit_gib_range: [36.89, 37.42]
+  prelaunch_free_vram_mib: 8706
+  final_free_physical_ram_gib: 18.131
+  final_free_commit_gib: 37.201
+  final_free_vram_mib: 8696
+  final_free_disk_d_gib: 1141.209
+  prelaunch_blocker_process_count: 0
+  launched_unreal_process_count: 1
+  final_blocker_process_count: 0
+  packaging_ram_rule: respected_no_packaging_launched
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  mode: listen_server_one_local_client
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  resolution: 1280x720
+  command_line: >-
+    /Game/RedMMO/Maps/RedPlanetGen?Listen -game -d3d12 -windowed
+    -ResX=1280 -ResY=720 -ForceRes -NoSplash -NoAutoMatch -NoSteam
+    -NoLiveCoding -ddc=NoZenLocalFallback -RedDEF0003DepletionAutoCapture
+    -RedDEF0003CaptureDir=D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures
+    -AbsLog=D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/runtime.log
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/runtime.log
+    sha256: D0161042792DF25D18B09FD0F30C6E2A588644BB0C481F271D687753B1E16642
+    bytes: 333122
+  markers:
+    setup: "pass=1 ore=18 delay=2.00 framingRadius=4797 cameraDistance=20146"
+    before: "pass=1 collision=1 hidden=0 phase=0 traceExact=1"
+    begin: >-
+      pass=1 extracted=18 rejected=0 phase=1 collision=0 hidden=0
+      preFinishExplosions=0 receipts=1 ironBefore=0 ironAfter=6
+      rewardSpawned=1 rewardGranted=1 hudBackendPass=1 hudVisiblePass=1
+      hudText=STONE_0_IRON_6_CRYSTAL_0
+    transition: "pass=1 phase=1 collision=0 hidden=0 invisibleBlocker=0 receipts=1 iron=6"
+    result: >-
+      acceptancePass=1 runtimePass=1 setup=1 before=1 begin=1 beginHUD=1
+      mid=1 final=1 phase=2 collision=0 hidden=1 rejectedAfter=0
+      explosions=1 debris=9 ironBefore=0 ironAfter=6 hudBackendPass=1
+      hudVisiblePass=1 hudSource=replacement hudText=STONE_0_IRON_6_CRYSTAL_0
+    complete: requesting_clean_exit=1
+    exit: clean
+  failure_scan:
+    fatal: 0
+    assertion: 0
+    ensure: 0
+    unhandled_exception: 0
+    out_of_memory: 0
+    gpu_crash: 0
+    device_removed: 0
+
+visual_review:
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_Before.png
+    sha256: 09AC8C5EE31DADAE74CB28271C1C66B3B878DE3C30E49FB21909BC8475FB7EA3
+    finding: intact framed asteroid and visible STONE 0 IRON 0 CRYSTAL 0 tally
+  reward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_Reward.png
+    sha256: CE2E74383CF0C08BB5DF64EF429E57FA1226BC0B74074D2EB1F0F2704AEB84F6
+    finding: intact asteroid remains and the visible tally changes to IRON 6
+  transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_Transition.png
+    sha256: 36AF8EDC3A54D4AD9D4D6F3BBF8D4B76663774B75CA633936224BA0A24E80328
+    finding: intact asteroid remains readable during the bounded transition
+  explosion:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_Explosion.png
+    sha256: 95B12BBC7AB690CBCB63F2D6095C9DAD13251B0652856B2CEA79B1E6AA160499
+    finding: intact asteroid is absent and a bright centered destruction flash is visible
+    limitation: a harmless first-use Preparing Shaders 1 overlay is visible
+  debris:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_Debris.png
+    sha256: C39C073FA970EC742E2D89A1BEF7DF09FCE64329163A77BEF0B8B6E3D8AA5D76
+    finding: multiple separated debris pieces visibly spread from the depletion location
+  after:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/Captures/DEF0003_After.png
+    sha256: 148B4431C2B736E05C92BE9DEF871ABB0B4A6A7A90E915970F008A14C8501053
+    finding: asteroid remains absent, debris remains visible, and the IRON 6 tally persists
+
+protection:
+  files:
+    - path: Content/RedMMO/Maps/RedPlanetGen.umap
+      sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+      sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    - path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+      sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    - path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+    - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+      sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+      sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+      sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  result: 8_of_8_exact
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_RealGPU_Acceptance_20260723_083640/project_knowledge_integrity_final.json
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+accepted:
+  - one-client authoritative zero-ore transition
+  - immediate collision shutdown with no invisible blocker
+  - readable intact two-second transition
+  - post-transition destruction flash and local simulated debris
+  - exactly one local reward path with Iron changing from zero to six
+  - visible replacement-HUD Stone, Iron, and Crystal tally at reward and cleanup
+  - clean one-process real-GPU exit
+
+remaining:
+  - two-client simultaneous final-hit and exactly-once reward parity
+  - remote-client phase, collision, explosion, debris, receipt, and HUD parity
+  - late join during Depleting, inside and outside the replay window, and after Depleted
+  - explicit server-restart persistence or respawn policy if required
+  - audible destruction and reward-feedback acceptance
+  - packaged Windows, Steam, and multiplayer acceptance
+  - replacement HUD ultrawide placement and broader DEF-0004 or DEF-0006 acceptance
+
+next_safe_action: >-
+  Run a separate bounded two-client listen-server acceptance with one exact
+  transient asteroid. Require simultaneous final-hit idempotence, one reward,
+  phase and collision parity, remote explosion and receipt visibility, remote
+  replacement-HUD delivery, and late-join state checks. Keep server-restart
+  persistence, audio, packaging, and Steam as separate explicit gates.
+
+claim_limit: >-
+  This real-GPU record accepts only the bounded one-client DEF-0003 depletion
+  slice on the production map in editor game mode. It proves the visible
+  transition, collision shutdown, post-transition flash, local simulated
+  debris, reward credit, replacement-HUD tally, and clean exit observed here.
+  It does not close DEF-0003's two-client, remote-client, late-join, audio,
+  persistence, package, Steam, or multiplayer gates, and it is not packaged
+  game acceptance.

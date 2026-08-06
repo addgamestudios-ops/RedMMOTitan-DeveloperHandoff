@@ -1,0 +1,190 @@
+schema_version: 1
+id: evidence.2026-07-24.def-0004.authored-vitals-depletion-source-static
+captured_utc: "2026-07-24T16:58:45.5208239Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: pass_source_static_authored_vitals_depletion_build_and_visual_acceptance_pending
+
+scope:
+  selected_slice: >-
+    Correct the replacement-HUD shield, health, and jetpack-fuel depletion
+    presentation so changing gameplay values reveal the supplied hand-painted
+    PlayerStatus bar pixels instead of replacing them with flat hard-coded
+    color rectangles.
+  redhud_plugin_source_files_modified: 2
+  focused_test_files_modified: 1
+  gameplay_source_files_modified: 0
+  production_maps_modified: 0
+  content_assets_modified: 0
+  supplied_hud_art_modified: false
+  authority_or_replication_modified: false
+  artist_vendor_vibe_handoff_or_user_assets_modified: false
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    status_entries: 1558
+    tracked_dirty_paths: 60
+    untracked_paths: 1498
+    stale_zero_byte_index_lock_preserved: true
+    unrelated_dirty_work_preserved: true
+  resources:
+    total_physical_gib: 31.872
+    initial_free_physical_gib: 10.708
+    post_static_test_free_physical_gib: 9.438
+    initial_commit_headroom_gib: 26.527
+    post_static_test_commit_headroom_gib: 24.907
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    initial_vram_free_mib: 7733
+    post_static_test_vram_free_mib: 7728
+    c_free_gib: 122.272
+    d_free_gib: 1139.918
+  overlap:
+    unreal_editor_build_cook_package_or_game_processes: 0
+  gate_decision: >-
+    Physical RAM was below the required sustained 18-20 GiB package and
+    real-runtime gate and fell during offline verification. No Unreal Editor,
+    UHT, C++ build, commandlet, cook, package, game, Steam, or real-GPU process
+    was launched. This slice remained bounded to source and offline contracts.
+
+latest_build_evidence:
+  prior_context_only: true
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  relationship_to_this_slice: predates_authored_vitals_depletion_source_change
+  current_cpp_or_uht_compile: not_run_resource_gate_closed
+  package_currency: stale_unverified
+
+root_cause:
+  gameplay_feed: >-
+    RedPlayerCharacter publishes live shield, health, and fuel values; RedHUD
+    maps fuel into the replacement presentation's generic Energy fields; and
+    URedHUDWidget computes the correct normalized fractions.
+  presentation_failure:
+    - the supplied T_REDHUD_PlayerStatus image already contains painted gold, teal, and purple bars
+    - three nearly opaque full-width masks covered those authored pixels
+    - three hard-coded yellow, teal, and purple UBorder rectangles were painted above the masks
+    - AddFill created an untextured Slate Box brush and SetFillPercent only resized that flat rectangle
+    - depletion therefore exposed a cheap solid fill rather than retaining the supplied painted texture
+  semantic_note: >-
+    The current lower purple bar represents jetpack fuel through the generic
+    Energy presentation field. No independent mana producer or mana bar was
+    found or fabricated in this slice.
+
+implementation:
+  authored_art_strategy:
+    - keep the existing PlayerStatus UImage and texture byte-exact
+    - remove only the three player full masks and flat-color live fills
+    - retain the separate health-number mask because it covers baked sample text
+  depletion_mask_contract:
+    - one player-only FMutableDepletionMask path leaves generic enemy and weapon fills unchanged
+    - each mask is anchored at the authored bar's right edge
+    - full value initializes to zero mask width so no first-frame dark flash replaces the painted bar
+    - partial value covers only the depleted right-hand tail
+    - zero value covers the full bar interior
+    - normalized input remains clamped through the existing SafePercent and the new inverse-width update
+  preserved_domains:
+    - gameplay values and fuel-to-Energy bridge
+    - authority and replication
+    - generic enemy health and weapon heat fill behavior
+    - PlayerStatus layout and health-number presentation
+    - supplied raster and imported texture assets
+
+source_artifacts:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    bytes: 11774
+    sha256: 6E7667FF7429D7ED6BF8D2684AD4D9B36293D368C0652E8539A01D064B57BA34
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    bytes: 58295
+    sha256: C6CEEFD34B539B1955DE9F495206AACD4937DB42307E02C3DAB838408FF44848
+  - path: Tools/tests/test_def0006_red_hud_runtime_contract.py
+    bytes: 11221
+    sha256: 16E1CCBEBCC5B70DCF7F3EDCFA73249E8BB2071CFDAFF1BB2EAA2AEC29B87F77
+
+supplied_art_protection:
+  source_png:
+    path: Plugins/RedHUD/Resources/Art/HighResSprites/T_REDHUD_PlayerStatus.png
+    dimensions: 1536x301
+    bytes: 431984
+    sha256: 43DB7D853FBF656A1A5810F3113763A7D736C7611CF7DA7CAD8E24C28AE19FCB
+  imported_uasset:
+    path: Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.uasset
+    bytes: 500781
+    sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  modified: false
+
+verification:
+  baseline_focused_contracts:
+    command: python -m unittest Tools.tests.test_def0006_red_hud_runtime_contract Tools.tests.test_def0004_pixel_hud_current_contract
+    result: 14_of_14_passed_before_change
+  postchange_focused_contracts:
+    command: python -m unittest Tools.tests.test_def0006_red_hud_runtime_contract Tools.tests.test_def0004_pixel_hud_current_contract
+    result: 14_of_14_passed
+  all_def_0004_static_contracts:
+    command: python -m unittest discover -s Tools/tests -p test_def0004*.py
+    result: 120_of_120_passed
+  runtime_protection_and_integrity_contracts:
+    modules:
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_project_knowledge_integrity
+    result: 41_of_41_passed
+    note: >-
+      PKI011 appears once as expected output from an adversarial integrity
+      fixture; the enclosing unittest result is OK.
+  independent_read_only_reviews:
+    reviewers: 3
+    result: pass_for_root_cause_and_right_anchored_depletion_mask_direction
+  diff_check:
+    result: no_whitespace_errors_line_ending_warnings_only
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_checkpoint_artist_vendor_handoff_user_asset_or_package_modified: false
+
+project_knowledge_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_AuthoredVitals_20260724_1658Z/integrity-final.json
+  report_bytes: 1783
+  report_sha256: 1244CB3D7A60760BB7ABA8BAACEAA35D8B9A4CBCA992E04F89E2443893AF890B
+  result: passed_with_0_errors_and_0_warnings
+  indexed_evidence_count: 138
+  indexed_route_count: 176
+  canonical_queue_sha256: 1EB248A36C8ECED75DE987133F229AD7103D0A2211CE2F0C072557F5FD8B70CE
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/DEF0004_AuthoredVitalsFill_20260724_165112Z
+  exact_pre_slice_files: 3
+  pre_slice_header_sha256: 7F35CF41C5369553955D63026D17171201A46E3098238AFA781198D3ED373788
+  pre_slice_cpp_sha256: 0783A75409A7D82C3FD84BC907473C2BAE846965533C7C76D63CB91848E0BD7A
+  pre_slice_test_sha256: A7A6FF2A468ABA994A4F89C76957B238B37762A42586F23AA839463B7D25CD94
+  exact_pre_slice_bytes_retained: true
+
+remaining_blockers:
+  - current RedHUDRuntime C++ and UHT compilation is unproven
+  - no real-GPU runtime frame accepts full, partial, empty, or regenerating player bars
+  - 1280x720 and 3440x1440 composition and customizer scaling remain visually unverified
+  - physical jetpack input and actual fuel depletion/recharge behavior remain unverified
+  - the generic Energy presentation name remains semantically stale for jetpack fuel
+  - broader DEF-0004 and DEF-0006 interaction, minimap, packaging, Steam, and multiplayer gates remain open
+
+next_safe_action: >-
+  When sustained free physical RAM reaches at least 18-20 GiB, run one
+  serialized current-source RedHUDRuntime/TitanEditor build followed by a
+  real-D3D12 jetpack sequence at full, partial, near-empty, and regenerating
+  fuel at 1280x720 and 3440x1440. Confirm that the visible filled portion retains
+  the supplied painted purple texture and that no stale flat color appears.
+
+claim_limit: >-
+  This evidence proves only the bounded source-static removal of the three flat
+  player-vitals fills, the right-anchored inverse depletion-mask contract, source
+  art hash preservation, and offline regression coverage. It does not prove C++
+  or UHT compilation, Unreal rendering, pixel quality, jetpack gameplay,
+  controller input, customization, performance, packaging, Steam transport,
+  persistence, travel, late join, or multiplayer acceptance.

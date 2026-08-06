@@ -1,0 +1,134 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r68-visual-moon-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T22:22:33Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r68-project-owned-anti-solar-visual-moon
+evidence_class: real_gpu_visual
+result: retained_visual_moon_runtime_and_pixels_pass_art_partial
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 52.90
+  commit_headroom_gib: 55.54
+  gpu: NVIDIA_GeForce_RTX_3080
+  free_gpu_vram_mib: 9136
+  free_d_drive_gib: 767.32
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+transaction:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeNightMoonPresenter_R68_20260805T2213Z
+  rollback_manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeNightMoonPresenter_R68_20260805T2213Z/manifest.yaml
+  exact_writes:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlanetNightPresenter.h
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlanetNightPresenter.cpp
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Environment/M_RedAnalyticMoon_R68.uasset
+    - Build/Automation/create_red_analytic_moon_r68.py
+    - Build/Automation/verify_redmmo_night_moon_r68.py
+  unchanged_authority:
+    home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+    profile_v1_sha256: 56EA5F830A8F581C1844B956EBABA556B45E200C397443F37BA921766862FC1A
+    r66_no_palms_sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+    r67_surface_sha256: 745381295CDC76754B9FD347CC85CEBEC3151B042C366CDA40F1908163B8A4F7
+    seed: 1337
+    terrain_or_foliage_binding_changed: false
+    map_save_called: false
+
+implementation:
+  actor: /Script/RedMMO.RedPlanetNightPresenter
+  component: MoonDisc
+  material: /Game/RedMMO/Environment/M_RedAnalyticMoon_R68
+  material_sha256: 578D841AB974F9DAE4B6EAB5A474901E2202C601A4350D1BB4E8C7A68893F4C3
+  behavior:
+    placement: camera_relative_anti_solar_direction
+    distance_cm: 25000000.0
+    angular_radius_degrees: 1.15
+    emission: 2.5
+    collision: disabled
+    gravity_or_orbit_authority: none_visual_only
+    night_visibility_source: deterministic_night_hemisphere_weight
+  source_hashes:
+    header: 31DF4341B03880EFC858E264538930F644E53878327727BF11F8C6EC6E2CA847
+    cpp: 6647CF79C65220C0A95A62AB6D331163C1C11422DF11E78D06407DF31F4814D0
+    material_builder: 525FC9F62D8825E22B600A7CA54081E5A6C27ECD563632E4265B77E34533BD55
+    verifier: 41E9B0A542D5A345802D27DE0098F42DC72B2B0DE5700ECFE063F8EEB11DCD16
+
+build:
+  target: RedMMOEditor_Win64_Development
+  flags: [-NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  result: succeeded
+  actions: 5
+  seconds: 12.92
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightMoon_R68_20260805T2213Z/build.log
+  log_sha256: 75864103CDDC83CEBD834E62A07A3ACBDB489D153C8EF4173E28677D621C2712
+  binary_sha256: E7D7AAAD61EC348F044787F295658DFABBE177EA782F13F1FCF4FC2B908A8557
+
+runtime:
+  engine: Unreal_Engine_5.8.1
+  renderer: D3D12_RenderOffscreen
+  provider_plugins_disabled: true
+  ppg_generation: COMPLETE
+  map_check: {errors: 0, warnings: 0}
+  pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  moon_visibility_weight: 1.0
+  seeded_grass:
+    components: 196
+    instances: 2218356
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    post_capture_samples: 164
+    lifecycle_stable: true
+  palms:
+    components: 0
+    instances: 0
+    sample_count: 463
+    zero_throughout: true
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightMoon_R68_20260805T2213Z/Capture2/result.json
+    sha256: 1E177914844CDB6A77E4856AAB796ABCFFA2FB725480CF7639FC12E028347A03
+
+visual:
+  capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightMoon_R68_20260805T2213Z/Capture2/R68_surface_night_moon_no_palms.png
+    sha256: A9DE748430DE268DF9C5D8428A4A31F637CD88B7114D75B1DCF63FA567D78AA4
+    dimensions: [1014, 550]
+  independent_review:
+    - the project-owned moon is visibly rendered at the requested anti-solar direction against the analytic starfield
+    - the image contains no palm tree and runtime census proves none exists
+    - the moon is presently a small plain emissive sphere without crater texture or approved art treatment
+    - the proof uses a transient moon-facing diagnostic view; it does not prove normal third-person camera framing or player acceptance
+    - the retained grass and R67 ground remain visibly too green and are not art-accepted by this slice
+
+harness_notes:
+  - the first material commandlet invocation passed a literal dollar-script token and changed nothing
+  - the corrected commandlet created and saved the material, but returned code 1 because its initial absent-asset probe logged an editor error before creation; the resulting package was authenticated and loaded successfully in the fresh compiled D3D12 run
+  - the first D3D12 view kept the gameplay camera unchanged and therefore did not frame the moon; it was rejected as moon visual proof
+  - Capture2 used a transient no-save view target on the existing presenter, reached the exact moon direction and supplied the accepted diagnostic pixels
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  dirty_packages_after: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R68 proves a compiled, non-colliding project-owned visual moon renders on the
+  full-night PPG hemisphere with retained stars, zero palms, stable seeded grass
+  and no map save. It does not prove final moon art, normal third-person framing,
+  night navigability, orbit or gravity gameplay, standalone, replication,
+  multiplayer, packaging, biome acceptance or a developer handoff build.
+
+next_safe_action: >-
+  Preserve R68 and R67/R66. The next visible acceptance slice is one explicit
+  hands-on third-person PIE for camera/control/night feel when visible launch is
+  authorized. Otherwise advance an independent handoff-critical package or
+  biome-diversity prerequisite; do not repeat palm, grass visibility, ground
+  tint/UV, star density, cloud radius, atmosphere visibility or diagnostic moon
+  camera loops.
+

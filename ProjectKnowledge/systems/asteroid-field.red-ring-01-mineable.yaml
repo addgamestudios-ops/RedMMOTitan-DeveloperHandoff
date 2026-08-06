@@ -1,0 +1,44 @@
+schema_version: 1
+record: celestial.asteroid_field
+
+id: asteroid-field.red.ring-01.mineable
+anchor_body_id: planet.red.ring-01
+display_name: Red Ring Mineable Belt
+status: retired_runtime_disabled_visual_pending
+production_enabled: false
+authority: server
+
+generation:
+  seed_hex: "0x52494E47"
+  seed_text: RING
+  count: 32
+  inner_radius_cm: 687500.0
+  outer_radius_cm: 1062500.0
+  vertical_spread_cm: [-90000.0, 90000.0]
+  distribution: deterministic_tilted_belt
+  runtime_actor_name_format: RedRingMineableAsteroid_%02d
+  stable_member_id_format: asteroid-field.red.ring-01.mineable/0x52494E47/<ordinal>
+
+representation:
+  runtime_class: ARedMineableAsteroid
+  actor_tag: RedRingMineableBelt
+  visual_variants:
+    - AsteroidSpaceport mining mesh variant 0
+    - AsteroidSpaceport mining mesh variant 1
+    - AsteroidSpaceport mining mesh variant 2
+
+mining:
+  enabled: false
+  server_authoritative_hits: true
+  replicated_fields: [ore_capacity, ore_remaining, visual_variant]
+  resource_table_id: pending
+
+evidence:
+  status: retired_runtime_disabled_visual_pending
+  proven:
+    - server runtime log reports 32 spawned actors
+    - belt meshes are visible in the real-GPU ring capture
+  pending:
+    - orbit-view visual absence proof
+  retirement_artifact:
+    - ProjectKnowledge/evidence/2026-07-21-obsolete-saturn-disabled-runtime.yaml

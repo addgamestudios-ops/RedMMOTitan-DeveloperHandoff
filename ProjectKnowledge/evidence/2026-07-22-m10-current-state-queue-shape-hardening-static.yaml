@@ -1,0 +1,186 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-CURRENT-STATE-QUEUE-SHAPE-HARDENING-STATIC
+captured_at: "2026-07-22T21:36:38Z"
+module: M10
+slice: current-state-queue-shape-hardening
+evidence_class: static
+result: current_state_queue_wrong_shapes_fail_closed_four_p2_limits_remain
+
+authorization_and_scope:
+  intended_work: >-
+    Close only the documented malformed current_state.queue exception path by
+    converting non-mapping values into deterministic structural findings.
+  production_files_modified: 0
+  runtime_or_gameplay_files_modified: 0
+  tooling_files_modified:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_preserved:
+    - production maps, protected checkpoints, and fused prototype assets
+    - artist repositories, archives, handoffs, and all source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+  explicitly_deferred:
+    - high-gate affirmative and explicit-negative parsing semantics
+    - completed-module evidence success, association, and class compatibility
+    - recursive nested YAML and yml orphan discovery
+    - strict schema_version type validation for every indexed YAML record
+    - all legacy metadata repair
+    - Unreal, build, cook, package, real-GPU, gameplay, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 59
+    untracked_entries: 1360
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_shader_zen_uba_count: 0
+    competing_project_writer_before_slice: false
+  root_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 5.634, maximum: 6.747, average: 6.317}
+    commit_headroom_gib: {minimum: 16.143, average: 16.898}
+  independent_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 6.495, maximum: 6.844, average: 6.658}
+    commit_headroom_gib: {minimum: 17.108, maximum: 17.505, average: 17.278}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1436_to_1458, free_mib: 8596_to_8618, utilization_percent: 11, temperature_c: 41}
+    disk_free_gib: {C: 132.48, D: 1141.71}
+  decision: static_offline_only
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_stage_package_archive_started: false
+    failure: physical_memory_guard_below_8_gib
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 29530
+    sha256: 0FC3D55AA1B0DF47294367CD96F793B60E11C66818F940DB91FACCFC60B7A21B
+    behavior:
+      - current_state.queue is read once and required to be a mapping
+      - every non-mapping shape adds exactly one PKI020 at ProjectKnowledge/current_state.yaml.queue
+      - the fallback empty mapping lets queue snapshot validation add exactly one PKI015 instead of raising
+      - valid mapping behavior and the live canonical finding set are unchanged
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 12862
+    sha256: 232BAA47F76C90D22CCA25CF95F94F36D0D0D5A0FD33FDD35E9D8C9927509EA6
+    focused_contracts_passed: 11
+    adversarial_shapes:
+      - scalar_string
+      - list
+      - boolean
+      - integer
+      - null
+    expected_per_shape:
+      PKI020_queue_shape_findings: 1
+      PKI015_snapshot_findings: 1
+      exception: false
+
+verification:
+  live_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CurrentStateQueueShape_20260722_2136/integrity_probe.json
+    bytes: 17352
+    sha256: E3A2A5623AF73E62FB2C8895B27A0BADD64B9D58EF745CC737968B9043BF6925
+    expected_exit_code: 1
+    result: existing_backlog_reproduced_without_PKI020
+    finding_count: 62
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI022: 1}
+  regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CurrentStateQueueShape_20260722_2136/focused_regression_tests.log
+    bytes: 14214
+    sha256: F2E875E8D4AD9590D0752AED283B4A6EA440AF0C8A60FBBB197F62D5AC165D5C
+    result: 33_of_33_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  independent_review:
+    result: pass
+    confirmed:
+      - diff limited to the queue-shape guard and one isolated adversarial test
+      - all five wrong shapes return deterministic PKI020 plus PKI015 without exception
+      - valid mapping and live 62-finding behavior remain unchanged
+
+protection:
+  pre_slice_result: pass_no_drift
+  canonical_yaml_parsed: 92
+  protected_rasters_exact: 135_of_135
+  safe8_manifest_members_exact: 338_of_338
+  supplied_hud_assets_exact: 56
+  vibe_sources_exact: 8_of_8
+  artist_repository_shapes:
+    SAFE7: clean
+    SAFE8: 4_modified_1_untracked
+    SAFE9: 9_modified_3_untracked
+  unreal_build_or_git_writer_count: 0
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10CurrentStateQueueShape_20260722_2136
+  retained_files: 5
+  auditor_before_sha256: 445326E4A07A5CBABF78D6A15F9A6984853E6D4725FDB681B6131893E08C90F2
+  tests_before_sha256: 3F2BD55E8C902E57727278B2DAB35844240B6DC7BD3ABEE1C487B7DF77ED6440
+  index_before_sha256: 85A5052D7981674A9E15CF74E391D35EFFA60D56E053E607648491A4551DADAC
+  current_state_before_sha256: 8DC8A8C526393E3C9DD76EF37D95B5B77D649F3658D4D618E37EA3266A004EAC
+  queue_before_sha256: 35C52ACECCF3360C84A59D56DBDB2366E1030452520F0E6065CA950D2498461A
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CurrentStateQueueShape_20260722_2136/integrity_final.json
+    bytes: 17352
+    sha256: 19FFC5CC5139F74939F156D768744A207B6C178E3E67E5350F0C241914D405E7
+    expected_exit_code: 1
+    result: failed_closed_with_unchanged_legacy_backlog
+    error_count: 62
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI022: 1}
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 9640
+    sha256: 3ED43DF1959A657D643C4E6AB367E8B2C1A284C6B6DB895EDBD0D2E134AD1510
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 54657
+    sha256: 7DAFBF8FD4B9C20F8C05165EED70257FD6ECCB513B6E76104A3851942B40CF45
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 175299
+    sha256: B5E69BA363A5B07D9133E478D699665F24A92A247AD4E45B70BA9E355F299642
+  queue_snapshot_matches_current_state: true
+
+remaining_m10_blockers:
+  auditor_hardening_categories: 4
+  legacy_metadata_findings: 62
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This static slice closes only the malformed current_state.queue exception
+  path. It does not close the four other documented auditor limitations, repair
+  legacy metadata, complete M10, compile project targets, or prove runtime,
+  visuals, gameplay, packaging, Steam transport, or multiplayer.
+
+next_safe_action: >-
+  In a later isolated M10 slice, make schema_version validation strict for bool,
+  float, missing, and wrong values across every indexed canonical YAML record.
+  Do not combine that work with the remaining gate semantics, completed-evidence,
+  orphan-discovery, metadata, HUD, gameplay, map, artist, or runtime categories.

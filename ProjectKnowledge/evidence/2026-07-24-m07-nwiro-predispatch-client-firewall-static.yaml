@@ -1,0 +1,189 @@
+schema_version: 1
+id: evidence.M07.nwiro-predispatch-client-firewall-static.2026-07-24
+evidence_class: static
+module: M07
+captured_utc: 2026-07-24T23:58:25Z
+result: passed_offline_client_transcript_firewall_with_all_runtime_isolation_gates_closed
+
+scope:
+  objective: >-
+    Implement one offline-only, deterministic client transcript firewall for
+    the exact generation-disabled Savanna find_assets metadata probe without
+    launching Unreal, NWIRO, MCP, a provider, or a network transport.
+  performed:
+    - authenticate the canonical parent contract and all 11 pinned inputs
+    - implement a nonce-bound initialize, tools/list, and tools/call state machine
+    - require the exact singleton annotated find_assets definition
+    - require the exact pinned request and exact single-identity response
+    - fail closed on malformed, duplicate-key, oversized, nonfinite, out-of-order, changed-input, unexpected-validator, and unexpected-reauthentication cases
+    - emit only a static redacted synthetic-transcript report
+    - independently review the offline-only claim boundary and correct the findings
+  not_performed:
+    - launch Unreal Editor, NWIRO Pro, or NWIRO Integration Kit
+    - open, initialize, probe, proxy, or isolate an MCP endpoint
+    - call a NWIRO tool, ACP route, Meshy, Tripo, fal.ai, or another provider
+    - load, import, migrate, convert, render, place, or modify a vendor asset
+    - create or modify a map, landscape, PCG graph, material, foliage, package, or protected checkpoint
+    - claim NWIRO runtime, environment generation, mini-hub, curved-tile fit, visual, gameplay, or real-GPU acceptance
+
+preflight_and_final_state:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  final_worktree_entries: 174
+  final_physical_ram_free_gib: 5.686
+  final_commit_headroom_gib: 17.351
+  final_d_drive_free_gib: 1081.259
+  final_gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 3801
+    free_vram_mib: 6253
+  exact_unreal_or_build_process_count: 0
+  decision: >-
+    Physical RAM remains below the one-editor floor. No Unreal, NWIRO, MCP,
+    import, cook, package, or real-GPU process was started.
+
+artifacts:
+  package_marker:
+    path: Tools/__init__.py
+    bytes: 62
+    sha256: 834ABA85E3729E442006B10D5699A06EE4D31F544AD9E2FC2BF09C0986DC4734
+  firewall:
+    path: Tools/redmmo_nwiro_predispatch_firewall.py
+    bytes: 18844
+    sha256: 5C6F4A33EE71E4660CA87DDB67EF08743D8811652BBEC23E1408D012FA018DE2
+  tests:
+    path: Tools/tests/test_redmmo_nwiro_predispatch_firewall.py
+    bytes: 18526
+    sha256: 1DB206AB96046D88B4D2A1EFAD69EC146ADDCAF50D17314C3E05D5AFB0DDD2AA
+  parent_contract:
+    path: Build/Automation/redmmo_nwiro_metadata_dry_run_contract_v1.json
+    sha256: B388D2869D0B13A798A1128705B650EC3CCE071DC5BD8441184C359BBE7D9E68
+    semantic_sha256: F7CB349CB67DD2BC22FF76265ACB5DB1C0EFAB473AF895034B7C6651EE856F1D
+
+firewall_contract:
+  transport_present: false
+  generic_dispatch_api_present: false
+  runtime_send_authorized: false
+  fixed_sequence:
+    - initialize
+    - singleton tools/list
+    - exact find_assets tools/call
+  endpoint_shape_validator: http://127.0.0.1:5353..5362/mcp
+  exact_authenticated_input_count: 11
+  request_ids: random_128_bit_nonce_per_run_and_phase
+  maximum_response_bytes: 16384
+  redacted_report_contains:
+    - stable candidate ID
+    - identity digest
+    - phase byte counts and digests
+    - explicit false runtime-isolation gates
+  redacted_report_excludes:
+    - asset name
+    - asset package path
+    - asset class
+    - tool descriptions
+    - provider names
+
+verification:
+  py_compile_exit_code: 0
+  focused_firewall_tests:
+    run: 18
+    passed: 18
+    failed: 0
+  combined_firewall_parent_contract_and_crosspack_tests:
+    run: 54
+    passed: 54
+    failed: 0
+  canonical_integrity:
+    result: pass
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 151
+    queue_sha256: A8A149F56DEEEEA6AF7802D66A74F8CD231BD943C77FD8ABD82E7EAD69449AF3
+    report_path: D:/RedMMOTitanWindowsData/Diagnostics/M07_NwiroPredispatch_20260724_2359Z/integrity.json
+    report_bytes: 1783
+    report_sha256: 9F4D756EED7248717655B8C59D4985806C7EE2EEA0F4FDF5D6B92BDF15A358EA
+  controls:
+    direct_and_module_cli_resist_hostile_tools_package_precedence: true
+    no_network_or_process_transport_imported_by_firewall: true
+    noncanonical_contract_path_rejected: true
+    canonical_endpoint_spelling_required: true
+    out_of_order_session_poisoned: true
+    contract_and_pinned_inputs_reauthenticated_between_phases: true
+    contract_and_pinned_inputs_reauthenticated_before_report_return: true
+    unexpected_validator_exception_poisoned: true
+    unexpected_reauthentication_exception_poisoned: true
+    exact_type_stable_initialize_shape_required: true
+    exact_singleton_annotated_tool_definition_required: true
+    exact_full_probe_request_bytes_required: true
+    exact_single_nested_text_identity_required: true
+    duplicate_json_keys_rejected: true
+    oversized_payload_rejected: true
+    report_transcript_deep_copied: true
+  independent_review:
+    offline_claim_p0_findings: 0
+    final_offline_claim_p1_findings: 0
+    reviewer_executed_implementation_or_tests: false
+    initial_p1_findings:
+      - hostile probe validator exceptions were not comprehensively poisoned
+      - final report publication lacked an immediate reauthentication
+      - mutation fixtures used a different random request ID
+      - namespace-package bootstrap could select a hostile Tools package
+      - unexpected reauthentication exceptions did not poison the session
+      - the static report exposed exact asset metadata
+    corrections:
+      - catch every ordinary probe-validator and reauthentication exception and fail closed
+      - reauthenticate immediately before returning each report
+      - bind each mutation fixture to its own firewall request ID
+      - make Tools a regular project package and test direct and module CLI precedence
+      - replace asset metadata with stable candidate ID and identity digest
+      - add exact type, full-request, canonical-port, deep-copy, and exact-count tests
+
+known_runtime_bypasses_and_unproven_controls:
+  raw_mcp_direct_path_blocked: false
+  acp_direct_dispatch_blocked: false
+  runtime_tool_registry_generation_bound: false
+  mcp_initialized_notification_verified: false
+  exclusive_single_process_lock_verified: false
+  headless_permission_bypass_fixed: false
+  bridge_null_provider_bypass_fixed: false
+  vendor_auto_config_publication_disabled: false
+  trusted_hardened_server_binary_count: 0
+  source_audit: >-
+    The installed Integration Kit exposes raw HTTP MCP and a separate ACP
+    ProcessJsonRpc route, auto-publishes client configuration, and does not
+    provide the authoritative restricted mode required by this client. An
+    external client or proxy cannot close those in-process alternate paths.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  Static offline client-state-machine evidence only. It proves that the
+  current project-owned client can construct and validate one exact synthetic
+  transcript while permanently refusing transmission. It does not control or
+  isolate the installed vendor listener, ACP direct-dispatch path, dynamic
+  registry, headless permission behavior, provider bridge-null behavior,
+  client-config publication, egress, process identity, or concurrency. It is
+  therefore not authorization or evidence for any live NWIRO, MCP, provider,
+  asset, import, migration, map, visual, gameplay, or real-GPU action.
+
+remaining_blockers:
+  - implement a project-owned or vendor-approved restricted metadata-probe mode inside the Integration Kit
+  - gate both ProcessJsonRpc and the central DispatchTool path with one nonce-bound exact permit
+  - suppress raw HTTP, ACP, bridge, provider, event, fallback-port, and client-config-publication paths in restricted mode
+  - bind tools/list generation to the exact call and require one process and one in-flight request
+  - add static source-invariant tests before any live probe
+  - keep both packs allows_usage_with_ai false and complete explicit rights review
+  - obtain authoritative Asset Registry closure, isolated UE 5.8 conversion, exact migration, isolated mini-hub map, and real-GPU evidence later
+
+next_safe_action: >-
+  Without launching Unreal or NWIRO, design and implement source-invariant
+  tests for an authoritative Integration Kit restricted metadata-probe mode
+  that gates both ProcessJsonRpc and DispatchTool, suppresses every alternate
+  route and config publication, and keeps the one exact find_assets probe
+  transmission-disabled until independent review passes.

@@ -1,0 +1,83 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-onfoot-native-combat.build.2026-08-03
+captured_utc: "2026-08-03T03:23:22Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: project-owned-radial-onfoot-pawn-and-server-projectile-combat
+evidence_class: build
+result: passed_serialized_editor_and_game_builds_content_binding_and_runtime_pending
+
+native_pawn_milestone:
+  result_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_OnFootPawn_20260803_030615Z_A01/result.json
+  result_report_sha256: BCEE7DA7736344A9AF92866712AD5870B615F7361B60B68676F25320A133B496
+  rollback_manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_OnFootPawn_20260803_030615Z_A01/manifest.json
+  rollback_manifest_sha256: 1CC7053117DCC96EB6E18C02067E75B86E7F58A058E9D155F5802F888C6791EC
+  contract:
+    movement_component: /Script/RedMMO.RedCharacterMovement
+    active_components: [Mesh, SpringArm, Camera, RadialGravity, WeaponMesh]
+    input: nullable_externally_assigned_enhanced_input
+    movement: controller_input_projected_onto_radial_tangent_plane
+    game_mode: project_owned_environment_neutral_default_pawn_selection
+  source_state: superseded_by_native_combat_milestone
+  reason: >-
+    RedMMO.Build.cs and RedPlayerCharacter source plus both binaries were
+    intentionally superseded by the later combat tranche. The milestone result
+    and logs remain valid historical build evidence, not current-output hashes.
+  editor_log_sha256: F8B67EEFA99A2F857AFCE7A7DD1FF7D813A91A5FD685C2A5A79EE771CEB402AD
+  game_log_sha256: 18C79680D3B741E48F800417E812C839D865F98789E668B0B0B7E3FBDC317FC3
+
+native_combat_milestone:
+  result_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_OnFootCombat_20260803_031306Z_A01/result.json
+  result_report_sha256: A366C779D5796BEF675C63ACB8046CFC8720A41468C7BF8C22EB756B83D772C1
+  rollback_manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_OnFootCombat_20260803_031306Z_A01/manifest.json
+  rollback_manifest_sha256: 4F4C72912E597E90854EE99A609DEBB4D5CA7078FACA95639ED4FFE8E5CA8F2B
+  implemented:
+    - six nullable animation slots: Idle, Walk, Run, JumpStart, JumpLoop, JumpEnd
+    - deterministic single-node animation switching with missing-slot clearing
+    - landing-triggered JumpEnd
+    - nullable Fire and ADS Enhanced Input hooks
+    - server-authoritative aim, rate limit, projectile spawn and damage
+    - replicated ARedBolt with sphere collision and projectile movement
+    - nullable external weapon, projectile, material, muzzle and impact presentation
+  excluded: [FocalRig, customization, HUD, vehicle, mining, resources, craters, environment]
+  initial_editor_attempt:
+    result: failed_then_corrected
+    error: C2445_ambiguous_TSubclassOf_fallback
+    log_sha256: 01D79240C82200DCBC0FE9D1888AFD4B2A7F60F7DA71A0B85928D19743107BB1
+  editor_final:
+    target: RedMMOEditor_Win64_Development
+    actions: 7
+    warnings: 0
+    errors: 0
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_OnFootCombat_20260803_031306Z_A01/build_editor_final.log
+    log_sha256: 72DD5BB10406B6A6A039345E7A2DCED2859E0A8D701FED3BBED2C848F983229A
+    module_dll_sha256: CDBED308D1E5D711ECEA33DCE8D1B63CE170157C6EF4F57E231FDE1743E8E826
+  game_final:
+    target: RedMMO_Win64_Development
+    actions: 6
+    warnings: 0
+    errors: 0
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_OnFootCombat_20260803_031306Z_A01/build_game_final.log
+    log_sha256: 2CDBF4E58B49C11A38F3929EF0CA2E7F163601895080EC706B0A295C0670CBEB
+    executable_sha256: 56380E17AD11CBFFD6F5BD0371A99161CF565D56941DD1B428F232EE8745E29B
+
+preservation:
+  clean_home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  map_config_or_content_bound: false
+  editor_or_pie_launched: false
+  provider_listeners_after: 0
+
+claim_limit: >-
+  This is source and serialized build evidence only. No Blueprint, Trooper mesh,
+  animation, input, weapon, VFX, GameMode or map property is assigned, and no
+  radial locomotion, firing, damage, replication, multiplayer, visual, PIE,
+  standalone, cook or package behavior is accepted.
+
+next_safe_action: >-
+  Load-verify the exact no-customization Trooper payload, then create and compile
+  project-owned input, pawn, projectile and GameMode assets without binding the
+  home map. Bind only after PPG body authority and the real ship tranche compile.

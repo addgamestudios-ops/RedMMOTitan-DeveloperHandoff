@@ -1,0 +1,128 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r72-multi-biome-views-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T23:39:12Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r72-no-save-deterministic-multi-biome-player-viewport-audit
+evidence_class: real_gpu_visual
+result: runtime_pass_visual_partial_fail
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib_before: 52.97
+  free_physical_ram_gib_after: 52.63
+  commit_headroom_gib_before: 55.37
+  commit_headroom_gib_after: 59.09
+  gpu_free_vram_mib_before_after: 9138
+  free_d_drive_gib_before_after: 767.31
+  unreal_or_build_processes_before_after: 0
+  provider_ports_closed_before_after: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  home_map_saved: false
+  generation_called: false
+  map_or_asset_writes: []
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: BD5E46F3132A6A8947C1258AB18C0F152DD4836755A414B9CC876E3BD0D6CB0D
+  r66_no_palms_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  r71_parent_sha256_before_after: EA3A5704BDA1706C7720CDFB51F39CE370CCD844E6FECEDEB53CF3ACC4F555DE
+  r71_instance_sha256_before_after: D4D222CF92769F99631B649198DD8C38032BD67B7853CD7B0A288E1657301253
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeMultiBiomeViews_R72B_20260805T2326Z
+  manifest_sha256: 6E81A8FB6930EB8BCDFE4DF7B98B485D987AF5756272676BA8484A8B66F0A9AC
+  restore_route: No restore is expected because R72 made no map or content save.
+
+execution:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_multi_biome_views_r72.py
+  driver_sha256: 8569A4620DAD69CF53985FB572D099B93E630D77336D5591B3393E267A966172
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1MultiBiomeViews_R72B_20260805T2326Z/result.json
+  result_sha256: C99F1F936455F9643C30B5E41403D9847FDE0E2D04E435AB1BA2B31D5A40935E
+  renderer: D3D12
+  view_mode: Unlit
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn_class: BP_RedTrooperPlayer_A01_C
+  dirty_packages_after: {content: [], maps: []}
+  status: PASS_R72_FOUR_ROLE_PLAYER_SURFACE_D3D12_NO_SAVE
+  harness_notes:
+    - the first launch failed before map work on a missing local cross-product helper and wrote no result, map or asset
+    - a second launcher quoting attempt started an editor but passed only the bare py command; the exact idle UnrealEditor process was stopped after the ten-minute gate and no audit script or content write ran
+    - the corrected direct process command preserved the full ExecCmds argument and completed all four captures in one fresh process
+
+deterministic_samples:
+  Hills:
+    direction: [0.4212191481735607, -0.53125, 0.7350835780453403]
+    above_sea: true
+    dominant_strength: 1.0
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1MultiBiomeViews_R72B_20260805T2326Z/Capture/R72_hills_player_surface_unlit.png
+    capture_sha256: 807B4CB6328A2E36EC51CAF1D27AE2FF829827498E03E9C7A59CC591EE52FADF
+    bytes: 645756
+  Desert:
+    direction: [0.04692456666828282, 0.84375, -0.5346812345154763]
+    above_sea: true
+    dominant_strength: 1.0
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1MultiBiomeViews_R72B_20260805T2326Z/Capture/R72_desert_player_surface_unlit.png
+    capture_sha256: B2FF5AE6B11D1F6BBF89ADBF443B22184A38839090CD4927E826D1A642B980AE
+    bytes: 439856
+  Mountains:
+    direction: [-0.20889049343814645, 0.59375, 0.7770622235388668]
+    above_sea: true
+    dominant_strength: 0.9365234375
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1MultiBiomeViews_R72B_20260805T2326Z/Capture/R72_mountains_player_surface_unlit.png
+    capture_sha256: F3AFE660C50ACF2A42963BE4DEC8A565AC413801134831815922AA1D31CC0ED2
+    bytes: 589541
+  Ocean:
+    direction: [0.3797986477904189, 0.78125, 0.4953800809848628]
+    above_sea: false
+    sea_authority_alpha: 0.568359375
+    dominant_strength: 1.0
+    capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1MultiBiomeViews_R72B_20260805T2326Z/Capture/R72_ocean_player_surface_unlit.png
+    capture_sha256: 816D0ECDBB7AF1136212F14B12B6D72A6BC8679BC1318D638EE670E4DD4E9FB0
+    bytes: 356461
+
+independent_visual_review:
+  proven:
+    - all four viewport files are byte-distinct and come from exact live generated chunks whose dominant runtime roles are Hills, Desert, Mountains and Ocean
+    - Hills visibly retains the approved dense tall grass and painted pale-green ground, with no palm visible
+    - Mountains visibly differs from Hills through a cool gray-blue painterly-rock surface and scattered approved rocks, with no palm visible
+    - the Trooper is present in every frame and the Ocean frame shows the retained analytic starfield
+  retained_defects:
+    - the Desert frame is not composition-valid because the third-person camera intersects the Trooper; the sand itself is visibly warm and distinct, but this frame cannot judge a desert biome
+    - the Mountain role still inherits dense grass because Hills, Mountains and Craters share the retained R66 foliage binding; this defeats a clean highland biome and needs a project-owned per-role foliage split, not manual placement
+    - the below-sea Ocean-role terrain reads pale tan rather than the intended aqua-tan treatment, and no shoreline or functioning water transition is visible; Ocean/coast presentation therefore fails
+    - Unlit view intentionally removes day/night as a confounder, so the black Unlit background is not accepted night evidence and these frames do not supersede the separate R68 night gate
+    - no capture proves beach width, shoreline, water material behavior, terrain smoothing, continent silhouette, paths, physical controls or standalone play
+  overall_art_acceptance: partial_fail
+
+retention_decision: >-
+  Retain R71 and all earlier checkpoints unchanged. R72 is a no-save diagnostic
+  that proves the seeded role locations can be reached and that Hills and
+  Mountains are materially distinct, but it also proves the current set is not
+  ready for a developer handoff build: Mountains still inherit dense grass,
+  Ocean is visually tan instead of aqua/coastal, and Desert needs a valid
+  camera recapture before art judgment.
+
+next_safe_action: >-
+  Make one rollback-backed project-owned ProfileV1 presentation correction:
+  split Mountains and Craters away from the Hills R66 foliage binding so only
+  Hills retains the approved dense grass, and correct the Ocean role closure so
+  its below-sea terrain visibly reads aqua-tan without adding or replacing PPG
+  water. Preserve seed, topology, home map, water, R71, R66 zero palms, every
+  seeded placement and vendor source. Then fresh reload, MapCheck, and recapture
+  Mountains plus Ocean/coast with a non-intersecting camera. Keep Desert camera
+  recapture no-save and do not package until these visual gates and the separate
+  hands-on control gate pass.
+
+claim_limit: >-
+  R72 proves four deterministic live role samples, fresh D3D12 pixels,
+  MapCheck 0/0, exact hashes and no saved package. It does not prove accepted
+  biome art, water or shoreline, terrain smoothing, physical controls,
+  standalone packaging, replication, multiplayer or developer handoff readiness.

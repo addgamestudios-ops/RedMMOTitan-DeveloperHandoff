@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r51-grass-capture-source-correlation.2026-08-05
+captured_utc: "2026-08-05T18:28:08Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r51-installed-source-correlation
+evidence_class: static
+result: ppg_readiness_is_revision_equality_and_fscreenshotrequest_selected_as_non_resizing_runtime_candidate
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 54.10
+  commit_headroom_gib: 58.10
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.55
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  current_queue_sha256: 2BC9BA23060769EA38B69FBD5602A21224783B0B055198246CD7DFD4AECBCAE2
+  desktop_control: false
+
+installed_ppg:
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  version_name: "1.0"
+  engine_version: "5.8.0"
+  descriptor_sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+  readiness_header_sha256: 771FDA320AD2AFD82AB321AFB81196A2D668898E78E6A1933BF9D610A983490B
+  readiness_source_sha256: 020111E0D88374D7F107674EF96CEE845DF11DEB5981D33341C7BE9E6234056C
+  exact_readiness_contract:
+    - PPGGPUFoliageComponent.cpp lines 135-139 return ready only when CompletedRevision equals UploadRevision for positive instance counts
+    - lines 193-201 subscribe every registered component to UActorComponent MarkRenderStateDirtyEvent
+    - lines 333-348 increment UploadRevision and reset SubmittedRevision on invalidation
+    - lines 402-480 submit the exact revision asynchronously through UpdatePrimitiveInstancesFromCompute
+    - lines 483-488 invalidate the component when its own render state is marked dirty
+  interpretation: >-
+    instance_data_ready is revision equality, not a persistent component-health
+    boolean. A render-state dirty event can move all components to not-ready
+    while preserving their identities, instance counts, registration and scene
+    proxies until the queued GPU-scene submissions complete. This exactly
+    explains the state shape observed in R50 without component deletion.
+
+unreal_public_source_correlation:
+  automation_blueprint_library_sha256: D8DDEEF72BF587B960046E21F6B8F24CB688C4F04D035355F05D434ACF332176
+  screenshot_functional_test_base_sha256: DFF284E3778817701BD4E30DECD6FADA882A31BE0988F6AC8FFF4EB62A7D0026
+  high_res_config_sha256: 4B8EA84199D4DFE460E1A2AED304C219A2DAA26D9AA55BDDE070C7A6A1FDD3FA
+  scene_viewport_sha256: D9144860ECF20C9481E48074AEAC835A6B2EAED6AFCE26EDEC4630AC1CEC446B
+  actor_component_sha256: F24386916D672DD113190A6F0512F32350893907D5E0836E8AD7F050FFFA7A49
+  unreal_client_sha256: EB57AB0D50B9684AA031422129BFFB51E9398FC551265967450665823A01F917
+  public_contracts:
+    - TakeHighResScreenshot accepts explicit ResX and ResY while the normal automation screenshot API targets the game viewport
+    - ScreenshotFunctionalTestBase documents viewport resize to screenshot size when possible and viewport restoration afterward
+    - FHighResScreenshotConfig exposes SetResolution and FSceneViewport exposes the relevant resize operations and notification
+    - UActorComponent documents MarkRenderStateDirty and exposes the event consumed by PPG
+  private_implementation_boundary: >-
+    The installed engine source distribution lacks the relevant private
+    FunctionalTesting and HighResScreenshot implementation files. R51 therefore
+    does not claim a fully static exact TakeHighResScreenshot-to-
+    MarkRenderStateDirty call chain. R50 supplies the temporal runtime
+    correlation; R51 supplies the exact PPG invalidation mechanism and public
+    resize contracts.
+
+selected_next_route:
+  api: FScreenshotRequest::RequestScreenshot
+  header: D:/UE_5.8/Engine/Source/Runtime/Engine/Public/UnrealClient.h
+  selection_reason: >-
+    Its exact-filename overload captures the existing viewport, can restrict to
+    the game viewport, and has no resolution or resize parameter. It is the
+    narrowest source-backed candidate for an unconfounded viewport capture.
+  runtime_status: untested
+  required_gate: >-
+    A fresh provider-off D3D12 PIE transaction must call this API through a
+    checkpointed project-owned diagnostics bridge only after stable COMPLETE
+    and the exact player camera, and must keep all 196 approved components ready
+    before, during and after file production. Visual review is separate and is
+    allowed only if that lifecycle gate passes.
+
+diagnostic:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassCaptureSourceCorrelation_R51_20260805T1828Z/source_correlation.json
+  sha256: 9A97FCCB0F8A9FCC0BD7D6E0CFFA9102312B17328B59E7FA69550A49AF66EF4F
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  project_content_mutated: false
+  project_source_mutated: false
+  vendor_or_plugin_source_mutated: false
+  unreal_launched: false
+  dirty_count_after: 194
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  free_physical_ram_gib_after: 53.76
+  commit_headroom_gib_after: 57.76
+  free_gpu_vram_mib_after: 9215
+  free_d_drive_gib_after: 767.55
+  final_queue_sha256: CB6AD0FB2D4510F8E65F8A3516AB768FCA1211F2AB6245D93015E8DF12D3B3B7
+
+claim_boundary: >-
+  R51 is static source-correlation evidence. It proves the exact installed PPG
+  readiness lifecycle and selects a source-backed non-resizing capture
+  candidate. It does not prove the private high-resolution engine call chain,
+  accepted grass pixels, biome art, gameplay, standalone, replication,
+  multiplayer or player acceptance.
+
+next_safe_action: >-
+  Under an exact source-and-binary rollback checkpoint, add only one
+  project-owned diagnostics bridge that requests a screenshot through
+  FScreenshotRequest with an exact filename, no filename suffix, no UI and game-
+  viewport restriction. Compile once, then run one fresh provider-off D3D12 PIE
+  discriminator at stable COMPLETE and the exact camera while sampling all 196
+  approved components before, during and after output. If readiness does not
+  remain 196 throughout, fail closed and rotate; if it does, independently
+  review that single file. Do not alter materials, components, foliage data,
+  seed, distribution, surface, map, vendor source or protected packages.

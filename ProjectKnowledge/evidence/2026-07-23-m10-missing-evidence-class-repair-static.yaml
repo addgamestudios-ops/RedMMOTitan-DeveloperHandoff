@@ -1,0 +1,208 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M10-MISSING-EVIDENCE-CLASS-REPAIR-STATIC
+captured_at: "2026-07-23T15:59:42Z"
+module: M10
+slice: missing-evidence-class-repair
+evidence_class: static
+result: passed_all_17_authenticated_missing_evidence_class_repairs_audit_backlog_reduced_61_to_44_m10_stays_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Repair only the complete PKI011 category by assigning a canonical
+    evidence_class to each of the 17 indexed historical evidence records that
+    lacked the field. Classifications are based on each record's own durable
+    modality and claim limits.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_records_modified: 17
+  canonical_records_reconciled_after_verification:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_deferred:
+    - all 23 missing evidence IDs
+    - all 20 noncanonical evidence classes
+    - the completed M01 evidence-resolution finding
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build, cook, package, runtime, new real-GPU, gameplay, HUD, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_dirty_entries: 60
+    untracked_entries: 1403
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  resources:
+    physical_ram_free_gib: {minimum: 14.581, maximum: 14.715}
+    commit_headroom_minimum_gib: 29.815
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 2517
+    gpu_free_mib: 7537
+    gpu_utilization_percent: 11
+    gpu_temperature_c: 42
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    exit_code: 1
+    terminal_phase: UBT_UBA_build_before_cook
+    status: stale_failed_attempt_not_a_valid_package
+
+classification_repair:
+  real_gpu_visual:
+    count: 10
+    records:
+      - ProjectKnowledge/evidence/2026-07-20-ring-system-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-obsolete-saturn-disabled-runtime.yaml
+      - ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-red-mars-atmosphere-decoupling-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-red-mars-deep-space-asteroids-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-red-mars-starfield-hi5-clouds-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-ring-moon-a-contact-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-ring-moon-b-contact-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-ring-moon-c-contact-real-gpu.yaml
+      - ProjectKnowledge/evidence/2026-07-21-so-stylized-fine-sand-sparkle-real-gpu.yaml
+  automation:
+    count: 1
+    records:
+      - ProjectKnowledge/evidence/2026-07-21-gravity-selection-foundation.yaml
+  static:
+    count: 6
+    records:
+      - ProjectKnowledge/evidence/2026-07-21-planetgen15-local-availability-recheck.yaml
+      - ProjectKnowledge/evidence/2026-07-21-runtime-asset-reference-repair.yaml
+      - ProjectKnowledge/evidence/2026-07-21-windows-package-memory-scope-hardening.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-presentation-dedup-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-windows-package-sustained-preflight-phase-hardening.yaml
+  authentication:
+    independent_read_only_review: pass_all_17_classifications_confirmed
+    one_canonical_class_field_per_record: true
+    pre_and_post_hashes_captured_for_all_records: true
+    class_counts_sum_to_17: true
+    class_assignment_does_not_expand_each_records_existing_claims: true
+
+exact_change_review:
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/exact_delta_manifest.json
+    bytes: 12368
+    sha256: 8784B7499771C580214A952616958CDAD61F7DD35BCF24111739F83E70293D59
+  byte_line_exact_record_remainders: 16_of_17
+  yaml_content_exact_after_terminal_blank_normalization: 17_of_17
+  terminal_blank_normalization:
+    record: ProjectKnowledge/evidence/2026-07-21-red-mars-deep-space-asteroids-real-gpu.yaml
+    effect: one_final_empty_line_removed_by_apply_patch_no_yaml_value_or_claim_changed
+    diff:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/asteroid_terminal_blank_diff.txt
+      bytes: 1461
+      sha256: 19E23CF9BA0A3CB5FD3B5B4A1D26532183BFFF86F310E0DB632E5AFA390759EB
+
+verification:
+  pre_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/integrity_pre.json
+    bytes: 17068
+    sha256: 919F18BF5DDFB4FBD7F85F609AFC11BD151F26612C85048D7130BD2B5E5EB0A5
+    expected_exit_code: 1
+    finding_count: 61
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI022: 1}
+  post_repair_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/integrity_after_field_repair.json
+    bytes: 13186
+    sha256: 35A3AFD33439AE68A3538D5D72F6477526FC002DBAA9DE5C583D062B04A4944B
+    expected_exit_code: 1
+    finding_count: 44
+    finding_code_counts: {PKI009: 23, PKI012: 20, PKI022: 1}
+    exact_delta: PKI011_17_to_0_all_other_categories_unchanged
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/static_regressions_precanonical.log
+    bytes: 18150
+    sha256: E6ED34AAF211C3E5E1520457F2FB13B11EB6CFA7A9F6933356EE77E129E35764
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  independent_read_only_review:
+    result: pass
+    confirmed:
+      - all 17 classifications match the primary authenticated evidence modality
+      - failed or pending sub-gates do not change a record's evidence modality
+      - the three moon records prove diagnostic contact and rendered presence rather than player-playtest feel or art acceptance
+      - package hardening remains static despite historical logs and live resource sampling
+      - no new PKI012 or PKI013 finding is introduced
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_source_rasters: 135_of_135_exact
+  result: pass_no_drift
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M10_MissingEvidenceClassRepair_20260723_155533Z
+  retained_preimages:
+    historical_evidence_records: 17
+    canonical_records: [INDEX.yaml, current_state.yaml, redmmotitan_module_queue.json]
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/integrity_final.json
+    bytes: 13186
+    sha256: 38E47F7B1ADA1781E1C25EB39A7F5CC13ACE917E65FEB51AF58B44FB607A6576
+    expected_exit_code: 1
+    finding_count: 44
+    finding_code_counts: {PKI009: 23, PKI012: 20, PKI022: 1}
+    result: failed_closed_with_44_independent_legacy_findings_and_no_PKI011
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceClassRepair_20260723_155533Z/final_integrity_and_provenance_tests.log
+    bytes: 12008
+    sha256: 486864058A50BA74890E4827EF7883CC68CF6121FD8614D32DA8F901FA0FAD68
+    result: 27_of_27_passed
+  canonical_hashes:
+    index_sha256: EFDE7BEF3EDE2F80AA6213DE37212081F07ACED01C7CFF36F29AF80B7C974ECB
+    current_state_sha256: C5E33D6B2C228190BB789C870258120073A18E412B275AB3E742D4BFD8F7115D
+    module_queue_sha256: 236E26F6BA170243E075ADA7A2B30F7BBF95DCDC005B9E3C7B76F0142416E196
+    queue_snapshot_matches_current_state: true
+  note: >-
+    This immutable final-report pointer was appended after the final audit. The
+    record already had its stable ID, schema_version, module, evidence class,
+    result, classification facts, and claim limits during that audit, so the
+    pointer does not alter the reported finding categories.
+
+remaining_m10_blockers:
+  live_metadata_findings: 44
+  categories:
+    missing_evidence_ids: 23
+    missing_evidence_classes: 0
+    noncanonical_evidence_classes: 20
+    completed_modules_without_resolvable_indexed_evidence: 1
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This is static legacy-metadata repair and protected-provenance evidence only.
+  It assigns the missing canonical evidence_class field to all 17 affected
+  records according to their pre-existing evidence; it does not create new
+  runtime evidence, enlarge any historical acceptance claim, repair another
+  legacy category, complete M10, or prove Unreal execution, build, runtime,
+  visuals, gameplay, HUD, packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  Keep M10 queued. Return to the canonical bounded M09 D3D12 16:9 resource
+  inventory visual and interactivity acceptance when host resources safely
+  permit one Unreal process; otherwise take one different isolated offline
+  metadata category without combining it with gameplay, HUD, maps, or artist
+  work.

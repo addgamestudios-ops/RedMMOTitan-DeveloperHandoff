@@ -1,0 +1,98 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r83-night-material-cook-closure-package
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T03:00:00Z
+scope: >-
+  One rollback-backed exact cook-closure correction for the two project-owned
+  analytic night materials, followed by a full Win64 Development home-map cook,
+  archive, and bounded offscreen D3D12 packaged smoke. No map, material asset,
+  PlanetGen vendor source, seed, topology, or biome binding was changed.
+cause: >-
+  ARedPlanetNightPresenter assigns the star and moon materials as native
+  TSoftObjectPtr defaults. Those runtime soft lookups are not guaranteed cook
+  dependencies, so the two physical .uasset files existed but were absent from
+  R82's cooked package.
+correction:
+  file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Config/DefaultGame.ini
+  sha256: F6674A59713F990778C08C19E9C13E06874D939CC94B682F1EB84E0A887E9ABF
+  setting: '+DirectoriesToAlwaysCook=(Path="/Game/RedMMO/Environment")'
+  closure_file_count: 2
+  closure_assets:
+    - path: /Game/RedMMO/Environment/M_RedAnalyticStarDome
+      sha256: E7C36E9E030527AEF5236232296A3AF6E5ECC6D99A886775BB0FD6620D21DA52
+    - path: /Game/RedMMO/Environment/M_RedAnalyticMoon_R68
+      sha256: 578D841AB974F9DAE4B6EAB5A474901E2202C601A4350D1BB4E8C7A68893F4C3
+build:
+  target: RedMMO Win64 Development
+  result: success
+  uat_exit_code: 0
+  uat_elapsed: 0h_1m_12s
+  cooked_total_packages: 1419
+  cooked_runtime_packages: 1412
+  iostore_packages: 1412
+  package_delta_from_r82: 2
+  uat_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R83_NightCookPackage_20260806T0258Z/uat_stdout.log
+  uat_log_sha256: A991F7A94652633A0523706BE1B662043B312DDA297F9CDE775870E56C3FD529
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R83_Playable_20260806_0258Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R83_Playable_20260806_0258Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  file_count: 51
+  total_bytes: 1452473659
+  tree_sha256: 8069EC63ADEEBACBE42D1D50B3A17E6525B11DBBA7AF98DD327A0F21D8D6C741
+  tree_hash_contract: >-
+    SHA-256 of UTF-8 LF-terminated lines sorted by case-folded relative path;
+    each line is relative/path|byte_length|file_sha256.
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: A81BA603DB9DDB6CAEC3280A79B6D4C8499DEF1AA48C93F306BA92741BA41A40
+  handoff_readme_sha256: 840BEAF9B9C983DCD9C7203DC92A45F2443F57B239CA14A1F4B1B26E5C6AE92E
+  saved_directories_after_cleanup: 0
+smoke:
+  renderer: D3D12
+  resolution: 1280x720
+  mode: offscreen_unattended_no_sound
+  guard_active: true
+  handled_ensure_count: 0
+  uvchanneldata_marker_count: 0
+  assertion_count: 0
+  fatal_count: 0
+  bad_export_count: 0
+  gpu_crash_count: 0
+  star_material_missing_lookup_count: 0
+  moon_material_missing_lookup_count: 0
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 4480.51
+  trooper_surface_placement: true
+  starsparrow_surface_spawn_and_park: true
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R83_NightCookPackage_20260806T0258Z/Smoke/packaged_smoke.log
+  log_sha256: 14DC9CA3A82AAAC3FB07CC6E5DA795E094E26947309F16F5268D19DCCBC2B130
+  stopped_processes:
+    - launcher_pid_3784
+    - exact_child_pid_2456
+known_nonfatal_warning: >-
+  r.MotionVectorSimulation is reported as used from the render thread without
+  ECVF_RenderThreadSafe. This warning is independent of the night-material cook
+  closure and remains open.
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  ppg_seed: 1337
+  vendor_sources: unchanged
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeNightMaterialCookClosure_R83_20260806T0257Z
+  original_default_game_ini_sha256: C83A14298F5DC3B9AC17EBA6FB89E49E2D5CAA13F2DEB2968CBC13B88BE68A98
+claim_limit: >-
+  R83 proves that both night-material packages are cooked and their packaged
+  runtime lookups resolve while the R82 PPG UV guard and playable boot baseline
+  remain intact. It does not visually accept third-person stars, moon, night
+  navigability, physical controls, final terrain or biome art, replication,
+  multiplayer, persistence, or interplanetary traversal.
+next_safe_action: >-
+  User or developer launches R83 and performs the physical on-foot,
+  Trooper-to-StarSparrow, and day/night visibility checklist. Independently
+  isolate the r.MotionVectorSimulation ownership warning without changing map
+  presentation or relaunching camera-probe loops.

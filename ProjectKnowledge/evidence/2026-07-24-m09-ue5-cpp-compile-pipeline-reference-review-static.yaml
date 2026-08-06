@@ -1,0 +1,139 @@
+schema_version: 1
+id: evidence.2026-07-24.m09.ue5-cpp-compile-pipeline-reference-review-static
+captured_utc: "2026-07-24T17:38:00Z"
+module_id: M09
+evidence_class: static
+result: pass_reference_review_and_local_workflow_reconciliation_implementation_build_and_runtime_pending
+
+scope:
+  selected_slice: >-
+    Review the user-supplied UE C++ compile-pipeline tutorial, corroborate its
+    useful claims against official documentation, installed UE 5.8 source, and
+    RedMMOTitan's actual targets, module rules, automation, and retained build
+    evidence, then record bounded adoption and unsafe-shortcut rules.
+  production_source_files_modified: 0
+  build_automation_files_modified: 0
+  maps_or_content_assets_modified: 0
+  artist_vendor_vibe_handoff_or_user_assets_modified: false
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    status_entries: 162
+    stale_zero_byte_index_lock_preserved: true
+    unrelated_dirty_work_preserved: true
+  resources:
+    total_physical_gib: 31.872
+    free_physical_gib: 9.112
+    commit_headroom_gib: 23.011
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib: 7490
+    c_free_gib: 121.381
+    d_free_gib: 1138.613
+  overlap:
+    unreal_editor_build_cook_package_or_game_processes: 0
+  gate_decision: >-
+    Free physical RAM remained far below the sustained 18-20 GiB package and
+    runtime gate. No Unreal Editor, UHT, compiler, commandlet, cook, package,
+    game, Steam, or real-GPU process was launched. The slice stayed static.
+
+review:
+  reference:
+    path: ProjectKnowledge/references/youtube-ue5-cpp-compile-pipeline-ce0fiknbpmw-2026-07-24.yaml
+    title: "Unreal Engine 5 C++ Compile Pipeline | UBT, UHT & Live Coding"
+    url: https://youtu.be/Ce0fIKnbpMw
+    reviewed_material: auto_generated_english_captions
+  official_sources:
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-build-tool-in-unreal-engine
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-header-tool-for-unreal-engine
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-build-tool-target-reference
+    - https://dev.epicgames.com/documentation/en-us/unreal-engine/using-live-coding-to-recompile-unreal-engine-applications-at-runtime
+  installed_engine_sources_reviewed:
+    - D:/UE_5.8/Engine/Source/Programs/UnrealBuildTool/System/UHTExecution.cs
+    - D:/UE_5.8/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildTarget.cs
+    - D:/UE_5.8/Engine/Source/Developer/HotReload/Private/HotReload.cpp
+    - D:/UE_5.8/Engine/Source/Editor/LevelEditor/Private/LevelEditorActions.cpp
+  project_sources_reviewed:
+    - Titan.uproject
+    - Source/Titan.Target.cs
+    - Source/TitanEditor.Target.cs
+    - Source/RedMMO/RedMMO.Build.cs
+    - Plugins/RedHUD/Source/RedHUDRuntime/RedHUDRuntime.Build.cs
+    - Build/Automation/package_windows_50km.ps1
+    - Tools/audit_windows_target_currency.py
+
+latest_build_evidence:
+  prior_context_only: true
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  observed_stages:
+    - target_and_toolchain_setup
+    - compile_RedPlayerCharacter_cpp
+    - link_UnrealEditor_RedMMO_dll_and_import_library
+    - write_TitanEditor_target_metadata
+    - Result_Succeeded
+  relationship_to_current_source: predates_current_minimap_and_authored_vitals_source_changes
+
+findings:
+  existing_project_strengths:
+    - BuildCookRun already has a monotonic UAT macro-phase detector from build through archive
+    - the package path already uses NoUBA and MaxParallelActions 1 with sustained resource guards
+    - target-currency verification already requires successful logs, exact receipts, linked products, and current-input proof
+  bounded_gap:
+    - no standalone compile-only UBT stage classifier exists
+    - no project-owned single-instance guarded compile-only wrapper exists
+  adopted_rules:
+    - classify failures by target or plugin setup, UHT, compile, link, metadata, load, and runtime-patch stage
+    - retain artifact plus exact log, receipt, product, source-identity, and exit-code evidence
+    - do not use Live Coding to satisfy structural, target-currency, package, or current-source acceptance
+  current_application: >-
+    The replacement minimap and authored-vitals work changed compiled RedHUD
+    headers and source. They still require one editor-closed serialized
+    current-source build and the separately defined real-D3D12 acceptance
+    sequences; this static review closes neither gate.
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_checkpoint_artist_vendor_handoff_user_asset_or_package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M09_CompilePipelineReference_20260724_173500Z
+  exact_pre_slice_canonical_files: 3
+  exact_pre_slice_bytes_retained: true
+
+verification:
+  yaml_and_json_parse: passed
+  project_knowledge_integrity:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M09_CompilePipelineReference_20260724_1738Z/project_knowledge_integrity.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 139
+    indexed_route_count: 178
+    queue_sha256: C9527F2845110CAF89880A274B7F994B11F46490B8353AA02011BB6641437F45
+  protected_hash_recheck: passed_all_four_exact
+
+remaining_blockers:
+  - current RedHUDRuntime, TitanEditor, and Titan compile and link evidence is absent
+  - current build-time target-currency proofs are absent
+  - replacement minimap and authored-vitals real-D3D12 gates remain open
+  - package, Steam, two-account, and broad multiplayer acceptance remain open
+  - the separate user-supplied Steam multiplayer video remains pending bounded review
+
+next_safe_action: >-
+  Keep M09 incomplete_retry. When sustained free physical RAM safely reaches
+  the project gate, run one editor-closed serialized current-source build with
+  stale UBT makefiles disabled, then execute the existing 1280x720 and
+  3440x1440 real-D3D12 authored-vitals and minimap acceptance sequences. If RAM
+  remains low, review the separate Steam multiplayer tutorial without changing
+  transport configuration.
+
+claim_limit: >-
+  This evidence proves only a bounded external-reference review, official and
+  local source corroboration, existing-tool inventory, and recorded adoption
+  rules. It does not prove compilation, linkage, module loading, runtime
+  behavior, visual quality, package currency, Steam transport, or multiplayer.

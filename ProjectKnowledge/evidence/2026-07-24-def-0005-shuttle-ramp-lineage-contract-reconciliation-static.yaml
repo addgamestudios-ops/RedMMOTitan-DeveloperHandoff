@@ -1,0 +1,227 @@
+schema_version: 1
+id: EVIDENCE-2026-07-24-DEF-0005-SHUTTLE-RAMP-LINEAGE-CONTRACT-RECONCILIATION-STATIC
+captured_at: "2026-07-24T06:19:30Z"
+module: module.M10.final-evidence-and-handoff
+defect: DEF-0005
+evidence_class: static
+result: passed_source_build_lineage_retained_runtime_gate_open
+
+scope:
+  changed_project_files:
+    - Tools/tests/test_def0005_shuttle_ramp_evidence.py
+  gameplay_source_files_changed: 0
+  unreal_asset_or_map_files_changed: 0
+  config_or_plugin_files_changed: 0
+  build_outputs_changed: false
+  unreal_or_build_processes_launched: 0
+  historical_evidence_rewritten: false
+  defect_closed: false
+  ownership: M10_static_evidence_retention_hardening_for_DEF_0005
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_worktree:
+    total_entries: 1528
+    preservation: unrelated_entries_untouched
+  stale_git_index_lock:
+    path: D:/RedMMOTitan/.git/index.lock
+    action: left_untouched
+  memory_samples:
+    count: 3
+    free_physical_gib_range: [14.667, 14.702]
+    free_commit_gib_range: [29.940, 30.092]
+    package_gate_required_free_physical_gib: "18-20 sustained"
+    decision: no_unreal_build_cook_package_or_runtime
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 1472
+    free_vram_mib: 8582
+    utilization_percent: 0
+  free_disk_gib:
+    D: 1140.03
+  unreal_or_build_processes: 0
+  latest_unreal_log:
+    path: Saved/Logs/Titan.log
+    last_write_utc: "2026-07-23T13:49:22.4790139Z"
+    terminal_state: clean_exit
+  project_knowledge_integrity_prerecord:
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/project_knowledge_integrity_prerecord.json
+    report_sha256: E07419C258D2A8F40C4AF9F77DA889E4DA4324E43C2B8D9E248176FE22800415
+
+corrected_stale_finding:
+  prior_focused_result: 1_of_3_passed_with_1_failure_and_1_error
+  failures:
+    - the rotating UnrealBuildTool backup log named as preserved by the July 22 record no longer exists
+    - the live RedShuttleBase object had been replaced by a later build
+    - the live RedMMO link response and editor DLL had also been replaced by later successful links
+  root_cause: >-
+    The July 22 test treated a rotating UBT backup plus live Intermediate and
+    Binaries products as immutable evidence. Later legitimate builds refreshed
+    those paths and UBT rotated the backup log. The unchanged shuttle source,
+    retained collision markers, and later durable compile-and-link logs show an
+    evidence-retention defect rather than a ramp-source regression.
+  historical_record_policy: >-
+    The July 22 evidence remains immutable as a truthful point-in-time record.
+    This record prospectively supersedes its external artifact inputs for the
+    focused regression contract.
+
+current_source_identity:
+  files:
+    - path: Source/RedMMO/RedShuttleBase.h
+      sha256: FECD06BBDB6D6623638EC89D9BC092B40741A19EFEA48EE7A90239591C4244F6
+    - path: Source/RedMMO/RedShuttleBase.cpp
+      sha256: 8AA71FB81C38FC44662726EA40DF61262F73F61296C7185920DA99AD72479610
+  state: unchanged_from_the_July_22_DEF_0005_record
+
+durable_compile_and_link_logs:
+  editor:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot/TitanEditor_compile_link_20260723.log
+    sha256: 3F68D755D096825A223C6B3B0C2DAD24931C941A0ADDD56CBC2ADC7F8C3E3B93
+    anchors:
+      - Compile [x64] RedShuttleBase.cpp
+      - Link [x64] UnrealEditor-RedMMO.dll
+      - Result: Succeeded
+  game:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot/Titan_compile_link_20260723.log
+    sha256: CFCD8C12A4A9483EBC0DF1104A5FCF8032876A2E83545BD9DF44796502587846
+    anchors:
+      - Compile [x64] RedShuttleBase.cpp
+      - Link [x64] Titan.exe
+      - WriteMetadata Titan.target
+      - Result: Succeeded
+  final_editor_link:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot/TitanEditor_final_link_20260723.log
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    encoding: UTF-16_with_BOM
+    anchors:
+      - Link [x64] UnrealEditor-RedMMO.dll
+      - WriteMetadata TitanEditor.target
+      - Result: Succeeded
+
+immutable_lineage_snapshot:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot_hashes.log
+  manifest_sha256: 78E5024A09C03C566724307F890790D70974901A55FC597CF9C1CD4E7D90DC56
+  files:
+    - {name: RedShuttleBase.cpp.obj, sha256: 957269F24817EA50BBC16A26E827E1970283547307180B4F2B122F1A1309CC8A}
+    - {name: RedShuttleBase.cpp.sarif, sha256: 82FA5F5E0E126CFBC7227F1AD9B23A4A6CB22136E9ED3895CF7A161496F0F9DB}
+    - {name: UnrealEditor-RedMMO.dll.rsp, sha256: A580852C135F856C65052F0AA46F28150FC020A6415711DC73CB237F9E70B942}
+    - {name: UnrealEditor-RedMMO.dll, sha256: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD}
+    - {name: TitanEditor.target, sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2}
+    - {name: TitanEditor_compile_link_20260723.log, sha256: 3F68D755D096825A223C6B3B0C2DAD24931C941A0ADDD56CBC2ADC7F8C3E3B93}
+    - {name: Titan_compile_link_20260723.log, sha256: CFCD8C12A4A9483EBC0DF1104A5FCF8032876A2E83545BD9DF44796502587846}
+    - {name: TitanEditor_final_link_20260723.log, sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657}
+  anchors:
+    - the snapshotted link response names RedShuttleBase.cpp.obj and the RedMMO editor DLL output
+    - the snapshotted editor DLL contains RuntimeLoadingRampCollision in UTF-16LE
+    - the snapshotted editor DLL contains the seven-piece collision diagnostic in UTF-16LE
+  boundary: >-
+    The snapshot prevents later legitimate builds from invalidating this
+    point-in-time static record. It does not make current installed targets
+    globally current and is not runtime collision evidence.
+
+implemented:
+  - Removed the rotating UBT backup and live Intermediate or Binaries paths from focused evidence inputs.
+  - Bound source hashes and all derived evidence inputs to immutable D-resident snapshots.
+  - Added BOM-aware build-log decoding so retained UTF-16 PowerShell logs are parsed correctly.
+  - Required successful editor and game RedShuttleBase compile/link anchors.
+  - Required a later successful editor link, target metadata write, exact link-response object reference, and both DLL collision strings.
+  - Added a fail-closed check that no derived evidence input resolves under the live Intermediate or Binaries roots.
+  - Preserved the implemented-awaiting-runtime status and exact real-GPU gameplay-collision acceptance gate.
+
+files:
+  - path: Tools/tests/test_def0005_shuttle_ramp_evidence.py
+    preimage_sha256: 4B64876854A9EF42A6E3C137F5B79A5175B33F5C50598451284C12881F2DD6B2
+    postimage_sha256: 08727E9163081D8D54AFB1DC0B9DBCCC32C4A003A1555710CB69DC01ACF9FB78
+
+verification:
+  focused_DEF_0005:
+    command: python -B -m unittest Tools.tests.test_def0005_shuttle_ramp_evidence -v
+    result: 4_of_4_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/def0005_focused_final_v2.stderr.log
+    log_sha256: 129A3D182B67DB77DA15EB8A759DE73080EAC2895138B3CBCA6352AF03B1C4BE
+  combined_M10_DEF_0005_provenance:
+    command: python -B -m unittest Tools.tests.test_def0005_shuttle_ramp_evidence Tools.tests.test_project_knowledge_integrity Tools.tests.test_fused_prototype_provenance -v
+    result: 31_of_31_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/m10_def0005_combined_final_v2.stderr.log
+    log_sha256: 0A1590C1DC46F96F37F1DB058D2A76D21EFF68226F21C68B3C263CBE3E5CC641
+  full_static_discovery:
+    command: python -B -m unittest discover -s Tools/tests -p test_*.py -v
+    result: 503_of_507_passed_with_4_failures
+    def_0005_failure_or_error_present: false
+    remaining_unrelated_findings:
+      - Night T03 cook guard and Milky Way binding remain four static failures
+    log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/full_static_discovery_final.stderr.log
+    log_sha256: 6456104E7B3F7646F06A715CC458B3C2A72C869527179F0C19DFFCB80036B4F3
+  project_knowledge_integrity_final:
+    command: python -B Tools/audit_project_knowledge_integrity.py --project-root D:/RedMMOTitan
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/project_knowledge_integrity_final_v2.json
+    report_sha256: FC699CE144CFEB1BDD360EBC5C8180F0DE2AE0B2A346C62AA3F78A4A3CB0664A
+  independent_read_only_review:
+    result: passed_with_no_actionable_issue
+    assertions:
+      - all eight snapshot files are independent NTFS files under a normal non-reparse directory
+      - no live Intermediate, Binaries, rotating UBT, or original diagnostic path remains an evidence input
+      - source and snapshot bytes are SHA-pinned and missing files, drift, or missing anchors fail closed
+      - UTF-8 and BOM UTF-16LE build logs decode correctly
+      - editor and game compile/link anchors, response object reference, and both DLL collision strings remain authenticated
+      - DEF-0005 status and real-GPU gameplay-collision gate remain open
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M10_DEF0005Lineage_20260724_061500
+  exact_preimages:
+    - Tools/tests/test_def0005_shuttle_ramp_evidence.py
+    - ProjectKnowledge/defects/DEF-0005-shuttle-loading-ramp-nonwalkable.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/INDEX.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  preimage_copy_hashes_verified: 5_of_5
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  all_match: true
+
+canonical_sync:
+  prior_module_queue_sha256: DF77BF79F55A4CD020ECFB77318E692C286600BB385E15338EC0DD52EFFD3260
+  module_queue_sha256_after: CB763BD541E534629250B78582CEA82528EF89F3AA7F7300C63870A241D80910
+  module: M10
+  module_status: queued
+  retry_count_after: 13
+  defect_status: implemented_awaiting_runtime_acceptance
+  status_advanced: false
+
+preservation:
+  - Protected checkpoints, production and fused maps, fused heightfield, artist repositories and handoffs, vendor content, user assets, and unrelated dirty work were not modified.
+  - RedShuttleBase source, collision behavior, purchased shuttle art, maps, assets, Config, plugins, and packages were not modified.
+  - No Unreal Editor, UHT, UnrealBuildTool, cook, package, runtime, multiplayer, or real-GPU process was launched.
+
+limitations:
+  - The immutable snapshots authenticate one retained source/build lineage, not current whole-target currency.
+  - The static tests do not execute UBoxComponent collision, door-alpha gating, pawn movement, or projectile channels.
+  - Real-GPU ramp deployment, walking up and down, edge firing, closed-door phantom-floor behavior, packaging, and multiplayer remain unverified.
+  - The four unrelated Night T03 static failures remain outside this one-module slice.
+
+claim_limit: >-
+  This evidence proves only that the unchanged DEF-0005 ramp source compiled and
+  linked in retained successful editor and game builds, that an immutable
+  snapshot retains the link response and collision-marker-bearing editor
+  module, and that the focused contract no longer depends on rotating or live
+  build paths. It does not prove current whole-target currency, runtime marker
+  emission, walking collision, projectile clearance, closed-door behavior,
+  visuals, gameplay, packaging, Steam transport, or multiplayer acceptance.
+
+next_safe_action: >-
+  Keep DEF-0005 open. When physical memory safely permits, rebuild current
+  TitanEditor and Titan under the serialized resource gate, then run the exact
+  real-GPU ramp acceptance: deploy, walk up and down, shoot along both edges,
+  close the door, and confirm no phantom floor. The project-wide next
+  user-prioritized action remains M12 compile and native execution when its
+  memory gate opens.

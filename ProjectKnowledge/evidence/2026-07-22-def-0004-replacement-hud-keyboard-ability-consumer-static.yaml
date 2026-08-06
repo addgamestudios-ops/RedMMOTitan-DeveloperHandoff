@@ -1,0 +1,189 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-keyboard-ability-consumer-static
+captured_utc: "2026-07-22T18:46:41Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: default_keyboard_mouse_qe_status_consumer_verified_static_runtime_pending
+
+scope:
+  selected_slice: >-
+    Harden only the default KeyboardMouse presentation consumer for the existing
+    authoritative Q/E ability feed. Reuse the existing state-driven text,
+    preserve the supplied monolithic keyboard art and Gamepad path, and do not
+    change ability input, prediction, authority, replication, or activation.
+  redhud_plugin_source_files_modified: 1
+  existing_test_files_modified: 1
+  gameplay_source_files_modified: 0
+  production_maps_modified: 0
+  assets_or_supplied_art_modified: 0
+  config_modified: 0
+  vibe_or_artist_repository_modified: false
+  ability_input_authority_or_replication_modified: false
+
+preflight:
+  git:
+    branch: main
+    upstream: origin/main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    ahead: 0
+    behind: 0
+    staged_paths: 0
+    tracked_unstaged_paths: 60
+    individual_untracked_paths: 1344
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    captured_utc_range: ["2026-07-22T18:28:48Z", "2026-07-22T18:29:08Z"]
+    samples: 7
+    free_physical_gib_range: [7.849, 8.315]
+    free_commit_gib_range: [18.618, 19.098]
+    total_physical_gib: 31.872
+    commit_limit_gib: 52.872
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib: 8908
+    gpu_utilization_percent_range: [10, 13]
+    gpu_temperature_c: 43
+    c_free_gib: 133.024
+    d_free_gib: 1141.722
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    competing_redmmotitan_writers: 0
+  gate_decision: >-
+    Unreal, build, package, and real-GPU work remained closed. Sustained free
+    physical RAM was far below the required 18-20 GiB launch gate and near the
+    historical running-abort floor. Only one bounded offline presentation slice
+    and read-only diagnostics ran.
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  exit_code_sha256: F1B2F662800122BED0FF255693DF89C4487FBDCF453D3524A42D4EC20C3D9C04
+  memory_guard_sha256: 1426B7C4DADA2E803D1181561F198DA7842438E19D9C2DFF27CAF87A8FDA8B12
+  terminal_phase: UBT_UBA_BUILD
+  terminal_reason: free_physical_memory_fell_below_8_gib_abort_threshold
+  cook_stage_package_archive_or_shader_started: false
+  pointed_archive_exists: false
+
+source_identity:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    pre_sha256: B268CE7CD29436309C6F1D24890D244E147C745BDC05CFB0F7CEB33D808DA3B3
+    post_sha256: FC3C993CA7F32E4622B36366718F48BD8FD8A18A775BE6731B81DD288A802724
+  - path: Tools/tests/test_def0004_replacement_hud_ability_feed_contract.py
+    pre_sha256: 502A621EAB99E0F125917C85342C47579F9499C1255E446F7DB1FFDA9C10FAC4
+    post_sha256: D3754096DA5072A5472FFA753D6A0802A5B0236A474C0322FB5B492047668E6D
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+  - {path: Source/RedMMO/RedHUD.cpp, sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599}
+  - {path: Source/RedMMO/RedHUD.h, sha256: D7B73FDFA5EAED5B60278BC41C6AF90326AC084E7BD89064C1C75207B9ACEC76}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+  - {path: Source/RedMMO/RedPlayerCharacter.h, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+
+implementation:
+  authoritative_feed_preserved:
+    - gameplay slots 0 and 1 still map only to replacement indices 1 and 2
+    - server-synchronized cooldown endpoints and existing client prediction remain the sole producer
+    - downed and loadout-open state remain the existing disabled producer
+    - no activation, input binding, RPC, replicated property, or authority path changed
+  keyboard_mouse_consumer:
+    supplied_art: T_REDHUD_AbilityCluster_Keyboard
+    q_status_rect: [3418, 1643, 170, 147, 90]
+    e_status_rect: [3613, 1640, 185, 150, 90]
+    cooldown: numeric_seconds_to_one_decimal
+    disabled: X
+    unexplained_not_ready_without_cooldown: ellipsis_fail_visible_closed
+    ready: status_text_collapsed_to_leave_supplied_card_unobscured
+    unsupported_indices: [0, 3]
+  lifecycle_hardening:
+    - SetInputScheme replays cached states after switching presentation
+    - Gamepad status widgets are restored to their original authored rectangles
+    - hidden AbilityBar state suppresses later status-tick text
+    - hidden AbilityBar state also suppresses scheme-switch art, glyph, combo, and keyboard-cluster visibility
+  preserved:
+    - existing Gamepad cooldown numbers and per-card tint
+    - all supplied keyboard and Gamepad texture bytes
+    - replacement layout ownership and customizer transforms
+    - party and minimap fail-closed presentation
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_ability_feed_contract.py
+  focused_test_sha256: D3754096DA5072A5472FFA753D6A0802A5B0236A474C0322FB5B492047668E6D
+  focused_tests: 15_of_15_passed
+  prior_hud_shared_and_provenance_contracts: 90_of_90_passed
+  combined_result: 105_of_105_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDKeyboardAbility_20260722_2139/offline_contract_and_provenance_tests.log
+  log_sha256: 0ADDE52405540CD7D1CB4381A8D903F42287824E6EA8B119F397989AD0215A24
+  independent_review: PASS_after_const_rect_and_hidden_scheme_switch_corrections
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDKeyboardAbility_20260722_2139/target_currency.json
+  report_sha256: 58E8F4E7A88DFF083A295E52CC041FA456C1D54156528190F4F28F8E0A71B201
+  input_manifest_sha256: 196DEA108E57C4A6F819236696783F0C0F8F20BC75351D4B0F959139AC14DC4D
+  input_count: 874
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, exact_build_proof: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, exact_build_proof: missing}
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004KeyboardAbility_20260722_213545
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004KeyboardAbility_20260722_213545/MANIFEST.txt
+  manifest_sha256: 0A1B21840F975CC9AF72A7F7CB392B06537419B2C08A443BA262905B550F4F49
+  backed_up_files: 7
+  files_including_manifest: 8
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  final_fused_provenance_checks: 7_of_7_passed
+  final_protected_source_rasters: 135_of_135_matched
+  final_vibe_sources: 8_of_8_matched
+  final_supplied_hud_textures: 56_preserved
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_manifest_records: 338
+  artist_repository_baseline_shapes: unchanged
+  production_maps_or_checkpoints_changed: false
+  scope_diff: exactly_one_redhud_presentation_source_and_one_focused_test
+  final_rollback_files: 7_of_7_exact
+  final_canonical_parse: 86_yaml_plus_queue_json_zero_errors
+  final_queue_hash_matches_current_state_and_evidence: true
+
+final_recheck:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDKeyboardAbility_20260722_2139/final_resource_process_recheck_corrected.json
+  report_sha256: D51AC220E093C21ECB2930381F90864A11B35060B7D25441C192CCC5A2CBC62A
+  samples: 5
+  free_physical_gib_range: [7.912, 7.965]
+  free_commit_gib_range: [19.046, 19.178]
+  vram_free_mib_range: [8900, 8905]
+  c_free_gib: 132.994
+  d_free_gib: 1141.721
+  strict_unreal_build_cook_package_processes: 0
+  launch_gates: closed
+
+canonical_queue:
+  pre_slice_sha256: AC1DDBB7BC4F3384F89BC83A0BC6CEEF1D91FA526E971CAD3876E069D30413FA
+  post_slice_sha256: E1C2AEA20CAF2AD25A58A6F5D4176572243DE52FD65CDAC27F13829133FCDB9F
+  module_status: incomplete_retry
+  retry_count: 14
+
+remaining_blockers:
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - keyboard Q/E placement, countdown, disabled, ready, input-switch, and hidden-layout behavior require current real-GPU runtime evidence at 16:9 and ultrawide
+  - unchanged ability states are still forwarded every status tick and lack runtime performance measurement or change suppression
+  - replacement surface and space minimap require a reviewed per-local-player navigation contract before any bridge
+  - party, quest, consumables, aggregate snapshot, complete layout coverage, painted controls, persistence, packaging, Steam transport, and multiplayer remain open
+
+claim_limit: >-
+  Static source contracts prove only the bounded presentation mapping, state
+  precedence, hidden-layout guards, unchanged producer identities, regression
+  suite, and protected-byte scope. They do not compile C++, execute UHT, launch
+  Unreal, render pixels, prove input-device switching, measure per-tick cost,
+  prove gameplay, package Windows, exercise Steam transport, or test multiplayer.

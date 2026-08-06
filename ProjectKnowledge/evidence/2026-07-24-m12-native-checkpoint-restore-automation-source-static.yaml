@@ -1,0 +1,187 @@
+schema_version: 1
+id: evidence.m12.native-checkpoint-restore-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T01:07:13.3583538Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-checkpoint-corruption-and-restore-invalidation-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only native automation scenario to the existing M12 backend test translation unit
+    - prove in source that corrupted checkpoint data is rejected atomically
+    - prove in source that exact equal-revision restore advances authority generation and invalidates prior durability capabilities
+    - prove in source that restored state cannot export until a fresh checkpoint acknowledgement
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - actor, map, output adapter, persistence adapter, collision, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 160
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [4.124, 4.041, 4.041]
+  commit_used_gib_samples: [44.249, 44.310, 44.363]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [10.623, 10.562, 10.509]
+  disk_c_free_gib: 123.116
+  disk_d_free_gib: 1139.806
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2533
+  vram_free_mib: 7521
+  gpu_utilization_percent: 21
+  gpu_temperature_c: 41
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_under_severe_physical_memory_pressure
+  action_decision: one_non_packaging_source_only_M12_restore_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 26714
+    sha256: 18AB2F4F929DDDC5006D01029C6F5B29018BC3EC8AB1A058C079B5E0012BF047
+    added_automation_name: RedMMO.Mining.VoxelBackend.CheckpointCorruptionRestoreInvalidation
+    total_native_automation_scenarios_in_file: 2
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 13174
+    sha256: C11F78AF219627BB972539E70567B830A7C86145484D016E0B03DA8AE49231A5
+    total_contracts: 11
+    new_restore_contracts: 4
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  pre_restore_state:
+    - deterministic edit one is checkpointed and acknowledged as revision-one durability base
+    - deterministic edit two creates one real revision-two retained journal suffix
+    - a pending revision-two checkpoint is freshly inspected into a trusted verification result
+  corruption_rejection:
+    - one compressed checkpoint payload byte is flipped while its recorded hashes remain unchanged
+    - bounded inspection and atomic restore both reject the corrupted checkpoint
+    - live revision, authority generation, checkpoint manifest, journal export manifest, suffix count, and suffix operation identity remain unchanged
+  exact_restore:
+    - exact revision-two checkpoint and exact live revision and generation compare-and-swap precondition succeed
+    - content revision remains two and authority generation advances exactly once
+    - a newly captured live checkpoint preserves the restored content manifest
+  durability_invalidation:
+    - the earlier acknowledged revision-one base ticket is rejected after restore as stale authority state
+    - the pending revision-two persistence ticket is independently rejected after restore as stale authority state
+    - journal export remains blocked because restore deliberately establishes an unacknowledged base
+  fresh_boundary:
+    - fresh capture binds restored revision two and the advanced authority generation
+    - it expects no prior acknowledged manifest or journal tail and carries no stale operation tail
+    - capture alone cannot promote durability
+    - exact fresh acknowledgement exports base two through revision two with zero operations and empty base and final tails
+    - the fresh canonical export differs from the pre-restore suffix and validates
+  isolation:
+    - both native test macros, backend includes, and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - each native scenario creates its own backend instance
+    - no actor, world, map, Inventory, mesh, voxel plugin, Steam, or filesystem adapter is referenced
+
+verification:
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeCheckpointRestore_20260724_005433Z/m12_checkpoint_restore_source_and_model_regressions_final.log
+    bytes: 37836
+    sha256: FF01CE6DAE169BC7584D2360E91D79B0E8CE60E7521F02E4189515C5CBC8C80E
+    result: 83_of_83_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 72
+      native_automation_source_contracts: 11
+      new_restore_source_contracts: 4
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeCheckpointRestore_20260724_005433Z/m12_checkpoint_restore_final_static_regressions.log
+    bytes: 48962
+    sha256: 6B6A3FD960A700676631D50B8FC535F7AECF1CD3F10C6B2DADBCD938DC35E5CF
+    result: 110_of_110_passed
+    composition:
+      focused_M12: 83
+      protected_provenance: 7
+      project_knowledge_integrity_contracts: 20
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeCheckpointRestore_20260724_005433Z/project_knowledge_integrity_postrecord.json
+    bytes: 1782
+    sha256: 3359F294BFBD39793DDC731B024D0787353F8D60A48473E99A08CC843145E3BE
+    result: passed_with_0_findings
+    indexed_evidence_count: 110
+  independent_review:
+    api_compile_plausibility: no_obvious_UE58_signature_include_macro_type_or_test_API_blocker_after_fix
+    semantic_adversarial: no_remaining_corruption_restore_generation_ticket_or_suffix_false_positive_after_fix
+    conventions: guard_order_test_isolation_line_length_and_warnings_review_passed_after_fix
+    review_fixes:
+      - reject both the previously acknowledged base ticket and the pending revision-two ticket after restore
+      - anchor the corruption sentinel on the actual payload mutation
+      - order post-rejection recapture and re-export before the pristine restore
+      - prove both native automation macros remain inside the development guard
+    limitation: read_only_source_review_not_compile_or_native_execution
+  canonical_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 221944
+    sha256: 573A1B45230880E93026DAE50EDB9AC0AE5E2CC1888E58507449CDD627F58355
+
+postflight:
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_free_gib: 3.752
+  commit_used_gib: 44.648
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 10.224
+  disk_c_free_gib: 123.124
+  disk_d_free_gib: 1139.828
+  vram_used_mib: 2518
+  vram_free_mib: 7536
+  gpu_utilization_percent: 20
+  gpu_temperature_c: 41
+  unreal_build_cook_or_package_launched: false
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeCheckpointRestore_20260724_005433Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeCheckpointRestore_20260724_005433Z/rollback_manifest.json
+  manifest_bytes: 2464
+  manifest_sha256: ED71F14DAAC0768422C4E43CAE990E8E62441B520AEE05EC8112A3E938CBD436
+  exact_records: 7
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+claim_limit: >-
+  This is static source evidence. The second native automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute the
+  C++ backend. It does not prove crash recovery, external persistence,
+  deformation, collision, suction, Inventory credit, rendering, gameplay,
+  performance, packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute both
+  RedMMO.Mining.VoxelBackend.JournalCheckpointPersistence and
+  RedMMO.Mining.VoxelBackend.CheckpointCorruptionRestoreInvalidation. Then add
+  separate native output-ticket lifecycle, multi-volume isolation,
+  persistence-ticket reissue, same-revision equivocation, and journal-capacity
+  automation before generated-output or trusted persistence adapter work.

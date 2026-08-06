@@ -1,0 +1,225 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M05-REGISTRY-BUILD-NULLRHI
+captured_at: "2026-07-23T04:37:48Z"
+module: module.M05.hub-anchors-and-seeded-biome-masks
+slice: invalid-tag-compile-repair-and-focused-cplusplus-execution
+evidence_class: automation
+result: passed_both_target_links_and_two_focused_nullrhi_automation_tests
+
+authorization_and_scope:
+  source_modified:
+    - Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    - Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    - Tools/tests/test_def0003_asteroid_depletion_contract.py
+  build_outputs_modified: true
+  production_wiring_modified: false
+  explicitly_preserved:
+    - Source/RedMMO/RedCelestialFrameRegistry.h
+    - Source/RedMMO/RedCelestialFrameRegistry.cpp
+    - Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.h
+    - Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.cpp
+    - all production maps, protected checkpoints, fused assets, artist repositories, handoffs, vendor plugins, and unrelated dirty work
+
+root_causes_and_repairs:
+  mixed_invalid_tag_fixture:
+    prior_expression: 'for (const FName InvalidTag : { NAME_None, FName(TEXT("Folige")) })'
+    compiler_errors: [C3535, C2440]
+    repair: >-
+      Replaced the mixed EName/FName braced range with an explicit
+      TArray<FName> containing FName() and FName(TEXT("Folige")). The
+      fail-closed empty-tag and misspelled-tag semantics are unchanged.
+  stale_target_action_graphs:
+    symptom: >-
+      After the test translation unit compiled, the cached TitanEditor link
+      response omitted RedCelestialFrameRegistry.cpp.obj,
+      RedPlanetHubReservationRegistry.cpp.obj, and
+      RedPlanetHubReservationRegistryTests.cpp.obj, causing six reflected
+      registry LNK2019 errors.
+    diagnosis: >-
+      The implementation object contained the missing external symbols, so this
+      was not a declaration or definition mismatch. Exact target Makefile.bin
+      caches were backed up and removed one at a time. Regenerated action graphs
+      included all three M05 objects and both targets linked.
+    source_change: none
+  abstract_test_context:
+    first_runtime_result: >-
+      AuthenticatedRecords passed. ProtectionQueries reached line 302 and
+      failed because NewObject<UObject>() attempts to instantiate abstract
+      UObject, producing UE's handled abstract-class ensure before the
+      intended no-world query.
+    repair: >-
+      The no-world context is now a concrete unattached USceneComponent.
+      An offline contract rejects restoration of the abstract UObject fixture.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM05InvalidTagCompile_20260723_0723
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeM05InvalidTagCompile_20260723_0723/pre_slice_manifest.yaml
+  manifest_sha256: F3D0280FC45007120A13B9825ED4814892C2A70641D49868F4B01E6BB48855E4
+  exact_pre_edit_project_files: 6_of_6
+  exact_rebuildable_target_makefile_caches: 2_of_2
+
+resource_and_process_gate:
+  total_physical_ram_gib: 31.87
+  initial_free_physical_ram_gib: 18.54
+  sustained_pre_build_free_physical_ram_gib_range: [18.560, 18.669]
+  initial_commit_headroom_gib: 37.82
+  sustained_pre_build_min_commit_headroom_gib: 37.946
+  initial_rtx_3080_free_vram_mib: 8603
+  final_rtx_3080_free_vram_mib: 8708
+  final_free_physical_ram_gib: 18.188
+  final_commit_headroom_gib: 37.701
+  final_free_disk_d_gib: 1141.376
+  preflight_overlap_count: 0
+  final_overlap_count: 0
+  policy_result: >-
+    One serial UBT or one unattended UnrealEditor-Cmd process ran at a time.
+    No cook, package, interactive editor, gameplay client, D3D12 visual pass,
+    Steam, or multiplayer process was launched.
+
+source_identity_after:
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    sha256: A04A552582D7944C8BE6B08556C7ECF45A727DBF9C2FD765B0059C1B530FF3DD
+  - path: Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    sha256: 420AC3C965539A4B3C81B95AA2704D7B35CFB3C0348B7F616AE80BC720AE8F83
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: 265F73E4BE45077E182722CD1805B2EC131C3F22503CB94F1A7E1389ABA559EA
+    note: reconciles the directly unblocked defect status with the current target-link evidence
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.cpp
+    sha256: 5C5402C6F1228B0BFAA74AFEAC7A208F0AEA65304884F9050BABCC97109D9BFD
+    note: unchanged
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.h
+    sha256: BAAF41E82EE08DEDC7F5BB8CD9328FDBDB17DD3D8B70D5E59328BF001729C095
+    note: unchanged
+  - path: Source/RedMMO/RedCelestialFrameRegistry.cpp
+    sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+    note: unchanged
+  - path: Source/RedMMO/RedCelestialFrameRegistry.h
+    sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    note: unchanged
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    stdout_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/TitanEditor_Final.stdout.log
+    stdout_log_sha256: F5CD9F72A465ABD0BE33394052C358EB518627F7AF74F5177E0455E746BFAADA
+    ubt_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/TitanEditor_Final.UBT.log
+    ubt_log_sha256: B9D2ED7140F406264635C5918FA9616E7F3E25A7C5514E05F2548D040EA3A19B
+    linked_artifact: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    linked_artifact_sha256: 46B5BD987738D865489404084126914785A46C1520F456412F44D7D32333A672
+    receipt: D:/RedMMOTitan/Binaries/Win64/TitanEditor.target
+    receipt_sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+  titan:
+    target: Titan Win64 Development
+    result: succeeded
+    stdout_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/Titan_Final.stdout.log
+    stdout_log_sha256: 7CD8BA78FCE7A30417D321BB2AC74D324FCC25593C7B82327875AFFD8CCD24A8
+    ubt_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/Titan_Final.UBT.log
+    ubt_log_sha256: E2FFE649DAF9A2F03B0F84A1C136D43A17F176D953D5E9C7BA12B51436C85FD6
+    linked_artifact: D:/RedMMOTitan/Binaries/Win64/Titan.exe
+    linked_artifact_sha256: 1EFEE45A94214536E7DC5373D9F364D39EAF3B64FF43306BEE0B9B3C40135260
+    receipt: D:/RedMMOTitan/Binaries/Win64/Titan.target
+    receipt_sha256: B0FD8B5FD57BF9956A1200E45AFA33B0218793F0FCE5389557A07D515E981B03
+  m05_objects:
+    titan_editor:
+      celestial_frame_sha256: 99FF1C55D1B8264DFE34E621249D36C3508D676B2EB40176C672DE5894BA2FC0
+      registry_sha256: B88E71551614FA01167CE95BC0686530BA0C1B5F1DC99585F1422D222A30647F
+      automation_sha256: 614210B7A064749B8689F945713F0CC7BF4F7ED3B0F43A899E982DA9D4A98396
+    titan:
+      celestial_frame_sha256: 63D17A8373520487CB7572078EB2B547CA0154A40926D711A1A337EF3CC1DD6E
+      registry_sha256: 015BFC1BC09AF47039039D7F57B71C5A060213DF7049D35B849603E6536CECE1
+      automation_sha256: C9946B42247D540020B6D7F0011345690280C0080A917F969A68393EC1F62404
+
+focused_unreal_automation:
+  platform: Windows
+  rhi: NullRHI
+  command_filter: RedMMO.WorldAuthoring.HubReservations
+  final_result: 2_of_2_passed
+  tests:
+    - RedMMO.WorldAuthoring.HubReservations.AuthenticatedRecords
+    - RedMMO.WorldAuthoring.HubReservations.ProtectionQueries
+  final_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/M05_HubReservations_NullRHI_Final.log
+  final_log_sha256: FE4F3C8738F00D7722E44F226E7E950BA5531E42955D73CD26F3A9A8D852623A
+  final_failure_markers: 0
+  retained_failed_first_attempt:
+    result: 1_passed_1_failed_on_abstract_test_fixture
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/M05_HubReservations_NullRHI.log
+    log_sha256: 5855AEB3AC36DFDCDF8C052E06576D879FFF0689C614E8D3C5AC9CF652197BFA
+
+offline_verification:
+  focused_m05:
+    result: 30_of_30_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/m05_focused_tests_after_runtime_fixture.log
+    log_sha256: 1246935511F0BC6CB25B366DEBC827DDAFA3545D5BB2D3A68FAAA48141C5EA9B
+  dataset:
+    result: RED_PCG_RESERVATIONS_CURRENT_count_27
+    dataset_sha256: D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5
+  protected_provenance:
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/protection_15_tests.log
+    log_sha256: 335C1039D8F490D00194B96FA7F9B9979ACF5FDBC0ECFE7B1F5440DA6ABB1D84
+  integrity_tool:
+    result: 20_of_20_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/integrity_tool_20_tests.log
+    log_sha256: 9BBE5C797D534F5F66AF6520C8523289CB8306AAEF6815C79A3B0524662E8C7A
+  def0003_and_hud_status_contracts:
+    result: 17_of_17_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/post_sync_def0003_hud_17.log
+    log_sha256: 832EADD3F1B4B792CC8FB22C381D1D85E59783A04D69623184EFC201B9E2D282
+  full_discovery_final:
+    result: 327_of_332_passed_with_5_unrelated_failures
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/full_discovery_final.log
+    log_sha256: 6B7910BCF0E17BBA4C4B8E9EF33FBBAE517144851533257D29FCF94EB0480FD2
+    failures:
+      - four pre-existing Night_T03 guard or binding failures
+      - DEF-0005 mutable RedShuttleBase.cpp.obj no longer matches its older pinned lineage hash; the current full target build succeeded
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_sync:
+  prior_module_queue_sha256: E1A2B942B3F75F4DCBD115CF977D9B8678326E3BC1149F01D21F04B9AF644BDB
+  module_queue_sha256: 47EF3552BFB86ACD5CDEC5F54791C8101C849A7C7B4A18974FAAFB2D5E371D5A
+  current_state_snapshot_sha256: 47EF3552BFB86ACD5CDEC5F54791C8101C849A7C7B4A18974FAAFB2D5E371D5A
+  project_wide_next_action_changed: true
+
+canonical_integrity_audit:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M05_InvalidTagCompile_20260723_0723/project_knowledge_integrity_final.json
+  report_sha256: F9F77BA6E37882F9190EB01EE094AFCDFAEF8125B297513AA7850B509F577C73
+  exit_code: 1
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+remaining_m05_acceptance:
+  - bind a reviewed authority-owned producer to the real PlanetGen actor's immutable stable ID, live center, and live nominal radius
+  - execute frame-registry missing, wrong-ID, duplicate-authority, stale/sequential revision, weak-pointer destruction, and cleanup branches in C++ automation
+  - define a server-owned replicated read-only client snapshot if clients consume the frame
+  - perform decoded Asset Registry/editor property, dependency, Data Layer, enabled-state, and placement inspection
+  - author explicit road, lake, river, and handplaced-structure masks
+  - review an adapter and obtain runtime plus real-GPU visible-overlap evidence before enabling any dressing
+
+claim_limit: >-
+  Both current Windows Development targets compile and link, and the two focused
+  hub-reservation C++ tests pass inside an actual unattended UE 5.8 NullRHI
+  process. NullRHI does not prove a production frame producer, PlanetGen actor
+  authentication, client replication, PCG or WorldGen placement, multiplayer,
+  visual overlap clearance, gameplay, packaging, Steam, or real-GPU behavior.
+  Production lookup intentionally remains fail closed and surface dressing
+  remains disabled.
+
+next_safe_action: >-
+  Preserve this M05 build/runtime checkpoint. In a separate M05 slice, execute
+  the remaining celestial-frame lifecycle branches in C++ automation before
+  designing the authority-owned PlanetGen producer. The now-linked targets also
+  allow a separate bounded real-GPU DEF-0003 or M02 acceptance slice.

@@ -1,0 +1,195 @@
+schema_version: 1
+id: evidence.m07.tropical-planetary-live-launch-guard.static.2026-07-26
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: tropical-island-biome-pre-snap-stage-and-live-validation-launch-guard
+evidence_class: static
+captured_utc: "2026-07-26T04:16:49Z"
+result: passed_static_no_unreal_launch
+
+scope:
+  objective: >-
+    Preserve the isolated Tropical island-biome staging map and make its
+    future native planet-snap and screenshot validation launcher fail closed
+    before any separately approved real-editor mutation or visual review.
+  performed:
+    - inspect canonical state, invariants, queue, resources, processes, and protected hashes
+    - retain the existing D-resident scratch stage and its exact pre-snap map bytes
+    - pin the editor, scratch inputs, validation script, Turnkey payloads, and complete AutomationTool and bundled-dotnet runtime trees
+    - restrict the sampled startup exception to one exact editor-cmd-RunUAT-dotnet Turnkey VerifySdk chain
+    - scrub inherited dotnet code-injection environment variables
+    - require the stale PostTurnkeyVariables replay file to remain absent before launch
+    - retain and test exact launched-process-handle stop paths before and after identity capture
+    - require one exact JSON object with strict scalar types and bounded success claims before accepting a future live audit
+    - execute no-Unreal Turnkey, sensor-failure, cleanup, malformed-audit, and six-sample preflight probes
+  not_performed:
+    - launch Unreal Editor
+    - execute the native planet snap
+    - save, resave, import, migrate, place, rename, move, or delete an Unreal package
+    - inspect screenshot pixels or produce new real-GPU evidence
+    - enter PIE or claim gameplay, collision, water, cloud, performance, surface-to-orbit, or production acceptance
+    - enable Epic MCP, UAIP, Nwiro, a provider, or autonomous action routing
+
+authoritative_checkout:
+  root: D:/RedMMOTitan
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  unrelated_dirty_work_preserved: true
+
+planet_authoring_contract:
+  invariant_id: INV-STREAM-001
+  statement: >-
+    The 27 square regions are overlapping tangent-local authoring inputs fused
+    before runtime; they are not World Partition runtime cells.
+  authoring_inputs_modified: false
+  runtime_cells_created_or_modified: false
+  production_sphere_modified: false
+
+existing_scratch_stage:
+  project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map_package: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  map_file:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1.umap
+    bytes: 12497095
+    sha256: FBB0EED0191099B99833CA829834BA08DB5786204ED27A04BA38F053B4F1B491
+  authoring_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeAuthor_20260725_210856Z/authoring_audit.json
+    bytes: 38421
+    sha256: 1A1A0A98030D1A7BC6AE1F2617805E9E1080D367051266BFCFF04335CA446ADA
+    result: passed
+    evidence_class: automation
+  dependency_transaction:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeV1A_Retry2_20260725_210029Z/transaction_manifest.json
+    sha256: 13040F70A1A728E97D2AD561367D3316E48BE66CB90E51683431F1B56C93E68B
+    exact_package_count: 51
+    group_counts:
+      core: 38
+      coral_optional: 8
+      cloud_conditional: 5
+  placement:
+    target_region_index: 15
+    reservation_id: R15_CoralCanopyCoast_MainHub
+    tangent_local_actor_count: 17
+    actor_collision: disabled
+    pre_snap_altitude_cm: 34000
+    native_planet_snap_complete: false
+    pending_tag: PendingNativePlanetSnap
+    reviewed_mesh_roots: [cliff, coconut, plant, coral]
+    water_or_cloud_assets_applied: false
+    real_gpu_visual_accepted: false
+    production_content_modified: false
+
+launcher:
+  path: Build/Automation/Start-M07TropicalBiomeLiveValidation.ps1
+  bytes: 132372
+  sha256: A3C64925A3F0694753A0EB3ADD80C940416F3EAFFC1C845AEAD89487F8BDC6FC
+  powershell_parser_errors: 0
+  exact_runtime_tree_pins:
+    automation_tool:
+      files: 1408
+      bytes: 1132786277
+      manifest_sha256: 44820E492AF83AAFE5855780B5E79C5F293643A403FBDF1B8B5172FC400936A9
+    bundled_dotnet:
+      files: 5732
+      bytes: 855636748
+      manifest_sha256: 5075AAE77DC8B2E7579299AB55B924F1FB0CAB3A1D18E6ACA033D54E04AC1DC1
+  live_audit_gate:
+    root_json_object_required: true
+    strict_string_fields: 7
+    strict_boolean_and_integer_claims: true
+    failed_or_unknown_result_rejected: true
+    screenshot_files_must_exist_and_match: true
+    broader_acceptance_claims_must_remain_false: true
+  monitor_scope_limits:
+    sampled_polling_not_complete_process_lifetime_capture: true
+    monitoring_after_successful_audit_if_editor_is_left_open: false
+    adversarial_machine_containment_claimed: false
+
+verification:
+  turnkey_guard_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/turnkey_guard_probe_20260726_041543_191Z_a1a8dc6e/probe_evidence.json
+    bytes: 10737
+    sha256: F104A30851F871A48E6146664A243B0D2D5B615AB31B19CB4189A55EAA55CB33
+    result: passed
+    cases_passed: 18
+    cases_total: 18
+    unreal_started: false
+  sensor_and_audit_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/sensor_failure_probe_20260726_041536_109Z_4b5eb1d1/probe_evidence.json
+    bytes: 25306
+    sha256: 6FF44191272658802162364E49C605C5155429A3678DE34C3B1CA26D4001707B
+    result: passed
+    required_sensor_failures_closed: 9
+    retained_handle_stop_paths_passed: 2
+    malformed_json_type_cases_rejected: 14
+    unreal_started: false
+  preflight_only:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_041547_681Z_43e733ff/monitor_evidence.json
+    bytes: 24712
+    sha256: 639CE3BA1589332D1617CA1C92ACC823DEAA3F9ADBCF7C6D22346482006DBB45
+    result: preflight_passed_no_launch
+    samples_passed: 6
+    samples_total: 6
+    minimum_free_physical_gib: 47.172
+    minimum_free_commit_gib: 62.940
+    overlap_blockers: 0
+    unreal_pid: NOT_STARTED
+  independent_exact_byte_review:
+    reviewers: 2
+    verdict: accepted
+    remaining_p0_p1_p2_blockers: 0
+    reviewed_sha256: A3C64925A3F0694753A0EB3ADD80C940416F3EAFFC1C845AEAD89487F8BDC6FC
+
+resources_after_slice:
+  free_physical_gib: 47.460
+  free_commit_gib: 63.161
+  disk_d_free_gib: 1038.774
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 1249
+    free_vram_mib: 8805
+  relevant_unreal_build_cook_package_processes: 0
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap:
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap:
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap:
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset:
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+rollback:
+  canonical_preimages: D:/RedMMOTitanWindowsData/Rollback/M07_TropicalPlanetaryGuardCanonical_20260726_0416Z
+  files:
+    INDEX.yaml: 41C95D1F521910FF4D6217B0692F8707BE3F677072F59C66C3CA677F8E514A82
+    current_state.yaml: D9A84FA18644568ED6A6607AEFC82C6320E1B0AA2FE8CDC4A392F4E6E7DECDC1
+    redmmotitan_module_queue.json: 3D43D35285E57A19C699CEC88C93AB978D4D72B5A6DBD336E287105A2BEAEBBF
+
+claim_limit: >-
+  This proves only that the existing isolated pre-snap Tropical biome stage and
+  its future live validation launcher are statically ready inside the stated
+  normal-operation, sampled-monitor boundary. No Unreal process was launched.
+  It does not prove that the island fits or blends with the spherical planet,
+  that the 17 actors have been snapped to native terrain, that screenshot
+  pixels look correct, or that collision, gameplay, water, clouds, performance,
+  surface-to-orbit flight, production migration, or any of the 27 authoring
+  inputs are accepted.
+
+remaining_blockers:
+  - explicit user approval is required before any Unreal launch or disposable-map mutation
+  - the current guarded launcher performs a native snap and saves only the disposable scratch map; it is not a view-only opener
+  - real-GPU screenshot pixel inspection is required before any visual-fit claim
+  - water, cloud, collision, gameplay, performance, and production integration remain separate acceptance slices
+
+next_safe_action: >-
+  Ask the user to choose between a new strictly view-only guarded opener for
+  the current unsnapped stage, or one guarded native snap and save of only the
+  disposable scratch map followed by real-GPU screenshots. Recommend the
+  latter for meaningful planet-fit evidence, but do not launch, snap, save, or
+  execute it without explicit approval.

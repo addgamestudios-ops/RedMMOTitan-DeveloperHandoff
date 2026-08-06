@@ -1,0 +1,146 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r63-matched-ground-grass-palette-real-gpu-failed-restored.2026-08-05
+captured_utc: "2026-08-05T21:20:20Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r63-transient-matched-sostylized-ground-and-approved-grass-palette
+evidence_class: real_gpu_visual
+result: fail_more_monochrome_saturated_green_than_r62_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 53.31
+  gpu_dedicated_used_gib: 0.92
+  free_d_drive_gib: 767.43
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  map_saved: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+
+transient_material_candidate:
+  writes:
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N
+  ground_textures:
+    base_color: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    roughness: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+    normal: /Engine/EngineMaterials/DefaultNormal
+  ground_tints:
+    tint_a: [0.72, 0.85, 0.58, 1.0]
+    tint_b: [0.48, 0.66, 0.34, 1.0]
+  grass_a:
+    color: [0.030, 0.105, 0.015, 1.0]
+    highlight: [0.065, 0.155, 0.030, 1.0]
+  grass_b:
+    color: [0.038, 0.135, 0.020, 1.0]
+    highlight: [0.085, 0.200, 0.040, 1.0]
+  grass_shared:
+    intensity: 0.74
+    contrast: 0.94
+    saturation: -0.10
+    min_value: 0.66
+    max_value: 0.88
+  unchanged_controls:
+    - density and seeded distribution
+    - grass mesh identity, height and scale
+    - cull, LOD and eligibility
+    - terrain, topology, seed and map
+    - palms, ship, character, gameplay and sky
+  temporary_hashes:
+    surface: 23BD9752E8316246516E0CC40B84351B1C608E1D531D37EF91F6CC0326EA0243
+    grass_a: 42CE09334F87B0B74B66C450F0C00A608361072CF5840D9F64FF5C5F89C92F27
+    grass_b: 28BA066C2017B9C1968AED73D39B413CB65938DC8BEEC18199DE3370A84C079F
+
+runtime:
+  render_backend: D3D12
+  render_mode: RenderOffscreen existing game viewport
+  generation_phase: COMPLETE
+  approved_grass_components: 196
+  total_reported_instances: 2218356
+  registered_components: 196
+  instance_data_ready_components: 196
+  scene_proxy_components: 196
+  readiness_stable: true
+  post_capture_samples: 162
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  dirty_packages_after: {content: [], maps: []}
+  capture_api: URedPPGFoliageDiagnostics::RequestViewportScreenshot via FScreenshotRequest
+
+visual_review:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_MatchedPalette_R63_20260805T2112Z/CaptureB/R63_matched_sostylized_ground_and_dense_grass_existing_viewport.png
+  capture_sha256: 37ECCE77CAFC4BA88E0128DA756522FD77AC665494A0CC20F580FADFCFC0BF4F
+  capture_size: [1014, 550]
+  matched_lower_75_percent_metrics:
+    r62_mean_saturation: 0.525015
+    r63_mean_saturation: 0.640562
+    r62_mean_value: 0.591099
+    r63_mean_value: 0.503263
+    r62_saturated_green_ratio: 0.376196
+    r63_saturated_green_ratio: 0.908511
+    r62_vivid_ratio: 0.316802
+    r63_vivid_ratio: 0.446168
+  independent_review: >-
+    R63 darkens the field and makes blade and ground values more internally
+    consistent, but it moves the scene backward into a more monochrome green
+    presentation. The saturated-green ratio rises sharply versus R62, painted
+    ground detail is not readable enough beneath the dense grass, palms remain
+    repetitive and the sky remains black. Do not persist this candidate.
+
+automation:
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_matched_palette_r63.py
+  apply_driver_sha256: 6FFD5A1BF4AAFD653AB804FE27554A59BE6177B83739530B6798EBAFEB70DC4C
+  capture_driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_matched_palette_existing_viewport_r63.py
+  capture_driver_sha256: D4F9A3BAEACFE9FCF7BE373025880114F94819B0876F59C949A971BBB0A4B437
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_MatchedPalette_R63_20260805T2112Z/Apply/apply_result.json
+  apply_result_sha256: FE17AC11882AE77A10F181F557D33945B2F6920001F69A1CBA4FF1DF408B4886
+  apply_log_sha256: 5A55CA2E7C6036190FD3BF2F3B0620B785401C8D2A98476655932213D68B4568
+  capture_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_MatchedPalette_R63_20260805T2112Z/CaptureB/capture_result.json
+  capture_result_sha256: 3BC5C3440E285994D093DB0A06832B521176789066B68141F8C87998A6DB553F
+  capture_log_sha256: 5E7A68E4971997ABAC6D529826EA1BBDE85A4E8537E059FA9AFABD83FF9B3CA2
+  discarded_harness_attempt: >-
+    CaptureA failed before mutation because required viewport-size command-line
+    gates were absent. CaptureB first used ExecutePythonScript and auto-quit
+    after PIE startup without a result; the successful retry used the proven
+    provider-disabled ExecCmds path. Neither failed attempt saved a package.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeMatchedPalette_R63_20260805T2112Z
+  manifest_sha256: 7C47C857E994C9903A4FB37FB1A54A027FD752FD34476A8E637CC0624E9D98CB
+  used: true
+  authenticated_temporary_hashes_before_restore: true
+  restored_byte_exact:
+    surface: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+    grass_a: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+    grass_b: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R63 is a transient real-D3D12 palette review and a visual rejection. It does
+  not persist a material candidate, change density or height, accept the biome,
+  prove physical hands-on input, package/standalone, replication, multiplayer,
+  performance or a developer handoff build.
+
+next_safe_action: >-
+  Preserve the restored R62/R33 baseline. Do not repeat darker green-on-green
+  palette tuning. A later independent art slice must introduce deliberate
+  hue/value separation between painted ground and blades, reduce or disable
+  repetitive palms through supported seeded category controls, and retain the
+  same approved grass meshes, density, height, seed and placements. The next
+  immediate acceptance priority remains a declared hands-on R60 control-feel
+  PIE before packaging readiness is considered.

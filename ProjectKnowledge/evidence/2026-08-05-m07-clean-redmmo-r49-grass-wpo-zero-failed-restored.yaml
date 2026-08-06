@@ -1,0 +1,126 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r49-grass-wpo-zero.2026-08-05
+captured_utc: "2026-08-05T18:08:16Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r49-approved-grass-wpo-only-discriminator
+evidence_class: real_gpu_visual
+evidence_classes: [automation, fresh_reload_pie_real_gpu, visual_review, rollback]
+result: zeroing_authenticated_wpo_intensities_does_not_restore_readable_grass_and_was_removed
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.34
+  commit_headroom_gib: 49.35
+  free_gpu_vram_mib: 7973
+  free_d_drive_gib: 767.62
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+transaction:
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGGrassWPO_R49_20260805T1732Z
+  rollback_manifest_sha256: C42AC2FF2D313389A16F86D1827D02BA7F75B36EE018765316F2A90F43A6AB77
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_grass_wpo_zero_r49.py
+  apply_driver_sha256: 6FB9B0A91DFF75AD661A69C914D7F1318C904E5AD4B4A0E6C1BF496E72694791
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassWPOZero_R49_20260805T1733Z/apply_result.json
+  apply_result_sha256: AEF4CEC0CA744D3374759471758CB9AC9644936F143769807702D9A6E7BEBCB7
+  changed_assets:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N
+  changed_only:
+    CameraWPOIntensity: 0.0
+    DistanceFieldWPOIntensity: 0.0
+    MeshMaskingWPOIntensity: 0.0
+    PlayerWPOScale_Intensity: 0.0
+    PlayerWPO_Intensity: 0.0
+    WPO_LandscapeLuminance_Intensity: 0.0
+  preserved:
+    - R32 Masked parent and graph
+    - GrassLocalZ_ScaleMultiply 1.45 and LocalScale_Multiply 1.30
+    - authenticated dither intensity 40, contrast 3.5 and camera-angle intensity -0.3
+    - both approved DenseTall grass meshes
+    - density 90 and scale 1.0-1.55
+    - R29 eligibility and seed 1337
+    - seeded distribution, surface, ProfileV1 and home map
+
+runtime:
+  verifier: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_wpo_zero_r49_lit_first.py
+  verifier_sha256: B00E7DE27FC580F12FC65E7E1517746CC454F2DB8DF8CC2FBCCFF08F3D3E04B6
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassWPOZero_R49_20260805T1735Z/verify_result.json
+  result_sha256: 471657AE9E784D9670439E3B99D2884621663FB4FAA2EC3AEA71D951E017FF26
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassWPOZero_R49_20260805T1757Z/unreal.log
+  log_sha256: 16836C8A7E7E26B1B5E11AD790B8282E007069F9D95EC5059FC9868F7C228E62
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassWPOZero_R49_20260805T1735Z/R49_untouched_lit_first_wpo_zero.png
+  screenshot_sha256: 5073D606D707D960EFE8EABBC94BE7310514B9F814E774FCD67F60D45FCCBD40
+  renderer: real_D3D12_RenderOffscreen
+  generation: COMPLETE
+  exact_camera_delta:
+    location_cm_max_abs: 0.0004328489303588867
+    rotation_deg_max_abs: 0.0
+    fov_max_abs: 0.0
+  pre_capture_census:
+    approved_components: 196
+    seeded_instances: 2218356
+    visible: 196
+    hidden_in_game: 0
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    positive_last_render: 74
+  capture_mutations:
+    view_mode_command: false
+    visibility_cycle: false
+    component_property_write: false
+    save: false
+  visual_result: >-
+    Independent review of the untouched player-scale Lit-first frame still
+    shows a smooth green floor with no readable approved DenseTall grass in the
+    near or mid ground. Dense repeated palms remain visible. Disabling the six
+    authenticated WPO intensity controls is therefore insufficient.
+  verifier_boundary: >-
+    The strict verifier captured the valid exact-camera frame after the fully
+    ready census, then reported the previously observed readiness drift before
+    stopping PIE. R49 remains a visual/runtime FAIL, not a pass.
+
+rollback:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassWPOZero_R49_20260805T1808Z/rollback_result.json
+  result_sha256: 0E39CF9A155429B8DD9CE9E5D0B90ABAC9B0088D3EB7A7AEC35B179F0397DD76
+  wpo_zero_postimage_a_sha256: F12DE4ED57DFD5985C0B63F8FA4A4EB1EBDD7BC3044FAF3286C6E8E1B18FF700
+  wpo_zero_postimage_b_sha256: A190A3BBA93B8F47960B83B2524AFA50F15B73DA499E1551BC243187F03B7C46
+  restored_instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  restored_instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  r49_change_retained: false
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  approved_mesh_a_sha256: 6F215104F1374403194D8AB4DA79B3FF16CCBF86472746E5CD433E03118B2443
+  approved_mesh_b_sha256: 3C50C87B594CE012F680EF51BA306C2DF09FDAED10C06F7F60AFA4E62F678475
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  free_physical_ram_gib_after: 52.76
+  commit_headroom_gib_after: 56.76
+  free_gpu_vram_mib_after: 9215
+  free_d_drive_gib_after: 767.55
+
+claim_boundary: >-
+  R49 falsifies the six authenticated WPO intensity controls as the missing-grass
+  cause by themselves. It does not prove accepted grass, biome art, gameplay,
+  standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Stop repeating visual material discriminators and identical captures. On the
+  next wake perform one independent, read-only PPG foliage-lifecycle audit that
+  timestamps component creation, instance-data readiness, scene-proxy presence
+  and component removal or recreation across generation COMPLETE and the known
+  post-capture readiness drift. Do not mutate materials, components, visibility,
+  seed, distribution, surface or the home map. Use the result to identify the
+  supported lifecycle hook before any further grass repair transaction.

@@ -1,0 +1,226 @@
+schema_version: 1
+id: evidence.m07.asset-registry-catalog.static.2026-07-23
+captured_utc: "2026-07-23T19:50:38Z"
+module_id: M07
+system: world-authoring.asset-library-curation
+slice: official-ue58-asset-registry-catalog-candidate-export
+evidence_class: static
+result: passed_static_asset_registry_catalog_candidate_export
+
+scope:
+  authorized:
+    - implement a project-owned read-only Unreal Asset Registry exporter for the six priority art libraries
+    - validate the UE 5.8 Python API contract and fail closed on the wrong engine, project, output path, or registry shape
+    - run one isolated NullRHI PythonScript commandlet when no Unreal or build process overlaps
+    - compare the decoded root counts and post-commandlet package tree with the prior offline inventory
+  explicitly_not_run:
+    - asset UObject loading by the exporter
+    - package, map, vendor source, plugin content, or artist-handoff save or mutation
+    - Content Browser move, rename, duplicate, redirector fixup, or physical reorganization
+    - project-owned palette asset or review-map authoring
+    - real-GPU rendering, gameplay, performance profiling, cook, package, Steam, or multiplayer acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed: 1479
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_at_slice_start: 14.3
+  physical_ram_free_gib_at_commandlet_launch: 13.347
+  commit_limit_gib: 54.872
+  commit_free_gib_at_commandlet_launch: 27.893
+  disk_d_free_gib: 1140.855
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_at_slice_start: 7512
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_static_NullRHI_registry_query
+
+implementation:
+  exporter:
+    path: Tools/export_redmmo_asset_registry_catalog.py
+    bytes: 15891
+    sha256: 3486DCE47498BFACD87446CFFA048BFB852AE6AA5A8D0098DB61395A53D013F6
+    contracts:
+      - imports Unreal only inside the commandlet entry point
+      - requires Unreal Engine 5.8 and D:/RedMMOTitan/Titan.uproject
+      - waits for Asset Registry discovery and queries each root recursively with include-only-on-disk enabled
+      - serializes FTopLevelAssetPath from reflected package_name and asset_name rather than pointer-bearing struct text
+      - reads only a bounded optional FAssetData tag list and fails closed on API exceptions or unknown result shapes
+      - refuses output outside D:/RedMMOTitanWindowsData/Diagnostics
+      - uses an atomic same-volume no-clobber rename and refuses report reuse
+      - contains no get_asset, load_asset, save, move, rename, duplicate, import, checkout, or delete call
+  tests:
+    path: Tools/tests/test_export_redmmo_asset_registry_catalog.py
+    bytes: 8444
+    sha256: 7F25744375C446CECEE94393CAE02439A41172DB1EB875CFFCC92989EDAEAFB1
+    focused_result: 6_of_6_passed
+  architecture_record:
+    path: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md
+    bytes: 20395
+    sha256: C0C901DD87A7A21B7042B007F3C0A428C98981FDE458DFC8F10EE3E778FEEC11
+
+independent_review:
+  result: approved_for_one_isolated_static_NullRHI_query_after_corrections
+  blocking_findings_closed:
+    - generic Python str on FTopLevelAssetPath embedded nondeterministic struct wrapper and pointer text
+    - missing optional tags use the official string-or-null result and must not abort the export
+    - os.replace could overwrite a report created during a race
+    - the first draft did not authenticate the exact UE 5.8 project identity
+  residual_nonblocking_notes:
+    - compare root counts with the offline inventory because pre-PostEngineInit registry completion can theoretically be partial
+    - retain redirectors, map-build data, and reference maps in the raw report but exclude them from a curated palette
+    - the AST safety deny list can be broadened as the exporter evolves
+
+commandlet:
+  engine_version: 5.8.0-55116800+++UE5+Release-5.8
+  project_file: D:/RedMMOTitan/Titan.uproject
+  mode: PythonScript_NullRHI_unattended_no_package_load
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z
+  result_marker: REDMMO_ASSET_REGISTRY_CATALOG_READY
+  candidate_count: 2066
+  unreal_summary: Success_-_0_errors_22_warnings
+  commandlet_seconds: 1.08
+  peak_physical_memory_mib: 2730
+  peak_virtual_memory_mib: 2608
+  warnings_review:
+    - four expected scalability-versus-project-setting priority messages
+    - three pre-existing missing CommonBase CUI object messages
+    - UAIP safety-policy and MCP license notices
+    - exporter result is logged at warning level as an intentional durable marker
+    - no fatal, assertion, ensure, save-package, move, delete, rename, or exporter-failure marker
+  stdout:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/stdout.log
+    bytes: 24887
+    sha256: 976E87BDA1A7634D886999987AFA1ACA75EF1BF71BA61C6CBE54CECAE0D5D682
+  stderr:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/stderr.log
+    bytes: 0
+    sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  unreal_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/unreal.log
+    bytes: 291087
+    sha256: 97879203BE8C5F2A3DE643779E85397A8A80ECC4227830642E5347BEE0C6BABC
+
+catalog:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/asset_registry_catalog_candidates.json
+    bytes: 1755856
+    sha256: BCA2E210798080E7770412BC2C425DAB81FF0E0CB0BEB7067E5BE9B3B6B17831
+    evidence_class: static
+    status: candidate_only
+  roots:
+    - {root: /Game/SoStylized, candidates: 729}
+    - {root: /Game/StylizedDesertOasis, candidates: 166}
+    - {root: /Game/AlienJungle, candidates: 498}
+    - {root: /Game/TropicalAlienWorld, candidates: 137}
+    - {root: /Game/Alien_Grass_Pack, candidates: 231}
+    - {root: /Game/Alien_Plants_Pack, candidates: 305}
+  largest_classes:
+    - {class: /Script/Engine.StaticMesh, candidates: 753}
+    - {class: /Script/Engine.Texture2D, candidates: 482}
+    - {class: /Script/Engine.MaterialInstanceConstant, candidates: 361}
+    - {class: /Script/Foliage.FoliageType_InstancedStaticMesh, candidates: 164}
+    - {class: /Script/Engine.CurveLinearColor, candidates: 72}
+    - {class: /Script/Engine.Material, candidates: 68}
+  selected_tag_coverage:
+    candidates_with_one_or_more_selected_tags: 1691
+    candidates_without_selected_tags: 375
+  duplicate_basename_groups_within_six_roots: 30
+  raw_noncuration_examples:
+    object_redirectors: 1
+    map_build_data_registries: 8
+    worlds: 13
+  validation:
+    malformed_class_paths: 0
+    out_of_scope_packages: 0
+    root_counts_match_offline_inventory: true
+
+post_commandlet_integrity:
+  inventory:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/post_commandlet_asset_library_inventory.json
+    bytes: 5161444
+    sha256: 387B695FA2A09766533BF0DDD5CAF11695A2A15EF252F068B6A50ACA9571778C
+    packages: 7353
+    assets: 7294
+    maps: 59
+    tree_quiescent_during_scan: true
+    inventory_signature_sha256: 89C0FB3ABFD6A12C1A13719A036E2A47B84DD4CAE82A5F74F6C6BCD06301EF31
+    matches_pre_commandlet_signature: true
+  focused_static_and_protected_provenance:
+    result: 17_of_17_passed
+    suites:
+      - Tools.tests.test_export_redmmo_asset_registry_catalog
+      - Tools.tests.test_audit_redmmo_asset_library
+      - Tools.tests.test_fused_prototype_provenance
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/focused_tests.stderr.log
+      bytes: 3606
+      sha256: 061057718DBFC6C038CDE25AF214CDFBBF2D8CF6E0FDD10A02BA1FA95632363C
+    protected_coverage:
+      - current and retained fused packages retain pinned hashes
+      - production and protected checkpoint maps retain pinned hashes
+      - fused heightfield and artist staging copy retain pinned hashes
+      - protected foundation and all 135 source rasters retain pinned hashes
+  canonical_integrity:
+    live_audit:
+      result: passed
+      error_count: 0
+      warning_count: 0
+      report: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/project_knowledge_integrity.json
+    combined_tests:
+      result: 37_of_37_passed
+      suites:
+        - Tools.tests.test_project_knowledge_integrity
+        - Tools.tests.test_export_redmmo_asset_registry_catalog
+        - Tools.tests.test_audit_redmmo_asset_library
+        - Tools.tests.test_fused_prototype_provenance
+      log:
+        path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/combined_tests.stderr.log
+        bytes: 7504
+        sha256: DAF407D7CA010F03980E379A95C6E63A71079E0ACF72D8EDE07C58A8274F68B7
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_AssetRegistryDecode_20260723_194747Z
+  exact_preimages: 4
+  new_exporter_and_test_have_no_preimage: true
+  new_evidence_record_has_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_source_rasters: 135_of_135_exact
+  artist_repository_or_handoff_modified: false
+  supplied_art_or_external_pack_modified: false
+  plugin_content_modified: false
+  package_tree_signature_changed: false
+
+canonical_sync:
+  module: M07
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: 0B8505F14BF586D0E91C3D06BA421C5C1FCFABEB21851FC0228D60247EA272D6
+
+claim_limit: >-
+  This is static Unreal Asset Registry and package-tree integrity evidence. It
+  proves that UE 5.8 returned canonical FAssetData class paths and selected tags
+  for 2,066 on-disk candidates without the exporter loading or mutating package
+  UObjects. It does not prove licenses, PBR quality, appearance, natural
+  placement, collision quality, LOD or Nanite suitability, shader or foliage
+  cost, runtime streaming, gameplay, package currency, Steam, or multiplayer.
+
+next_safe_action: >-
+  Preserve all six vendor roots. Filter the raw candidates into one
+  project-owned curation manifest that excludes redirectors, map-build data,
+  reference maps, and unsuitable classes; attach provenance and license-review
+  state without approving unknown rights. Select one small coherent
+  material/static-mesh/foliage family, then author one RedWorldAssetPalette and
+  one isolated review map. Any appearance, placement, grass-cost, traversal, or
+  streaming claim still requires real-GPU evidence. Do not package below the
+  sustained 18-20 GiB physical-RAM gate.

@@ -1,0 +1,115 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-world-profile-build.2026-08-05
+captured_utc: "2026-08-05T03:20:07Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: project-owned-inert-continent-biome-control-profile
+evidence_class: build
+result: profile_and_fail_closed_contracts_compile_profile_not_applied
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  descriptor_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  display_project: clean RedMMO
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGWorldProfile_20260805T0311Z
+  files: 36
+  bytes: 212544
+  descriptor_matches_preimage: true
+
+writes:
+  - path: Source/RedMMO/Public/RedPPGWorldProfile.h
+    sha256: 68BA1DB8CF7B5470F868502764571F57D13050646DE9A62314F6CBD06CBE8D37
+    role: reflected project-owned PPG world-profile contract
+  - path: Source/RedMMO/Private/RedPPGWorldProfile.cpp
+    sha256: 48ACB71B969D8DBD066EC57E166948D8B91E76CBEC3F01351C8B464E74C36624
+    role: validation and deterministic profile-key implementation
+  - path: Source/RedMMO/Private/RedPPGWorldProfileTests.cpp
+    sha256: 98514049AA4B4EFD17008822BC3A6816EF9A00018C27EBD3CA4D177B6B6DC9FE
+    role: compiled development automation contracts
+
+profile_contract:
+  preserves:
+    - GenerationSeed and BiomeCellSeed are explicit stable controls
+    - current source biome names remain Craters, Hills, Mountains, Desert, Ocean and Poles
+    - source biome names are separate from art-facing presentation roles, so marker identity is not renamed
+    - native PPG radial water datum is fixed to normalized zero / PlanetRadius
+  exposes:
+    - continent BaseFrequency, octaves, amplitude and ridge power
+    - bounded erosion strength plus ridge, crease and octave rounding
+    - biome-cell resolution, transition, material-height blend smoothness and Voronoi warp
+    - per-biome height scale, height bias, foliage eligibility and presentation role
+    - native radial water enable and shoreline flatten threshold
+  default_presentation_roles:
+    Craters: RockHighlands
+    Hills: Grassland
+    Mountains: Mountains
+    Desert: Desert
+    Ocean: PaleBeachCoastOcean
+    Poles: Poles
+  intentionally_absent:
+    - river or lake network controls
+    - road or authored path controls
+    - local terrain stamp or build-pad controls
+    - handcrafted feature reservations
+  reason: installed PPG 1.0 exposes none of those capabilities
+
+build:
+  target: RedMMOEditor Win64 Development
+  command_policy: serialized_MaxParallelActions_1_NoUba_actions
+  result: succeeded
+  actions: 6
+  elapsed_seconds: 148.33
+  compiler_warnings: 0
+  compiler_errors: 0
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGWorldProfile_20260805T0311Z.log
+  log_sha256: 725AD4732F7A552FDDA8D741FE84DF6D75FCD3ED91DCAAE4E0BF77855111C076
+  editor_module: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+  editor_module_sha256: 7897A54F08A684C297B7271D597F17D2E5DD5608996D1AB68F368C9C57743A3D
+
+compiled_contracts:
+  names:
+    - RedMMO.WorldAuthoring.PPGWorldProfile.DefaultContract
+    - RedMMO.WorldAuthoring.PPGWorldProfile.FailClosed
+  status: compiled_not_executed
+  coverage:
+    - default six-slot identity and presentation roles
+    - native-water datum fixed to PlanetRadius
+    - deterministic key changes when seed changes
+    - duplicate biome names fail closed
+    - mismatched water datum fails closed
+    - unsupported octave counts fail closed
+
+protection:
+  home_map:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    sha256: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+    changed: false
+  source_diff_vs_rollback: exactly_three_new_profile_files
+  existing_source_modified: false
+  project_descriptor_modified: false
+  content_or_map_modified: false
+  unreal_editor_started: false
+  providers_called: false
+  desktop_control_used: false
+  relevant_processes_remaining: 0
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This is source and build evidence only. The profile is inert and has no
+  editor adapter, asset instance, map binding or runtime consumer. Its compiled
+  automation contracts were not executed. It does not regenerate the home
+  planet or prove continents, biome visuals, shoreline, grass, traversal,
+  runtime, real-GPU presentation, standalone, replication, multiplayer or
+  human acceptance.
+
+next_safe_action: >-
+  Keep the profile inert until a separately checkpointed editor adapter can
+  apply it to a duplicated PPG data/material successor and obtain reload,
+  MapCheck, movement, coastline and matched real-GPU evidence. The immediate
+  dependency gate remains the exact official UAIP and WorldGen installs after
+  required action-time confirmation, payload verification and one serialized
+  TitanEditor compile.

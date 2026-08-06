@@ -1,0 +1,132 @@
+schema_version: 1
+id: evidence.m00.clean-r86-infantry-presentation-real-gpu
+module: M00
+evidence_class: real_gpu_visual
+status: accepted_exact_infantry_presentation_slice
+timestamp_utc: 2026-08-06T07:35:55Z
+scope: >-
+  One bounded provider-off D3D12 SM6 R86 PIE acceptance slice on the exact saved
+  clean RedMMO ProfileV1 home map. A diagnostics-only synchronous game-viewport
+  readback removed the prior editor-viewport race. Runtime telemetry and three
+  individually reviewed player-scale frames now accept the exact Trooper
+  locomotion, fire animation, P_Flash_17 rifle-muzzle event, post-fire animation
+  Blueprint restoration, and continued forward movement. No map, PPG profile,
+  terrain, seed, biome, foliage, content package, Config, vendor source, or user
+  asset changed.
+capture_route_correction:
+  implementation: >-
+    CaptureGameViewportScreenshot reads only GEngine GameViewport through
+    GetViewportScreenShot, PNG-compresses that exact back buffer, and writes
+    no-clobber. It cannot fall back to an editor viewport.
+  cpp:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGFoliageDiagnostics.cpp
+    sha256: B03382DF71EA03E00C4E26E02BCDFC8D37C51DD2AE62DBF09ED276D1F02162F9
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGFoliageDiagnostics.h
+    sha256: 852EC7EFA3DC14C19140183395E49E507ACB09E816E0A31A9E4C094C1F2A56F3
+  rollback: D:/RedMMOTitanWindowsData/Rollback/M00_R86_GameViewportCapture_20260806T0729Z
+build:
+  target: RedMMOEditor Win64 Development
+  result: succeeded
+  free_physical_ram_gib_at_entry: 51.46
+  compiled_action: RedPPGFoliageDiagnostics.cpp
+  linked_action: UnrealEditor-RedMMO.dll
+  editor_module_sha256: 2A1FA34A76E3A7BAAFAE78C3A9F9BD31B9D2AA2AB633AE0368AA9103F84577F7
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R86_GameViewportCapture_20260806T072900Z_RedMMOEditor_build.log
+    sha256: 221BD8008994E64E19F4E242796A73F99D681387FE240889A2DB4CCF07B39E62
+    bytes: 9188
+runtime:
+  renderer: D3D12 SM6 RenderOffscreen
+  provider_plugins_disabled: true
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  seed: 1337
+  map_check_errors: 0
+  map_check_warnings: 0
+  before:
+    animation_mode: AnimationBlueprint
+    anim_class: /Game/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall.ABP_ThirdPerson_Female_Tall_C
+    animation_state: walk
+    tangent_displacement_cm: 1424.0728769825907
+  fire:
+    input_action: /Game/RedMMO/Gameplay/Trooper/A01/Input/IA_RedFire
+    animation_mode: AnimationSingleNode
+    active_animation: /Game/RedMMO/Anims/Rifle/A_Rifle_Fire_Single
+    muzzle_system: /Game/ProjectilesVol1/Effects/P_Flash_17
+    muzzle_distance_cm: 0.0
+    rejected_p_flash_4_absent: true
+    authoritative_bolt_spawned: true
+    tangent_displacement_cm: 1752.445800255409
+  restored:
+    animation_mode: AnimationBlueprint
+    anim_class: /Game/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall.ABP_ThirdPerson_Female_Tall_C
+    animation_state: walk
+    post_fire_displacement_cm: 256.842910566957
+    tangent_displacement_cm: 2009.288710822366
+  severe_log_match_count: 0
+  pie_stopped_cleanly: true
+  active_unreal_build_package_process_count_after: 0
+  provider_listener_count_after: 0
+pixel_review:
+  decision: accepted_exact_slice
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T073226Z/before.png
+    sha256: C68979E5EE72D14081C4874F70C6DCEED715B45204C4AD7AAA8D5B00B4A6BFF9
+    bytes: 616170
+    finding: >-
+      Valid player-scale game view showing the Trooper in a readable running
+      stride with the rifle and the parked StarSparrow ahead.
+  fire:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T073226Z/fire.png
+    sha256: 0126F2330B0FE628BC4F07A892BFF82470C73C97FF2BF6A0201B6DAD978014D6
+    bytes: 636308
+    finding: >-
+      Valid player-scale game view visibly distinct from the pre-fire pose: the
+      Trooper raises and fires the rifle, with the compact muzzle/projectile
+      event visible at and immediately ahead of the weapon.
+  restored:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T073226Z/restored.png
+    sha256: A57835F2CBF8045A1A77E5636B4CEE7851E1A919523CA9E3F975E43FDDDBD177
+    bytes: 660040
+    finding: >-
+      Valid player-scale game view showing the Trooper continuing forward in a
+      rifle locomotion stride after exact animation Blueprint ownership returns.
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T073226Z/result.json
+    sha256: 335EFD6E513C9C1D721936CEF81D245DB60B4C61F34FDEB3C08F2EEE044D18F3
+    bytes: 1465646
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/UnrealEditor_R86_20260806T073226Z.log
+    sha256: 4FB91FB99F2062100C911F33766A5279A53691D727A560A9160B701A8024D4FD
+    bytes: 261037
+  validator:
+    path: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r86_infantry_presentation_pie.py
+    sha256: 2C3294123078F5D8ED3861CB796E43F61A5A5679D5658391DE0A2F288B371243
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  runtime_tracked_hashes_unchanged: true
+  runtime_config_tree_unchanged: true
+  dirty_content_packages_after: []
+  dirty_map_packages_after: []
+failed_launch_disclosure: >-
+  An earlier same-wake launch exited before PIE because the launcher pre-created
+  the report directory owned by the validator. It produced no runtime evidence
+  or project mutation and was immediately replaced by the accepted fresh run.
+claim_limit: >-
+  Acceptance is limited to this automated R86 infantry-presentation slice. It
+  does not accept physical keyboard/mouse feel, an updated Win64 package,
+  overall PPG playability, gray/uniform terrain, grass visibility, biome art,
+  day/night presentation, replication, multiplayer, space traversal, or user
+  hands-on playability. R84 remains unchanged and lacks this correction.
+next_safe_action: >-
+  With the R86 editor runtime/pixel gate closed and RAM above the package gate,
+  the next independent playable-build slice is a guarded fresh Win64 Development
+  package carrying the accepted R85/R86 projectile and Trooper corrections.
+  Package startup and content currency must pass before offering it to the user.

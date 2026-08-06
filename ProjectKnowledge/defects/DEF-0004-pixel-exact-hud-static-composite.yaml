@@ -1,0 +1,592 @@
+schema_version: 1
+id: DEF-0004
+title: Pixel-exact HUD is a static composite rather than a functional HUD
+status: open
+severity: major
+found_utc: "2026-07-21"
+owner_domain: ui_hud
+
+affected:
+  runtime_class: URedHUDWidget
+  default_mode: live_data_current_source_editor_built
+  texture_asset_path: /Game/UI/RedHUD/Textures/ExactLayoutSprites/T_REDHUD_FullComposite_Exact
+
+observed: >-
+  Historical July 21 observation: the supplied artwork rendered pixel-exactly as
+  one hit-test-invisible full-screen image, with baked values and no control hit
+  regions, while RedMMO did not activate or feed live-data mode. Current source
+  partially supersedes that observation as recorded below; the defect remains
+  open for the still-unreachable and unverified functional scope.
+
+expected: >-
+  The supplied images should form a visually faithful live HUD whose values
+  update from gameplay, whose represented controls work without dead ends, and
+  whose individual elements can be moved, resized, hidden, locked, and assigned
+  independent opacity with persistent settings.
+
+impact:
+  blocked_claims:
+    - pixel_exact_hud_functional
+    - pixel_exact_hud_live_data
+    - pixel_exact_hud_no_dead_ends
+    - pixel_exact_hud_per_element_customization
+
+evidence:
+  legacy_hud_capture_residual_lifecycle_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-legacy-hud-capture-residual-lifecycle-inventory-static.yaml
+  legacy_hud_capture_visibility_gate: ProjectKnowledge/evidence/2026-07-22-def-0004-legacy-hud-capture-visibility-gate-static.yaml
+  replacement_ability_presentation_dedup: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-presentation-dedup-static.yaml
+  replacement_keyboard_ability_consumer: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-keyboard-ability-consumer-static.yaml
+  static_audit: ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-functionality-audit.yaml
+  prior_visual_only_gate: ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-real-gpu.yaml
+  current_functional_gap_reconciliation: ProjectKnowledge/evidence/2026-07-22-def-0004-current-functional-hud-gap-reconciliation-static.yaml
+  replacement_customizer_route: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-customizer-route-static.yaml
+  replacement_customizer_noop_feedback: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-noop-feedback-static.yaml
+  replacement_enemy_feed: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-enemy-feed-static.yaml
+  replacement_ability_feed: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-feed-static.yaml
+  replacement_quest_producer_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-quest-producer-inventory-static.yaml
+  replacement_quest_producer_domain_scope_reconciliation: ProjectKnowledge/evidence/2026-07-24-def-0004-quest-producer-domain-scope-reconciliation-static.yaml
+  replacement_consumable_producer_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-consumable-producer-inventory-static.yaml
+  replacement_snapshot_producer_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-snapshot-producer-inventory-static.yaml
+  replacement_party_producer_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-party-producer-inventory-static.yaml
+  replacement_minimap_producer_inventory: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-minimap-producer-inventory-static.yaml
+  replacement_surface_minimap_presenter: ProjectKnowledge/evidence/2026-07-24-def-0004-replacement-surface-minimap-presenter-source-static.yaml
+  authored_vitals_depletion: ProjectKnowledge/evidence/2026-07-24-def-0004-authored-vitals-depletion-source-static.yaml
+  r88_jetpack_hud_resource_boundary: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r88-jetpack-hud-resource-boundary-package.yaml
+  r89_clean_jetpack_producer_build: ProjectKnowledge/evidence/2026-08-06-m00-r89-clean-jetpack-producer-build.yaml
+  clean_jetpack_hud_editor_build: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-hud-editor-build.yaml
+  clean_player_status_object_load: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-object-load-automation.yaml
+  player_status_cook_rule_static: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-cook-rule-static.yaml
+  mining_receipt_real_gpu: ProjectKnowledge/evidence/2026-07-23-def-0004-mining-receipt-real-gpu.yaml
+  remote_owner_mining_receipt_multiplayer: ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+  ultrawide_mining_receipt_real_gpu: ProjectKnowledge/evidence/2026-07-23-def-0004-ultrawide-mining-receipt-real-gpu.yaml
+  resource_inventory_automation: ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-implementation-automation.yaml
+  resource_inventory_d3d12_16x9: ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-d3d12-16x9.yaml
+  resource_inventory_grid_polish_d3d12_16x9: ProjectKnowledge/evidence/2026-07-23-def-0004-resource-inventory-grid-polish-d3d12-16x9.yaml
+  controller_resource_inventory_d3d12_16x9: ProjectKnowledge/evidence/2026-07-23-def-0004-controller-resource-inventory-d3d12-16x9.yaml
+  controller_resource_inventory_d3d12_ultrawide: ProjectKnowledge/evidence/2026-07-23-def-0004-controller-resource-inventory-d3d12-ultrawide.yaml
+
+current_source_reconciliation:
+  corrected_stale_findings:
+    - the replacement now defaults to live-data mode instead of exact-art mode
+    - gameplay now feeds live shield, health, fuel, both weapon heat states, and compass heading
+    - URedHUDWidget now exposes move, scale, opacity, hide, lock, reset, and save APIs backed by the local-player persistence subsystem
+    - the visible pause customizer now resolves URedHUDWidget and filters the unmapped replacement reticle
+    - preview, Cancel restore, and Apply save use the existing per-local-player layout subsystem
+    - RedHUD wrapper mutations now sanitize before comparison, return true only for an actual state change, and reject already-default element and full-profile resets
+    - preview startup fails closed without a rollback snapshot, every mutation is guarded, and the two-click Reset All path remains reachable
+    - pause feedback distinguishes unavailable, locked, movement or size limits, read-only profiles, and already-default resets
+    - the existing aimed-character sweep now feeds a presentation-only enemy panel for valid live enemies with bounded replicated health, honest generic metadata, stale-state clearing, and repeated-hidden-state suppression
+    - the existing replicated Q/E loadout and server-time cooldown producer now feed replacement indices 1/2 with bounded time, ready/disabled state, legacy preservation, and refresh-before-loadout-re-show
+    - the default KeyboardMouse consumer now reflows the existing state-driven text onto only the supplied Q/E cards, shows bounded cooldown, disabled, and unexplained-not-ready state, leaves ready art unobscured, and preserves hidden AbilityBar state across status ticks and input-scheme switching
+    - replacement Q/E presentation now retains every newest exact ability state while suppressing unchanged art, geometry, visibility, text, and color mutations against input scheme, live mode, hidden layout, semantic tint/status, and the exact one-decimal label; destructive live-mode/layout replay and manual Q/E tint paths explicitly invalidate the cache
+    - the quest presentation consumer is present and starts hidden, but bounded compiled-C++ and asset-filename inspection found no trustworthy authoritative or replicated per-player producer; no bridge or invented quest progress was added
+    - the quest producer inventory now admits only the exact five-site ValidateStoredJournalState helper in M12's voxel-mining backend before retaining its global JournalState and quest/mission fail-closed scan; standalone or compound journal state, quest state/progress/identity, replicated quest hooks, relocated helpers, and count drift still fail
+    - the consumable count consumer has three clamped text slots but is dormant: its group is hard-hidden, its sprites are not constructed, it has no item identity, equipped-slot mapping, cache, visibility state, or layout owner, and bounded compiled-C++ plus content-path inspection found no trustworthy gameplay producer
+    - the aggregate snapshot has no compiled RedMMO or Vibe caller, controller, GameInstance, persistence owner, replicated property, or trustworthy assembler; its Blueprint-callable multi-domain fan-out retains unsafe sample defaults and partial-array stale-tail hazards, so existing granular feeds were preserved and no bridge was added
+    - the party panel has only three supplied baked sample-member rows and local layout customization; no trustworthy authoritative or owner-replicated party producer was found, so the rows now fail closed through known compiled visibility and layout-refresh paths without a setter or guessed bridge
+    - the supplied monolithic minimap sprite still contains baked fantasy terrain, player, objective, and hostile markers and remains untouched and collapsed; a separate project-owned 512-square live surface presenter is now source-statically implemented in the same customizable region
+    - the local surface render target now has explicit local-source ownership, stable celestial-frame identity, Surface/Space/Absent modes, monotonic epochs, stale-owner rejection, reset tombstones, freshness and TextureTarget guards, and possession-scoped teardown; Space and unknown frames fail closed
+    - the live surface presenter adds only a local-owner center cross and LOCAL SURFACE label; legacy client-enumerated space radar, replicated enemy blips, objectives, party, quest, and hostile contacts were not bridged or fabricated
+    - the recurring legacy portrait/minimap capture callback now returns before alternation or CaptureScene when its root widget is invalid, outside the viewport, Collapsed, or Hidden, while painted fallback and ability-loadout modes, prewarm captures, timer ownership, render-target bindings, and teardown remain intact
+    - residual lifecycle inventory pins the two prewarm calls, one 0.15-second repeating timer, one teardown clear, no pause/resume path, four persistent-render-state assignments, two transient RGBA8 targets with a 1.3125 MiB minimum logical footprint, legacy-only consumers, and multiple visibility/lifecycle owners; no production mutation was accepted without runtime fallback and resume proof
+    - Stone, Iron, and Crystal totals remain absent from the always-on combat HUD and now route into the existing Escape-owned, default-collapsed Inventory page
+    - project-owned Start, D-pad, A, and B handling now provides a deterministic controller route through the pause menu, Inventory categories, Resources grid, Iron selection, live refresh, and close without modifying Vibe source
+    - the project-owned inventory presentation adds three themed quantity cards plus stable Resources-category records without modifying Vibe source, supplied icons, authority, or replication
+    - construct, menu-open, Inventory-navigation, and already-created-menu replication refresh paths publish the current pawn totals; ordinary DOREPLIFETIME is retained and is not misreported as owner-only replication
+    - fifty-eight focused contracts, two successful serialized TitanEditor builds, and one renderer-disabled native pause-widget automation test cover exact 12/34/56 quantities, record identity, and card identity
+    - one live 1280x720 D3D12 window accepted real Escape open, real mouse INVENTORY selection, and real Escape close, while one durable real-GPU audit accepted visible 0/0/0 cards, authoritative RegisterMiningHit refresh to 0/6/0, tally-free combat HUD state, close cleanup, and temporary-receipt expiry
+    - a later isolated 1280x720 real-GPU pass removes the crowded legacy STONE/IRON/CRYSTAL and repeated EMPTY in-slot labels while preserving every slot, category, selection route, detail field, and the readable project-owned quantity cards
+    - the same pass visibly repaints Iron from 0 to 6, authenticates exact 0/6/0 card text in the runtime gate, closes cleanly, and retains temporary-receipt expiry without modifying Vibe source, supplied art, authority, replication, maps, or assets
+    - one exact native 3440x1440 RTX 3080 D3D12 pass accepts the synthetic UE controller route through Overview, Inventory, Resources, Iron 0-to-6 refresh with retained focus, compact STORED detail, and B close; the tabs, ledger, and detail remain contained, while physical-controller and Windows backend acceptance remain open
+    - authoritative positive resource credit now presents one owner-only purple-and-gold mining receipt with exact resource and amount, then fades and collapses after 3.25 seconds
+    - one 1280x720 D3D12 run visually accepted no permanent tally before reward, a clean MINING YIELD / IRON +6 receipt at reward, and no receipt after expiry
+    - one official-MCP two-client D3D12 run accepted exact remote-owner IRON +6 presentation, no host receipt, replicated inventory parity, no persistent tally, and post-lifetime receipt expiry
+    - the two-client target is a unit-scale non-voxel static mesh at 53.4 km altitude with production cull, and all twenty-four production mineable members remain pristine
+    - one exact native 3440x1440 D3D12 run accepted default-layout receipt placement, exact reward text, a visibly reduced mid-fade state at 0.38 seconds remaining, and complete expiry without clipping or PlayerStatus overlap
+    - visual review rejected the first exact fade because shared opacity exposed the supplied row's baked sample text; the final staged fade hides source art while its mask is opaque, then fades only the authoritative live layer without modifying supplied art
+  remaining_functional_gaps:
+    - aggregate snapshot wiring is blocked until it is retired in favor of granular feeds or redesigned with explicit ownership, schema/version, monotonic ordering, stale rejection, per-domain presence and clear semantics, fixed-slot clearing, fail-closed defaults, and complete domain policy
+    - quest wiring is blocked on a real server-owned stable-ID quest/objective model with per-player progress, active/completed/hidden state, replication, late-join behavior, and explicit persistence ownership
+    - consumable wiring is blocked on a server-owned per-player inventory with immutable item IDs, authoritative use/decrement, equipped quickslots, bounded stacks, owner replication, late-join stale clearing, and persistence ownership
+    - party wiring is blocked on a server-owned stable party ID, stable member identities, leader or role, owner-authorized replication, monotonic revision, explicit join/leave/reconnect/travel/late-join clear semantics, deterministic row mapping, overflow policy, and opponent isolation
+    - surface minimap source ownership, stable celestial frame, explicit Surface/Space/Absent modes, monotonic ordering, stale rejection, and possession-scoped clearing are source-statically implemented; compile, first-visible-frame freshness, travel/late-join behavior, reviewed circular-mask composition, real-GPU pixels, and measured cost remain open
+    - authorized stable-ID contacts, deterministic contact ordering, fog or sensor policy, quest/objective/party markers, and an authoritative Space radar remain unimplemented and deliberately absent
+    - recurring hidden-root CaptureScene work is statically gated, but the timer still wakes, initial prewarm captures remain, render targets and persistent render state remain allocated, and runtime lifecycle plus GPU profiling are unverified
+    - pausing or self-clearing the timer, deferring prewarm, or releasing render targets remains blocked until compile-current and real-GPU evidence covers normal pixel HUD, visible fallback, loadout open/close, replacement failure, possession/restart, travel, teardown, first-visible-frame behavior, and measured CPU/GPU/RHI cost
+    - static inspection did not decode Blueprint graphs or serialized asset payloads, so it cannot prove that no serialized quest-like, inventory-like, party-like, minimap-like, or Blueprint-callable snapshot producer or dormant caller exists
+    - the replacement has no accepted party-state consumer; the new surface-minimap setter and consumer have source-static evidence only and are not compile, runtime, visual, GPU-cost, or multiplayer accepted
+    - default KeyboardMouse Q/E presentation is statically implemented but remains uncompiled and runtime-unverified for placement, countdown decay, disabled state, ready state, input switching, and hidden-layout persistence
+    - ability state production and forwarding still run every status tick; replacement Q/E UMG writes now have static change suppression, but runtime CPU/GPU profiling and cadence validation remain absent
+    - Reticle is enumerated but unmapped, Quest has no layout enum entry, UtilityBar omits consumable live widgets, and PartyPanel remains dormant supplied art without a live consumer
+    - the replacement painted surface has no direct button, mouse, key, or hit-region handlers
+    - existing UI control automation exercises UVibeMMOHUDWidget rather than URedHUDWidget
+    - locked, limit, read-only, default, and transient target-loss feedback remains runtime-unverified
+    - the resource inventory's bounded 16:9 keyboard/mouse and synthetic-controller paths plus exact native 3440x1440 synthetic-controller path are accepted for open, caption-free Resources navigation, Iron selection, exact quantity, authoritative refresh, retained focus/detail, close, and expiry; physical-controller and Windows controller-backend behavior remain unaccepted
+    - current resource totals belong to the pawn and have no PlayerState, save-game, respawn, travel, reconnect, or account persistence owner
+    - current affected editor modules, default ultrawide receipt pixels, and native-ultrawide synthetic-controller Inventory pixels now pass, but save/restart persistence, physical-controller/backend behavior, customized receipt placement, and the broader gameplay surface remain unverified
+  latest_route_source_files_modified: 4
+  plugin_or_supplied_art_modified_in_latest_route_slice: false
+  latest_noop_feedback_source_files_modified: 4
+  latest_noop_feedback_test_files_modified_or_added: 3
+  vibe_plugin_or_supplied_art_modified_in_latest_noop_slice: false
+  latest_enemy_feed_source_files_modified: 2
+  latest_enemy_feed_test_files_modified_or_added: 2
+  latest_enemy_feed_focused_tests_passed: 8
+  artist_vibe_or_supplied_art_modified_in_latest_enemy_slice: false
+  latest_ability_feed_source_files_modified: 4
+  latest_ability_feed_test_files_modified_or_added: 2
+  latest_ability_feed_focused_tests_passed: 10
+  plugin_consumer_artist_vibe_or_supplied_art_modified_in_latest_ability_slice: false
+  latest_quest_inventory_gameplay_or_plugin_source_files_modified: 0
+  latest_quest_inventory_test_files_added: 1
+  latest_quest_inventory_test_files_modified: 1
+  latest_quest_inventory_focused_tests_passed: 7
+  latest_quest_inventory_combined_tests_passed: 115
+  latest_quest_inventory_full_static_discovery: 498_of_505_passed_with_6_unrelated_failures_and_1_unrelated_error
+  latest_quest_inventory_independent_review: pass
+  latest_consumable_inventory_gameplay_or_plugin_source_files_modified: 0
+  latest_consumable_inventory_test_files_added: 1
+  latest_consumable_inventory_focused_tests_passed: 7
+  latest_consumable_inventory_combined_tests_passed: 79
+  latest_consumable_inventory_independent_review: pass
+  latest_snapshot_inventory_gameplay_or_plugin_source_files_modified: 0
+  latest_snapshot_inventory_test_files_added: 1
+  latest_snapshot_inventory_focused_tests_passed: 7
+  latest_snapshot_inventory_combined_tests_passed: 86
+  latest_snapshot_inventory_independent_review: pass_no_wire_with_serialized_blueprint_limitation
+  latest_party_inventory_gameplay_source_files_modified: 0
+  latest_party_inventory_redhud_source_files_modified: 1
+  latest_party_inventory_test_files_added: 1
+  latest_party_inventory_focused_tests_passed: 7
+  latest_party_inventory_combined_tests_passed: 93
+  latest_party_inventory_independent_review: pass_after_claim_narrowing_and_contract_robustness_corrections
+  latest_minimap_inventory_gameplay_source_files_modified: 0
+  latest_minimap_inventory_redhud_source_files_modified: 1
+  latest_minimap_inventory_existing_test_files_updated: 1
+  latest_minimap_inventory_test_files_added: 1
+  latest_minimap_inventory_focused_tests_passed: 7
+  latest_minimap_inventory_combined_tests_passed: 100
+  latest_minimap_inventory_independent_review: pass_with_static_identifier_filename_and_undecoded_blueprint_claim_limits
+  latest_surface_minimap_presenter_redhud_source_files_modified: 3
+  latest_surface_minimap_presenter_redmmo_source_files_modified: 4
+  latest_surface_minimap_presenter_test_files_modified: 5
+  latest_surface_minimap_presenter_affected_tests_passed: 29
+  latest_surface_minimap_presenter_def0004_tests_passed: 120
+  latest_surface_minimap_presenter_full_offline_tests_passed: 550
+  latest_surface_minimap_presenter_compile_result: not_run_resource_gate_closed
+  latest_surface_minimap_presenter_runtime_result: pending
+  latest_surface_minimap_presenter_visual_result: pending
+  latest_surface_minimap_presenter_independent_review: pass_for_source_static_claim_with_runtime_limits
+  latest_surface_minimap_presenter_supplied_art_modified: false
+  latest_keyboard_ability_redhud_source_files_modified: 1
+  latest_keyboard_ability_test_files_modified: 1
+  latest_keyboard_ability_focused_tests_passed: 15
+  latest_keyboard_ability_combined_tests_passed: 105
+  latest_keyboard_ability_independent_review: pass_after_const_rect_and_hidden_scheme_switch_corrections
+  gameplay_input_authority_replication_or_supplied_art_modified_in_latest_keyboard_slice: false
+  latest_ability_presentation_dedup_redhud_source_files_modified: 2
+  latest_ability_presentation_dedup_test_files_added: 1
+  latest_ability_presentation_dedup_focused_tests_passed: 9
+  latest_ability_presentation_dedup_combined_tests_passed: 114
+  latest_ability_presentation_dedup_independent_review: pass_no_actionable_cpp_or_lifecycle_finding
+  gameplay_input_authority_replication_or_supplied_art_modified_in_latest_dedup_slice: false
+  latest_legacy_capture_visibility_source_files_modified: 1
+  latest_legacy_capture_visibility_test_files_added: 1
+  latest_legacy_capture_visibility_focused_tests_passed: 4
+  latest_legacy_capture_visibility_combined_tests_passed: 118
+  latest_legacy_capture_visibility_independent_review: pass_no_actionable_issue
+  gameplay_authority_plugin_map_asset_vibe_artist_or_supplied_art_modified_in_latest_capture_slice: false
+  latest_legacy_capture_residual_inventory_production_source_files_modified: 0
+  latest_legacy_capture_residual_inventory_test_files_added: 1
+  latest_legacy_capture_residual_inventory_focused_tests_passed: 7
+  latest_legacy_capture_residual_inventory_combined_tests_passed: 125
+  latest_legacy_capture_residual_inventory_independent_review: pass_inventory_and_blocker_record_no_source_change
+  latest_legacy_capture_residual_inventory_minimum_logical_rgba8_mib: 1.3125
+  latest_legacy_capture_residual_inventory_scheduled_callback_wakes_per_second: 6.6667
+  latest_mining_receipt_production_source_files_modified: 6
+  latest_mining_receipt_runtime_test_files_modified: 3
+  latest_mining_receipt_python_contract_files_modified: 3
+  latest_mining_receipt_focused_tests_passed: 49
+  latest_mining_receipt_editor_build_actions: 14
+  latest_mining_receipt_mask_rebuild_actions: 4
+  latest_mining_receipt_real_gpu_resolution: 1280x720
+  latest_mining_receipt_real_gpu_result: pass_local_and_remote
+  latest_mining_receipt_ultrawide_resolution: 3440x1440
+  latest_mining_receipt_ultrawide_result: pass_exact_native_reward_fade_expiry
+  latest_mining_receipt_ultrawide_fade_seconds_remaining: 0.38
+  latest_mining_receipt_ultrawide_build_actions: 4
+  latest_mining_receipt_remote_runtime_result: pass_two_client_d3d12_official_mcp
+  latest_mining_receipt_remote_owner_delta: 6
+  latest_mining_receipt_host_delta: 0
+  latest_mining_receipt_remote_expiry_seconds: 3.48
+  latest_mining_receipt_production_members_pristine: 24
+  latest_quantity_bearing_inventory_screen_result: d3d12_1280x720_keyboard_mouse_open_caption_free_grid_authoritative_refresh_close_pass
+  latest_resource_inventory_production_source_files_modified: 3
+  latest_resource_inventory_test_files_modified_or_added: 2
+  latest_resource_inventory_focused_tests_passed: 58
+  latest_resource_inventory_editor_build_actions: 7
+  latest_resource_inventory_final_build_actions: 4
+  latest_resource_inventory_nullrhi_automation_result: 1_of_1_passed
+  latest_resource_inventory_d3d12_resolution: 1280x720
+  latest_resource_inventory_d3d12_result: pass_open_0_0_0_authoritative_0_6_0_refresh_close_and_expiry
+  latest_resource_inventory_keyboard_mouse_observation: pass
+  latest_resource_inventory_controller_result: pass_synthetic_ue_gamepad_route_real_gpu_physical_controller_pending
+  latest_resource_inventory_ultrawide_result: pass_exact_3440x1440_synthetic_controller_open_resources_iron_0_to_6_focus_retained_and_close
+  latest_resource_inventory_ultrawide_resolution: 3440x1440
+  latest_resource_inventory_ultrawide_physical_controller_tested: false
+  latest_resource_inventory_ultrawide_combined_tests_passed: 52
+  latest_resource_inventory_ultrawide_build_actions: [5, 4]
+  latest_resource_inventory_legacy_grid_polish: pass_caption_free_grid_and_live_iron_repaint
+  latest_resource_inventory_grid_polish_focused_tests_passed: 10
+  latest_resource_inventory_grid_polish_native_automation_result: 1_of_1_passed
+  latest_resource_inventory_grid_polish_build_actions: 4
+  latest_resource_inventory_grid_polish_d3d12_result: pass_1280x720_open_0_0_0_to_0_6_0_close_and_expiry
+  latest_resource_inventory_controller_focused_tests_passed: 13
+  latest_resource_inventory_controller_native_automation_result: 1_of_1_passed
+  latest_resource_inventory_controller_build_actions: 4
+  latest_resource_inventory_controller_d3d12_result: pass_1280x720_start_inventory_resources_iron_0_to_6_focus_retained_and_b_close
+  latest_resource_inventory_controller_input_provenance: synthetic_engine_controller_callback
+  latest_resource_inventory_physical_controller_tested: false
+  latest_resource_inventory_audit_build_actions: 4
+  latest_resource_inventory_vibe_or_supplied_art_modified: false
+  latest_resource_inventory_authority_or_replication_modified: false
+  reviewed_source_files: 19
+  supplied_art_assets_preserved: 56
+  offline_current_contract_tests_passed: 8
+  offline_customizer_route_tests_passed: 6
+  offline_noop_feedback_tests_passed: 8
+  combined_regression_and_provenance_tests_passed: 125
+  status_reason: >-
+    The stale July 21 audit is corrected, the visible customizer now has a
+    replacement-HUD source route with change-only mutation results and a
+    fail-closed rollback transaction, and the aimed enemy plus Q/E ability
+    panels have bounded presentation feeds. The quest and consumable consumers
+    remain blocked because no trustworthy authoritative producers were found.
+    The aggregate snapshot also remains dormant because no compiled producer or
+    ownership, ordering, complete-domain, clear, or stale-rejection contract
+    exists; wiring its demo defaults and partial arrays would risk overwriting
+    live granular feeds. No real party producer exists in bounded compiled paths,
+    so its baked sample rows now fail closed and no bridge was fabricated. The
+    replacement minimap's baked player, objective, and contact state still fails
+    closed. A separate bounded project-owned 512-square surface presenter now
+    consumes the existing local render target with source ownership, canonical
+    celestial-frame identity, Surface/Space/Absent modes, monotonic epochs,
+    stale-handoff rejection, and freshness/target guards. The supplied minimap
+    art remains untouched, Space remains absent, and no contact or objective was
+    fabricated. Twenty-nine affected, 120 DEF-0004, and 550 full offline
+    contracts pass, but C++/UHT compilation and runtime pixels were not attempted
+    below the sustained RAM gate. Its rectangular unmasked composition,
+    first-visible-frame hide/show freshness, travel/late-join clearing, local
+    scene-capture semantics, and measured GPU cost remain open; the client-scanned
+    legacy space radar remains rejected as nonauthoritative.
+    Static inspection cannot exclude alternate-named or undecoded Blueprint
+    bridges and serialized payloads.
+    Default KeyboardMouse Q/E status feedback is now statically wired without
+    changing its producer, but its visual placement and behavior remain
+    uncompiled and runtime-unverified. Unchanged Q/E presentation writes are
+    now statically suppressed at the one-decimal display boundary with explicit
+    lifecycle invalidation, while exact authoritative state remains cached;
+    this has not been compiled, runtime-profiled, or visually accepted.
+    Recurring legacy portrait/minimap scene captures now fail closed before
+    alternation when their root HUD is not painted; this source-only guard retains
+    visible fallback/loadout updates and all prewarm, timer, target, and teardown
+    behavior, but has not been compiled, runtime-exercised, or GPU-profiled.
+    The residual lifecycle inventory found no statically safe next mutation:
+    visibility is co-owned across pawn, HUD, and Vibe lifecycle paths, the timer
+    has no pause/resume contract, prewarm supplies the initial resources, the
+    recurring path interleaves one capture per callback for the documented Metal
+    concern, and target release changes brush/GC/rebind behavior. The synchronous
+    two-call prewarm and actual Metal safety remain runtime-unverified.
+    Seven focused inventory checks bring the combined static suite to 125/125,
+    but this records a blocker rather than claiming a runtime optimization.
+    A later bounded mining-presentation slice removes the permanent resource
+    line, retains its totals only as an inventory cache, and shows one
+    owner-routed themed yield receipt for 3.25 seconds. Forty-nine focused
+    contracts and current serialized editor builds pass. One 1280x720 D3D12 local
+    before/reward/after sequence and one official-MCP rendered two-client
+    sequence accept permanent-tally removal, the remote owner's exact IRON +6
+    receipt, host isolation, replicated inventory parity, and expiry. The
+    two-client target is a unit-scale static mesh in deep space, not a voxel or
+    atmospheric boulder, and all twenty-four production members remain
+    pristine. A later exact native 3440x1440 D3D12 run accepts the default
+    placement, full reward, a visibly reduced 0.38-second mid-fade state, and
+    expiry without clipping or PlayerStatus overlap. Its first exact fade was
+    correctly rejected because shared opacity exposed baked sample text; the
+    accepted staged fade hides source art before fading the authoritative live
+    layer. The remote run retains pre-existing optional-Voxel, render-thread
+    CVar, teardown, and multiple-directional-light warning noise, so it does not
+    claim warning-free final polish. The existing Escape-owned Inventory page
+    now contains three themed Stone, Iron, and Crystal quantity cards and stable
+    Resources-category records. Fifty-eight focused contracts, current
+    TitanEditor compilation, and one NullRHI native widget test pass, while
+    authority, ordinary replication, Vibe source, and supplied art remain
+    unchanged. A later bounded 1280x720 D3D12 pass accepts keyboard/mouse open,
+    exact 0/0/0 quantities, authoritative mining refresh to 0/6/0, tally-free
+    combat presentation, close cleanup, and temporary-receipt expiry. A final
+    isolated grid-polish pass removes the crowded legacy item names and repeated
+    EMPTY labels, preserves slot selection and details, visibly repaints Iron to
+    6, and passes the same exact 1280x720 runtime gate. A subsequent
+    project-owned controller slice binds Start and owns deterministic D-pad, A,
+    and B routing through Inventory, Resources, Iron stable item 3, live
+    0/0/0-to-0/6/0 refresh with retained focus/detail, and close. Thirteen
+    focused contracts, one native automation test, one four-action build, and
+    one clean 1280x720 D3D12 visual run pass. One later exact native 3440x1440
+    RTX 3080 D3D12 run accepts the same synthetic route, contained tabs and
+    resource ledger, compact STORED: 0/6 details, retained focus through refresh,
+    and clean close across four isolated full-resolution frames. Two earlier
+    log-passing candidates were rejected during pixel review for overflowing
+    detail and partial-black asynchronous captures. Fifty-two combined resource,
+    depletion, and protected-provenance tests pass, and serialized five-action
+    and four-action editor builds succeed. The input remains synthetic UE
+    gamepad FKeys through Slate, so physical-controller and Windows
+    controller-backend acceptance remain open alongside pawn-total persistence
+    and controller/customized receipt placement.
+    Runtime enemy and ability
+    behavior, interaction, persistence, remaining
+    gameplay domains, and current rendering are still unverified. Static
+    evidence cannot satisfy DEF-0004.
+
+authored_vitals_depletion_reconciliation:
+  status: implemented_source_static_build_and_visual_acceptance_pending
+  root_cause:
+    - gameplay correctly forwarded shield, health, and jetpack fuel
+    - the live overlay hid the supplied PlayerStatus bars behind full dark masks
+    - hard-coded solid-color UBorder fills replaced the authored painted pixels
+    - percentage changes resized only those untextured flat rectangles
+  implementation:
+    - the supplied PlayerStatus PNG and imported uasset remain byte-exact
+    - the three player full-mask plus flat-fill pairs are removed
+    - player-only right-anchored depletion masks now cover only the missing tail
+    - full value produces zero mask width and zero value covers the bar interior
+    - generic enemy-health and weapon-heat fill behavior is unchanged
+    - the separate health-number mask remains to cover baked sample text
+  static_verification:
+    - 14 of 14 focused HUD contracts pass before and after the change
+    - 120 of 120 DEF-0004 contracts pass
+    - 41 of 41 DEF-0006, SAFE8, fused-provenance, and ProjectKnowledge contracts pass
+    - all protected map, heightfield, source-art, and imported PlayerStatus hashes remain exact
+  semantics: >-
+    Jetpack fuel still routes through the replacement presentation's generic
+    Energy field and therefore uses the authored lower purple bar. No separate
+    mana producer or mana bar was invented.
+  evidence: ProjectKnowledge/evidence/2026-07-24-def-0004-authored-vitals-depletion-source-static.yaml
+  pending:
+    - current RedHUDRuntime C++ and UHT compilation
+    - real-D3D12 full, partial, near-empty, and regenerating jetpack-fuel pixels
+    - 1280x720 and 3440x1440 visual and customizer-scale acceptance
+  claim_limit: >-
+    Source-static mask direction and art preservation only. This does not prove
+    compilation, Unreal rendering, final visual quality, input, jetpack gameplay,
+    customization, performance, packaging, Steam, or multiplayer.
+
+r88_jetpack_hud_resource_boundary:
+  status: blocker_confirmed
+  package_tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  active_hud: >-
+    Clean R88 binds ARedHUD, whose current implementation is a minimal
+    four-rectangle aiming reticle with no vitals, fuel, or resource presenter.
+  authored_art_boundary: >-
+    The exact painted purple jetpack depletion treatment remains source-static
+    only in the separate Titan/RedHUD branch and is absent from the R88 cooked
+    identity listing.
+  vibe_boundary: >-
+    VibeMMOUIKit is compiled into the target closure, but its hard-coded
+    flat-yellow FuelBarBlock has no external SetLiveStatus caller, no active
+    project controller subclass, and no cooked Vibe content identity in R88.
+  producer_boundary: >-
+    Clean source contains no CurrentFuel or MaxFuel producer; SpaceBar still
+    maps to ordinary Jump. The current gameplay Blueprint has legacy jetpack
+    presentation labels but zero exact serialized fuel or HUD identities.
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r88-jetpack-hud-resource-boundary-package.yaml
+  pending:
+    - on-foot jetpack gameplay and input producer dependency closure
+    - one rollback-backed clean-project integration decision
+    - compile, runtime, real-GPU and package proof of authored depletion
+    - physical controls, replication and multiplayer acceptance
+  claim_limit: >-
+    Package, source, and static identity boundary only. R88 remains launchable,
+    but jetpack gameplay and its authored HUD resource bar are not accepted.
+
+r89_clean_jetpack_producer:
+  status: source_and_editor_build_passed_runtime_hud_acceptance_pending
+  implementation:
+    - ARedPlayerCharacter now owns replicated server fuel, engaged, thrusting, and boosting facts
+    - Jump and Sprint publish transition intent while engagement remains server-timed and server-owned
+    - radial lift stays in MOVE_Falling with bounded legacy feel defaults
+    - the autonomous owner predicts lift from replicated server facts and accepts normal CharacterMovement correction
+    - ship possession and invalid movement or visibility force the producer off
+    - fuel and state getters expose a later HUD boundary without wiring HUD or presentation now
+  verification:
+    - 19 of 19 focused source-contract checks pass
+    - RedMMOEditor Win64 Development passed UHT, compile, link, and metadata in 7 serialized actions
+    - protected maps, fused artifacts, the clean home/ProfileV1, assets, Config, plugins, user assets, and vendor sources remain exact
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-r89-clean-jetpack-producer-build.yaml
+  pending:
+    - no-save exact-home runtime input, movement, fuel, boost, exhaustion, regeneration and ship-shutdown proof
+    - standalone package currency and startup after runtime acceptance
+    - authored purple depletion consumer and real-D3D12 full/partial/empty/regenerating pixels
+    - replication correction quality, two-player multiplayer, persistence and physical controls
+  claim_limit: >-
+    Source-static and editor-build evidence only. This does not accept jetpack
+    gameplay, HUD, visuals, audio, package, standalone or multiplayer behavior.
+
+r90_jetpack_hud_resource_currentness:
+  status: accepted_partial_package_currentness_hud_blocked
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r90-jetpack-hud-resource-currentness-package.yaml
+  native_jetpack_producer_packaged_current: true
+  stale_r88_package_blocker_resolved: true
+  active_hud: ARedHUD_crosshair_only
+  production_jetpack_fuel_consumer_present: false
+  authored_purple_player_status_in_r90: false
+  physical_input_or_visible_hud_acceptance: false
+  blocker: >-
+    R90 packages the native producer and Jump/Sprint inputs, but it does not
+    package or render the authored purple PlayerStatus fuel treatment.
+  next_safe_action: >-
+    Implement one rollback-backed clean-project authored-purple fuel consumer
+    while preserving exact supplied art and leaving maps and gameplay authority
+    untouched; compile and real-GPU depletion pixels remain later gates.
+
+clean_jetpack_hud_consumer_source:
+  status: implemented_source_static_build_asset_runtime_pending
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-clean-jetpack-hud-consumer-source-static.yaml
+  implementation:
+    - clean ARedHUD consumes only ARedPlayerCharacter::GetJetpackFuelFraction
+    - the exact supplied PlayerStatus soft package path is attempted once per HUD
+    - missing art fails closed and retains the existing four-rectangle reticle
+    - placement preserves the legacy 3840x2160 PlayerStatus rectangle
+    - fuel depletion preserves authored pixels and masks only the missing right-anchored purple tail
+    - gameplay authority, replication, input, maps, Config and assets are unchanged
+  verification:
+    - 16 of 16 focused source-static checks pass
+    - UE 5.8 DrawTexture and FSoftObjectPath TryLoad signatures are source-confirmed
+    - supplied PNG and imported uasset remain byte-exact
+    - the target clean-project texture package remains absent
+    - rollback copies preserve both pre-slice RedHUD source hashes
+  pending:
+    - exact PlayerStatus no-clobber clean-project staging and load closure
+    - RedMMOEditor UHT, compile, link and metadata
+    - real-D3D12 full, partial, near-empty and regenerating jetpack-fuel pixels
+    - physical input, generated-surface landing feel and perceived presentation
+    - current package, replication, multiplayer and human acceptance
+  next_safe_action: >-
+    Stage or import the exact supplied PlayerStatus art into the clean project in
+    one rollback-backed no-clobber slice, then verify package identity and the
+    source load closure. Keep compile and visible pixel acceptance separate.
+  claim_limit: >-
+    Source-static consumer and art-preservation evidence only. This does not
+    prove compilation, Unreal rendering, final visual quality, jetpack gameplay,
+    input, packaging, replication or multiplayer.
+
+clean_player_status_staging:
+  status: accepted_partial_static_asset_and_source_load_closure
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-staging-static.yaml
+  implementation:
+    - one exact existing Texture2D uasset was staged at the clean ARedHUD object path
+    - the no-clobber guard proved the target did not exist before the transaction
+    - source and target are both 500781 bytes with the same SHA-256
+    - serialized package, object, Texture2D class and engine dependency identities match
+    - the target directory contains no sidecar dependency
+    - no source, map, Config, gameplay authority, replication, input, package, plugin, vendor or user asset changed
+  verification:
+    - 16 of 16 focused static asset and source-load checks pass
+    - the prior clean ARedHUD source hashes remain exact
+    - the source PlayerStatus PNG and uasset remain byte-exact
+    - protected maps and fused artifacts remain exact
+  pending:
+    - RedMMOEditor UHT, compile, link and metadata
+    - Unreal load of the exact clean Texture2D object path
+    - real-D3D12 full, partial, near-empty and regenerating jetpack-fuel pixels
+    - physical controls, current package, replication, multiplayer and human acceptance
+  next_safe_action: >-
+    Run one guarded serialized RedMMOEditor Win64 Development build for the
+    current HUD source and staged asset. Keep Unreal load and visible pixel
+    acceptance in later independent slices.
+  claim_limit: >-
+    Static byte identity, serialized asset identity and source-load closure
+    only. This does not prove Unreal loading, compilation, rendering, gameplay,
+    packaging, replication or multiplayer.
+
+clean_jetpack_hud_editor_build:
+  status: accepted_partial_editor_build_asset_runtime_pending
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-hud-editor-build.yaml
+  implementation_boundary:
+    - the current ARedHUD header passes UnrealHeaderTool
+    - RedHUD.cpp compiles in the current RedMMO editor module
+    - UnrealEditor-RedMMO.dll and its import library link successfully
+    - RedMMOEditor.target metadata writes successfully
+    - the exact staged PlayerStatus asset and HUD source hashes remain unchanged
+  verification:
+    - one serialized six-action RedMMOEditor Win64 Development build succeeded
+    - UnrealBuildTool reported Result Succeeded after 399.46 seconds
+    - the durable log contains zero warning lines and zero error lines
+    - protected maps, fused artifacts and 27 tangent-authoring inputs remain exact
+    - no Unreal, build or package process remains
+  pending:
+    - Unreal load of the exact clean Texture2D object path
+    - real-D3D12 full, partial, near-empty and regenerating jetpack-fuel pixels
+    - physical controls, generated-surface landing feel and perceived presentation
+    - current package, replication, multiplayer and human acceptance
+  next_safe_action: >-
+    Run one provider-off no-save RenderOffscreen Unreal object-load audit for
+    the exact PlayerStatus object path and compiled ARedHUD boundary. Keep
+    visible depletion pixels in a later independent slice.
+  claim_limit: >-
+    Build evidence only. This does not prove Unreal asset loading, rendering,
+    gameplay, input, package currency, replication or multiplayer.
+
+clean_player_status_object_load:
+  status: accepted_partial_exact_object_load_visual_runtime_pending
+  evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-player-status-object-load-automation.yaml
+  accepted_now:
+    - the exact staged object loads through UE 5.8 as /Script/Engine.Texture2D
+    - runtime dimensions 1536x301 match the exact supplied HighResSprites PNG
+    - /Script/RedMMO.RedHUD and /Script/RedMMO.Default__RedHUD resolve
+    - provider ports remain closed and content/map dirty-package counts stay zero
+    - all source, art, project, module and protected hashes remain exact
+  disclosed_harness_correction: >-
+    The first sequential commandlet attempt loaded the texture but rejected its
+    correct width against an incorrect 3840 constant. Direct PNG-header evidence
+    established 1536x301; 3840x2160 is the design canvas. The preserved second
+    attempt passed the corrected exact identity gate.
+  pending:
+    - actual ARedHUD instance in exact-home PIE
+    - real-D3D12 full, partial, near-empty and regenerating jetpack-fuel pixels
+    - physical controls, generated-surface landing feel and perceived presentation
+    - current package, replication, multiplayer and human acceptance
+  next_safe_action: >-
+    Run one provider-off no-save exact-home D3D12 PIE visual slice for the real
+    ARedHUD instance and four authored fuel states. Keep package currentness in
+    a later independent gate.
+  claim_limit: >-
+    Automation object-load evidence only. This does not prove HUD instantiation,
+    visible rendering, gameplay, input, package currency, replication or multiplayer.
+
+r91_current_package:
+  status: native_consumer_packaged_player_status_cook_missing
+  evidence: ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r91-current-playable-package.yaml
+  accepted_now:
+    - current RedHUD source compiled and linked into the R91 game binary
+    - exact staged PlayerStatus source asset remains byte-preserved
+    - R91 BuildCookRun and packaged D3D12 exact-home startup succeeded
+    - missing art fails closed to the existing reticle rather than a startup failure
+  blocker: >-
+    The R91 IoStore listing has zero PlayerStatus entries. Packaged startup logs
+    one missing-package and one missing-object warning for the exact soft path,
+    so authored purple fuel pixels are not present or accepted in R91.
+  next_safe_action: >-
+    In a later independent M00 slice, add one narrow project-owned cook
+    reference or directory rule for only the exact staged PlayerStatus texture,
+    then build a no-clobber successor and require zero missing-art warnings plus
+    real-D3D12 full, partial, near-empty and regenerating pixels.
+  claim_limit: >-
+    Package/startup and fallback evidence only. This does not accept authored
+    fuel visuals, physical jetpack controls, replication, multiplayer or final HUD.
+
+acceptance_to_close:
+  - use the supplied per-element images and preserve approved pixel placement
+  - bind live vitals, heat, weapon, ability, party, quest, and minimap state
+  - prove every represented button or control has a working handler or is visually non-interactive
+  - prove independent move, scale, opacity, visibility, lock, reset, and persistence
+  - pass clean source tests and compile
+  - pass real-GPU mouse and controller interaction without dead ends

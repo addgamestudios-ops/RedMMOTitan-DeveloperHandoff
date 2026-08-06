@@ -1,0 +1,123 @@
+schema_version: 1
+id: evidence.m02.clean-ppg-celestial-frame-producer-static
+recorded_utc: 2026-08-06T11:59:06.573Z
+module_id: M02
+status: implemented_awaiting_build_and_runtime_acceptance
+evidence_class: static
+scope: >-
+  One bounded clean-RedMMO source slice wires the existing revisioned
+  celestial-frame registry to the authority-owned ProfileV1 PPG GameMode
+  lifecycle. No Unreal, build, package, map, profile, vendor, foliage, CC5, or
+  Blender process was launched.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 50.86
+  commit_headroom_gib: 54.86
+  gpu_vram_free_mib: 9098
+  gpu_vram_total_mib: 10240
+  d_drive_free_gib: 756.6
+  active_unreal_build_package_processes: 0
+  active_defects:
+    - DEF-0001
+    - DEF-0002
+    - DEF-0003_awaiting_runtime_acceptance
+    - DEF-0004
+    - DEF-0005_awaiting_runtime_acceptance
+    - DEF-0006_awaiting_build_and_runtime_acceptance
+    - DEF-0007_awaiting_runtime_acceptance
+
+implementation:
+  owner: ARedPPGGameplayGameMode
+  authority_modes:
+    - dedicated_or_listen_server
+    - standalone
+  frame_source: RedPPGSurface::ResolveUniqueHomeBody
+  stable_id_source: RedPPGSurface::FBodyFrame.StableId
+  authority_actor_source: RedPPGSurface::FBodyFrame.Owner
+  center_source: RedPPGSurface::FBodyFrame.Center
+  radius_source: RedPPGSurface::FBodyFrame.NominalRadius
+  lifecycle:
+    - publish_before_optional_starter_ship_setup
+    - retry_transient_no_body_or_not_ready_for_bounded_ten_minutes
+    - fail_closed_on_ambiguous_invalid_or_changed_authority
+    - no_op_when_exact_frame_is_unchanged
+    - advance_revision_exactly_by_one_when_center_or_radius_changes
+    - republish_after_project_owned_floating_origin_shift
+    - republish_on_planet_generation_finished
+    - verify_exact_registry_snapshot_after_registration
+    - unregister_only_the_owned_exact_revision_on_GameMode_EndPlay
+    - remove_world_tombstones_only_behind_registry_cleanup_state_guard
+  intentionally_not_added:
+    - radar_or_minimap_consumer
+    - client_snapshot_replication
+    - atmosphere_or_cloud_mutation
+    - moon_physics
+    - protected_fused_core_bridge
+
+changed_files:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGGameplayGameMode.h
+    pre_sha256: 28CDED8E0E486479D622C78324F0E64DED6C7206DD8D8874B6F4C043D73B1C6E
+    post_sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    pre_sha256: B0ED7072BEC4731A331C6F45EFB1B682EAD96E91E45D3F48CA6798283AEA4169
+    post_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedCelestialFrameRegistry.h
+    pre_sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    post_sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+  - path: D:/RedMMOTitan/Tools/tests/test_clean_redmmo_ppg_celestial_frame_producer_contract.py
+    post_sha256: 1440B5DA427FB6F573912057D99DBC109C72F2DD54F797BF1088EC445CF889F8
+
+verification:
+  focused_command: >-
+    python D:/RedMMOTitan/Tools/tests/test_clean_redmmo_ppg_celestial_frame_producer_contract.py
+  focused_result: PASS_5_of_5
+  focused_checks:
+    - producer_precedes_and_is_independent_of_optional_starter_ship
+    - exact_unique_ppg_frame_populates_all_registry_fields
+    - sequential_revision_and_overflow_guards
+    - transient_retry_is_bounded_and_ambiguity_fails_closed
+    - floating_origin_republication_and_exact_revision_teardown
+    - world_tombstones_removed_only_during_world_cleanup
+  unrelated_baseline_command: >-
+    python -m unittest -q D:/RedMMOTitan/Tools/tests/test_planet_pcg_runtime_registry_contract.py
+  unrelated_baseline_result: FAIL_1_of_13
+  unrelated_baseline_note: >-
+    The failure is outside this clean-project slice: the D:/RedMMOTitan
+    historical contract expected zero registry callsites but found the existing
+    RedStylizedPlanetPresentationAdapter.cpp callsite. It is not used as evidence
+    for this implementation and no D:/RedMMOTitan Source file changed.
+
+preserved:
+  production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_checkpoint: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_v1_planet_data: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+
+rollback:
+  method: reverse_only_this_bounded_source_diff
+  preimage_hashes_recorded: true
+  instructions: >-
+    Remove the GameMode producer declarations, value state, lifecycle calls and
+    producer method bodies; restore the registry header checkpoint sentence;
+    delete only the new focused test; require the three source files to match
+    their recorded pre_sha256 values. No map, asset, profile, vendor, or package
+    rollback is needed because none changed.
+
+blockers:
+  - clean_source_has_not_been_compiled_or_linked_after_this_change
+  - registry_publication_has_not_run_in_a_real_server_or_standalone_world
+  - no_client_snapshot_or_replication_consumer_exists
+  - radar_or_minimap_consumer_is_still_absent
+  - volumetric_cloud_radius_remains_6360_km_not_the_3000_km_ppg_frame
+  - protected_795774_715_cm_fused_core_remains_separate_from_ProfileV1
+  - no_new_visual_gameplay_package_replication_multiplayer_or_human_acceptance
+
+next_safe_action: >-
+  On a later M02 wake with the same clean-project hashes and RAM gate, run one
+  serialized RedMMOEditor Win64 Development compile/link for the producer, then
+  stop. Do not launch runtime, mutate atmosphere/clouds, add radar, bridge the
+  protected fused core, or package in that build-only slice.

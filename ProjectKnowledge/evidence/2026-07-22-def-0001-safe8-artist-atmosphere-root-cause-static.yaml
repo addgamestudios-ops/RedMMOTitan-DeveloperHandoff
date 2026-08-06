@@ -1,0 +1,210 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0001-SAFE8-ARTIST-ATMOSPHERE-ROOT-CAUSE-STATIC
+captured_at: "2026-07-22T20:23:48Z"
+module: module.M02.50km-fused-heightmap-patch-core
+defect: DEF-0001
+slice: safe8-artist-atmosphere-authoring-root-cause
+evidence_class: static
+result: unsafe_bundled_authoring_contract_confirmed_archived_map_state_unverified
+
+authorization_and_scope:
+  intended_work: >-
+    Read the protected SAFE8 archive in place, authenticate the artist-canvas
+    reload report's provenance boundary, and determine what the bundled
+    handoff pipeline configures without extracting or changing the archive.
+  production_files_modified: 0
+  protected_archive_extracted: false
+  test_files_added: 1
+  decision: document_bundled_configuration_hazard_keep_map_serialization_and_defect_open
+  explicitly_preserved:
+    - production maps and protected checkpoints
+    - the SAFE8 archive and every embedded manifest member
+    - artist repositories and handoff directory shape
+    - source rasters, supplied HUD/Vibe assets, user assets, and unrelated dirty work
+  not_attempted:
+    - artist-canvas regeneration or atmosphere mutation
+    - Unreal Editor, UBT, UHT, build, cook, package, shader, Zen, or IoStore work
+    - runtime, real-GPU, visual, gameplay, Steam, or multiplayer acceptance
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1355
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_count: 0
+    competing_project_writer_before_slice: false
+  resource_samples:
+    sample_count: 11
+    duration_seconds: 27.5
+    physical_free_gib: {minimum: 7.083, maximum: 7.363, average: 7.266}
+    commit_headroom_gib: {minimum: 17.468, maximum: 17.752, average: 17.658}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1426_to_1428, free_mib: 8626_to_8628, temperature_c: 42}
+    disk_free_gib: {C: 132.43, D: 1141.71}
+  decision: static_offline_only
+  latest_package_evidence:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_or_package_started: false
+    archive_or_ready_marker_created: false
+
+protected_input_contract:
+  archive:
+    path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+    size_bytes: 168175582
+    sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+    access: read_only_in_place_no_extraction
+  embedded_members:
+    - path: Build/Verification/configure_artist_blank_canvas.py
+      sha256: 86483CAA805B9399F000031EBE6FA81E30763ACD9F096B622E179C211C6BB796
+    - path: Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Public/PlanetGen/CLMPlanetSunSky.h
+      sha256: 14515DE56249DA89CB1A88897D8C8573A20E735C34E284C97F1D55E3120212A6
+    - path: Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Private/PlanetGen/CLMPlanetSunSky.cpp
+      sha256: 48C741D1B7FC3F2804FA5BB9A9459E47D1370D8A73BFD5A0AFB9E42F0E8C6427
+    - path: MANIFEST_SHA256.txt
+      sha256: D2756329241AE865EF0C0B68FC0DE880632068E9B3EB86C2529E208E1C45CF3E
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas.umap
+      sha256: B23473BA8C7AD498F5FCBF351B976B5BDC89712D26606C4D5C47287B55856933
+  manifest_members_matched: 338_of_338
+
+external_structural_reload:
+  report: D:/RedMMOTitanWindowsData/ArtistHandoff/artist_canvas_surface_reload_verify.json
+  report_sha256: 35BA5394C1C6F486F60D202EE9A334F8442633ADC46F961B91C4055044C2508B
+  passed: true
+  map: /Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas
+  planet_class: /PlanetGen/Blueprints/BP_CLMPlanetSunSky.BP_CLMPlanetSunSky_C
+  reported_planet_radius_cm: 795774.6875
+  visible_atmosphere_count: 1
+  report_contains_map_sha256: false
+  report_contains_serialized_atmosphere_dimensions: false
+  current_main_artist_map_sha256: E51C976D0D55524521C6A1A69C7D4FC9827FAB1C6791B2276462A4504476E97F
+  protected_safe8_artist_map_sha256: B23473BA8C7AD498F5FCBF351B976B5BDC89712D26606C4D5C47287B55856933
+  map_hashes_equal: false
+  provenance_to_protected_safe8_map: not_proven
+
+root_cause_contract:
+  blank_canvas_authoring:
+    configured_atmosphere_height_km: 8.0
+    order: set_height_then_preview_then_save
+    requires_exactly_one_native_atmosphere: true
+    binds_target_atmosphere: true
+  embedded_planetgen:
+    default_atmosphere_height_km: 8.0
+    radius_km_formula: PlanetRadius_cm_divided_by_100000
+    outer_radius_formula: RadiusKm_plus_AtmosphereHeightKm
+    transform_mode: PlanetCenterAtComponentTransform
+  conditional_dimensions_if_applied_to_canonical_target:
+    canonical_body_radius_km: 7.9577471546
+    atmosphere_height_km: 8.0
+    outer_radius_km: 15.9577471546
+    outer_radius_to_body_radius_ratio: 2.0053096491
+    height_exceeds_body_radius: true
+  finding: >-
+    The protected SAFE8 authoring script explicitly configures an 8 km
+    atmosphere height before preview/save, and the embedded PlanetGen
+    implementation adds configured height to body radius. Applied to the
+    canonical target, this would produce a roughly 15.958 km outer radius. This
+    confirms an oversized bundled configuration hazard; the reload report is
+    not bound to the protected map and does not prove the archived map's final
+    serialized dimensions, rendered component, or visual scale.
+
+changed_files:
+  - path: Tools/tests/test_def0001_safe8_artist_atmosphere_root_cause_contract.py
+    pre_state: absent
+    post_sha256: 218315A53D44AFC272159A64C0E9BB78585478DC4501E3E651DC1965D43885D9
+    post_bytes: 9115
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0001Safe8AtmosphereRootCause_20260722_2019
+  test_file_absent_before: true
+  evidence_file_absent_before: true
+  files:
+    - {name: INDEX.yaml, sha256: 808EE3BFCC53150953A872934BC4F5A7C41D3BFF06FAA21DEA3E36D1C7FEDF66}
+    - {name: current_state.yaml, sha256: 914DC238DDC818ECB7D023E7D283C85ECBD7BCAD5DBB3B28F0FEEF16ED43DFBD}
+    - {name: DEF-0001-artist-atmosphere-scale.yaml, sha256: 7EAE9601E52FB762630BEC56540D3B8C9A3FC7C1CC2619CCF0177D4923DB9AEF}
+    - {name: redmmotitan_module_queue.json, sha256: 977F77BBF67828C52932075FFBF5D4BA46928014A6697DCC1607AAF5E3B24347}
+    - {name: atmosphere.red-mars.yaml, sha256: E162789B88927230E28A449CF48CE778E66D24087F7316F407EF185C764A474D}
+    - {name: artist_canvas_surface_reload_verify.json, sha256: 35BA5394C1C6F486F60D202EE9A334F8442633ADC46F961B91C4055044C2508B}
+
+verification:
+  focused_safe8_root_cause_tests: 8_of_8_passed
+  combined_safe8_and_provenance_tests: 15_of_15_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/safe8_atmosphere_and_provenance_tests.log
+  log_sha256: 937FAB69550E252B504693E7A8B0448618238FBDD1E4EC14AC0FAE3977F270A8
+  currency_and_package_guard_tests:
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/currency_and_package_guard_tests.log
+    log_sha256: AC1D18D620164800C48F58F7F52E847F203B085AA9D388920E5A38274294217B
+
+target_currency:
+  tool: Tools/audit_windows_target_currency.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+  report_sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+  captured_utc: "2026-07-22T20:22:54.725411+00:00"
+  input_count: 874
+  input_manifest_sha256: 29EC28DD1090F93BA14DAC625249DE18E9804B419BAE41547436643D5040E93B
+  gate_result: refused_fail_closed
+  skip_build_allowed: false
+  build_proofs_supplied: 0
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, proof_status: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, proof_status: missing}
+
+protection:
+  result: pass
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  protected_source_rasters: 135_of_135_matched
+  supplied_hud_assets: 56_of_56_matched
+  vibe_sources: 8_of_8_matched
+  artist_repository_shapes_unchanged: true
+
+canonical_reconciliation:
+  queue:
+    retry_before: 14
+    retry_after: 15
+    evidence_count_before: 137
+    evidence_count_after: 138
+    pre_sha256: 977F77BBF67828C52932075FFBF5D4BA46928014A6697DCC1607AAF5E3B24347
+    post_sha256: A62C666B04F08D3EAEFB9B20E4ED25F10104C403567A089833CB517640FB2AE3
+  index_post_sha256: D76D506183E45DF994FB2B8F0AD3831E780898171966941D7F34FEE457057908
+  current_state_post_sha256: 3C6B57069B2D75ED0B4994E56CBB556C6BC0EC2AF174B0B3A582ADBB4591FC16
+  defect_post_sha256: D453E7CF36B092E01298095263BCDB9DBADF109A13CDEA51E1340F21A15D316B
+  current_state_queue_snapshot_matches: true
+
+remaining_blockers:
+  - no SAFE8-bound reload records the protected map hash and serialized atmosphere properties
+  - the SAFE8 map has not been regenerated as a protected successor with an independently reviewed thin visual shell
+  - a fresh reload must record final atmosphere height, bottom radius, component scale, and parent scale after regeneration
+  - surface and orbit presentation still require bounded real-GPU captures
+  - current Titan and TitanEditor binaries are stale and lack exact build proofs
+  - the Windows client, gameplay, Steam transport, and multiplayer remain unverified
+
+claim_limit: >-
+  Static archive evidence proves the bundled 8 km script configuration, the
+  embedded radius-plus-height formula, and the full protected manifest. The
+  external reload is not bound to the protected map. This evidence does not
+  prove the archived map's serialized values, a regenerated map, serialized
+  scale after correction, compilation, runtime component state, visual
+  appearance, gameplay, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  Keep Unreal, builds, packaging, and real-GPU work closed below the sustained
+  resource gate. On a future resource-safe slice, generate a new rollback-safe
+  successor duplicate and archive with a reviewed thin atmosphere contract that
+  is independent of gameplay ascent; never overwrite protected SAFE8. Then
+  authenticate a fresh reload with the successor map hash and explicit
+  serialized dimensions and capture surface and orbit views on a real GPU. If a
+  safe archive-only inspection route becomes available first, record the SAFE8
+  map hash and properties without changing or overwriting it. Until then, select
+  a different independent static/offline module from the canonical queue.

@@ -1,0 +1,291 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-minimap-producer-inventory-static
+captured_utc: "2026-07-22T18:21:09Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: baked_replacement_minimap_fail_closed_legacy_surface_backend_preserved_unsafe_space_scan_not_bridged
+
+scope:
+  selected_slice: >-
+    Inventory the replacement and legacy minimap consumers, producers,
+    projection, local ownership, replication inputs, possession lifecycle, and
+    stale-clearing paths. Preserve every supplied asset and layout rectangle,
+    add no guessed replacement setter or bridge, and prevent the replacement's
+    baked sample map and contacts from presenting as live state.
+  gameplay_source_files_modified: 0
+  redhud_plugin_source_files_modified: 1
+  existing_test_files_updated: 1
+  test_files_added: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    upstream: origin/main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 60
+    individual_untracked_paths: 1342
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    captured_utc_range: ["2026-07-22T18:05:14Z", "2026-07-22T18:05:42Z"]
+    samples: 7
+    free_physical_gib_range: [8.122, 8.538]
+    free_commit_gib_range: [18.546, 19.044]
+    total_physical_gib: 31.872
+    commit_limit_gib: 52.872
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8895, 8908]
+    gpu_utilization_percent_range: [11, 14]
+    gpu_temperature_c_range: [42, 43]
+    c_free_gib: 132.673
+    d_free_gib: 1141.722
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    competing_redmmotitan_writers: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates were closed. Sustained free
+    physical RAM was below the 12 GiB running abort threshold and 18-20 GiB
+    packaging floor, while commit headroom was below the 24/26 GiB package gate.
+    Only offline source inspection, tests, and canonical reconciliation ran.
+  final_recheck:
+    captured_utc_range: ["2026-07-22T18:20:37Z", "2026-07-22T18:20:50Z"]
+    samples: 5
+    free_physical_gib_range: [8.419, 8.678]
+    free_commit_gib_range: [18.986, 19.274]
+    vram_total_mib: 10240
+    vram_free_mib_range: [8878, 8884]
+    gpu_utilization_percent_range: [11, 16]
+    gpu_temperature_c: 43
+    c_free_gib: 132.684
+    d_free_gib: 1141.722
+    strict_unreal_build_cook_package_processes: 0
+    launch_gates: closed
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  exit_code_sha256: F1B2F662800122BED0FF255693DF89C4487FBDCF453D3524A42D4EC20C3D9C04
+  memory_guard_sha256: 1426B7C4DADA2E803D1181561F198DA7842438E19D9C2DFF27CAF87A8FDA8B12
+  ubt_log_sha256: 9CEE73FC8B1A7CEAC8AAD5A4788AC4C36DAF030709606D82CD4D10ADC0F38D68
+  terminal_phase: UBT_UBA_BUILD
+  terminal_reason: free_physical_memory_fell_to_7_91_gib
+  cook_stage_package_archive_or_shader_started: false
+  current_attempt_archive_exists: false
+  july_17_archive_current_fused_marker: missing
+
+inspected_source_identity:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    pre_sha256: EA50937D08C68D9DA06F75EFDABFE91FC8168B45BF83B119AFAE0E961F4013EF
+    post_sha256: B268CE7CD29436309C6F1D24890D244E147C745BDC05CFB0F7CEB33D808DA3B3
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h, sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp, sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068}
+  - {path: Source/RedMMO/RedPlayerCharacter.h, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+  - {path: Source/RedMMO/RedHUD.h, sha256: D7B73FDFA5EAED5B60278BC41C6AF90326AC084E7BD89064C1C75207B9ACEC76}
+  - {path: Source/RedMMO/RedHUD.cpp, sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Widgets/VibeMMOHUDWidget.h, sha256: 63517C1222CAE6C4E99E89BC768AEB7B2299D304349FF94297E4938FE214E55E}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Widgets/VibeMMOHUDWidget.cpp, sha256: D882F421749E035A6A1491E622EBF58AF73CDBD235F178C99C988AFCC411EEC3}
+
+replacement_consumer_inventory:
+  existing_surface:
+    - EVibeMMOHUDElement Minimap layout identity
+    - one RedHUDLayout rectangle at the supplied position
+    - one supplied T_REDHUD_Minimap monolithic sprite
+  protected_source_png:
+    path: Plugins/RedHUD/Resources/Art/HighResSprites/T_REDHUD_Minimap.png
+    sha256: 1FA5A1EA4CBE02E0579216DD60FF28699186342A4D0AD26EAA83AC15F7A35A2D
+    dimensions: [1157, 1199]
+    read_only_visual_inventory:
+      - fixed fantasy terrain and corridors
+      - baked player arrow
+      - baked objective marker
+      - numerous baked red contacts
+  absent_contracts:
+    - replacement live minimap widget
+    - minimap state or contact type
+    - render-resource, surface-or-space-mode, contact, or clear setter
+    - cache, ownership epoch, revision, or stale rejection
+    - minimap snapshot field
+    - RedMMO replacement-HUD minimap bridge
+  pre_slice_bug: >-
+    SetLiveDataMode showed the supplied Minimap ArtImages entry and the generic
+    SetElementVisible API could show it again, making fixed sample contacts and
+    markers look like current gameplay state.
+
+legacy_surface_backend_inventory:
+  disposition: credible_future_local_surface_producer_not_bridged_in_this_slice
+  verified_paths:
+    - local-controller and non-dedicated creation gate
+    - 60 metre orthographic scene capture with expensive flags disabled
+    - 512 by 512 transient render target
+    - alternating 0.15 second portrait and minimap capture timer
+    - replicated bIsEnemy and bDowned plus replicated transforms drive up to eight hostile blips
+    - empty blip input collapses unused legacy pool entries
+    - PawnClientRestart retries local creation
+    - teardown clears the timer, removes the legacy widget, detaches both capture targets, and releases both render targets
+  bridge_blockers:
+    - replacement widget has no live image, frame-mask composition, or mode consumer
+    - replacement HUD persists across pawn possession while the render target is pawn-owned
+    - no explicit replacement clear transaction exists for pawn destroy, travel, or possession handoff
+    - the surface producer and replacement consumer have no ownership epoch or source identity
+    - current behavior, tangent orientation, pixels, capture cost, and stale clearing have no runtime evidence
+
+legacy_space_backend_inventory:
+  disposition: do_not_bridge_as_is
+  rejection_reasons:
+    - scans locally present actors by RedMineableSpaceAsteroid and VibeOrbitalMining tags
+    - classifies craft through Ship, Shuttle, or Fighter class/name substrings
+    - lacks authoritative sensor range, fog-of-war, team, visibility, and opponent-isolation policy
+    - lacks stable contact IDs, source epoch, monotonic revision, and deterministic tie-break ordering
+    - projects raw forward/right components and drops the third dimension
+    - recalculates heading from world Euler yaw instead of the stable planet-tangent heading
+    - invalid world or reference actor returns without clearing old markers or nearest-contact text
+    - distant contacts pin to the rim rather than following an accepted sensor contract
+
+bounded_content_filename_inventory:
+  roots: [Content/RedMMO, Content/UI]
+  matching_files:
+    - Content/RedMMO/UI/Generated/minimap_stylized_planet.uasset
+    - Content/UI/RedHUD/Textures/ExactLayoutSprites/T_REDHUD_Minimap_Exact.uasset
+    - Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_Minimap.uasset
+    - Content/UI/RedHUD/Textures/Masks/T_REDHUD_MinimapCircleMask.uasset
+  compiled_replacement_references:
+    - Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_Minimap.uasset
+  serialized_boundary:
+    - Blueprint graphs and serialized package payloads were not decoded
+    - identifier searches cannot exclude an alternate-named or Blueprint-callable bridge
+    - the filename test will intentionally fail when a new reviewed minimap asset is added
+
+source_hardening:
+  helper: IsDormantLiveDataArtName
+  known_compiled_visibility_paths_guarded:
+    - SetLiveDataMode excludes Minimap and all three party rows in live mode
+    - SetElementVisible refuses to re-show Minimap or the party rows
+    - ApplyHUDLayout re-applies SetLiveDataMode before element transforms
+  preserved:
+    - supplied minimap art, exact-art composite, mask, and generated-map assets
+    - authored Minimap rectangle and layout customization identity
+    - legacy surface capture, blip, mode, space-radar, restart, and teardown source
+    - all existing granular gameplay feeds
+  not_added:
+    - minimap setter or replacement live widget
+    - minimap state or snapshot field
+    - surface or space bridge
+    - guessed sensor, contact, POI, party, or quest data
+
+required_future_minimap_contract:
+  before_any_replacement_bridge:
+    - explicit per-local-player source ownership and ownership epoch
+    - stable celestial body or navigation frame ID
+    - explicit surface, space, absent, and clear modes
+    - server-authorized stable contact identities and visibility policy
+    - deterministic ordering, bounded overflow, and opponent isolation
+    - monotonic revision or equivalent stale and out-of-order rejection
+    - pawn destruction, unpossession, respawn, reconnect, travel, and late-join clear semantics
+    - reviewed replacement frame and circular-mask composition
+    - resource lifetime and render-target clear before releasing a pawn-owned producer
+    - real-GPU performance and 16:9 plus ultrawide visual acceptance
+
+performance_follow_up:
+  status: open_not_modified_in_this_slice
+  finding: >-
+    The collapsed legacy HUD continues alternating portrait and minimap scene
+    captures even though the replacement HUD consumes neither render target.
+    Gating or reusing that work requires its own ownership and runtime-performance
+    slice so the loadout backend and future surface bridge are not regressed.
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_minimap_inventory_contract.py
+  focused_test_sha256: A248CEE95F4252BCA2FC2780848B0DF821F264B232B25A0F7ACCD5F4C8ECD7B2
+  focused_test_length: 11410
+  updated_party_regression_test: Tools/tests/test_def0004_replacement_hud_party_inventory_contract.py
+  updated_party_regression_test_sha256: 77AFDD41C49FBDCA15ABCD7470F51B691620C96FF633377EA8B22A7B063D4792
+  focused_minimap_inventory_and_fail_closed_tests: 7_of_7_passed
+  prior_HUD_shared_and_provenance_contracts: 93_of_93_passed
+  combined_result: 100_of_100_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDMinimapInventory_20260722_1802/offline_contract_and_provenance_tests.log
+  log_sha256: 5749E1650E4D75DD7BA73ADA6B2EC0937765467EFE0FCFDC8D82CFD0F1EB3A0B
+  independent_review: PASS_with_static_identifier_filename_and_undecoded_blueprint_claim_limits
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDMinimapInventory_20260722_1802/target_currency.json
+  report_sha256: A44BA6D13C46277EDBDC8A3D31CED91DDF8F23B14D471338A26CA2F1DFE7A255
+  input_manifest_sha256: 38A967D88BB7861DD88A9E33048A60A8131EDB3BA267E2241BB218475CE2C074
+  input_count: 874
+  Titan:
+    currency_state: stale_unproven
+    newer_inputs: 38
+    newer_categories: {config: 2, plugin: 8, source: 28}
+    exact_build_proof: missing
+  TitanEditor:
+    currency_state: stale_unproven
+    newer_inputs: 26
+    newer_categories: {plugin: 2, source: 24}
+    exact_build_proof: missing
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004MinimapInventory_20260722_211209
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004MinimapInventory_20260722_211209/MANIFEST.txt
+  manifest_sha256: 53EC902162D2EF959D60711456DAA6F7D2D9B8ACA54EDFA7DCB3F2188E25930B
+  backed_up_files: 6
+  files_including_manifest: 7
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  final_topology_checks: 9_of_9_passed
+  final_fused_provenance_checks: 7_of_7_passed
+  final_protected_source_rasters: 135_of_135_matched
+  final_SAFE8_manifest_entries: 338_of_338_matched
+  final_SAFE8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  final_supplied_HUD_textures: 56_preserved
+  final_HUD_manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  final_vibe_sources: 8_of_8_preserved
+  final_artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+  final_rollback_files: 6_of_6_exact
+  final_canonical_parse: 85_yaml_plus_queue_json_zero_errors
+  final_queue_hash_matches_current_state_and_evidence: true
+
+canonical_queue:
+  pre_slice_sha256: A70E3E4A2F7E89FA5BC025C90D93C7A786C75350123685655A95AB694F298787
+  post_slice_sha256: AC1DDBB7BC4F3384F89BC83A0BC6CEEF1D91FA526E971CAD3876E069D30413FA
+  module_status: incomplete_retry
+  retry_count: 14
+
+remaining_blockers:
+  - replacement surface and space minimap need the reviewed contract listed above before any bridge
+  - the current hidden scene captures need a separate lifecycle and GPU-cost decision
+  - serialized Blueprint graphs and package payloads remain undecoded
+  - default KeyboardMouse ability readiness and cooldown feedback remains incomplete
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - current HUD behavior and pixels require runtime and real-GPU evidence
+  - party, quest, consumables, aggregate snapshot, complete layout coverage, painted controls, persistence, packaging, Steam transport, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves a bounded compiled-source and content-filename inventory
+  plus static fail-closed hardening across known RedHUD visibility paths. It does
+  not decode Blueprint graphs or serialized assets, accept an alternate-named
+  producer, compile C++, launch Unreal, render the HUD, measure scene-capture
+  cost, prove surface or space projection, prove gameplay, package Windows,
+  exercise Steam transport, or test multiplayer.

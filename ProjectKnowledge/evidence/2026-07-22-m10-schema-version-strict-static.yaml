@@ -1,0 +1,239 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-SCHEMA-VERSION-STRICT-STATIC
+captured_at: "2026-07-22T22:01:28Z"
+module: M10
+slice: strict-schema-version-validation
+evidence_class: static
+result: strict_schema_version_validation_fail_closed_two_missing_versions_exposed_three_p2_limits_remain
+
+authorization_and_scope:
+  intended_work: >-
+    Close only the documented schema_version hardening category by requiring
+    the exact non-boolean integer 1 in INDEX, queue, current state, invariants,
+    and every successfully parsed INDEX-linked YAML or yml mapping.
+  production_files_modified: 0
+  runtime_or_gameplay_files_modified: 0
+  tooling_files_modified:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_preserved:
+    - production maps, protected checkpoints, fused prototype assets, and archives
+    - artist repositories, handoffs, and all protected source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+    - the two historical records newly reported as missing schema_version
+  explicitly_deferred:
+    - high-gate affirmative and explicit-negative parsing semantics
+    - completed-module evidence success, association, and class compatibility
+    - recursive nested YAML and yml orphan discovery
+    - all legacy metadata repair
+    - Unreal, build, cook, package, real-GPU, gameplay, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1361
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_shader_zen_uba_count: 0
+    competing_project_writer_before_slice: false
+  root_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 7.455, maximum: 7.551, average: 7.515}
+    commit_headroom_gib: {minimum: 16.868, maximum: 17.089, average: 16.985}
+  independent_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 8.460, maximum: 8.524, average: 8.501}
+    commit_headroom_gib: {minimum: 17.151, maximum: 17.250, average: 17.189}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1503_to_1577, free_mib: 8477_to_8551, utilization_percent: 11_to_18, temperature_c: 44}
+    disk_free_gib: {C: 132.00, D: 1141.72}
+  decision: static_offline_only
+  latest_build:
+    path: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+    sha256: 004D624A8BEFECD9625B8894336B94F171FA4DDCBF8398A48980144B0ABB3335
+    historical_result: TitanEditor_Win64_Development_succeeded
+    current_status: stale_or_unproven
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_stage_package_archive_started: false
+    failure: physical_memory_guard_below_8_gib
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+pre_implementation_audit:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/integrity_pre.json
+    bytes: 17352
+    sha256: 1BFC1E6E491A73E4C81BDE3B937234961A5F8A54AD6F871978106B822A0527D0
+  expected_exit_code: 1
+  finding_count: 62
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI022: 1}
+
+pre_implementation_discovery:
+  unique_indexed_yaml_records: 92
+  missing_schema_version_records:
+    - path: ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry.yaml
+      bytes_preserved: true
+      sha256: C3E33A3012FDE3F33902E30414BFBF261AAD64F392E30D3F2E7C1093E6741420
+    - path: ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-02.yaml
+      bytes_preserved: true
+      sha256: 03E521D6A3350E479450C17598275CE4F6E1F2003A24AFD12607844EB7B54B7B
+  decision: >-
+    Report both genuine gaps rather than combining this tool-hardening slice
+    with historical metadata repair. The stricter live audit therefore grows
+    from 62 to 64 findings by exactly two PKI020 records.
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 30808
+    sha256: FEDF301BE0679576B9F7978FAC9B0DC90BA0F4B7656715862E891A1732F605C2
+    behavior:
+      - type-exact integer-one validation rejects bool, float, null, string, missing, and wrong integers
+      - INDEX and JSON queue remain directly validated
+      - every successfully parsed INDEX-linked YAML or yml mapping is validated once by normalized resolved path
+      - current state and invariants retain direct canonical fallbacks when their INDEX routes are absent
+      - unsafe, missing, parse-invalid, and non-mapping route handling is not reclassified by this slice
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 17220
+    sha256: DAEE5C906A802F42A7307B3949E00A7BCBF1BB7667962B96B9996489FB391A6A
+    focused_contracts_passed: 13
+    invalid_shapes:
+      - boolean_true
+      - boolean_false
+      - float_one
+      - wrong_float
+      - zero_integer
+      - wrong_integer
+      - numeric_string
+      - null
+      - missing
+    record_classes:
+      - INDEX
+      - JSON_queue
+      - current_state
+      - invariants
+      - indexed_yml_system
+      - indexed_yaml_evidence
+      - indexed_yaml_defect
+
+verification:
+  slice_intent:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/slice_intent.yaml
+    bytes: 2185
+    sha256: 411E8A8AACAB673879E55AABC535BF4778E9FAEC696C682EF5D3C46247B84FA6
+  focused_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/focused_tests_final.log
+    bytes: 6168
+    sha256: AFDB568E424AAD04F5E3560E5039833208DD3492EE3261E9495F01C28BBE6C87
+    result: 13_of_13_passed
+  combined_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/combined_regression_tests_final.log
+    bytes: 15130
+    sha256: 8BBB26D16F0036992423F9A527ACF92C312B761F289BE14756B58110B72883CC
+    result: 35_of_35_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  live_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/integrity_probe_final.json
+    bytes: 17807
+    sha256: 66C559AAE94353732A1E91E94C30DEF2F55D4B206CC1C3FD09BE510BE38037D7
+    expected_exit_code: 1
+    result: prior_backlog_plus_exactly_two_missing_schema_versions
+    finding_count: 64
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  independent_review:
+    result: pass_after_canonical_invariants_fallback_and_fixture_isolation_corrections
+    confirmed:
+      - current state and invariants each report once through linked or fallback paths
+      - duplicate-ID fixture now produces only PKI004 and PKI010
+      - unsafe, missing, and parse-invalid routes add no schema finding
+      - live PKI020 findings are limited to the two discovered historical records
+
+protection:
+  pre_slice_result: pass_no_drift
+  canonical_yaml_records_parsed: 93
+  protected_rasters_exact: 135_of_135
+  supplied_hud_assets_exact: 56
+  vibe_sources_exact: 8_of_8
+  safe8_manifest_members_exact: 338_of_338
+  unrelated_input_sentinels_exact: 874_of_874
+  artist_repository_shapes:
+    SAFE7: clean
+    SAFE8: 4_modified_1_untracked
+    SAFE9: 9_modified_3_untracked
+  unreal_build_or_git_writer_count: 0
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10SchemaVersionStrict_20260722_2152
+  retained_files: 5
+  auditor_before_sha256: 0FC3D55AA1B0DF47294367CD96F793B60E11C66818F940DB91FACCFC60B7A21B
+  tests_before_sha256: 232BAA47F76C90D22CCA25CF95F94F36D0D0D5A0FD33FDD35E9D8C9927509EA6
+  index_before_sha256: 3ED43DF1959A657D643C4E6AB367E8B2C1A284C6B6DB895EDBD0D2E134AD1510
+  current_state_before_sha256: 7DAFBF8FD4B9C20F8C05165EED70257FD6ECCB513B6E76104A3851942B40CF45
+  queue_before_sha256: B5E69BA363A5B07D9133E478D699665F24A92A247AD4E45B70BA9E355F299642
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_SchemaVersionStrict_20260722_2152/integrity_final.json
+    bytes: 17807
+    sha256: AAA2510DD9D21D2D8A83230E2B0D38107414468557A6684D006DADE32807709C
+    expected_exit_code: 1
+    result: failed_closed_with_64_current_metadata_findings
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    indexed_routes: 103
+    indexed_evidence_records: 68
+    indexed_defect_records: 7
+    queue_modules: 12
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 9719
+    sha256: 7504386252A234B4FA57C16CDB772F843B25BB42B0C3C3C52B58DE65D312BD54
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 54831
+    sha256: 344AF0D5C039CDDB640B9677F9BE4A1D307DFF235C3C370988448247D0833011
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 176225
+    sha256: BA556CFF7644052A5729DCF0772CA99365196D88A29834573F98C136DB3DE505
+  queue_snapshot_matches_current_state: true
+
+remaining_m10_blockers:
+  auditor_hardening_categories: 3
+  legacy_metadata_findings: 64
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This static slice closes only strict schema_version validation and exposes two
+  pre-existing missing-version records. It does not repair those records, close
+  the other three auditor limitations, complete M10, compile project targets,
+  or prove runtime, visuals, gameplay, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  In a later isolated M10 slice, harden high-gate affirmative parsing for
+  verified and succeeded while excluding explicit negatives such as
+  not_visual_accepted. Do not combine that work with completed-evidence
+  compatibility, orphan discovery, metadata cleanup, HUD, gameplay, maps,
+  artist work, Unreal, build, package, or runtime categories.

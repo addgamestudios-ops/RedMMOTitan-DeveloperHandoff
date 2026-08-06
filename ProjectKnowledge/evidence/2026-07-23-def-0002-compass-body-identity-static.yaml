@@ -1,0 +1,201 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0002-COMPASS-BODY-IDENTITY-STATIC
+captured_at: "2026-07-23T00:01:42Z"
+module: M02
+slice: DEF-0002-compass-body-identity
+evidence_class: static
+result: source_safeguard_implemented_static_contracts_passed_runtime_unverified
+
+authorization_and_scope:
+  bounded_defect: DEF-0002
+  intended_change: >-
+    Prevent a last-stable spherical compass heading captured on one gravity body
+    from being reused after the fighter changes to another body or loses a valid
+    stable body identity.
+  presentation_behavior_changed: true
+  gameplay_authority_or_movement_changed: false
+  production_files_modified:
+    - Source/RedMMO/RedPlayerCharacter.h
+    - Source/RedMMO/RedPlayerCharacter.cpp
+  test_files_added:
+    - Tools/tests/test_def0002_compass_body_identity_contract.py
+  canonical_files_updated:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0002-compass-body-identity-static.yaml
+  explicitly_preserved:
+    - gravity-body selection and hysteresis
+    - ship movement, collision, recovery, landing, parking, authority, and replication
+    - HUD plugin code, supplied HUD art, Config, maps, assets, packages, artist repositories, handoffs, user assets, and unrelated dirty work
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 60
+  individual_untracked_files_before: 1365
+  conflicts_before: 0
+  other_continuation_overlap_count: 0
+  unreal_build_cook_package_overlap_count: 0
+  stale_zero_byte_git_index_lock_preserved: true
+
+resource_gate:
+  sustained_samples: 12
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [6.818, 10.240]
+  free_physical_ram_gib_mean: 8.561
+  free_commit_gib_range: [9.864, 13.357]
+  free_commit_gib_mean: 11.624
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_used_vram_mib: 1439
+  rtx_3080_free_vram_mib: 8615
+  gpu_utilization_percent: 12
+  gpu_temperature_c: 41
+  free_disk_gib: {C: 131.872, D: 1141.634}
+  decision: >-
+    Sustained physical RAM was far below the 18-20 GiB packaging gate. No Unreal,
+    Titan, UBT, UAT, build, cook, package, shader, IoStore, Zen, runtime, or
+    real-GPU process was launched.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002CompassBodyIdentity_20260722_2357
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002CompassBodyIdentity_20260722_2357/pre_slice_manifest.yaml
+  manifest_sha256: B08C6F1557877C9D7BDB81B724A5A511E6C45F4FD5040C0DA55D2D005B2E63AF
+  exact_backups_plus_manifest: 9_of_9
+  source_identities_before:
+    - {path: Source/RedMMO/RedPlayerCharacter.h, bytes: 70750, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+    - {path: Source/RedMMO/RedPlayerCharacter.cpp, bytes: 345556, sha256: 1F6FA8570C86CC1A44C0C329964FC8CBE58BBEBFE1B02E5458AD9A33CF0D3D6F}
+  note: >-
+    The checkpoint captures exact pre-edit dirty working-tree bytes rather than
+    substituting repository HEAD. The focused test was recorded as absent before.
+
+implemented_contract:
+  identity_source:
+    - the compass reads URedShipMovementComponent::GetCurrentGravityBodyId through the existing const getter
+    - it does not query, select, reprioritize, or mutate a gravity body
+  invalidation:
+    - NAME_None or a stable ID different from the cached ID clears cache validity and cached body identity before tangent evaluation
+    - a non-ship HUD reference also clears cache validity and cached body identity
+  cache_write:
+    - a non-degenerate tangent heading is cached only when the current stable body ID is nonempty
+    - heading and body identity are written together before the cache becomes valid
+  cache_read:
+    - degenerate tangent fallback requires a valid cache, a nonempty current ID, and exact cached/current ID equality
+    - a heading from body A therefore cannot be reused on body B
+  mutation_boundary: >-
+    Only local compass presentation cache state changed. Gravity, transforms,
+    velocity, collision, input, landing, parking, HUD layout/art, and replication
+    are untouched.
+
+source_identity_after:
+  - {path: Source/RedMMO/RedPlayerCharacter.h, bytes: 70872, sha256: CFEDDEBDB59E9A3ECFB3EE203CA1C1C01D4CA84D86FCFF363066DE10C34B3E31}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, bytes: 346186, sha256: 45F8D3FBD72CEC08F52EC1FE071EFB1840A386AC46236EAD3DA3B8C04A2372A9}
+  - {path: Tools/tests/test_def0002_compass_body_identity_contract.py, bytes: 3825, sha256: B9D37ED4D4BF6105A1FE0A2E67B33FB58C0B6868713EA5654A947129DCC78D08}
+unchanged_relevant:
+  - {path: Tools/tests/test_def0002_ship_reboard_contract.py, sha256: 3E1A87FBAD3218A83000A234112841D32C7A3C15FEC2838B01B796F51DF15B40}
+  - {path: Tools/tests/test_def0002_ship_gravity_telemetry_contract.py, sha256: 10F7F6F40D1102643C14126B4B26BE9DD847FDBFFB4717A81E96058C06607628}
+
+verification:
+  baseline_result: 119_of_119_passed
+  baseline_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/baseline_regression_tests_corrected.log
+  baseline_log_sha256: 7331E8D77BBF1EB47A5C248A4F5D9314F564B1275F9D6AD7C2084F196CBD3F9E
+  focused_compass_body_identity_contracts: 6_of_6_passed
+  current_regression_result: 125_of_125_passed
+  current_regression_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/post_edit_regression_tests.log
+  current_regression_log_sha256: 7897EAD9D19C3E0977F0494F5DF08A744F2F777B33A795D059C6A40D16080232
+  post_canonical_regression_result: 125_of_125_passed
+  post_canonical_regression_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/post_canonical_regression_tests.log
+  post_canonical_regression_log_sha256: CD916E919B0219A58C3318568B7BC365B13231E65E1382259D727E471DD447AC
+  integrity_currency_package_guard_contracts: 35_of_35_passed
+  integrity_currency_package_guard_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/integrity_currency_package_guard_tests.log
+  integrity_currency_package_guard_log_sha256: D137030A096D2A48767B0488356C76BCB4F90463D2C969464AFF1D9690553BE4
+  final_protection_contracts: 15_of_15_passed
+  final_protection_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/final_protection_contract_tests.log
+  final_protection_log_sha256: FB37F887477F492FB16E2307334C590F5904124CB2D584DC2B7AA1F7EB606D7C
+  independent_review_result: pass_zero_findings
+  independent_review_tests: 19_of_19_passed
+  independent_review: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/independent_review.txt
+  independent_review_sha256: B09E8FBB3177E63C91FEB65EF4B82EE4F4D3E30757DA07DF1E4DDB533372FFDA
+  compile_uht_verified: false
+  runtime_verified: false
+  visual_or_gameplay_verified: false
+
+canonical_integrity_audit:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/project_knowledge_integrity.json
+  report_sha256: 6CEE84C8A7DFD0467BB54E1763B220F761C754FE03D439A9E6FBF60E1D70F3C2
+  exit_code: 1
+  result: expected_fail_closed_with_unchanged_legacy_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_CompassBodyIdentity_20260722_2357/target_currency_audit.json
+  report_sha256: F797BB8D9565122D6AACCA546E8C67DD8F7CAA875E71DB64AF75C531D8A6E82E
+  captured_at: "2026-07-23T00:01:42.385123Z"
+  input_count: 874
+  input_manifest_sha256: 991F852FD056865DD187DFDA3777C3112E0BB66227735018F490DAB2856CB96A
+  exit_code: 10
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 38
+  titan_editor_newer_project_inputs: 26
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_archive_started: false
+  note: >-
+    The guarded attempt stopped before cook and produced no current archive or
+    ready marker. Historical successful build output is stale for these sources.
+
+canonical_sync:
+  module_queue_sha256: 900B51CB085DCDCF79495FBF6C6335DA23209DD13712E5D81B0C646470928F02
+  current_state_snapshot_sha256: 900B51CB085DCDCF79495FBF6C6335DA23209DD13712E5D81B0C646470928F02
+  module_status: queued
+  module_retry_count: 16
+  defect_status: open
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_source_rasters: 135_of_135_exact
+  hud_art_assets: 56_of_56_exact
+  vibe_pinned_sources: 8_of_8_exact
+  safe8_embedded_manifest: 338_of_338_exact
+  unrelated_input_sentinels: 874_of_874_exact
+  artist_repository_baselines_changed: false
+
+remaining_acceptance:
+  - compile and link current TitanEditor and Titan targets with exact proofs under a safe resource gate
+  - invoke gravity snapshots before landing and after reboard and require frame pass plus settled alignment where applicable
+  - implement bounded collision-aware fitted-envelope passive recovery and reversible landing and parking clearance
+  - run real-GPU landing, exit, reboard, takeoff, stationary compass, and nose-radial body-transition acceptance
+  - run two-client authority, replication, late-join, and multiplayer acceptance
+
+claim_limit: >-
+  Static source inspection, contracts, and independent review prove only that the
+  body-keyed compass cache safeguard is present in source and scope-contained.
+  They do not prove UHT, compilation, runtime body transitions, landing, reboard,
+  takeoff, collision recovery, rendering, packaging, replication, or multiplayer.
+  DEF-0002 remains open.
+
+next_safe_action: >-
+  Do not retry Unreal work until a sustained safe resource gate passes. Then
+  compile current TitanEditor and Titan targets before a bounded real-GPU
+  gravity-snapshot, landing, reboard, takeoff, and compass acceptance run. On a
+  low-RAM heartbeat, reassess the authoritative queue for a different independent
+  static slice rather than expanding this defect into collision recovery.

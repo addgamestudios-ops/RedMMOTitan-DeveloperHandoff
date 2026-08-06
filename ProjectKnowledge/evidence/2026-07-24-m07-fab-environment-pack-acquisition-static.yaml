@@ -1,0 +1,253 @@
+schema_version: 1
+id: evidence.m07.fab-environment-pack-acquisition.static.2026-07-24
+captured_utc: "2026-07-24T16:28:00Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: fab-entitlement-compatibility-launcher-recovery-and-staging-boundary
+evidence_class: static
+result: passed_entitlement_compatibility_and_launcher_recovery_installation_pending_action_time_confirmation
+
+scope:
+  authorized:
+    - verify the two newly purchased Fab products against the signed-in account
+    - distinguish the exact products from older similarly named local packs
+    - inventory supported Unreal versions, distribution types, asset counts, and migration risks
+    - recover the blank Epic Games Launcher Fab view without modifying project content
+    - inspect the launcher workflows up to, but not including, the final installation action
+  explicitly_not_run:
+    - final Create or Add to Project action
+    - vendor payload download, extraction, conversion, migration, resave, or package mutation
+    - RedMMOTitan Content, plugin, map, production-map, artist-handoff, or vendor-source mutation
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  porcelain_entries_observed: 1557
+  tracked_dirty_entries_observed: 60
+  untracked_entries_observed: 1497
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_start: 16.195
+  commit_limit_gib: 54.872
+  commit_headroom_gib_start: 34.148
+  disk_c_free_gib_start: 123.077
+  disk_d_free_gib_start: 1139.971
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_start: 8545
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  snapshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_FabEnvironmentPackAcquisition_20260724_1610Z/preflight.json
+
+account_and_entitlement:
+  signed_in_epic_account_label: Red-MMO
+  purchase_history:
+    - date: "2026-07-24"
+      title: Stylized Nature - Desert Savanna Environment
+      marketplace: Fab Marketplace
+      amount: UAH 967.20
+      state: purchased
+    - date: "2026-07-24"
+      title: Stylized Nature - Tropical Island and Underwater Environment
+      marketplace: Fab Marketplace
+      amount: UAH 967.20
+      state: purchased
+  fab_library:
+    owned_product_count_observed: 179
+    exact_products_visible_as_owned: true
+    exact_download_controls_visible: true
+    web_download_contract: Unreal Engine payloads route to Epic Games Launcher
+
+products:
+  desert_savanna:
+    title: Stylized Nature - Desert Savanna Environment
+    listing_id: 12ec20bd-ce21-4d3d-8051-13ffb0fe851e
+    listing_url: https://www.fab.com/listings/12ec20bd-ce21-4d3d-8051-13ffb0fe851e
+    publisher: TonyTheng-Art
+    distribution: asset_package
+    supported_unreal_versions: [5.3, 5.4, 5.5, 5.6]
+    supported_platforms: [Windows]
+    latest_update_observed: "2025-07-21"
+    unique_meshes: 51
+    materials: 19
+    material_instances: 43
+    textures: 129
+    texture_resolution_range: 512_to_4096
+    lods: 4_automatic
+    collision: automatic
+    notable_systems:
+      - stylized foliage, trees, rocks, cliffs, and sand shaders
+      - runtime virtual texture blending
+      - customizable grass color and wind
+      - stylized sand, fog, and waterfall effects
+    launcher_workflow:
+      action: Add to Project
+      compatible_local_project_count: 0
+      show_all_projects_revealed:
+        - PilotableSpaceshipSystem
+        - RedMMOMCPBootstrap
+        - Titan
+      revealed_projects_engine_version: "5.8"
+      final_action_executed: false
+  tropical_island_underwater:
+    title: Stylized Nature - Tropical Island and Underwater Environment
+    listing_id: 934c1286-7388-4aa5-a300-e0a7cdf65675
+    listing_url: https://www.fab.com/listings/934c1286-7388-4aa5-a300-e0a7cdf65675
+    publisher: TonyTheng-Art
+    distribution: complete_project
+    supported_unreal_versions: [5.4, 5.5, 5.6]
+    supported_platforms: [Windows]
+    explicitly_unsupported_platforms: [Mac]
+    latest_update_observed: "2025-07-21"
+    unique_meshes: 75
+    trees: 3
+    foliage_meshes: 36
+    rock_meshes: 16
+    bushes: 10
+    blueprints: 3
+    effects: 5
+    materials: 24
+    material_instances: 56
+    textures: 133
+    texture_resolution_range: 512_to_4096
+    lods: 3_to_5
+    collision: automatic
+    notable_systems:
+      - runtime virtual texture grass
+      - landscape-blended and sand-covered rocks
+      - water and underwater shaders
+      - waterfall controls
+      - spline river
+    launcher_workflow:
+      action: Create Project
+      default_engine_version: "5.6"
+      destination_form_reached: true
+      final_action_executed: false
+
+license_and_provenance:
+  fab_license: Standard License
+  allows_usage_with_ai: false
+  generated_with_ai: false
+  policy:
+    - preserve untouched vendor source roots
+    - do not upload vendor source assets for model training or external generative processing
+    - expose approved assets through project-owned catalogs, material instances, and palettes
+    - do not redistribute vendor source assets standalone
+  license_url: https://www.fab.com/eula
+
+local_inventory_before_install:
+  exact_target_payloads_present: false
+  exact_target_listing_rows_present: false
+  fab_catalog:
+    path: D:/EpicGamesLauncher/VaultCache/FabLibrary/listings_v1.db
+    bytes: 139264
+    last_write_before_launcher_recovery: "2026-07-17T19:50:16.745Z"
+    last_write_after_launcher_recovery: "2026-07-24T19:23:35+03:00"
+    exact_target_rows_after_recovery: 0
+  older_lookalikes_not_targets:
+    - title: Stylized Desert | Oasis Nature Environment
+      local_listing_uid: bef25c2d-6732-4d70-b0fd-271cbd45093d
+      payload: D:/EpicGamesLauncher/VaultCache/Stylized1c727ae459cdV1
+    - title: Stylized Desert Oasis
+      local_listing_uid: 0728499f-9ed9-4fa4-99b7-1bba16957348
+      payload: D:/EpicGamesLauncher/VaultCache/Stylized852cf8eb79fbV1
+    - title: Tropical Alien World
+      local_listing_uid: 4cf3173d-eed8-4f7c-9080-a851ab7f9c60
+      payload: D:/EpicGamesLauncher/VaultCache/Tropical9b7dde01db55V1
+
+launcher_recovery:
+  initial_state: Fab view rendered blank and exposed no usable controls
+  cef_log:
+    path: C:/Users/user/AppData/Local/EpicGamesLauncher/Saved/Logs/cef3.log
+    observed_error: Passthrough is not supported, GL is disabled
+  official_support:
+    title: Epic Games Launcher displays incorrectly or appears blank
+    url: https://www.epicgames.com/help/en-US/c-202300000001639/c-202300000001735/a202300000014030
+    applied_fix: exit launcher, preserve and remove the active web cache from its live location, then restart the launcher
+  cache_recovery:
+    source: C:/Users/user/AppData/Local/EpicGamesLauncher/Saved/webcache_4430
+    preserved_at: D:/RedMMOTitanWindowsData/Rollback/M07_FabEnvironmentPackAcquisition_20260724_1610Z/webcache_4430.pre
+    recoverable: true
+  result:
+    launcher_restart_succeeded: true
+    unreal_engine_news_rendered: true
+    fab_discover_rendered: true
+    fab_my_library_rendered: true
+    exact_owned_cards_visible: true
+    exact_install_workflows_reached: true
+
+integration_risk:
+  engine_compatibility:
+    installed_engine: "5.8"
+    vendor_supported_maximum: "5.6"
+    ue_5_8_forward_conversion_unverified: true
+  curved_planet:
+    - demo landscapes and maps are flat-world authoring sources, not directly bendable cube-sphere terrain
+    - static meshes, textures, and material instances are the preferred curated inputs
+    - RVT, landscape blending, grass wind, water depth, underwater volumes, river splines, and waterfall logic assume world Z until adapted
+    - curved-tile use requires tangent-local placement plus radial local-up adaptation
+  performance:
+    - foliage needs HISM, LOD or Nanite review, culling, WPO-disable distance, and shadow-cost profiling
+    - texture volume needs streaming and VRAM profiling
+    - real-GPU visual and performance evidence is mandatory before acceptance
+
+protected_inputs_after_slice:
+  - path: Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+verification:
+  canonical_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 137
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_FabEnvironmentPackAcquisition_20260724_1610Z/project_knowledge_integrity_final.json
+  project_knowledge_integrity_contracts:
+    result: 20_of_20_reported_ok
+  queue:
+    modules: 13
+    sha256: 42528EE53A6148095CA4FC4A8FE62D3651437E2F0A9502A0AAC40B2B97143C13
+  rollback_preimages:
+    - path: D:/RedMMOTitanWindowsData/Rollback/M07_FabEnvironmentPackAcquisition_20260724_1610Z/redmmotitan_module_queue.json.pre
+      bytes: 246475
+      sha256: B63BA767BA4B3D79F89AD8614FF083865B1935CBF8AEF9EBF77E1BD8F695A5C3
+    - path: D:/RedMMOTitanWindowsData/Rollback/M07_FabEnvironmentPackAcquisition_20260724_1610Z/current_state.yaml.pre
+      bytes: 145219
+      sha256: 129A3344DF29BFA3BA75617BA3EDB822CC5485C1D3579C7F8B1E1383483581FC
+    - path: D:/RedMMOTitanWindowsData/Rollback/M07_FabEnvironmentPackAcquisition_20260724_1610Z/INDEX.yaml.pre
+      bytes: 16318
+      sha256: 8A722E3CB95EBCCADCFC2FCAC2F3B3999F13D727BC78F08CBDD6440451D38289
+  launcher_cache:
+    preserved_file_count: 2315
+    preserved_bytes: 365456599
+    rebuilt_file_count_observed: 239
+    rebuilt_bytes_observed: 42853259
+
+remaining_gates:
+  immediate_confirmation_required:
+    - create the Tropical complete project under D:/RedMMOTitanWindowsData/VendorStaging using vendor version 5.6
+    - create or register a clean isolated staging project before adding the Desert asset package; do not add it directly to Titan
+  after_install:
+    - inventory exact downloaded bytes, package roots, dependencies, redirects, configuration, and source hashes
+    - preserve vendor masters and create project-owned curated material instances and palettes
+    - forward-convert only isolated copies to UE 5.8
+    - migrate a minimal reviewed dependency set into an isolated duplicate curved-tile review map
+    - capture real-GPU seam, radial alignment, material, foliage, water, WPO, shadow, streaming, and performance evidence
+
+claim_limit: >-
+  This is static account, listing, local-inventory, launcher-recovery, and
+  workflow evidence. It verifies ownership, exact listing identity, declared
+  compatibility, distribution type, and the available launcher actions. It
+  does not prove that either payload downloaded, installed, opened, converted,
+  migrated, rendered, performed acceptably, or fitted a curved PlanetGen tile.
+  No Unreal package or protected input was changed.

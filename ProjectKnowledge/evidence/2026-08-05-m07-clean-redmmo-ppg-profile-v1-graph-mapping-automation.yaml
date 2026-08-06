@@ -1,0 +1,114 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-graph-mapping-automation.2026-08-05
+captured_utc: "2026-08-05T03:59:28Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-read-only-exact-graph-mapping
+evidence_class: automation
+result: pass_read_only_partial_mapping_fail_closed
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  profile_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  exit_code: 0
+  elapsed_seconds: 20.8
+  home_map_loaded: false
+  save_called: false
+  set_editor_property_called: false
+  dirty_packages_after: []
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+graph_inventory:
+  generation:
+    asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+    expression_count: 122
+    planet_noise_node_count: 9
+    elevation_output: MaterialExpressionPlanetElevationOutput_0
+  biome_mask:
+    asset: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_BiomeMask
+    expression_count: 44
+    output: MaterialExpressionPlanetBiomeMaskOutput_0
+  surface:
+    instance: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+    parent: /Game/RedMMO/World/PPG/HomeWorld/ContinentBiome/R15/Materials/M_PPG_Home_BiomeSurface_R15
+    parent_expression_count: 201
+    output: MaterialExpressionPlanetBiomeMaterialOutput_0
+
+exact_supported_controls:
+  - GenerationSeed
+  - BiomeCellResolution
+  - BiomeCellSeed
+  - BiomeTransition
+  - BiomeMaterialHeightBlendSmoothness
+  - BiomeVoronoiWarpStrength
+  - BiomeVoronoiWarpScale
+  - GenerateNativeRadialWater
+  - BiomeRelief.Ocean
+  - BiomeRelief.Poles
+
+fail_closed_controls:
+  ContinentalNoise:
+    status: unsupported_ambiguous
+    reason: nine biome-local PlanetNoise nodes exist and none has the required RedProfile.ContinentalNoise identity tag
+  DetailNoise:
+    status: unsupported_ambiguous
+    reason: nine biome-local PlanetNoise nodes exist and none has the required RedProfile.DetailNoise identity tag
+  BiomeRelief.Craters:
+    status: unsupported_incomplete
+    reason: no exact height-plus-bias parameter pair
+  BiomeRelief.Hills:
+    status: unsupported_incomplete
+    reason: HIllsHeight exists but HillsOffset does not
+  BiomeRelief.Mountains:
+    status: unsupported_incomplete
+    reason: MountainsHeight exists but MountainsOffset does not
+  BiomeRelief.Desert:
+    status: unsupported_incomplete
+    reason: no exact height-plus-bias parameter pair
+  PresentationRoles:
+    status: unsupported_unowned_parent_graph
+    reason: ProfileV1 duplicates the material instance but its 201-expression parent remains under R15 and contains none of the six required RedProfile.Role tags
+  ShorelineFlattenThreshold:
+    status: unsupported_absent
+    reason: zero exact ShorelineFlattenThreshold parameters exist
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation_before_after: 7414FB332551219CC51A3EA4B530E10AF0987252C3FFD2EB4FDBB8AF0BC0476E
+  profile_mask_before_after: 8AF61A4497705494BE42A7EAC3332A19FFC1661146145BC9BF2A9E15E7CFB49D
+  profile_surface_before_after: AD32E640D9A2EF73F58360914599AAD782C65B234795623EA67E9DCCD54E49D4
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GraphMapping_20260805_0355_R02/audit_redmmo_ppg_profile_v1_graph_mapping_result.json
+    sha256: 80C567C7463F656B0142C926C0B537DF3B8B93839907F805F81D665E859FDB24
+  audit_script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_graph_mapping.py
+    sha256: 0669A396F3EDAC5F9402CBED2B4170E54D2F8FB4E4EAB39492510938EA5977B6
+  superseded_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GraphMapping_20260805_0355/audit_redmmo_ppg_profile_v1_graph_mapping_result.json
+    disposition: retained_noncanonical_due_to_unreal_name_string_normalization_bug
+
+claim_boundary:
+  verified:
+    - exact graph inventory and supported-control targets listed above
+    - unsupported controls refuse ambiguous or absent graph targets
+    - no asset, map or source package changed
+  not_verified:
+    - no graph tagging or material-parent duplication occurred
+    - no profile values were applied
+    - no home-map binding, regeneration, MapCheck, PIE or visual acceptance occurred
+
+next_safe_action: >-
+  Under a fresh rollback, create a project-owned ProfileV1 surface-parent
+  material and add exact RedProfile identity tags or uniquely named parameters
+  for the intended generation and presentation controls. Keep the PlanetData
+  unbound and do not regenerate or save the home map in that slice.

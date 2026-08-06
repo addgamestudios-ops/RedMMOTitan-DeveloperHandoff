@@ -1,0 +1,100 @@
+schema_version: 1
+id: evidence.m07.scratch-craft-collision-build-pie-runtime-automation.2026-07-26
+module_id: M07
+captured_utc: 2026-07-26T21:16:14.467347Z
+evidence_class: automation
+result: passed_bounded_scratch_build_and_pie_runtime_component_contract
+
+scope:
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A
+  source_map: /Game/RedMMO/Maps/RedPlanetGen
+  production_mutation: false
+  map_mutation: false
+  save_performed: false
+  real_gpu_visual_acceptance: false
+  fused_authoring_inputs_changed: false
+
+build:
+  failed_first:
+    diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuild_20260726_205000Z
+    titan_editor_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuild_20260726_205000Z/TitanEditor_build.log
+      sha256: 71E9728E6BABB42BCC5F5B919525CF3D1A8A479FDE9FA0B783E4498F3E583008
+    unreal_build_tool_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuild_20260726_205000Z/UnrealBuildTool_full.log
+      sha256: 127308DDC30061F31A368A805D362DE2F3AE78B6DA4D341DD4DB90462DE08F32
+    result: failed_other_compilation_error
+    duration_seconds: 339.53
+    blocker: >-
+      RedPlanetResolvedSurfaceProbeLibrary.cpp used unqualified Error and
+      Serialize helper calls, which collided with the global Error type and
+      UObject::Serialize overload. The craft-collision sources were not the
+      failing compilation path.
+  retry:
+    diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuildRetry_20260726_210747Z
+    stdout:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuildRetry_20260726_210747Z/build.stdout.log
+      sha256: D10C7B7599E75B35B40C2A3713EE06406452273161889B6A2C7230175E175DD6
+    stderr:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionBuildRetry_20260726_210747Z/build.stderr.log
+      sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+    result: succeeded
+    actions: 4
+    duration_seconds: 7.14
+    linked_module:
+      path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: 51DF31635BA4CDE545C22132E68F29AB654F59F5FEBA1204964C9494E3A75F8B
+
+validator:
+  path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/validate_m07_craft_collision_pie_runtime.py
+  sha256: 98322A918CD00688C9C538AF837359216D707BA17A335B74C9042D56D3F657BA
+
+runtime:
+  operation: m07_read_only_craft_collision_pie_runtime_validation
+  pie_world: /Game/RedMMO/Maps/UEDPIE_0_RedPlanetGen
+  resolved_source_world: /Game/RedMMO/Maps/RedPlanetGen
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionPIERuntimeValidation/20260726T211614454849Z/craft_collision_pie_runtime.json
+    sha256: 167735ED5348CBEBF14B975451C601E6C5221BDAAC27D1B49706AFD83029089F
+  completion:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_CraftCollisionPIERuntimeValidation/20260726T211614454849Z/validation_complete.json
+    sha256: AAC6B71F678B39E50E0CB90DDB7687B5852502AFD950DF16A348CBD8C32B6E06
+  status: passed
+  failure_count: 0
+  shuttle_actor_count: 1
+  shuttle_fitted_pawn_proxies: 5
+  large_fighter_actor_count: 1
+  large_fighter_starsparrow_modules: 28
+  dirty_packages_unchanged: true
+  mutation_performed: false
+  save_performed: false
+
+protected_state:
+  scratch_and_production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  production_mutation: false
+  fused_authoring_inputs_changed: false
+
+claim_limits:
+  runtime_component_contract: true
+  landing_visual_accepted: false
+  player_collision_accepted: false
+  projectile_los_accepted: false
+  real_gpu_visual_accepted: false
+
+manual_acceptance_required:
+  - shuttle rests visibly flush with the terrain
+  - shuttle visible solid hull and wing coverage blocks the player
+  - large-fighter outer wings and engine solids block Pawn
+  - player can stand on intended solid surfaces of both craft
+  - true hull and wing gaps remain traversable
+  - bolts hit visible solids and pass through true open gaps
+
+next_safe_action: >-
+  Run the combined real-GPU manual PIE collision, landing, standability, and
+  projectile-LOS review for both craft. At the already recorded safe boundary,
+  begin one isolated raised and perimeter-blended tangent-region map
+  implantation in a disposable scratch map while keeping the bare-sand
+  baseline, production content, and all 27 fused authoring inputs unchanged.
+  Chaos remains a future bounded client-side impacts, decals, debris, and
+  selected authored-prop layer rather than global persistent terrain
+  destruction.

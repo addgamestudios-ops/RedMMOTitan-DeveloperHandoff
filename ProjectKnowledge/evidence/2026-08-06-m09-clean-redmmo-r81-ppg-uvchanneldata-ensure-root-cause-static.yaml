@@ -1,0 +1,87 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r81-ppg-uvchanneldata-ensure-root-cause-static
+module: M09
+evidence_class: static
+status: accepted_partial
+timestamp_utc: 2026-08-06T02:39:00Z
+scope: >-
+  Read-only isolation of the three handled UVChannelData ensures emitted by the
+  clean RedMMO R80 packaged D3D12 smoke. The delivered package, project maps,
+  PlanetGen seed and topology, biome bindings, installed vendor plugin, and
+  project source were not changed.
+runtime_evidence:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R80_PlayablePackage_20260806T0214Z_Retry1/Smoke/packaged_smoke.log
+  log_sha256: 3C1243975846B241CFC489BBFB81A4E90116B732EB263112876FD0E92431D3CD
+  assertions:
+    - line: 942
+      engine_site: Engine/Private/StaticMesh.cpp:5280
+      condition: GetStaticMaterials()[MaterialIndex].UVChannelData.bInitialized
+    - line: 982
+      engine_site: Engine/Private/Materials/MaterialInstance.cpp:5577
+      condition: UVChannelData.bInitialized
+    - line: 1023
+      engine_site: Engine/Private/Materials/MaterialInterface.cpp:2485
+      condition: UVChannelData.bInitialized
+  interpretation: >-
+    These are three texture-streaming checks reached from one uninitialized
+    static-material UV-density record, not evidence of three independently
+    broken user-selected materials.
+root_cause:
+  engine_contract:
+    file: D:/UE_5.8/Engine/Source/Runtime/Engine/Public/MeshUVChannelInfo.h
+    evidence: >-
+      FMeshUVChannelInfo() zeroes the structure, leaving bInitialized false;
+      FMeshUVChannelInfo(float DefaultDensity) sets bInitialized true.
+  planetgen_runtime_mesh_path:
+    file: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+    sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+    evidence:
+      - line 2245 assigns a default FStaticMaterial to each transient terrain mesh
+      - line 2272 initializes terrain resources without initializing UVChannelData
+      - line 2289 assigns a default FStaticMaterial to each transient water mesh
+      - line 2299 initializes water resources without initializing UVChannelData
+      - line 2385 binds the transient terrain mesh to its component
+  planetgen_nanite_path:
+    file: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/PlanetNaniteBuilder.cpp
+    sha256: 6D496BBC9E5C1D4FD6363AE0F8242BA921FD46C69734C5902DD3338447F8A8A1
+    evidence: >-
+      ApplyRenderData repeats the same default FStaticMaterial construction at
+      line 256 before InitResources at line 267.
+public_hook_audit:
+  result: no_pre_registration_mesh_created_hook_found
+  evidence:
+    - >-
+      UChunkObject exposes GenerationComplete and AssignComponents, but the
+      generated ChunkStaticMesh and WaterStaticMesh members are protected and
+      no mesh-created delegate is declared.
+    - >-
+      APlanetSpawner exposes OnPlanetGenerationFinished, but it broadcasts only
+      after initial generation and therefore is not a proven pre-streaming fix
+      point for ensures already emitted during mesh registration.
+blocker: >-
+  PlanetGen 1.7 does not expose a verified public callback between transient
+  UStaticMesh material-slot creation and component registration. A late
+  generation-finished scan cannot be claimed to prevent the current streaming
+  ensures.
+safe_fix_route: >-
+  Keep vendor source unchanged. In a separate guarded source slice, implement
+  and compile a project-owned transient-PPG-mesh compatibility guard only if an
+  engine-supported component or world lifecycle point can be proven to execute
+  before texture streaming inspects the mesh. Initialize each affected static
+  material slot with a valid FMeshUVChannelInfo density, then rebuild, package,
+  and require an identical D3D12 smoke with zero UVChannelData ensures. If the
+  ordering cannot be proven, defer to an official PlanetGen update or vendor
+  correction rather than patching installed Marketplace files.
+writes:
+  - ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r81-ppg-uvchanneldata-ensure-root-cause-static.yaml
+  - ProjectKnowledge/INDEX.yaml
+  - ProjectKnowledge/current_state.yaml
+  - Build/Automation/redmmotitan_module_queue.json
+rollback: >-
+  Remove only the R81 ProjectKnowledge record and its index, current-state, and
+  queue references. No project, package, map, asset, or vendor rollback exists
+  because none was mutated.
+claim_limit: >-
+  The defect source and missing public pre-registration hook are statically
+  isolated. The ensures are not fixed, and no new build, package, runtime,
+  visual, gameplay, replication, or multiplayer acceptance is claimed.

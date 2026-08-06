@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-pie-gameplay-pass-visual-fail.2026-08-05
+captured_utc: "2026-08-05T06:54:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-real-d3d12-pie-gameplay-and-player-view
+evidence_class: real_gpu_visual
+result: fail_visual_gameplay_automation_pass
+
+target:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  map_sha256_before_after: F2B3EC00BE7D858FE4F7CDC2C611D8E0C9741344CCE48D7A4293D5300FD7AF9D
+
+preflight:
+  free_physical_ram_gib: 51.04
+  free_commit_headroom_gib: 49.88
+  free_gpu_vram_mib: 7833
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+automation:
+  host: WindowsEditor D3D12_SM6 RenderOffscreen PIE
+  editor_pid: 11120
+  script: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_trooper_starsparrow_a01_pie.py
+  script_sha256: 6C128A020D7C50A8B343BEF502701F0D9372C68B56D7B6A99391A654631F131D
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1_20260805T065212Z/result.json
+  result_sha256: F34CCA410661B94AD9F7A310831C2F47C7FCCC98C5012C43B34AD770D69022BE
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1_Launch_20260805T065212Z/launch.log
+  log_sha256: 52E8845AB33A3469927B44E1E749BD3D8383ADB68D7A905FEDB2429995B98F00
+  reported_status: PASS_AUTOMATED_REAL_D3D12_PIE_A01_TROOPER_STARSPARROW
+  map_check_errors: 0
+  map_check_warnings: 0
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generated_chunks_final: 397
+  dirty_packages_after: []
+  provider_ports_closed_after: [5353, 8000, 8765]
+
+gameplay_pass:
+  radial_walk_tangent_displacement_cm: 556.59
+  radial_sprint_tangent_displacement_cm: 904.39
+  radial_jump_takeoff_and_land: true
+  server_authoritative_projectile: true
+  fighter_entry_exit_on_f_context: true
+  ship_forward_displacement_cm: 1330.32
+  ship_up_displacement_cm: 1659.78
+  ship_down_displacement_cm: 537.29
+  ship_strafe_look_roll_and_boost: true
+  ship_boost_max_speed_cm_s: 10497.76
+
+real_gpu_player_view:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1_20260805T065212Z/ProfileV1_PlayerView.png
+  sha256: 929290E6C962A385AD7B3E919F616ACA2F5F43EA26AC0EB57D7C57343ADB19D5
+  resolution: [1280, 720]
+  capture_phase: grounded_before_walk
+  visual_result: fail
+  observed:
+    - visible third-person Trooper and parked StarSparrow are present at player scale
+    - the spawn view is a nearly uniform dark-green surface with no readable biome separation
+    - no approved grass instances are visible or reported after the settle interval
+    - shoreline, beach, desert and native water presentation are not visible in this frame and remain unaccepted
+
+foliage_failure:
+  approved_grass_instances_before_settle: 0
+  approved_grass_instances_after_settle: 0
+  inspected_instanced_components_after_settle: 0
+  populated_instanced_components_after_settle: 0
+  conclusion: >-
+    The preserved seeded foliage binding is serialized, but the runtime PPG
+    generation path emitted no instanced foliage components at the player
+    spawn. Static bindings and a successful planet generation are therefore
+    insufficient evidence of visible grass.
+
+hash_gates_after:
+  profile_planet: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation: 5165A27F0423735256EEE768739CE9547FEF7849BCA05540AAD63DF5BA1D96E3
+  protected_test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_night_t03: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1HomeBinding_20260805T0627Z
+  retained: true
+
+claim_boundary:
+  verified:
+    - ProfileV1 generates to completion and supports the automated A01 radial Trooper, projectile and StarSparrow gameplay sequence in real D3D12 PIE
+    - the run saved no content and retained the exact home, ProfileV1 and protected hashes
+  failed_or_open:
+    - the player-scale visual result fails because runtime grass emission is zero and the visible surface remains uniformly dark green
+    - distinct grassland, desert, pale beach, coast/ocean, night/space, continent silhouette and shoreline quality are not accepted
+    - human hands-on feel, standalone, replication and multiplayer remain open
+
+next_safe_action: >-
+  Keep the gameplay-pass map and rollback. On the next bounded M07 wake, inspect
+  the actual PPG FoliageSpawner/runtime eligibility path for the preserved R10O
+  foliage data and ProfileV1 biome outputs. Correct only the project-owned
+  foliage/material role path needed to emit the already-approved grass and a
+  readable non-neon spawn presentation; do not rebind a substitute mesh,
+  manually place foliage, change the seed, or repeat an unchanged capture.

@@ -1,0 +1,110 @@
+schema_version: 1
+project: RedMMOTitan
+
+radius_rules:
+  - id: INV-RADIUS-001
+    level: hard
+    rule: "Every celestial body has one explicit physical radius in centimetres and one stable center frame."
+  - id: INV-RADIUS-002
+    level: hard
+    rule: "Terrain, water, atmosphere, gravity, collision, spawn, radar, and presentation resolve the same body ID and frame."
+  - id: INV-RADIUS-003
+    level: hard
+    rule: "Actor or component visual scale must not redefine physical radius."
+  - id: INV-RADIUS-004
+    level: hard
+    rule: "The protected 50 km checkpoint remains 50.0 km circumference and 795774.71546 cm radius."
+
+atmosphere_rules:
+  - id: INV-ATM-001
+    level: hard
+    rule: "Atmosphere bottom radius and height are explicit values relative to the owning body's physical center and radius."
+  - id: INV-ATM-002
+    level: hard
+    rule: "Visual atmosphere, breathable/gameplay transition, and cloud bounds are separate named contracts."
+  - id: INV-ATM-003
+    level: hard
+    rule: "Atmosphere transforms remain unit scale unless a reviewed adapter documents the conversion."
+  - id: INV-ATM-004
+    level: visual_gate
+    rule: "No atmosphere is accepted until its surface and orbit proportions pass on a real GPU."
+
+water_rules:
+  - id: INV-WATER-001
+    level: hard
+    rule: "Water uses the owning body's stable ID, center, and explicit sea datum; it is never inferred from atmosphere scale."
+  - id: INV-WATER-002
+    level: hard
+    rule: "Visible water, collision/query water, shoreline traces, and authored land masks must agree on the same datum."
+  - id: INV-WATER-003
+    level: visual_gate
+    rule: "Structural or NullRHI checks cannot approve shoreline, transparency, waves, or orbital water appearance."
+
+gravity_rules:
+  - id: INV-GRAV-001
+    level: hard
+    rule: "The server owns gravity-body registration, dominant-body selection, and authoritative movement outcomes."
+  - id: INV-GRAV-002
+    level: hard
+    rule: "Clients may predict gravity for responsiveness but must reconcile to server body ID and state."
+  - id: INV-GRAV-003
+    level: hard
+    rule: "Overlap resolution uses stable body IDs plus deterministic priority and hysteresis; display names and actor iteration order are forbidden inputs."
+  - id: INV-GRAV-004
+    level: hard
+    rule: "Warp admission, route state, destination, and arrival transform are server-authoritative."
+
+streaming_rules:
+  - id: INV-STREAM-001
+    level: hard
+    rule: "The 27 square regions are overlapping tangent-local authoring inputs fused before runtime; they are not World Partition runtime cells."
+  - id: INV-STREAM-002
+    level: hard
+    rule: "PlanetGen owns procedural surface chunks, terrain LOD, and near-player terrain collision."
+  - id: INV-STREAM-003
+    level: hard
+    rule: "World Partition owns authored hubs, props, encounters, navigation patches, and local dressing, not PlanetGen surface chunks."
+  - id: INV-STREAM-004
+    level: hard
+    rule: "A streaming transition cannot change a celestial stable ID or delete protected handcrafted content."
+
+identity_rules:
+  - id: INV-ID-001
+    level: hard
+    rule: "Planets, moons, ring worlds, asteroid fields, authoring regions, and warp routes use immutable namespaced stable IDs."
+  - id: INV-ID-002
+    level: hard
+    rule: "Save data, replication, telemetry, evidence, and cross-record references store stable IDs rather than labels, array indices, or transient actor names."
+
+claim_statuses:
+  specified:
+    requires: [reviewed_record]
+  build_verified_runtime_pending:
+    requires: [successful_relevant_compile, linked_artifact]
+    excludes: [runtime_verified, visual_accepted]
+  runtime_verified_visual_pending:
+    requires: [actual_runtime_launch, durable_runtime_evidence]
+    excludes: [visual_accepted]
+  visual_accepted:
+    requires: [real_gpu_render, durable_capture, explicit_visual_gate_result]
+  known_defect:
+    requires: [defect_record]
+  blocked:
+    requires: [named_blocker, next_unblock_condition]
+
+evidence_rules:
+  - id: INV-EVID-001
+    level: hard
+    rule: "Build-only evidence proves compilation or linking only."
+  - id: INV-EVID-002
+    level: hard
+    rule: "NullRHI and headless runs may prove loading, structure, logs, collision queries, or shutdown; they never satisfy a visual gate."
+  - id: INV-EVID-003
+    level: hard
+    rule: "Visual gates reject build-only, log-only, commandlet-only, and NullRHI evidence."
+  - id: INV-EVID-004
+    level: hard
+    rule: "Evidence names the date, platform/RHI, target or map, test action, result, and durable artifact path."
+  - id: INV-EVID-005
+    level: hard
+    rule: "A claim remains at the lowest unmet gate; later evidence does not retroactively fill an earlier missing gate."

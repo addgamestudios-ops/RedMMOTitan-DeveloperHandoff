@@ -1,0 +1,82 @@
+schema_version: 1
+id: evidence.m00.clean-r85-projectile-d3d12-blocked
+module: M00
+evidence_class: automation
+status: blocked_before_fire_harness_profile_gate
+timestamp_utc: 2026-08-06T05:08:17Z
+scope: >-
+  One time-bounded fresh provider-off D3D12 RenderOffscreen attempt to validate
+  the newly compiled clean-RedMMO R85 native infantry tracer through the real
+  A01 Enhanced Input fire path. No map, content, Config, Blueprint, material,
+  plugin, vendor package, source file, or playable package was saved or changed
+  by the runtime attempt.
+preflight:
+  free_physical_ram_gib: 52.19
+  commit_headroom_gib: 54.29
+  gpu_free_mib: 9108
+  gpu_used_mib: 946
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+runtime:
+  renderer: D3D12_SM6_RenderOffscreen
+  gpu: NVIDIA GeForce RTX 3080
+  editor_process_count: 1
+  minimum_free_physical_ram_gib: 47.03
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  game_mode: /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01.GM_RedTrooperPPG_A01_C
+  ppg_profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  generation_seed: 1337
+  native_water_enabled: true
+  actor_count: 12
+  map_check_errors: 0
+  map_check_warnings: 0
+  provider_ports_closed_before: [5353, 8000, 8765]
+blocker:
+  phase: WAIT_PIE_WORLD
+  exact_cause: >-
+    The inherited A01 harness omitted REDMMO_A01_RIFLE_READY_PROFILE=1 and
+    therefore expected the obsolete non-rifle idle, walk, and run slots. The
+    saved Trooper correctly reported the current rifle-ready idle and sprint
+    slots, so the validator failed closed before generation readiness, fire,
+    bolt spawn, or capture.
+  current_rifle_ready_slots:
+    idle: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Idle_Rifle
+    walk: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Sprint_Fwd_Rifle
+    run: /Game/Action_Male_and_Female/Animations/UE4TF/A_Tall_Female_Sprint_Fwd_Rifle
+  projectile_spawned: false
+  projectile_capture_created: false
+  runtime_tracer_identity_proven: false
+  visual_acceptance: false
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R85C_20260806T0506Z/result.json
+    sha256: FB2EE11FE81D52CFE782212D4AD8FAE2F3B79FB44280E584030A4AFDE2AED5E2
+    bytes: 8794
+  launch_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_Launch_R85C_20260806T0506Z/UnrealEditor_R85C.log
+    sha256: 4584BE54F4FFF9935A0986B72314FA5B8B96E3E314E5332A97E15C5394F0BD17
+    bytes: 260387
+  focused_validator: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r85_projectile_pie.py
+preserved:
+  source_bolt_sha256: 74214A105BF180D72D9EAA469216FB61082ADB70FE191AF47463A9E4C05ED05E
+  editor_module_sha256: 55B98B7AF5765CE14D5B82247EECF3913022CD8530A04ED07B63C1B037D1E008
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 52.05
+  commit_headroom_gib_after: 54.28
+  gpu_free_mib_after: 9172
+  gpu_used_mib_after: 882
+claim_limit: >-
+  This proves fresh D3D12 SM6 startup on the RTX 3080, exact current home and
+  ProfileV1 bindings, MapCheck zero errors and warnings, and a fail-closed
+  rifle-ready animation-profile mismatch only. It does not prove projectile
+  spawn, native tracer identity, projectile pixels, muzzle art, fire or recoil
+  animation, physical input, packaging, replication, multiplayer, Steam, or
+  human acceptance.
+next_safe_action: >-
+  Rotate to the next independent authorized queue module on the next wake. On a
+  later M00 return, set REDMMO_A01_RIFLE_READY_PROFILE=1 and rerun the focused
+  no-save projectile validator once; do not repeat either of the two earlier
+  launcher-contract mistakes.

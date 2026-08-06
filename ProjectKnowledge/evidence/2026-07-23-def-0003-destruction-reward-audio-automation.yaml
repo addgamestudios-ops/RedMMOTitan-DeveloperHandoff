@@ -1,0 +1,281 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-DESTRUCTION-REWARD-AUDIO-AUTOMATION
+captured_at: "2026-07-23T11:20:23Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-field-two-client-destruction-reward-audio
+evidence_class: automation
+result: pass_bounded_actual_field_client_mixer_audio
+
+scope:
+  authorized:
+    - route one installed reward cue only to the locally controlled direct-credit recipient
+    - route one installed spatial destruction cue from each replicated explosion actor
+    - extend the existing actual-field listen-server plus Client 1 depletion harness
+    - compile current TitanEditor and Titan Win64 Development targets
+    - record one Client 1 mixer WAV and retain the existing gameplay, HUD, and destruction-pixel gates
+  explicitly_preserved:
+    - asteroid mining authority, reward amounts, depletion state, stable identity, transform, capacity, presentation cutoff, and network distance
+    - all production maps, protected checkpoints, production VFX, and twenty-three peer field members
+    - installed Sand VFX audio assets, artist repositories and handoffs, supplied art, user assets, and unrelated dirty work
+  not_run:
+    - player-controlled travel into the field or naturally acquired mining range
+    - projectile or client-originated mining RPC delivery
+    - simultaneous client-originated final-hit arrival
+    - isolated per-cue waveform capture or independent player listening
+    - human-perceived mix-quality, attenuation, or concurrency acceptance
+    - server-restart persistence or explicit respawn behavior
+    - warning-free final visual-polish acceptance
+    - Windows packaging, Steam transport, two accounts, or capacity testing
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003Audio_20260723_1348
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003Audio_20260723_1348/MANIFEST.txt
+    sha256: 73E3B97C42D993606E6A58697688BC8AC54997CB525605A71D596C530CA41925
+  copied_and_hash_verified_files: 14
+
+implementation:
+  production_runtime_changed: true
+  reward_receipt:
+    source:
+      header:
+        path: Source/RedMMO/RedResourcePickup.h
+        sha256: B2F4A44B896F8E4833E4CFEB68769978DCD636142EBACD77612492D1A4106E12
+      cpp:
+        path: Source/RedMMO/RedResourcePickup.cpp
+        sha256: 55F5F947EB5654F81CCA4767B07B84AFB23221C0C93DE64B47A17245C2E9DF34
+    cue_asset_path: /Game/Vefects/Sand_VFX/Audio/SFX_Vefects_Sand_Rock_Hit_02_Cue.SFX_Vefects_Sand_Rock_Hit_02_Cue
+    cue_asset_sha256: 647D4FC812F348891287DCF65C1EBDCCF9AA596A5987752CD315F58C715EC2BD
+    source_wave_sha256: BCBE125A647CED5D609243040BE09D12EC3C42BD25681938E1A02BD7015CDC6E
+    behavior:
+      - only the noncollectible direct-credit receipt attempts the local reward sound
+      - the replicated mining instigator must resolve to a locally controlled pawn
+      - dedicated servers are excluded and one receipt cannot start the sound twice
+  destruction:
+    source:
+      header:
+        path: Source/RedMMO/RedShipExplosionFX.h
+        sha256: CF776255D0E2CA95DAF6AE240E112D4834549D0B5FF7E2635B055DBA029D3202
+      cpp:
+        path: Source/RedMMO/RedShipExplosionFX.cpp
+        sha256: BD7CD3C284A29A8CA58E43EFBE5CD8E29D45A141A5B97F89FDBAC3632F54B6BE
+    cue_asset_path: /Game/Vefects/Sand_VFX/Audio/SFX_Vefects_Sand_Rock_Eruption_Hit_Cue.SFX_Vefects_Sand_Rock_Eruption_Hit_Cue
+    cue_asset_sha256: BF112FF16A14C41C99311983AF38028CCD734E9D8521E7D0F9177286C332E40C
+    source_wave_sha256: 71D78F046EAE9D804ABD23D3F0A00768689F6B80C1BF11E69BA76AD442F41E47
+    behavior:
+      - each replicated explosion actor spawns the installed spatial cue at its world location
+      - the local audio component is retained transiently for bounded acceptance telemetry
+  build_rules:
+    path: Source/RedMMO/RedMMO.Build.cs
+    sha256: C29291BE044EFA51722E247305F6B3415EE2E9B6FCAF8507688BF4933A37F994
+    change: editor_only_AudioMixer_dependency
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldTwoClientDepletionPIETests.cpp
+    sha256: 7613C96D8D9889B9C260998D951758706F8D7A90270F7C06A17CB51E65843927
+    automation_test: RedMMO.Mining.DEF0003.ActualFieldTwoClientDepletionPIE
+    behavior:
+      - records Client 1 master output through its own audio mixer device
+      - requires distinct server and client audio-device IDs plus an unmuted positive-volume client device
+      - transiently enables play-all-PIE and background audio for unattended automation, then restores both editor settings
+      - writes each run to a process and GUID unique evidence directory
+      - retains exact reward, replicated HUD, stable-member, peer-preservation, flash-pixel, debris-pixel, and debris-motion gates
+  focused_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: E34DA2855F4D10C7CB9E9DA365002603AF3111DC003F011FAA5BDE9881A87649
+    result: 27_of_27_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/contract-tests-final.log
+      sha256: 9DA769205D561E9F5BA68380741ACD19656E07DB48E591461C6D6BF89526FB89
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    final_elapsed_seconds: 26.17
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/TitanEditor_background_audio_build.log
+      sha256: A08C8F9537F0361937DB8E749E6B99F5213A78C68433AC8CDF08A28F417D519B
+  titan:
+    target: Titan Win64 Development
+    result: succeeded
+    elapsed_seconds: 103.64
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/Titan_build.log
+      sha256: CFCD8C12A4A9483EBC0DF1104A5FCF8032876A2E83545BD9DF44796502587846
+
+runtime_acceptance:
+  evidence_class: automation
+  renderer: D3D12 SM6
+  gpu: NVIDIA GeForce RTX 3080
+  editor_process_count: 1
+  topology: in_process_listen_server_plus_client_1
+  online_subsystem: disabled
+  automation:
+    result: pass_1_fail_0
+    elapsed_seconds: 9.235
+    official_ue58_mcp_command: UAIP.Editor.Execution.RunAutomationTest
+    report_artifact_id: C544208F4D1C7EE374B7D983C30845C7
+    log_artifact_id: 12DBB92547C6787CAB3F34845C3DA49A
+    report:
+      path: D:/RedMMOTitan/Saved/UAIP/MCP-Anonymous-5A2BEE134F9F1C61BAC832B5917C6A1D/Dumps/RunAutomationTest-C544208F4D1C7EE374B7D983C30845C7.json
+      sha256: 19773B70E6B7D4DDC29CB3785432ED54DE1145584A27E0ACC9E4402C1EF88BF8
+    report_text:
+      path: D:/RedMMOTitan/Saved/UAIP/MCP-Anonymous-5A2BEE134F9F1C61BAC832B5917C6A1D/Logs/RunAutomationTest-12DBB92547C6787CAB3F34845C3DA49A.txt
+      sha256: 1FEB4CB7101CED8CCD85E0BCE052F5D17C3A77293BCFC1772BB430488AF2BB1F
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/Titan_runtime_audio_pass.log
+      sha256: 3BBF15F2A88A34E59B898C54F867420B99D75E8143A5237AEABD830103B0A192
+  topology_gate:
+    pie_worlds: 2
+    listen_worlds: 1
+    client_worlds: 1
+    server_players: 2
+    server_audio_device_id: 2
+    client_audio_device_id: 3
+    play_all_pie_audio_override: true
+    background_audio_override: true
+    app_volume_multiplier: 1.0
+    client_primary_volume: 1.0
+    client_audio_device_unmuted: true
+  exact_audio_routing:
+    reward_component_started_server_client: [0, 1]
+    reward_exact_asset_server_client: [1, 1]
+    reward_local_instigator_server_client: [0, 1]
+    explosion_component_started_server_client: [1, 1]
+    explosion_exact_asset_server_client: [1, 1]
+  client_mixer_capture:
+    path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Audio.wav
+    sha256: AEF19CFD434FF395CBDB0347F4E69F401E76F048E9091805492F56678F2D4A17
+    bytes: 335916
+    format: PCM16_stereo_48000_hz
+    frames: 83968
+    duration_seconds: 1.749333
+    sample_values: 167936
+    samples_at_or_above_absolute_128: 92915
+    independently_counted_nonzero_samples: 145303
+    peak_absolute_sample: 20075
+    rms: 2539.239
+    recording_wall_seconds: 3.602
+    result: non_silent
+  same_run_gameplay_and_pixels:
+    stable_member_id: asteroid-field.red.mars.deep-space/0x4F524531/23
+    exact_once_remote_iron: 6
+    host_iron: 0
+    client_1_hud_text: "STONE 0   IRON 6   CRYSTAL 0"
+    pristine_peer_members: 23
+    replicated_final_phase_sequence: "2/2"
+    flash_luminous_pixels: 3350
+    flash_warm_pixels: 1375
+    simulated_and_recently_rendered_debris: "12/12"
+    warm_pixel_matched_hot_debris: "4/4"
+    moving_hot_debris: 4
+    changed_central_pixels: 1753
+    late_luminous_pixels: 812
+    late_warm_pixels: 79
+  captures:
+    - {path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Before.png, sha256: 0F8C7C53A0C13C7C445E738C2952CBC860B80D2147EAF4464839098E0FCA83DA, size: 1286x760}
+    - {path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Transition.png, sha256: 792134A27D8043CE774A747B3FB592CE5982878F1988B4FB368A9E17248718A3, size: 1286x760}
+    - {path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Explosion.png, sha256: FA88C960C111C923CC583EE554F4ABE15A9D2162FA681EF12DADD8DB0DED057E, size: 1280x722}
+    - {path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Debris_A.png, sha256: 75F0997A7E62F99B21F66761F6F8028A74F2E9597484CBC97DCBD7772EAE243E, size: 1280x722}
+    - {path: D:/RedMMOTitan/Saved/Automation/DEF0003ActualFieldTwoClientDepletionPIE_20260723T112013Z_2836_CB9DF5F54AC5CCF6444071A6A98C9038/DEF0003_Field_MP_Depletion_Debris_B.png, sha256: DEAEEAB9ECD93ED49E661238199244937F1B2A9AAE67E7EFFF988AE602A95FC3, size: 1280x722}
+  explicit_result_marker: >-
+    acceptancePass=1 evidenceClass=automation topology=in_process_two_client
+    actualFieldMember=1 stableIdentity=1 exactOnceReward=1 remoteHUDParity=1
+    rewardAudioOwnerComponent=1 destructionAudioComponents=1
+    separatePIEAudioDevices=1 pieAudioDeviceUnmuted=1
+    clientMixerWavNonSilent=1 destructionPixels=1 flashPixels=1
+    debrisPixels=1 debrisMotion=1 pristinePeers=23 cutoffOverridden=0
+    testTeleport=1 playerControlledTravel=0 projectileDelivery=0
+    clientOriginatedRPC=0 independentPlayerListening=0 mixQuality=0
+    packageAudio=0 steamTransport=0
+
+diagnostic_root_cause:
+  initial_result: gameplay_pixels_and_component_routing_passed_but_master_wav_was_silent
+  cause: >-
+    In unattended unfocused editor execution, the global FApp volume multiplier
+    remained zero unless background audio was allowed. Play-all-PIE alone
+    bypassed per-device muting but could not override that editor-wide volume.
+  correction: >-
+    The editor-only harness transiently enables background audio, verifies a
+    positive FApp multiplier and Client 1 primary volume, and restores the
+    original setting after PIE. No production cue was replaced for this issue.
+
+known_nonblocking_runtime_warnings:
+  - the optional Voxel collision-invoker class is absent and ship code reports its raycast fallback
+  - r.MotionVectorSimulation reports a render-thread safety warning
+  - teardown reports one attempted SpawnActor while the world is already tearing down
+
+resource_and_process_gate:
+  final_free_physical_ram_gib: 17.55
+  final_free_commit_headroom_gib: 34.661
+  final_free_vram_mib: 8807
+  final_free_disk_d_gib: 1141.114
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched because free physical RAM had not remained
+    sustainably inside the required 18-20 GiB range.
+
+protection:
+  provenance_contract:
+    result: 7_of_7_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/protected-provenance-tests.log
+      sha256: 7FF00BD25959AE24463899C512117669FD5FA67DF839AF23C70FD2C549F0CD68
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+remaining_gates:
+  - player-controlled travel and naturally acquired mining range
+  - projectile or client-originated mining RPC delivery
+  - simultaneous client-originated final-hit contention if required
+  - explicit server-restart persistence or respawn semantics
+  - human-perceived audio mix, attenuation, and concurrency acceptance
+  - warning-free final presentation
+  - packaged Windows, Steam transport, two-account acceptance, and capacity testing
+
+canonical_sync:
+  module_status: incomplete_retry
+  retry_count: 37
+  queue_sha256_after: 4BBD888CBA620786389EC319707429644031D32902DE78D2FD13C4EF4C9F09C3
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+  yaml_and_json_parse: 7_of_7_passed
+  integrity_fixture_tests: 20_of_20_passed
+  integrity_audit:
+    result: historical_failures_unchanged_new_slice_zero
+    error_count: 64
+    warning_count: 0
+    finding_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_Audio_20260723_1358/project-knowledge-integrity.json
+
+claim_limit: >-
+  This is rendered RTX 3080 D3D12 automation evidence for one actual production
+  field member in one local UnrealEditor process with a listen server and
+  Client 1. It proves the exact installed cue paths loaded, owner-only local
+  reward and per-peer explosion audio components started, server and client
+  used separate unmuted PIE audio devices, and Client 1 master output contained
+  non-silent PCM during the same passing depletion, reward, HUD, and
+  destruction-pixel run. A master-output recording cannot attribute individual
+  samples to either cue or establish independent-player audibility, perceived
+  mix quality, attenuation, or concurrency. It does not prove player-controlled
+  travel, projectile or client-originated RPC delivery, simultaneous wire
+  arrival, server-restart persistence, respawn policy, warning-free polish,
+  packaging, Steam, two accounts, performance capacity, or broad multiplayer
+  acceptance.

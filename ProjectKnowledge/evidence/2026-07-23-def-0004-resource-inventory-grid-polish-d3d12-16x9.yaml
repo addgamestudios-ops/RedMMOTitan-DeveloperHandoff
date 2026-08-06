@@ -1,0 +1,258 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-RESOURCE-INVENTORY-GRID-POLISH-D3D12-16X9
+captured_utc: "2026-07-23T18:07:34Z"
+module_id: M09
+defect_id: DEF-0004
+system: ui.pause-menu.resource-inventory
+slice: legacy-grid-label-polish-and-live-quantity-repaint
+evidence_class: real_gpu_visual
+result: passed
+
+scope:
+  accepted:
+    - the permanent Stone, Iron, and Crystal combat-HUD tally remains absent
+    - the existing Escape-owned Inventory retains its three themed quantity cards
+    - crowded STONE, IRON, CRYSTAL, and repeated EMPTY in-slot labels are absent at 1280x720
+    - slot buttons, borders, icons, category filtering, selection, and item details remain functional
+    - an authoritative production RegisterMiningHit depletion refreshes the visible cards from 0/0/0 to 0/6/0
+    - the temporary MINING YIELD / IRON +6 receipt remains visible after close and expires before the final frame
+  explicitly_not_accepted:
+    - controller navigation or controller close
+    - ultrawide Inventory layout
+    - future iconless-item presentation
+    - resource persistence across respawn, travel, reconnect, restart, or account login
+    - broad DEF-0004 or DEF-0006 gameplay-HUD acceptance
+    - Windows packaging, Steam transport, or two-account acceptance
+
+baseline:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    materially_dirty_before_slice: true
+    unrelated_dirty_work_preserved: true
+  canonical_queue_sha256_before: 1C9BD1AB0BA701E734C211E214A4B1F25F3BFCEB17A384111821FD2DB2FCB778
+  resources_before_action:
+    physical_ram_free_sample_min_gib: 14.125
+    physical_ram_free_sample_max_gib: 14.811
+    commit_headroom_sample_min_gib: 29.240
+    d_free_gib: 1140.882
+    gpu: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_free_mib: 7559
+    overlapping_unreal_build_cook_or_package_processes: 0
+  gate_decision: >-
+    Packaging remained closed because sustained free physical RAM was below the
+    mandatory 18-20 GiB package floor. One serialized editor build, one
+    renderer-disabled native automation run, and serialized bounded D3D12 game
+    runs were allowed.
+
+implementation:
+  behavior:
+    - applies a project-owned render-opacity override to the forty Vibe in-slot placeholder text widgets
+    - preserves every inventory slot, border, icon, tooltip, filter, stable item index, selection route, and detail field
+    - explicitly synchronizes and invalidates only the three project-owned quantity-card text widgets after a resource refresh
+    - strengthens the opt-in non-Shipping acceptance harness to authenticate exact rendered quantity-card text before passing
+  production_sources:
+    - path: Source/RedMMO/RedPauseMenuWidget.cpp
+      bytes: 53983
+      sha256: D5FBBA0389C46E7AE4B165659725B181161FADF2794C264AB46539733AF75F03
+    - path: Source/RedMMO/RedPauseMenuWidget.h
+      bytes: 5357
+      sha256: DB6B5C9B8CD0EBCD3D576DC42803E8D0FA04120D998F7B8DA999B99BE908DF1B
+  test_and_harness_sources:
+    - path: Source/RedMMO/Tests/RedUIControlBindingTests.cpp
+      bytes: 15084
+      sha256: 257BC8A13D9EAF4C3A246F295422E7C09304D70DE1BA39A8907E8FAFD9AD85A0
+    - path: Tools/tests/test_def0004_resource_inventory_contract.py
+      bytes: 11476
+      sha256: 323E8662EDAB35C085635E5C801B6F2BAFD4B203DCC4B70EC549E82690339C58
+    - path: Source/RedMMO/RedPlayerCharacter.cpp
+      bytes: 386212
+      sha256: 1B4E77C10DBB0062F8BB279742FC56199C12A527AC1E5D03D1152FD53E7FADB2
+  gameplay_authority_or_replication_modified: false
+  vibe_source_or_supplied_art_modified: false
+  production_map_asset_or_field_modified: false
+
+validation:
+  focused_static_contracts:
+    command: python -m unittest Tools.tests.test_def0004_resource_inventory_contract
+    result: passed
+    tests: 10
+  changed_file_diff_check: passed
+  independent_static_review:
+    result: passed_with_recorded_future_risks
+    notes:
+      - all forty placeholder labels are suppressed, so a future populated item without an icon would need an icon or a revised label policy
+      - a future production call to public RebuildDefaultInventoryLayout would need to reapply the polish; no current production caller exists
+
+build:
+  target: TitanEditor Win64 Development
+  configuration: [NoUBA, MaxParallelActions=1]
+  result: succeeded
+  actions: 4
+  execution_seconds: 17.45
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_FinalBuild_20260723_2118/TitanEditor_UBT.log
+    bytes: 20042
+    sha256: 82F02D5FF9BD58092E1A182C06508B2E58BEA09DB5B04BC4A7B60AE617ADEA82
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4160512
+    sha256: 6A338BAE088DD08E7126E5B2993C9493BEA932C525F7D3049B34C476DF396A24
+  known_warning_scope: pre_existing_UnrealAIIntegrationPlatform_plugin_dependency_warnings
+
+native_automation:
+  test: RedMMO.UI.Controls.NoDeadEnds
+  renderer: NullRHI
+  result: passed
+  succeeded: 1
+  failed: 0
+  warnings: 0
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_FinalAutomation_20260723_2119/AutomationReport/index.json
+    bytes: 1100
+    sha256: F91B93361A3B371E5BF139D77F445D794437635D46F4FAB7A77AF40B25030521
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_FinalAutomation_20260723_2119/InventoryGridPolish_Automation.log
+    bytes: 381602
+    sha256: FD68AF762E7587E2196EF2FD0A5003CF231381277140C3AFD91BBFD0E24FB815
+  claim_limit: NullRHI authenticates widget behavior but supplies no visual evidence
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen?Listen
+  renderer: D3D12_SM6
+  gpu: NVIDIA GeForce RTX 3080
+  viewport: 1280x720
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_D3D12_16x9_AcceptedCurrent_20260723_210355
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_D3D12_16x9_AcceptedCurrent_20260723_210355/runtime.log
+    bytes: 352942
+    sha256: E063DF6403C88E604C8FB8E7C85D6B9C16CEA315216933D6950826B0B2474262
+  assertions:
+    inventory_open:
+      result: passed
+      viewport: 1280x720
+      visible: true
+      stone: 0
+      iron: 0
+      crystal: 0
+    authoritative_mining_refresh:
+      result: passed
+      visible: true
+      stone: 0
+      iron_before: 0
+      iron_after: 6
+      crystal: 0
+      exact_quantity_card_texts: 0/6/0
+      persistent_tally_visible: false
+    inventory_close:
+      result: passed
+      visible: false
+      mouse_cursor: false
+      persistent_tally_visible: false
+    aggregate:
+      marker: RED_DEF0003_RESULT
+      acceptance_pass: true
+      inventory_audit: true
+      inventory_opened: true
+      inventory_refresh: true
+      inventory_closed: true
+  clean_log_scan:
+    fatal: 0
+    unhandled_exception: 0
+    gpu_crashed: 0
+    device_removed: 0
+    low_level_fatal: 0
+    assertion_failed: 0
+    ensure_condition_failed: 0
+    out_of_memory: 0
+    ran_out_of_memory: 0
+  clean_exit: true
+
+durable_visuals:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_D3D12_16x9_AcceptedCurrent_20260723_210355/Captures
+  accepted_frames:
+    - name: DEF0003_InventoryBeforeMining.png
+      bytes: 165388
+      sha256: 6925BFCF90587C5AD2996A1DE9656D40375EE78B37CB79F41D6DD0E84346311C
+      proves: full Inventory layout with readable 0/0/0 cards and no crowded in-slot labels
+    - name: DEF0003_InventoryAfterMining.png
+      bytes: 134331
+      sha256: B2D45432333C39020411E1C302C5E6B4326659F5B92278A4F88D77577F89C08B
+      proves: the visible Iron quantity card repaints from 0 to 6 and the visible grid region remains caption-free
+    - name: DEF0003_InventoryClosed.png
+      bytes: 127793
+      sha256: 7AEACDEEDAE00BCECD4D925CDB3F99AA415732B0C2F7677E52F0D3E0F7948627
+      proves: Inventory is absent while the allowed transient IRON +6 receipt remains
+    - name: DEF0003_SpaceAfter.png
+      bytes: 122810
+      sha256: 4AAAD1C0155DEE46E02049CD0E2E580F3E4D7ED0141B0EE8B887B5BDC115C9AE
+      proves: both Inventory and the temporary receipt are absent at expiry
+  review_note: >-
+    Unreal's post-refresh screenshot contains a partially composed right-hand
+    region, but it visibly authenticates Iron 6 and the caption-free grid area.
+    The full pre-refresh frame authenticates the complete polished layout, and
+    the runtime marker independently authenticates all three exact card texts.
+  visual_gate:
+    legacy_grid_label_polish: passed
+    quantity_card_readability: passed
+    live_iron_repaint: passed
+    close_and_receipt_expiry: passed
+
+rejected_evidence:
+  - root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryGridPolish_D3D12_16x9_FinalCurrent_20260723_210214
+    reason: >-
+      The foreground helper resized the outer window to 1280x720 and therefore
+      shrank the client viewport to 1264x681. Its pixels showed the intended
+      Iron 6 repaint, but the exact-resolution aggregate correctly failed and
+      this run is not used for acceptance.
+
+protection:
+  protected_file_hashes: 8_of_8_exact
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  supplied_art_or_vibe_source_modified: false
+  production_map_or_asset_modified: false
+  artist_repository_or_handoff_modified: false
+  package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M09_DEF0004_InventoryGridPolish_20260723_202410
+  exact_source_and_test_preimages_retained: true
+  canonical_preimages_retained: true
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 23
+  queue_sha256_after: E27EB401174461DDD01653374C43B13ACBBA4D04ADFDC48E3DBCBF9E4BD3BE8D
+  current_state_queue_hash_matches: true
+  defect_status: open
+
+canonical_validation:
+  queue_json_parse: passed
+  project_knowledge_audit: passed_0_errors_0_warnings
+  focused_and_integrity_unit_tests: 30_of_30_passed
+  changed_file_diff_check: passed
+
+remaining_blockers:
+  - controller and ultrawide Inventory acceptance
+  - durable resource-total ownership across respawn, travel, reconnect, restart, and account login
+  - broad DEF-0004 and DEF-0006 gameplay-HUD acceptance
+  - a fresh currency-valid Windows package and Steam/two-account regression
+
+claim_limit: >-
+  This accepts only the bounded 1280x720 real-GPU removal of crowded in-slot
+  labels, exact 0/0/0-to-0/6/0 quantity-card repaint, close cleanup, and
+  temporary-receipt expiry path. It does not accept controller input,
+  ultrawide Inventory layout, future iconless-item policy, durable inventory
+  persistence, packaging, Steam, or broad HUD completion.
+
+next_safe_action: >-
+  Preserve the accepted 16:9 grid polish, quantity cards, tally-free combat HUD,
+  resource authority, replication, Vibe source, supplied art, maps, and assets.
+  Run controller Inventory open, Resources navigation, Iron selection, live
+  refresh, and close acceptance as the next isolated M09 slice. Keep ultrawide,
+  persistence, packaging, and Steam as separate explicit gates.

@@ -1,0 +1,61 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r17-biome-output-contract-read-only.2026-08-04
+captured_utc: "2026-08-04T19:30:39Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r17-native-biome-output-contract-and-runtime-remap-boundary
+evidence_class: static
+result: pass_read_only_contract_inventory_runtime_remap_still_open
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  target_planet: /Game/RedMMO/World/PPG/HomeWorld/SeededBiomeSurface/R17/DA_PPG_HomeWorld_SeededBiomeSurface_R17
+  seed: 1337
+
+audit:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/audit_redmmo_r17_biome_output_contract.py
+    sha256: EDFF4AAD605F78F9C10E97EB680E5D6ACFD48C13828F6DD4A15D6BA1FE4D5B7F
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R17_BiomeOutputContractAudit_20260804T192813Z/result.json
+    sha256: EBC8A3DFC059AFA317DD812A2E645AE02BF93A04E5E11CF9FF6AD59AD37CFA28
+    status: PASS_READ_ONLY_CONTRACT_INVENTORY
+  dirty_packages: 0
+  saved_packages: 0
+
+verified:
+  - R15/R17 has exactly one MaterialExpressionPlanetBiomeMapSample and one MaterialExpressionPlanetBiomeMaterialOutput
+  - Biome IDs and Strengths are connected from the native biome-map sample
+  - all six output branches are connected through material-attribute blends
+  - output names are Craters, Mountains, Desert, Hills, Poles and Ocean
+  - PlanetData biome order is Craters, Hills, Mountains, Desert, Ocean and Poles
+  - installed PPG source remaps material-output identities through PPG_SurfaceBiomeEntryMap0 through PPG_SurfaceBiomeEntryMap3 rather than relying on list order alone
+
+corrected_hypothesis: >-
+  The prior tentative missing-output explanation is rejected. The persisted
+  graph contains the native output and all six connected branches. The next
+  bounded diagnostic is the runtime SurfaceMaterialBiomeEntryMap vectors,
+  current spawn biome identity and that biome's foliage eligibility/minimum
+  blend. The visual failure may be a runtime remap/material-branch disagreement
+  or a valid non-foliage spawn biome whose rendered branch still reads green.
+
+protection:
+  production_or_protected_content_changed: false
+  clean_red_packages_changed: false
+  providers_called: false
+  provider_ports_closed: true
+  unreal_process_count_after: 0
+
+claim_limit: >-
+  This is read-only structural evidence. It does not prove the correct runtime
+  biome at PlayerStart, material appearance, grass visibility or a fixed map.
+
+next_safe_action: >-
+  Inspect the runtime biome-entry remap parameters and PlayerStart biome plus
+  foliage eligibility without changing seed, geometry or approved grass. Make
+  no new capture until a verified binding or eligibility change can produce a
+  materially different view. If that path makes no meaningful progress within
+  the bounded interval, record the exact blocker and immediately advance the
+  next independent authorized M07 slice.

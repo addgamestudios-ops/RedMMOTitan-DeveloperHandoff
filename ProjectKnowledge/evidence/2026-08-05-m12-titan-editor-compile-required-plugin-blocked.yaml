@@ -1,0 +1,106 @@
+schema_version: 1
+id: evidence.m12.titan-editor-compile-required-plugin-blocked.2026-08-05
+captured_utc: "2026-08-05T01:16:32Z"
+module_id: M12
+system: mining.voxel-backend.native-automation
+slice: serialized-titan-editor-compile-only
+evidence_class: build
+result: blocked_before_source_compilation_missing_required_editor_plugin
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  project: D:/RedMMOTitan/Titan.uproject
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  content_or_map_changed: false
+  source_changed: false
+
+preflight:
+  physical_ram_free_gib: 52.21
+  commit_headroom_gib: 49.85
+  gpu: NVIDIA_GeForce_RTX_3080
+  gpu_vram_free_mib: 7757
+  d_drive_free_gib: 768.18
+  active_unreal_or_build_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+
+rollback:
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeM12TitanEditorCompile_20260805T0108Z/manifest.yaml
+    sha256: 3E03DEBAE428F284A35DA8A9BAE6682D098006FF9217E7BDC56D1080ED76A138
+  retained_products:
+    directory: D:/RedMMOTitanWindowsData/Rollback/BeforeM12TitanEditorCompile_20260805T0108Z/BinariesBefore
+    UnrealEditor-RedMMO.dll: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+    UnrealEditor-RedMMO.pdb: C51F0A804C93AE217BEE3D2B36B2AF1D9679C4388CDC951A74F9456BA18898B1
+    TitanEditor.target: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+
+build:
+  target: TitanEditor Win64 Development
+  flags: [-WaitMutex, -NoHotReloadFromIDE, -NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  exit_code: 6
+  result: Failed_OtherCompilationError
+  elapsed_seconds: 4.71
+  source_compilation_started: false
+  native_m12_scenarios_compiled: 0_of_9
+  native_m12_scenarios_executed: 0_of_9
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_TitanEditorCompile_20260805T0108Z/TitanEditor_build.log
+    sha256: 2DF78322F8C385445E051839DA2098EA5FC26BD8441D9B86F0A9893FD465832C
+    bytes: 1984
+  exact_error: >-
+    Unable to find plugin 'UnrealAIIntegrationPlatform' (referenced via
+    Titan.uproject). Install it and try again, or remove it from the required
+    plugin list.
+
+plugin_diagnosis:
+  project_descriptor_entry:
+    name: UnrealAIIntegrationPlatform
+    enabled: true
+    target_allow_list: [Editor]
+  exact_descriptor_present_in_project_plugins: false
+  exact_descriptor_present_in_ue_5_8_marketplace: false
+  exact_descriptor_present_in_clean_redmmo_plugins: false
+  distinct_related_engine_directories_observed:
+    - D:/UE_5.8/Engine/Plugins/Marketplace/UAIPMCPBridge
+    - D:/UE_5.8/Engine/Plugins/Marketplace/UnrealAI7e71c887d91fV2
+  boundary: >-
+    Directory-name similarity is not descriptor identity. Neither observed
+    directory was substituted for the exact required plugin, and no project
+    configuration was changed in this compile-only slice.
+
+m12_source_identity:
+  RedInMemorySparseVoxelBackend_cpp: 54DD9CF493C3B77D648654EEC3A898A313CA4D1E99A71035481D3C21D8716F9E
+  RedInMemorySparseVoxelBackend_h: E973D79BF605E89A49BA23AF9ED85344F96CEDDF4C97DE380772917A88F194E7
+  RedInMemorySparseVoxelBackendTests_cpp: 0185A1B6C69F6CC3766DD43FC5C3F01BC45D9D1E62E73EC328C1E4347102F711
+  RedVoxelAsteroidBackend_h: 79601371E30D89DF6CA559AC4CE874B231FBF0534437D4EB538CB0854BABEA9A
+  RedVoxelMiningContracts_cpp: 0EF754EB799C856E2C16DB7FDACA41FCBBDD6EE7E95A194D954870008EAA6E22
+  RedVoxelMiningContracts_h: 84A835E3517EDF6FE1824149B83AF7AB14BD5B6F7996EAB934C43DC508FF9978
+
+postcondition:
+  build_products_unchanged:
+    UnrealEditor-RedMMO.dll: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+    UnrealEditor-RedMMO.pdb: C51F0A804C93AE217BEE3D2B36B2AF1D9679C4388CDC951A74F9456BA18898B1
+    TitanEditor.target: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  final_unreal_or_build_process_count: 0
+  providers_called: false
+  desktop_control_used: false
+  project_knowledge_audit:
+    result: fail_with_4_pre_existing_unrelated_PKI012_findings
+    new_or_slice_caused_findings: 0
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M12_TitanEditorCompile_20260805T0108Z/project_knowledge_audit_final.json
+
+claim_limit: >-
+  This is failed-build evidence only. The build stopped during required-plugin
+  discovery before M12 source compilation. All nine native scenarios remain
+  uncompiled, unexecuted and unwired; no voxel gameplay, deformation, collision,
+  persistence, suction, Inventory, runtime, visual, standalone or multiplayer
+  claim is supported.
+
+next_safe_action: >-
+  Do not repeat the build unchanged. In a separately bounded dependency slice,
+  authenticate the intended UnrealAIIntegrationPlatform payload and compatibility
+  or prove the Titan.uproject requirement stale, preserve an exact descriptor
+  rollback, and make only the smallest reviewed resolution. Only then retry one
+  serialized TitanEditor compile; do not substitute a similarly named plugin.

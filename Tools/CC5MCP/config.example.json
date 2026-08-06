@@ -1,0 +1,11 @@
+{
+  "enabled": false,
+  "queue_root": "D:\\RedMMOTitanWindowsData\\CC5MCPBridge\\queue",
+  "save_root": "D:\\RedMMOTitanWindowsData\\CC5MCPBridge\\versions",
+  "bridge_token": "REPLACE_WITH_EXACTLY_64_RANDOM_HEXADECIMAL_CHARACTERS",
+  "request_timeout_seconds": 15.0,
+  "poll_interval_seconds": 0.1,
+  "max_message_bytes": 65536,
+  "morph_allowlist": {},
+  "linked_presets": {}
+}

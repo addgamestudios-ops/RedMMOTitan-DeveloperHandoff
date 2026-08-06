@@ -1,0 +1,107 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-pre-r15-playable-restore.2026-08-03
+captured_utc: "2026-08-02T22:45:43Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: pre-r15-locomotion-restore-and-player-review
+evidence_class: real_gpu_visual
+title: Clean RedMMO pre-R15 locomotion restore and rejected live user PIE
+status: locomotion_runtime_pass_visual_and_gameplay_rejected
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  production_redmmotitan_mutated: false
+  vendor_assets_mutated: false
+
+cause_and_correction:
+  rejected_map_sha256: 7BA68701F4B1A96777407FC8C349D90878037917CD3212878164B9A28BB37059
+  diagnosis: >-
+    A bounded R15 runtime probe kept forward input at 600 cm/s, so Enhanced
+    Input and CharacterMovement were not globally broken. The user's decay and
+    stoppage remained tied to R15's steep local terrain or seam path.
+  correction: >-
+    Restore only the authenticated pre-R15 home-map package. Retain the R15
+    checkpoint and R15 content packages without deleting them.
+  restored_map_sha256: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+  rollback_source: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_ContinentBiome_R15_20260802_211912_A01/RedMMO_PPG_HomeWorld.pre_r15.umap
+  retained_r15_checkpoint: D:/RedMMOTitanWindowsData/Rollback/RedMMO_R15_Playability_20260803_012126/manifest.json
+
+evidence:
+  fresh_reload:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PreR15_PlayableRestore_20260803/FreshReload_R02/verify_redmmo_pre_r15_restored_fresh_reload_r02_result.json
+    map_check_errors: 0
+    map_check_warnings: 0
+    dirty_packages: 0
+  radial_locomotion:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PreR15_PlayableRestore_20260803/Locomotion_R01/probe_redmmo_r15_surface_locomotion_result.json
+    evidence_class: automation_real_pie_runtime_no_save
+    remained_grounded: true
+    movement_mode: MOVE_WALKING
+    tested_seconds: 8.031
+    forward_displacement_cm: 4683.078
+    final_speed_cm_s: 600.0
+    movement_decayed_to_near_zero: false
+  live_player_view:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PreR15_PlayableRestore_20260803/UserPlay_R01/start_r10o_actual_playerstart_pie_result.json
+    screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PreR15_PlayableRestore_20260803/UserPlay_R01/RedMMO_Home_R10O_actual_PlayerStart_ground_view_PIE_1920x1080.png
+    screenshot_sha256: C40C79CD7FC6727B33AAF2198BD083E5BB297D7399ACB1B142405853D265615E
+    rhi: D3D12_SM6
+    ppg_generation: complete
+    chunks: 432
+    generation_time_ms: 8604.25
+    foliage_overflow_count: 0
+    grass_meshes_present:
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+    lit_day_spawn_visible: true
+    map_saved_by_validation: false
+    pie_left_open_for_user: true
+
+  player_review:
+    evidence_class: player_playtest
+    disposition: rejected_locomotion_baseline_only
+    screenshots:
+      - path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-5745285b-c47a-4a0d-b0d9-934b565200ce.png
+        sha256: EF525DB5A0584815E48C985C10A7FFFFF8C6903FAB1913FE73BB2005B89DB6FD
+      - path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-bb67d588-ca9b-437b-a24f-c0bd29deef9e.png
+        sha256: 1680F9D9DA3DA8531586EA6A47112AB069DCC251EEDC896E1C0B7949F6037600
+    observed_defects:
+      - The current frame contains a hard rectangular water surface instead of PPG-seeded basin and shoreline water.
+      - The surface is uniformly bright repetitive green and has no readable grassland, desert, pale beach, coast, or ocean composition.
+      - The parked fighter is not integrated with gameplay and remains visual-only.
+      - F toggles flight on the on-foot pawn instead of entering and possessing the fighter.
+      - Run or footstep audio can continue while airborne because there is no project-owned grounded-only audio gate.
+    provenance:
+      water_actor: RedMMO_StylizedPilot_OasisWater_R06
+      mesh: /Engine/BasicShapes/Plane
+      scale: [90.0, 60.0, 1.0]
+      material: /Game/StylizedDesertOasis/Materials/Instances/Environment/MI_Water
+      current_map_contains_actor: true
+      retained_r15_checkpoint_contains_actor: false
+      conclusion: The rectangle is restored current-map content, not a stale frame.
+
+review_disposition:
+  linked_playtest: ProjectKnowledge/playtests/2026-08-03-redmmo-pre-r15-locomotion-baseline-visual-gameplay-reject.yaml
+  bounded_locomotion_passed: true
+  visual_accepted: false
+  water_accepted: false
+  fighter_interaction_accepted: false
+  airborne_audio_accepted: false
+
+preservation:
+  protected_hashes_unchanged:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    Night_T03: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    BeforeCoastDatum: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+
+open_gates:
+  - The restored map passes only the bounded radial-locomotion probe; its current visual and gameplay presentation is player-rejected.
+  - Replace the R06 plane with a clean material binding on an actual PPG-seeded basin/shoreline; do not use another square carrier.
+  - Replace on-foot F flight-toggle behavior with fighter interaction and possession only after a separately proven project-owned vehicle pawn exists.
+  - Gate run and footstep audio to grounded walking or running and prove airborne silence in PIE.
+  - The visible So Stylized mannequin is still a temporary presentation asset.
+  - No dependency-closed Trooper or Mutable character payload exists in clean RedMMO.
+  - R15 continent/biome work remains rejected and preserved for diagnosis, not active.
+  - Nightside moon, stars, navigable ambient fill, and biome diversity remain separate corrective modules.

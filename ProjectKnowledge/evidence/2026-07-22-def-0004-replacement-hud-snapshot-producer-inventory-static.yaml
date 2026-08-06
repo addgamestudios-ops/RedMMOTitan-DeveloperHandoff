@@ -1,0 +1,240 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-snapshot-producer-inventory-static
+captured_utc: "2026-07-22T17:25:27Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: no_trustworthy_compiled_cpp_snapshot_producer_found_aggregate_bridge_refused
+
+scope:
+  selected_slice: >-
+    Inventory the replacement HUD aggregate snapshot consumer and potential
+    compiled C++ producer or assembler paths. Preserve the current granular
+    presentation feeds and add no aggregate bridge unless ownership, ordering,
+    completeness, clear semantics, and authoritative source identity are proven.
+  gameplay_source_files_modified: 0
+  plugin_source_files_modified: 0
+  test_files_added: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    upstream: origin/main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 59
+    individual_untracked_paths: 1329
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    samples: 7
+    free_physical_gib_range: [8.730, 9.138]
+    free_commit_gib_range: [18.970, 19.373]
+    total_physical_gib: 31.872
+    commit_limit_gib: 52.872
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8818, 8868]
+    gpu_utilization_percent_range: [11, 12]
+    gpu_temperature_c: 42
+    c_free_gib: 132.588
+    d_free_gib: 1141.724
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    competing_redmmotitan_writers: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates remained closed. Sustained
+    physical RAM was below the 12 GiB running abort threshold and the 18-20 GiB
+    packaging floor, while commit headroom was below the 24/26 GiB package gate.
+  final_recheck:
+    captured_utc_range: ["2026-07-22T17:30:50Z", "2026-07-22T17:31:07Z"]
+    samples: 5
+    free_physical_gib_range: [8.652, 9.029]
+    free_commit_gib_range: [19.128, 19.713]
+    vram_free_mib_range: [8908, 8914]
+    gpu_utilization_percent: 11
+    gpu_temperature_c: 43
+    c_free_gib: 132.772
+    d_free_gib: 1141.723
+    strict_unreal_build_cook_package_processes: 0
+    launch_gates: closed
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_package_archive_or_shader_started: false
+  current_attempt_archive_exists: false
+  july_17_archive_current_fused_marker: missing
+
+inspected_source_identity:
+  - {path: Plugins/RedHUD/RedHUD.uplugin, sha256: 4A63B2E1B7C0D3716E4D86EC88AD50981416EFA8D6B91C05F81CC02B151778E6}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h, sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, sha256: BE926FEF5F105A4331EA18A4D637ABF1C2CF3C1D610688A4C9A53C148829D05F}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDBlueprintLibrary.cpp, sha256: 6498A8833D41CA18226DEC5F5E78EF43F7AE8C3B58F3B62396154F0C421798A9}
+  - {path: Plugins/RedHUD/INTEGRATION_SNIPPET.cpp, sha256: DE90B3092E16F75147805C38D4FDFDAF82446C93F952B981205155842213B4C7}
+  - {path: Source/RedMMO/RedHUD.h, sha256: D7B73FDFA5EAED5B60278BC41C6AF90326AC084E7BD89064C1C75207B9ACEC76}
+  - {path: Source/RedMMO/RedHUD.cpp, sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+  - {path: Source/RedMMO/RedGameInstance.cpp, sha256: 1D742F45FF1581AB83FFC7EA267F94DDA73E08145754C7AB41E923E04BF46CD7}
+  - {path: Source/RedMMO/RedGameMode.cpp, sha256: 2FB11F01C7CA2CFF9DE4B0BE29DA42FB0B00915DC7A10ACD77439EA86411CECD}
+
+snapshot_consumer_inventory:
+  type: FRedHUDSnapshot
+  consumer: URedHUDWidget.ApplySnapshot
+  compiled_redhud_declaration_and_definition_sites: 2
+  compiled_redmmo_caller_count: 0
+  compiled_vibe_caller_count: 0
+  plugin_compiled_modules: [RedHUDRuntime]
+  integration_snippet_compiled: false
+  current_domains:
+    - player_vitals
+    - weapon_1
+    - weapon_2
+    - enemy
+    - quest
+    - consumable_counts
+    - abilities
+  exact_hazards:
+    - default player vitals are sample level 30 with full 1779 health, shield, and energy
+    - weapon sample magazine and reserve remain although current RED weapons use heat
+    - enemy defaults visible with the sample BROODHUNTER identity and full health
+    - quest defaults visible with sample Ancient Waygate and Sunken Archive text
+    - consumables default to 6, 3, and 12 while abilities default empty
+    - ApplySnapshot unconditionally replaces player, both weapons, enemy, and quest
+    - short consumable and ability arrays update only supplied indices and do not clear trailing slots
+    - a default-sized ability array would publish ready states over live cooldown presentation
+  missing_aggregate_contracts:
+    - local_player_or_authoritative_source_identity
+    - schema_and_version
+    - monotonic_revision_or_server_time
+    - stale_or_out_of_order_rejection
+    - per_domain_presence_and_explicit_clear_semantics
+    - complete_compass_party_and_minimap_domains
+    - exact_fixed_slot_or_tail_clear_semantics
+    - fail_closed_hidden_or_empty_defaults
+
+producer_inventory:
+  result: zero_compiled_cpp_producer_or_authority_found
+  native_redmmo_player_controller_assembler: absent
+  game_instance_assembler_or_persistence_owner: absent
+  replicated_snapshot_property: absent
+  vibe_gameplay_snapshot_or_persistence_owner: absent
+  existing_trustworthy_paths:
+    - ARedPlayerCharacter to ARedHUD granular vitals feed
+    - ARedPlayerCharacter to ARedHUD two-slot heat feed
+    - ARedPlayerCharacter to ARedHUD Q and E ability feed
+    - ARedPlayerCharacter to ARedHUD local compass feed
+    - ARedHUD aimed-enemy presentation feed with per-frame hidden stale clearing
+  disposition: preserve_granular_feeds_and_keep_aggregate_dormant
+  unrelated_snapshot_symbols_not_reinterpreted:
+    - RedCelestialFrameRegistry FFrameSnapshot
+    - ARedShip LogGravityAcceptanceSnapshot
+    - PlanetGen FGrassSurfaceSnapshot
+    - Vibe layout subsystem asynchronous profile snapshot comment
+  serialized_boundary:
+    - ApplySnapshot is BlueprintCallable
+    - RedGameMode may load /Game/RedMMO/UI/BP_RedMultiplayerPlayerController
+    - Blueprint graphs, package exports, and serialized property payloads were not decoded
+    - bounded Content/RedMMO and Content/UI filename scan found no HUD or UI snapshot-state aggregator name
+  claim_wording: no_trustworthy_compiled_cpp_producer_not_project_wide_absence
+
+required_future_aggregate_contract:
+  preferred_near_term: keep_per_domain_presentation_feeds
+  before_any_aggregate_caller:
+    - explicit schema and version
+    - authenticated local-player or replicated-owner identity
+    - monotonic revision or server time with stale rejection
+    - explicit presence and clear semantics per domain
+    - exact three-consumable and four-ability slot clear behavior
+    - fail-closed hidden enemy and quest plus empty consumables
+    - bounded values and complete compass, party, and minimap policy
+    - assembly only from authoritative or owner-replicated gameplay state
+  prohibited: using_UMG_presentation_as_gameplay_authority
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_snapshot_inventory_contract.py
+  focused_test_sha256: 3E78057BB5212C297760F8CB1B5C0344722CFFCC119F4C62BBADB01ABA12BA11
+  focused_test_length: 9422
+  focused_snapshot_inventory_tests: 7_of_7_passed
+  prior_HUD_shared_and_provenance_contracts: 79_of_79_passed
+  combined_result: 86_of_86_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDSnapshotInventory_20260722_1713_retry1/offline_contract_and_provenance_tests.log
+  log_sha256: C91A15395CD1F9B73BB18A8AA9ABF8A72F856E8D6B0D348C44BC51F9705A2EC7
+  independent_review: PASS_no_wire_with_serialized_blueprint_limitation
+  review_corrections:
+    - result is limited to compiled C++ producer and authority paths
+    - BlueprintCallable means undecoded serialized Blueprint callers cannot be excluded
+    - unsafe sample defaults are documented but are not locked as desired test behavior
+    - regression fails if a compiled caller appears while the aggregate remains unaccepted
+
+target_currency:
+  current_report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004AbilityFeed_1606_retry1/target_currency.json
+  current_report_sha256: 8FDCF4DB5D7AAAB36DB5CDAA3EE80EF0128143F6D0154F88AFF59C0BCD8E33D7
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, exact_build_proof: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, exact_build_proof: missing}
+  skip_build_allowed: false
+  audit_rerun: false
+  reason: no_Cpp_Config_plugin_target_or_build_input_changed_in_this_inventory_slice
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004SnapshotInventory_20260722_1713
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004SnapshotInventory_20260722_1713/pre_slice_manifest.yaml
+  manifest_sha256: 119CC3A6F467BA42E73468FFD5630C1299ED8004FF83A6DD04ABA66334B438AE
+  backed_up_files: 4
+  files_including_manifest: 5
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  pre_slice_topology_checks: 9_of_9_passed
+  pre_slice_fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  supplied_HUD_textures: 56_preserved
+  vibe_sources: 8_of_8_preserved
+  artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+  final_topology_checks: 9_of_9_passed
+  final_fused_provenance_checks: 7_of_7_passed
+  final_protected_source_rasters: 135_of_135_matched
+  final_SAFE8_manifest_entries: 338_of_338_matched
+  final_SAFE8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  final_supplied_HUD_textures: 56_preserved
+  final_HUD_manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  final_vibe_sources: 8_of_8_preserved
+  final_artist_baselines: unchanged
+  final_rollback_files: 4_of_4_exact
+  final_canonical_parse: 83_yaml_plus_queue_json_zero_errors
+  final_queue_hash_matches_current_state_and_evidence: true
+
+canonical_queue:
+  pre_slice_sha256: 77AD907BDA322DDCCA0A13ACB5B9421D270A7270F3D71FE7169D7F0C15AABCAB
+  post_slice_sha256: 774BE83139CF430AC5B09E69ED050034AF8DD2CA38C01A5496012B6519C2C4AC
+  module_status: incomplete_retry
+  retry_count: 13
+
+remaining_blockers:
+  - aggregate snapshot wiring has no trustworthy compiled C++ producer or complete safety contract
+  - serialized Blueprint graphs and package payloads remain undecoded
+  - quest and consumable feeds remain blocked on authoritative per-player producers
+  - party and minimap domains have no accepted producer-to-consumer contract
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - current HUD behavior and pixels require runtime and real-GPU evidence
+  - complete layout coverage, painted controls, persistence, packaging, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves only a static fail-closed inventory over inspected compiled
+  C++ and bounded content filenames. It adds no gameplay or aggregate bridge and
+  does not prove the absence of serialized Blueprint callers. It does not accept
+  UHT, compilation, runtime HUD state, persistence, controls, pixels, gameplay,
+  packaging, Steam transport, or multiplayer.

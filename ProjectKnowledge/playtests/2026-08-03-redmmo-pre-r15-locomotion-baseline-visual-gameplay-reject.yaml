@@ -1,0 +1,27 @@
+schema_version: 1
+id: playtest.redmmo.pre-r15-locomotion-baseline.visual-gameplay-reject.2026-08-03
+evidence_class: player_playtest
+project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+map_sha256: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+active_editor_pid_observed: 17692
+runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PreR15_PlayableRestore_20260803/UserPlay_R01/user_play.log
+screenshots:
+  - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-5745285b-c47a-4a0d-b0d9-934b565200ce.png
+  - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-bb67d588-ca9b-437b-a24f-c0bd29deef9e.png
+accepted_by_player: []
+verified_runtime_baseline:
+  - bounded radial forward movement remained grounded and did not decay
+observed_defects:
+  - a hard rectangular water plane is visible instead of water following PPG-seeded basin and shoreline geometry
+  - the ground is uniformly bright repetitive green without distinct grassland, desert, pale beach, coast, or ocean composition
+  - the parked fighter is a visual-only reference rather than a usable vehicle
+  - F toggles flight on the on-foot pawn instead of entering and possessing the fighter
+  - airborne movement can continue to emit run or footstep audio
+required_contract:
+  - preserve the current PPG seed, marker distribution, and proven radial surface locomotion
+  - bind water presentation only to an actual PPG-seeded basin and shoreline; never use a square plane carrier
+  - make F interact with and enter a separately proven fighter pawn; remove F as an on-foot flight toggle
+  - emit run and footstep audio only while grounded and walking or running
+  - do not claim vehicle behavior from the current visual-only StarSparrow actor
+status: recorded_player_rejected_correction_pending_after_active_pie

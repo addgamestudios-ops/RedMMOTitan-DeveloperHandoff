@@ -1,0 +1,142 @@
+schema_version: 1
+id: evidence.m00.clean-redmmo.r88-grounded-footstep-package
+module: M00
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T09:02:36Z
+scope: >-
+  One guarded full Win64 Development build, cook, stage, Pak/IoStore archive,
+  exact currentness/content audit, and bounded offscreen real-D3D12 packaged
+  startup. This carries the accepted R85 projectile, R86 rifle presentation,
+  and R88 grounded-footstep producer into a new no-clobber package. No map,
+  ProfileV1, seed, terrain, biome, foliage, Config, plugin, vendor source, or
+  user asset changed.
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/transaction_intent.yaml
+  prior_r87_preserved: true
+  archive_root_absent_at_entry: true
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 195
+  free_physical_ram_gib: 51.36
+  commit_headroom_gib: 53.59
+  gpu_free_mib: 9108
+  d_drive_free_gib: 757.96
+  active_unreal_build_package_process_count: 0
+build:
+  target: RedMMO Win64 Development
+  result: success
+  uat_exit_code: 0
+  build_cook_run_seconds: 114.19
+  compiled_project_source: RedPlayerCharacter.cpp
+  linked_game_binary: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/RedMMO.exe
+  cooked_total_packages: 1539
+  iostore_ordered_packages: 1468
+  uat_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/uat_stdout.log
+  uat_log_bytes: 183676
+  uat_log_sha256: 4C3EE281CB12B585F775CF8237DB4CF19FAF864F828B2A6DF5BBE15E4C123B60
+package:
+  archive_root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  file_count: 52
+  total_bytes: 1454676382
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  pre_smoke_archive_tree_sha256: EE261F5CB375FD7901D566E89D624A81054F0A8BB6F61CE11D44BA5A760BA731
+  tree_hash_contract: >-
+    SHA-256 of UTF-8 LF-terminated lines sorted by case-folded relative path;
+    each line is relative/path|byte_length|file_sha256.
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+  first_launch_generated_files:
+    - path: Engine/Saved/Config/Windows/Manifest.ini
+      bytes: 25
+      sha256: 531BFB7088F544A87FF1268A69A3648DC0648BA49AACA9C3C67D4C4DCF87F088
+    - path: RedMMO/Saved/Config/CrashReportClient/UECC-Windows-3E8A30404271D722A6A1FFB86EC72EAD/CrashReportClient.ini
+      bytes: 239
+      sha256: CE69D7E7BBD1A64729BD4D5724F3C1EFC47C6C3D555DA9D2C6AD741EDDC3D893
+currentness:
+  r88_header_sha256: 4FEA8A173A1022966E959D852878CB65327434F33EBBF29F95624D5B63E815D5
+  r88_source_sha256: BCD11DF53C33CC57559CF3351FA876C1DC27987999D7AC5EFBDD2ACBAC8182CC
+  r88_editor_dll_sha256: BFBB0348E660EF6852A55FDC1F735C07C013E3A13BDD533B35DE8734A69B2426
+  r87_game_binary_sha256: 3911436C03D865E3E8962EC2B81FD2ED90807B5B1A7BF2A2EF1FE818679F12C5
+  r88_game_binary_differs_from_r87: true
+  exact_sound_source_sha256: EFC10D81407F39E8C0B340B37DBCE8E2F784AB16B65EF82A0F6A1FF3149F0F67
+  exact_sound_cooked_entry_count: 1
+cooked_content_audit:
+  listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/iostore_list.txt
+  listing_bytes: 1221774
+  listing_sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+  listed_files: 3295
+  uassets: 1465
+  umaps: 3
+  required_present_once:
+    - SoStylized/Sounds/Step/SC_Steps_Dirt.uasset
+    - RedMMO/Anims/Rifle/A_Rifle_Fire_Single.uasset
+    - ProjectilesVol1/Effects/P_Flash_17.uasset
+    - ProjectilesVol1/Materials/MI_Flash26a.uasset
+    - ProjectilesVol1/Materials/M_Circle41a.uasset
+    - ProjectilesVol1/Textures/T_Circle41.uasset
+    - ProjectilesVol1/Textures/T_Flash26.uasset
+    - ProjectilesVol1/Textures/T_Noise41.uasset
+    - RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.uasset
+    - RedMMO/Gameplay/Trooper/A01/Combat/BP_RedBolt_Trooper_A01.uasset
+    - RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+  rejected_absent:
+    P_Flash_4: 0
+    SM_Conus: 0
+smoke:
+  renderer: D3D12 SM6
+  gpu: NVIDIA GeForce RTX 3080
+  resolution: 1280x720
+  mode: offscreen_unattended_no_sound
+  runtime_compatibility_marker: RED_MOTION_VECTOR_CVAR_R84
+  uv_guard_marker: RED_PPG_UV_GUARD active
+  game_class: GM_RedTrooperPPG_A01_C
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 4546.35
+  trooper_surface_placement: true
+  starsparrow_surface_spawn_and_park: true
+  warning_line_count: 0
+  error_line_count: 0
+  assertion_count: 0
+  ensure_count: 0
+  fatal_count: 0
+  bad_export_count: 0
+  gpu_crash_or_device_loss_count: 0
+  exact_owned_processes_stopped_after_gate: [6256, 4828]
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/Smoke_20260806T0858Z/packaged_smoke.log
+  log_bytes: 83902
+  log_sha256: D3BA0233E543D1AD714FAD53F3E7D2FDC47B6ED0BAD9BADAF9888C0063A5D750
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  ppg_seed: 1337
+  prior_r87_tree_sha256: AC541BE2EA91C80A3FD9B8722C1F8B7E42EADB08BABAA3F60C0986131317FA6D
+  vendor_sources: unchanged
+postcheck:
+  active_unreal_build_package_process_count: 0
+  free_physical_ram_gib: 51.35
+  commit_headroom_gib: 53.62
+claim_limit: >-
+  R88 proves fresh package currency for the accepted grounded-footstep source
+  and exact cue, the retained rifle/projectile closure, and a clean real-D3D12
+  startup through PPG generation, Trooper placement, and StarSparrow parking.
+  The no-sound smoke does not prove perceived cadence or audio mix. This also
+  does not accept physical controls, overall PPG terrain/grass/shoreline/biome/
+  day-night visuals, replication, multiplayer, persistence, final art, or
+  interplanetary traversal. It is a launchable candidate, not a completed
+  playable-baseline claim.
+next_safe_action: >-
+  Preserve R88 and require one separate visible human hands-on physical
+  on-foot/rifle/StarSparrow control, audible-footstep, and current player-scale
+  PPG visual review before calling it the user-ready playable baseline. Until
+  that authorized visible review is available, rotate to another independent
+  non-desktop module on the next wake.

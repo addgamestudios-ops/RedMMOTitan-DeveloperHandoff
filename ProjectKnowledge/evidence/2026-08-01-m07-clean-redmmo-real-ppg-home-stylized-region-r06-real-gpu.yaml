@@ -1,0 +1,206 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-real-ppg-home-stylized-region-r06.real-gpu.2026-08-01
+captured_utc: "2026-08-01T08:25:50Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: bounded-persisted-stylized-region-r06
+evidence_class: real_gpu_visual
+result: passed_persistence_reload_and_gpu_capture_pending_human_visual_acceptance
+
+scope:
+  authorized:
+    - mutate one bounded presentation region in the real clean Red PPG home-world map
+    - preserve the generated PPG terrain, radius, seed, planet system, biomes, and gameplay ownership
+    - use project-owned stylized material instances and selected owned stylized meshes
+    - retain the complete unchanged Stylized Desert Oasis water material closure
+    - save, fresh-reload, run MapCheck, capture real-GPU evidence, and leave the map open for review
+  explicitly_not_done:
+    - no full-planet visual conversion
+    - no PPG terrain, seed, radius, biome-mask, gravity, gameplay, plugin, or PlanetGen destination mutation
+    - no vendor-source overwrite and no legacy Titan or RedMMOTitan production-content mutation
+    - no provider call, PIE, gameplay, swimming, collision, performance, cook, package, or multiplayer acceptance claim
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  real_home_map_file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+  home_map_sha256_before_r06: 00395728306E0DF18D0381CC52B2803450F6C218D13B29103D42BCDD758DDB90
+  home_map_sha256_after_r06: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+  home_map_fresh_reload_sha256: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+
+preflight_and_rollback:
+  evidence_root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429
+  pre_manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/pre_r06_manifest_v1.json
+  pre_manifest_sha256: F23DB7F16CF92E216E5CDCCB9D022CFD0C0D795B2CF54CB878D578D68E86CDC9
+  pre_manifest_status: PASS
+  source_input_count: 29
+  rollback_pair_count: 14
+  no_clobber_absent_target_count: 6
+  rollback_root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/rollback_pre_r06
+  failed_first_run_quarantine: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/failed_run_01_quarantine
+  failed_verifier_quarantine: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/failed_verifier_01_quarantine
+  note: >-
+    The first build failed before map save on an invalid Python editor API and the
+    first verifier used a false hard-coded parent assumption. Both failed artifacts
+    were moved recoverably into named quarantine directories; neither is accepted
+    evidence. The corrected build and dynamic-parent verifier passed independently.
+
+persisted_home_region:
+  build_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/build_home_stylized_region_r06_result.json
+  build_report_sha256: 5BF3439735EAE1F524B1BA63B8716302CD6333F39CC0DEDFBB67F455E0D85241
+  build_status: PASS
+  actor_count_before: 43
+  actor_count_after: 36
+  managed_pilot_actor_count_after: 24
+  managed_categories:
+    grass: 10
+    boulder: 1
+    cliffs: 3
+    pebbles: 4
+    flowers: 2
+    banana_plants: 2
+    acacia_trees: 2
+  retired_from_active_map:
+    - six excess R05 grass actors
+    - the fake R05 shore-feather actor
+  local_oasis_water:
+    actor: RedMMO_StylizedPilot_OasisWater_R06
+    mesh: /Engine/BasicShapes/Plane
+    material: /Game/StylizedDesertOasis/Materials/Instances/Environment/MI_Water
+    scale: [90.0, 60.0, 1.0]
+    lowered_from_r05_cm: 11.0
+    collision: disabled
+    vendor_dependency_closure_changed: false
+
+ppg_contract_preserved:
+  seed: 1337
+  radius_cm: 300000000.0
+  planet_data: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R05/DA_PPG_HomeWorld_StylizedPilot_R05
+  generation_material: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R05/Materials/M_PPG_Generation_CapFoliage_R05
+  surface_material: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R05/Materials/M_PPG_Hills_StylizedPilot_R05
+  biome_mask: /PPG/Example/Assets/M_PPG_ExampleBiomeMask
+  native_planet_water_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  cloud_material: /PPG/Clouds/M_SimplePlanetaryClouds
+  generated_terrain_changed: false
+  gameplay_or_planet_ownership_changed: false
+
+project_owned_r06_packages:
+  root: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials
+  assets:
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_Grass_01_Muted_R06
+      sha256: A7F10A5122548D413FF187D97A5562CA2933C577759B9DE77412DDE295ABFF8A
+      source: /Game/Zenscape_Island/Material/Grass/MI_Grass_01
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_Grass_LOD1_Muted_R06
+      sha256: E6383EA6DF5A65E77F35D0431FD224A99B2A13D2C0AE9420D3E9FFF8BC53EEA1
+      source: /Game/Zenscape_Island/Material/Grass/MI_Grass_LOD1
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_Grass_LOD2_Muted_R06
+      sha256: 739C076DC8D170A5AC5AA223FDEEBBBE2CF5275E8A250E1DB89B7BC09FB81E6F
+      source: /Game/Zenscape_Island/Material/Grass/MI_Grass_LOD2
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_PlantBanana_Muted_R06
+      sha256: C69E058BDEE9C58503571382AC6AD7F75084225CC462852F8836F6489785A19B
+      source: /Game/Zenscape_Island/Material/MI_PlantBanana_01
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_AcaciaLeaf_Muted_R06
+      sha256: DF1D631C4D50D28238555B7FC0C37982CE8948C17E9A61119E8F53EBBE42E684
+      source: /Game/Zenscape_Savanna/Material/MI_Leaf_01
+    - path: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R06/Materials/MI_RockBlueGray_R06
+      sha256: 88593CE6C1E21CF337C3BC79D6DB2C27D8D72D08F18BCABD4BD77DEBB1EEC2DE
+      source: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R03/Materials/M_Rock_HandPainted_R03
+  note: >-
+    R06 neutralizes the cyan grass-wind tint, mutes banana and acacia foliage,
+    and gives the project-owned Savanna/Island-derived rock proxies a restrained
+    blue-gray hand-painted top/side color split. So Stylized and Oasis rocks are
+    not used as the final rock family.
+
+owned_mesh_sources:
+  zenscape_island:
+    - /Game/Zenscape_Island/Model/Grass/SM_Grass_01
+    - /Game/Zenscape_Island/Model/Plants/SM_Flower_Pink_02
+    - /Game/Zenscape_Island/Model/Plants/SM_BananaPlant_02
+  zenscape_savanna:
+    - /Game/Zenscape_Savanna/Model/Tree/SM_AcaciaTree_01
+    - /Game/Zenscape_Savanna/Model/Tree/SM_AcaciaTree_03
+  project_owned_hand_painted_geology:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R03/Meshes/SM_Rock_Boulder01_HandPainted_R03
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R03/Meshes/SM_Rock_Round01_HandPainted_R03
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R03/Meshes/SM_Pebble_Island01_HandPainted_R03
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R03/Meshes/SM_Pebble_Island03_HandPainted_R03
+
+fresh_reload_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/verify_home_stylized_region_r06_reload_result.json
+  report_sha256: 842C35CA3ADA275E020313A571EFEE8D6955618DE636BD6D56B985BA986E445B
+  status: PASS
+  map_check_errors: 0
+  map_check_warnings: 0
+  exact_actor_mesh_material_and_uniform_scale_contract: passed
+  exact_r06_package_hash_and_class_contract: passed
+  water_collision_and_material_contract: passed
+  retired_r05_shoreline_absent: true
+  dirty_packages_at_end: []
+  provider_ports_5353_8000_8765_closed: true
+
+real_gpu_capture:
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  generation_complete: true
+  providers_called: false
+  provider_plugins_disabled_by_command_line: true
+  map_or_content_saved_during_capture: false
+  actors_moved_during_capture: false
+  pie: false
+  ground:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/capture_home_stylized_region_r06_ground_d3d12_result.json
+    report_sha256: C6BA6949CA3E0E8E05FF70FAA3A0B544B8BF8884CE185A1EE06486051CEEBF75
+    screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/RedMMO_Home_R06_01_ground_grass_rock_plant_1920x1080.png
+    screenshot_sha256: E89A8E29B2848BB3D79779DC7382A0296C6451A71E5AD21BE09C9EF63AEECBC1
+  water:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/capture_home_stylized_region_r06_water_d3d12_result.json
+    report_sha256: FF7F1A470CC973AA04318A0CEBC4538C5BAFEB5A7A5AEAD40C0A40407F2B43A7
+    screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/RedMMO_Home_R06_02_oasis_water_1920x1080.png
+    screenshot_sha256: 56A9AF65EB73B1ECCB935079295CDB054C54E4F675DBCC0D2139808212AA76C9
+
+visual_review:
+  technical_persistence: passed
+  human_visual_acceptance: pending
+  improved:
+    - cyan or neon grass carryover is gone
+    - pale-white realistic rock presentation is gone
+    - the bounded region now reads as muted painted ground with sparse stylized grass, blue-gray geology, flowers, banana plants, acacias, and Oasis water
+  open_gaps:
+    - Oasis water remains too dark, contrast-heavy, and reflective in the current planetary lighting
+    - the local water carrier has a visible hard straight or diagonal boundary
+    - final natural shoreline and beach geometry is not authored; the fake R05 feather was intentionally removed
+    - the bounded pilot is not a whole-planet conversion
+    - PIE, gameplay, collision, swimming, performance, and packaged behavior are unverified
+
+editor_handoff:
+  process_id_observed: 32092
+  window_title: RedMMO - Unreal Editor
+  map_left_open: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  view_left_open: ground-level stylized region
+  all_saved_observed: true
+  generation_complete_observed: true
+
+protection:
+  canonical_repo_git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  legacy_titan_or_redmmotitan_content_changed: false
+  vendor_source_packages_changed: false
+  plugins_or_provider_configuration_changed: false
+  PlanetGen_destination_map_changed: false
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R06 proves that one bounded visual region is actually persisted inside the real
+  clean-Red PPG home-world map, survives a fresh reload with MapCheck 0/0, and
+  renders on D3D12 SM6 on an RTX 3080. It does not prove full-planet conversion,
+  final shoreline or water art, human visual acceptance, PIE or gameplay,
+  collision, swimming, performance, multiplayer, cook, package, or production
+  promotion outside the clean Red project.
+
+next_safe_action: >-
+  Keep the map open for human review. If the bounded ground/vegetation/rock style
+  is accepted, the next smallest reversible home-world slice is a project-owned
+  local shoreline and Oasis-water presentation correction that removes the hard
+  water boundary and tones reflection under the planetary lighting without
+  changing terrain, seed, radius, PPG ownership, vendor sources, or the PlanetGen
+  destination map. Full-region expansion remains a later approval gate.

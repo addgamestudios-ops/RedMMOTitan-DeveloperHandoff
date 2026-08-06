@@ -1,0 +1,222 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-HIGH-GATE-SEMANTICS-STATIC
+captured_at: "2026-07-22T22:28:43Z"
+module: M10
+slice: high-gate-affirmative-and-explicit-negative-semantics
+evidence_class: static
+result: high_gate_semantics_hardened_two_tool_limits_remain
+
+authorization_and_scope:
+  intended_work: >-
+    Close only the documented high-gate result and status semantics category
+    for low evidence classes. Recognize named runtime, visual, gameplay,
+    package, and multiplayer affirmative outcomes while excluding directly
+    negated and explicit-negative claims, including adjacent compound gates.
+  production_files_modified: 0
+  runtime_or_gameplay_files_modified: 0
+  tooling_files_modified:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_preserved:
+    - production maps, protected checkpoints, fused prototype assets, and archives
+    - artist repositories, handoffs, and all protected source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+    - all 64 historical live-audit findings
+  explicitly_deferred:
+    - completed-module evidence success, association, and class compatibility
+    - recursive nested YAML and yml orphan discovery
+    - all legacy metadata repair
+    - HUD, gameplay, maps, artist work, Unreal, build, cook, package, real-GPU, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1363
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_shader_zen_uba_count: 0
+    competing_project_writer_before_slice: false
+  root_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 7.113, maximum: 7.224, average: 7.191}
+    commit_headroom_gib: {minimum: 16.971, maximum: 17.123, average: 17.032}
+  independent_resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 7.083, maximum: 7.281}
+    commit_headroom_gib: {minimum: 16.862, maximum: 17.058}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1576_to_1593, free_mib: 8477_to_8494, utilization_percent: 11_to_12, temperature_c: 41}
+    disk_free_gib: {C: 132.01, D: 1141.72}
+  terminal_resource_check:
+    captured_at: "2026-07-22T22:22:44Z"
+    physical_free_gib: 7.093
+    commit_headroom_gib: 17.148
+    matching_unreal_or_build_processes: 0
+  decision: static_offline_only
+  latest_build:
+    path: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+    sha256: 004D624A8BEFECD9625B8894336B94F171FA4DDCBF8398A48980144B0ABB3335
+    historical_result: TitanEditor_Win64_Development_succeeded
+    current_status: stale_or_unproven
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_stage_package_archive_started: false
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    inputs: 874
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+pre_implementation_audit:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/integrity_pre.json
+    bytes: 17807
+    sha256: 7AD8DF5090DD18389746A5D1C45DDBD7BF377EC18ECD2B08F670242A36A8F5E9
+  expected_exit_code: 1
+  finding_count: 64
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  high_gate_findings: 0
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 33939
+    sha256: 13F60F2B4154184A4F6F8900E163819A06CE35D11DB3871F9A4FE71CE6D83195
+    behavior:
+      - result and status parsing is token-aware and limited to static, build, and automation evidence
+      - accepted, verified, succeeded, and acceptance-form outcomes are recognized only beside a named high-gate subject
+      - prefix negation, explicit-negative suffixes, unverified, unsuccessful, failed, pending, and false claims are excluded
+      - adjacent compound gates retain independent semantics in either order
+      - exact nested named gate values now include verified and succeeded
+      - generic result or status values without a named high-gate subject remain outside PKI013
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 22744
+    sha256: 581BB364A31A504056CA3ACBD86A0E386C012F4121FDE5058AEDEF77B1A914F6
+    focused_contracts_passed: 14
+    semantic_matrix:
+      - affirmative direct and acceptance forms across all three low evidence classes
+      - direct prefix negation and explicit-negative suffixes
+      - unverified and unsuccessful token-boundary exclusions
+      - nested exact verified and succeeded values
+      - all four canonical higher evidence classes remain exempt
+      - positive and negative adjacent compound gates in both orders
+
+verification:
+  slice_intent:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/slice_intent.yaml
+    bytes: 1906
+    sha256: 943AFC44059D44EDBCFFE966D70062A284D2CCE19AF19E9D4B7D5AE8A1123E01
+  focused_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/focused_tests.log
+    bytes: 6558
+    sha256: 70BA5016C1FE32F205D23E23B0D546D0152D9B07BB22E3BD60695AEB10EEDB96
+    result: 14_of_14_passed
+  combined_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/combined_regression_tests.log
+    bytes: 15538
+    sha256: B7FBCB8BC638B87A03F678F385134C1E24D60CECDC520510749E0E293161CDAD
+    result: 36_of_36_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  live_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/integrity_probe.json
+    bytes: 17807
+    sha256: 2F124AA760EAD18D47A259CBD3FBD62AF8AB2BBCEF530A3B2D0AE8A9E4816748
+    expected_exit_code: 1
+    finding_count: 64
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    high_gate_findings: 0
+  independent_review:
+    result: pass_after_compound_clause_correction
+    first_review_blocker: adjacent_negative_gate_outcome_suppressed_separate_affirmative_gate
+    correction: separate prefix negation from a preceding gates negative outcome and a following negated gate
+    generated_compound_permutations_checked: 1872
+    generated_compound_mismatches: 0
+    repository_files_modified_by_reviewer: 0
+
+protection:
+  pre_reconciliation_result: pass_no_drift
+  linked_yaml_records_parsed: 94_of_94
+  json_queue_records_parsed: 1_of_1
+  protected_rasters_exact: 135_of_135
+  supplied_hud_assets_exact: 56_of_56
+  vibe_sources_exact: 8_of_8
+  safe8_manifest_members_exact: 338_of_338
+  unrelated_input_sentinels_exact: 874_of_874
+  protected_artifacts_exact: 8_of_8
+  artist_repository_shapes:
+    SAFE7: clean
+    SAFE8: 4_modified_1_untracked
+    SAFE9: 9_modified_3_untracked
+  unreal_build_or_project_writer_count: 0
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10HighGateSemantics_20260722_2218
+  retained_files: 5
+  auditor_before_sha256: FEDF301BE0679576B9F7978FAC9B0DC90BA0F4B7656715862E891A1732F605C2
+  tests_before_sha256: DAEE5C906A802F42A7307B3949E00A7BCBF1BB7667962B96B9996489FB391A6A
+  index_before_sha256: 7504386252A234B4FA57C16CDB772F843B25BB42B0C3C3C52B58DE65D312BD54
+  current_state_before_sha256: 344AF0D5C039CDDB640B9677F9BE4A1D307DFF235C3C370988448247D0833011
+  queue_before_sha256: BA556CFF7644052A5729DCF0772CA99365196D88A29834573F98C136DB3DE505
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_HighGateSemantics_20260722_2218/integrity_final.json
+    bytes: 17807
+    sha256: 230ABA0E018F0C826A59764675D8AEFBE32BE67EA5710ACE2147614B8FB864FB
+    expected_exit_code: 1
+    result: failed_closed_with_64_current_metadata_findings
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    indexed_routes: 104
+    indexed_evidence_records: 69
+    indexed_defect_records: 7
+    queue_modules: 12
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 9796
+    sha256: 1505F0CB6C39995A9D2CF74E773561A4405D994A6B67F8E0A005CA87DCC5892D
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 54914
+    sha256: E9849CE764C909D20BC2D12F6DF153045A0C12BD3F8DAEE53A4855566F9749B2
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 177179
+    sha256: C3FC51D03ACF874EFB577DABEDF3CA9B36ED4A273C8B8B3D126BB560ED99FE1F
+  queue_snapshot_matches_current_state: true
+
+remaining_m10_blockers:
+  auditor_hardening_categories: 2
+  legacy_metadata_findings: 64
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This static slice closes only high-gate affirmative and explicit-negative
+  parsing semantics. It does not repair the 64 historical findings, close the
+  other two auditor limitations, complete M10, compile project targets, or
+  prove runtime, visuals, gameplay, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  In a later isolated M10 slice, validate completed-module evidence success,
+  module association, and evidence-class compatibility. Do not combine that
+  work with recursive orphan discovery, metadata cleanup, HUD, gameplay, maps,
+  artist work, Unreal, build, package, or runtime categories.

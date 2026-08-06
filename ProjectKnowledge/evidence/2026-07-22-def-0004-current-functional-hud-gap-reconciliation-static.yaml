@@ -1,0 +1,190 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0004-CURRENT-FUNCTIONAL-HUD-GAP-RECONCILIATION-STATIC
+captured_at: "2026-07-22T14:00:43.5282293Z"
+module: module.M09.windows-development-package
+slice: DEF-0004-current-functional-HUD-gap-reconciliation
+evidence_class: static
+result: passed_current_functional_inventory_reconciled_defect_remains_open
+
+authorization_and_scope:
+  bounded_defect: DEF-0004
+  intended_change: >-
+    Replace DEF-0004's stale mutable understanding with a current-source inventory
+    of implemented replacement-HUD paths and explicit remaining reachability,
+    control, layout, persistence, compile, and runtime gaps.
+  gameplay_plugin_or_art_source_modified: false
+  files_added:
+    - Tools/tests/test_def0004_pixel_hud_current_contract.py
+    - ProjectKnowledge/evidence/2026-07-22-def-0004-current-functional-hud-gap-reconciliation-static.yaml
+  canonical_files_modified:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0004-pixel-exact-hud-static-composite.yaml
+  explicitly_preserved:
+    - all reviewed HUD, gameplay, plugin, and UI source bytes
+    - all 56 supplied HUD texture assets
+    - all Config, map, asset, package, and build-product bytes outside the new offline test
+    - all production maps, protected checkpoints, artist repositories, handoffs, user assets, and unrelated dirty work
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 60
+  individual_untracked_files_before: 1309
+  conflicts_before: 0
+  two_snapshot_reviewed_input_drift: 0
+  new_test_absent_before: true
+  new_evidence_absent_before: true
+  unreal_build_cook_package_overlap_count: 0
+
+resource_gate:
+  sustained_samples: 6
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [10.006, 10.463]
+  free_commit_gib_range: [20.197, 20.659]
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_free_vram_mib_range: [8940, 8942]
+  gpu_utilization_percent_range: [11, 17]
+  gpu_temperature_c: 42
+  free_disk_gib:
+    C: 132.830
+    D: 1141.734
+  decision: >-
+    The 14 GiB T02 real-GPU gate and the 18-20 GiB packaging gate were closed.
+    No Unreal, Titan, UBT, UAT, build, cook, package, shader, IoStore, Zen, or
+    real-GPU process was launched.
+
+reviewed_source_identity:
+  - {path: Source/RedMMO/RedHUD.h, sha256: 72B733A08EE0C6073D676F8646EC6BDF392755672AF46A17B4C0BE70CF2B9592}
+  - {path: Source/RedMMO/RedHUD.cpp, sha256: CB6EB26843274F35C70696B01D11FF82A826C2F4B3347C2DEA21909B7FC1EA8A}
+  - {path: Source/RedMMO/RedPauseMenuWidget.h, sha256: 356DCE9D9038BBAB34D0BF780279C837E7DD927554AF626A972E6A17CDCB7BA2}
+  - {path: Source/RedMMO/RedPauseMenuWidget.cpp, sha256: C5CE269A033F1CE8DEBD54A9370E6DC355413BB203B016C8FCD719484F0EEEAD}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749}
+  - {path: Source/RedMMO/Tests/RedUIControlBindingTests.cpp, sha256: 07F28DE93C540CEFA2C789949259776CFBA2AE4F8F645ECFEC5E80CA1CDEB16F}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DEAFFEC023269CDEDB82E13E77F866223C3A019AE332CD9AF3154B414B9AC4B1}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, sha256: A90C79200B89F75AB7C3BEF8D4C3DE1291D89EA4546757D6DEB757D040B5AF67}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDLayout.h, sha256: CD6A0BF877C9864D5D040854E1C6C2D0A8CC84FB7862AAC94399BFC1EB1CAF10}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp, sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h, sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Widgets/VibeMMOHUDWidget.h, sha256: 63517C1222CAE6C4E99E89BC768AEB7B2299D304349FF94297E4938FE214E55E}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Widgets/VibeMMOHUDWidget.cpp, sha256: D882F421749E035A6A1491E622EBF58AF73CDBD235F178C99C988AFCC411EEC3}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOHUDLayoutTypes.h, sha256: AE3C6C885AF0A2F158334793D08124C5175D01F3F1CC76E737D6848F1751B91C}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Data/VibeMMOHUDLayoutTypes.cpp, sha256: 763297D8227E123666F6ADEB24C67DA1798EF2C37706CD173FB2B4D5333E65DA}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Persistence/VibeMMOHUDLayoutSubsystem.h, sha256: ADF54F5CBB291CFDB1EB024042E66506A2FB3B37CD2782EA06F7753EFDECF7C5}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Persistence/VibeMMOHUDLayoutSubsystem.cpp, sha256: 033A81695D5DAB4FC584FBADB401592E40E5A556B3425021D8D899D2E453D690}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Persistence/VibeMMOHUDLayoutSaveGame.h, sha256: 1F06D382811D5FF5E2FA31862DF62806E90B280EEE93AF5F7B540BA9A7536C18}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Persistence/VibeMMOHUDLayoutSaveGame.cpp, sha256: 688B1572BBEC9AD34715E5859B184C2E7741FF2A56FF3CED2481081AB80B739D}
+
+new_offline_test:
+  path: Tools/tests/test_def0004_pixel_hud_current_contract.py
+  sha256: E4FD735E389595EF50BC82DE86F53D0E2F53A0062109C9F889C009C336AEEF63
+  tests: 8
+
+supplied_hud_art_identity:
+  root: Content/UI/RedHUD/Textures
+  uasset_count: 56
+  exact_layout_sprite_count: 14
+  individual_sprite_count: 27
+  manifest_algorithm: sorted_repo_relative_path_tab_file_sha256_joined_lf_with_final_lf_utf8
+  manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  full_composite_sha256: 29CE0DBB74CB2E47A047FF359E3904A52646AC54E6DBC6994D6B258BEAC0209D
+
+current_static_inventory:
+  implemented:
+    - the current RedHUD and replacement widget default to live-data mode
+    - gameplay feeds live shield, health, fuel, both weapon heat states, and spherical tangent-frame compass heading
+    - the replacement exposes move, scale, opacity, hide, lock, reset, and save APIs backed by the local-player layout subsystem
+    - the supplied 56-texture HUD art set remains byte-identical
+  remaining_functional_gaps:
+    - the visible pause customization menu resolves UVibeMMOHUDWidget rather than URedHUDWidget
+    - no game caller feeds replacement ability, quest, consumable, enemy, or ApplySnapshot setters
+    - the replacement has no party-state setter or replacement minimap-state setter
+    - the layout enum exposes Reticle but URedHUDWidget maps no reticle widget; Quest has no layout enum entry
+    - the UtilityBar layout mapping omits ConsumableLiveWidgets and PartyPanel has static art only
+    - the replacement painted surface has no UButton, OnClicked, mouse, key, or direct hit-region handlers
+    - existing RedUIControlBinding automation exercises the legacy UVibeMMOHUDWidget, not URedHUDWidget
+    - current compilation, save/restart persistence, mouse/controller operation, and visible layout remain unverified
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 21_of_21_passed
+  DEF_0004_current_contract_tests: 8_of_8_passed
+  DEF_0006_regression_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_CurrentFunctionalGap_20260722_1350/offline_contract_and_provenance_tests.log
+  log_sha256: 8C3132DE314D23D0102969158F578C76B4AB7EC3CE1A3B2B7349902E8BF5EA00
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_M09Reconcile_1317/target_currency.json
+  report_sha256: 1946458838F6E35D26D07A3CAEC387F65AF259D3676796BB14593654AD4BB7B0
+  input_count: 874
+  input_manifest_sha256: 45BBE3263C84B978CBF3FB27EBAC49451A232971E94454F9CCDD8DE83ECF71D4
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 33
+  titan_editor_newer_project_inputs: 21
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_or_zen_started: false
+  current_attempt_archive_exists: false
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004GapReconcile_20260722_1350
+  exact_canonical_files:
+    - {name: current_state.yaml, sha256: A55FD263E4757C13EB0506602EE326DE19792008EB34F0A5E855FE1A1D8A2A93}
+    - {name: DEF-0004-pixel-exact-hud-static-composite.yaml, sha256: C2CE09CCC884275D8827FDFF22C718B1D90BA135284ABEA4D13331B60EF1ECE1}
+    - {name: INDEX.yaml, sha256: 789D6DA2A5C5C26D9A54EEBED638DF01850565F6865778320D3E2BF7EC734FB3}
+    - {name: redmmotitan_module_queue.json, sha256: BC10A745B6EBF07E5E468595A3D0B00835EE197CE85529AE7AAB635321AADF2D}
+  pre_slice_manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004GapReconcile_20260722_1350/pre_slice_manifest.yaml
+    sha256: 1632BAB98065904AC620A0A9771511EB37412985F77672282F703E2CDF75CA28
+
+canonical_sync:
+  module_queue_sha256: 90C7B635AC39852D4567B8630C0A2C39946CD9E1AEEBB916F751BB985C17C241
+  current_state_snapshot_sha256: 90C7B635AC39852D4567B8630C0A2C39946CD9E1AEEBB916F751BB985C17C241
+  historical_DEF_0004_evidence_rewritten: false
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_topology: 9_of_9_passed
+  protected_source_rasters: 135_of_135_passed
+  safe8_embedded_manifest: 338_of_338_passed
+
+remaining_acceptance:
+  - wire the visible customization UI to URedHUDWidget and cover every replacement layout element
+  - bind live abilities, party, quest, minimap, consumables, and enemy presentation
+  - add real handlers or visually remove interactivity from every represented painted control
+  - compile current RedHUDRuntime and RedMMO sources with exact target proofs
+  - prove save/restart persistence and mouse/controller behavior
+  - run real-GPU 16:9 and ultrawide pixel, overlap, control, and gameplay acceptance
+
+claim_limit: >-
+  This accepts only a current static inventory. It does not prove compilation,
+  UHT, save/restart persistence, mouse/controller operation, pixel-exact visible
+  placement, gameplay, packaging, or multiplayer. DEF-0004 remains open.
+
+next_safe_action: >-
+  In a later bounded UI implementation slice, route the visible customizer to
+  URedHUDWidget and close the unmapped replacement layout groups before adding
+  the missing gameplay-domain feeds. The project-wide next action remains M00's
+  capped T02 close, translated, and oblique real-GPU sparkle captures once its
+  separate 14 GiB physical-RAM gate passes.

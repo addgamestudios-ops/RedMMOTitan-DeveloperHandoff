@@ -1,0 +1,246 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-consumable-producer-inventory-static
+captured_utc: "2026-07-22T17:06:30Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: no_trustworthy_consumable_producer_found_bridge_refused_dormant_consumer_preserved
+
+scope:
+  selected_slice: >-
+    Inventory only the replacement HUD consumable consumer, compiled project-owned
+    C++ sources, and a bounded project-owned content-path surface. Add no bridge
+    unless an authoritative or replicated per-player consumable source can be
+    proven; do not reinterpret resources, fuel, heat, world ore, Steam APIs,
+    Vibe presentation fixtures, or RedHUD sample defaults.
+  gameplay_source_files_modified: 0
+  plugin_source_files_modified: 0
+  test_files_added: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    upstream: origin/main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 59
+    individual_untracked_paths: 1326
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    samples: 7
+    free_physical_gib_range: [8.637, 9.084]
+    free_commit_gib_range: [19.266, 19.753]
+    total_physical_gib: 31.872
+    commit_limit_gib: 52.872
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8839, 8920]
+    gpu_utilization_percent_range: [10, 13]
+    gpu_temperature_c_range: [41, 42]
+    c_free_gib: 132.787
+    d_free_gib: 1141.724
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    other_redmmotitan_continuations: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates remained closed. Sustained
+    physical RAM was below the 12 GiB running abort threshold and the 18-20 GiB
+    packaging floor, while commit headroom was below the 24/26 GiB package gate.
+  final_recheck:
+    captured_utc: "2026-07-22T17:10:21Z"
+    free_physical_gib: 9.248
+    free_commit_gib: 19.792
+    vram_free_mib: 8909
+    c_free_gib: 132.618
+    d_free_gib: 1141.724
+    strict_unreal_build_cook_package_processes: 0
+    competing_redmmotitan_continuations: 0
+    launch_gates: closed
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_package_archive_or_shader_started: false
+  current_attempt_archive_exists: false
+  july_17_archive_current_fused_marker: missing
+
+inspected_source_identity:
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h, sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, sha256: BE926FEF5F105A4331EA18A4D637ABF1C2CF3C1D610688A4C9A53C148829D05F}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp, sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068}
+  - {path: Plugins/RedHUD/INTEGRATION_SNIPPET.cpp, sha256: DE90B3092E16F75147805C38D4FDFDAF82446C93F952B981205155842213B4C7}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Widgets/VibeMMOScreenWidgets.h, sha256: 22D9D7427EFE00C4A45D7406262571783347F5AC068A36499698FEE5CB1F04F6}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Widgets/VibeMMOScreenWidgets.cpp, sha256: 4B97B49A3DD7A0A4FE2760B80850B042B8557F2112CA90360B2C9CBFEF457AFF}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Tests/VibeMMOInventoryInteractionTests.cpp, sha256: C843BD822E2CBD6DDB3F87EE50A974F6742F535EB2C0BE1B7485636D1C124131}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOHUDLayoutTypes.h, sha256: AE3C6C885AF0A2F158334793D08124C5175D01F3F1CC76E737D6848F1751B91C}
+  - {path: Source/RedMMO/RedPauseMenuWidget.cpp, sha256: 7AB60DDF1C14B3F697799A7D43152A87CFD51E5C404B97DE8265B36D3D8BDA97}
+  - {path: Source/RedMMO/RedPlayerCharacter.h, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+  - {path: Source/RedMMO/RedResourcePickup.h, sha256: 7762C6C57FF52812EF360CC75FAA60B038A8E5FA2E255C7E9CB3A55475B4B193}
+  - {path: Source/RedMMO/RedResourcePickup.cpp, sha256: 8E180200D225E056E8B6E82DD43DA9644A2C4228781546B1159C04886AF0F240}
+  - {path: Source/RedMMO/RedMineableAsteroid.h, sha256: 95AE8393B4544ACEE23E89506B055DDACA28204F346F5B3F7512A29C124B99EA}
+  - {path: Source/RedMMO/RedMineableAsteroid.cpp, sha256: 10CD6347521C8938A807FD30E5CF6951C3347120D0AB2A1D10FD86A9895192DE}
+  - {path: Source/RedMMO/RedOrbitalMiningSite.h, sha256: ABABC584181B7E58AD220ED8FCE4F7143500F062BB759131C06E527FCF5204FE}
+  - {path: Source/RedMMO/RedOrbitalMiningSite.cpp, sha256: 8C68725A4F0C94D13FD97BACEBE465160D5369912D4F768C9077B6FDB03DCF75}
+
+consumable_consumer:
+  snapshot_field: FRedHUDSnapshot.ConsumableCounts
+  setter: URedHUDWidget.SetConsumableCount
+  snapshot_caller: URedHUDWidget.ApplySnapshot
+  slot_count: 3
+  negative_count_policy: clamp_to_zero
+  compiled_redhud_setter_sites: 3
+  compiled_redmmo_setter_sites: 0
+  current_runtime_disposition: dormant_fail_closed
+  exact_gaps:
+    - SetLiveGroupVisibility has one consumable-group call and its argument is false
+    - BuildArtwork constructs no Consumable01, Consumable02, Consumable03, or T_REDHUD_Consumable sprite
+    - RedHUDLayout contains three geometry rects but ResolveHUDElementWidgets and EVibeMMOHUDElement own no consumable group
+    - no consumer item identity, equipped-slot mapping, cache, empty-slot state, or visibility API exists
+
+producer_inventory:
+  result: not_found_in_inspected_compiled_cpp_and_bounded_content_path_inventory
+  compiled_redmmo_gameplay_caller_count: 0
+  bounded_consumable_inventory_use_stack_identifier_matches_outside_known_pause_presentation_ui: 0
+  authoritative_use_or_decrement_route_count: 0
+  replicated_per_player_consumable_state_count: 0
+  equipped_quickslot_mapping_count: 0
+  persistence_owner_count: 0
+  plausible_non_producers:
+    - item: ARedPlayerCharacter mining resources
+      disposition: >-
+        The only item-like replicated player totals are Stone, Iron, and Crystal.
+        Resource pickups and depleted mineable asteroids call AddResource, which
+        feeds the legacy SetResourceTally path; they were not reinterpreted.
+    - item: player fuel and weapon heat
+      disposition: >-
+        Fuel is a continuous movement/vitals value and weapons use continuous
+        heat/overheat state rather than ammunition or consumable stacks.
+    - item: ARedMineableAsteroid and ARedOrbitalMiningSite OreRemaining
+      disposition: >-
+        These values are world mining reserves. The replicated asteroid can
+        award Stone/Iron/Crystal through AddResource; neither publishes a
+        per-player consumable slot.
+    - item: FVibeMMOInventoryItemPresentation and UVibeMMOInventoryWidget
+      disposition: >-
+        Transient UI presentation/filter state has no quantity, stack, use,
+        equip, networking, or persistence contract. The pause menu populates
+        weapon-only cards; Coolant Cell exists only under dev automation tests.
+    - item: SteamIntegrationKit Steam Inventory API surface
+      disposition: >-
+        An API surface exists in a third-party plugin, but no compiled RedMMO
+        gameplay source integrates it as player inventory or HUD consumable state.
+    - item: Plugins/RedHUD/INTEGRATION_SNIPPET.cpp
+      disposition: >-
+        Noncompiled example outside module Source trees; Consumable1/2/3 are
+        undefined placeholders and do not occur in compiled RedHUD or RedMMO C++.
+  filename_level_content_scan:
+    roots: [Content/RedMMO, Content/UI]
+    aliases: [consumable, inventory, stack, medkit, stim, potion, grenade, usable, heal, medpack, healthpack, booster, coolant]
+    matching_paths: 5
+    matches_are_all_supplied_redhud_texture_uassets: true
+    limitation: serialized_asset_payloads_and_blueprint_graphs_were_not_decoded
+
+required_future_producer_contract:
+  authority: server_owned_per_player
+  identity: immutable_stable_item_and_consumable_ids
+  equipped_mapping: explicit_slots_0_through_2
+  mutation: authoritative_use_validate_and_exactly_once_decrement
+  stack_policy: bounded_counts_and_zero_or_empty_semantics
+  networking: [owner_replication, late_join, reconnect, stale_clear]
+  persistence: explicit_owner_and_restart_policy
+  consumer_followup: [cache, item_identity, sprite_and_empty_visibility, layout_owner]
+  acceptance: >-
+    Only after that producer exists may a presentation-only HUD bridge be added
+    and tested for use/decrement, swap, empty/zero clearing, server/client parity,
+    late join, reconnect, persistence, controller use, and real-GPU visibility.
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_consumable_inventory_contract.py
+  focused_test_sha256: CB772AF91CA90DA59327C39988A48220DE8FC6072312B58C7019518F1B3608CA
+  focused_test_length: 16872
+  focused_consumable_inventory_tests: 7_of_7_passed
+  prior_HUD_shared_and_provenance_contracts: 72_of_72_passed
+  combined_result: 79_of_79_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDConsumableInventory_20260722_1647_retry1/offline_contract_and_provenance_tests.log
+  log_sha256: 1538D68925225232F12ABF9492DC611F3CD1CE89EA7309A01DDCD1C747E0AD63
+  independent_review: PASS_after_false_negative_and_scope_corrections
+  review_corrections:
+    - consumable visibility and direct group use are inventoried across the full widget source
+    - layout ownership is separated from orphan geometry rects
+    - backend symbol patterns are case-insensitive and bounded away from generic resource receipts and UI labels
+    - both world-ore implementations and pickup-to-resource receipt paths are covered
+    - pause presentation checks are semantic rather than card-count or comment-format locks
+    - bounded content aliases match full repository-relative paths
+    - conclusions explicitly exclude undecoded Blueprint graphs and serialized payloads
+
+target_currency:
+  current_report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004AbilityFeed_1606_retry1/target_currency.json
+  current_report_sha256: 8FDCF4DB5D7AAAB36DB5CDAA3EE80EF0128143F6D0154F88AFF59C0BCD8E33D7
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, exact_build_proof: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, exact_build_proof: missing}
+  skip_build_allowed: false
+  audit_rerun: false
+  reason: no_Cpp_Config_plugin_target_or_build_input_changed_in_this_inventory_slice
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004ConsumableInventory_20260722_1647
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004ConsumableInventory_20260722_1647/pre_slice_manifest.yaml
+  manifest_sha256: 2F03840395796C65BBB1F0862F4368921C04EF436D5EA0A74F69CF68BD2976C1
+  backed_up_files: 4
+  files_including_manifest: 5
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  pre_slice_topology_checks: 9_of_9_passed
+  pre_slice_fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  supplied_HUD_textures: 56_preserved
+  vibe_sources: 8_of_8_preserved
+  artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+  final_topology_checks: 9_of_9_passed
+  final_fused_provenance_checks: 7_of_7_passed
+  final_protected_source_rasters: 135_of_135_matched
+  final_SAFE8_manifest_entries: 338_of_338_matched
+  final_supplied_HUD_textures: 56_preserved
+  final_vibe_sources: 8_of_8_preserved
+  final_artist_baselines: unchanged
+  final_rollback_files: 4_of_4_exact
+  final_canonical_parse: 82_yaml_plus_queue_json_zero_errors
+  final_queue_hash_matches_current_state: true
+
+canonical_queue:
+  pre_slice_sha256: A61EA1D3550096E8C28093995D1914104C61F69B01DD42C17C0C8BDB43073DFA
+  post_slice_sha256: 77AD907BDA322DDCCA0A13ACB5B9421D270A7270F3D71FE7169D7F0C15AABCAB
+  module_status: incomplete_retry
+  retry_count: 12
+
+remaining_blockers:
+  - consumable HUD wiring has no authoritative or replicated per-player gameplay producer
+  - the current consumable consumer is dormant and lacks honest item, visibility, cache, and layout contracts
+  - snapshot still has no trustworthy gameplay caller and remains the next bounded inventory domain
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - current HUD behavior and pixels require runtime and real-GPU evidence
+  - party/minimap setters, complete layout coverage, controls, persistence, packaging, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves only a static, fail-closed consumable producer inventory
+  over inspected compiled C++ and bounded project content paths. It does not prove
+  that no serialized Blueprint or asset can contain inventory-like data, and it
+  does not implement or accept an inventory, UHT, compilation, runtime use,
+  replication, late join, persistence, pixels, gameplay, packaging, Steam
+  transport, or multiplayer.

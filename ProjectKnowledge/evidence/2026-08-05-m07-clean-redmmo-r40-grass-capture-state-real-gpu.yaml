@@ -1,0 +1,131 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r40-grass-capture-state.2026-08-05
+captured_utc: "2026-08-05T15:10:05Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r40-default-versus-post-r33-cycle-wireframe
+evidence_class: real_gpu_visual
+result: default_grass_draw_missing_until_transient_render_state_wakeup
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.86
+  commit_headroom_gib: 49.62
+  free_gpu_vram_mib: 7715
+  free_d_drive_gib: 767.65
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+runtime_audit:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_grass_capture_state_r40.py
+  driver_sha256: 960833D0E0A95D7A7F5282495BADF2987F0D16C6B4D9EFAE15EBB56BB91F1F85
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassCaptureState_R40_20260805T1504Z/result.json
+  result_sha256: FAD12D87953CCD9555079037636760D7416CC059083D31E60076C141322C5FAB
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassCaptureState_R40_20260805T1504Z.log
+  log_sha256: DD19764B0921BCD928EF0A7414EBCFAF88F48C761FA88396E14D318DF52323C7
+  terminal_status: PASS_R40_DEFAULT_VS_POST_R33_CYCLE_WIREFRAME_CAPTURED_PENDING_PIXEL_COMPARISON
+  renderer: D3D12
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  exact_r33_camera:
+    location_cm_max_abs_delta: 0.00025177
+    rotation_deg_max_abs_delta: 0.0
+    fov_max_abs_delta: 0.0
+  save_called: false
+  normal_beauty_capture_called: false
+  dirty_packages_after: []
+
+default_runtime_state:
+  approved_components: 196
+  seeded_instances: 2218356
+  visible_true: 196
+  hidden_in_game_true: 0
+  registered: 196
+  render_state_created: 196
+  scene_proxy_present: 196
+  positive_last_render_time: 76
+
+r33_capture_cycle_replay:
+  transient_primitive_states: 1778
+  hidden_non_grass_primitives: 1582
+  forced_grass_components: 196
+  intermediate_view_mode: unlit
+  final_view_mode: wireframe
+  saved: false
+  post_cycle_runtime_state_equal_to_default: true
+
+diagnostic_buffers:
+  default_wireframe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassCaptureState_R40_20260805T1504Z/default_wireframe_r40.png
+    sha256: 7342262F0BDBAEF324ADDC0FDA633822EDC874F398714A6DEE39F34D9785324A
+    bytes: 421484
+    independent_review: >-
+      At the exact camera the untouched wireframe contains terrain, Trooper,
+      palms and sparse foliage points but no readable dense grass-blade field.
+  post_r33_cycle_wireframe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassCaptureState_R40_20260805T1504Z/post_r33_cycle_wireframe_r40.png
+    sha256: 2B30B2CFF9BC39EE1C7F29D24043F49719784E986012390F6379AE87A43B2616
+    bytes: 757508
+    independent_review: >-
+      After the exact transient R33 hide/restore plus Unlit transition, dense
+      grass geometry immediately covers the near and mid ground at the same
+      camera even though all reported component facts return to the same values.
+  pixel_metrics:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassCaptureState_R40_20260805T1504Z/pixel_metrics.json
+    sha256: 57F34C6EA7DB37F59EB6D208EDA5CCE9A015BD0A8325E8DC170B7195A6288293
+    default_nonblack_ratio_gt_8: 0.55182292
+    post_cycle_nonblack_ratio_gt_8: 0.68215929
+    default_magenta_wire_ratio: 0.49945747
+    post_cycle_magenta_wire_ratio: 0.60982639
+    changed_pixel_ratio_gt_8: 0.43512587
+
+diagnosis:
+  result: >-
+    The saved/default PPG home biome does not submit the approved grass geometry
+    at player spawn even though instance data, registration, render state,
+    proxies, materials and visibility all report ready. Replaying R33's global
+    primitive hide/restore cycle wakes the dense seeded grass draw. R33's prior
+    dense normal frame was therefore transient capture-state evidence, not proof
+    that the default saved biome rendered grass correctly.
+  localized_boundary: >-
+    The leading implementation defect is a missing render-state/proxy refresh
+    after PPG GPU foliage instance data becomes ready. A narrow project-owned
+    one-shot refresh after generation COMPLETE can test this without changing
+    seed, placement, density, visibility, assets or vendor source.
+  falsified:
+    - R33 and R37 were equivalent untouched capture paths
+    - static component/proxy facts prove default visible grass pixels
+    - R33 dense grass proves the saved biome was already correct
+
+canonical_validation:
+  queue_snapshot_sha256: 4A9C3D0DA4AF8CCC638CD90304A2389870DAF3FF2AAC3020F8CDF7A528C02B22
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R40_20260805T1512Z.json
+  integrity_report_sha256: F33C977E60AFE017E2AEA5806BB7D0C527CA4E3874F6F1BDF6BF978CD65451F7
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  restored_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R40 is exact-camera diagnostic real-GPU wireframe evidence. It proves a
+  transient render-state wake-up difference, not accepted grass appearance,
+  terrain, biome diversity, night/space, gameplay, standalone, replication,
+  multiplayer or player acceptance.
+
+next_safe_action: >-
+  Add one narrow project-owned one-shot PPG foliage refresh path that runs only
+  after generation COMPLETE and only for instance-ready approved grass
+  components, using render-state dirty/recreate semantics rather than changing
+  visibility. Build, fresh-reload and prove the untouched default wireframe and
+  normal player view render grass without replaying the R33 cycle. Preserve all
+  map, seed, placement, density, material, surface and vendor packages.

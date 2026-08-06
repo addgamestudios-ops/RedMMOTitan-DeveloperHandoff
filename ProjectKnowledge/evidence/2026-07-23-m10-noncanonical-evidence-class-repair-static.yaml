@@ -1,0 +1,207 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M10-NONCANONICAL-EVIDENCE-CLASS-REPAIR-STATIC
+captured_at: "2026-07-23T16:11:24Z"
+module: M10
+slice: noncanonical-evidence-class-repair
+evidence_class: static
+result: passed_all_20_authenticated_noncanonical_evidence_class_repairs_audit_backlog_reduced_44_to_24_m10_stays_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Repair only the complete PKI012 category by replacing each of the 20
+    unsupported historical evidence_class values with the canonical class that
+    matches that record's own durable evidence and claim limits.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_records_modified: 20
+  stable_evidence_ids_modified: 0
+  canonical_records_reconciled_after_verification:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_deferred:
+    - all 23 missing evidence IDs
+    - the completed M01 evidence-resolution finding
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build launch, cook, package, runtime, new real-GPU, gameplay, HUD, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_dirty_entries: 60
+    untracked_entries: 1404
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  resources:
+    physical_ram_free_gib: {minimum: 14.440, maximum: 14.782}
+    commit_headroom_minimum_gib: 29.727
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 2519
+    gpu_free_mib: 7535
+    gpu_utilization_percent: 13
+    gpu_temperature_c: 43
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    exit_code: 1
+    terminal_phase: UBT_UBA_build_before_cook
+    status: stale_failed_attempt_not_a_valid_package
+
+classification_repair:
+  static:
+    count: 19
+    records:
+      - ProjectKnowledge/evidence/2026-07-21-pixel-exact-hud-functionality-audit.yaml
+      - ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-guard.yaml
+      - ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-preparation.yaml
+      - ProjectKnowledge/evidence/2026-07-21-streaming-lod-static-audit.yaml
+      - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-02.yaml
+      - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-03.yaml
+      - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-feed-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-consumable-producer-inventory-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-enemy-feed-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-keyboard-ability-consumer-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-minimap-producer-inventory-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-party-producer-inventory-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-quest-producer-inventory-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-snapshot-producer-inventory-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-hi5-terminator-real-gpu-resource-refusal.yaml
+      - ProjectKnowledge/evidence/2026-07-22-hi5-terminator-runtime-startup-blocker.yaml
+      - ProjectKnowledge/evidence/2026-07-22-m03-fused-prototype-ascent-water-provenance-static.yaml
+      - ProjectKnowledge/evidence/2026-07-22-windows-package-atmosphere-test-resource-refusal.yaml
+  build:
+    count: 1
+    records:
+      - ProjectKnowledge/evidence/2026-07-22-windows-package-atmosphere-test-runtime-abort.yaml
+  interpretation:
+    - resource refusals remain static because no Unreal, build, cook, or package action began
+    - the HI-5 D3D12 startup blocker remains static because it produced process and log forensics but never reached gameplay or a named-viewpoint capture
+    - referenced older automation or real-GPU context does not promote a current static audit or provenance record
+    - the memory-aborted package attempt is build because UAT and UBT entered the build phase and queued compile and link actions before safe termination
+  authentication:
+    independent_read_only_reviews: 2_passed_covering_all_20_records
+    auditor_PKI013_semantic_checks: 20_of_20_clear
+    canonical_class_counts_sum_to_20: true
+    class_assignment_does_not_expand_each_records_existing_claims: true
+
+exact_change_review:
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/exact_delta_manifest.json
+    bytes: 13077
+    sha256: EACBD869C138FF2BB07DBD12455424F0E743D4B05B1D6C519E6E018B1DEFFB5B
+  result: 20_of_20_single_scalar_evidence_class_replacements
+  other_line_changes: 0
+
+verification:
+  pre_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/integrity_pre.json
+    bytes: 13186
+    sha256: F9EE4D5BFD9BE0762A3FA85EC4CE3BBFF0A8F214574B96A7AAF6C9CE32F40D79
+    expected_exit_code: 1
+    finding_count: 44
+    finding_code_counts: {PKI009: 23, PKI012: 20, PKI022: 1}
+  post_repair_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/integrity_after_class_repair.json
+    bytes: 7061
+    sha256: EDC5B371BC7EAED3479B7C86B9B18DFFC4449F06BC70E26B08D938C318121D02
+    expected_exit_code: 1
+    finding_count: 24
+    finding_code_counts: {PKI009: 23, PKI022: 1}
+    exact_delta: PKI012_20_to_0_all_other_categories_unchanged_and_no_PKI013
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/static_regressions_precanonical.log
+    bytes: 18150
+    sha256: 409DFE420DAEF94C4161C7B6474F1233234095C03F23AF48BB06D14009B49F76
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_source_rasters: 135_of_135_exact
+  result: pass_no_drift
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z
+  retained_preimages:
+    historical_evidence_records: 20
+    canonical_records: [INDEX.yaml, current_state.yaml, redmmotitan_module_queue.json]
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/integrity_final.json
+    bytes: 7061
+    sha256: C2EF1D7C18B94CA0BF636E51F39A07D670CAE183069AFB3333A7605589DA4C2C
+    expected_exit_code: 1
+    result: failed_closed_with_24_current_metadata_findings
+    finding_code_counts: {PKI009: 23, PKI022: 1}
+    indexed_routes: 131
+    indexed_evidence_records: 94
+    indexed_defect_records: 8
+    queue_modules: 12
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_NoncanonicalEvidenceClassRepair_20260723_160903Z/final_integrity_and_provenance_tests.log
+    bytes: 12008
+    sha256: 861E806E94FBD1A29F31C541218562D093B6ABD866EA46BDCAB9A206D3D1DC7C
+    result: 27_of_27_passed
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 12170
+    sha256: 31CD6987EBE58EB8E8053797C2495C779FAA6319BFC20720B5DCEF51DEFB7D4B
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 83080
+    sha256: D83A42CB3D0A33EF0C9DB0EB6F77353704771FFA2911E498F321291702537DF9
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 207549
+    sha256: 7B1F6BD6470849A3E6196A1729EC3FA5421541DFCE0A230FBF98BA36F8953068
+  queue_snapshot_matches_current_state: true
+  note: >-
+    This immutable final-audit pointer was appended after the final audit. The
+    evidence record already had its stable id and canonical evidence_class
+    during that audit, so this pointer-only append cannot change the reported
+    finding categories or counts.
+
+remaining_m10_blockers:
+  live_metadata_findings: 24
+  categories:
+    missing_evidence_ids: 23
+    missing_evidence_classes: 0
+    noncanonical_evidence_classes: 0
+    completed_modules_without_resolvable_indexed_evidence: 1
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This is static legacy-metadata repair and protected-provenance evidence only.
+  It normalizes all 20 unsupported evidence_class values according to their
+  pre-existing evidence; it does not create new runtime evidence, enlarge any
+  historical acceptance claim, repair missing IDs, resolve M01, complete M10,
+  or prove Unreal execution, successful build, runtime, visuals, gameplay, HUD,
+  packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  Keep M10 queued. Return to the canonical bounded M09 D3D12 16:9 resource
+  inventory visual and interactivity acceptance when host resources safely
+  permit one Unreal process; otherwise take the isolated missing-evidence-ID
+  category without combining it with M01 resolution, gameplay, HUD, maps, or
+  artist work.

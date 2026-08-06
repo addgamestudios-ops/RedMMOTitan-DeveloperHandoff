@@ -1,0 +1,31 @@
+schema_version: 1
+template: celestial.moon
+
+id: "moon.<slug>"
+parent_body_id: "planet.<slug>"
+display_name: "<artist-facing name>"
+status: specified
+authority: server
+
+frame:
+  center_mode: "<fixed_relative or orbit_model>"
+  relative_center_cm: [null, null, null]
+
+physical:
+  radius_cm: null
+  surface_provider: "<static_mesh or planetgen>"
+  collision_enabled: true
+
+gravity:
+  enabled: true
+  influence_radius_cm: null
+  priority: 0
+  hysteresis_cm: null
+
+atmosphere_id: null
+water_id: null
+streaming_profile_id: "streaming.moon.<slug>"
+
+evidence:
+  status: specified
+  artifacts: []

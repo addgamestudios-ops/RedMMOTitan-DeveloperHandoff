@@ -1,0 +1,861 @@
+{
+  "schema": "redmmotitan.planet_pcg_reservations.v1",
+  "purpose": "deterministic geodesic PCG exclusions for the 27 handcrafted hub footprints",
+  "generated_by": "Tools/generate_planet_pcg_reservations.py",
+  "profile_file": "SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json",
+  "profile_sha256": "1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5",
+  "raster_manifest_file": "SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json",
+  "raster_manifest_sha256": "929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D",
+  "layout_seed": 1380271157,
+  "planet_radius_cm": 795774.7154594767,
+  "reservation_count": 27,
+  "reservation_dataset_sha256": "D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5",
+  "blocked_feature_tags": [
+    "Foliage",
+    "Rock",
+    "Creature",
+    "Resource",
+    "Water",
+    "POI"
+  ],
+  "radius_contract": {
+    "minimum_hub_radius_cm": 25000.0,
+    "maximum_hub_radius_cm": 50000.0,
+    "protected_fraction": 0.6,
+    "blend_fraction": 0.4,
+    "distance_metric": "great-circle arc distance on the active planet radius"
+  },
+  "mask_sources": {
+    "land_ocean": {
+      "status": "authored",
+      "source": "RED_Patch_##_Land.png and fused six-face land masks",
+      "pcg_policy": "block water-classified samples and preserve shoreline clearance"
+    },
+    "biomes": {
+      "status": "authored",
+      "source": "RED_Patch_##_Biomes.png and fused six-face RGBA masks",
+      "channels": [
+        "desert",
+        "temperate",
+        "cold_or_mountain",
+        "alien"
+      ]
+    },
+    "lake": {
+      "status": "not_authored",
+      "pcg_policy": "fail closed; do not infer a lake from the authority raster"
+    },
+    "river": {
+      "status": "not_authored",
+      "pcg_policy": "fail closed; do not infer a river from the authority raster"
+    },
+    "road": {
+      "status": "not_authored",
+      "pcg_policy": "future explicit spline or mask reservation required"
+    },
+    "authority": {
+      "status": "authoring_ownership_not_pcg_boundary",
+      "source": "RED_Patch_##_Authority.png",
+      "manifest_semantics": "protected handcrafted ownership; zero for the untouched analytic blockout",
+      "nonzero_pixels_across_all_patches": 0,
+      "pcg_policy": "never substitute this blend-ownership raster for the reservation dataset"
+    }
+  },
+  "surface_dressing": {
+    "enabled": false,
+    "approval_required": true,
+    "policy": "remain disabled until user-approved packs and a runtime reservation consumer pass"
+  },
+  "integration_status": {
+    "offline_dataset_ready": true,
+    "runtime_reservation_consumer": false,
+    "worldgen_adapter": false,
+    "handplaced_structure_mask": false,
+    "lake_and_river_masks": false
+  },
+  "reservations": [
+    {
+      "reservation_id": "R00_CliffsideSpaceport_MainHub",
+      "stable_guid": "9F9FA3C4-36CF-52A3-B7AC-674DA3194545",
+      "region_index": 0,
+      "source_patch": "RED_Patch_00",
+      "stable_seed": 4087921631,
+      "archetype": "CliffsideSpaceport",
+      "center_direction": [
+        0.2601474996480698,
+        0.07089153961121625,
+        0.962962962962963
+      ],
+      "suggested_hub_radius_cm": 30097.45658,
+      "protected_radius_cm": 18058.473948,
+      "blend_radius_cm": 12038.982632,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_00_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R01_CoralCanopyCoast_MainHub",
+      "stable_guid": "5E695431-C567-5AB3-AB1C-C6A09993D388",
+      "region_index": 1,
+      "source_patch": "RED_Patch_01",
+      "stable_seed": 1200338780,
+      "archetype": "CoralCanopyCoast",
+      "center_direction": [
+        -0.40728286329513164,
+        0.20975512502915322,
+        0.8888888888888888
+      ],
+      "suggested_hub_radius_cm": 37068.731312,
+      "protected_radius_cm": 22241.238787,
+      "blend_radius_cm": 14827.492525,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_01_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R02_EmberMagentaRift_MainHub",
+      "stable_guid": "C998BD04-1E6E-531A-94E2-D33EDC08F0DC",
+      "region_index": 2,
+      "source_patch": "RED_Patch_02",
+      "stable_seed": 503587087,
+      "archetype": "EmberMagentaRift",
+      "center_direction": [
+        0.20073498985791302,
+        -0.5438586961748818,
+        0.8148148148148149
+      ],
+      "suggested_hub_radius_cm": 42562.092397,
+      "protected_radius_cm": 25537.255438,
+      "blend_radius_cm": 17024.836959,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_02_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R03_FungalCathedral_MainHub",
+      "stable_guid": "6713DE01-93B0-5F0A-8828-9CFD31671628",
+      "region_index": 3,
+      "source_patch": "RED_Patch_03",
+      "stable_seed": 31195182,
+      "archetype": "FungalCathedral",
+      "center_direction": [
+        0.25419295339884346,
+        0.6218433061867212,
+        0.7407407407407407
+      ],
+      "suggested_hub_radius_cm": 44405.236507,
+      "protected_radius_cm": 26643.141904,
+      "blend_radius_cm": 17762.094603,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_03_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R04_MonolithicPillarCavern_MainHub",
+      "stable_guid": "D030FEAC-8913-5FC2-8F70-A2E0B1FCFDDE",
+      "region_index": 4,
+      "source_patch": "RED_Patch_04",
+      "stable_seed": 1774671415,
+      "archetype": "MonolithicPillarCavern",
+      "center_direction": [
+        -0.6740059904839805,
+        -0.31823180285330355,
+        0.6666666666666667
+      ],
+      "suggested_hub_radius_cm": 42538.943442,
+      "protected_radius_cm": 25523.366065,
+      "blend_radius_cm": 17015.577377,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_04_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R05_VerdantSkyPlateau_MainHub",
+      "stable_guid": "0821D35B-EF67-5F98-BA30-AFBFA668D140",
+      "region_index": 5,
+      "source_patch": "RED_Patch_05",
+      "stable_seed": 3761954552,
+      "archetype": "VerdantSkyPlateau",
+      "center_direction": [
+        0.7694044779748042,
+        -0.23843399186506264,
+        0.5925925925925926
+      ],
+      "suggested_hub_radius_cm": 41185.163926,
+      "protected_radius_cm": 24711.098356,
+      "blend_radius_cm": 16474.06557,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_05_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R06_PortalOasis_MainHub",
+      "stable_guid": "D02874C6-658A-566E-A309-F02688E37832",
+      "region_index": 6,
+      "source_patch": "RED_Patch_06",
+      "stable_seed": 859365926,
+      "archetype": "PortalOasis",
+      "center_direction": [
+        -0.43127393093727484,
+        0.7383368759904054,
+        0.5185185185185186
+      ],
+      "suggested_hub_radius_cm": 28761.361764,
+      "protected_radius_cm": 17256.817058,
+      "blend_radius_cm": 11504.544705,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_06_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R07_CliffsideSpaceport_MainHub",
+      "stable_guid": "A4D672AA-B5ED-5C57-B033-0F4105CA06E4",
+      "region_index": 7,
+      "source_patch": "RED_Patch_07",
+      "stable_seed": 2952538554,
+      "archetype": "CliffsideSpaceport",
+      "center_direction": [
+        -0.18934244766908584,
+        -0.8755675721000342,
+        0.4444444444444444
+      ],
+      "suggested_hub_radius_cm": 29534.305902,
+      "protected_radius_cm": 17720.583541,
+      "blend_radius_cm": 11813.722361,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_07_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R08_CoralCanopyCoast_MainHub",
+      "stable_guid": "E0AC3702-3173-5BD6-AB08-166C14AAC804",
+      "region_index": 8,
+      "source_patch": "RED_Patch_08",
+      "stable_seed": 1406488490,
+      "archetype": "CoralCanopyCoast",
+      "center_direction": [
+        0.7580468207243055,
+        0.5368340584775592,
+        0.37037037037037035
+      ],
+      "suggested_hub_radius_cm": 49453.194407,
+      "protected_radius_cm": 29671.916644,
+      "blend_radius_cm": 19781.277763,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_08_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R09_EmberMagentaRift_MainHub",
+      "stable_guid": "DB8A12DD-8354-5E59-97F4-24618BE35D59",
+      "region_index": 9,
+      "source_patch": "RED_Patch_09",
+      "stable_seed": 3437484218,
+      "archetype": "EmberMagentaRift",
+      "center_direction": [
+        -0.9475923021764366,
+        0.11948779710521977,
+        0.2962962962962963
+      ],
+      "suggested_hub_radius_cm": 25390.687608,
+      "protected_radius_cm": 15234.412565,
+      "blend_radius_cm": 10156.275043,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_09_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R10_FungalCathedral_MainHub",
+      "stable_guid": "D2DCB61A-E5BC-5E22-8D37-57BDEB9FA67C",
+      "region_index": 10,
+      "source_patch": "RED_Patch_10",
+      "stable_seed": 3035973309,
+      "archetype": "FungalCathedral",
+      "center_direction": [
+        0.6308888631496602,
+        -0.7433683651490334,
+        0.2222222222222222
+      ],
+      "suggested_hub_radius_cm": 48990.84264,
+      "protected_radius_cm": 29394.505584,
+      "blend_radius_cm": 19596.337056,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_10_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R11_MonolithicPillarCavern_MainHub",
+      "stable_guid": "76019238-C07C-5000-8DD9-EA1276A859A8",
+      "region_index": 11,
+      "source_patch": "RED_Patch_11",
+      "stable_seed": 903397063,
+      "archetype": "MonolithicPillarCavern",
+      "center_direction": [
+        0.037469560167508374,
+        0.9882551078851695,
+        0.14814814814814814
+      ],
+      "suggested_hub_radius_cm": 27253.320947,
+      "protected_radius_cm": 16351.992568,
+      "blend_radius_cm": 10901.328379,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_11_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R12_VerdantSkyPlateau_MainHub",
+      "stable_guid": "2D1EC31B-62EF-5C17-A86E-325A6249FA2B",
+      "region_index": 12,
+      "source_patch": "RED_Patch_12",
+      "stable_seed": 3551726211,
+      "archetype": "VerdantSkyPlateau",
+      "center_direction": [
+        -0.7010113008532016,
+        -0.709292737609917,
+        0.07407407407407407
+      ],
+      "suggested_hub_radius_cm": 25184.477877,
+      "protected_radius_cm": 15110.686726,
+      "blend_radius_cm": 10073.791151,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_12_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R13_PortalOasis_MainHub",
+      "stable_guid": "10F07CDC-C04F-5DF8-B0F5-E3938171A274",
+      "region_index": 13,
+      "source_patch": "RED_Patch_13",
+      "stable_seed": 2253223459,
+      "archetype": "PortalOasis",
+      "center_direction": [
+        0.9987681502049602,
+        0.04962038025007523,
+        0.0
+      ],
+      "suggested_hub_radius_cm": 47737.896308,
+      "protected_radius_cm": 28642.737785,
+      "blend_radius_cm": 19095.158523,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_13_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R14_CliffsideSpaceport_MainHub",
+      "stable_guid": "5D2B841C-1315-524E-B674-D10431D68AD0",
+      "region_index": 14,
+      "source_patch": "RED_Patch_14",
+      "stable_seed": 2163523207,
+      "archetype": "CliffsideSpaceport",
+      "center_direction": [
+        -0.7678633057146024,
+        0.6363167256069193,
+        -0.07407407407407418
+      ],
+      "suggested_hub_radius_cm": 36343.947729,
+      "protected_radius_cm": 21806.368637,
+      "blend_radius_cm": 14537.579092,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_14_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R15_CoralCanopyCoast_MainHub",
+      "stable_guid": "EE37C6F3-C688-5390-B27E-3FB177050588",
+      "region_index": 15,
+      "source_patch": "RED_Patch_15",
+      "stable_seed": 3354735782,
+      "archetype": "CoralCanopyCoast",
+      "center_direction": [
+        0.13523942097797426,
+        -0.9796746527362116,
+        -0.14814814814814814
+      ],
+      "suggested_hub_radius_cm": 39802.096176,
+      "protected_radius_cm": 23881.257706,
+      "blend_radius_cm": 15920.838471,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_15_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R16_EmberMagentaRift_MainHub",
+      "stable_guid": "D2685469-D7BF-5BD9-BBC3-033B1740FAC9",
+      "region_index": 16,
+      "source_patch": "RED_Patch_16",
+      "stable_seed": 1595341312,
+      "archetype": "EmberMagentaRift",
+      "center_direction": [
+        0.5541005712504388,
+        0.802240513119697,
+        -0.22222222222222232
+      ],
+      "suggested_hub_radius_cm": 35390.745723,
+      "protected_radius_cm": 21234.447434,
+      "blend_radius_cm": 14156.298289,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_16_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R17_FungalCathedral_MainHub",
+      "stable_guid": "AF824AA1-DEFB-541C-A142-4AB90974E15D",
+      "region_index": 17,
+      "source_patch": "RED_Patch_17",
+      "stable_seed": 853668656,
+      "archetype": "FungalCathedral",
+      "center_direction": [
+        -0.9310825599922621,
+        -0.21282333349365828,
+        -0.2962962962962963
+      ],
+      "suggested_hub_radius_cm": 35542.968544,
+      "protected_radius_cm": 21325.781126,
+      "blend_radius_cm": 14217.187418,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_17_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R18_MonolithicPillarCavern_MainHub",
+      "stable_guid": "29C8CA08-5EFC-529F-9176-A5F7CEBFD055",
+      "region_index": 18,
+      "source_patch": "RED_Patch_18",
+      "stable_seed": 2119757880,
+      "archetype": "MonolithicPillarCavern",
+      "center_direction": [
+        0.8075241144610513,
+        -0.45905402004078927,
+        -0.37037037037037046
+      ],
+      "suggested_hub_radius_cm": 31142.396101,
+      "protected_radius_cm": 18685.437661,
+      "blend_radius_cm": 12456.95844,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_18_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R19_VerdantSkyPlateau_MainHub",
+      "stable_guid": "423C744D-0123-5FD8-9E7F-6BD9B102862E",
+      "region_index": 19,
+      "source_patch": "RED_Patch_19",
+      "stable_seed": 273275791,
+      "archetype": "VerdantSkyPlateau",
+      "center_direction": [
+        -0.27519501032682503,
+        0.8524886169877506,
+        -0.4444444444444444
+      ],
+      "suggested_hub_radius_cm": 29222.837342,
+      "protected_radius_cm": 17533.702405,
+      "blend_radius_cm": 11689.134937,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_19_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R20_PortalOasis_MainHub",
+      "stable_guid": "D6E1BDCE-EE5B-50B2-B50D-F40346132723",
+      "region_index": 20,
+      "source_patch": "RED_Patch_20",
+      "stable_seed": 3729679181,
+      "archetype": "PortalOasis",
+      "center_direction": [
+        -0.35596732939092,
+        -0.7774482660342468,
+        -0.5185185185185186
+      ],
+      "suggested_hub_radius_cm": 28783.749269,
+      "protected_radius_cm": 17270.249562,
+      "blend_radius_cm": 11513.499708,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_20_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R21_CliffsideSpaceport_MainHub",
+      "stable_guid": "371F9EE5-E8EE-541B-8F74-0460F84976AB",
+      "region_index": 21,
+      "source_patch": "RED_Patch_21",
+      "stable_seed": 859727408,
+      "archetype": "CliffsideSpaceport",
+      "center_direction": [
+        0.7419824278571984,
+        0.3135220820859785,
+        -0.5925925925925926
+      ],
+      "suggested_hub_radius_cm": 43477.129547,
+      "protected_radius_cm": 26086.277728,
+      "blend_radius_cm": 17390.851819,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_21_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R22_CoralCanopyCoast_MainHub",
+      "stable_guid": "FFDFEC26-64C9-58B1-9880-A3BA5593F9B9",
+      "region_index": 22,
+      "source_patch": "RED_Patch_22",
+      "stable_seed": 1979114190,
+      "archetype": "CoralCanopyCoast",
+      "center_direction": [
+        -0.7022296018498378,
+        0.24985824349293265,
+        -0.6666666666666667
+      ],
+      "suggested_hub_radius_cm": 46210.005654,
+      "protected_radius_cm": 27726.003392,
+      "blend_radius_cm": 18484.002261,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_22_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R23_EmberMagentaRift_MainHub",
+      "stable_guid": "8664FF55-7DBE-5D09-9943-B4EF225CC9DC",
+      "region_index": 23,
+      "source_patch": "RED_Patch_23",
+      "stable_seed": 1750913703,
+      "archetype": "EmberMagentaRift",
+      "center_direction": [
+        0.31457739715459826,
+        -0.593585896232632,
+        -0.7407407407407407
+      ],
+      "suggested_hub_radius_cm": 38485.612779,
+      "protected_radius_cm": 23091.367667,
+      "blend_radius_cm": 15394.245112,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_23_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R24_FungalCathedral_MainHub",
+      "stable_guid": "ECFC214E-1CC9-5D0B-A23B-12FB4E1DE000",
+      "region_index": 24,
+      "source_patch": "RED_Patch_24",
+      "stable_seed": 1277877202,
+      "archetype": "FungalCathedral",
+      "center_direction": [
+        0.1458400336007882,
+        0.5610770911003405,
+        -0.8148148148148149
+      ],
+      "suggested_hub_radius_cm": 44167.677711,
+      "protected_radius_cm": 26500.606626,
+      "blend_radius_cm": 17667.071084,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_24_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R25_MonolithicPillarCavern_MainHub",
+      "stable_guid": "09120C3A-B32A-56F5-916F-DC39130F1C90",
+      "region_index": 25,
+      "source_patch": "RED_Patch_25",
+      "stable_seed": 3647120752,
+      "archetype": "MonolithicPillarCavern",
+      "center_direction": [
+        -0.3844866384910011,
+        -0.24909148526548797,
+        -0.8888888888888888
+      ],
+      "suggested_hub_radius_cm": 38974.271058,
+      "protected_radius_cm": 23384.562635,
+      "blend_radius_cm": 15589.708423,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_25_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    },
+    {
+      "reservation_id": "R26_VerdantSkyPlateau_MainHub",
+      "stable_guid": "162A8A2C-6C23-5A5C-9626-ED819447FDBB",
+      "region_index": 26,
+      "source_patch": "RED_Patch_26",
+      "stable_seed": 3547374410,
+      "archetype": "VerdantSkyPlateau",
+      "center_direction": [
+        0.265893102429119,
+        -0.04475701109557204,
+        -0.962962962962963
+      ],
+      "suggested_hub_radius_cm": 36510.539741,
+      "protected_radius_cm": 21906.323845,
+      "blend_radius_cm": 14604.215896,
+      "blocked_feature_tags": [
+        "Foliage",
+        "Rock",
+        "Creature",
+        "Resource",
+        "Water",
+        "POI"
+      ],
+      "authority_raster": "RED_Patch_26_Authority.png",
+      "authority_nonzero_pixels": 0,
+      "authority_used_as_pcg_mask": false,
+      "runtime_component": "URedManualPlacementProtectionComponent",
+      "runtime_consumed": false
+    }
+  ]
+}

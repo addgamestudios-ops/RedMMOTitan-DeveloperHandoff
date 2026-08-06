@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "units": "metres",
+  "layout_name": "RED_PracticeBiome_200M_01",
+  "anchor_frame": "tangent_local_xy",
+  "recommended_region": "world_up_pole_test_duplicate",
+  "patch": {
+    "diameter_m": 200.0,
+    "planet_center_cm": [0.0, 0.0, 0.0]
+  },
+  "reservation": {
+    "reservation_id": "PRACTICE_200M_01",
+    "protected_radius_cm": 10000.0,
+    "blend_radius_cm": 2500.0,
+    "blocked_feature_tags": ["Foliage", "Rock", "POI"]
+  },
+  "traversal_corridor": {
+    "axis": "local_x",
+    "center_y_m": -45.0,
+    "width_m": 8.0,
+    "span_m": [-100.0, 100.0]
+  },
+  "primary_actors": [
+    {"id": "H0", "role": "HeroLandmark", "palette_entry_id": "Hero_01", "local_xy_m": [0.0, 58.0], "scale": 1.0, "yaw_deg": 12.0},
+    {"id": "A1", "role": "BiomeAnchor", "palette_entry_id": "Anchor_01", "local_xy_m": [-27.5, 10.0], "scale": 1.08, "yaw_deg": 18.0},
+    {"id": "A2", "role": "BiomeAnchor", "palette_entry_id": "Anchor_02", "local_xy_m": [-7.445, 24.927], "scale": 0.92, "yaw_deg": 137.0},
+    {"id": "A3", "role": "BiomeAnchor", "palette_entry_id": "Anchor_03", "local_xy_m": [27.5, 10.0], "scale": 1.16, "yaw_deg": 271.0},
+
+    {"id": "A1_S1", "role": "Satellite", "colony": "A1", "palette_entry_id": "Satellite_01", "local_xy_m": [-22.8, 13.2], "scale": 0.84, "yaw_deg": 31.0},
+    {"id": "A1_S2", "role": "Satellite", "colony": "A1", "palette_entry_id": "Satellite_02", "local_xy_m": [-31.4, 16.6], "scale": 1.12, "yaw_deg": 166.0},
+    {"id": "A1_S3", "role": "Satellite", "colony": "A1", "palette_entry_id": "Satellite_03", "local_xy_m": [-35.1, 8.1], "scale": 0.96, "yaw_deg": 298.0},
+
+    {"id": "A2_S1", "role": "Satellite", "colony": "A2", "palette_entry_id": "Satellite_01", "local_xy_m": [-3.9, 29.8], "scale": 1.05, "yaw_deg": 44.0},
+    {"id": "A2_S2", "role": "Satellite", "colony": "A2", "palette_entry_id": "Satellite_02", "local_xy_m": [0.4, 22.3], "scale": 0.82, "yaw_deg": 103.0},
+    {"id": "A2_S3", "role": "Satellite", "colony": "A2", "palette_entry_id": "Satellite_03", "local_xy_m": [-11.8, 33.5], "scale": 1.19, "yaw_deg": 191.0},
+    {"id": "A2_S4", "role": "Satellite", "colony": "A2", "palette_entry_id": "Satellite_01", "local_xy_m": [-16.2, 21.1], "scale": 0.91, "yaw_deg": 247.0},
+    {"id": "A2_S5", "role": "Satellite", "colony": "A2", "palette_entry_id": "Satellite_02", "local_xy_m": [-6.0, 14.2], "scale": 1.10, "yaw_deg": 332.0},
+
+    {"id": "A3_S1", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_01", "local_xy_m": [31.2, 15.4], "scale": 0.88, "yaw_deg": 23.0},
+    {"id": "A3_S2", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_02", "local_xy_m": [35.9, 8.0], "scale": 1.14, "yaw_deg": 79.0},
+    {"id": "A3_S3", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_03", "local_xy_m": [29.8, 1.6], "scale": 0.81, "yaw_deg": 142.0},
+    {"id": "A3_S4", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_01", "local_xy_m": [22.0, 4.1], "scale": 1.21, "yaw_deg": 204.0},
+    {"id": "A3_S5", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_02", "local_xy_m": [18.4, 12.7], "scale": 0.94, "yaw_deg": 251.0},
+    {"id": "A3_S6", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_03", "local_xy_m": [25.6, 19.5], "scale": 1.07, "yaw_deg": 307.0},
+    {"id": "A3_S7", "role": "Satellite", "colony": "A3", "palette_entry_id": "Satellite_01", "local_xy_m": [39.7, 18.2], "scale": 0.86, "yaw_deg": 353.0}
+  ],
+  "rock_clusters": [
+    {"id": "R1", "center_xy_m": [-57.0, 42.0], "palette_entry_ids": ["Rock_01", "Rock_02"], "mesh_count": 4, "scale_range": [0.85, 1.2]},
+    {"id": "R2", "center_xy_m": [61.0, 45.0], "palette_entry_ids": ["Rock_02", "Rock_03"], "mesh_count": 5, "scale_range": [0.8, 1.25]}
+  ],
+  "ground_cover_islands": [
+    {"id": "G1", "center_xy_m": [-48.0, 3.0], "radius_m": 7.0},
+    {"id": "G2", "center_xy_m": [8.0, 43.0], "radius_m": 9.0},
+    {"id": "G3", "center_xy_m": [52.0, 24.0], "radius_m": 6.0}
+  ]
+}

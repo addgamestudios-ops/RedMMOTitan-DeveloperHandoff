@@ -1,0 +1,63 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-night-presentation-automation-startup-blocked.2026-08-05
+captured_utc: "2026-08-05T00:06:15Z"
+module_id: M07
+system: presentation.clean-redmmo-planet-aware-night-and-space
+slice: compiled-night-presentation-automation-execution
+evidence_class: automation
+result: blocked_before_automation_discovery_switch_independent_slice
+
+project:
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  launch_map: /Engine/Maps/Entry
+  renderer: D3D12 RenderOffscreen
+  provider_ports_closed: [5353, 8000, 8765]
+
+run:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  test_filter: RedMMO.Presentation.NightSky
+  timeout_seconds: 210
+  launched_process_tree: [24472, 24804, 7068]
+  exact_process_tree_stopped: true
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresentationAutomation_20260805T030150Z/RedMMO_NightPresentation_Automation.log
+    sha256: F16BD64C426B014A681D164452BAD3EB6C16EB3FDABE16AD30D23C9869194BBB
+  reached_d3d12_initialization: true
+  loaded_redmmo_module: true
+  reached_engine_initialized: false
+  reached_automation_discovery: false
+  report_created: false
+  tests_executed: 0
+
+blocker: >-
+  The materially different UnrealEditor.exe launcher passed D3D12 startup and
+  loaded UnrealEditor-RedMMO.dll, but spent the full 210-second bound loading
+  editor and enabled-plugin modules. It never reached engine initialization,
+  automation discovery, or any RedMMO.Presentation.NightSky test. A third
+  unchanged editor attempt is prohibited.
+
+protection:
+  source_changed_by_run: false
+  content_or_map_changed: false
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  r17_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  production_or_protected_content_changed: false
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_process_count_after: 0
+  providers_called: false
+  desktop_control_used: false
+
+claim_limit: >-
+  D3D12 initialization and module load do not prove the five tests, night
+  behavior, stars, moon/fill, orbit transition, visuals, gameplay, standalone,
+  packaging, replication or multiplayer. The prior build evidence remains the
+  highest passed gate for the new night calculation.
+
+next_safe_action: >-
+  Rotate on the next heartbeat to an independent offline M07 surface-to-orbit
+  and warp-capability audit of the clean RedMMO StarSparrow/gameplay source.
+  Identify exact implemented altitude, transition and travel behavior versus
+  missing authoritative warp/sector streaming without launching Unreal. Return
+  to test execution only after a concrete startup-scope reduction is available.

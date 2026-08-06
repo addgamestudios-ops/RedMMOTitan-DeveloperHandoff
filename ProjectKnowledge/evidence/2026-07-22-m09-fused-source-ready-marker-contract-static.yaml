@@ -1,0 +1,163 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M09-FUSED-SOURCE-READY-MARKER-CONTRACT-STATIC
+captured_at: "2026-07-22T10:51:33.1848288Z"
+module: module.M09.windows-development-package
+evidence_class: static
+result: passed_producer_consumer_source_currency_contract_package_not_run
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree: pre_existing_dirty_worktree_preserved
+
+implemented:
+  - Include50KmCheckpoints now requires FreshCook; iterative cook reuse is rejected because it cannot establish current fused input provenance.
+  - When fresh 50 km checkpoints are requested, the package launcher requires the exact intentional July 19 fused-prototype source hash before sustained preflight and before UAT can start.
+  - After successful UAT and container-entry inspection, the launcher re-hashes the same source map and refuses publication if it differs from the pre-UAT value.
+  - The success exit file is written first, the ready marker is written to an adjacent temporary path, and an in-directory rename atomically publishes it only after all source/container gates pass.
+  - Failure cleanup removes only temporary or published markers created by the current run before recording exit code one; a pre-existing collision is refused and never deleted.
+  - Only after these checks pass does the 50 km ready-marker branch emit fused_prototype_source_sha256 with the captured value.
+  - The packaged fused verifier and package producer use the same 64-character hash and exact marker-key contract.
+  - Production-only packages do not claim or emit fused-map source currency because the 50 km map is not requested in that scope.
+  - The canonical M09 status spelling is reconciled from undeclared retry to declared incomplete_retry without changing its incomplete state or retry count.
+
+source_currency_contract:
+  source_map: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+  expected_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  marker_key: fused_prototype_source_sha256
+  producer: Build/Automation/package_windows_50km.ps1
+  consumer: Build/Automation/verify_packaged_fused_prototype.ps1
+  producer_sequence:
+    - Include50KmCheckpoints requires FreshCook
+    - exact source hash captured before UAT launch
+    - exact source hash rechecked after successful package and container inspection
+    - before and after values must match
+    - exit code zero is recorded before atomic ready-marker publication
+    - failure cleanup removes only current-run temporary or published markers before exit code one
+  interpretation_limit: >-
+    This is fresh-cook package-input provenance based on matching workspace-
+    source endpoint hashes. Endpoint equality does not prove continuous file
+    stability or cryptographically decode the cooked map payload, and it does
+    not prove package launch, rendering, gameplay, Steam transport, or
+    multiplayer behavior.
+
+stale_archive_check:
+  archive: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_BRIGHT_SKY_HI5_V3_20260717_094237
+  ready_marker: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_BRIGHT_SKY_HI5_V3_20260717_094237/REDMMO_PACKAGE_READY.txt
+  ready_marker_sha256: BC4AA20B4E611E130A4CFD3ADA99AC1610926BB8316D4B86C5D7DDF0E250CC58
+  fused_source_marker_present: false
+  disposition: currency_unverified_rejected_by_packaged_fused_verifier
+  note: >-
+    The archive predates the July 19 fused save. Its IoStore listing proves path
+    presence only, so it cannot be promoted as current fused-package evidence.
+
+files:
+  - path: Build/Automation/package_windows_50km.ps1
+    sha256_before: BF4532A536954FF6AA31D3887F5F2143F730C7F981D57F93472CF1F3EA42651C
+    sha256_after: 6E7D1DF794C4317EE9EF28A533A267CB6D53EFE404DC96F9ADB17FD373ECFA5F
+    role: fail_closed_package_time_source_hash_producer
+  - path: Tools/tests/test_package_windows_50km_guard.py
+    sha256_before: 368D964840702412E55D644E10A6348BC45292148BEA1360F1EF01F884F775F7
+    sha256_after: FE452F873D92359D1E7FE2DE9B72CB174099809EE493D0DA6940AA2E570A0A91
+    role: producer_consumer_order_and_hash_contract_tests
+  - path: docs/WINDOWS_STEAM.md
+    sha256_after: 9442DFFA0B2C73AF9617CA784C938548FFE70023717806C538CB6803F7FBB9B4
+    role: operator_claim_boundary
+  - path: Build/Automation/verify_packaged_fused_prototype.ps1
+    sha256: CC1DC0C3A85258880EF50D717DE549E88C57D5BC4B303E50D610823D18B14392
+    role: unchanged_fail_closed_marker_consumer
+
+verification:
+  offline_tests:
+    command: "python -B -m unittest Tools.tests.test_package_windows_50km_guard -v"
+    result: "7/7 passed"
+    coverage:
+      - Include50KmCheckpoints requires FreshCook
+      - exact producer and consumer hash equality
+      - source capture precedes UAT launch and the post-package recheck follows UAT success
+      - exit code zero precedes atomic ready-marker publication
+      - caught failures remove only current-run temporary and published markers before exit code one
+      - existing sustained preflight, runtime abort, phase, serial-build, cook, and protected-checkpoint contracts
+  powershell_syntax:
+    target: Build/Automation/package_windows_50km.ps1
+    result: ast_parse_zero_errors
+  combined_offline_regression:
+    command: >-
+      python -B -m unittest Tools.tests.test_package_windows_50km_guard
+      Tools.tests.test_fused_prototype_provenance
+      Tools.tests.test_create_windows_friend_artifact -v
+    result: "20/20 passed"
+  live_preflight:
+    command: >-
+      powershell.exe -NoProfile -ExecutionPolicy Bypass -File
+      Build/Automation/package_windows_50km.ps1 -Include50KmCheckpoints
+      -FreshCook -PreflightOnly
+    result: refused_as_designed
+    exit_code: 20
+    samples: 12
+    interval_seconds: 1
+    minimum_free_physical_gib: 9.97
+    minimum_free_commit_gib: 21.28
+    blockers_seen: 0
+    unreal_or_build_processes_started: 0
+    blockers_after: 0
+    latest_successful_package_pointer: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_BRIGHT_SKY_HI5_V3_20260717_094237
+    latest_attempt_pointer: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_ATMOSPHERE_TEST_20260722_20260722_012549
+
+machine_audit:
+  sustained_samples: 12
+  free_physical_ram_gib_range: [9.673, 10.374]
+  free_virtual_or_commit_headroom_gib_range: [20.903, 21.717]
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  free_vram_mib_range: [8950, 8950]
+  free_disk_gib:
+    C: 133.20
+    D: 1141.74
+  unreal_or_build_processes: 0
+  packaging_gate: closed
+  final_samples: 4
+  final_free_physical_ram_gib_range: [10.317, 10.370]
+  final_free_virtual_or_commit_headroom_gib_range: [21.657, 21.727]
+  final_free_vram_mib_range: [8942, 8944]
+
+protected_foundation:
+  - path: Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json
+    sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json
+    sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+    note: all 135 referenced rasters match, including 27 authority rasters at C86F9760AD0441C3310FF498884D9993CD9E18F8C2B0E375F554CEE299BD948D
+
+preservation:
+  - No Unreal Editor, runtime, UAT, UBT, build, cook, package, shader, IoStore, Zen, or compiler process was launched.
+  - No map, asset, protected checkpoint, production map, fused rollback, artist archive/handoff, vendor plugin, user asset, package, or unrelated dirty file was modified.
+
+limitations:
+  - No package was built. The new producer branch has not executed after a successful UAT run.
+  - The marker identifies matching workspace-source bytes at the pre-UAT and post-package endpoints; it cannot prove continuous stability or decode cooked payload bytes.
+  - Titan and TitanEditor target currency, cook/Zen peak, packaged launch, exact container behavior, Steam transport, friend artifact, gameplay, and multiplayer remain unverified.
+
+claim_limit: >-
+  This evidence accepts only the fail-closed M09 package-input provenance source
+  contract, its offline tests, and the live resource refusal. It is not build,
+  package, runtime, visual, gameplay, Steam, or multiplayer evidence.
+next_safe_action: >-
+  Keep M09 deferred until sustained resources pass its 20 GiB physical and 26
+  GiB commit defaults. First prove TitanEditor and Titan targets current, then
+  run a fresh guarded 50 km package and require the exact source-hash marker.
+  The canonical cross-module next action remains M00's capped real-GPU T02
+  sparkle frames once its separate 14 GiB physical-RAM gate passes.
+rollback:
+  - Remove only the fused source hash variables/function/capture/recheck/ready-marker line and this slice's M09 test/documentation/knowledge additions if the contract is rejected.
+  - Do not modify or restore any map, asset, rollback, artist handoff, package, or unrelated work.

@@ -1,0 +1,170 @@
+schema_version: 1
+id: evidence.m12.native-journal-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T00:47:56.9792576Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-journal-checkpoint-persistence-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one development-only native automation source harness for the existing journal and checkpoint acknowledgement boundary
+    - statically verify exact prefix acknowledgement, retained suffix, wrong-token atomic rejection, and duplicate acknowledgement idempotency
+    - admit only that exact test translation unit in the existing unwired-source sentinels
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - actor, map, output adapter, persistence adapter, collision, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 160
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [3.233, 3.219, 3.227]
+  commit_used_gib_approx: 44.4
+  commit_limit_gib: 54.872
+  commit_headroom_gib_approx: 10.4
+  disk_c_free_gib: 123.173
+  disk_d_free_gib: 1139.806
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2573
+  vram_free_mib: 7481
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_source_only_M12_native_automation_slice
+
+implementation:
+  native_test:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 12485
+    sha256: 4D87CB3F6C1D3ECA409F41AB7FE9EFC0678C83A2022102B487ADE847DD9D9D05
+    automation_name: RedMMO.Mining.VoxelBackend.JournalCheckpointPersistence
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 6414
+    sha256: A0B53385CA2946AD7A967E88106C9FFCEE0D72D6DDD7670903977E319E927DAF
+  exact_test_translation_unit_admissions:
+    - {path: Tools/tests/test_m12_voxel_authority_contract.py, bytes: 29814, sha256: B85E7E531C3499A69DECF425092AF5AE97B57ADC7A542AA32812D9C9584E865F}
+    - {path: Tools/tests/test_m12_sparse_density_backend_contract.py, bytes: 39158, sha256: 637A3ABB0A056290B2DA9312B4BA91189FA1AB9F5A991409DE9DA19462B6EFDE}
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  fixture:
+    - deterministic 16 by 16 by 16 volume with 8 by 8 by 8 chunks
+    - canonical volume-spec fingerprint and fixed prototype material table
+    - two exact one-cell edits in distinct chunks
+  assertions:
+    - export is blocked before persistence acknowledgement
+    - revision-one checkpoint ticket is captured before the revision-two edit
+    - a structurally valid but wrong persistence token reaches the exact pending-ticket rejection and cannot change revision or promote a base
+    - exact revision-one acknowledgement compacts only the covered prefix and exports the one-operation revision-two suffix
+    - export base manifest, base journal tail, final journal tail, and retained operation identity remain exact
+    - an exact duplicate acknowledgement is idempotent and preserves the detached export
+  isolation:
+    - backend include and all backend-using test code are inside WITH_DEV_AUTOMATION_TESTS
+    - exact test source path is the only admission in both unwired-source sentinels
+    - no actor, world, map, Inventory, mesh, voxel plugin, Steam, or filesystem adapter is referenced
+
+verification:
+  protected_provenance_preflight:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalTests_20260724_002632Z/protected_provenance_preflight.log
+    result: 7_of_7_passed
+  first_combined_run:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalTests_20260724_002632Z/m12_native_source_and_model_regressions.log
+    bytes: 42104
+    sha256: C7477681EE45CE4512AF6CA764482F7098F2C08E49D8BFA467EE00D26C60159A
+    result: 77_of_79_passed
+    finding: two existing unwired-source sentinels correctly required an explicit exact-path admission for the intentional development-only test translation unit
+  corrected_combined_run:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalTests_20260724_002632Z/m12_native_source_and_model_regressions_final.log
+    bytes: 36000
+    sha256: CE907D099A91AB479499A37EE153BD6F8F2A86144B09EB4FF5FB6EF6E76D3D00
+    result: 79_of_79_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 72
+      native_automation_source_contracts: 7
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalTests_20260724_002632Z/m12_native_final_static_regressions_rerun.log
+    bytes: 47126
+    sha256: F913635B6352576A68033E7A6C9C697C1F2469DD3CF959FB007C7AB009DA751C
+    result: 106_of_106_passed
+    composition:
+      focused_M12: 79
+      protected_provenance: 7
+      project_knowledge_integrity_contracts: 20
+  canonical_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 221371
+    sha256: A624A24EB3BA1BC07D71AA907F67971DF8C1B69FB989D53771CA0224325802E9
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalTests_20260724_002632Z/project_knowledge_integrity_canonical_postrecord.json
+    bytes: 1782
+    sha256: 28B8D3A482E00C058700AF65954808FFD7E8687E28959089CD12CE5786CBEC0D
+    result: passed_with_0_findings
+    indexed_evidence_count: 109
+  independent_review:
+    api_compile_plausibility: no_obvious_signature_include_macro_or_test_api_blocker
+    semantic_adversarial: no_actionable_wrong_token_prefix_suffix_or_duplicate_idempotency_issue
+    conventions: backend_validation_result_is_sequenced_before_diagnostic_formatting
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+postflight:
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_free_gib: 3.879
+  commit_used_gib: 44.650
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 10.222
+  disk_c_free_gib: 123.114
+  disk_d_free_gib: 1139.806
+  vram_used_mib: 2513
+  vram_free_mib: 7541
+  gpu_utilization_percent: 11
+  gpu_temperature_c: 42
+  unreal_build_cook_or_package_launched: false
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeJournalAutomation_20260724_002632Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeJournalAutomation_20260724_002632Z/rollback_manifest.json
+  manifest_bytes: 3772
+  manifest_sha256: 0E59EA46608A828709584E0711864D9DE53CBEC4CC8EC47D811AE66FA23EC38D
+  exact_records: 9
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  unresolved: [DEF-0001, DEF-0002, DEF-0003, DEF-0004, DEF-0005, DEF-0006, DEF-0007]
+
+claim_limit: >-
+  This is static source evidence. The native automation harness has not been
+  compiled or executed, and the source-contract suite does not execute the C++
+  backend. It does not prove persistence, output installation, deformation,
+  collision, suction, Inventory credit, rendering, gameplay, performance,
+  packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute
+  RedMMO.Mining.VoxelBackend.JournalCheckpointPersistence. Then add separate
+  native corruption, restore, ticket-reissue, lifecycle, multi-volume, output
+  completion, and capacity tests before implementing generated-output or
+  trusted versioned persistence adapters.

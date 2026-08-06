@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r24-swept-grounding-automation.2026-08-05
+captured_utc: "2026-08-05T11:38:46Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r24-transient-swept-trooper-capsule-clearance-and-grounding
+evidence_class: automation
+result: pass_swept_capsule_clearance_and_stable_native_terrain_grounding_no_save
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: false
+  content_saved: false
+  player_start_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_called: false
+  transient_pawn: BP_RedTrooperPlayer_A01_C
+  capsule_radius_cm: 34.0
+  capsule_half_height_cm: 88.0
+  editor_process_count_after: 0
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/probe_redmmo_profile_v1_swept_grounding_r24.py
+    sha256: BD4113F37CE7E4A679BFCAD28E80995EA8F618866A20AE1292E5916BA75B5087
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SweptGrounding_R24C_20260805T1145Z/result.json
+    sha256: B1B4B00C5F177B9EF4020172BD88FA1C794D762597DE44603F0F10F63F806B32
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SweptGrounding_R24C_20260805T1145Z/unreal.log
+    sha256: 81E3A5DFCCDB781A4935677F36A251BF1AA5709E44940AD1AEA9346295C579FE
+  terminal_status: PASS_R24C_SWEPT_CAPSULE_CLEARANCE_AND_GROUNDING_NO_SAVE
+
+native_contact:
+  selected_direction: [0.6373835185262386, 0.6561638880335101, -0.40396930867562103]
+  component: /Game/RedMMO/Maps/UEDPIE_0_RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.PlanetSpawnerBP_C_1.StaticMeshComponent_364
+  location: [191297996.829512, 196950056.5784845, -421017550.95025647]
+  normal: [0.6417954759723961, 0.6577468847394736, -0.3942938024327584]
+  radial: [0.6375555238377024, 0.6563926364773589, -0.40332575023463946]
+  elevation_cm: 49155.99822998047
+  surface_normal_radial_dot: 0.9999493063682221
+
+swept_capsule_and_grounding:
+  placement_returned_true: true
+  requested_center: [191298068.8732862, 196950130.75085244, -421017596.52606624]
+  immediate_center_error_cm: 0.0
+  moving_on_ground_after_240_frames: true
+  final_speed_cm_s: 0.0
+  overlapping_terrain_components: []
+  radial_clearance_cm: 77.17427119163087
+  clearance_error_vs_half_height_cm: 10.825728808369135
+  tangential_drift_cm: 0.016843529133777017
+  target_to_final_settle_cm: 35.82573276965809
+
+discarded_verifier_attempts:
+  paths:
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SweptGrounding_R24_20260805T1135Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SweptGrounding_R24B_20260805T1140Z/result.json
+  note: >-
+    The swept placement itself succeeded in both attempts. R24 failed because
+    a nonlocal terrain-component trace returned the normal Unreal Python None
+    miss; R24B then repeated the already-invalid exact-radial streamed-patch
+    reacquisition family. R24C evaluates clearance and drift against the native
+    contact already proved in the same streamed patch.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1SweptGrounding_R24C_20260805T1145Z
+  manifest_sha256: 1B748318ECD66FF19B49192CE7D450F28B83FB10EFECA12103E8EC41A487409E
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves one transient Trooper capsule can be swept to a clear center over
+  native generated terrain and settle grounded without terrain overlap at the
+  selected seeded foliage-eligible land patch. It does not prove a saved
+  PlayerStart, fresh reload, MapCheck, visible grass, surface day or night,
+  broader gameplay, standalone, replication, multiplayer or player approval.
+
+next_safe_action: >-
+  In a separate rollback-backed transaction, move only PlayerStart plus its
+  attached label to the R24 native contact using the proven capsule center,
+  preserve seed 1337 and every other actor, save, then require a fresh-process
+  reload and MapCheck before any matched D3D12 surface-day, surface-night and
+  approved-grass review.

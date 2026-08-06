@@ -1,0 +1,101 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-playerstart-biome.2026-08-05
+captured_utc: "2026-08-05T08:17:53Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-playerstart-live-biome-strength
+evidence_class: automation
+result: pass_ocean_null_foliage_root_cause_proven
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+  planet_data: /Game/RedMMO/World/PPG/HomeWorld/Profiles/V1/DA_PPG_HomeWorld_ProfileV1
+  seed: 1337
+
+execution:
+  engine: Unreal Engine 5.8.1
+  mode: hidden provider-off RenderOffscreen D3D12 PIE
+  desktop_control: false
+  provider_calls: false
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  map_saved: false
+  pie_world_saved: false
+  explicit_regeneration_called: false
+  dirty_content_before_pie: []
+  dirty_maps_before_pie: []
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_active_at_sample: false
+
+verified_runtime_sample:
+  playerstart_world_location: [-198911217.22968367, 16591254.847640004, -523634710.60749865]
+  planet_center: [0.0, 0.0, -300000000.0]
+  planet_radius_cm: 300000000.0
+  cube_face: [0, 0, -1]
+  cube_face_uv: [193108763.5079167, 17837432.895777278]
+  containing_generated_component_count: 1
+  generated_component: /Game/RedMMO/Maps/UEDPIE_0_RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.PlanetSpawnerBP_C_1.StaticMeshComponent_516
+  chunk_size: 12947.511862546642
+  chunk_quality: 191
+  sample_pixel: [141, 128]
+  raw_biome_index_pixel: [0.01568603515625, 0.01568603515625, 0.01568603515625, 0.59228515625]
+  top_three_biome_ids: [4, 4, 4]
+  top_three_biome_strengths: [1.0, 0.0, 0.0]
+  dominant_biome:
+    id: 4
+    name: Ocean
+    strength: 1.0
+    foliage: null
+  dominant_biome_has_foliage: false
+  conclusion: >-
+    The unchanged PlayerStart is owned 100 percent by ProfileV1 Ocean, whose
+    PlanetData foliage binding is null. This directly explains zero generated
+    grass at spawn; grass cull, LOD, spawn height, density and approved mesh
+    identity are not the leading cause at this location.
+
+vertex_color_boundary:
+  rgba8: null
+  exact_reason: >-
+    Installed PPG 1.0 retains generated VertexColors as a private UChunkObject
+    property that Unreal Python cannot read without changing plugin code.
+  impact: >-
+    The missing vertex-color number does not block this cause because the
+    sampled dominant biome has a null foliage source before density masking.
+
+protected_hashes_after:
+  D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PlayerStartBiome_R12_20260805T0750Z/result.json
+    sha256: F3780F09C213FCCAD756C67E587A99DE73FC2FB913A90E3C6BACEDC647BCC2B6
+  launch_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PlayerStartBiome_R12_20260805T0750Z.launch.log
+    sha256: 44F739AEE3666B63CD2114DF5AF4AEE36C970EFA1EF0B18EA345EC5DA82CFE20
+  probe_script:
+    path: Build/Automation/probe_redmmo_profile_v1_playerstart_biome.py
+    sha256: 09FEC815F7C4DFCA05E91F3BB8DC6260D0FD4A7CCCF1CBA0729E7C1324557AA9
+
+claim_boundary:
+  verified:
+    - exact live generated PlayerStart biome ID and strength
+    - Ocean biome null-foliage assignment
+    - unchanged home and protected map hashes
+    - no save, explicit regeneration, provider call or desktop control
+  not_verified:
+    - visible grass after repair
+    - biome surface art or shoreline presentation
+    - night or space presentation
+    - human visual acceptance
+
+next_safe_action: >-
+  Under the retained rollback, perform one bounded ProfileV1 project-owned
+  biome-to-foliage role repair for the start region while preserving seed,
+  PlayerStart, biome-mask topology, approved DenseTall grass aliases, foliage
+  density order and prohibition on hand placement. Prefer a supported scoped
+  start-role assignment; do not globally carpet Ocean if the public PPG role
+  model cannot preserve shoreline and ocean semantics. Require fresh reload,
+  MapCheck, live generated-component census and player-scale D3D12 PIE proof.

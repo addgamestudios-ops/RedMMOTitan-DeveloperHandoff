@@ -1,0 +1,397 @@
+{
+    "FileVersion": 3,
+    "EngineAssociation": "5.8",
+    "Category": "Samples",
+    "Description": "",
+    "Modules": [
+        {
+            "Name": "RedMMO",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "AdditionalDependencies": [
+                "Engine",
+                "AIModule",
+                "Niagara"
+            ]
+        }
+    ],
+    "Plugins": [
+        {
+            "Name": "ModelingToolsEditorMode",
+            "Enabled": true,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "Landmass",
+            "Enabled": true
+        },
+        {
+            "Name": "Water",
+            "Enabled": true
+        },
+        {
+            "Name": "VirtualHeightfieldMesh",
+            "Enabled": true
+        },
+        {
+            "Name": "LandscapePatch",
+            "Enabled": true
+        },
+        {
+            "Name": "RockSpline",
+            "Enabled": false
+        },
+        {
+            "Name": "PCG",
+            "Enabled": true
+        },
+        {
+            "Name": "Niagara",
+            "Enabled": true
+        },
+        {
+            "Name": "ControlRig",
+            "Enabled": true
+        },
+        {
+            "Name": "EnhancedInput",
+            "Enabled": true
+        },
+        {
+            "Name": "GameFeatures",
+            "Enabled": true,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "StateTree",
+            "Enabled": true,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "WorldConditions",
+            "Enabled": true,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "GameplayAbilities",
+            "Enabled": true
+        },
+        {
+            "Name": "Mover",
+            "Enabled": true
+        },
+        {
+            "Name": "CommonUI",
+            "Enabled": true
+        },
+        {
+            "Name": "AnimToTexture",
+            "Enabled": true
+        },
+        {
+            "Name": "Bridge",
+            "Enabled": false,
+            "SupportedTargetPlatforms": [
+                "Win64",
+                "Mac",
+                "Linux"
+            ]
+        },
+        {
+            "Name": "Volumetrics",
+            "Enabled": true
+        },
+        {
+            "Name": "EditorTelemetry",
+            "Enabled": true
+        },
+        {
+            "Name": "GeometryScripting",
+            "Enabled": true
+        },
+        {
+            "Name": "PCGGeometryScriptInterop",
+            "Enabled": true
+        },
+        {
+            "Name": "ScriptableToolsEditorMode",
+            "Enabled": true
+        },
+        {
+            "Name": "ScriptableToolsFramework",
+            "Enabled": true
+        },
+        {
+            "Name": "AutomatedPerfTesting",
+            "Enabled": true
+        },
+        {
+            "Name": "FastGeoStreaming",
+            "Enabled": true
+        },
+        {
+            "Name": "ActorModifier",
+            "Enabled": true
+        },
+        {
+            "Name": "ActorModifierCore",
+            "Enabled": true
+        },
+        {
+            "Name": "LearningAgents",
+            "Enabled": false
+        },
+        {
+            "Name": "MassCrowd",
+            "Enabled": true
+        },
+        {
+            "Name": "MassAI",
+            "Enabled": true
+        },
+        {
+            "Name": "ChaosVehiclesPlugin",
+            "Enabled": true
+        },
+        {
+            "Name": "ChaosFlesh",
+            "Enabled": true
+        },
+        {
+            "Name": "ApexDestruction",
+            "Enabled": true
+        },
+        {
+            "Name": "AIAssistant",
+            "Enabled": true,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "PCGBiomeCore",
+            "Enabled": true
+        },
+        {
+            "Name": "ExampleCustomDataInterface",
+            "Enabled": true
+        },
+        {
+            "Name": "PCGBiomeSample",
+            "Enabled": true
+        },
+        {
+            "Name": "ReplicationSystemTestPlugin",
+            "Enabled": false
+        },
+        {
+            "Name": "MetaHuman",
+            "Enabled": true,
+            "SupportedTargetPlatforms": [
+                "Win64",
+                "Linux"
+            ]
+        },
+        {
+            "Name": "MetaHumanCalibrationDiagnostics",
+            "Enabled": true,
+            "SupportedTargetPlatforms": [
+                "Win64"
+            ]
+        },
+        {
+            "Name": "MetaHumanCalibrationProcessing",
+            "Enabled": true,
+            "SupportedTargetPlatforms": [
+                "Win64",
+                "Linux"
+            ]
+        },
+        {
+            "Name": "MetaHumanCoreTech",
+            "Enabled": true,
+            "SupportedTargetPlatforms": [
+                "Win64",
+                "Linux"
+            ]
+        },
+        {
+            "Name": "MetaHumanCharacter",
+            "Enabled": true
+        },
+        {
+            "Name": "MetaHumanCharacterUAF",
+            "Enabled": true
+        },
+        {
+            "Name": "MetaHumanLiveLink",
+            "Enabled": true
+        },
+        {
+            "Name": "GameplayBehaviors",
+            "Enabled": true
+        },
+        {
+            "Name": "CommonConversation",
+            "Enabled": true
+        },
+        {
+            "Name": "NiagaraNanite",
+            "Enabled": true
+        },
+        {
+            "Name": "NwiroIntegrationKit",
+            "Enabled": true
+        },
+        {
+            "Name": "Nwiro",
+            "Enabled": true,
+            "MarketplaceURL": "com.epicgames.launcher://ue/Fab/product/22e3bc90-ed91-4154-8bea-21c33e6a51b7"
+        },
+        {
+            "Name": "Voxel",
+            "Enabled": false
+        },
+        {
+            "Name": "GravityCore",
+            "Enabled": false
+        },
+        {
+            "Name": "VibeMMOUIKit",
+            "Enabled": true
+        },
+        {
+            "Name": "RedHUD",
+            "Enabled": true
+        },
+        {
+            "Name": "BpGeneratorUltimate",
+            "Enabled": true,
+            "PlatformDenyList": [
+                "Win64"
+            ]
+        },
+        {
+            "Name": "ModelContextProtocol",
+            "Enabled": true,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "ToolsetRegistry",
+            "Enabled": true,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "AllToolsets",
+            "Enabled": false,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "EditorToolset",
+            "Enabled": true,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "UnrealAIIntegrationPlatform",
+            "Enabled": false,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "Terminal",
+            "Enabled": true,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "MCPClientToolset",
+            "Enabled": false,
+            "TargetDenyList": [
+                "Game",
+                "Client",
+                "Server"
+            ]
+        },
+        {
+            "Name": "VibeUE",
+            "Enabled": true,
+            "PlatformDenyList": [
+                "Win64"
+            ]
+        },
+        {
+            "Name": "OnlineSubsystemSteam",
+            "Enabled": false
+        },
+        {
+            "Name": "SteamSockets",
+            "Enabled": false
+        },
+        {
+            "Name": "SteamIntegrationKit",
+            "Enabled": true
+        },
+        {
+            "Name": "PlanetGen",
+            "Enabled": true
+        },
+        {
+            "Name": "WorldGen",
+            "Enabled": false
+        },
+        {
+            "Name": "SunPosition",
+            "Enabled": true
+        },
+        {
+            "Name": "PythonScriptPlugin",
+            "Enabled": true,
+            "TargetAllowList": [
+                "Editor"
+            ]
+        },
+        {
+            "Name": "WebBrowserWidget",
+            "Enabled": true
+        },
+        {
+            "Name": "FocalRig",
+            "Enabled": false
+        },
+        {
+            "Name": "LandscapeDesigner",
+            "Enabled": false
+        }
+    ],
+    "EpicSampleNameHash": "2871839225"
+}

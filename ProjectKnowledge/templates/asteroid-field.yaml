@@ -1,0 +1,32 @@
+schema_version: 1
+template: celestial.asteroid_field
+
+id: "asteroid-field.<slug>"
+anchor_body_id: "planet.<slug>"
+display_name: "<artist-facing name>"
+status: specified
+authority: server
+
+generation:
+  seed: null
+  count: null
+  inner_radius_cm: null
+  outer_radius_cm: null
+  distribution: "<belt, shell, or authored>"
+  stable_member_id_format: "<field-id>/<seed>/<ordinal>"
+
+representation:
+  visual_variants: []
+  impostor_distance_cm: null
+  collision_activation_distance_cm: null
+
+mining:
+  enabled: false
+  server_authoritative_hits: true
+  replicated_fields: [ore_capacity, ore_remaining, visual_variant]
+  resource_table_id: null
+
+streaming_profile_id: "streaming.asteroid-field.<slug>"
+evidence:
+  status: specified
+  artifacts: []

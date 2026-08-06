@@ -1,0 +1,193 @@
+schema_version: 1
+id: evidence.m12.native-persistence-ticket-reissue-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T01:34:48.3382017Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-checkpoint-persistence-ticket-reissue-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only native persistence-ticket reissue scenario to the existing M12 backend test translation unit
+    - prove that a same-state reissue preserves every checkpoint compare-and-swap field while advancing only the process-local capability token
+    - prove that the superseded ticket cannot mutate live authority or compact the existing journal suffix
+    - prove that only the newest exact ticket can advance the durability base
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - actor, map, output adapter, persistence adapter, collision, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1518
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_subagent_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [3.708, 3.711, 3.675]
+  commit_used_gib_samples: [44.774, 44.721, 44.769]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [10.098, 10.151, 10.103]
+  disk_c_free_gib: 123.099
+  disk_d_free_gib: 1139.828
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2534
+  vram_free_mib: 7520
+  gpu_utilization_percent: 12
+  gpu_temperature_c: 42
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_under_severe_physical_memory_pressure
+  action_decision: one_non_packaging_source_only_M12_persistence_reissue_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 38345
+    sha256: 2D8A27C52BD276F08DA6935D857187BBF085C631DDC599E6D2D87CE02C8048CC
+    added_automation_name: RedMMO.Mining.VoxelBackend.PersistenceTicketReissue
+    total_native_automation_scenarios_in_file: 3
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 20623
+    sha256: 30996960E54B36926F6309C45A0241111AEB3EDBD99AA0AAE7A8886F6756A974
+    total_contracts: 14
+    new_reissue_contracts: 3
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  real_base_and_suffix:
+    - deterministic edit one is captured and acknowledged as a real revision-one durability base
+    - deterministic edit two establishes one live revision-two journal suffix
+    - the exact pre-reissue export identity and suffix operation identity are retained
+  exact_reissue:
+    - two unchanged revision-two captures each validate as detached persistence requests
+    - target, volume-spec hash, acknowledged-base flag, expected base revision, expected base manifest, expected base tail, checkpoint revision, checkpoint manifest, checkpoint tail, authority generation, and backend instance all remain exact
+    - the persistence request token advances exactly once
+  stale_capability_rejection:
+    - acknowledgement through the first revision-two ticket fails against the newer exact pending ticket
+    - live revision remains two
+    - the acknowledged revision-one base, revision-two export identity, suffix count, and suffix operation identity remain unchanged
+  exact_latest_acknowledgement:
+    - the newest exact reissued ticket acknowledges successfully
+    - the durability base advances to revision two
+    - the canonical export reaches revision two with no suffix operations
+    - checkpoint manifest, base journal tail, and final journal tail bind the newest exact ticket
+    - the resulting export validates canonically
+  isolation:
+    - all three native automation macros, backend includes, and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - each native scenario creates its own backend instance
+    - no actor, world, map, Inventory, mesh, voxel plugin, Steam, or filesystem adapter is referenced
+
+verification:
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativePersistenceReissue_20260724_011533Z/m12_persistence_reissue_source_and_model_regressions_final_clean.log
+    bytes: 19060
+    sha256: B72BB26AFAEF486AE354D16CEB2BFB1B59782DCC1AC3B0036C711244F466064C
+    result: 86_of_86_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 72
+      native_automation_source_contracts: 14
+      new_reissue_source_contracts: 3
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativePersistenceReissue_20260724_011533Z/protected_provenance.log
+    bytes: 1507
+    sha256: 04A8EE6E730F9B1FB964CE47B67257A18BBE5B003F6E8F66952D2EF2486D6E9F
+    result: 7_of_7_passed
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativePersistenceReissue_20260724_011533Z/m12_persistence_reissue_final_static_regressions.log
+    bytes: 415
+    sha256: 123DB4FE18D634B8B4FCE2CA6C4DDC9A51BE3FE6A97C0C89E14A5766072D0322
+    result: 113_of_113_passed
+    composition:
+      focused_M12_source_and_model_contracts: 86
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativePersistenceReissue_20260724_011533Z/project_knowledge_integrity_postrecord.json
+    bytes: 1782
+    sha256: 1601594A5A8E0F7922DECB207D6AD817B76BF74225ABD9DD03E080D19CBF6D5F
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 111
+  independent_review:
+    api_compile_plausibility: no_obvious_UE58_signature_include_macro_type_or_test_API_blocker
+    semantic_review: real_nondefault_base_and_suffix_exact_field_comparison_and_stale_rejection_passed_after_fix
+    source_contract_review: scenario_bodies_are_bounded_and_concrete_field_expressions_are_pinned_after_fix
+    review_fixes:
+      - establish and acknowledge a real revision-one base before reissuing revision-two tickets
+      - compare all eleven non-token persistence-ticket fields and require exact one-step token advance
+      - prove superseded rejection preserves the earlier base and exact live suffix instead of testing only a default unacknowledged state
+      - bound each extracted RunTest body before the next automation macro
+      - pin concrete member comparisons rather than only descriptive assertion labels
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativePersistenceReissue_20260724_011533Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativePersistenceReissue_20260724_011533Z/rollback_manifest.json
+  manifest_bytes: 1683
+  manifest_sha256: 383B4A8A1E0F4597E1F0D4D319672F50019B5F79F895510BE91EF07E7EEEBC12
+  exact_records: 7
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+canonical_queue:
+  path: D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json
+  bytes: 222206
+  sha256: A341CDD14CB563C62812E5FC222FA51AF6BD8F0BDEA2396E31C87F1DDEF0FFCB
+  m12_evidence_records: 8
+
+postflight:
+  captured_utc: "2026-07-24T01:42:43.4837098Z"
+  physical_ram_free_gib: 3.598
+  commit_used_gib: 44.593
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 10.279
+  vram_total_mib: 10240
+  vram_used_mib: 2563
+  vram_free_mib: 7491
+  gpu_utilization_percent: 15
+  gpu_temperature_c: 42
+  unreal_build_cook_or_package_processes: 0
+  unreal_build_cook_package_or_native_compile_launched_by_slice: false
+  packaging_gate: remained_closed
+
+claim_limit: >-
+  This is static source evidence. The third native automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute the
+  C++ backend. It does not prove crash recovery, external persistence,
+  deformation, collision, suction, Inventory credit, rendering, gameplay,
+  performance, packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute JournalCheckpointPersistence,
+  CheckpointCorruptionRestoreInvalidation, and PersistenceTicketReissue.
+  If physical RAM remains unsafe for compilation, the next independent source
+  slice is native generated-output role separation and stale-completion
+  automation, followed separately by multi-volume isolation, same-revision
+  equivocation, and journal-capacity release before adapter work.

@@ -1,0 +1,148 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-planetgen-coexistence.real-gpu.2026-08-01
+captured_utc: "2026-07-31T23:35:43Z"
+module_id: M07
+system: world-authoring.clean-redmmo-hybrid-planets
+slice: ppg-home-and-planetgen-destination-separate-map-coexistence
+evidence_class: real_gpu_visual
+result: passed_separate_map_editor_coexistence_ppg_generation_and_visual_map_load
+
+scope:
+  authorized:
+    - launch only D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    - verify freshly installed PPG 1.0 and PlanetGen 1.7.0 under UE 5.8.1
+    - keep PPG and PlanetGen ownership on separate celestial bodies and maps
+    - use transient command-line plugin enablement without saving project configuration
+    - capture logs and real-D3D12 editor viewport evidence
+  explicitly_not_run:
+    - map, asset, material, texture, registry, config, or project-descriptor save
+    - simultaneous PPG and PlanetGen terrain ownership on one body
+    - PIE, standalone game, packaged game, multiplayer, gravity handoff, warp, or streaming travel
+    - UHT, UBT, cook, or package
+    - PlanetGen procedural-generation telemetry or destination-body gameplay
+    - production Titan or protected-map launch or mutation
+
+preflight:
+  canonical_project: D:/RedMMOTitan
+  isolated_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  unreal_version: 5.8.1
+  engine_changelist: 56057345
+  physical_ram_total_gib: 63.87
+  physical_ram_free_gib_before_final_retry: 42.61
+  commit_headroom_gib_before_final_retry: 60.61
+  gpu: NVIDIA GeForce RTX 3080
+  gpu_vram_total_mib: 10240
+  gpu_vram_free_mib_before_final_retry: 7416
+  d_drive_free_gib_before_final_retry: 966.36
+  competing_unreal_processes: 0
+
+installed_plugins:
+  ppg:
+    version_name: "1.0"
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/PPG.uplugin
+    descriptor_sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+  planetgen:
+    version_name: "1.7.0"
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5/PlanetGen.uplugin
+    descriptor_sha256: 79135CFFE9381E25A4CFF739AE53F7111C57E1ACA3AD74530C20CF81175EB318
+  sun_position:
+    version_name: "1.0"
+    descriptor: D:/UE_5.8/Engine/Plugins/Runtime/SunPosition/SunPosition.uplugin
+    descriptor_sha256: 554911DEAB3DD8ED40028F6F3F225BD673176341815BA1632CBC0ADBC7A40B30
+    reason: PlanetGen 1.7.0 declares SunPosition enabled and optional, while MultiPlanetsMap serializes SunSky content from it
+
+initial_diagnostic:
+  command_line_plugin_enablement: PlanetGen
+  map: /PlanetGen/Maps/MultiPlanetsMap
+  result: failed_dependency_gate
+  exact_failure:
+    - /SunPosition/SunSky was not mounted
+    - six SunSky component exports failed to load
+  retained_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/PlanetGen_MultiPlanetsMap_missing_SunPosition_window_1.jpg
+    sha256: 203507669D108EBB92B8706969CCCE80900770C3F458C8994272F3ECF388A50A
+
+corrected_planetgen_run:
+  command_line_plugin_enablement: PlanetGen,SunPosition
+  map: /PlanetGen/Maps/MultiPlanetsMap
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/RedMMO_PlanetGen_SunPosition.log
+    sha256: FFFFC247DE40CE0D4494D04B6323260FC528506A484962BCA16ED3AEB0F94341
+  verified:
+    - PPG, PlanetGen, and SunPosition mounted and their editor DLLs loaded in one RedMMO editor process
+    - MultiPlanetsMap loaded and registered a world
+    - the prior SunSky package and CreateExport failures are absent
+    - MapCheck completed with zero errors and zero warnings
+    - no fatal, assert, ensure, GPU crash, device loss, out-of-memory, unhandled exception, or logged error occurred
+    - the editor exited cleanly
+  real_gpu_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/PlanetGen_MultiPlanetsMap_SunPosition_clean_window_1.jpg
+    sha256: F39C664F68124F1703A6D17DC2B6D3AE01632B27F60D27B8F84658B67E11D103
+    claim: real-D3D12 editor viewport visibly renders the separate PlanetGen sample-map body; this is not PIE or procedural-generation telemetry
+
+ppg_home_run:
+  command_line_plugin_enablement: PlanetGen,SunPosition
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/RedMMO_PPG_HomeWorld_Final.log
+    sha256: F5B41308255CD6B37B3452C0555B1B7669B3411898E8D19FD89E728A4431A7BB
+  verified:
+    - PPG, PlanetGen, and SunPosition mounted and their editor DLLs loaded in one RedMMO editor process
+    - the untouched PPG home map loaded
+    - MapCheck completed with zero errors and zero warnings
+    - PPG compute shaders became render-ready
+    - PPG generated 105 chunks in 1127.46 milliseconds
+    - no fatal, assert, ensure, GPU crash, device loss, out-of-memory, unhandled exception, or logged error occurred
+    - the editor exited cleanly
+  real_gpu_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/PPG_HomeWorld_final_window_1.jpg
+    sha256: D1CCF66FD1879F8A7B042C4DE2C68EE6C56BD92A9311ECA45D22F35FB17BFBF7
+    claim: real-D3D12 editor viewport visibly renders the PPG home-world horizon and shows 105 of 105 chunks and foliage ready
+
+integrity:
+  isolated_project_uproject_sha256: 269E8C84CFEE2C668E8CCD04A41E30206E15B6E7767EF106D9527F23C56D36E5
+  isolated_ppg_home_map_sha256: 86E9252F6627B1B514F16A5004874930A2869B1856D18DD72D1225EAEF3C34DD
+  celestial_registry_sha256: 014A280FE3E445E42BB8CDD67314FCAA01E33EED66A655A465ED185B038030A8
+  content_config_or_project_file_changed: false
+  saved_asset_or_map_autosave_present: false
+  unreal_processes_after_slice: 0
+  protected_production_hashes_exact: true
+  protected_assets:
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    protected_50km_checkpoint: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+
+known_warning:
+  message: r.MotionVectorSimulation is read on the render thread without the RenderThreadSafe flag
+  effect: possible rendering artifacts; no artifact was isolated or accepted in this slice
+  disposition: track before final visual acceptance
+
+architecture_result:
+  viable_now:
+    - PPG 1.0 and PlanetGen 1.7.0 binaries can coexist and load in the same UE 5.8.1 RedMMO editor process
+    - PPG can remain the home-world owner while PlanetGen content loads in a separate destination map
+  not_yet_implemented:
+    - persistent PlanetGen and SunPosition enablement in RedMMO.uproject
+    - a project-owned disposable PlanetGen destination map or body
+    - shared celestial-body registry runtime binding
+    - gravity, warp, streaming, save-state, or multiplayer handoff between bodies
+    - simultaneous visual proof of two independently owned bodies in one runtime session
+
+next_safe_slice:
+  authorized_direction:
+    - use exact owned tropical-cove texture selections already copied into the clean RedMMO Content Drawer
+    - create project-owned reversible material instances for dry sand, wet sand, rock or cliff, and grass
+    - verify base-color, normal, and packed ORM or mask semantics before binding
+  hard_limits:
+    - no bulk import
+    - no vendor-material overwrite
+    - no production-map or legacy-Titan mutation
+    - one isolated reviewable swap at a time
+
+claim_limit: >-
+  This passes binary/module coexistence, dependency loading, separate-map editor
+  loading, PPG home-world generation, MapCheck, clean-exit, and real-D3D12 editor
+  viewport evidence. It does not prove a compiled project target, PIE, packaged game,
+  PlanetGen procedural generation, destination travel, gravity or streaming handoff,
+  multiplayer, performance, gameplay, or simultaneous two-body runtime acceptance.

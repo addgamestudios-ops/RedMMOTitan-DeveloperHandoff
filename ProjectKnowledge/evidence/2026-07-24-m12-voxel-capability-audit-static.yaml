@@ -1,0 +1,247 @@
+schema_version: 1
+id: evidence.m12.voxel-capability-audit.static.2026-07-24
+captured_utc: "2026-07-23T21:28:48Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: installed-capability-audit-and-isolated-authority-architecture
+evidence_class: static
+result: passed_static_audit_backend_absent_architecture_specified
+
+scope:
+  authorized:
+    - audit installed project and Unreal Engine 5.8 voxel capability
+    - distinguish the accepted static-mesh depletion loop from localized volumetric mining
+    - inventory reusable authority, pickup, deep-space, and late-join foundations
+    - specify one isolated server-authoritative prototype and fail-closed backend gate
+    - add one offline regression contract and synchronize canonical M12 state
+  explicitly_not_run:
+    - Unreal Editor, commandlet, build, cook, package, game, Steam, or multiplayer process
+    - production map, production asteroid field, protected checkpoint, artist repository, vendor content, or supplied-art mutation
+    - plugin install, plugin enablement, voxel actor, prototype map, deformation, collision rebuild, suction gameplay, or Inventory persistence implementation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 159
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_at_slice_start: 11.105
+  commit_used_gib_at_slice_start: 30.672
+  commit_limit_gib: 54.872
+  commit_headroom_gib_at_slice_start: 24.201
+  disk_d_free_gib: 1140.638
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_at_slice_start: 7479
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_offline_static_M12_slice
+
+installed_capability:
+  voxel_plugin:
+    project_voxel_uplugin_descriptors: 0
+    engine_voxel_uplugin_descriptors: 0
+    project_descriptors_examined: 4
+    uproject_entry: {name: Voxel, enabled: false}
+    redmmo_runtime_dependency: false
+    receipt_voxel_module: absent
+    conclusion: no_usable_voxel_backend_installed_or_linked
+  redmmo_voxel_library:
+    exported_function_count: 1
+    exported_function: SetColorCurveKeys
+    actual_role: editor_only_sky_curve_and_atlas_authoring_helper
+    caller_found: false
+    density_or_material_edit_api_found: false
+  planetgen:
+    terrain_model: two_dimensional_radial_heightfield_grid
+    generated_output: one_triangulated_procedural_surface_section_with_collision
+    stamp_model: geodesic_constant_radial_height
+    volumetric_features_absent:
+      - density grid
+      - internal material volume
+      - caves and overhangs
+      - removed-volume accounting
+      - replicated deformation journal
+      - deformation persistence
+    reusable_pattern: asynchronous_generation_token_stale_result_rejection
+  unreal_geometry_primitives:
+    GeometryScripting_enabled: true
+    GeometryScriptingCore_linked_by_RedMMO: false
+    ProceduralMeshComponent_linked_by_RedMMO: true
+    available_operations:
+      - mesh voxelization and marching-cubes controls
+      - SDF morphology
+      - DynamicMesh subtraction
+    conclusion: >-
+      These APIs can generate presentation geometry but do not provide the
+      authoritative density store, edit journal, replication, persistence,
+      collision scheduling, or late-join contract required by M12.
+
+current_gameplay_boundary:
+  asteroid:
+    presentation: static_mesh
+    mutable_state: scalar_OreRemaining
+    depletion_result: whole_actor_hide_explosion_debris_and_direct_credit
+    localized_material_state: absent
+    restart_persistence: absent
+    classification: depletion_and_destruction_not_voxel_mining
+  historical_crater_path:
+    implementation: explicit_noop_without_voxel_plugin
+    production_callers_enable_carve: false
+    unsafe_toggle_risk: resource_pickup_could_spawn_without_material_removal
+  pickup:
+    reusable:
+      - server-authority overlap collection
+      - exactly-once AddResource before actor destruction
+      - replicated resource identity and collectible state
+    missing:
+      - suction or tractor target and travel state
+      - movement replication
+      - range, line-of-sight, reservation, cancellation, and anti-steal rules
+  inventory:
+    current_authority: server_mutated_replicated_pawn_fields
+    current_presentation: Inventory_Resources_page_and_transient_receipt
+    permanent_combat_hud_tally: absent
+    durable_account_or_PlayerState_ledger: absent
+
+source_identity:
+  - {path: Titan.uproject, bytes: 9126, sha256: 8F7B63580896239941C583C127875E9763DC132CA472E84BC6C75B05F586D732}
+  - {path: Source/RedMMO/RedMMO.Build.cs, bytes: 1862, sha256: C29291BE044EFA51722E247305F6B3415EE2E9B6FCAF8507688BF4933A37F994}
+  - {path: Source/RedMMO/RedMMOVoxelLibrary.h, bytes: 894, sha256: 8ABB2ACD18594729D86620E1D4FFC81F72DE45BAB1760AFBCFF9438501BAFEEE}
+  - {path: Source/RedMMO/RedMMOVoxelLibrary.cpp, bytes: 1988, sha256: A6C4325193AC8D0506F1E815D4E6B0ED0704E87F8D31A9DC6480B175FB134F34}
+  - {path: Source/RedMMO/RedBolt.h, bytes: 8165, sha256: B576AA08CF83010507CFA9F0D30A259BFE9097C915F143E38906EE2C94B1EB28}
+  - {path: Source/RedMMO/RedBolt.cpp, bytes: 25195, sha256: C7434E86A2782DA4CB9697391FD6B3144DC9B14C86C6A1AA22BF4D8A0CF02C93}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, bytes: 415494, sha256: 0CAC31368C11B9938D72733846789259FA2D94FE78B6E8D3E6EFDF505FC5A0A4}
+  - {path: Source/RedMMO/RedResourcePickup.h, bytes: 3509, sha256: B2F4A44B896F8E4833E4CFEB68769978DCD636142EBACD77612492D1A4106E12}
+  - {path: Source/RedMMO/RedResourcePickup.cpp, bytes: 7519, sha256: 55F5F947EB5654F81CCA4767B07B84AFB23221C0C93DE64B47A17245C2E9DF34}
+  - {path: Source/RedMMO/RedMineableAsteroid.h, bytes: 5030, sha256: 96430D5497D13D2EA90B11A0B1950A5E7F00DCC35E46F596DFB2FF3CEA0914D2}
+  - {path: Source/RedMMO/RedMineableAsteroid.cpp, bytes: 14125, sha256: 63CD3183C42E8705B410C06F2504FF721E4E2E3959E4445DA9540BE73F5C45DE}
+  - {path: Plugins/PlanetGenPinned_1_4_0_RedMMO/PlanetGen.uplugin, sha256: 4AE63D950CB510C0F7DDBE9EEE574C834A06D39109CF47C947F85BD6551C221E}
+  - {path: Plugins/RedHUD/RedHUD.uplugin, sha256: 4A63B2E1B7C0D3716E4D86EC88AD50981416EFA8D6B91C05F81CC02B151778E6}
+  - {path: Plugins/SteamIntegrationKit/SteamIntegrationKit.uplugin, sha256: D2C5386CAF78FB68F5B1FF8303CBE08E0E6000EAF3206C144B853D631F5338FB}
+  - {path: Plugins/VibeMMOUIKit/VibeMMOUIKit.uplugin, sha256: 2A4991BE5FC7418FCA02AD110CF2F8B95AEABD1546EB378BA02AD52E95B8AB27}
+
+historical_runtime_observation_reused:
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0004-controller-resource-inventory-d3d12-ultrawide.yaml
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/runtime_3440x1440_final_candidate3.log
+    bytes: 359406
+    sha256: AB4C58EE4781EECF43CAF8EE782C46AF6360C4244604B421846FC814A0C1D446
+  observations:
+    - no Voxel project plugin mount marker
+    - failed lookup for /Script/Voxel.VoxelCollisionInvokerComponent
+    - at least two collision-invoker fallback notices
+  limit: this_is_prior_real_GPU_runtime_context_not_new_M12_gameplay_evidence
+
+architecture:
+  record:
+    path: ProjectKnowledge/systems/on-foot-voxel-asteroid-mining.yaml
+    bytes: 9431
+    sha256: 9002819071D8BF2EEDA64F1BEE069EA6486021ABDD7267DD1EF847489369FBB3
+  isolated_prototype:
+    map: /Game/RedMMO/Maps/Tests/RedVoxelAsteroid_M12
+    stable_id: asteroid.red.m12.prototype.001
+    production_replacement: false
+    initial_density_candidate: 64_cubed_cells_partitioned_into_16_cubed_chunks
+    source_of_truth: server_authoritative_density_and_material_volume
+  authority_contract:
+    - server revalidates possession, tool, target, range, line of sight, rate, sequence, and revision
+    - yield is derived only from cells that actually transition solid to empty
+    - duplicate or replayed requests remove zero new volume and grant zero
+    - replicate stable ID, base seed and version, ordered compact edits, revisions, and bounded chunk checkpoints rather than triangles
+    - late join applies the newest checkpoint and subsequent ordered edits before mining or collision is enabled
+    - aggregate removed material into a bounded number of logical clusters
+    - server owns Loose to Reserved or Attracting to Collected transitions and credits Inventory only after validated arrival
+    - generated mesh and collision are outputs rather than gameplay truth
+
+backend_and_provenance_gate:
+  required:
+    - pinned source or approved binary identity and license provenance
+    - explicit Unreal Engine 5.8 runtime and dedicated-server compatibility
+    - bounded density and material edit API
+    - asynchronous mesh and collision rebuild with stale-result rejection
+    - deterministic base volume plus serializable checkpoint or edit state
+    - project-owned adapter with no vendor-source mutation
+  current_vendor_risk:
+    - project plugins and most vendor Content are Git-ignored
+    - no local license or provenance record was found for the PlanetGen fork or AsteroidSpaceport packages
+  interpretation: provenance_and_reproducibility_gate_not_a_legal_conclusion
+
+implementation:
+  test:
+    path: Tools/tests/test_m12_voxel_capability_contract.py
+    bytes: 8863
+    sha256: 2D1CE14998F88E4A97D952E19D2B46B06DDA77F76EDE62CD4016707F9A6205B7
+    focused_result: 8_of_8_passed
+  production_source_modified: false
+  project_config_or_plugin_modified: false
+  map_or_asset_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_VoxelCapabilityAudit_20260723_212120Z
+  exact_preimages:
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 95639, sha256: B853997499DA94FEB95FFD3FDB6409B9F2C62A8863A75EC16F4BA45BF8A5711B}
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 12972, sha256: CCDC69E59AA767C85D28A2722C00128CA60F5918B30588E6C3BAF476B3B52292}
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 218944, sha256: F6F0C8EC603BAB2B943AF4C40DD64D4E94CDAAB30CA6EC7B62470DB6521B50F3}
+  new_system_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+verification:
+  focused_test_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_VoxelCapabilityAudit_20260723_212120Z/m12_voxel_capability_contract.log
+    bytes: 1925
+    sha256: 5FE993FD68126DFF92892E62528BD77D23173DA4B3D4B1152D8F6EBEA757A858
+    result: 8_of_8_passed
+  final_static_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_VoxelCapabilityAudit_20260723_212120Z/m12_final_static_and_provenance_tests.log
+    bytes: 17733
+    sha256: 2E387451492CBC8CF34435BE937EA750375D1604F4C279998122C0B5DCDEA852
+    result: 80_of_80_passed
+    suites:
+      - Tools.tests.test_m12_voxel_capability_contract
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_resource_inventory_contract
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_project_knowledge_integrity
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_VoxelCapabilityAudit_20260723_212120Z/project_knowledge_integrity_final.json
+    result: passed
+    error_count: 0
+    warning_count: 0
+
+protection:
+  protected_provenance_pre_slice: 7_of_7_passed
+  protected_provenance_post_slice: 7_of_7_passed
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_source_rasters: 135_of_135_exact
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  production_map_or_field_modified: false
+  protected_checkpoint_or_heightfield_modified: false
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+
+canonical_sync:
+  module: M12
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: E9AAF956393A9FB5C80EBC4A7339C050C18B66A0A88034BA3AB6BFC5F31B2CBE
+
+claim_limit: >-
+  This is static capability, source-contract, and architecture evidence. It
+  proves that the current asteroid is not voxel mining and that no usable voxel
+  backend is installed. It does not install a backend, implement density edits,
+  generate a cavity, rebuild collision, implement suction, make Inventory
+  durable, compile gameplay, launch Unreal, render pixels, profile performance,
+  package, or test multiplayer.
+
+next_safe_action: >-
+  Add only project-owned backend-neutral edit, material, chunk-revision,
+  validation, anti-duplication, checkpoint, and logical suction-state contracts
+  with offline tests. Keep rendering and collision behind
+  IRedVoxelAsteroidBackend. Admit a provenance-cleared UE 5.8 runtime or
+  deliberately implement and profile the bounded sparse-density candidate
+  before creating the isolated actor and test map. Do not touch protected maps,
+  the production field, vendor source, artist handoffs, or unrelated dirty work.

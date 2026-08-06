@@ -1,0 +1,153 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-enemy-feed-static
+captured_utc: "2026-07-22T15:58:01Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: bounded_enemy_target_feed_implemented_static_acceptance_passed_runtime_open
+
+scope:
+  selected_slice: >-
+    Wire one presentation-only enemy panel feed into the replacement HUD by
+    reusing ARedHUD's existing local aimed-character sweep and the existing
+    replicated enemy and health state.
+  source_files_modified: 2
+  test_files_modified_or_added: 2
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  gameplay_authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 59
+    individual_untracked_paths: 1318
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    samples: 7
+    free_physical_gib_range: [8.826, 9.378]
+    free_commit_gib_range: [19.328, 19.920]
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8915, 8916]
+    c_free_gib: 132.771
+    d_free_gib: 1141.727
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    other_codex_continuations: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU launch gates remained closed. Free
+    physical RAM was below both the 12 GiB running abort floor and the required
+    sustained 18-20 GiB packaging floor, so this slice remained offline only.
+
+implementation:
+  - path: Source/RedMMO/RedHUD.cpp
+    before_sha256: B8955DDC25E3FF6DAB875862F1A14D17FF3D9222A03E5AF3036D6EF296C483F9
+    after_sha256: E64288356A977CA63D5990C20DC7982BC78F6FE2D7C9BEEDCFC86C0B8E922555
+    after_length: 14031
+    change: >-
+      Publishes hidden enemy state before target-dependent returns, shows the
+      panel only for valid non-downed bIsEnemy targets, clamps the existing
+      health fraction into a normalized 0..1 value, and clears target state
+      before HUD hide or re-show so cached data cannot flash.
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    before_sha256: 8081F44621E624EC8F7CDC9A52DAACEB040F3B859A238BBE511DF0D716903DD2
+    after_sha256: BE926FEF5F105A4331EA18A4D637ABF1C2CF3C1D610688A4C9A53C148829D05F
+    after_length: 35196
+    change: >-
+      Omits the level prefix when no trustworthy level exists and makes repeated
+      hidden-state publications a no-op while retaining visible-to-hidden panel
+      collapse.
+  - path: Tools/tests/test_def0004_pixel_hud_current_contract.py
+    before_sha256: 4828664A25A2012B57824493549CE92B9B2DC895ED7EFFC2CC8C41F150429A2B
+    after_sha256: A843D3F1A2AC0809D99A9520F631925CA6739ACEFAE9CC724BB1FE38FEE71FF8
+  - path: Tools/tests/test_def0004_replacement_hud_enemy_feed_contract.py
+    before_state: absent
+    after_sha256: D0E774676713B235837719C4E832C4ACD8F393FF7E587A4C212FF5766A8823D8
+    after_length: 4906
+
+verification:
+  command: >-
+    python -B -m unittest
+    Tools.tests.test_def0004_replacement_hud_enemy_feed_contract
+    Tools.tests.test_def0004_pixel_hud_noop_feedback_contract
+    Tools.tests.test_def0004_pixel_hud_customizer_route_contract
+    Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 43_of_43_passed
+  focused_enemy_feed_tests: 8_of_8_passed
+  noop_and_lifecycle_tests: 8_of_8_passed
+  replacement_route_tests: 6_of_6_passed
+  current_DEF_0004_inventory_tests: 8_of_8_passed
+  DEF_0006_regression_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDEnemyFeed_20260722_1548_retry1/offline_contract_and_provenance_tests.log
+  log_sha256: 3F0D3796E1C79C3C895D42747B70B8C28C175AB5E3032E6F3D3805D8BB871C28
+  independent_review: PASS_no_actionable_findings
+  review_scope: >-
+    Stale target clearing across hide/show, repeated hidden-state no-op behavior,
+    visible-to-hidden collapse, compile plausibility, enemy filtering, normalized
+    health, honest metadata, presentation-only ownership, sight, trace, and
+    world-bar preservation.
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004EnemyFeed_1548_retry1/target_currency.json
+  report_sha256: 14595A58D6B7C7807C937A08B5827570D590E233A20698A90017A12163FDBF4E
+  input_manifest_sha256: 92C772CBF7303DF52DEA4C8B96CDBB71AF13ED4E010428271C971704E17E4F1F
+  input_count: 874
+  Titan:
+    currency_state: stale_unproven
+    newer_inputs: 38
+    newer_categories: {config: 2, plugin: 8, source: 28}
+    exact_build_proof: missing
+  TitanEditor:
+    currency_state: stale_unproven
+    newer_inputs: 26
+    newer_categories: {plugin: 2, source: 24}
+    exact_build_proof: missing
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004EnemyFeed_20260722_1548
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004EnemyFeed_20260722_1548/pre_slice_manifest.yaml
+  manifest_sha256: 28A00298EAE3BE1860BB1C00A0FD2CA56254C803568A571575FB57EF7D37767C
+  backed_up_files: 7
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  topology_checks: 9_of_9_passed
+  fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  supplied_HUD_textures: 56_preserved
+  vibe_sources: 8_of_8_preserved
+  artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+
+canonical_queue:
+  pre_slice_sha256: FC0789D695AB591D85047C88F1E1BB14851B7FFA5DD25DA7CF9231E9349F18E2
+  post_slice_sha256: 8D11AFB79D4FAF452EF3B79BA784A4581015DB7CBF2C13085B7DE0501E378AC8
+  module_status: incomplete_retry
+  retry_count: 9
+
+remaining_blockers:
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - enemy selection, clearing, health updates, and hide/show behavior require runtime gameplay verification
+  - current 16:9 and ultrawide pixels require real-GPU evidence
+  - ability, quest, consumable, and snapshot feeds still have no gameplay caller
+  - party and minimap replacement setters remain absent
+  - represented controls, complete layout coverage, persistence, mouse/controller behavior, packaging, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves a bounded source implementation and offline contracts
+  only. It does not prove UHT, compilation, runtime selection or replication,
+  performance, appearance, interaction, packaging, Steam transport, gameplay,
+  or multiplayer. The prior July 21 real-GPU HUD evidence predates these source
+  changes and cannot accept them.

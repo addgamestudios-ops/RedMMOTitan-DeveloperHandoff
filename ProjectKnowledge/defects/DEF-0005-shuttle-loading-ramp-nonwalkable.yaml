@@ -1,0 +1,39 @@
+schema_version: 1
+id: DEF-0005
+title: Shuttle rear loading ramp has no walkable collision
+status: implemented_awaiting_runtime_acceptance
+reported_at: 2026-07-21
+evidence:
+  screenshot: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-968ba64b-607c-4a98-84cc-71e47d486a7e.png
+  build_reconciliation: ProjectKnowledge/evidence/2026-07-22-def-0005-shuttle-ramp-build-reconciliation-static.yaml
+  lineage_contract_reconciliation: ProjectKnowledge/evidence/2026-07-24-def-0005-shuttle-ramp-lineage-contract-reconciliation-static.yaml
+observed: >-
+  The visible deployed rear garage door/loading ramp does not support the
+  player capsule, so the player cannot walk from the ground into the shuttle.
+implementation:
+  files:
+    - Source/RedMMO/RedShuttleBase.h
+    - Source/RedMMO/RedShuttleBase.cpp
+  summary: >-
+    Added a thin fitted loading-ramp UBoxComponent on the purchased shuttle's
+    visual basis. It blocks ECC_Pawn only, is walkable, and deliberately ignores
+    visibility and projectile channels to avoid recreating an invisible wall.
+acceptance_gate:
+  evidence_class: real_gpu_gameplay_collision
+  steps:
+    - Open the rear hangar ramp.
+    - Walk continuously from terrain onto the ramp and into the cargo bay.
+    - Walk back down without falling through or floating above the visible ramp.
+    - Shoot along both sides of the ramp and confirm no invisible projectile wall.
+    - Close the ramp and confirm no phantom walkable surface remains outside the ship.
+blocker: >-
+  The unchanged RedShuttleBase source identity is authenticated by retained
+  successful July 23 TitanEditor and Titan compile-and-link logs plus an
+  immutable D-resident editor-link snapshot. The older test's rotating UBT log
+  and live Intermediate/Binaries pins are prospectively superseded, but this
+  static reconciliation is not current whole-target or collision evidence. The
+  overall Titan and TitanEditor targets remain stale or unproven against
+  unrelated newer project inputs under M09, and no runtime log proves the new
+  seven-piece collision marker. Rebuild current targets under their safe
+  resource gates, then perform the real-GPU walking, projectile-clearance, and closed-door
+  phantom-floor acceptance steps before closing this defect.

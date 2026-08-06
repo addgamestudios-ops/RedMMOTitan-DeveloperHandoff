@@ -1,0 +1,199 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-SEQUENCE-UHT-REPAIR-COMPILE
+captured_at: 2026-07-23
+module: M00
+slice: DEF-0003-sequence-uht-repair
+evidence_class: build
+result: def0003_uht_and_both_translation_units_passed_full_target_links_blocked
+
+authorization_and_scope:
+  bounded_defect: DEF-0003
+  source_modified:
+    - Source/RedMMO/RedMineableAsteroid.h
+    - Tools/tests/test_def0003_asteroid_depletion_contract.py
+  build_outputs_modified: true
+  explicitly_preserved:
+    - the replicated depletion phases, timestamps, reward state, and unsigned sequence semantics
+    - Source/RedMMO/RedMineableAsteroid.cpp
+    - Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    - all production maps, protected checkpoints, fused assets, artist repositories, vendor plugins, and unrelated source
+
+root_cause_and_repair:
+  prior_uht_error: >-
+    UE 5.8 rejected uint32 Sequence because BlueprintReadOnly made that inner
+    reflected field Blueprint-visible even though uint32 is not a supported
+    Blueprint member type.
+  repair: >-
+    Kept Sequence as the reflected unsigned revision used by replication,
+    two one-way increments, timer propagation, stale-callback rejection, and
+    percent-u logging. Removed BlueprintReadOnly only from the inner Sequence
+    UPROPERTY; VisibleInstanceOnly remains. The outer replicated
+    FRedMineableAsteroidDepletionState remains BlueprintReadOnly.
+  blueprint_dependency_audit: >-
+    Source and Content searches found no Blueprint or external consumer of the
+    inner Sequence field. Its consumers are C++ timer and idempotence paths.
+  behavior_change: none
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003SequenceUHT_20260723_0645
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003SequenceUHT_20260723_0645/pre_slice_manifest.yaml
+  manifest_sha256: 048A8471CD86FDEB6D999D41E492FA25DB68BA0B9EA911DB6102297D69DAF866
+  exact_pre_edit_files: 6_of_6
+  note: >-
+    Backups preserve the exact pre-edit worktree bytes, including untracked
+    source and canonical records; repository HEAD was not substituted.
+
+resource_and_process_gate:
+  total_physical_ram_gib: 31.872
+  initial_free_physical_ram_gib: 19.189
+  sustained_pre_build_min_free_physical_ram_gib: 18.271
+  observed_build_min_free_physical_ram_gib: 16.739
+  observed_commit_headroom_gib_range: [33.215, 38.384]
+  initial_rtx_3080_free_vram_mib: 8625
+  final_rtx_3080_free_vram_mib: 8704
+  disk_free_gib:
+    C: 130.623
+    D: 1141.832
+  preflight_overlap_count: 0
+  final_overlap_count: 0
+  policy_result: >-
+    One serial UnrealBuildTool process ran at a time. No editor, cook,
+    packaging, runtime, or real-GPU process was launched. Packaging remained
+    forbidden because the 18-20 GiB sustained physical-RAM gate did not remain
+    open during compilation.
+
+source_identity_after:
+  - path: Source/RedMMO/RedMineableAsteroid.h
+    sha256: 8E0B7C7485A5A876D1494F971777C987B024477A1049F44E9E80749BF244275B
+  - path: Source/RedMMO/RedMineableAsteroid.cpp
+    sha256: 10CD6347521C8938A807FD30E5CF6951C3347120D0AB2A1D10FD86A9895192DE
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: BD7D8D4A54FC4EF2D502722B327D443329B84D44998F03A47F8A3E5E6B8C3FD8
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    uht_result: passed
+    uht_seconds: 3.8545631
+    translation_unit_result: passed
+    translation_unit_action: 22_of_42
+    object: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedMineableAsteroid.cpp.obj
+    object_sha256: C1411E5AECC07DF5A191F3D000025A8D0631A594D10232B6907F70B957062340
+    target_result: failed_before_link_on_independent_m05_source
+    ubt_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceUHTBuild_20260723_0645/TitanEditor_UBT.log
+    ubt_log_sha256: 9C9BBD66981D84D9ABE9BEDBB90306B7CEF59ABD859998B74CB1270054AFC7A0
+    stdout_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceUHTBuild_20260723_0645/TitanEditor.stdout.log
+    stdout_log_sha256: 67F4903EB7602CAF74CD14840AA64B983BD54D1358B4BA192ECF0E91C934CC49
+  titan:
+    target: Titan Win64 Development
+    uht_result: passed
+    uht_seconds: 4.644636
+    translation_unit_result: passed
+    translation_unit_action: 15_of_46
+    object: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealGame/Development/RedMMO/RedMineableAsteroid.cpp.obj
+    object_sha256: 1656759C1C775F63A685FB5FBC1FE8B2ADC62491937DD61E16C86E3D290E6E69
+    target_result: failed_before_link_on_independent_m05_source
+    ubt_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceUHTGameBuild_20260723_0655/Titan_UBT.log
+    ubt_log_sha256: A143D0B4A892F190E39934D69DF507D01279DC1E3DFFACF87B664F420F43D279
+    stdout_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceUHTGameBuild_20260723_0655/Titan.stdout.log
+    stdout_log_sha256: 0A4DA008B62C7F45B7F5C6B193CABC4F4D65BE30D7FA58D9182A4160B063C439
+
+independent_target_blocker:
+  owner_module: M05
+  source: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+  source_sha256: DD7727552B95A92DC2038C205EAD1071BAC217ED439FB617422544878A1AF43A
+  line: 276
+  expression: 'for (const FName InvalidTag : { NAME_None, FName(TEXT("Folige")) })'
+  compiler_errors: [C3535, C2440]
+  reason: >-
+    The braced list attempts to deduce one initializer_list type from EName and
+    FName. This source was preserved and must be repaired under M05's own
+    rollback and evidence boundary.
+
+verification:
+  focused:
+    result: 11_of_11_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/focused_11_tests.log
+    log_sha256: D68926B04D0E22A5D97860E57CA19BA53E5AD36DC1AD1850EF08BDF4DFAEA650
+  mining_hud_combined:
+    result: 17_of_17_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/combined_17_tests.log
+    log_sha256: EE91022F044BFB6FF3B520A0CEA5DE311E14DEBAE26FE051337F5158964E3C07
+  protected_provenance:
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/protection_15_tests.log
+    log_sha256: EBAAA0D3F0657E595EBADBCE911786FA3ED3BF8D1146D7DC80B9D0C6022AABB1
+  post_canonical_sync:
+    mining_hud_result: 17_of_17_passed
+    mining_hud_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/post_sync_combined_17_tests.log
+    mining_hud_log_sha256: 7965B17B4A2D30BD09FC53EEFB8BC38041176E206D366FA623BEE27B85E5D7D7
+    protected_result: 15_of_15_passed
+    protected_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/post_sync_protection_15_tests.log
+    protected_log_sha256: DEB315A9F2FA97969B7806CA266D32552678F7FD4A1961C4D7127847B579DD9C
+    integrity_tool_result: 20_of_20_passed
+    integrity_tool_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/integrity_tool_tests.log
+    integrity_tool_log_sha256: 999F92CC0370A61ADD4F2B000BACC4CCBDFECFA0464DA28E6410B4972F2A7AA7
+  full_discovery:
+    result: 326_of_331_passed_with_5_unrelated_failures
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/full_discovery.log
+    log_sha256: 9DD5F21DC0BEF662E7E1C45EF9A63DC6C8B592951D6DF80E433FA9949BEEE3AF
+    pre_existing_night_t03_failures: 4
+    build_output_lineage_failure:
+      test: test_def0005_shuttle_ramp_evidence.Def0005ShuttleRampEvidenceTests.test_all_lineage_artifacts_are_hash_pinned
+      reason: >-
+        The full TitanEditor attempt rebuilt the unrelated mutable
+        RedShuttleBase.cpp.obj. Its current hash is
+        69EB2271C829DB2AB2AF622EAE8F4E99FA19EDDF61038BCF77FA3DA6D613A7F2
+        while DEF-0005's older pinned compile-evidence hash is
+        6CBBEBC9E8B496EA82B3E4C60EFDF96B09A9BAD88DD718F666001BD883441B68.
+        The other eight DEF-0005 lineage identities remain exact; no DEF-0005
+        source, SARIF, response, DLL, target, or historical log changed.
+
+canonical_integrity_audit:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_SequenceRepair_20260723_0710/project_knowledge_integrity_final.json
+  report_sha256: CA56C6B5E382919C364B3D672E8C7116C01D9ACC967BBFAD786BD80D14B63D95
+  exit_code: 1
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_sync:
+  module_queue_sha256: E1A2B942B3F75F4DCBD115CF977D9B8678326E3BC1149F01D21F04B9AF644BDB
+  current_state_snapshot_sha256: E1A2B942B3F75F4DCBD115CF977D9B8678326E3BC1149F01D21F04B9AF644BDB
+  project_wide_next_action_changed: true
+
+remaining_acceptance:
+  - repair the independent M05 initializer-list compile error and rerun full TitanEditor and Titan links
+  - real-GPU proof of readable destruction, sound, local debris, reward receipt, and two-second transition
+  - runtime collision shutdown with no invisible blocker
+  - exact one inventory increment and visible HUD update on listen and remote clients
+  - two-client phase, effect, receipt, and reward parity under simultaneous final hits
+  - late join during Depleting, inside and outside the FX replay window, and after Depleted
+  - decide and implement explicit server-restart persistence or respawn semantics if required
+
+claim_limit: >-
+  Current UE 5.8 UHT and both target compile environments accept the repaired
+  DEF-0003 source, and both asteroid translation units compiled to durable
+  objects. The independent M05 source error prevented full target links. This
+  does not prove linked targets, runtime behavior, visuals, audio, Chaos,
+  collision, rewards, HUD delivery, replication, late join, persistence,
+  packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  Preserve this DEF-0003 repair. Under a separate M05 rollback, make the two
+  invalid feature-tag fixtures use an explicit homogeneous FName container,
+  run the focused M05 contracts, and rerun serial TitanEditor and Titan builds.
+  Only linked targets can unblock bounded real-GPU DEF-0003 acceptance.

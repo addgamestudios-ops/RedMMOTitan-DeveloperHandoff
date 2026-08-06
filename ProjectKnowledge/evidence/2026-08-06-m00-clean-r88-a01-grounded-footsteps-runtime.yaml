@@ -1,0 +1,172 @@
+schema_version: 1
+id: evidence.m00.clean-r88-a01-grounded-footsteps-runtime
+module: M00
+evidence_class: automation
+status: pass_r88_grounded_footsteps_a01_trooper_starsparrow_real_d3d12_pie
+timestamp_utc: 2026-08-06T08:47:57Z
+scope: >-
+  One rollback-backed project-owned A01 footstep implementation plus compile
+  and one audio-enabled, provider-off, no-save D3D12 RenderOffscreen PIE on the
+  exact current R73 ProfileV1 home. The full inherited Trooper-to-StarSparrow-
+  to-Trooper Enhanced Input sequence ran so grounded emission and airborne or
+  ship-flight silence were measured in the same runtime.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_with_untracked: 2366
+  free_physical_ram_gib: 51.39
+  commit_headroom_gib: 53.64
+  gpu: NVIDIA_GeForce_RTX_3080
+  gpu_used_mib: 960
+  gpu_free_mib: 9094
+  d_drive_free_gib: 757.97
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_A01GroundedFootsteps_20260806T0827Z/transaction_intent.yaml
+  rollback_root: D:/RedMMOTitanWindowsData/Rollback/BeforeR88_A01GroundedFootsteps_20260806T0827Z
+  modified_project_files:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlayerCharacter.h
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+  map_saved: false
+  content_saved: false
+  config_saved: false
+  vendor_asset_modified: false
+  seed_terrain_biome_foliage_or_placement_modified: false
+
+implementation:
+  owner: /Script/RedMMO.RedPlayerCharacter
+  current_a01_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  approved_sound: /Game/SoStylized/Sounds/Step/SC_Steps_Dirt.SC_Steps_Dirt
+  approved_sound_sha256: EFC10D81407F39E8C0B340B37DBCE8E2F784AB16B65EF82A0F6A1FF3149F0F67
+  cadence: 180_cm_tangent_displacement
+  minimum_ground_speed_cm_s: 40.0
+  volume_multiplier: 0.75
+  gates:
+    - CharacterMovement IsMovingOnGround
+    - pawn not hidden
+    - actor collision enabled
+    - radial-tangent speed above threshold
+    - teleport discontinuity rejection above 500 cm per frame
+    - cadence reset on ship entry and ship exit
+  telemetry:
+    - GroundedFootstepEventCount
+    - GroundedFootstepAudioSpawnCount
+    - exact runtime sound path
+  source_contract:
+    test: D:/RedMMOTitan/Build/Automation/test_clean_redmmo_r88_grounded_footstep_contract.py
+    status: pass
+  source_hashes:
+    header_before: F07B9521FE29D8C574DC0E909E1473BEA2146C2A2E783027BCA3F916E622592C
+    header_after: 4FEA8A173A1022966E959D852878CB65327434F33EBBF29F95624D5B63E815D5
+    cpp_before: 48910C2BBA6A9BEE27A919B5B266C826B4AA7CC8B46F687CB5E20B8C2250677D
+    cpp_after: BCD11DF53C33CC57559CF3351FA876C1DC27987999D7AC5EFBDD2ACBAC8182CC
+
+build:
+  target: RedMMOEditor Win64 Development
+  result: succeeded
+  command: >-
+    Build.bat RedMMOEditor Win64 Development
+    -Project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -WaitMutex -NoHotReloadFromIDE -NoUBA -MaxParallelActions=1
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_A01GroundedFootsteps_20260806T0827Z/build.log
+  log_sha256: 7AFC602ABA470CFD04D50A0667E17B9EED8C83AF2122C33D70D70CE6E660FFA1
+  editor_module_sha256: BFBB0348E660EF6852A55FDC1F735C07C013E3A13BDD533B35DE8734A69B2426
+
+runtime:
+  status: PASS_R88_GROUNDED_FOOTSTEPS_A01_TROOPER_STARSPARROW_REAL_D3D12_PIE
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  renderer: D3D12_SM6_RenderOffscreen_PIE
+  audio_enabled: true
+  validator: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r88_grounded_footsteps_pie.py
+  ppg_generation: {phase: COMPLETE, progress: 1.0, collisions_enabled: true}
+  mapcheck: {errors: 0, warnings: 0}
+  footsteps:
+    walk: {events_before: 0, events_after: 3, audio_before: 0, audio_after: 3}
+    sprint: {events_before: 3, events_after: 7, audio_before: 3, audio_after: 7}
+    airborne_silence: {events_before_after: 8, audio_before_after: 8}
+    ship_flight_silence: {events_before_after: 8, audio_before_after: 8}
+    post_exit_grounded:
+      events_before: 8
+      events_after: 9
+      audio_before: 8
+      audio_after: 9
+      tangent_displacement_cm: 337.16
+      tangent_speed_cm_s: 600.0
+    exact_sound: /Game/SoStylized/Sounds/Step/SC_Steps_Dirt.SC_Steps_Dirt
+  on_foot:
+    walk_distance_cm: 551.72
+    walk_max_speed_cm_s: 600.0
+    sprint_distance_cm: 886.96
+    sprint_max_speed_cm_s: 1000.0
+    jump_takeoff_and_land: passed
+    authoritative_rifle_projectile: passed
+    projectile_muzzle_distance_cm: 47.09
+  ship:
+    exact_starsparrow_possessed: true
+    entry_and_input_context_switch: passed
+    ascent_radial_delta_cm: 1057.02
+    forward_delta_cm: 942.59
+    strafe_delta_cm: 1211.18
+    descent_radial_delta_cm: -668.86
+    mouse_look: passed
+    roll: passed
+    cruise_speed_cm_s: 5999.73
+    boost_speed_cm_s: 11999.90
+    boost_ratio: 2.00007
+    exit_and_on_foot_context_restore: passed
+    post_exit_capsule_surface_gap_cm: 10.0
+  pie_stopped: true
+  dirty_packages_after: {content: [], maps: []}
+  config_tree_unchanged: true
+  tracked_hashes_unchanged: true
+  severe_log_signature_count: 0
+
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R88F_20260806T0848Z/result.json
+    bytes: 1469258
+    sha256: CFF36B12AE8DBDE4C05944A2F54AC35B54F5BA1871CA981D8E625A73118E24FD
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_A01GroundedFootsteps_20260806T0827Z/UnrealEditor_R88F.log
+    bytes: 279410
+    sha256: 6BD88C59D2A5DD44CB266F016E587A78D6261B5B3FDA029E555A14DEE24092C1
+
+launcher_and_retry_notes:
+  - R88A failed before PIE because the no-clobber result directory had been pre-created; the exact process was stopped and no project mutation occurred.
+  - R88B and R88C bootstrapped but their raw hidden process form did not receive Slate ticks; both exact processes were stopped without PIE or project mutation.
+  - R88D used the proven Start-Process lifecycle and failed closed in PIE because the historical validator expected old non-rifle locomotion slots; no persistent project mutation occurred.
+  - R88E used NoSound and proved grounded events plus exact cue loading but correctly failed the audio-component gate because NoSound suppressed audio spawns.
+  - R88F retained the proven launcher, enabled audio, and passed the full strict gate without weakening acceptance.
+
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  palms_added: false
+  grass_asset_changed: false
+
+postcheck:
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+
+claim_limit: >-
+  R88 proves the current A01 pawn emits the exact approved stylized dirt cue
+  while walking, sprinting, and after ship exit, and remains silent through
+  jump/fall and StarSparrow possession/flight in one fresh real-D3D12 no-save
+  PIE. It also re-proves automated rifle fire and ship operation. This is not
+  physical keyboard/controller or human audio/visual acceptance, a packaged
+  standalone build, replication, multiplayer, travel, jetpack, biome art,
+  terrain smoothing, shoreline, or developer-handoff acceptance.
+
+next_safe_action: >-
+  Keep the R88 source correction. On the next bounded M00 slice, build and
+  validate one fresh Win64 Development package/currentness/startup acceptance
+  only if the recorded RAM gate remains satisfied. Do not claim handoff-ready
+  until the package launches and a separate visible hands-on controls/audio/
+  visual review passes.

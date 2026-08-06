@@ -1,0 +1,208 @@
+schema_version: 1
+id: evidence.def-0004.replacement-hud-ability-presentation-dedup.static.2026-07-22
+evidence_class: static
+captured_utc: "2026-07-22T19:11:50Z"
+result: qe_change_only_presentation_writes_verified_static_build_runtime_profile_pending
+
+scope:
+  defect_id: DEF-0004
+  module_id: M09
+  selected_slice: >-
+    Inventory the existing Q/E replacement-HUD update frequency and remove only
+    redundant UMG presentation writes while preserving the newest authoritative
+    state, the existing one-decimal cooldown display, input, activation,
+    prediction, replication, and gameplay authority.
+  explicitly_excluded:
+    - Unreal Editor or runtime launch
+    - UHT or C++ compilation
+    - cook or Windows packaging
+    - visual, gameplay, multiplayer, or performance acceptance
+    - ability input, activation, cooldown production, prediction, or replication changes
+    - party, quest, consumable, minimap, snapshot, map, asset, Config, Vibe, or artist changes
+
+preflight:
+  git:
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    branch: main
+    origin_ahead_behind: [0, 0]
+    worktrees: 1
+    staged: 0
+    conflicts: 0
+    tracked_unstaged_before_slice: 60
+    untracked_before_slice: 1346
+    note: RedHUD plugin source is ignored/untracked by Git, so exact rollback hashes are the diff authority.
+  physical_ram_samples_gib: [7.680, 7.586, 7.531, 7.313, 7.837, 7.968, 8.028, 8.043]
+  commit_headroom_samples_gib: [18.787, 18.647, 18.574, 18.397, 18.912, 19.064, 19.156, 19.182]
+  commit_limit_gib: 52.872
+  package_or_build_gate: hard_closed
+  package_default_gate_gib: {physical: 20, commit: 26}
+  package_floor_gib: {physical: 18, commit: 24}
+  runtime_abort_gate_gib: {physical: 12, commit: 16}
+  gpu:
+    adapter: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_used_mib: 1213
+    vram_free_mib: 8841
+    utilization_percent: 11
+  disk_free_gib: {C: 133.037, D: 1141.721}
+  active_unreal_build_package_or_titan_processes: 0
+  competing_repository_writer_observed: false
+
+latest_package_evidence:
+  pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD_before_cook
+  abort_reason: free_physical_memory_below_historical_8_gib_abort_threshold
+  attempt_archive_exists: false
+  ready_marker_exists: false
+  older_july_17_archive_disposition: stale_currency_unverified_and_missing_fused_source_marker
+
+call_path_inventory:
+  local_tick:
+    - ARedPlayerCharacter::Tick calls UpdateHUDStatus once per local frame
+    - UpdateHUDStatus calls UpdateAbilityHUD once
+    - UpdateAbilityHUD loops the two Q/E gameplay slots
+    - each slot forwards one replacement state to URedHUDWidget::SetAbilityState
+  replacement_calls_per_local_frame: 2
+  producer_work_preserved_per_frame:
+    - server or world clock lookup
+    - remaining-time and duration calculation
+    - legacy HUD SetAbilityCooldownState when the hidden legacy widget exists
+    - replacement bridge state construction
+  prior_umg_mutation_inventory_per_slot:
+    ready_or_hidden_status: 5
+    visible_cooldown_or_status: 7
+    components:
+      - one ability-art tint write
+      - three canvas-slot geometry writes
+      - one visibility write
+      - one text and one color write when status is visible
+
+implementation:
+  boundary: URedHUDWidget presentation only
+  bounded_slots: [1, 2]
+  exact_state_rule: CachedAbilityStates receives every newest FRedHUDAbilityState before suppression is considered
+  presentation_key:
+    - input scheme
+    - live-data mode
+    - AbilityBar hidden state
+    - art-tint semantic mode including selected state
+    - status semantic mode
+    - exact FString::Printf one-decimal label when a cooldown is visible
+  unchanged_result: return_before_art_geometry_visibility_text_or_color_mutation
+  replay_safeguards:
+    - every SetLiveDataMode application invalidates the Q/E presentation cache because it collapses live widgets before replay
+    - input-scheme and hidden-layout state participate in the key
+    - an entry becomes valid only after its art, text, and canvas-slot targets exist and the presentation is applied
+    - manual AbilityLeft or AbilityRight tint changes invalidate the corresponding entry so the next authoritative tick preserves prior restoration behavior
+  precision: existing TEXT("%.1f") label is both the displayed value and the cooldown repaint boundary
+  theoretical_write_effect:
+    unchanged_ready_or_hidden_state: zero_replacement_umg_writes_after_first_application
+    visible_cooldown: repaint_only_when_the_displayed_one_decimal_label_or_other_key_field_changes
+    example_at_60_fps_with_both_slots_continuously_cooling: >-
+      Static upper-bound inventory falls from 840 replacement UMG mutations per
+      second to about 140 when both labels change at 10 Hz, an approximately
+      83 percent reduction. This is a model, not a runtime profile.
+
+changed_files:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    pre_sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295
+    post_sha256: 1CF3AC2812BA7DC2E1783A9F963A0830AC8CC935944138E0E1A5AA14D98AA04A
+    post_bytes: 7844
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    pre_sha256: FC3C993CA7F32E4622B36366718F48BD8FD8A18A775BE6731B81DD288A802724
+    post_sha256: D98E97B8B241122439DA6AB75CABE7882FDDD9D4ABDAF396D932DAB16A668AE0
+    post_bytes: 42141
+  - path: Tools/tests/test_def0004_replacement_hud_ability_presentation_dedup_contract.py
+    pre_state: absent
+    post_sha256: FDA9BABC384C02623147BDDE05828812DC3CEF6DF9EAC055F7DC55969EE59267
+    post_bytes: 5995
+
+verification:
+  focused_new_tests: 9_of_9_passed
+  focused_new_plus_prior_ability_tests: 24_of_24_passed
+  combined_current_hud_shared_gravity_fighter_and_provenance_tests: 114_of_114_passed
+  protected_provenance_tests: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_AbilityPresentationDedup_20260722_2207/offline_contract_and_provenance_tests_clean.log
+  log_sha256: 1ABBF4DF939FE0D21650A703F9772C51D0C17DC814F17F360FABE5C2F2BBFC37
+  log_bytes: 26940
+  independent_review: PASS_no_actionable_cpp_or_lifecycle_finding
+  diff_basis: exact_rollback_comparison_because_plugin_source_is_untracked
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_AbilityPresentationDedup_20260722_2207/target_currency.json
+  report_sha256: 7F44BC235BF3BFF7E196F4BD3EE2897BED234EE6B7AEBCC0FB07C35E5DAE1146
+  input_count: 874
+  input_manifest_sha256: 7B6C08B13BD562C20862B018D5113E0FC8B00F758267762159553929B9F62964
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, exact_build_proof: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, exact_build_proof: missing}
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004AbilityPresentationDedup_20260722_220224
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004AbilityPresentationDedup_20260722_220224/MANIFEST_SHA256.txt
+  manifest_sha256: CE5ED9430E09E0FE843556B4EFB91D99463BD6DDDF1968D192F31EFF69A8DDD8
+  backed_up_files: 2
+  added_test_was_absent: true
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  hud_asset_count_preserved: 56
+  hud_manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  full_composite_sha256: 29CE0DBB74CB2E47A047FF359E3904A52646AC54E6DBC6994D6B258BEAC0209D
+  vibe_sources: 8_of_8_exact
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_embedded_manifest: 338_of_338_exact
+
+canonical_correction:
+  corrected_utc: "2026-07-22T19:23:37Z"
+  reason: >-
+    A mandatory protected-checkpoint audit found four transcription-only hash
+    errors in this record. Direct hashing confirmed the protected files and all
+    56 supplied HUD assets remained byte-identical to their established
+    baselines; no protected content was repaired or rewritten.
+  pre_correction_record_sha256: 905C1B6610D09A8CA92AB0EECC21B85AEAB6BDD590086200E3B1DAC3E655EBAF
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004EvidenceHashRepair_20260722_222337
+  corrected_fields:
+    - protection.foundation_marker_sha256
+    - protection.hud_manifest_sha256
+    - protection.full_composite_sha256
+    - protection.safe8_archive_sha256
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 14
+  evidence_entries_after: 35
+  queue_sha256_after: 4C4FB7522421B23B0DC9EC9272C7B1CB90E6AF811D86CEED182DA3FA50A9D72E
+  defect_status: open
+  current_state_queue_hash_matches: true
+
+claim_limit: >-
+  This is static source, contract, provenance, and theoretical write-count
+  evidence. It does not compile C++, execute UHT, launch Unreal, render pixels,
+  measure CPU or GPU time, prove countdown cadence, prove input switching or
+  hidden-layout replay in runtime, package Windows, or test multiplayer. It
+  reduces redundant replacement-HUD UMG mutations only; the authoritative
+  producer, bridge math, string-key work during visible cooldowns, and legacy
+  feed still execute every local frame.
+
+next_safe_action: >-
+  Keep Unreal, build, cook, package, and real-GPU work closed until the RAM and
+  commit gates pass. The next independent offline HUD slice may inventory the
+  collapsed legacy portrait/minimap scene-capture timer and define whether it
+  can be safely gated when no accepted replacement consumer exists, without
+  fabricating a minimap contract or altering gameplay authority. When resources
+  pass, compile RedHUDRuntime, TitanEditor, and Titan separately, generate exact
+  build proofs, rerun target currency, and then perform runtime Q/E and package
+  acceptance.

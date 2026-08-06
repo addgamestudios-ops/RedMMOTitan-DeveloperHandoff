@@ -1,0 +1,193 @@
+schema_version: 1
+id: evidence.M07.cc5-brute-linked-preset-candidate-readonly-runtime.2026-07-25
+evidence_class: automation
+module: M07
+captured_utc: 2026-07-25T02:18:30Z
+result: passed_exact_brute_candidate_discovery_but_linked_apply_blocked_by_global_id_ambiguity
+
+scope:
+  objective: >-
+    Use only the authenticated read-only CC5 protocol 1.2 bridge against the
+    already loaded disposable HD Caricature Mixer Brute to identify the exact
+    body-ratio and head-shape RLPy records needed for one future allowlisted
+    linked-proportion preset, while leaving the live config, character and
+    project unchanged.
+  performed:
+    - inspect the active character and project binding twice
+    - list four exact HD Caricature Mixer categories
+    - record the exact body-ratio and head-shape IDs, ranges and current values
+    - derive one deterministic review candidate and its protocol-compatible definition digest entirely offline
+    - recheck the live bridge status, versions directory and four protected Unreal hashes
+  not_performed:
+    - change the private live bridge config
+    - add a morph allowlist entry or linked preset
+    - issue set_approved_morph, apply_approved_linked_preset, or save_project_as
+    - change or save the disposable Brute
+    - launch Unreal, build, cook, package, import, migrate, or modify a game asset
+
+live_binding:
+  character:
+    name: CC3_Base_Plus
+    object_id: "5255271560704"
+    signature: f5d478d72afcadd8c77815a74ec118908f7b49112faa0ab1a708ef395eaf35b3
+  project:
+    name: brute.ccavatar
+    identity: 85e454329447f81df8ace8af9df57e638f78612ba642706d254837af7550179c
+    epoch: 10
+    is_untitled: false
+  bridge:
+    instance_id: 432856c129d040a084c4b82c0921a107
+    protocol_version: "1.2"
+
+exact_readonly_findings:
+  body:
+    category: Actor/Body/HD Caricature Mixer/Body Ratio
+    morph_id: 2025-12-17-13-58-32_brute_body ratio
+    display_name: Brute_Body Ratio
+    minimum: 0.0
+    maximum: 1.0
+    current_value: 1.0
+    approved_aliases: []
+  head:
+    category: Actor/Head/HD Caricature Mixer/Head Shape
+    morph_id: 2025-12-17-13-58-30_brute_head shape
+    display_name: Brute_Head Shape
+    minimum: 0.0
+    maximum: 1.0
+    current_value: 1.0
+    approved_aliases: []
+  parent_category_crosscheck:
+    Actor/Body/HD Caricature Mixer:
+      total: 1
+      matched_body_record: true
+    Actor/Head/HD Caricature Mixer:
+      total: 7
+      matched_head_record: true
+
+review_candidate_only:
+  status: not_configured_not_approved_not_applied
+  preset_alias: brute_linked_proportion_full
+  label: HD Caricature Mixer Brute linked body/head proportions
+  required_character_signature: f5d478d72afcadd8c77815a74ec118908f7b49112faa0ab1a708ef395eaf35b3
+  body:
+    morph_alias: brute_body_ratio
+    value: 1.0
+    rule:
+      morph_id: 2025-12-17-13-58-32_brute_body ratio
+      minimum: 0.0
+      maximum: 1.0
+      label: Brute Body Ratio
+  head:
+    morph_alias: brute_head_shape
+    value: 1.0
+    rule:
+      morph_id: 2025-12-17-13-58-30_brute_head shape
+      minimum: 0.0
+      maximum: 1.0
+      label: Brute Head Shape
+  definition_digest_sha256: b9ca2697f3e62174dbdd7e9eab864377efc5498d6e2a8db26f2f22df0b611770
+  rationale: >-
+    Both fixed values are finite, inside the live 0.0 through 1.0 host ranges,
+    and equal the values already read from the disposable Brute. This makes the
+    candidate suitable for independent review and a future no-visual-delta
+    protocol acceptance, but does not by itself authorize configuration or use.
+
+independent_review:
+  captured_utc: 2026-07-25T02:24:33Z
+  verdict: one_P2_no_P0_no_P1
+  verified:
+    - the body category, ID, live range and current value exactly match the authenticated response
+    - the head category, ID, live range and current value exactly match the authenticated response
+    - the independently recomputed definition digest exactly matches b9ca2697f3e62174dbdd7e9eab864377efc5498d6e2a8db26f2f22df0b611770
+  finding:
+    severity: P2
+    id: cc5_linked_preset_global_category_duplicate_id_ambiguity
+    evidence: >-
+      Each target ID appears in both its HD Caricature Mixer parent category
+      and exact child category. _all_slider_rows(shaping, "") retains both
+      category rows, while _apply_approved_linked_preset requires exactly one
+      global row for each morph ID. The current implementation would therefore
+      fail closed with morph_id_ambiguous before changing either slider.
+  disposition: >-
+    The candidate may advance only to source hardening and a later closed-host
+    migration plan. It must not be configured or applied until global-ID
+    category duplication is resolved and covered by focused regression tests.
+
+runtime_after_slice:
+  captured_utc: 2026-07-25T02:18:30Z
+  process:
+    pid: 27976
+    window_title: Character Creator 5 - Brute.ccAvatar *
+  bridge:
+    state: running
+    heartbeat_age_seconds: 0.993
+    requests_processed: 8
+    last_error: null
+  request_accounting:
+    deployment_baseline_requests_processed: 2
+    read_only_requests_this_slice: 6
+    mutation_requests_this_slice: 0
+    linked_preset_requests_this_slice: 0
+    save_requests_this_slice: 0
+  private_config:
+    sha256: 119FC14855C1ADC8CAF9F4047715B31CDA708C67BFBFFE4D2B1AB67236BCE32E
+    morph_allowlist_count: 0
+    linked_preset_count: 0
+  version_files: 0
+
+validation:
+  canonical_integrity:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_BruteCandidate_20260725_0218Z/integrity.json
+    result: pass
+    errors: 0
+    warnings: 0
+
+resources_at_capture:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 7.356
+  commit_limit_gib: 54.872
+  commit_used_gib: 24.862
+  commit_headroom_gib: 30.010
+  d_drive_free_gib: 1076.949
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 3995
+    free_vram_mib: 6059
+  exact_unreal_or_build_process_count: 0
+  cc5_process_count: 1
+  decision: >-
+    Physical RAM remained below the Unreal and package gates, so this bounded
+    slice used only authenticated local read-only CC5 IPC plus offline digest
+    derivation.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This proves the exact Brute body-ratio and head-shape records, live ranges,
+  current values, character signature and project binding were obtained through
+  authenticated read-only RLPy IPC, and that one deterministic configuration
+  candidate can now be reviewed. It does not prove that the candidate is
+  configured, applied, reversible in live CC5, saved,
+  visually accepted, exposed through the pinned external MCP environment, or
+  integrated with Unreal. Independent review reproduced the digest but found
+  that the current global row lookup would fail closed on duplicate
+  parent/child category representations of both target IDs.
+
+remaining_blockers:
+  - harden linked-preset morph resolution against identical parent and child category representations without permitting conflicting duplicate definitions
+  - add focused regression coverage for identical duplicate rows, conflicting duplicate rows, missing IDs and pair rollback before deployment
+  - only after source review passes, close CC5 before any private-config migration and retain a new exact rollback point
+  - run one fresh-binding apply/readback/rollback acceptance without saving before permitting any production authoring use
+  - separately install and smoke-test stable official mcp 1.28.1 in an isolated external environment before Codex MCP registration
+
+next_safe_action: >-
+  In one source-only slice, define and test a fail-closed canonical row resolver
+  that accepts repeated identical category representations for one morph ID but
+  rejects conflicting range, display-name or live-value records. Independently
+  re-review that hardening before any installed-plugin or private-config change.

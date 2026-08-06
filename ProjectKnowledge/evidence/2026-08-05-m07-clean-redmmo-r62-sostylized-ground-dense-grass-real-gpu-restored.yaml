@@ -1,0 +1,126 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r62-sostylized-ground-dense-grass.2026-08-05
+captured_utc: "2026-08-05T21:08:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r62-sostylized-painted-ground-plus-retained-seeded-grass
+evidence_class: real_gpu_visual
+result: materially_less_saturated_dense_grass_visible_visual_partial_restored_byte_exact
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 53.31
+  commit_headroom_gib: 55.90
+  free_gpu_vram_mib: 9138
+  free_d_drive_gib: 767.43
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 5DD6F51CE91607F72B237F5B717AED5592224DDAED733A70CE3C3F1DA53C2AEA
+
+transaction:
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R62_20260805T2102Z/transaction_manifest.yaml
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  temporary_changed_package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+  home_map_mutated: false
+  seed_or_terrain_changed: false
+  foliage_or_placement_changed: false
+  gameplay_changed: false
+  vendor_assets_changed: false
+  final_persistent_content_change: false
+
+temporary_surface_candidate:
+  base_color: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+  normal: /Engine/EngineMaterials/DefaultNormal
+  roughness: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+  uv_scale: 12.0
+  normal_amount: 0.0
+  specular: 0.02
+  tint_a: [1.0, 1.0, 1.0, 1.0]
+  tint_b: [1.0, 1.0, 1.0, 1.0]
+  preimage_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  temporary_sha256: DBE17777917C49AD10703789E0A33CC224D615A1B60BDA88004AA4C12AAD2CD4
+  restored_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+
+apply_harness:
+  driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_sostylized_ground_r62.py
+  driver_sha256: FEF56816930DE51306389562B944D1842E1AB51656894DCBFBBFB015893E25A1
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R62_20260805T2102Z/apply_result.json
+  result_sha256: A50DACD4432DB51047AD4B384EB9E670B58F0CB6819100F3E847A1AF6A849B30
+  disposition: >-
+    The exact intended surface parameters serialized and the rollback was
+    created. The wrapper then reported a post-save harness-only directory
+    no-clobber because the transaction manifest had already created the same
+    diagnostics directory; this did not invalidate the authenticated temporary
+    surface or rollback.
+
+runtime:
+  renderer: real_D3D12_RenderOffscreen
+  capture_api: FScreenshotRequest_existing_game_viewport_no_resize
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_sostylized_ground_existing_viewport_r62.py
+  driver_sha256: 0366D9CA5B819F50A161F44689529D9C7DE9EFF12733480931090BB66282048C
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R62_20260805T2102Z/capture_result.json
+  result_sha256: B4986481752420780FBA70E9D240CCF4803C8B8247F0B111825324807A72D613
+  generation: {phase: COMPLETE, progress: 1.0}
+  approved_grass_components: 196
+  approved_grass_instances: 2218356
+  registered_ready_proxied: [196, 196, 196]
+  post_capture_samples: 163
+  lifecycle_readiness_stable: true
+  dirty_packages_after_pie: 0
+
+real_gpu_visual:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R62_20260805T2102Z/R62_SoStylized_painted_ground_with_seeded_grass_existing_viewport.png
+  capture_sha256: AA73462723B4EDF7D7AC49696403AA623A5DAB9D6BC8523DB467B5E643E0D026
+  pixels: [1014, 550]
+  matched_camera_location: [191297894.994329, 196950314.121776, -421017759.800319]
+  matched_camera_rotation_degrees: [20.411667, -46.370080, 111.800090]
+  baseline_capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ViewportCaptureLifecycle_R52B_20260805T1846Z/R52_existing_viewport.png
+  lower_scene_pixel_metrics:
+    baseline_mean_saturation: 0.7723
+    candidate_mean_saturation: 0.5208
+    baseline_saturated_green_percent: 93.6942
+    candidate_saturated_green_percent: 48.9785
+    baseline_vivid_percent: 70.4000
+    candidate_vivid_percent: 15.3989
+  independent_review:
+    grass_visibility: pass_dense_near_and_mid_ground
+    ground_change: pass_materially_lighter_and_less_saturated
+    overall_art_acceptance: partial_fail
+    retained_defects:
+      - neutral untinted ground is too pale and the painted clutter is less readable than desired at player scale
+      - grass blades remain more saturated than the ground and need a restrained matched palette
+      - palms remain highly repetitive and overcrowded
+      - surface sky remains black at this viewpoint
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeSoStylizedGround_R62_20260805T2102Z
+  manifest_sha256: E46658B4E4067E1BE1D09392325B3C8EAD18BF3883597EC56F377628326D130B
+  rollback_asset_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  result: restored_byte_exact_after_capture
+
+protected_state:
+  uproject_sha256_before_after: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+claim_boundary: >-
+  R62 proves the SoStylized painted-ground closure can coexist with dense
+  visible seeded grass through the unconfounded existing-viewport path and
+  materially reduces the prior saturated-green field. It is not final art
+  acceptance, persisted content, physical playtest, standalone, packaging,
+  replication, multiplayer or a developer handoff build.
+
+next_safe_action: >-
+  Keep the byte-exact restored surface. In a separate review transaction, tune
+  only project-owned ground tint/contrast and approved grass color together so
+  the painted clutter remains readable without the current pale-ground versus
+  vivid-grass split. Do not alter seed, density, height, placements, palms,
+  terrain or map in that palette slice. The visible hands-on control-feel gate
+  remains separately user-bound before packaging.

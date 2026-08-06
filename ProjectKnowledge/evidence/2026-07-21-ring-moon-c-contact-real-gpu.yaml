@@ -1,0 +1,87 @@
+schema_version: 1
+id: evidence.ring-moon-c.2026-07-21.real-gpu-contact-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T03:14:25+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+target: moon.red.ring-01.c
+scope: real_gpu_character_surface_contact_and_gravity_identity
+
+launch_profile:
+  resolution: 1280x720
+  screen_percentage: 60
+  texture_pool_mb_requested: 1024
+  fps_cap: 45
+  audio_disabled: true
+  native_diagnostic_pawn: true
+  command_line_gate: RedRingMoonCProbe
+
+action:
+  - discover Moon C by immutable component tag RedGravityBodyId=moon.red.ring-01.c
+  - place the native diagnostic character immediately above the physical moon surface
+  - allow the character movement component to settle under radial gravity
+  - sample exact floor and trace contact twice, two seconds apart
+  - capture the rendered standing frame and exit cleanly
+
+result:
+  compile_and_link_gate: pass_reused_current_moon_b_build
+  real_gpu_runtime_gate: pass
+  moon_c_character_contact_gate: pass
+  moon_c_gravity_identity_gate: pass
+  moon_c_visual_presence_gate: pass_partial
+  moon_c_art_acceptance_gate: pending
+  observed:
+    - both samples reported Walking movement mode
+    - CurrentFloor and an independent trace both hit the exact RingMoonC component
+    - RedCharacterMovement, RadialGravityComponent, and the gravity query all selected moon.red.ring-01.c
+    - both samples measured a 2.15 cm surface gap, radial up dot 1.00000, and zero speed
+    - the real-GPU capture visibly shows the character standing on the moon surface with the ring body, ring bands, dense stars, and mineable asteroids in view
+    - the runtime completed an orderly engine shutdown with no fatal, GPU crash, device-loss, or video-memory marker
+  findings:
+    - ring bands remain over-bright and visually flat
+    - Moon C remains a bare prototype surface without an authored biome or landing treatment
+
+artifacts:
+  compile_and_link_source:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonBProbe_20260721_022817/Build.stdout.log
+    sha256: 7BDA4188FE5AA0DFA51295ECA5B41D602542E60BFAFB1BA1EF86E70F49CB94EA
+    note: "The accepted Moon B build compiled the same parameterized A/B/C probe source; the current DLL contains RedRingMoonCProbe and was newer than all RedMMO sources at launch."
+  initial_zen_stall_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonCProbe_20260721_030324/RingMoonCProbe.log
+    sha256: A57CDE9FFB7B19FF63E41C8A18435036CDE9E0F7D67CB26B7AB6CB31D963CF93
+    claim: startup_diagnostic_only
+  real_gpu_runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonCProbe_20260721_030324/RingMoonCProbe_retry1.log
+    sha256: 82DFD99E0616BB829104E7E75CC7D6C130B2919A758C6655020ABEC20E98C921
+    marker_lines: [1229, 2308, 2587, 2591, 2593, 2594, 2595, 2596, 2597, 2598, 2615, 2629, 2636, 2656, 2657]
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonCProbe_20260721_030324/Capture/RingMoonC_Standing.png
+    sha256: 605A8EBB9C2114399D2CDEC81443CFDA27AC642FB13E1390BF4985716936944C
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: BEA43A6A0B70CBCCF9CC6EAF692FB1910DFB9B12F956353C429B821D7C34D4CD
+
+protection:
+  checkpoint_path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256_before_and_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  unchanged: true
+
+memory_stability:
+  one_runtime_only: true
+  peak_observed_process_ram_gb: 3.75
+  peak_observed_total_vram_mb: 3819
+  free_ram_after_exit_gb: 10.61
+  note: "The first startup stalled while waiting for a newly launched Zen cache service and was terminated; the immediate retry against the initialized cache advanced, passed, captured, and exited cleanly."
+
+claim_limit: >-
+  This proves one native character can settle and remain physically grounded on
+  Moon C while all three local gravity consumers agree on its stable body ID.
+  It does not prove moving inter-body transitions, ship landing or exit,
+  mining interaction, packaged behavior, multiplayer authority, or art
+  acceptance.
+
+next_safe_action: >-
+  Implement the smallest bounded moving dominant-body transition probe between
+  two already contact-verified moons, without changing ring art or the protected
+  50 km checkpoint, before attempting ship landing or multiplayer authority.

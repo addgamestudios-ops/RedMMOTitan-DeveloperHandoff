@@ -1,0 +1,199 @@
+schema_version: 1
+id: evidence.m12.generated-output-completion-boundary.static.2026-07-24
+captured_utc: "2026-07-23T23:26:46.576Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: project-owned-single-role-generated-output-ticket-and-completion-boundary
+evidence_class: static
+result: passed_static_source_and_behavioral_model_uncompiled_unwired
+
+scope:
+  authorized:
+    - issue one server-private single-role build ticket for an exact authoritative chunk identity
+    - return a bounded detached density/material snapshot and portable volume spec to a future project-owned output adapter
+    - accept completion only against the exact pending role attempt and live per-chunk authority identity
+    - preserve role, chunk, volume, content, generation, profile, backend-instance, and retry isolation
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, C++ compile, cook, package, game, Steam, or multiplayer process
+    - mesh generation, presentation installation, collision cooking, renderer, actor, RPC, map, suction, or Inventory integration
+    - production map, production asteroid field, protected checkpoint, artist repository, handoff, vendor source, or supplied-asset mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 160
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [6.754, 6.775, 6.726]
+  commit_used_gib_samples: [37.185, 37.105, 37.179]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [17.688, 17.767, 17.694]
+  disk_c_free_gib: 123.437
+  disk_d_free_gib: 1140.579
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 3332
+  vram_free_mib: 6722
+  gpu_utilization_percent: 3
+  gpu_temperature_c: 38
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  compile_decision: not_run_because_physical_ram_remained_near_6_7_gib_free
+  action_decision: one_non_packaging_static_M12_generated_output_completion_slice
+
+postflight:
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_free_gib_samples: [1.989, 2.012, 1.983]
+  commit_used_gib_samples: [42.687, 42.711, 42.699]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [12.186, 12.162, 12.173]
+  disk_c_free_gib: 123.403
+  disk_d_free_gib: 1140.570
+  vram_used_mib: 2917
+  vram_free_mib: 7137
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 42
+  packaging_and_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  live_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/integrity_final_live.json
+    bytes: 1782
+    sha256: CA556336B7E025363C9A48F8467408C9EBFB26D0C649BA804EC68700CD01C283
+    result: passed_with_0_findings
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+  redmmo_dll_sha256: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+  titan_editor_target_sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+
+implementation:
+  source:
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.h, bytes: 15552, sha256: 873F8FAC765BC39C964B0C0863550AB8071B356D41824F3158BBC602418FE72A}
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.cpp, bytes: 40828, sha256: 4C29A281CC4B835B62210D27AB0C1186DB6A4A55F3D8B5FF5800FA4FF343EE60}
+    - {path: Source/RedMMO/Mining/RedVoxelAsteroidBackend.h, bytes: 4275, sha256: 7D01C69BF45AD92EA43F5F396CB4E861ED15EB56144259B3F9F845194F5F7FAA}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h, bytes: 3070, sha256: 3B13539CAB547E5F3A5AFEDA1CC7D4675DDDA7487740D044D5704BE7487297CA}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp, bytes: 63970, sha256: 5FB409C9B64CBF46C7A1E269261D510172D3172B31DCBB7D343832AD0F538336}
+  tests:
+    - {path: Tools/tests/test_m12_voxel_capability_contract.py, bytes: 8932, sha256: B8D235BAF81B980CDEC124C253386EE41A5E5386B234B6FB08DBC944AD44912F}
+    - {path: Tools/tests/test_m12_voxel_authority_contract.py, bytes: 29674, sha256: 3A1EE33B4BA3B735CAD0DF392E834D9B66DA693DA6B1E3D8DC6B0008D638089F}
+    - {path: Tools/tests/test_m12_sparse_density_backend_contract.py, bytes: 39018, sha256: 40EF918801A9F721D133F151136481A3F305BCA836B1FC545A325D48798A3390}
+    - {path: Tools/tests/test_m12_generated_output_completion_contract.py, bytes: 20405, sha256: 0C216AD79E15603BD602E9244F81F5BB4FD39C83DE92E14CCC1AC9EC202BAA93}
+  runtime_consumer_added: false
+  output_adapter_added: false
+  project_build_rule_plugin_or_map_modified: false
+
+completion_contract:
+  issued_request:
+    - one role per ticket; PresentationAndCollision remains query semantics rather than a completion capability
+    - exact source target, volume-spec hash, chunk coordinate, per-chunk content revision and hash, authority generation, build profile, backend-instance GUID, and monotonic request token
+    - detached bounded canonical density/material bytes plus the admitted portable volume spec
+    - same-role retry rotates only that role ticket and invalidates its prior callback
+  live_completion:
+    - completion revalidates the exact pending ticket against current per-chunk metadata rather than the volume global revision
+    - presentation and collision use independent tickets, pending state, readiness, and role-specific output fingerprints
+    - an edit of the ticket chunk invalidates both roles while an unrelated chunk edit preserves still-current work
+    - restore generation, release and same-instance recreation, new backend instance, wrong volume, wrong chunk, wrong profile, wrong token, wrong role, and malformed fingerprint fail without mutation
+    - exact duplicate completion with the same output fingerprint is idempotent; a conflicting duplicate fails closed
+    - already-ready work cannot be requeued and queue failure does not consume a request token
+  readiness_query:
+    - a ready role requires a canonical role-specific output fingerprint
+    - an unready role requires an empty output fingerprint
+    - combined readiness still requires both independent roles
+
+verification:
+  baseline:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/baseline.stderr.log
+    bytes: 9269
+    sha256: 5760DEAE0FB4917EC59766850A970E5E072AE556CF36FC1674BB63C9224033AE
+    result: 44_of_44_passed
+    composition: prior_M12_37_plus_protected_provenance_7
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/m12_output_completion_focused_canonical.stderr.log
+    bytes: 11350
+    sha256: 9D04A18B2FB52795B1E31E8D207BD14074716FE93FD92C775306C5E34BAF31C8
+    result: 52_of_52_passed
+    composition:
+      capability_contracts: 8
+      authority_contracts: 14
+      sparse_backend_contracts: 16
+      generated_output_completion_contracts: 14
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/m12_output_completion_final_static_regressions.stderr.log
+    bytes: 27158
+    sha256: B73F67CC3C5C48429DB6F06FE64BC2877B71FF7743BAC3910592AEBF1E90BF91
+    result: 124_of_124_passed
+    scope: focused_M12_plus_DEF0003_depletion_DEF0004_resource_inventory_protected_provenance_and_ProjectKnowledge_integrity
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/integrity_canonical.json
+    bytes: 1782
+    sha256: 0456B67F30038D19CD2A4318B796DD4697A1DCE4ED4F1E32E4160ACCB50672BD
+    result: passed_with_0_findings
+    indexed_evidence_count: 107
+  canonical_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    sha256: 817722628046D66C4B340216218A3E5689E2584CB1ABE19A3B8846FE6A48921B
+
+independent_review:
+  compile_and_design:
+    result: no_concrete_UE_5_8_or_MSVC_source_or_logic_blocker_found
+    checked:
+      - interface and override signatures
+      - conditional lvalue references
+      - FGuid backend-instance initialization
+      - failure atomicity, role monotonicity, retry supersession, and detached request snapshot
+    limit: read_only_source_review_not_a_compiler
+  adversarial:
+    result: no_concrete_stale_work_role_duplicate_cross_volume_or_atomicity_blocker_found
+    checked:
+      - per-chunk rather than global-volume revision comparison
+      - role escalation and cross-role preservation
+      - spec, profile, instance, generation, token, volume, chunk, and content mismatch
+      - exact duplicate and conflicting duplicate behavior
+      - restore, release, recreation, and unrelated-chunk edit behavior
+    limit: source_and_independent_Python_model_not_executed_C_plus_plus
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_OutputCompletion_20260723_231337Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_OutputCompletion_20260723_231337Z/rollback_manifest.json
+  manifest_bytes: 3638
+  manifest_sha256: E884568C704E7E44565FD168D5FE7F8A47A43E482E523629318F748DF7E5F56E
+  exact_preimages_recorded: 12
+  new_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  protected_provenance_pre_slice: 7_of_7_passed
+  protected_provenance_post_slice:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_OutputCompletion_20260723_231337Z/protected_provenance_post.stderr.log
+    bytes: 1507
+    sha256: 218F3054C726C8B6FECB18655B3E84EB11F37B3663801A6F289214C19C4223E1
+    result: 7_of_7_passed
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  unreal_build_cook_or_package_launched: false
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+claim_limit: >-
+  Static source inspection and an independent Python behavioral model only. The
+  model does not execute the C++ backend. The returned cells and volume spec are
+  detached mutable copies after handoff, and OutputSha256 is caller-supplied and
+  only shape-validated. SHA-256 fields are integrity fingerprints, not signatures.
+  This record proves a logical exact-ticket completion state boundary only; it
+  does not prove C++ compilation, an output adapter, attested input consumption,
+  artifact digest recomputation, installed mesh, cooked collision, actual
+  presentation or collision readiness, rendering, gameplay, profiling,
+  packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and add native C++ automation that directly executes ticket issuance,
+  retry, role isolation, stale completion, duplicate handling, and lifecycle ABA.
+  Then implement one project-owned adapter that consumes the issued snapshot,
+  installs a real role-specific artifact, recomputes its fingerprint, and commits
+  the exact ticket. Keep durable journal export and checkpoint acknowledgement as
+  a separate bounded M12 slice before any actor or map wiring.

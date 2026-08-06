@@ -1,0 +1,67 @@
+schema_version: 1
+record: celestial.moon_collection
+status: retired_runtime_disabled_visual_pending
+production_enabled: false
+authority: server
+parent_body_id: planet.red.ring-01
+
+moons:
+  - id: moon.red.ring-01.a
+    runtime_component: RingMoonA
+    relative_center_cm: [1050000.0, 250000.0, 260000.0]
+    radius_cm: 115000.0
+    gravity_influence_radius_cm: 520000.0
+    prototype_collision_enabled: true
+    current_runtime_collision_enabled: false
+    real_gpu_character_contact: passed_2026-07-21
+    art_acceptance: pending
+  - id: moon.red.ring-01.b
+    runtime_component: RingMoonB
+    relative_center_cm: [-1350000.0, -320000.0, -180000.0]
+    radius_cm: 90000.0
+    gravity_influence_radius_cm: 440000.0
+    prototype_collision_enabled: true
+    current_runtime_collision_enabled: false
+    real_gpu_character_contact: passed_2026-07-21
+    art_acceptance: pending
+  - id: moon.red.ring-01.c
+    runtime_component: RingMoonC
+    relative_center_cm: [300000.0, 1550000.0, 420000.0]
+    radius_cm: 70000.0
+    gravity_influence_radius_cm: 360000.0
+    prototype_collision_enabled: true
+    current_runtime_collision_enabled: false
+    real_gpu_character_contact: passed_2026-07-21
+    art_acceptance: pending
+
+surface_provider: static_mesh_prototype
+atmosphere_id: null
+water_id: null
+
+evidence:
+  status: retired_runtime_disabled_visual_pending
+  proven:
+    - components spawned in the active production runtime
+    - stable moon IDs are bound to runtime component tags
+    - deterministic priority, quantized-distance, lexical-tie, and hysteresis selection passed focused automation
+    - Moon A passed real-GPU character standing contact with exact RingMoonA floor and trace hits
+    - Moon A kept movement, radial-gravity, and query body IDs equal to moon.red.ring-01.a across two settled samples
+    - Moon B passed real-GPU character standing contact with exact RingMoonB floor and trace hits
+    - Moon B kept movement, radial-gravity, and query body IDs equal to moon.red.ring-01.b across two settled samples
+    - Moon C passed real-GPU character standing contact with exact RingMoonC floor and trace hits
+    - Moon C kept movement, radial-gravity, and query body IDs equal to moon.red.ring-01.c across two settled samples
+  current_runtime:
+    - all three legacy moon components are hidden and collision-disabled
+    - all three legacy moon gravity bodies are excluded from provider registration
+  pending:
+    - orbit-view visual absence proof
+
+evidence_artifacts:
+  - ProjectKnowledge/evidence/2026-07-21-gravity-selection-foundation.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-a-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-b-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-ring-moon-c-contact-real-gpu.yaml
+  - ProjectKnowledge/evidence/2026-07-21-obsolete-saturn-disabled-runtime.yaml
+
+implementation_gap:
+  - "These prototype moons are retired and must not be re-enabled as a substitute for PlanetGen 1.5 bodies."

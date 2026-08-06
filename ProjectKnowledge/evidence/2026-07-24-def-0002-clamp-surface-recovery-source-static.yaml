@@ -1,0 +1,238 @@
+schema_version: 1
+id: evidence.def-0002.clamp-surface-recovery.source.static.2026-07-24
+captured_utc: "2026-07-24T08:19:40.380651Z"
+module_id: M02
+defect_id: DEF-0002
+slice: clamp-authority-owned-bounded-surface-recovery
+evidence_class: static
+result: passed_source_contracts_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - replace the three raw ClampToPlanetSurface ship-root corrections with one authority-owned bounded recovery transaction
+    - distinguish an authenticated exact-terrain penetration recovery from legacy native-only void recovery
+    - preserve intended descent into below-datum authored terrain while containing inward radial velocity after a rejected unsafe correction
+    - preserve protected maps, checkpoints, vendor and artist repositories, handoffs, user assets, and unrelated dirty work
+  explicitly_not_changed:
+    - production maps, Blueprints, assets, Config, plugins, vendor content, artist repositories, artist handoffs, HUD, mining, Steam, or packaging logic
+    - the established 100 m local correction bound
+    - BeginPlay's separate one-shot readiness limitation
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, native compilation, cook, package, game, Steam, or multiplayer process
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1532
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [14.407, 14.412, 14.398]
+  committed_gib_samples: [24.962, 24.995, 24.971]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [29.910, 29.877, 29.901]
+  disk_c_free_gib: 125.746
+  disk_d_free_gib: 1140.010
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_static_M02_ClampToPlanetSurface_recovery_slice
+
+implementation:
+  private_recovery_policy:
+    - ExactTerrainPenetration accepts only a caller-authenticated PlanetGen line-hit component and chunk key
+    - LegacyVoid rejects exact witness arguments and uses native-only route and endpoint clearance
+  bounded_transaction:
+    - requires authority, an unattached updated root, a configured fitted collision hull, finite geometry and frame data, and a correction no longer than 100 m
+    - uses the fitted hull's radial support and fixed rotation to construct the requested root and envelope endpoints
+    - preflights root and fitted-envelope native blockers before mutation
+    - exact recovery additionally requires reciprocal fitted-box PlanetGen crossings on the same component, actor, and chunk key with bounded point, radial, and normal provenance
+    - exact and legacy endpoint checks fail closed on ambiguous terrain or native collision
+    - performs one Super::MoveUpdatedComponentImpl inside one deferred FScopedMovementUpdate and reverts on target-pose or endpoint postcheck failure
+  clamp_flow:
+    - the outer PlanetGen line query captures the exact terrain hit and chunk key
+    - matching terrain uses a three-state recovery result so clean authored crater descent can return NotRequired without being snapped to nominal datum
+    - matching PlanetGen NoHit defers pose correction and removes only inward radial velocity
+    - NoMatchingPlanet alone can enter the preserved WorldStatic crater check and native-only legacy recovery
+    - successful pose commit alone marks bPositionCorrected; a failed correction can mark only the velocity adjustment
+    - MoveWithPlanetCollision does not repeat inward-velocity containment when ClampToPlanetSurface already performed it
+    - all three prior raw SetWorldLocation corrections are absent from ClampToPlanetSurface
+  current_movement_source:
+    path: Source/RedMMO/RedShipMovementComponent.cpp
+    bytes: 83111
+    sha256: C757E7ACBBAA84BEDB49E14357E753E5B6846FE46A2BCECFB414EEEB1FBB9D86
+  current_movement_header:
+    path: Source/RedMMO/RedShipMovementComponent.h
+    bytes: 9822
+    sha256: C6F4262F4A8B3A35211B04B84A23A67AF78F79CFAE5337C4D4ABAD4620A66CA4
+  new_source_contract:
+    path: Tools/tests/test_def0002_ship_surface_recovery_contract.py
+    bytes: 50617
+    sha256: FA5B57C3C7FA4C0A4B08271E99EC6F895CBE5D49EB33A2F7868D6C5CA13C90E6
+  source_files_modified_by_this_slice: 2
+  test_files_added_by_this_slice: 1
+  reflected_property_or_public_signature_changed: false
+
+source_contract:
+  fail_closed_domains:
+    - role, attachment, root primitive, fitted-hull readiness, finite geometry, finite frame, policy, and correction bound
+    - exact witness ownership, chunk identity, trace direction, impact point, impact normal, and requested-correction provenance
+    - exact initial clean-behind-shell or matching start-penetration state
+    - native root and fitted-envelope route blockers
+    - reciprocal exact fitted-envelope crossing provenance
+    - native and exact endpoint clearance before and after the scoped move
+    - exact target pose and atomic rollback
+    - Clamp terrain tri-state handling and velocity-containment ownership
+  mutation_sensitivity:
+    explicit_mutants_rejected: 84
+    domains:
+      - role, readiness, fitted geometry, policy, bound, witness, initial state, and shadow-declaration bypasses
+      - native component scope, reciprocal route direction, key identity, point, radial, and normal provenance
+      - precheck, postcheck, deferred scope, one-commit, target-pose, and rollback atomicity
+      - exact NoHit, authored-crater, legacy fallback, result branching, and inward-velocity regressions
+      - actor, root, component, relative, local, world, direct, no-physics, mutable-direct, world-offset, and low-level transform writes
+    declaration_identity_hardening:
+      - exact declaration and reference counts reject composite shadow-result substitutions that previously evaded token-presence checks
+
+verification:
+  focused_surface_recovery_contract:
+    command: python -B -m unittest Tools.tests.test_def0002_ship_surface_recovery_contract -v
+    result: 7_of_7_passed
+  combined_current_DEF_0002_contracts:
+    command: python -B -m unittest discover -s Tools/tests -p test_def0002*.py -v
+    result: 44_of_44_passed
+  protected_provenance:
+    modules:
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 15_of_15_passed
+  full_static_discovery:
+    command: python -B -m unittest discover -s Tools/tests -p test_*.py
+    result: 523_of_523_passed
+    note: one negative ProjectKnowledge audit fixture intentionally emits a PKI011 diagnostic that its enclosing unit test accepts
+  whitespace_and_patch_check:
+    command: git diff --check -- Source/RedMMO/RedShipMovementComponent.cpp Source/RedMMO/RedShipMovementComponent.h Tools/tests/test_def0002_ship_surface_recovery_contract.py
+    result: passed_with_only_LF_to_CRLF_worktree_warnings_on_the_two_existing_source_files
+  independent_read_only_review:
+    completed_design_reviews: 1
+    result: no_static_Cpp_or_UE_5_8_API_or_source_logic_blocker_identified
+    targeted_adversarial_rechecks: 1
+    adversarial_result: the_reported_composite_shadow_declaration_bypass_is_rejected_by_the_current_contract
+    review_limit: the_adversarial_reviewers_later_broader_sweep_ended_without_a_usable_final_report_due_to_a_tool_content_filter
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_SurfaceRecovery_20260724T081932Z/windows_target_currency.json
+  report_bytes: 318288
+  report_sha256: A9ED9AF6FF3A0052A53E055EF06D15011082CBF1AA90CA62C480695291F8F562
+  audited_project_inputs: 885
+  input_manifest_sha256: 59D8EEB6E53883396D7F3F608C372A978BEF667B0DCC0585C7FFA17A1FDD1D04
+  gate: refused_fail_closed
+  Titan_newer_project_inputs: 22
+  TitanEditor_newer_project_inputs: 9
+  explicit_build_proofs_supplied: 0
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeM02SurfaceClamp_20260724T072854Z
+  exact_pre_slice_files: 6
+  pre_slice_identities:
+    - {path: Source/RedMMO/RedShipMovementComponent.cpp, bytes: 62438, sha256: 7C7549155313A54CDE70B676C04FDDB8651E16C28346AD6FF1E6DFA0BBADD380}
+    - {path: Source/RedMMO/RedShipMovementComponent.h, bytes: 9341, sha256: 87AC109D9C50EDDA947F1F2EA15F14C9F53B85A4757BD991B7BFE930CEED5428}
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 14941, sha256: 08114977403AC66628A34294A94FE173224AE8F0797DD43A848D6E7787F678A8}
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 128289, sha256: 7FE2364F66CBC0E10387CAAADAAD59D345905015C172E1A7279065C8FDFD75BD}
+    - {path: ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml, bytes: 10503, sha256: A45F380CF7AB7EE4AB6BDB5D38CF56C4E55BCB3DDF6EAA449EFB594277BC0625}
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 229601, sha256: 2A4BA694BB046501D721AE322EA76B3B3C006257303C148BD2E9A2A9106E5FE3}
+  new_test_pre_slice_state: absent
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map:
+    path: Content/RedMMO/Maps/RedPlanetGen.umap
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield:
+    path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_checkpoint_artist_vendor_handoff_or_user_asset_modified: false
+
+runtime_and_recovery_limits:
+  - the new source has not been compiled, linked, loaded, or executed in Unreal
+  - reciprocal single-hit sweeps authenticate bounded nearest crossings but do not mathematically prove that a complex route crosses terrain exactly once
+  - strict same-component and same-chunk provenance can conservatively reject valid recovery near active chunk or cube-face seams
+  - Chaos start-overlap, impact-normal, reverse-sweep, endpoint, and rollback behavior remain runtime-unverified
+  - the 100 m cap cannot recover every possible deep fall beneath terrain whose authored displacement can exceed that local bound
+  - ClampToPlanetSurface can run twice in one movement tick and the new rejected-recovery path has no query-failure throttle
+  - the physical WorldStatic crater branch preserves its prior return behavior and does not perform the new inward-velocity containment
+  - BeginPlay still has no deferred retry when fitted-hull readiness arrives after its initial attempt
+  - active-chunk coverage, seam behavior, query cost, landing feel, replication, gameplay, visuals, real-GPU behavior, multiplayer, packaging, and Steam remain unverified
+
+project_knowledge_integrity:
+  prerecord_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_SurfaceRecovery_20260724T081932Z/project_knowledge_integrity_prerecord.json
+  prerecord_report_bytes: 1782
+  prerecord_report_sha256: 4E0AD36992EDE6E30E8429DB66596EAAF62DF6FB5BDE583772E6B8E479D223D9
+  prerecord_result: passed_with_0_errors_and_0_warnings
+  final_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_SurfaceRecovery_20260724T081932Z/project_knowledge_integrity_final.json
+  final_result: passed_with_0_errors_and_0_warnings
+  queue_sha256: 3A634EBB2C0C6FADBFDAE71B0FDFB467630F1CA21CC3656AE065067B9DDE2ED6
+  note: the_final_report_is_regenerated_after_this_annotation_to_avoid_a_self_referential_digest_claim
+
+canonical_queue:
+  path: Build/Automation/redmmotitan_module_queue.json
+  bytes: 231046
+  sha256: 3A634EBB2C0C6FADBFDAE71B0FDFB467630F1CA21CC3656AE065067B9DDE2ED6
+  m02_status: queued
+  m02_retry_count: 20
+
+postflight:
+  physical_ram_free_gib_samples: [13.597, 13.603, 13.823]
+  committed_gib_samples: [25.733, 25.711, 25.516]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [29.140, 29.162, 29.356]
+  disk_c_free_gib: 124.965
+  disk_d_free_gib: 1140.009
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  exact_unreal_build_processes: 0
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+  stale_zero_byte_git_index_lock_preserved: true
+  expanded_dirty_entries_after_slice: 1536
+  postrecord_regression_subset: 42_of_42_passed
+
+claim_limit: >-
+  This is static source evidence. It proves only that the inspected
+  ClampToPlanetSurface implementation no longer contains its three prior raw
+  root corrections and delegates eligible exact-terrain or legacy-void
+  corrections to the bounded, authority-owned, fitted-envelope transaction
+  under the stated structural contract. It does not prove C++ compilation,
+  Unreal API validity, Chaos query behavior, successful recovery at seams or
+  from arbitrary depths, runtime cost, landing or takeoff gameplay, visuals,
+  real-GPU behavior, replication, multiplayer, packaging, or Steam.
+  DEF-0002 remains open.
+
+next_safe_action: >-
+  Preserve this source slice. When one serialized Unreal process is safe, compile
+  the current targets and run a focused real-Chaos fixture covering exact
+  start-penetration, clean behind-shell recovery, authored crater descent,
+  NoHit deferral, NoMatchingPlanet legacy recovery, reciprocal route normals,
+  chunk and cube-face seams, transaction rollback, repeated Clamp calls, and
+  authority/client replication. Real-GPU landing, exit, reboard, takeoff, and
+  stationary-compass evidence remains required before gameplay acceptance.

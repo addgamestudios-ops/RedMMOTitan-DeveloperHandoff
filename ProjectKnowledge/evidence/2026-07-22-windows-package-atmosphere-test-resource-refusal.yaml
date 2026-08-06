@@ -1,0 +1,34 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-WINDOWS-PACKAGE-ATMOSPHERE-RESOURCE-REFUSAL
+captured_at: 2026-07-22
+module: module.M09.windows-development-package
+evidence_class: static
+result: refused_safely
+requested_action:
+  label: ATMOSPHERE_TEST_20260722
+  fresh_cook: true
+  production_map_only: true
+observed:
+  first_preflight:
+    free_physical_gb: 12.47
+    free_commit_gb: 23.58
+    blocking_processes: 0
+    result: passed
+  launch_preflight:
+    free_physical_gb: 11.93
+    free_commit_gb: 23.01
+    blocking_processes: 0
+    result: refused
+  required:
+    minimum_free_physical_gb: 12.0
+    minimum_free_commit_gb: 18.0
+action:
+  - The guarded script exited before Unreal Automation Tool, cook, stage, or archive began.
+  - Safety thresholds were not reduced.
+  - The protected foundation package and protected map were not modified.
+artifacts:
+  stdout: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722/package_stdout.log
+  stderr: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722/package_stderr.log
+retry_when:
+  - Free physical RAM remains above 12 GB across the launch preflight.
+claim_limit: This is safety evidence only; no new Windows package was produced.

@@ -1,0 +1,102 @@
+schema_version: 1
+id: evidence.streaming-lod.static-audit.2026-07-21
+module_id: M04
+captured_utc: 2026-07-21T12:19:48Z
+platform: Windows
+evidence_class: static
+result: incomplete_retry
+scope: planetary_streaming_lod_flight_continuity_and_multiplayer_seed_use
+
+implemented_foundation:
+  nearby_streaming:
+    - PlanetGen updates streaming sources at 0.1 second intervals.
+    - Player and replicated-player pawns plus optional actors become angular streaming sources.
+    - Half-chunk edge coverage, unload hysteresis, movement-threshold rescans, nearest-facing-first loading, and a smaller collision ring are implemented.
+    - The 50 km profile uses 2 km tiles, resolution 32, view distance 3, collision distance 1.5, and at most eight chunks per cube face.
+  bounded_cost:
+    - The streamed chunk pool is globally capped at six times chunks-per-face squared, or 216 actors for the current profile.
+    - A collision-free resident macro globe supplies a bounded distant fallback.
+  continuity_safeguards:
+    - Shared cube-face edge and corner texels are fused deterministically.
+    - Detailed chunk normals sample a one-vertex external border.
+    - Build-generation tokens reject stale asynchronous uploads after chunk reuse.
+  deterministic_metadata:
+    - The 27-region metadata service uses a fixed layout seed and stable integer hashing.
+    - Existing tests verify 27 unique deterministic region seeds in one process.
+
+unmet_gates:
+  nearby_gameplay_detail:
+    status: not_accepted
+    reason: >-
+      Static source proves the mechanism, not the serialized production settings,
+      collision readiness, packaged behavior, or player-visible gameplay detail.
+  distant_bounded_cost_lod:
+    status: not_met_as_written
+    reason: >-
+      Cost is bounded by a fixed pool and resident proxy, but every detailed
+      chunk uses the same mesh resolution. Coarse-to-fine terrain LOD rings,
+      proxy/detail crossfade, and altitude-aware detail reduction do not exist.
+  flight_without_hitch_or_holes:
+    status: not_accepted
+    reason: >-
+      Old chunks can be recycled before replacements finish, collision changes
+      rebuild whole chunks, and there is no newest-generation Chaos cook-ready
+      handoff, velocity look-ahead, or explicit generation/cook frame budget.
+      Existing tests settle the new ring before traversal or preload all chunks,
+      so they do not prove continuous high-speed cross-face flight.
+  multiplayer_region_seed_use:
+    status: not_accepted
+    reason: >-
+      Deterministic seed math exists, but no server/client authority path,
+      replicated PlanetGen seed, late-join parity, or two-process comparison was
+      found. Optional non-pawn streaming sources are editable, not replicated.
+
+source_pointers:
+  - D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Private/PlanetGen/CLMPlanet.cpp
+  - D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Private/PlanetGen/CLMPlanetChunk.cpp
+  - D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Public/Shared/PlanetGenMacroHeightfieldAsset.h
+  - D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Private/Shared/PlanetGenMacroHeightfieldAsset.cpp
+  - D:/RedMMOTitan/Source/RedMMO/Planet/RedPlanetRegionService.h
+  - D:/RedMMOTitan/Source/RedMMO/Planet/RedPlanetRegionService.cpp
+  - D:/RedMMOTitan/Source/RedMMO/Planet/RedPlanetFusedTerrainContinuityTests.cpp
+  - D:/RedMMOTitan/docs/PLANET_50KM_IMPLEMENTATION_SPEC.md
+  - D:/RedMMOTitan/docs/PLANETGEN_PINNED_FORK.md
+
+prior_runtime_evidence:
+  path: D:/RedMMOTitanWindowsData/BuildLogs/ActiveTerrainBoxAdjacentContact_Regressions_20260715_163349.console.log
+  supported_claims:
+    - sampled collision continuity and cube-boundary automation passed in the recorded run
+    - moving-ring automation passed after waiting for the destination ring to settle
+  claim_limit: >-
+    This older automation is not a player-controlled, real-time high-speed flight
+    trace and supplies no hitch budget, transient-hole capture, packaged-client
+    evidence, or multiplayer peer parity.
+
+protected_hashes:
+  map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    matches_canonical: true
+  foundation_ready_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    matches_canonical: true
+
+host_safety:
+  unreal_or_titan_process_launched: false
+  compile_or_cook_started: false
+  reason: >-
+    The sustained resource gate left only 0.690 GiB minimum free-RAM cushion
+    above the 12 GiB floor, so this run remained non-launching.
+
+claim_limit: >-
+  This is static source analysis plus bounded interpretation of older automation.
+  It does not accept streaming visuals, collision feel, high-speed flight, frame
+  pacing, packaged behavior, or multiplayer determinism.
+
+next_safe_action: >-
+  Implement a dynamic pool with coarse-to-fine LOD rings, altitude-aware detail,
+  velocity look-ahead, explicit generation/upload/collision-cook budgets, and a
+  newest-generation cook-ready handoff. Then compile under a safe resource gate,
+  run a packaged high-speed cross-face traversal with frame-time and hole
+  capture, and run a two-process server/client plus late-join seed-parity test.

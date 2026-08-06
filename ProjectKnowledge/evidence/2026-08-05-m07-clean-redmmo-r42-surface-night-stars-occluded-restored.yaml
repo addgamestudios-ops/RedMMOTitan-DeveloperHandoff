@@ -1,0 +1,148 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r42-surface-night-stars-occluded-restored.2026-08-05
+captured_utc: "2026-08-05T15:52:50Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r42-surface-night-star-readability
+evidence_class: real_gpu_visual
+result: surface_star_visibility_scalar_falsified_and_source_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 49.68
+  commit_headroom_gib: 49.79
+  free_gpu_vram_mib: 8025
+  free_d_drive_gib: 767.64
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeSurfaceNightStars_R42_20260805T1540Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeSurfaceNightStars_R42_20260805T1540Z/manifest.txt
+  manifest_sha256: D3D5CB9EB1F563FA1770F8F9E68927D80B92BFCCD859CC92658E69F7A225CF97
+  header_preimage_sha256: 491115B080433ECADD23AD3E6649DB60EF246A5128E5595C2CAE720E562173D5
+  source_preimage_sha256: 69487B6649E230906F2A3234D4CE19C505DA029B1950E4A78E7BB84514921112
+  used: true
+
+attempted_change:
+  scope: >-
+    Added one project-owned presenter input for surface-night star visibility
+    only. R42 tested 0.45 and R42B tested 0.75. The verified R18 analytic
+    star density 0.004, emission 3.0, cell scale 42, point radius 0.035 and
+    full-space visibility 1.0 were unchanged. No map, material, PPG, biome,
+    grass, vendor or protected asset was edited or saved.
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_surface_night_stars_r42.py
+  driver_sha256: 58F05CFA5E9C344CB1571895812A6CE49CDDAF41FF1CA1896BBBC2E787D2750C
+
+runtime_r42_045:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42_20260805T1545Z/verify_result.json
+  result_sha256: E07B7E0B02D828B71C603ACF78B3D2A49909A1D7F679C66DF539AF682A2B85ED
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42_20260805T1545Z/unreal.log
+  log_sha256: 7644FC99CAF34D89CF47AA67A4E80A3CA218F376CACB6BF779F02F0AF8A39C56
+  renderer: D3D12
+  generation: complete
+  surface_day:
+    star_weight: 0.0
+    fill_weight: 0.0
+    capture_sha256: FFC22A647933E66AD19A91E78D3A9A5488C06A63A31B95C7732940AE3B2219BA
+  surface_night:
+    star_weight: 0.45
+    fill_weight: 0.16
+    capture_sha256: 3732D0F3D1738D686ABA78BEC6984D8F449E7514C50652EE51F1A9B0EB3D0ADB
+    independent_review: >-
+      Terrain, foliage and Trooper remain navigable under the bounded fill, but
+      the black surface sky contains no readable stars.
+  orbit_night:
+    star_weight: 1.0
+    fill_weight: 0.0
+    capture_sha256: 46B54C6B3F2C6872AD88D962AF14D731F4A735C75FBFE235A6D7FF449AB22556
+    independent_review: sparse_stars_visible_and_consistent_with_r18
+
+runtime_r42b_075:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42B_20260805T1552Z/verify_result.json
+  result_sha256: E0A7D16F76656E1598BBD5FF785B82260DB56ED41D694CC921DD8CEAA55FC282
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42B_20260805T1552Z/unreal.log
+  log_sha256: 20030DE5AC762FE069CBA9785231B7616F9B64F138AC34273BB0E38D92B3493B
+  renderer: D3D12
+  generation: complete
+  surface_day:
+    star_weight: 0.0
+    fill_weight: 0.0
+    capture_sha256: ED2CC07D4D33472EE081304009077253D36F6AA5937A7CD456A81F866BB5AA30
+  surface_night:
+    star_weight: 0.75
+    fill_weight: 0.16
+    capture_sha256: 8630F13A52EFA7B31ED975CF289846CBE3C0A18C6C9A9E355AEF571E8990C16C
+    independent_review: >-
+      The stronger scalar still produces a black, effectively starless sky.
+      Raising this control materially changes runtime state but does not repair
+      surface pixels.
+  orbit_night:
+    star_weight: 1.0
+    fill_weight: 0.0
+    capture_sha256: ACF6B49BF63AB88586686C0760EBBD65020DB9AE0537BFA501D6623FB0018D17
+    independent_review: sparse_stars_visible_and_unchanged_in_policy
+
+pixel_metrics:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42B_20260805T1552Z/pixel_metrics.json
+  sha256: 4C49E72CE14403E5D02944E3DD9BD439846B5F722DEC654E69385FC446A630A3
+  r42_surface_night_top_240_neutral_bright_pixels: 0
+  r42b_surface_night_top_240_neutral_bright_pixels: 0
+  r42b_orbit_top_240_neutral_bright_pixels: 50
+  r42b_orbit_top_240_nearwhite_pixels: 29
+
+diagnosis:
+  proven: >-
+    The presenter resolves the correct stable body and sun, the valid saved
+    land PlayerStart receives bounded navigable night fill, and the same
+    analytic star material renders sparse stars at orbit. Surface-night
+    visibility values 0.45 and 0.75 both fail the real-pixel star gate.
+  exact_blocker: >-
+    Surface star loss is downstream of the visibility scalar. The current
+    evidence cannot yet distinguish atmosphere/sky composition occlusion from
+    a camera-relative analytic pattern issue at surface altitude; changing the
+    scalar again is not a supported next test.
+  separately_observed_open_defect: >-
+    Both no-save runs logged the existing starter-ship authoritative parking
+    rejection after eight retries. R42 did not change or accept that system.
+
+restoration:
+  attempted_control_retained: false
+  header_restored_sha256: 491115B080433ECADD23AD3E6649DB60EF246A5128E5595C2CAE720E562173D5
+  source_restored_sha256: 69487B6649E230906F2A3234D4CE19C505DA029B1950E4A78E7BB84514921112
+  restored_sources_equal_authenticated_preimages: true
+  rollback_build_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SurfaceNightStars_R42B_20260805T1552Z/restore_build.stdout.log
+  rollback_build_log_sha256: B4E699005460DA6100138BC6FCFE1C8BCEB8EC1A8777C82317AC9C51D3D3D770
+  rollback_build_result: succeeded_5_actions_9.73_seconds
+  restored_binary_sha256: 20CC1E667F165FB97E4E0529359D7117D3847DC1CF08A48845C2088404989C54
+
+canonical_validation:
+  queue_snapshot_sha256: 228A3789A3139E4157C47DA4273D267DC6B8B5BE3906D5E50850887C3436CECB
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R42_Final_20260805T1555Z.json
+  integrity_report_sha256: 92DE83A71C0122ABDDE57FAC1714147FE6225C80224C63B9AB357A53B491636B
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  persistent_map_or_asset_saves: 0
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R42 is a failed and fully rolled-back surface-star control experiment with
+  matched real-D3D12 day, valid-land night and orbit pixels. It proves
+  navigable night fill and orbit stars, but not visible surface stars, a moon,
+  accepted biome art, grass, ship parking, gameplay, standalone, replication,
+  multiplayer or player acceptance.
+
+next_safe_action: >-
+  Rotate to the independent approved-grass render-state/proxy rebuild slice.
+  If surface stars resume later, inspect atmosphere/sky composition and the
+  analytic material's surface-position behavior rather than repeating scalar
+  changes; preserve the accepted R18 orbit density and emission.

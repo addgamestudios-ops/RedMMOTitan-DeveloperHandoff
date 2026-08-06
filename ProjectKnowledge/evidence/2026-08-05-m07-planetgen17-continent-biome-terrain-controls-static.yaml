@@ -1,0 +1,84 @@
+schema_version: 1
+id: evidence.m07.planetgen17-continent-biome-terrain-controls.2026-08-05
+captured_utc: "2026-08-05T02:44:30Z"
+module_id: M07
+system: world-authoring.planetgen17
+slice: continent-scale-biome-smoothing-and-path-capability-audit
+evidence_class: static
+result: native_continent_biome_and_smoothing_controls_present_authored_paths_absent
+
+installed_plugin:
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5
+  version_name: 1.7.0
+  engine_version: 5.8.0
+
+source_evidence:
+  noise_api:
+    path: Source/PlanetGen/Public/Shared/PlanetGenNoiseGenerator.h
+    sha256: 74752C5A22C861B4998486DF95595ADC02FDD4C0CA4A09C3163FD69F343D1692
+  noise_implementation:
+    path: Source/PlanetGen/Private/Shared/PlanetGenNoiseGenerator.cpp
+    sha256: 0936798A5484E7295DB474A2DA0FBBA3529DE6D7B29AE3C3BE8CA679C241F566
+  planet_api:
+    path: Source/PlanetGen/Public/PlanetGen/CLMPlanet.h
+    sha256: 2098B7DFD67F24C2C3D1E3A98C0294FC4BA6539B6564D19CC23DD29A92FD6715
+
+verified_controls:
+  continental_landmass:
+    - the first enabled noise layer is the continental base and masks every finer terrain layer
+    - its Frequency controls the coarsest feature wavelength; lower values create larger smoother landforms
+    - SeaLevel determines how much of that deterministic field is exposed as land versus ocean
+    - Seed reproduces the same world
+    - WarpStrength and WarpFrequency distort large boundaries without changing ownership
+  mountain_and_hill_readability:
+    - MountainThreshold controls mountain coverage
+    - MountainBlend controls the plains-to-mountain transition width
+    - per-layer Amplitude, Octaves, Lacunarity, Persistence and Weight control height and high-frequency detail
+    - the Smooth preset is a single low-frequency Perlin layer with two octaves and 0.30 persistence
+    - the Mountains preset deliberately uses ridged and cellular layers and is therefore the wrong starting point for broad runnable hills
+  biome_regions:
+    - ClimateScale lowers to fewer larger biome regions and raises to more smaller regions
+    - LatitudeWeight, TempFrequency, HumidFrequency and independent seed offsets control deterministic climate layout
+    - BiomeBlend controls visual or foliage transition width
+    - HeightBiomeSharpness and per-biome HeightAmplitude or HeightBias control terrain relief separately from material boundaries
+    - the four native climate corners are Tundra, Boreal, Desert and Tropical
+    - each biome independently exposes vegetation density, low-elevation sand amount, height amplitude and height bias
+  shoreline:
+    - BeachHeight and BeachFlattenStrength provide a deterministic runnable coastal shelf
+
+absent_supported_controls:
+  - no public river generator, river spline, road spline, trail generator or authored-path API was found in the installed PlanetGen 1.7 public source
+  - no level-pad, construction-clearance, reservation or localized flatten-area control was found in the installed PlanetGen 1.7 public source
+
+finding: >-
+  PlanetGen 1.7 can natively move the current island-speckled result toward
+  fewer, broader continents and clearer biomes while retaining a seed: lower
+  the continental base frequency, choose sea level deliberately, reduce fine
+  layer amplitude, octaves and persistence, widen MountainBlend, use broad
+  biome regions through ClimateScale, and flatten selected biome relief through
+  HeightAmplitude and HeightBiomeSharpness. These are supported deterministic
+  controls, not a guarantee of an accepted planet. Authored pathways, rivers,
+  build pads and local level-design clearances are not native public controls;
+  they require a separate project-owned deterministic stamp or reservation
+  layer and must not be faked as part of a simple material or biome rebind.
+
+protection:
+  plugin_or_project_content_changed: false
+  unreal_or_build_process_started: false
+  providers_called: false
+  desktop_control_used: false
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This is installed-source capability evidence only. It does not mutate or
+  regenerate a planet, prove continental visual quality, biome boundaries,
+  traversal, coastlines, paths, rivers, construction pads, performance,
+  packaging, replication, multiplayer, or human acceptance.
+
+next_safe_action: >-
+  Preserve these exact controls for a later checkpointed PlanetGen or PPG
+  successor test. The immediate dependency gate remains the exact official
+  UAIP and WorldGen installs after required action-time confirmation, payload
+  verification, and one serialized TitanEditor compile.

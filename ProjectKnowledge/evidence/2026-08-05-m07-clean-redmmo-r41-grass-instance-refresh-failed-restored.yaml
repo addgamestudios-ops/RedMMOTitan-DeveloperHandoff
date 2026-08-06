@@ -1,0 +1,188 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r41-grass-instance-refresh-failed-restored.2026-08-05
+captured_utc: "2026-08-05T15:35:09Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r41-project-owned-grass-instance-scene-refresh
+evidence_class: real_gpu_visual
+result: refresh_instance_scene_data_insufficient_and_rolled_back
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.71
+  commit_headroom_gib: 49.45
+  free_gpu_vram_mib: 7745
+  free_d_drive_gib: 767.64
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforePPGGrassRenderRefresh_R41_20260805T1514Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforePPGGrassRenderRefresh_R41_20260805T1514Z/pre_mutation_manifest.json
+  manifest_sha256: D98AB981BECCD7CC5927C4B3AD97D295E647B0BFF2B15826E0DA68C04E0CAFE8
+  header_preimage_sha256: 94BEB7B37448C5CEC49F1F38B927B9AA153AAC7671F78B42EC78B46D24AE1639
+  source_preimage_sha256: 022C2B422D9BA20270B6CFA88BF1DB6B51D967AB2E88A7E6C34898CB1E4CD893
+  used: true
+
+attempted_change:
+  scope: >-
+    A project-owned GameMode timer waited for the unique PPG home body,
+    generation COMPLETE, 196 approved grass components, positive instance
+    counts, registration, instance-data readiness and two stable census polls.
+    It then called installed PPG's public RefreshInstanceSceneData exactly once
+    on the approved R10N A/B grass components. It did not change visibility,
+    placement, density, cull, mesh, material, surface, map, seed or vendor code.
+  attempted_header_sha256: 904B46C063F74A01D7540E80844C2FA19D2A6CD5C1EF246D50B68201D06A5912
+  attempted_source_sha256: 706792C1DCA23B29A5B7B0D53C279494C888D69FD9373B6363579B9BB6203C1F
+  build_log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGGrassRenderRefresh_R41_20260805T1520Z.log
+  build_log_sha256: D31983B9C429585F8BFCCC4DD9E42D1B7EBBCB76B5A06D5C26577939BFB70281
+  build_result: succeeded_5_actions_116.42_seconds
+  attempted_binary_sha256: B6664A1E64D4213A74CD2EAC1B65462F14D27E99CC5B40B47270FDA417D23DC1
+
+runtime_a:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_render_refresh_r41.py
+  driver_sha256: BE1DA9967651B5476EC1C917DA9A41ECA99E67B5D574384841CDDF4A3C008BE3
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41_20260805T1525Z/result.json
+  result_sha256: 7E190BF5697F6DB9B5E6B4BB2DD79E44A753047047B9F375BB16A22BCD5B1758
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassRenderRefresh_R41_20260805T1525Z.log
+  log_sha256: 1E9E416DB0A155536A3045A5798FEC68FF63FFF4B2AD70DC41854182199246A3
+  terminal_status: PASS_R41_UNTOUCHED_DEFAULT_CAPTURES_PENDING_PIXEL_VISUAL_REVIEW
+  renderer: D3D12
+  refresh_log: >-
+    Refreshed PPG grass instance scene data once after generation COMPLETE
+    (components=196 instances=2218356 attempts=16 stable_polls=2).
+  capture_order: wireframe_then_lit
+  visibility_cycle_called: false
+  component_property_mutation_called: false
+  save_called: false
+  wireframe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41_20260805T1525Z/default_wireframe_after_refresh_r41.png
+    sha256: E09D86DADCFB892C67CE055417A80E831469FD6E4DA61E4FCF7E642C515C3D73
+    bytes: 421717
+    independent_review: >-
+      No readable dense grass-blade field appears. This remains effectively the
+      untouched R40 missing-grass wireframe, differing across only 3.7436
+      percent of pixels above threshold.
+  lit_after_view_mode_transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41_20260805T1525Z/default_lit_after_refresh_r41.png
+    sha256: 4F64574F32318DF684D7C2B8D5ABECCDB6E1FCA9BE98B6B6F729A2E31F91FC03
+    bytes: 1587884
+    independent_review: >-
+      Dense grass appears across near and mid ground, but only after the test
+      changed from Wireframe back to Lit. This frame is not untouched-default
+      proof and motivated the Lit-first fresh-process discriminator.
+
+runtime_b_lit_first:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_render_refresh_r41b_lit_first.py
+  driver_sha256: B3D4FF3377824795EF9208B9C10A07FE85BF8764520994F8BC18F1ECFE4CD74A
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41B_20260805T1530Z/result.json
+  result_sha256: FF98BCCBA4A3DD7F964DB85277C286C68752203D9B46B4956E0BFEF458DAF9A7
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassRenderRefresh_R41B_20260805T1530Z.log
+  log_sha256: 7638F421896151067ACAFAFB3223294DC2E7C73EAFE99CCB8A8D99A5EDCFD5FF
+  renderer: D3D12
+  refresh_log: >-
+    Refreshed PPG grass instance scene data once after generation COMPLETE
+    (components=196 instances=2218356 attempts=17 stable_polls=2).
+  capture_order: untouched_lit_first
+  view_mode_command_called_before_capture: false
+  visibility_cycle_called: false
+  component_property_mutation_called: false
+  save_called: false
+  exact_r33_camera:
+    location_cm_max_abs_delta: 0.00023881
+    rotation_deg_max_abs_delta: 0.0
+    fov_max_abs_delta: 0.0
+  state_before_first_capture:
+    approved_components: 196
+    seeded_instances: 2218356
+    visible_true: 196
+    hidden_in_game_true: 0
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy_present: 196
+    positive_last_render_time: 76
+  lit_first_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41B_20260805T1530Z/untouched_lit_first_after_refresh_r41b.png
+    sha256: BABFD5EB7CB5B9FDBB07E3DFF37AB5AB47C3BC3F0CB41150FDF4DF54BEEE6591
+    bytes: 1226486
+    independent_review: >-
+      The exact-camera normal player view contains the Trooper, palms and solid
+      green ground but no readable dense grass blades. This is the decisive
+      untouched Lit-first rejection of RefreshInstanceSceneData alone.
+  terminal_note: >-
+    The screenshot completed, then the verifier intentionally failed closed
+    when its immediate post-capture readiness recheck observed transient scene
+    state drift. The authenticated pre-capture state and captured pixels remain
+    valid; no package was saved or dirtied.
+
+pixel_comparison:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderRefresh_R41B_20260805T1530Z/pixel_metrics.json
+  sha256: C2DB2D421E98DF6CC00790CD868455141EF4F7AB6D63F351F9BC494B56E11CC9
+  lit_first_vs_lit_after_wireframe_changed_ratio_gt_8: 0.55524089
+  lit_first_vs_r33_post_cycle_changed_ratio_gt_8: 0.60127821
+  lit_after_wireframe_vs_r33_post_cycle_changed_ratio_gt_8: 0.31305447
+  r41_wireframe_vs_r40_default_changed_ratio_gt_8: 0.03743598
+  r41_wireframe_vs_r40_post_cycle_changed_ratio_gt_8: 0.45042426
+
+diagnosis:
+  result: >-
+    Installed PPG RefreshInstanceSceneData invalidates and queues GPU instance
+    uploads but does not rebuild the component render state or mesh draw
+    commands needed for untouched default grass visibility. A later view-mode
+    transition wakes the grass, matching R40's transient-state diagnosis.
+  falsified:
+    - RefreshInstanceSceneData alone repairs untouched default Lit grass
+    - the R41A dense Lit frame is independent of its preceding view-mode change
+    - component census and ready/proxy flags prove visible default grass pixels
+  next_boundary: >-
+    The next grass-specific implementation test must pair the approved-only
+    stable-generation gate with a true component render-state or scene-proxy
+    rebuild such as MarkRenderStateDirty/RecreateRenderState semantics, then
+    capture Lit first in a fresh D3D12 process. Do not repeat
+    RefreshInstanceSceneData alone or another visibility/view-mode cycle.
+
+restoration:
+  attempted_hook_retained: false
+  header_restored_sha256: 94BEB7B37448C5CEC49F1F38B927B9AA153AAC7671F78B42EC78B46D24AE1639
+  source_restored_sha256: 022C2B422D9BA20270B6CFA88BF1DB6B51D967AB2E88A7E6C34898CB1E4CD893
+  restored_sources_equal_authenticated_preimages: true
+  rollback_build_log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGGrassRenderRefresh_R41_Rollback_20260805T1535Z.log
+  rollback_build_log_sha256: 1269E000A5397304F7BD2CA692D7D0EAD138E88B25AF1E9A31F1DD886A1CA28F
+  rollback_build_result: succeeded_5_actions_57.70_seconds
+  restored_binary_sha256: 4141F78F5312A2FA80CB660975B0A22904116335C40E70E23B1C3B6F12C63FC5
+  note: >-
+    The rebuilt DLL hash is not expected to equal the prior linked binary, but
+    it was rebuilt successfully from byte-exact restored source preimages.
+
+canonical_validation:
+  queue_snapshot_sha256: 2566E0D1CD33731B7A7757AAB6A23A22ADF3A137086F79A51D86EC4A8B5D2366
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R41_Final_20260805T1540Z.json
+  integrity_report_sha256: 238E28B1802D8CD997BAFE8E931A2D5F1218AE78238D60C1B36581EF146ECB38
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  restored_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R41 is a failed and rolled-back grass render-path experiment with fresh
+  D3D12 pixels. It does not prove accepted grass, terrain, biome diversity,
+  night/space, gameplay, standalone, replication, multiplayer or player
+  acceptance.
+
+next_safe_action: >-
+  Rotate on the next wake to one independent queued safe module per the
+  ten-minute blocker rule. When returning to this grass defect, test one
+  approved-only post-generation true render-state/proxy rebuild and require an
+  untouched Lit-first fresh-process pass; do not repeat instance-scene refresh
+  alone, visibility toggles or view-mode wake-up as acceptance.

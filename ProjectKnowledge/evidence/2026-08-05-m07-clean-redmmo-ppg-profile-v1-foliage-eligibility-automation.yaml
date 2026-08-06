@@ -1,0 +1,121 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-foliage-eligibility.2026-08-05
+captured_utc: "2026-08-05T07:49:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-versus-r10o-generation-and-biome-foliage-eligibility
+evidence_class: automation
+result: pass_read_only_leading_break_identified
+
+target:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  active_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  profile_planet: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  working_reference_planet: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/DA_PPG_HomeWorld_StylizedBinding_R10O
+  approved_foliage: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+
+execution:
+  editor: UE 5.8.1 UnrealEditor-Cmd
+  map: /Engine/Maps/Entry
+  renderer: D3D12 RenderOffscreen
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  home_map_loaded: false
+  save_called: false
+  regeneration_called: false
+  desktop_control: false
+  dirty_packages_after: []
+  retained_failed_probes:
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0730Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0738Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0741Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0744Z/result.json
+  failed_probe_note: >-
+    The retained attempts failed only on unsupported or protected Python
+    reflection properties. Each exited without loading the home map, saving,
+    regenerating or dirtying a package. The final materially corrected audit
+    used the public properties that the installed plugin actually exposes.
+
+artifacts:
+  script: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_foliage_eligibility.py
+  script_sha256: 0D6EDF3F646CB5CE1FA28FD6DDC5ED65D562418CC3D4501F6F8428879EC1CC46
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0752Z/result.json
+  result_sha256: 7545165E96D05F7B83F17993E0809F1B3070A9F0B32C37404DE14F61133D65EB
+  launch_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1FoliageEligibility_20260805T0752Z.launch.log
+  launch_log_sha256: 7399688BF37872CA5B9E709FC788F5266C3FD5B9EE162B23D18DFCC86D8F20CA
+  installed_chunk_source_sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  installed_foliage_shader_sha256: D59467A45D609B36C60FD5B01714E350EBA6A4E0F89ECB11F7A1C5D6D9D741CF
+
+verified_contract:
+  grass_profile:
+    entry_index: 1
+    density: 90.0
+    spawn_distance: 1
+    density_channel: BLUE
+    invert_density_mask: true
+    max_slope_degrees: 30
+    scale: [1.0, 1.55]
+    meshes:
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  generation_vertex_color_topology:
+    working_r10n_to_r16_edges_changed: false
+    r16_to_profile_v1_edges_changed: false
+    r05_packed_rgba_signature_changed: false
+    connected_outputs: [Craters, Mountains, Hills]
+    unconnected_output: Desert
+    r10n_to_r16_value_only_differences:
+      CratersDetaliNoise: {before: 50.0, after: 120.0}
+      MountainsHeight: {before: 1.35, after: 0.45}
+    r16_to_profile_v1_semantic_only_difference:
+      MountainsHeight_desc: RedProfile.Relief.Mountains.HeightScaleOnly
+  biome_foliage_sources:
+    with_r10o_foliage: [Craters, Hills, Mountains]
+    null: [Desert, Ocean, Poles]
+    same_binding_list_in_r10o_and_profile_v1: true
+  biome_mask_authority:
+    r10o_working: /PPG/Example/Assets/M_PPG_ExampleBiomeMask
+    profile_v1: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_BiomeMask
+    equal: false
+
+installed_source_finding: >-
+  BuildFoliageDispatchParams constructs configurations only from non-null
+  biome FoliageData. The GPU foliage shader then weights each configuration by
+  local biome strengths whose FoliageSources entry matches that source. A
+  region classified wholly into Desert, Ocean or Poles therefore emits no
+  foliage even though the approved R10O data and mesh bindings are valid.
+
+conclusion: >-
+  The working R10O packed BLUE-density graph topology and exact grass profile
+  survive into ProfileV1. The meaningful authority change is the biome mask:
+  R10O used the stock example mask, while ProfileV1 uses the project-owned R15
+  continent mask with three intentionally null foliage biomes. Coupled with
+  the fresh runtime's zero GPU foliage components at PlayerStart, the leading
+  source-backed failure is local classification into a null-foliage biome, not
+  spawn altitude, mesh substitution, density 90, or a disconnected packed
+  vertex-color path. Exact PlayerStart biome strength still requires one
+  runtime sample before a binding mutation.
+
+hash_guard:
+  home_map_sha256: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+  protected_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unchanged: true
+
+claim_boundary:
+  verified:
+    - exact saved asset bindings and public foliage entry fields
+    - exact normal graph edges feeding Planet Vertex Color Output
+    - installed source and shader dispatch eligibility behavior
+    - different R10O versus ProfileV1 biome-mask authority
+  not_verified:
+    - exact PlayerStart biome strengths or density-mask values at runtime
+    - visible grass, biome separation, shoreline, water, night/space or human acceptance
+    - standalone, replication, multiplayer or travel
+
+next_safe_action: >-
+  Instrument one exact no-save runtime PlayerStart biome-strength and terrain
+  vertex-color sample without moving spawn, changing seed, swapping grass or
+  capturing the same frame. If the sample proves Desert, Ocean or Poles owns
+  the start, repair only the project-owned ProfileV1 biome-to-foliage role under
+  a fresh rollback. If it proves Craters, Hills or Mountains, instrument the
+  BLUE inverted density-mask value before any mutation.

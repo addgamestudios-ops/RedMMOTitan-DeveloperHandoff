@@ -1,0 +1,260 @@
+schema_version: 1
+id: evidence.m07.island-district-v6m.real-gpu-visual-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T11:17:23Z"
+evidence_class: real_gpu_visual
+result: scratch_v6m_structural_pass_real_gpu_visual_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  scratch_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10Rollback_PreV6M_20260727T104316Z
+  pre_v6m_map:
+    bytes: 1166360990
+    sha256: 3D7B08C17073FE724AB2CEE9609B745657D2B30E829CF4D0EE7BFE70047D695B
+  pre_v6m_source:
+    bytes: 59872774
+    sha256: 3E3187FD1504547DE843C71F5C60D9DD5A2A2A79E7A14D1FD0A884F246CAC17F
+  exact_reset_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_V6MExactReset_20260727T140307Z/reset.json
+    bytes: 2236
+    sha256: 6907F1722169D201A09ECC0C0EA29239D9F653CF24508566B26C0ABCBA96B04C
+
+scratch_implementation:
+  surface_contract: V6M
+  shoreline_topology_contract: V6L_boundary_clipped
+  compact_terrain:
+    vertex_count: 92517
+    triangle_count: 183612
+    inner_beach_vertex_count: 32518
+    foundation_ramp_vertex_count: 12735
+    outer_boundary_vertex_count: 1321
+    degenerate_triangle_count: 0
+    slope_violation_count: 0
+    sea_height_cm: 100
+    shore_crest_height_cm: 250
+    shore_clearance_above_sea_cm: 150
+    inside_perimeter_blend_cm: 3000
+    minimum_dry_height_cm: 400
+    vertex_shore_mask: true
+  local_ocean:
+    source_triangle_count: 3274240
+    fully_dry_source_triangle_count: 12291
+    clipped_source_triangle_count: 1752
+    clipped_output_triangle_count: 2631
+    output_vertex_count: 1640153
+    output_triangle_count: 3262828
+    boundary_vertex_count: 1752
+    boundary_edge_count: 1752
+    non_manifold_boundary_vertex_count: 0
+    degenerate_clipped_triangle_count: 0
+    reversed_clipped_triangle_count: 0
+  beach_material:
+    package: /Game/RedMMO/Staging/M07/Materials/M_M07_VendorBeachSand_ShoreBlend_V6M
+    bytes: 14958
+    sha256: 4D6B1A9CBE1A20693758C2A9B6CCACEF2D6CA69170C4E9864CCEF078B7935254
+    closure_package_count: 4
+    runtime_virtual_texture_packages: []
+    rvt_named_packages: []
+  local_ocean_material:
+    package: /Game/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_NormalTuned_V6M
+    bytes: 3904
+    sha256: 657C4C58E1BADEE1FBA9C652C5CDAECC6C66CEF6C2370A48085043C41D293714
+    parent: /Game/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_ReflectionTuned_V6K
+    local_normal_scalar: 0.22
+    runtime_virtual_texture_packages: []
+    rvt_named_packages: []
+  scratch_map:
+    bytes: 1166360982
+    sha256: 1B8AD03C2081E61020BD5F815D1C17B0511209A5D2046303F814EDE712B2E638
+  scratch_source:
+    bytes: 59872776
+    sha256: 46947B30602E62A828AB07CE6986B5C109763B5B6D665699F7DBDC9A09105F20
+
+implementation_files:
+  material_creation:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/create_m07_shore_and_ocean_v6m.py
+    bytes: 19203
+    sha256: B02BFD49249171D5146442170F1F628701E43CB22D02C7DE2A9FD7C2D7027396
+  build_script:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/build_m07_island_district_v10.py
+    bytes: 64177
+    sha256: 39A4E72BD60213931DCF41CD921CCF3A71BDE6162708520FBB81056EBC21CA65
+  audit_script:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/audit_m07_island_district_v10.py
+    bytes: 50170
+    sha256: 2B0813326FD772A2C587EA9E1486DE1EB1F89D7BB0A96BA25DB7B489A25E1E8B
+  compact_terrain_cpp:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07CompactIslandTerrain.cpp
+    bytes: 4640
+    sha256: 7DBF97451D20789E2186B5B73AD3E033179F1886D8EEEA384D241FF2F5C7E12C
+  compact_terrain_header:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07CompactIslandTerrain.h
+    bytes: 3805
+    sha256: 1D89A4525AB176C3C94EF9C0B3A0C845D022D348EDA9411924090F2BE2DE37DC
+  editor_tools_cpp:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/RedMMOEditorTools.cpp
+    bytes: 283516
+    sha256: BCC53655F8973B72F8B6DFAAAC780B8C5179A9C198E8147CEBABD36D3E509C6D
+  focused_shore_test:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_v6m_shore_transition_contract.py
+    bytes: 3895
+    sha256: FACAA14CB49D77F5A7B86FC40F80081D1CD77D81F7AF56B450463E57098E476B
+    result: 4_of_4_passed
+  focused_boundary_test:
+    result: 4_of_4_passed
+
+review_gates:
+  first_review:
+    result: failed_then_corrected_before_map_build
+    corrected_findings:
+      - asset-creation failure cleanup now deletes both exact allowlisted V6M outputs even when a helper fails before return
+      - the beach material root hash, recursive closure hashes, and RVT results are pinned in the build and independently recomputed by the fresh audit
+  final_review:
+    result: passed
+    remaining_p0_p2_findings: 0
+
+durable_reports:
+  material_creation:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_V6MPresentation_20260727T105337Z/v6m_presentation_assets.json
+    bytes: 2933
+    sha256: 3AA16F0537AB619C55DD2E74C57FECD04DEA277A55BF352924BD2F6FBA76ACEB
+    status: passed
+  serialized_editor_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6M_TitanEditorBuild_20260727T105439Z.log
+    bytes: 12368
+    sha256: 8A589D77D79580BA4449D7E23D4BE45B7EE0B0203EC24ECC7089A7E60CC9643D
+    status: passed
+  seed:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MBuild_20260727T110900Z/island_district_v10_v6m_seed.json
+    bytes: 1697
+    sha256: 238F877085FF6360A47C29215A1F8E4455F73F39C5FE84699DAA7ACE8B5757E2
+    status: passed
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MBuild_20260727T110900Z/island_district_v10_v6m_build.json
+    bytes: 66668
+    sha256: B73C9DBED41313FDB92C7BB95DBE75407C42704766A9C1B76005F7B71780CFD1
+    status: passed
+    evidence_class: scratch_editor_map_mutation
+  fresh_process_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MBuild_20260727T110900Z/island_district_v10_v6m_audit.json
+    bytes: 54677
+    sha256: CBA32322BBDE8D77BF84E80ABEA4A6D7C0C593B56435E76504BDC5B246A289D8
+    status: passed
+    evidence_class: fresh_process_ue58_nullrhi_asset_audit
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MRealGPU_20260727T111300Z/capture_result.json
+    bytes: 9480
+    sha256: 0FDE789C5FF3C667CF352A1B7B328BA1E12C9CE9163949AFD31F25956E82FF93
+    status: passed_pending_pixel_review
+  pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MRealGPU_20260727T111300Z/pixel_review.json
+    bytes: 5082
+    sha256: D95166869773BAB4B59FB249BC0F0D14E37A55DD037F460A259C2E5E4917CA8B
+    status: visual_fit_failed
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_exit_code: 0
+  minimum_observed_free_ram_gib: 31.168
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MRealGPU_20260727T111300Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 1338682
+    sha256: DFC8EE02F389527BB36BD2E4FE44D08CB67791301AB86302CAE8A569AD02EEC9
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MRealGPU_20260727T111300Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 1504148
+    sha256: 9066695279143A4F6D1A07A3F20801C06C4BA1536881F8452C9BB8C48655F5E6
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6MRealGPU_20260727T111300Z/M07_IslandDistrict_R15_V10_Standalone.log
+    bytes: 319291
+    sha256: 5F746F4E4EBA4B8CF43B8034997604B415E65414D4AC780C34A1C5F0C13983D9
+
+pixel_findings:
+  matched_wide_rgb_mae_0_to_255: 0.1637331211419753
+  matched_near_rgb_mae_0_to_255: 0.23219923482510288
+  wide_reflection_roi:
+    xyxy: [620, 540, 850, 820]
+    v6l_mean_luma: 68.39329528808594
+    v6m_mean_luma: 68.42198181152344
+    v6l_pixels_luma_gt_55: 41488
+    v6m_pixels_luma_gt_55: 41731
+  near_reflection_roi:
+    xyxy: [480, 560, 760, 900]
+    v6l_mean_luma: 45.175357818603516
+    v6m_mean_luma: 45.211849212646484
+    v6l_pixels_luma_gt_55: 19208
+    v6m_pixels_luma_gt_55: 19437
+
+verified:
+  - the V6L boundary-clipped shoreline topology remains continuous and does not regress to repeated triangular shoreline teeth
+  - the V6M beach material and local-ocean child render under D3D12 SM6 without material fallback
+  - build and fresh audit authenticate the four-package beach closure and RVT-free geology, beach, and local-ocean closures
+  - protected maps, V7/V8/V9 predecessors, vendor source, and all 27 fused authoring inputs remain unchanged
+
+remaining_failures:
+  - the long vertically fanned reflection streak below the left cliff remains plainly visible in both exact matched frames
+  - the reflection ROI is not improved; mean luminance and the count above luminance 55 both increase slightly
+  - the exposed peach compact terrain remains a broad flat cutout/apron rather than an authored beach-to-island transition
+  - the 150 cm crest-to-minimum-dry relief over 3000 cm is too shallow to produce a legible beach profile at the exact matched cameras
+  - island composition visual acceptance, gameplay, performance, Chaos, and production integration remain false
+
+acceptance:
+  scratch_build_and_fresh_audit: true
+  provider_off_d3d12_runtime: true
+  boundary_clipped_shoreline_preserved: true
+  reflection_artifact_eliminated: false
+  natural_beach_transition: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V6L as the accepted shoreline-topology rollback and V6M as failed
+  diagnostic evidence. Do not repeat scalar-only Normal tuning. In one new
+  bounded scratch-only V6N slice, first use the same camera with a
+  zero-refraction or non-SingleLayerWater project-owned A/B material to prove
+  whether the vertical streak is generated by the vendor SingleLayerWater
+  reflection/refraction path. Separately replace the 150 cm over 3000 cm
+  near-flat shore profile with an authored nonuniform beach berm and cove
+  profile driven by the existing signed-distance field and vertex mask.
+  Preserve V6L topology, RVT-free closure, the local-only seven-region ocean,
+  provider isolation, and production hashes. Keep Chaos deferred.
+
+claim_limit: >-
+  This proves one scratch-only V6M map mutation, fresh UE 5.8 structural audit,
+  provider-off D3D12 SM6 capture, and matched pixel review with protected
+  hashes unchanged. It does not accept the reflection artifact, beach
+  transition, island composition, gameplay, collision, navigation,
+  performance, Chaos, surface-to-orbit behavior, or production integration.

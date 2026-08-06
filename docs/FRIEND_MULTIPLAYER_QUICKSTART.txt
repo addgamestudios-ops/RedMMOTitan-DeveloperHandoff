@@ -1,0 +1,66 @@
+RED MMO TITAN - FRIEND MULTIPLAYER QUICKSTART
+Build identity: RedMMOTitan-UE5.8-Windows / Steam development App ID 480
+
+WHAT TO SEND
+
+Send your friend the complete RedMMOTitan_Friend_PvP build ZIP. Both players must
+use the exact same ZIP. Extract it completely before launching; do not run the game
+from inside the ZIP.
+
+BEFORE LAUNCHING
+
+1. Both PCs need Windows 10/11 64-bit and the Steam desktop client.
+2. Sign in to two different Steam accounts and set both accounts Online.
+3. Extract the build to a normal local folder with at least 5 GB free.
+4. Keep Steam running. Launch Titan.exe from the extracted folder.
+5. If Windows Firewall asks, allow Titan on private networks. Do not use -nosteam.
+
+HOST
+
+1. In the packaged game press F8, or press Escape and choose Multiplayer / Lobby.
+2. Click CREATE GAME.
+3. Wait until the status says the RED multiplayer session is connected.
+4. Click INVITE FRIENDS and select your friend in the Steam overlay.
+5. Stay in the game while your friend connects.
+
+JOIN
+
+Preferred: accept the Steam invite while Titan is running.
+
+Browser fallback:
+1. Press F8, or use Escape -> Multiplayer / Lobby.
+2. Click FIND GAMES.
+3. Select Red MMO Titan PvP in the list.
+4. Click JOIN SELECTED.
+
+If the row does not appear, wait 10 seconds after the host finishes creating the
+game, then click FIND GAMES again.
+
+USEFUL TEST CONTROLS
+
+- B or V: board the nearby craft you are looking at.
+- F: direct mini-fighter boarding shortcut.
+- V while piloting: exit the craft.
+- C while piloting: switch first/third-person camera.
+- L while piloting: landing assist.
+- 1/2: swap weapons. Q/E: abilities. Tab: ability loadout.
+- Escape: game menu. F8: multiplayer lobby.
+
+TROUBLESHOOTING
+
+- No lobby: confirm different Steam accounts, Steam Online status, and the exact
+  same ZIP on both PCs. Restart Steam and Titan, then host before the friend searches.
+- Invite overlay does not open: use FIND GAMES / JOIN SELECTED instead.
+- Steam unavailable: verify steam_appid.txt is still beside the packaged executable
+  files and that Titan was not launched with -nosteam.
+- Connection blocked: allow Titan through the normal Windows Firewall prompt on both
+  PCs. Steam relay is enabled, so manual router port forwarding should not be needed.
+- Need a log: Titan/Saved/Logs/Titan.log inside the extracted build.
+
+CURRENT STEAM BOUNDARY
+
+App ID 480 is the public Spacewar development identity. It lets this packaged build
+exercise Steam transport and lobby discovery, but it cannot install Red MMO Titan as
+its own Steam Library title. That requires the Steamworks-assigned Red MMO Titan App
+ID, a Win64 depot upload, a private branch, and tester entitlement after Valve setup.
+

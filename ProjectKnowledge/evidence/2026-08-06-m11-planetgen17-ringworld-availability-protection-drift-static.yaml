@@ -1,0 +1,124 @@
+schema_version: 1
+id: evidence.m11.planetgen17-ringworld-availability-protection-drift-static
+module: M11
+evidence_class: static
+status: accepted_partial_blocked_protection_drift
+timestamp_utc: 2026-08-06T04:37:39Z
+scope: >-
+  Read-only recheck of the official UE 5.8 PlanetGen installation, the exact
+  Ring World payload required by M11, and the production protection boundary.
+  No project, plugin, source, map, asset, descriptor, package, engine file, or
+  desktop state changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.25
+  commit_headroom_gib: 54.30
+  gpu_free_mib: 9097
+  gpu_used_mib: 957
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+official_install:
+  plugin_descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5/PlanetGen.uplugin
+  friendly_name: PlanetGen
+  version_name: 1.7.0
+  engine_version: 5.8.0
+  descriptor_sha256: 79135CFFE9381E25A4CFF739AE53F7111C57E1ACA3AD74530C20CF81175EB318
+  recursive_file_count: 471
+  recursive_byte_count: 814539108
+  tree_sha256: 843568140E36FD01FD6A9EDFA9A08EAC0E564F9CA395D9BCE753A8CB7C787FB2
+  epic_manifest: C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests/7DF45C9E4F25BC3817A92C84C39283F6.item
+  epic_manifest_sha256: 947535E2493244FA3581E7B2DAD9857A4D74CABB311D20C0C0EBAA457E16E210
+  epic_app_name: PlanetGe5e8f23ed72d1V5
+  epic_app_version: 5.8.0-56239068+++UE5+Dev-Marketplace-Windows
+  epic_catalog_item_id: 5fd14f4f3b294ac09d381655e2e0fdb5
+  epic_install_location: D:/UE_5.8
+  epic_install_size: 814539108
+  epic_incomplete_install: false
+ring_world_payload:
+  feature_gate: passed_by_superseding_official_1_7_payload
+  named_ring_file_count: 17
+  aclmringworld_header:
+    path: Source/PlanetGen/Public/PlanetGen/CLMRingWorld.h
+    sha256: 92A8759D1F63C7B8E0A686CD917BCE4D50FA7779A2BEF9CAD3915E5BFCB0BA4C
+    byte_count: 9796
+    declaration: "UCLASS() class PLANETGEN_API ACLMRingWorld : public ACLMPlanet"
+  aclmringworld_source:
+    path: Source/PlanetGen/Private/PlanetGen/CLMRingWorld.cpp
+    sha256: 0F5A5D52D6FAB4AAB68727FDFF61F3EB6848A41809B75E7BCEF95A1512A1C7D8
+    byte_count: 26220
+  ring_map:
+    path: Content/Maps/RingMap.umap
+    sha256: 68F3A2909A38F60C1678B2BAD06849F25A9B43FC8CD0C54AA7A0DC3D6CA984A8
+    byte_count: 3177860
+  required_materials:
+    - path: Content/Materials/Landscape/M_Ring.uasset
+      sha256: AD643AEA36A6BCB1403A4ECA2EE5CB2A4EFCFBF289E386F842B80ECECF76FF7A
+      byte_count: 44092
+    - path: Content/Materials/Atmosphere/M_RingAtmosphere.uasset
+      sha256: ADD372B130DDECAC8890373BADA11BD66B5EF448526782E99CB4EB9911972056
+      byte_count: 21271
+    - path: Content/Materials/Atmosphere/M_RingClouds.uasset
+      sha256: 116D3A852CC09FF1FDFB95339620616C09C33DE37C60D6F9643233519A4B503C
+      byte_count: 25621
+    - path: Content/Materials/Atmosphere/M_ThinAtmosphere.uasset
+      sha256: D7089B31028CA70FD38CD4382D205B8CCC93A774687169B701DA8745F01A1A33
+      byte_count: 17389
+    - path: Content/Materials/Atmosphere/M_RingPostProcess.uasset
+      sha256: 0CBFF1B73F82EB4D38CCC3ABABE21BB07253AE5DEEB59D206604121F04F26BC9
+      byte_count: 17498
+production_resolution_protection:
+  expected_project_local_descriptor: D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO/PlanetGen.uplugin
+  expected_project_local_descriptor_present: false
+  tracked_project_local_planetgen_paths: 0
+  known_rollback_backup_candidate_count: 0
+  known_backup_roots_checked:
+    - D:/RedMMOTitanWindowsData/Rollback
+    - D:/RedMMOTitanWindowsData/Backups
+    - D:/RedMMOTitanWindowsData/Checkpoints
+  titan_descriptor_enables_planetgen: true
+  consequence: >-
+    The production project may now resolve PlanetGen to the engine-installed
+    1.7 plugin instead of the expected protected project-local 1.4 fork. That
+    resolution is ambiguous and unsafe to exercise until the protection
+    boundary is restored or explicitly frozen.
+protected_checkpoint_recheck:
+  protected_50km_map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  packaged_ready_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+final_recheck:
+  official_plugin_file_count: 471
+  official_plugin_tree_sha256: 843568140E36FD01FD6A9EDFA9A08EAC0E564F9CA395D9BCE753A8CB7C787FB2
+  clean_redmmo_home_map:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData.uasset
+    sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  project_local_pinned_fork_present: false
+  active_unreal_build_package_process_count: 0
+  project_knowledge_integrity_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_M11_20260806T0437Z.json
+    result: pass
+    error_count: 0
+    warning_count: 0
+acceptance_summary:
+  official_payload_with_required_ring_assets: passed
+  protected_checkpoint_hashes: passed
+  project_local_pinned_fork_present: failed
+  isolated_ue58_compile: not_run
+  real_gpu_runtime_acceptance: not_run
+decision: >-
+  Do not launch or compile the production Titan project while PlanetGen plugin
+  resolution is ambiguous. The M11 feature-availability gate is materially
+  unblocked by the official complete 1.7 install, but the safety gate remains
+  blocked by the missing project-local pinned fork.
+rollback: not_applicable_no_mutation
+next_safe_action: >-
+  Find or restore the exact protected 1.4 fork source, or explicitly freeze the
+  production project's intended PlanetGen resolution through a separate
+  reviewed transaction. Only then create a separate isolated D: test project
+  bound explicitly to engine PlanetGen 1.7 for compile and real-GPU M11 checks.

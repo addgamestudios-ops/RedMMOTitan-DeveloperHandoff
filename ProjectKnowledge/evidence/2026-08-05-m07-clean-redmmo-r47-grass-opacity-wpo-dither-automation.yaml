@@ -1,0 +1,113 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r47-grass-opacity-wpo-dither.2026-08-05
+captured_utc: "2026-08-05T17:15:42Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r47-approved-grass-opacity-wpo-dither-readonly-audit
+evidence_class: automation
+evidence_classes: [automation, read_only_asset_graph]
+result: r32_masked_blend_activates_vendor_dithered_opacity_path
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.32
+  commit_headroom_gib: 49.28
+  free_gpu_vram_mib: 7965
+  free_d_drive_gib: 767.62
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+automation:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_grass_opacity_wpo_r47.py
+  driver_sha256: CE0B8073588AFA1A360470EB5C9CDDEEFAC8D12E1FD3F34E0AA8324CF8089E11
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassOpacityWPO_R47_20260805T1710Z/result.json
+  result_sha256: 853EC8C624DE335E0EEB9CD1F96687C9910B0F5DFEE763E5ED0F34239D6E20CA
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassOpacityWPO_R47_20260805T1710Z/unreal.log
+  log_sha256: 0B56070B52C4FAF3527A041E072AF6D5FD423016761206C1CAC2BD077BB6EAED
+  projectknowledge_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassOpacityWPO_R47_20260805T1710Z/projectknowledge_integrity.json
+  projectknowledge_integrity_report_sha256: 5CC1C98D697781616DB74943AD8E36A5AF34366C9F903A58BC9B5956ACF51BC7
+  projectknowledge_integrity_result: pass
+  renderer: D3D12_RenderOffscreen
+  loaded_map: /Engine/Maps/Entry
+  home_map_loaded: false
+  pie_started: false
+  save_called: false
+  screenshot_called: false
+  dirty_packages_after: 0
+  material_or_shader_error_lines: 0
+
+exact_graph_comparison:
+  vendor_parent: /Game/StylizedRocksPack_01/Common/GrassChunks/Materials/M_GrassChunks_Base
+  project_parent: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R32/Materials/M_GrassChunks_PPGReadable_R32
+  vendor_expression_count: 516
+  project_expression_count: 516
+  vendor_edge_count: 544
+  project_edge_count: 544
+  byte_independent_topology_signature_equal: true
+  vendor_blend_mode: Opaque
+  project_blend_mode: Masked
+  vendor_two_sided: true
+  project_two_sided: true
+  opacity_mask_clip_value: 0.3333
+  opacity_root:
+    class: MaterialExpressionMaterialFunctionCall
+    function: /Engine/Functions/Engine_MaterialFunctions02/Utility/DitherTemporalAA
+    output: Result
+    reachable_nodes: 28
+    hidden_named_reroute_stops: 2
+  world_position_offset_root:
+    class: MaterialExpressionReroute
+    reachable_nodes: 11
+    hidden_named_reroute_stops: 3
+
+approved_instance_state:
+  instance_a: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N
+  instance_b: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N
+  both_parent_r32: true
+  grass_near_ground_dithering_enabled_on_both: true
+  effective_grass_dithering_mask_intensity: 40.0
+  effective_grass_dithering_mask_contrast: 3.5
+  effective_grass_dithering_camera_angle_intensity: -0.3
+  effective_camera_fade_radius: 350.0
+  effective_grass_local_z_scale_multiply: 1.45
+  effective_local_scale_multiply: 1.30
+
+finding: >-
+  R32 is not a different material graph: it is topologically identical to the
+  installed vendor parent. Its decisive parent-level divergence is Opaque to
+  Masked, which activates the already-connected DitherTemporalAA opacity path
+  that the vendor Opaque material ignores. Both approved R10N instances also
+  enable GrassNearGround_Dithering. This is the first untested material-path
+  divergence consistent with ready/proxied geometry producing no readable
+  Lit-first pixels.
+
+causality_boundary: >-
+  The audit proves activation and exact parameter state, not visual causality.
+  Unreal Python does not expose the upstream links behind five named-reroute
+  usage stops, so it cannot identify which hidden opacity or WPO sub-branch
+  discards pixels. No grass, biome-art or gameplay acceptance is claimed.
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  approved_mesh_a_sha256: 6F215104F1374403194D8AB4DA79B3FF16CCBF86472746E5CD433E03118B2443
+  approved_mesh_b_sha256: 3C50C87B594CE012F680EF51BA306C2DF09FDAED10C06F7F60AFA4E62F678475
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary: >-
+  R47 is read-only D3D12 asset-graph automation. It does not prove a visual fix,
+  accepted grass, biome art, gameplay, standalone, replication, multiplayer or
+  player acceptance.
+
+next_safe_action: >-
+  Use one rollback-backed project-owned blend-only discriminator that preserves
+  the approved A/B meshes, all effective color and scale controls, density,
+  eligibility, seed, placement and surface while returning the duplicated
+  parent to the vendor Opaque policy. Require a fresh untouched Lit-first
+  exact-camera player-scale frame. Do not change WPO, depth, density, cull,
+  visibility or render state in the same transaction.

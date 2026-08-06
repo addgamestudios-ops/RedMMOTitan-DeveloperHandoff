@@ -1,0 +1,250 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-party-producer-inventory-static
+captured_utc: "2026-07-22T17:54:20Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: no_trustworthy_party_producer_found_baked_sample_rows_fail_closed_no_bridge_added
+
+scope:
+  selected_slice: >-
+    Inventory the replacement HUD party panel and bounded compiled gameplay,
+    layout, session, Steam-party, and content-filename paths. Add no party setter
+    or data bridge without a trustworthy authoritative per-player producer, and
+    prevent the three baked sample-member rows from presenting as live state.
+  gameplay_source_files_modified: 0
+  redhud_plugin_source_files_modified: 1
+  test_files_added: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    upstream: origin/main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 60
+    individual_untracked_paths: 1339
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    captured_utc_range: ["2026-07-22T17:38:31Z", "2026-07-22T17:38:56Z"]
+    samples: 7
+    free_physical_gib_range: [8.539, 8.919]
+    free_commit_gib_range: [18.871, 19.311]
+    total_physical_gib: 31.872
+    commit_limit_gib: 52.872
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8839, 8854]
+    gpu_utilization_percent: 11
+    gpu_temperature_c: 42
+    c_free_gib: 132.714
+    d_free_gib: 1141.723
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    competing_redmmotitan_writers: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates remained closed. Sustained
+    physical RAM was below the 12 GiB running abort threshold and the 18-20 GiB
+    packaging floor, while commit headroom was below the 24/26 GiB package gate.
+  final_recheck:
+    captured_utc_range: ["2026-07-22T17:54:06Z", "2026-07-22T17:54:19Z"]
+    samples: 5
+    free_physical_gib_range: [8.238, 8.785]
+    free_commit_gib_range: [18.840, 19.345]
+    vram_free_mib_range: [8896, 8902]
+    gpu_utilization_percent_range: [11, 12]
+    gpu_temperature_c: 43
+    c_free_gib: 132.746
+    d_free_gib: 1141.722
+    strict_unreal_build_cook_package_processes_after_observer_exit: 0
+    launch_gates: closed
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_package_archive_or_shader_started: false
+  current_attempt_archive_exists: false
+  july_17_archive_current_fused_marker: missing
+
+inspected_source_identity:
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, pre_sha256: BE926FEF5F105A4331EA18A4D637ABF1C2CF3C1D610688A4C9A53C148829D05F, post_sha256: EA50937D08C68D9DA06F75EFDABFE91FC8168B45BF83B119AFAE0E961F4013EF}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h, sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C}
+  - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp, sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068}
+  - {path: Source/RedMMO/RedGameInstance.h, sha256: C2C8E987412087822EFA27D956D7899A838AA0AD70996EDF9CA53168B14495AF}
+  - {path: Source/RedMMO/RedGameInstance.cpp, sha256: 1D742F45FF1581AB83FFC7EA267F94DDA73E08145754C7AB41E923E04BF46CD7}
+  - {path: Source/RedMMO/RedPlayerCharacter.h, sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+  - {path: Source/RedMMO/RedPauseMenuWidget.cpp, sha256: 7AB60DDF1C14B3F697799A7D43152A87CFD51E5C404B97DE8265B36D3D8BDA97}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOHUDLayoutTypes.h, sha256: AE3C6C885AF0A2F158334793D08124C5175D01F3F1CC76E737D6848F1751B91C}
+  - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Data/VibeMMOHUDLayoutTypes.cpp, sha256: 763297D8227E123666F6ADEB24C67DA1798EF2C37706CD173FB2B4D5333E65DA}
+
+party_consumer_inventory:
+  existing_surface:
+    - EVibeMMOHUDElement PartyPanel layout identity
+    - RedHUDLayout rectangles PartyRow01, PartyRow02, and PartyRow03
+    - three supplied IndividualSprites with baked sample member presentation
+  absent_consumer_contracts:
+    - party member presentation type
+    - party setter or snapshot field
+    - live widget group and per-row clear semantics
+    - stable member identity and actor mapping
+    - party revision, stale rejection, or presence state
+  pre_slice_bug: >-
+    SetLiveDataMode made every ArtImages entry visible, and the generic
+    SetElementVisible API could also show the three baked sample-member rows.
+    The result looked like live party state although no producer existed.
+
+producer_inventory:
+  result: zero_trustworthy_authoritative_or_owner_replicated_party_producer_found
+  redmmo:
+    - no PartyId, PartyMembers, SquadId, replicated roster, mutation RPC, or custom PlayerState or GameState owner was found in compiled project source
+    - bIsEnemy is an enemy-clone marker and cannot identify party membership
+    - GetExplicitGrappleTeam is an optional future friendly-fire check that falls back to NoTeam; ARedPlayerCharacter does not implement the generic team interface
+  sessions_and_friends:
+    - FRedSessionResultSummary contains host identity plus aggregate current and maximum player counts, not member identities
+    - CurrentPlayers is capacity minus open public connections, not a roster
+    - InviteSteamFriends opens the external Steam invite UI and does not publish membership
+    - no project IOnlineFriends, registered-player, or SteamIntegrationKit party call feeds RedHUD
+  steam_vendor_boundary:
+    - SIK party functions expose generic Steam party-beacon operations, not the required replicated RED member state or vitals
+    - the bundled OnlineSubsystemSteam returns nullptr from GetGroupsInterface and GetPartyInterface
+    - project RedMMO, RedHUD, and Vibe compiled sources have zero SIK party, Steam party-interface, join-party, or beacon call sites
+  vibe:
+    - PartyPanel is a local layout identity only
+    - saved offset, scale, opacity, locked, and hidden fields are presentation preferences, not gameplay membership
+  bounded_content_filename_inventory:
+    roots: [Content/RedMMO, Content/UI]
+    files_scanned: 129
+    matching_files:
+      - Content/UI/RedHUD/Textures/ExactLayoutSprites/T_REDHUD_PartyList_Exact.uasset
+      - Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PartyList.uasset
+      - Content/UI/RedHUD/Textures/IndividualSprites/T_REDHUD_PartyRow_01.uasset
+      - Content/UI/RedHUD/Textures/IndividualSprites/T_REDHUD_PartyRow_02.uasset
+      - Content/UI/RedHUD/Textures/IndividualSprites/T_REDHUD_PartyRow_03.uasset
+    disposition: supplied_art_not_gameplay_state
+  serialized_boundary:
+    - Blueprint graphs and serialized package payloads were not decoded
+    - filenames reveal no party gameplay model, but static inspection cannot prove opaque graphs contain none
+    - even an opaque producer would remain unaccepted because RedHUD has no dedicated safe party consumer contract
+  disposition: do_not_wire_or_fabricate_party_state
+
+source_hardening:
+  helper: IsDormantPartyArtName
+  known_compiled_visibility_paths_guarded:
+    - SetLiveDataMode excludes PartyRow01, PartyRow02, and PartyRow03 when enabling live art
+    - SetElementVisible refuses to re-show those three baked rows
+    - ApplyHUDLayout re-applies SetLiveDataMode before element transforms and cannot re-show a non-hidden dormant row
+  preserved:
+    - all three supplied art assets and authored layout rectangles
+    - PartyPanel layout customization identity for a future real consumer
+    - every existing granular gameplay feed
+  not_added:
+    - party setter
+    - party snapshot field
+    - guessed session, friend, enemy, or generic-team bridge
+
+required_future_party_contract:
+  before_any_live_consumer_or_bridge:
+    - server-owned stable party ID
+    - stable member IDs, leader or role, and authenticated local ownership
+    - owner-authorized replicated membership and presentation-safe member state
+    - monotonic revision with stale and out-of-order rejection
+    - explicit presence, clear, join, leave, kick, leader-transfer, disconnect, reconnect, travel, death, respawn, and late-join semantics
+    - deterministic three-row mapping, overflow policy, and clearing of every unused row
+    - opponent-information isolation
+    - gameplay party persistence kept separate from local HUD-layout persistence
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_party_inventory_contract.py
+  focused_test_sha256: EF598F9DD982CF9426688FA200ABA13F5EAB894EFE88AF13572F476A0D8D9ACB
+  focused_test_length: 10415
+  focused_party_inventory_and_fail_closed_tests: 7_of_7_passed
+  prior_HUD_shared_and_provenance_contracts: 86_of_86_passed
+  combined_result: 93_of_93_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDPartyInventory_20260722_1735_retry1/offline_contract_and_provenance_tests.log
+  log_sha256: D2A496AD22101F11142C0DF5A881B3BAAFDF6931D78F5148EC85249DBDE9C771
+  independent_review: PASS_after_claim_narrowing_and_contract_robustness_corrections
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004PartyInventory_1735_retry1/target_currency.json
+  report_sha256: 7D053163240AF34DB8E96C7E085916F7F70CFDCEC37A588FC4089DE04EF7E3C1
+  input_manifest_sha256: D9D398A5DCB5E78E0486BBBEB8F194BEFD5BA712777AB592F9B66FF64356B458
+  input_count: 874
+  Titan:
+    currency_state: stale_unproven
+    newer_inputs: 38
+    newer_categories: {config: 2, plugin: 8, source: 28}
+    exact_build_proof: missing
+  TitanEditor:
+    currency_state: stale_unproven
+    newer_inputs: 26
+    newer_categories: {plugin: 2, source: 24}
+    exact_build_proof: missing
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004PartyInventory_20260722_204453
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004PartyInventory_20260722_204453/MANIFEST.txt
+  manifest_sha256: 6A8F1CB0EEB2A88598D1C595FC530BD5252F81951AD06F79C0D0F7A374807EE8
+  backed_up_files: 5
+  files_including_manifest: 6
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  pre_slice_topology_checks: 9_of_9_passed
+  pre_slice_fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  final_topology_checks: 9_of_9_passed
+  final_fused_provenance_checks: 7_of_7_passed
+  final_protected_source_rasters: 135_of_135_matched
+  final_SAFE8_manifest_entries: 338_of_338_matched
+  final_SAFE8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  final_supplied_HUD_textures: 56_preserved
+  final_HUD_manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  final_vibe_sources: 8_of_8_preserved
+  final_artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+  final_rollback_files: 5_of_5_exact
+  final_canonical_parse: 84_yaml_plus_queue_json_zero_errors
+  final_queue_hash_matches_current_state_and_evidence: true
+
+canonical_queue:
+  pre_slice_sha256: 774BE83139CF430AC5B09E69ED050034AF8DD2CA38C01A5496012B6519C2C4AC
+  post_slice_sha256: A70E3E4A2F7E89FA5BC025C90D93C7A786C75350123685655A95AB694F298787
+  module_status: incomplete_retry
+  retry_count: 14
+
+remaining_blockers:
+  - party wiring is blocked on the server-owned replicated party contract listed above
+  - serialized Blueprint graphs and package payloads remain undecoded
+  - minimap remains a separate uninspected producer and consumer domain
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - current HUD behavior and pixels require runtime and real-GPU evidence
+  - default-keyboard ability feedback, complete layout coverage, painted controls, persistence, packaging, Steam transport, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves a static fail-closed hardening over known compiled RedHUD
+  visibility paths plus a bounded compiled-source and content-filename inventory.
+  It does not prove the absence of serialized Blueprint state or callers and does
+  not accept UHT, compilation, runtime HUD behavior, pixels, gameplay, packaging,
+  Steam transport, or multiplayer.

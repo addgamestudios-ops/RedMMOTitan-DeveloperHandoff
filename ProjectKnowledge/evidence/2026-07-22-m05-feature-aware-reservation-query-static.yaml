@@ -1,0 +1,34 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M05-FEATURE-AWARE-RESERVATION-QUERY-STATIC
+captured_at: 2026-07-22
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed
+implemented:
+  - URedManualPlacementProtectionComponent exposes feature-aware protection weight and hard-denial queries to Blueprint PCG and WorldGen adapters.
+  - Empty feature tags fail closed; explicitly unblocked feature tags return zero weight.
+  - Existing geodesic hard-radius and blend behavior remains the single spatial contract.
+files:
+  - Source/RedMMO/WorldAuthoring/RedManualPlacementProtectionComponent.h
+  - Source/RedMMO/WorldAuthoring/RedManualPlacementProtectionComponent.cpp
+  - Tools/tests/test_planet_pcg_reservations.py
+verification:
+  offline_tests: "8/8 passed"
+  dataset_check: "27 reservations current"
+  reservation_dataset_sha256: D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5
+resource_gate:
+  free_physical_ram_gib_range: [3.077, 3.562]
+  free_vram_mib: 8650
+  unreal_or_build_processes: 0
+  action: "No Unreal compile, editor, runtime, or packaging process was launched."
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+claim_limit: >-
+  This is a source and offline-policy checkpoint only. No adapter enumerates or
+  registers the 27 reservations at runtime yet; compilation, placement,
+  rendered overlap inspection, and WorldGen integration remain unverified.
+next_safe_action: >-
+  When compile resources are safe, compile this narrow component change. Then
+  add a bounded runtime registry/adapter that consumes the authenticated 27-hub
+  dataset without enabling surface dressing.

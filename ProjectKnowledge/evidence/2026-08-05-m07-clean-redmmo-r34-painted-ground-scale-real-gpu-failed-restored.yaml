@@ -1,0 +1,123 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r34-painted-ground-scale-real-gpu-failed-restored.2026-08-05
+captured_utc: "2026-08-05T13:57:23Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r34-active-painted-ground-inspection-and-scale-correction
+evidence_class: real_gpu_visual
+result: failed_visual_and_exact_preimage_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.77
+  commit_headroom_gib: 49.57
+  free_gpu_vram_mib: 7715
+  free_d_drive_gib: 767.95
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  seed: 1337
+  map_saved: false
+
+read_only_inspection:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileSurface_R34_20260805T1350Z/surface_parameters.json
+  result_sha256: CAFC0DD69D9473AA6EC81F4EEFD1264210B16223EA04DAD775FEDE8995E2789D
+  terminal_status: PASS_READ_ONLY
+  active_planet_material: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+  active_parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_SurfaceParent
+  verified_texture_set:
+    base_color: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_BC
+    normal: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_N
+    orm: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_ORM
+  live_parameters_before:
+    R10L_GroundUVScale: 12.0
+    R10L_NormalAmount: 0.2
+    R10L_GroundSpecular: 0.02
+  finding: >-
+    The correct active project-owned ProfileV1 binding and public scale/normal
+    controls exist, but its base-color family is the StylizedRocks grass tiling
+    set. It does not expose a separate literal painted-leaf or fallen-leaf
+    underlayer texture through the live instance.
+
+guarded_attempt:
+  driver: D:/RedMMOTitan/Build/Automation/apply_verify_redmmo_painted_ground_r34.py
+  driver_sha256: 9316F6285AEBB2FD40A7BAD12B38A6CBF0D0683528778C51CA80967899D6C808
+  inspection_driver: D:/RedMMOTitan/Build/Automation/inspect_redmmo_profile_v1_surface_r34.py
+  inspection_driver_sha256: 42ECC710E399404F3A1F7D48F48D1B1407B3CF50FDBEC9C9BAE5A6C606860C14
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PaintedGround_R34_20260805T1400Z/result.json
+  result_sha256: C1B526D284F002212938C47A9777EBFE85DA155D7A3FC8CD66264D39512F34FB
+  renderer: D3D12 RenderOffscreen
+  resolution: [1280, 720]
+  terminal_status: PASS_R34_PAINTED_GROUND_SAVED_AND_D3D12_CAPTURED_PENDING_PIXEL_REVIEW
+  transient_parameters:
+    R10L_GroundUVScale: {before: 12.0, attempted: 24.0}
+    R10L_NormalAmount: {before: 0.2, attempted: 0.28}
+  transient_surface_sha256: 6E06B9187B774929D09594FC42D7F06AD8FCE8C558A83984E0EFBCD6C5F1D65E
+  runtime_generation_phase: COMPLETE
+  approved_grass_components_preserved: 196
+  approved_grass_instances_preserved: 2218356
+  grass_material_a_sha256_before_after: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  grass_material_b_sha256_before_after: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+
+captures:
+  player_scale_normal_lit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PaintedGround_R34_20260805T1400Z/player_scale_normal_lit_r34.png
+    sha256: 6571E900A44150AC1FA0FBD5207F4037194F60D0B2A87BE0B11A369EC715CEF3
+    bytes: 1292554
+  painted_ground_lit_grass_hidden:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PaintedGround_R34_20260805T1400Z/painted_ground_lit_grass_hidden_r34.png
+    sha256: 1BF761518F089369398E46D873934682D282F0177AE31C815810639022B7A194
+    bytes: 1277317
+  independent_review: >-
+    Both frames show the attempted surface as a low-detail solid green field;
+    doubling the tiling frequency does not produce the requested readable
+    painted-leaf underlayer. The normal capture also raced the temporary
+    grass-hide state and therefore is not valid evidence of retained visible
+    grass even though the runtime component and instance gates passed. Do not
+    accept or recapture this parameter-only attempt unchanged.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforePaintedGround_R34_20260805T1355Z
+  manifest_sha256: D0F17B88A609889CD849259EBC7E859F9162639E9E565C02817D4BE4ED0F3293
+  preimage_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  transient_postimage_sha256: 6E06B9187B774929D09594FC42D7F06AD8FCE8C558A83984E0EFBCD6C5F1D65E
+  restored_target_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  used: true
+
+canonical_validation:
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R34B_20260805T1400Z.json
+  integrity_report_sha256: 5E7DADD9F352746235F1AFC46E7CDAB9132CEA5F6A7BAE09551CEC73E056F47E
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R34 proves the active ProfileV1 surface binding and live scale/normal controls,
+  then falsifies a scale-only route to the requested painted-leaf ground look.
+  The rejected serialized change was exactly restored. This does not change or
+  accept the biome, grass visibility, night sky, terrain, topology, water,
+  gameplay, standalone, replication, multiplayer or player-facing result.
+
+next_safe_action: >-
+  Preserve the restored R33 surface and grass state. Run a read-only exact
+  installed-asset audit for owned project textures/material functions that
+  visibly contain a painted leaf/clutter underlayer, identify one dependency-
+  closed project-owned candidate, and only then perform a new rollback-backed
+  surface-instance successor. Do not retry UV scale on T_StylizedGrass_01_BC,
+  do not change seed/topology/grass placement/water, and require a grass-visible
+  normal-lit player-scale D3D12 capture with no transient visibility race.

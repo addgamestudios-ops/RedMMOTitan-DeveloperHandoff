@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "contract_id": "redmmo-nwiro-restricted-probe-candidate-v1",
+  "status": "candidate_contract_only_source_absent_runtime_forbidden",
+  "evidence_class": "static",
+  "execution": {
+    "runtime_authorized": false,
+    "candidate_creation_authorized": false,
+    "vendor_plugin_mutation_authorized": false,
+    "project_plugin_activation_authorized": false,
+    "unreal_launch_authorized": false,
+    "build_authorized": false,
+    "mcp_initialize_authorized": false,
+    "mcp_tools_list_authorized": false,
+    "mcp_tool_call_authorized": false,
+    "network_authorized": false,
+    "provider_call_authorized": false,
+    "asset_load_authorized": false,
+    "asset_write_authorized": false,
+    "map_mutation_authorized": false,
+    "codex_config_mutation_authorized": false,
+    "diagnostic_stdout_authorized": true,
+    "local_read_only_authentication_authorized": true
+  },
+  "parent_inputs": [
+    {
+      "id": "metadata_dry_run_contract",
+      "path": "D:/RedMMOTitan/Build/Automation/redmmo_nwiro_metadata_dry_run_contract_v1.json",
+      "bytes": 14804,
+      "sha256": "B388D2869D0B13A798A1128705B650EC3CCE071DC5BD8441184C359BBE7D9E68"
+    },
+    {
+      "id": "offline_predispatch_firewall",
+      "path": "D:/RedMMOTitan/Tools/redmmo_nwiro_predispatch_firewall.py",
+      "bytes": 18844,
+      "sha256": "5C6F4A33EE71E4660CA87DDB67EF08743D8811652BBEC23E1408D012FA018DE2"
+    },
+    {
+      "id": "blocked_baseline_auditor",
+      "path": "D:/RedMMOTitan/Tools/audit_nwiro_restricted_probe_source.py",
+      "bytes": 18258,
+      "sha256": "2E8B3B669630B125BB0C427C6F52CDC2DF7F24392D1728374342808C635CEAC1"
+    },
+    {
+      "id": "blocked_baseline_auditor_tests",
+      "path": "D:/RedMMOTitan/Tools/tests/test_audit_nwiro_restricted_probe_source.py",
+      "bytes": 7244,
+      "sha256": "9E7F5D6028AB2C7C868B2AAAA60025272A7F5E35444EEA1B704FC904542A3256"
+    },
+    {
+      "id": "blocked_baseline_evidence",
+      "path": "D:/RedMMOTitan/ProjectKnowledge/evidence/2026-07-25-m07-nwiro-restricted-probe-baseline-source-audit-static.yaml",
+      "bytes": 8316,
+      "sha256": "54E2C21AEEEE94AC4B4AE8F7C5703FFAA9DC009922AC64509ECBCAB2778F28D4"
+    }
+  ],
+  "baseline": {
+    "plugin_name": "Nwiro Integration Kit",
+    "plugin_version": "1.0.9",
+    "plugin_root": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4",
+    "descriptor": {
+      "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/NwiroIntegrationKit.uplugin",
+      "bytes": 1212,
+      "sha256": "D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E"
+    },
+    "observed_binary": {
+      "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/Binaries/Win64/UnrealEditor-NwiroIntegrationKit.dll",
+      "bytes": 3491840,
+      "sha256": "6C72757C068FAD28174C9A2F2F4960C6FA69C908E993E854AC94454540A43C0C",
+      "candidate_binary_attestation": false,
+      "loaded_module_attestation": false
+    },
+    "tree_digest_algorithm": "ordinal UTF-8 no-BOM LF-final records: file=<relative_path>\\t<decimal_bytes>\\t<UPPERCASE_SHA256>\\n; topology path-ordered directory=D\\t<relative_path>\\n and file=F\\t<relative_path>\\t<decimal_bytes>\\t<UPPERCASE_SHA256>\\n",
+    "installed_tree_inventory": {
+      "root": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4",
+      "file_count": 106,
+      "directory_count_excluding_root": 29,
+      "total_bytes": 130151566,
+      "record_set_sha256": "DF5067FAEB002FCC10F52D212AB9C8133973D28070EB4D5C969A4205F0A833F0",
+      "topology_sha256": "6CC8D966C1D40CB319082823BB51FB8B420132A64FDDC8BA01562786B0A4B11C",
+      "top_level_file_counts": {
+        "Binaries": 5,
+        "Intermediate": 11,
+        "NwiroIntegrationKit.uplugin": 1,
+        "Resources": 2,
+        "Source": 87
+      },
+      "extra_file_policy": "deny",
+      "missing_file_policy": "deny",
+      "case_collision_policy": "deny",
+      "symlink_policy": "deny",
+      "reparse_point_policy": "deny",
+      "hardlink_policy": "deny",
+      "file_and_directory_alternate_data_stream_policy": "deny",
+      "per_file_stable_handle_reauthentication_required": true,
+      "two_consecutive_complete_passes_required": true,
+      "whole_tree_snapshot_stability_proven": false,
+      "concurrent_mutation_resistance_proven": false
+    },
+    "fork_input_tree": {
+      "root": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4",
+      "included_roots": [
+        "NwiroIntegrationKit.uplugin",
+        "Resources",
+        "Source"
+      ],
+      "included_directories": [
+        "Resources",
+        "Source",
+        "Source/NwiroIntegrationKit",
+        "Source/NwiroIntegrationKit/Private",
+        "Source/NwiroIntegrationKit/Private/ContentPipeline",
+        "Source/NwiroIntegrationKit/Private/Integration",
+        "Source/NwiroIntegrationKit/Private/Tests",
+        "Source/NwiroIntegrationKit/Public",
+        "Source/ThirdParty",
+        "Source/ThirdParty/miniz"
+      ],
+      "file_count": 90,
+      "directory_count_excluding_root": 10,
+      "total_bytes": 2201579,
+      "record_set_sha256": "F1D91F85B8D7BE403D3AEFAA3348CE65B4CDC6EC52F1627CB141339C39FD1D4A",
+      "topology_sha256": "16DC68F9DDEFB5A957822EFB58A129BC11C18BFE98B8121B4E3010C1606EA3AD",
+      "source_file_count": 87,
+      "source_total_bytes": 2153385,
+      "source_record_set_sha256": "2F77617A4BB84E662E73BD9EF6F09FD5880B19E81A7E030B7C43F16440402670",
+      "source_extension_counts": {
+        "": 1,
+        ".c": 2,
+        ".cpp": 38,
+        ".cs": 1,
+        ".h": 43,
+        ".inl": 2
+      },
+      "source_third_party_miniz_required": true,
+      "resources_required": true,
+      "descriptor_required": true,
+      "vendor_binaries_allowed_in_candidate_lineage": false,
+      "vendor_intermediate_allowed_in_candidate_lineage": false,
+      "extra_file_policy": "deny",
+      "missing_file_policy": "deny",
+      "case_collision_policy": "deny",
+      "symlink_policy": "deny",
+      "reparse_point_policy": "deny",
+      "hardlink_policy": "deny",
+      "file_and_directory_alternate_data_stream_policy": "deny",
+      "per_file_stable_handle_reauthentication_required": true,
+      "two_consecutive_complete_passes_required": true,
+      "whole_tree_snapshot_stability_proven": false,
+      "concurrent_mutation_resistance_proven": false
+    }
+  },
+  "candidate": {
+    "candidate_id": "nwiro-restricted-probe-fork-candidate-v1",
+    "staging_root": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1",
+    "staging_root_required_absent": true,
+    "candidate_source_present": false,
+    "candidate_manifest_present": false,
+    "fork_skeleton_present": false,
+    "project_plugin_enabled": false,
+    "vendor_plugin_modified": false,
+    "candidate_binary_present": false,
+    "candidate_binary_attested": false,
+    "candidate_static_accepted": false,
+    "candidate_runtime_accepted": false,
+    "activation_plan_status": "not_designed_not_authorized"
+  },
+  "allowed_change_surface": {
+    "baseline_files_allowed_to_change_in_candidate": [
+      "Private/NwiroIntegrationKit.cpp",
+      "Private/NwiroIKBridge.cpp",
+      "Private/NwiroIKBridge.h",
+      "Private/NwiroIKMCPServer.cpp",
+      "Private/NwiroIKMCPServer.h"
+    ],
+    "new_candidate_files_allowed": [
+      "Private/NwiroIKRestrictedProbePolicy.cpp",
+      "Private/NwiroIKRestrictedProbePolicy.h"
+    ],
+    "path_base": "Source/NwiroIntegrationKit",
+    "all_other_baseline_source_files_must_match": true,
+    "file_deletion_allowed": false,
+    "file_rename_allowed": false,
+    "path_case_change_allowed": false,
+    "descriptor_change_allowed": false,
+    "build_rules_change_allowed": false,
+    "binary_or_generated_file_in_source_tree_allowed": false,
+    "candidate_prebuild_forbidden_roots": [
+      ".git",
+      "Binaries",
+      "Config",
+      "Content",
+      "Intermediate",
+      "Saved"
+    ]
+  },
+  "required_controls": [
+    {
+      "id": "mode_default_off",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "trusted_in_process_activation_only",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "process_wide_single_owner_lock",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "one_in_flight_request",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "nonce_generation_and_phase_bound",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "exact_initialize_then_initialized_sequence",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "singleton_literal_tools_list",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "exact_find_assets_definition_digest",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "process_jsonrpc_gate_dominates_dispatch",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "dispatch_tool_gate_dominates_impl",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "exact_query_arguments_no_coercion_or_extras",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "exact_single_identity_response_filtered_before_publication",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "raw_http_routes_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "fallback_ports_and_restart_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "acp_connect_and_message_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "dynamic_and_provider_registry_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "provider_secrets_and_network_egress_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "bridge_events_and_permission_ui_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "headless_and_bridge_null_fail_closed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "client_config_publication_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "asset_load_save_import_and_map_mutation_suppressed",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    },
+    {
+      "id": "teardown_invalidates_owner_nonce_generation_and_pending_work",
+      "required": true,
+      "implemented": false,
+      "accepted": false
+    }
+  ],
+  "probe_contract": {
+    "stable_candidate_id": "RED-FAB-ASSET-8021792003EC13E7D10DBB1B",
+    "tool_name": "find_assets",
+    "observed_vendor_tool_definition_sha256": "58DCD431CFCB943C9C2B8215F7FF8D69B43450A5CB4959377D47BFBFEE4C70C2",
+    "additional_tools_allowed": false,
+    "additional_arguments_allowed": false,
+    "argument_coercion_allowed": false,
+    "arguments": {
+      "searchTerm": "T_Sand_basecolor",
+      "classFilter": "Texture2D",
+      "path": "/Game/Zenscape_Savanna/Landscape/Texture",
+      "maxResults": 2
+    },
+    "expected_single_identity": {
+      "name": "T_Sand_basecolor",
+      "path": "/Game/Zenscape_Savanna/Landscape/Texture/T_Sand_basecolor.T_Sand_basecolor",
+      "class": "Texture2D"
+    },
+    "extra_response_fields_allowed": false,
+    "vendor_or_derived_bytes_may_leave_process": false,
+    "all_source_packs_allow_usage_with_ai": false
+  },
+  "acceptance_gates": {
+    "contract_artifact_static_validated": true,
+    "complete_installed_tree_two_pass_observation_matched": true,
+    "complete_fork_input_tree_two_pass_observation_matched": true,
+    "candidate_source_manifest_authenticated": false,
+    "candidate_semantic_mutation_tests_passed": false,
+    "candidate_independent_source_review_passed": false,
+    "candidate_build_passed": false,
+    "candidate_binary_authenticated": false,
+    "candidate_installed": false,
+    "candidate_module_loaded": false,
+    "candidate_live_probe_passed": false,
+    "rights_review_passed": false,
+    "asset_registry_closure_passed": false,
+    "migration_passed": false,
+    "map_authoring_passed": false,
+    "real_gpu_visual_passed": false
+  },
+  "claim_limit": "This v1 artifact records two consecutive matching quiescent observations of the complete 106-file installed vendor tree and exact 90-file descriptor-plus-Resources-plus-Source fork input, then freezes requirements for a future isolated source candidate. Per-file reads are stable-handle authenticated and files plus directories deny named streams, but the artifact retains no whole-tree handle set and therefore does not prove an atomic snapshot or resistance to a concurrently mutating writer. It creates no fork, accepts no candidate, changes no plugin, authorizes no build or runtime operation, and cannot be used as a live MCP or Nwiro permit.",
+  "next_safe_action": "Create the isolated staging fork skeleton in a later bounded slice only after this contract and validator pass adversarial review; copy only the authenticated 90-file fork input, explicitly exclude vendor Binaries and Intermediate, keep it outside active Unreal plugin discovery, default the mode off, preserve every non-allowlisted baseline source byte, and do not compile, install, initialize MCP, or call a tool."
+}

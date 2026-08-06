@@ -1,0 +1,120 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r45-grass-pivot-depth.2026-08-05
+captured_utc: "2026-08-05T16:42:02Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r45-approved-grass-pivot-and-surface-depth
+evidence_class: automation
+result: approved_grass_is_systematically_half_buried_by_mesh_pivot_plus_ppg_depth_offset
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 49.38
+  commit_headroom_gib: 49.34
+  free_gpu_vram_mib: 7970
+  free_d_drive_gib: 767.63
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+automation:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_grass_pivot_depth_r45.py
+  driver_sha256: 6855B249A385A1D7D060BE8264543913893E383C07DF48C85A0D54F755C1132B
+  renderer: D3D12_renderoffscreen
+  provider_off: true
+  startup_map: /Engine/Maps/Entry
+  home_map_loaded: false
+  pie_or_regeneration: false
+  persistent_writes: false
+  dirty_packages_after: 0
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassPivotDepth_R45_20260805T1642Z/result.json
+  result_sha256: 70E835CA3357705B43679BDC42743426D0FD04417467A01893544A29B848C4B3
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassPivotDepth_R45_20260805T1642Z_unreal.log
+  log_sha256: 79F555BD92488626B1D3F90E0FD585FCD41B052E6BB0C817C0BFB227EDFEE3A4
+  status: PASS_READ_ONLY_PIVOT_DEPTH_AUDIT
+
+installed_ppg_contract:
+  foliage_shader: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Shaders/Foliage.usf
+  foliage_shader_sha256: D59467A45D609B36C60FD5B01714E350EBA6A4E0F89ECB11F7A1C5D6D9D741CF
+  chunk_source: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+  chunk_source_sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  foliage_schema: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Public/FoliageData.h
+  foliage_schema_sha256: A6086644FC15B39A8F6FC16B0BFB8395D11DF89C0A7705F768DC3C1E06471AFF
+  exact_position_formula: LocalInstancePosition equals LocalTerrainPosition minus TerrainNormal times DepthOffset
+  positive_depth_direction: below_generated_surface
+  approved_entry:
+    depth_offset_cm: 20.0
+    align_to_terrain: true
+    scale: [1.0, 1.5499999523162842]
+    density: 90.0
+
+approved_mesh_geometry:
+  source: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+  aliases:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  aliases_preserve_vendor_bounds: true
+  local_bounds_cm:
+    origin: [-0.8751392364501953, -0.6484870910644531, 14.125029202175938]
+    minimum: [-74.51051902770996, -76.45672035217285, -50.00005412921746]
+    maximum: [72.76024055480957, 75.15974617004395, 78.25011253356934]
+    height: 128.2501666627868
+  pivot_above_mesh_base_cm: 50.00005412921746
+  pivot_fraction_from_mesh_base: 0.3898634631850777
+  interpretation: >-
+    The selected mesh pivot is inside the grass volume, fifty centimetres
+    above its local base. It is not a ground-level pivot.
+
+resulting_static_depth:
+  scale_1_0:
+    base_from_surface_cm: -70.00005412921746
+    top_from_surface_cm: 58.250112533569336
+    height_below_surface_cm: 70.00005412921746
+    visible_static_height_fraction: 0.45419132036474186
+  scale_1_55:
+    base_from_surface_cm: -97.50008151609869
+    top_from_surface_cm: 101.28767069577634
+    height_below_surface_cm: 97.50008151609869
+    visible_static_height_fraction: 0.5095267166551607
+
+diagnosis:
+  proven: >-
+    The exact approved A/B aliases preserve the vendor mesh's non-grounded
+    pivot, and persisted PPG depth 20 then moves that pivot another twenty
+    centimetres below the generated surface. At the saved PPG scale range,
+    approximately 49 to 55 percent of the static grass height is below the
+    terrain before material displacement. This is a concrete depth/pivot
+    defect that can reduce coverage to intermittent tips.
+  boundary: >-
+    R45 does not claim this is the only missing-pixel cause because the static
+    mesh still has 58 to 101 centimetres above the generated surface. The next
+    discriminator must change only the project-owned foliage depth while
+    retaining the exact selected aliases, seed, density, eligibility, marker
+    distribution, surface and vendor assets, then require fresh untouched
+    Lit-first player-scale pixels.
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  approved_mesh_a_sha256: 6F215104F1374403194D8AB4DA79B3FF16CCBF86472746E5CD433E03118B2443
+  approved_mesh_b_sha256: 3C50C87B594CE012F680EF51BA306C2DF09FDAED10C06F7F60AFA4E62F678475
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  map_or_content_saves: 0
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R45 is fresh D3D12 read-only asset and installed-source automation. It proves
+  the pivot/depth geometry contract only. It does not prove corrected visible
+  grass, accepted biome art, gameplay, standalone, replication, multiplayer or
+  player acceptance.
+
+next_safe_action: >-
+  Create one rollback-backed project-owned depth-only ProfileV1 successor that
+  retains the exact approved grass aliases and every seeded placement control,
+  removes the avoidable half-burial without floating the smallest scale, and
+  require fresh reload plus untouched Lit-first player-scale GPU evidence.

@@ -1,0 +1,101 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-radial-kernel.build.2026-08-03
+captured_utc: "2026-08-03T03:02:39Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: project-owned-radial-gravity-and-character-movement-kernel
+evidence_class: build
+result: passed_static_gates_and_serialized_editor_game_builds_runtime_binding_pending
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  added_source:
+    - path: Source/RedMMO/Public/RedGravityBodies.h
+      sha256: 4528F1D62A16DC7BAC3318F345CCF42FE611807DA58EDA7B428EA5B671303C95
+    - path: Source/RedMMO/Private/RedGravityBodies.cpp
+      sha256: 03ACB95A6C27173B0CD6DE36ACDF82A74F0ED7242576C3CDDA4B59D7CD850F0A
+    - path: Source/RedMMO/Public/RedCharacterMovement.h
+      sha256: E6C5AB6EDC4C590C9C82954DFF89BBD51DB42C6E5EFB5F235D38038276FF78C2
+    - path: Source/RedMMO/Private/RedCharacterMovement.cpp
+      sha256: 07015DC780F20C92F8D319FBD191008E2438560014D7C09F4A1EFE319AC0F87C
+    - path: Source/RedMMO/Public/RadialGravityComponent.h
+      sha256: 280F59903FDC3A1C5AAA162017DD974BE847A74EF261DAB78C933965FB6A8B34
+    - path: Source/RedMMO/Private/RadialGravityComponent.cpp
+      sha256: DC7C47DC800FA9B3CCCDFCF99DA4F5EBADD34B51563C67A5FA4EA0EA48A37F01
+  preserved_behavior:
+    - reflected_PPG_home_body_discovery_without_plugin_header_dependency
+    - deterministic_body_selection_and_hysteresis
+    - radial_gravity_and_owner_orientation
+    - terrain_surface_traces_and_grounding
+    - anti_sink_recovery
+  removed_legacy_coupling:
+    - RedSpaceScenery_header
+    - ARedSpaceScenery_actor_enumeration
+  map_or_content_binding: false
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_RadialKernel_20260803_025829Z_A01/manifest.json
+  manifest_sha256: 8C30C6FDCE08C3D923EE16E11966286AAFAAC64B8F991DEE49BDDD50C8463282
+  target_preimages: all_six_paths_absent
+  rollback_action: remove_only_the_six_exact_added_source_files_after_hash_authentication
+
+static_gates:
+  normalized_source_equivalence_except_authorized_differences: passed
+  RedSpaceScenery_references: 0
+  forbidden_gameplay_hud_mining_vehicle_plugin_references: 0
+  direct_PlanetGen_or_PPG_header_dependencies: 0
+  Build_cs_changed: false
+  Build_cs_sha256: 4167F97036372E3A25474DE3FDAF82C5CF7CBCB9256B08D59A6822366EE158C3
+
+builds:
+  editor:
+    target: RedMMOEditor_Win64_Development
+    serialized_max_parallel_actions: 1
+    no_ubt_makefiles: true
+    no_uba: true
+    actions: 9
+    warnings: 0
+    errors: 0
+    result: succeeded
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_RadialKernel_20260803_025829Z_A01/RedMMOEditor_build.log
+    log_sha256: 6623F5C1EE714D9D4070ABC2FC10538EE9E48E34BBE01D87BBEE523AC75D3BB5
+    module_dll_sha256: B41CBE8E188583639365233D7549C7086CE688F9ECFBAEB76529331B4D3A44AC
+  game:
+    target: RedMMO_Win64_Development
+    serialized_max_parallel_actions: 1
+    no_ubt_makefiles: true
+    no_uba: true
+    actions: 7
+    warnings: 0
+    errors: 0
+    result: succeeded
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_RadialKernel_20260803_025829Z_A01/RedMMO_game_build.log
+    log_sha256: FA044936493150542DC4E368858E7121861398E33D649BCF910951D4397100E5
+    executable_sha256: 086C34D794F64594E3CF20D1C66B41E95F31707AEC177D6AE0751A941B1424EE
+  result_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_RadialKernel_20260803_025829Z_A01/result.json
+  result_report_sha256: E03A3AA714EB4FF0257D10CACAAD895314C8429C7AAC746BDCF6E6073604D3BB
+
+preservation:
+  project_descriptor_sha256: 54E664A24FA5E9129C022740EE624F84389F1825AA9A4AE07D5E99DD783F382E
+  default_engine_sha256: A736AF02C9C056B9FC84DA8158A9B867D7F999D9150C4051AA00A90A65471B0A
+  default_game_sha256: C83A14298F5DC3B9AC17EBA6FB89E49E2D5CAA13F2DEB2968CBC13B88BE68A98
+  default_input_sha256: 61E3FB622F7BA0121C8036AC599ACC7122BB3987A97B02B25AD13C56D5CE8E3A
+  clean_home_map_sha256: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  editor_or_map_launched: false
+  ppg_seed_or_marker_changed: false
+  provider_or_desktop_control_used: false
+
+claim_limit: >-
+  The radial kernel compiles in both clean targets. It is not yet bound to a
+  pawn, controller, GameMode or map and does not prove runtime radial movement,
+  visual character presentation, playability, replication, package or
+  multiplayer behavior.
+
+next_safe_action: >-
+  Build the behavior-pruned project-owned RedPlayerCharacter and neutral PPG
+  GameMode against this kernel, migrate the exact no-customization art payload,
+  then fresh-load and compile before any checkpointed home-map binding.

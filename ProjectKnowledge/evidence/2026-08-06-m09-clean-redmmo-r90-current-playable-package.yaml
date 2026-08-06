@@ -1,0 +1,203 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r90-current-playable-package
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T13:01:45Z
+scope: >-
+  One guarded current-source Win64 Development build, cook, stage, Pak/IoStore
+  archive, exact container listing, clean handoff-tree hash, and bounded
+  offscreen real-D3D12 packaged startup. This moves the latest launchable
+  candidate from stale R88 to R90 without changing maps, ProfileV1, terrain,
+  foliage, Config, plugins, vendor source, or user assets.
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/transaction_intent.yaml
+  archive_root_absent_at_entry: true
+  prior_r88_preserved: true
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedMMO_R90_Package_20260806T125650Z
+  rollback_game_binary_sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2417
+  free_physical_ram_gib: 50.80
+  commit_headroom_gib: 53.32
+  minimum_observed_free_physical_ram_gib: 49.82
+  gpu_free_mib: 9094
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.31
+  active_unreal_build_package_process_count: 0
+  package_ram_gate_passed: true
+
+build:
+  tool: D:/UE_5.8/Engine/Build/BatchFiles/RunUAT.bat
+  command: >-
+    BuildCookRun -project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -noP4 -utf8output -target=RedMMO -platform=Win64
+    -clientconfig=Development -build -cook
+    -map=/Game/RedMMO/Maps/RedMMO_PPG_HomeWorld -stage -pak -iostore
+    -archive
+    -archivedirectory=D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z
+    -prereqs
+  uat_exit_code: 0
+  result: success
+  build_cook_run_seconds: 146.46
+  compiled_actions:
+    - RedCelestialFrameRegistry.cpp
+    - RedJetpackTimingTests.cpp
+    - RedJetpackProducerTests.cpp
+    - RedCelestialFrameRegistryTests.cpp
+    - Module.RedMMO.cpp
+    - RedShip.cpp
+    - RedPlayerCharacter.cpp
+    - RedPPGGameplayGameMode.cpp
+  linked: RedMMO.exe
+  cooked_packages: 1539
+  cooked_packages_remaining: 0
+  iostore_packages: 1468
+  uat_warning_lines: 28
+  uat_error_lines: 0
+  uat_fatal_assert_ensure_hits: 0
+  uat_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/uat_stdout.log
+    bytes: 92199
+    sha256: A22A3CB34589708313D97D3123573D6AB4A05C86308AF923E9B9C2956C857782
+  stderr_bytes: 0
+
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  clean_file_count: 50
+  total_bytes: 1454866566
+  tree_sha256: EA0A13DEF4AD9DB64F4F19E9B3974F6485E3C5368DB10B56019D0E965C4C3315
+  tree_hash_contract: >-
+    SHA-256 of UTF-8 LF-terminated lines sorted by case-folded relative path;
+    each line is relative/path|byte_length|file_sha256.
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 88364C664C99EA68E2F8D60B1DC0091EB14896516C3123DD55E4658470F3269C
+  game_binary_differs_from_r88: true
+  project_utoc_sha256: DD7A8A63CF7EDF1CAD9DE246080F7932758D6C476B2053D06F56B768F5D01370
+  project_ucas_sha256: E310E240CC3DBB13A3DCD94D0407D8EC7CF770E63B5924B68B1EB1E2542DD975
+  project_pak_sha256: BE6CD69DC131D23C7F3D0CA4D044E08D3512D064A53FBE8741C4E383E767A0C3
+
+container_listing:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/iostore_list.txt
+  sha256: 5ADE16F52F7BB0415CB5F15577E12F2C7FDC0A08D45125CB2013BBD33B2B6BB2
+  bytes: 610886
+  line_count: 3301
+  entry_count: 3295
+  uasset_entry_count: 1465
+  umap_entry_count: 3
+  profile_v1_entry_count: 9
+  required_present_once:
+    - RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    - RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.uasset
+    - RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01.uasset
+    - RedMMO/Gameplay/Trooper/A01/Ship/BP_RedModularStarSparrow_Trooper_A01.uasset
+    - SoStylized/Sounds/Step/SC_Steps_Dirt.uasset
+    - RedMMO/Anims/Rifle/A_Rifle_Fire_Single.uasset
+    - ProjectilesVol1/Effects/P_Flash_17.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData.uasset
+  rejected_absent:
+    - P_Flash_4
+    - SM_Conus
+
+currentness:
+  red_player_character_cpp_sha256: A687179FAC8E7279DEBD23037523371AE0E074142632B279F3AD0754737EE2C7
+  red_player_character_h_sha256: 66D0200197BC36CFBD23037523371AE1E99C3D08D8CB02B5A95F88CF59527AE1
+  ppg_game_mode_cpp_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  celestial_registry_cpp_sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+  carries_r89d_r89e_native_jetpack_source: true
+  carries_m02_m05_celestial_registry_source: true
+
+smoke:
+  renderer: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: 1280x720
+  mode: packaged_offscreen_unattended_no_sound
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  game_class: GM_RedTrooperPPG_A01_C
+  celestial_frame_publication:
+    stable_id: planet.red.mars
+    revision: 1
+    center_cm: [0.0, 0.0, -300000000.0]
+    nominal_radius_cm: 300000000.0
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 5152.06
+  trooper_surface_placement: true
+  starsparrow_surface_spawn_and_park: true
+  runtime_compatibility_marker: RED_MOTION_VECTOR_CVAR_R84
+  uv_guard_marker: RED_PPG_UV_GUARD_active
+  warning_line_count: 0
+  error_line_count: 0
+  assertion_count: 0
+  ensure_count: 0
+  fatal_count: 0
+  bad_export_count: 0
+  gpu_crash_or_device_loss_count: 0
+  publication_failure_count: 0
+  exact_revision_teardown_failure_count: 0
+  clean_engine_shutdown: true
+  clean_object_subsystem_shutdown: true
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/Smoke_20260806T1300Z/packaged_smoke.log
+    bytes: 86718
+    sha256: C81C963C75D83BC9A8C0A8769D58A90629016CCCB9021681A350C72329856E20
+  generated_saved_data: >-
+    Three smoke-created config files were moved out of the handoff tree and
+    preserved under Smoke_20260806T1300Z/generated_saved.
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  vendor_and_user_assets_modified: false
+  prior_r88_package_modified: false
+
+postcheck:
+  active_unreal_build_package_process_count: 0
+  free_physical_ram_gib: 50.64
+  commit_headroom_gib: 48.26
+  gpu_free_mib: 7049
+  d_drive_free_gib: 754.26
+
+project_knowledge_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/project_knowledge_integrity.json
+  result: pass_0_errors_0_warnings
+
+finding: >-
+  R90 is now the newest directly launchable current-source Windows Development
+  candidate. Its game binary is distinct from R88, the build compiled the
+  R89D/R89E jetpack and M02/M05 celestial-registry source, and its packaged
+  D3D12 startup reached the exact home, registry publication, full PPG
+  generation, Trooper placement, StarSparrow parking, and clean shutdown.
+
+blockers:
+  - physical_keyboard_mouse_and_controller_feel_require_human_playtest
+  - jetpack_generated_surface_landing_feel_requires_human_playtest
+  - grounded_audio_cadence_and_mix_require_audible_human_playtest
+  - overall_ppg_terrain_grass_shoreline_biome_day_night_visual_review_open
+  - protected_fused_continent_not_integrated
+  - replication_multiplayer_persistence_dedicated_server_steam_performance_and_space_traversal_open
+
+next_safe_action: >-
+  Rotate next wake to one M10 currentness-only developer handoff update that
+  points to R90 and its rollback/evidence. The user or developer can launch
+  R90 now for the physical controls, jetpack, audio, and PPG visual checklist;
+  record exact failures as playtest evidence before further gameplay changes.
+
+claim_limit: >-
+  R90 is a launchable current-source package whose build/cook/archive and
+  offscreen packaged D3D12 startup passed. It is not yet human-certified for
+  physical controls, jetpack feel, perceived audio, visible art, replication,
+  multiplayer, persistence, Steam, performance, the protected fused world, or
+  final game completion.

@@ -1,0 +1,57 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo.r80-shoreline-bands-real-gpu-retained
+module: M07
+evidence_class: real_gpu_visual
+status: accepted_partial
+timestamp_utc: 2026-08-06T02:07:00Z
+scope: >-
+  One rollback-backed project-owned ProfileV1 surface successor exposing the
+  installed PPG BiomeMap alpha sea datum as dry, wet, and submerged sand bands.
+result:
+  decision: retain
+  map_check_errors: 0
+  map_check_warnings: 0
+  seed: 1337
+  runtime_surface_component_count: 416
+  runtime_biome_map_bound_count: 416
+  capture_sha256: 3A29726CA17682E06F00C9582FB98BB699FFF5F8083A147EC83EEF1508211841
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  surface_parent_sha256: 3815FE6D3822053E5540D77A253139BFFA290B1D5DA39E4F48C79D91D4463E87
+  surface_instance_sha256: 61E1EC222F7360F1FB0EDDCC1BD908343FB2CC686E9963453EA27D9C2CECF16C
+  water_instance_sha256: 2D3DFCC7583CABBCC551DD7D08A2CF5E33CC19465D14EAB5C4308DEC018DAE9A
+  dirty_packages_after: []
+controls:
+  - R80_WetDepth
+  - R80_WetFeather
+  - R80_WetSandTint
+  - R80_SubmergedSandTint
+writes:
+  - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_ShorelineBands_R80
+  - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_ShorelineBands_R80
+  - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+preserved:
+  - real PPG home map package
+  - seed, generated terrain, topology, biome markers, and placements
+  - R66 no-palms foliage and approved seeded grass/rock bindings
+  - R78 native spherical Oasis-water successor
+  - vendor sources and protected checkpoints
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1ShorelineBands_R80_20260806T0150Z
+  manifest_sha256: D1FDE859C2A095F9667487545B854A2F161271CD110611DF6D2DB88FB117EA8D
+diagnostics:
+  apply: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Apply2/result.json
+  verification: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Verify4/result.json
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Verify4/Capture/R80_seeded_desert_coast_dry_wet_submerged_lit.png
+claim_limit: >-
+  R80 proves one fresh-reload Lit D3D12 exact seeded Desert coast with a
+  runtime-bound project-owned BiomeMap-alpha shoreline material, unchanged R78
+  native water, MapCheck 0/0, and no dirty packages. It does not prove user art
+  acceptance, every coast, terrain smoothing, physical input feel, a packaged
+  executable, replication, or multiplayer.
+next_safe_action: >-
+  Freeze biome art. Exercise the retained R60 Trooper-to-StarSparrow control
+  loop in one visible hands-on PIE gate, then produce and smoke-test a bounded
+  Windows Development handoff package of the clean RedMMO home map. Do not add
+  palms, manual water planes, terrain remodeling, replication, or multiplayer
+  work before that package exists.

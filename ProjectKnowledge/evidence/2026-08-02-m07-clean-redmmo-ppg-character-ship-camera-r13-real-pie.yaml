@@ -1,0 +1,225 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-character-ship-camera-r13.real-pie.2026-08-02
+captured_utc: "2026-08-02T20:35:25Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r12-visible-player-and-ship-plus-r13-persisted-default-camera-and-flight
+evidence_class: automation
+evidence_subclass: real_d3d12_pie_persisted_default_camera_character_ship_render_and_flight_telemetry
+result: passed_r12_player_presentation_and_r13_persisted_camera_flight_ship_grounding_unresolved
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  r11_source_home_map_sha256: 3F98136280504222E5340DB7044F0F3564E8BFFD7221C4EC2F2DF655CE2FFAEC
+  r12_home_map_sha256: 0A7252E93F6F75FA7FAFAD856C7249E6964C27E34B9DD1386202080E2FD2D6CF
+  persisted_r13_home_map_sha256: C9BE88085575E75E1790CB9306D564EB100F5ED2E75E012C1FD09EA110FDDFE0
+
+rollback:
+  r12_initial:
+    root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_CharacterShip_R12_20260802_175054
+    manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_CharacterShip_R12_20260802_175054/pre_r12_manifest.json
+    manifest_sha256: 67C2D97448EB67FF7220270DE1EDDA399D1E30DE0AF6C59636F8FE936C2C8FCE
+  r12_camera_and_ship_revision:
+    root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_CharacterShip_R12V2_20260802_182912
+    manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_CharacterShip_R12V2_20260802_182912/pre_r12v2_manifest.json
+    manifest_sha256: 2F13D18326CAAD143F90449FC16F9E6501B762A7DEADF8C0A7A7F932B86B7796
+  r12_ship_transform_revision:
+    root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_Ship_R12V3_20260802_183854
+    manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_Ship_R12V3_20260802_183854/pre_r12v3_manifest.json
+    manifest_sha256: 4AA70755839950FAED6E11B641C5D764597118B36F87A803DFF6589B1BF3C112
+  r13_playerstart_rotation:
+    root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_PlayerStartCamera_R13_20260802_Candidate3
+    manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_PlayerStartCamera_R13_20260802_Candidate3/pre_r13_playerstart_manifest.json
+    manifest_sha256: C0DDEB6C291C6A535E3BC34FB1AB68CDAC1D1A13C78543BF04D62B5BDC73892B
+  rollback_method: >-
+    Close Unreal and restore only the exact retained R12/R13 project-owned
+    packages and home-map preimages named by the applicable manifest. Do not
+    restore over production RedMMOTitan maps or unrelated user work.
+
+persisted_changes:
+  scope: project_owned_clean_red_player_presentation_visual_ship_and_playerstart_rotation_only
+  player:
+    pawn: /Game/RedMMO/Gameplay/Player/BP_RedPlanetCharacter_R11
+    pawn_sha256: 65A0413D1921F8ED2F6E4E3893B1C6B5CA3A0D1F7BCFC9AF9BF987940ECDC11E
+    skeletal_mesh: /Game/SoStylized/Demo/Pawn/Mannequin/Character/Mesh/SK_Mannequin
+    animation_blueprint: /Game/SoStylized/Demo/Pawn/Mannequin/Animations/ThirdPerson_AnimBP
+    spring_arm_length_cm: 400.0
+    camera_field_of_view_degrees: 90.0
+    parent_ppg_logic_preserved: true
+    event_graph_or_input_modified_by_r12: false
+  game_mode:
+    asset: /Game/RedMMO/Gameplay/Player/GM_RedPlanet_R11
+    sha256: 0696DE6039A5389BF0F872DB84D970E981C69184CD3AEA0279D89001B98BBEBD
+  input_mapping:
+    asset: /Game/RedMMO/Gameplay/Input/IMC_RedPlanet_R11
+    sha256: 09AC8B9CAB42342C49A22BC6CC1B4A1770B9FB56CE1E251A8E0B0C50581E1DC6
+  ship:
+    blueprint: /Game/RedMMO/Gameplay/World/BP_RedParkedStarSparrow_R12
+    blueprint_sha256: C9FDCF7D0FE89DACE39D418B79A7951C37C699C1FEA7E485C85670B2AB864BD6
+    actor: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.BP_RedParkedStarSparrow_R12_C_0
+    label: RedMMO_R12_ParkedStarSparrow_VisualOnly
+    mesh: /Game/StarSparrow/Meshes/Examples/SM_StarSparrow01
+    dependency_package_count: 17
+    missing_dependencies: 0
+    scale: [1.0, 1.0, 1.0]
+    collision: disabled
+    overlap_events: false
+    visual_only: true
+    authoritative_surface_trace_used: false
+    surface_contact_claimed: false
+    grounding_accepted: false
+  playerstart:
+    actor: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.PlayerStart_0
+    rotation_before_degrees: {pitch: 47.790018847592656, yaw: 158.4806300808925, roll: 161.95571975500204}
+    rotation_after_degrees: {pitch: 0.0, yaw: -5.282776832580566, roll: 0.0}
+    non_playerstart_actor_snapshot_unchanged: true
+    non_playerstart_actor_count: 12
+  unchanged:
+    - PPG seed, radius, terrain, biome markers, foliage distribution, water, and atmosphere
+    - R11 movement graph, Enhanced Input mappings, and flight behavior
+    - PlanetGen destination world and vendor source packages
+    - protected production/checkpoint maps and unrelated dirty work
+
+structural_evidence:
+  r12_character_and_ship_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_CharacterShip_R12_20260802/build_redmmo_ppg_character_ship_r12_result.json
+    sha256: D31F1752C85184D15BD0813F2E290A9EC85B82A6AA3FD8F9659EA3123552A277
+    status: PASS_SERIALIZED_PENDING_RELOAD_MAPCHECK_REAL_PIE_VISUAL
+  r12_camera_revision_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_CharacterShip_R12V2_20260802/build_redmmo_ppg_character_ship_r12v2_result.json
+    sha256: 19C2BB9FE5814D16491090B3AF126453A749300C64ABB08EBA07092CE2C52C84
+    status: PASS_SERIALIZED_PENDING_RELOAD_MAPCHECK_REAL_PIE_VISUAL
+  r12_ship_transform_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_CharacterShip_R12V3_20260802/build_redmmo_ppg_ship_r12v3_result.json
+    sha256: 62903DA141F85C93C66F6A0C172D17C9CA6B638172D37BF7A7B69DA14270DBE1
+    status: PASS_SERIALIZED_PENDING_RELOAD_REAL_GPU_VISUAL
+  r12_fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_CharacterShip_R12V3_20260802/reload_mapcheck_redmmo_ppg_character_ship_r12v3_result.json
+    sha256: 0F954E923653E84FF572E5AD6126982B1BA2FAC7E87FECBCA89C4529AA8C9198
+    status: PASS_FRESH_RELOAD_SERIALIZED_READBACK_MAPCHECK_ISSUED
+  r12_real_pie:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_CharacterShip_R12V3Default2_20260802/validate_redmmo_ppg_character_ship_r12v3_default2_result.json
+    sha256: 7FD190379F6A3043EC5A41A9C22D3B87AA8DFB47C51AE8D227A417A7287AAE90
+    status: PASS_REAL_D3D12_PIE_CHARACTER_SHIP_AND_RETAINED_FLIGHT
+  r13_persist_playerstart:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlayerStartCamera_R13PersistV6_20260802/persist_redmmo_ppg_playerstart_camera_r13_result.json
+    sha256: 1642D1EDEE8D67554ADD5571B2E45932E929A56C34C897CD95293A89A0CE70E1
+    status: PASS_SERIALIZED_PENDING_FRESH_RELOAD_MAPCHECK_AND_REAL_PIE
+    save_succeeded: true
+    non_playerstart_actor_snapshot_unchanged: true
+  r13_fresh_process_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlayerStartCamera_R13FreshReload_20260802/verify_redmmo_ppg_playerstart_camera_r13_fresh_reload_result.json
+    sha256: 022475BB251FA96B12D961A943B683DFF5952D272FC13DA4CB1866A0245DA19C
+    status: PASS_FRESH_PROCESS_SERIALIZED_READBACK_MAPCHECK_PENDING_REAL_D3D12_PIE
+    map_check_errors: 0
+    map_check_warnings: 0
+    dirty_packages: []
+    map_loaded_by_script: false
+    map_saved_by_script: false
+
+real_gpu_evidence:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PersistedDefaultCamera_R13V2_20260802/validate_redmmo_ppg_persisted_default_camera_r13_result.json
+    sha256: 93829969B6F0D757A4E1DCF3F1A452EFD6D00DB68DB02022945B95D668CC01AF
+    status: PASS_REAL_D3D12_PERSISTED_DEFAULT_CAMERA_AND_R11_FLIGHT_SHIP_VISIBILITY_ONLY_GROUNDING_UNRESOLVED
+    rhi: D3D12_SM6
+    ppg_generation_phase: COMPLETE
+    ppg_generation_progress: 1.0
+    map_saved_by_validation: false
+    map_load_reload_called: false
+    clean_pie_end_verified: true
+  persisted_default_camera:
+    playerstart_yaw_degrees: -5.282776832580566
+    gravity_relative_camera_pitch_degrees: -1.0177038509960822e-13
+    gravity_relative_camera_yaw_degrees: -5.282776832580591
+    gravity_relative_camera_roll_degrees: 2.5060784209685427e-15
+    relative_yaw_error_degrees: 1.6741941522013803e-07
+    camera_forward_dot_radial_up: -1.7763568394002505e-15
+    default_view_rotation_writes: false
+    playerstart_writes_during_validation: false
+  runtime_visual_contract:
+    character_mesh_exact: true
+    character_animation_blueprint_exact: true
+    character_visible: true
+    character_hidden_in_game: false
+    character_recent_render: true
+    ship_mesh_exact: true
+    ship_visible: true
+    ship_hidden_in_game: false
+    ship_recent_render: true
+    ship_collision: disabled
+    ship_visual_only: true
+    ship_grounding_accepted: false
+  flight_telemetry:
+    r11_contract_inherited_unchanged: true
+    toggle_flight: F
+    camera_directed_forward: W
+    explicit_ascend: Space
+    explicit_descend: LeftControl
+    runtime_driver: UE_5.8_EnhancedInputLocalPlayerSubsystem_action_injection
+    camera_directed_dive_w_radial_delta_cm: -524.9461808204651
+    camera_directed_dive_w_forward_alignment: 0.9873840306792554
+    camera_directed_climb_w_radial_delta_cm: 509.39068830013275
+    camera_directed_climb_w_forward_alignment: 0.7837290919508343
+    explicit_space_ascent_radial_delta_cm: 514.2375916838646
+    explicit_left_control_descent_radial_delta_cm: -501.6906292438507
+    final_is_flying: false
+  default_view_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PersistedDefaultCamera_R13V2_20260802/RedMMO_R13_persisted_default_camera_PIE_1920x1080.png
+    sha256: 7F746216D92E95D13C8523D93D56338CF50C1992B1682F0B55E53175EBBDE9E2
+    dimensions: [1920, 1080]
+    bytes: 3012949
+    reviewed_finding: >-
+      The real-GPU default frame visibly contains the full third-person
+      mannequin and the parked StarSparrow in front of the character. This is
+      player-presentation and framing evidence, not ship surface-contact proof.
+  flight_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PersistedDefaultCamera_R13V2_20260802/RedMMO_R13_persisted_flight_descent_PIE_1920x1080.png
+    sha256: 8969D9DE58CE019EFF7C9A5741F0238917395103206C8123C066606DE2454276
+    dimensions: [1920, 1080]
+    bytes: 2974659
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports:
+    nwiro_5353_closed: true
+    epic_mcp_8000_closed: true
+    uaip_8765_closed: true
+  unrelated_dirty_work_preserved: true
+
+acceptance:
+  r12_visible_third_person_character: passed
+  r12_visual_only_parked_ship: passed
+  r13_persisted_default_camera: passed
+  r13_camera_directed_flight_and_explicit_vertical_controls: passed
+  r13_fresh_reload_mapcheck_zero_errors_zero_warnings: passed
+  ship_surface_grounding: unresolved
+  ship_collision_boarding_and_flight: not_in_scope
+  user_visual_acceptance: pending
+
+claim_limit: >-
+  R12/R13 prove that the clean Red PPG home map persistently spawns the exact
+  visible third-person mannequin, includes the exact collision-disabled
+  visual-only parked StarSparrow, opens with the persisted gravity-relative
+  default camera framing both in a reviewed real-D3D12 frame, and retains the
+  R11 F/W/Space/Left-Control flight behavior under real PIE action injection and
+  motion telemetry. Fresh-process reload independently proves the R13 map hash,
+  PlayerStart rotation, and MapCheck 0 errors / 0 warnings. This does not prove
+  physical-key delivery or final control feel, authoritative ship surface
+  contact, ship collision, boarding, ship flight, replication, biome quality,
+  night/stars, water, performance, cook, package, or standalone acceptance.
+
+next_safe_action: >-
+  In a separate rollback-backed R14 slice, wait for PPG generation and player
+  settling, query the authoritative generated surface beneath the parked ship,
+  validate radial alignment and visible hull or landing-contact clearance, and
+  capture close and wide real-D3D12 player-scale views. Do not infer grounding
+  from camera framing, render recency, or a camera-to-ship dot product.

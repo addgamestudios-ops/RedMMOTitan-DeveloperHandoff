@@ -1,0 +1,278 @@
+schema_version: 1
+id: evidence.m07.tropical-ue58-isolated.real-gpu.2026-07-25
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: tropical-island-and-underwater-vendor-map-isolated-ue58-visual-review
+evidence_class: real_gpu_visual
+captured_utc: "2026-07-25T19:15:43Z"
+finalized_utc: "2026-07-25T19:33:57Z"
+result: passed_with_compatibility_warnings_and_no_production_migration
+
+scope:
+  objective: >-
+    Test the owned Tropical Island and Underwater vendor environment as a whole
+    in a disposable D-resident Unreal Engine 5.8 scratch project, render its
+    saved main map on the real GPU for user review, and stop before any
+    RedMMOTitan migration, planetary-tile integration, package save, provider
+    use, or production-map change.
+  performed:
+    - authenticate the complete isolated vendor Content tree and project descriptor
+    - make one complete no-clobber scratch copy outside RedMMOTitan and the vendor source
+    - change only the scratch descriptor's semantic JSON value EngineAssociation from 5.4 to 5.8
+    - disable the Android File Server plugin and network connection only in the scratch DefaultEngine.ini
+    - close the previously open production editor gracefully after it reported All Saved
+    - launch exactly one UE 5.8 editor with D3D12 and SM6 against the scratch main vendor map
+    - disable Nwiro, NwiroIntegrationKit, UnrealAIIntegrationPlatform, ModelContextProtocol, and AndroidFileServer for the scratch launch
+    - wait for the complete first-use local shader build and capture the actual editor viewport
+    - reauthenticate vendor source, scratch Content, main map, BuiltData, and protected RedMMOTitan packages after the load
+  not_performed:
+    - save or resave a vendor, scratch, RedMMOTitan, production, test, checkpoint, fused, or planetary package
+    - import, migrate, rename, move, overwrite, delete, or place a vendor asset
+    - alter any of the 27 tangent-local authoring inputs or six fused runtime fields
+    - load or modify a RedMMOTitan production map
+    - enter PIE, possess a pawn, build, cook, package, or run multiplayer
+    - call Nwiro, UAIP, official Epic MCP, Meshy, Tripo, fal.ai, or any external provider
+    - upload vendor or derived bytes for AI processing
+    - authorize a production migration, tile-region integration, or autonomous placement action
+
+authoritative_checkout:
+  root: D:/RedMMOTitan
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  status_entries_with_all_untracked_at_final_check: 1809
+
+source_project:
+  root: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs
+  declared_engine_association: "5.4"
+  descriptor:
+    path: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/StylizedNatureTropicalIs.uproject
+    bytes: 175
+    sha256: 3ABBBF335CC8A1E66BF87F3EAF5804B74890840B493AA57BA7BDD910607CD1AD
+  content_root: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/Content/Zenscape_Island
+  content_files: 334
+  content_bytes: 559398662
+  content_tree_sha256_before_and_after: 610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732
+  main_map:
+    package_name: /Game/Zenscape_Island/Demo/Zenscape_Island
+    path: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/Content/Zenscape_Island/Demo/Zenscape_Island.umap
+    bytes: 17014947
+    sha256: 1CBA47E0DADC8495348811EDB32425460F78E6F80541983DB4E410321341FBAE
+  built_data:
+    path: D:/RedMMOTitanWindowsData/UserUnrealProjects/StylizedNatureTropicalIs/Content/Zenscape_Island/Demo/Zenscape_Island_BuiltData.uasset
+    bytes: 17197003
+    sha256: E7B364A118BE4BEFF62C22060B51F44B70FF36C607EA6950EAA0A9F0C6FA8309
+  rights_boundary:
+    local_owned_pack_review_only: true
+    allows_usage_with_ai: false
+    provider_or_upload_use: false
+
+scratch_transaction:
+  active_root: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2
+  no_clobber_created: true
+  content_copy:
+    files: 334
+    bytes: 559398662
+    tree_sha256_before_and_after: 610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732
+    path_set_and_bytes_match_source: true
+  descriptor:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/TropicalUE58VisualReview.uproject
+    bytes: 175
+    sha256: 5037D37E630647AD61032E59AC3DD28F263EA06D704973804EC5585317CDB8AC
+    only_semantic_json_delta: EngineAssociation_5.4_to_5.8
+    raw_format_note: scratch serialization also normalized newline bytes and added a terminal newline
+  config:
+    default_editor_sha256: A3784DA9C22CA6EB450F881E5140C8BFB6845BE3F3F133033937CE8C455C052F
+    default_game_sha256: 4A27BC62BFBC979B706990E75DDB0A9D41731F690E134CC6620A575D7D6FE00B
+    default_input_sha256: A7714BECECAD6E5A40B9BA9E0CBB7F6FB67DB93A85466C20877F2CC9962F4A55
+    source_default_engine_sha256: CC0E66F08FDC647A0411069A9D6FF19C20BAB988022508CEC4B6E7653836F21F
+    scratch_default_engine_sha256: C7E34C4F97748D6962B48B34BB062F66ACBA96BAFDBB6420F99378A1D8B1F968
+    scratch_only_deltas:
+      - bEnablePlugin=True_to_False
+      - bAllowNetworkConnection=True_to_False
+  map_after_load:
+    bytes: 17014947
+    sha256: 1CBA47E0DADC8495348811EDB32425460F78E6F80541983DB4E410321341FBAE
+    exact_source_match: true
+  built_data_after_load:
+    bytes: 17197003
+    sha256: E7B364A118BE4BEFF62C22060B51F44B70FF36C607EA6950EAA0A9F0C6FA8309
+    exact_source_match: true
+  retained_abandoned_partial_copy:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z
+    status: retained_not_used
+    reason: >-
+      The first copy attempt produced an incomplete scratch layout after a
+      PowerShell 5.1 LiteralPath incompatibility. It was never launched and is
+      retained for explicit later cleanup rather than deleted during this
+      acceptance slice.
+
+engine:
+  executable:
+    path: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+    bytes: 512952
+    sha256: BD2F48D592D69FC04B55B2813CB09D0D4D728BC462E7DF3BA142E3F2662D1D97
+    version: "++UE5+Release-5.8-CL-55116800"
+  editor_pid: 2128
+  single_unreal_process: true
+  alive_and_responding_at_final_check: true
+  working_set_gib_at_final_check: 5.022
+  launch_arguments:
+    project: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/TropicalUE58VisualReview.uproject
+    map: /Game/Zenscape_Island/Demo/Zenscape_Island
+    renderer: [-D3D12, -sm6]
+    provider_and_listener_disables:
+      - AndroidFileServer
+      - Nwiro
+      - NwiroIntegrationKit
+      - UnrealAIIntegrationPlatform
+      - ModelContextProtocol
+    isolation:
+      - -NoSourceControl
+      - -NoEpicPortal
+      - -NoSound
+      - -DDC=NoShared
+      - -LocalDataCachePath=D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/DerivedDataCache
+  local_ai_listener_counts_at_final_check:
+    tcp_5353: 0
+    tcp_8000: 0
+    tcp_8765: 0
+
+runtime_evidence:
+  renderer:
+    rhi: D3D12
+    feature_level: SM6
+    supported_and_used: true
+    adapter: NVIDIA GeForce RTX 3080
+    adapter_id: 0
+    maximum_feature_level: "12_2"
+    maximum_shader_model: "6.7"
+    driver: "610.74"
+  initialization:
+    engine_initialized_utc: "2026-07-25T19:23:20Z"
+    map_load_command_utc: "2026-07-25T19:23:21Z"
+    exact_map_path_loaded: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/Content/Zenscape_Island/Demo/Zenscape_Island.umap
+    loaded_world_package: /Game/Zenscape_Island/Demo/Zenscape_Island
+    map_check_errors: 0
+    map_check_warnings: 0
+  shaders:
+    capture_ready_stats_utc: "2026-07-25T19:29:32Z"
+    capture_ready_jobs_assigned: 11450
+    capture_ready_jobs_completed: 11450
+    capture_ready_completion_percent: 100
+    authenticated_log_final_stats_utc: "2026-07-25T19:32:32Z"
+    authenticated_log_final_jobs_assigned: 11452
+    authenticated_log_final_jobs_completed: 11452
+    authenticated_log_final_completion_percent: 100
+    shader_worker_count_at_final_check: 0
+  visible_content:
+    - turquoise ocean and shallow shoreline
+    - sandy beach
+    - layered stylized cliffs and rock spires
+    - dense coconut canopy
+    - shrubs, ground plants, and shoreline foliage
+    - stylized sky and clouds
+  visual_artifact:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/Diagnostics/TropicalUE58VisualReview_PrintReady.png
+    bytes: 1618821
+    sha256: 15372BC7DE2EAA48319E883CEA7E37F90CD3B92B4AB8B809D7DB64DA3671A79F
+    dimensions: [1286, 1052]
+    capture_method: exact_foreground_editor_window_PrintWindow_after_shader_completion
+    editor_status_visible: All_Saved
+  live_log:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/Diagnostics/TropicalUE58VisualReview_Run2.log
+    authenticated_prefix_bytes: 442615
+    authenticated_prefix_sha256: 2E0B1B95BE3059C4DB7561D397FB1B16F2378FA19272DEABF7FEFB3362399A52
+    prefix_captured_utc: "2026-07-25T19:33:09Z"
+    note: >-
+      The editor remains open for review, so later harmless log appends do not
+      invalidate the authenticated prefix.
+
+compatibility_findings:
+  fatal_errors: 0
+  assertions: 0
+  ensures: 0
+  missing_packages: 0
+  material_compile_failures: 1
+  warnings:
+    - >-
+      MM_Sun failed PCD3D_SM6 compilation and UE used the default material for
+      that asset.
+    - >-
+      Landscape_0 foliage instance-base cache verification reported two
+      mismatches, for collision components 36 and 28.
+    - >-
+      The prior vendor editor-layout key was incompatible and UE created an
+      updated scratch-local layout key.
+  diagnostic_capture_note: >-
+    The startup -ExecCmds argument was parsed as HighResShot without its
+    dimension, producing one non-map bad-input diagnostic. The final visual
+    artifact was captured directly from the exact real-D3D12 editor window.
+  map_check_remained_clean: true
+
+resources_at_final_check:
+  physical_ram:
+    total_gib: 63.872
+    free_gib: 34.240
+  commit:
+    limit_gib: 83.872
+    committed_gib: 42.698
+    headroom_gib: 41.174
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 7490
+    free_vram_mib: 2564
+    utilization_percent: 34
+  disk:
+    d_free_gib: 1067.843
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap:
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap:
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap:
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset:
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+rollback:
+  canonical_preimages: D:/RedMMOTitanWindowsData/Rollback/M07_TropicalUE58VisualCanonical_20260725_1934Z
+  files:
+    INDEX.yaml: 79DA7304FB83E0F4B188A6A5B4381719D16CDD981529F151ADAF891B58AE0112
+    current_state.yaml: 3C83212E184F0A43FB526240016586476B5B1A96C61095D075876105D5F5968F
+    redmmotitan_module_queue.json: 3D8A78699AA30DEA2BCA54A422FDCFB53430D9DC76B445F3BA53AAB8053E55DD
+
+claim_limit: >-
+  This is real-GPU editor visual evidence for one complete locally owned vendor
+  map opened from a disposable UE 5.8 scratch copy. It proves the saved
+  Tropical environment can load and visibly render under D3D12/SM6 on the RTX
+  3080 despite the recorded foliage and sun-material compatibility warnings.
+  It does not prove PIE or gameplay, underwater transition behavior, packaged
+  compatibility, performance budgets, World Partition or LOD readiness,
+  RedMMOTitan migration, planetary curvature or shoreline blending, production
+  tile integration, Nwiro processing, provider use, or autonomous environment
+  orchestration.
+
+remaining_blockers:
+  - obtain user visual approval or rejection of this vendor environment direction
+  - repair or replace the MM_Sun SM6 path in a separately approved scratch-only compatibility slice
+  - validate and, if necessary, rebuild the two foliage instance-base cache records in a separately approved scratch-only slice
+  - profile water, foliage overdraw, shadows, LOD and culling before any production integration
+  - test the underwater volume and above-to-underwater transition separately with real-GPU evidence
+  - define an exact reviewed dependency closure and migration destination before copying any package into RedMMOTitan
+  - design a local landmark or hub integration near a chosen planetary region rather than overlaying this monolithic vendor map onto one of the 27 tangent-local inputs
+
+next_safe_action: >-
+  Leave the isolated scratch editor open on
+  /Game/Zenscape_Island/Demo/Zenscape_Island for the user's visual review.
+  If the user approves the art direction, request one explicit next gate for a
+  scratch-only MM_Sun and foliage compatibility repair plus an exact curated
+  dependency and performance profile. Do not migrate into RedMMOTitan or place
+  the environment near a planetary tile until that review passes and the user
+  separately approves the production integration plan.

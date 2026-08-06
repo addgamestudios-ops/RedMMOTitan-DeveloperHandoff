@@ -1,0 +1,169 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r09.direct-foliage-rebind-real-gpu-failed.2026-08-02
+captured_utc: "2026-08-01T23:31:09Z"
+updated_utc: "2026-08-02T00:36:45Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r09-direct-seeded-foliage-rebind-and-player-scale-capture
+evidence_class: real_gpu_visual
+result: passed_structural_persistence_failed_visual_review
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  persisted_home_map_sha256: 838D88316890BEEDEFF9BAB1DFA750F1F5A118596A14F25EA9FB0442F331B746
+  r09_project_owned_package_count: 11
+
+persisted_bindings:
+  tree:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_Tree_OasisPalm01_R09
+  grass:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_GrassChunk_01_A_R09
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_GrassChunk_01_B_R09
+  rock:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_StoneVanilla_Small_01_R09
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_StoneVanilla_Small_02_R09
+  source_policy: >-
+    Grass and stone aliases use the installed StylizedRocksPack_01 sources; the
+    tree slot uses the already reviewed project-owned Oasis palm alias. Every
+    active PPG tree, grass, and rock slot is stylized; no stock realistic slot
+    remains active in this R09 profile.
+
+structural_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09E_20260802_020600
+  guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09E_20260802_020600/run_ppg_home_foliage_rebind_r09_guard_result.json
+    sha256: F4D4A3B0003AF89C6486A934ECE5882558A6048BFCE457574C2E522569D71BBD
+    status: PASS_FRESH_RELOAD_AND_TRANSFORMS_PENDING_GPU
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09E_20260802_020600/build_ppg_home_foliage_rebind_r09_result.json
+    sha256: 04E8AFC9F8A288A8FFF61E14A5EC512C1BD4B8419AAE97884D78AA2AAB0717DB
+  fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09E_20260802_020600/verify_ppg_home_foliage_rebind_r09_result.json
+    sha256: 7F821CE7CBE5D98DC28E4874DEC3349382A53BF076076B6F85A6678EECF8F4DD
+    status: PASS_FRESH_RELOAD_STATIC_RUNTIME_STRUCTURE
+    map_check_errors: 0
+    map_check_warnings: 0
+    dirty_packages: 0
+  transform_comparison:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09E_20260802_020600/compare_ppg_foliage_transform_signatures_r09_result.json
+    sha256: BB8B896A7E3974C8212F9E962EC523F2D22364F127969957D405B4C5A161E983
+    status: PASS_EXACT_QUANTIZED_TRANSFORM_EQUALITY
+    tree_instances: 429385
+    grass_instances: 1005802
+    rock_instances: 3609
+    interpretation: >-
+      Fixed-camera sorted transforms and variant selections match the prior
+      seeded PPG profile index-for-index; R09 changed bindings, not placement,
+      marker logic, seed, density distribution, or transforms.
+
+real_gpu_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_20260802_021700
+  preliminary_attempt:
+    result: failed_before_capture_or_mutation
+    cause: Python read a Windows PowerShell UTF-8 BOM as plain UTF-8.
+    correction_manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_20260802_021700/retry1_correction_manifest.json
+    correction_manifest_sha256: AB937F5238D7B9DF0FE058E4B5AC089761AD2406722A5F4FB9A063836F98F51D
+  corrected_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_20260802_021700/run_capture_r09_player_scale_guard_retry1_result.json
+    sha256: E0C280FA84B7572667930B8744247C65BE5471EAD295C0FC7F8E19548D5D01F2
+    technical_status: PASS_REAL_GPU_PENDING_HUMAN_VISUAL_ACCEPTANCE
+    free_physical_gib_at_launch: 48.76
+    minimum_free_physical_gib: 42.902
+  capture_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_20260802_021700/capture_r09_player_scale_d3d12_retry1_result.json
+    sha256: 7E3F074594BEF195152F8DB1733834E52F9C438FD554E3A9773FA82F97822E31
+    rhi: D3D12 SM6
+    adapter: NVIDIA GeForce RTX 3080
+    generation_complete: true
+    map_saved: false
+    actors_moved: false
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_20260802_021700/RedMMO_Home_R09_player_scale_stylized_ppg_retry1_1920x1080.png
+    sha256: 3BC697862623C18D6263D4D4A17AFB819AA3034F57EDDB6AE6E8028A3D3508E6
+    dimensions: [1920, 1080]
+  surface_resolved_capture:
+    root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_R03_20260802_033033
+    guard:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_R03_20260802_033033/run_capture_r09_surface_resolved_r03_guard_result.json
+      sha256: 106926F670CC02CD3D81A927369D7DC61CD56C1227FAA6E81FFC013CD29F7855
+      technical_status: PASS_REAL_GPU_PENDING_HUMAN_VISUAL_ACCEPTANCE
+      free_physical_gib_at_launch: 48.34
+      minimum_free_physical_gib: 41.736
+      free_gpu_memory_mib_at_launch: 9431
+      editor_pid: 3688
+      editor_exit_code: 0
+      unreal_process_count_after: 0
+    capture_report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_R03_20260802_033033/capture_r09_surface_resolved_d3d12_r03_result.json
+      sha256: 2E762359B17FE0ADA4721709731E48A6FFFE40ED9757B74F8354F78F59845A47
+      rhi: D3D12 SM6
+      adapter: NVIDIA GeForce RTX 3080
+      generation_complete: true
+      map_saved: false
+      actors_moved: false
+      query_collision_components: 93
+      terrain_components: 816
+      surface_radius_cm: 300064919.8467466
+      normal_radial_dot: 0.9978560581710163
+      camera_radial_clearance_cm: 228.9210102558136
+      camera_normal_clearance_cm: 229.8972390059011
+      camera_up_radial_dot: 0.9980024745419553
+      camera_corridor_clear_ratio: 1.0
+    screenshot:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeFoliageRebind_R09_GPU_R03_20260802_033033/RedMMO_Home_R09_surface_resolved_player_scale_r03_1920x1080.png
+      sha256: F21EAEDF777E3DCD2A381837D2F4036C58461A4A3B8866D274CDB80933DB1901
+      dimensions: [1920, 1080]
+      bytes: 3872770
+    interpretation: >-
+      The no-save PIE surface trace and reconstructed editor camera prove that
+      this frame is above the generated PPG terrain with positive measured
+      radial and surface-normal clearance. This closes the earlier capture-
+      camera blocker without changing or saving the map.
+
+visual_review:
+  accepted: false
+  findings:
+    - the corrected camera is above the generated surface and the terrain is readable
+    - grass reads as thin, nearly black spike silhouettes rather than coherent stylized coverage
+    - distant rock aliases read as bright or neon green triangular placeholders rather than hand-painted stones
+    - the terrain surface retains realistic high-frequency noise instead of the required low-frequency painted ground treatment
+    - the sky and horizon are washed toward white, reducing material and silhouette readability
+    - no palm is visible in this review frame, so the tree slot remains visually unreviewed
+  interpretation: >-
+    The corrected screenshot is valid real-GPU visual evidence for the persisted
+    R09 bindings. It proves the seeded direct rebind is visible above ground and
+    also proves that the current grass, rock, ground, and exposure presentation
+    is not acceptable. R09 remains a technical persistence pass and a visual-
+    art failure.
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  legacy_or_production_changed: false
+  character_changed: false
+  ship_changed: false
+  water_changed: false
+  ppg_seed_or_distribution_changed: false
+  providers_called: false
+  provider_ports_closed_after: true
+  unreal_process_count_after: 0
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R09 proves a persisted direct PPG tree, grass, and rock binding replacement,
+  fresh reload, MapCheck 0/0, exact seeded transform equality, and one corrected
+  above-surface real-GPU editor-preview frame derived from an authoritative no-
+  save PIE terrain trace. The frame fails art direction because grass, rocks,
+  ground, and exposure are visibly wrong. It proves no human acceptance,
+  gameplay, collision, performance, cook, package, multiplayer, or full-planet
+  acceptance.
+
+next_safe_action: >-
+  Start one bounded R10 project-owned presentation correction while preserving
+  the proven PPG seed, marker logic, density, and transforms: correct the grass
+  alias material/two-sided shading and silhouette scale, replace the green rock
+  material/scale presentation, apply the required low-frequency painted terrain
+  surface, and bound exposure for readable day lighting. Then repeat this exact
+  surface-resolved provider-off D3D12 view. Do not add water, character, ship, or
+  manual placement in that slice.

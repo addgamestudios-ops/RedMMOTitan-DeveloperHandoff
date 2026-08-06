@@ -1,0 +1,306 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-ACTUAL-FIELD-MEMBER-REAL-GPU
+captured_at: "2026-07-23T07:35:02Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-generated-field-member-stable-identity-range-and-depletion
+evidence_class: real_gpu_visual
+result: actual_generated_field_member_identity_range_depletion_reward_and_hud_pass_travel_multiplayer_audio_persistence_and_polished_presentation_open
+
+scope:
+  authorized:
+    - add an authority-initialized immutable replicated stable ID to generated mineable field members
+    - run one bounded rendered standalone PIE acceptance against an actual member of the twenty-four-member production field
+    - compile current TitanEditor and Titan Win64 Development targets
+    - add one editor-only automation harness and focused offline source contracts
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - fused terrain assets and retained rollback maps
+    - artist repositories, artist handoffs, supplied art, and unrelated dirty work
+    - the accepted transient one-client and local two-client DEF-0003 harnesses
+  not_run:
+    - Windows packaging
+    - player-controlled flight or travel into the field
+    - projectile or mining-RPC delivery
+    - two-client field-member or distance-cull parity
+    - Steam transport or two-account session flow
+    - late join
+    - destruction or reward audio acceptance
+    - server-restart persistence or respawn acceptance
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  preexisting_dirty_entry_count: 154
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldPIE_20260723_095714
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldPIE_20260723_095714/manifest.yaml
+  manifest_sha256: 241096BA1472A3048CF99C3CED0E887F45C323713CD7948B1E74DFCBDF08C1BC
+  prior_state:
+    - both mineable-asteroid production sources retained byte-exact
+    - the production scenery source and accepted two-client harness retained byte-exact
+    - the actual-field PIE harness was absent
+    - the focused contract and all five canonical records retained byte-exact
+
+implementation:
+  stable_identity:
+    format: asteroid-field.red.mars.deep-space/0x4F524531/%02d
+    authority_initialized: true
+    immutable_after_first_assignment: true
+    replicated_property: true
+    visual_variant_seeded_from_stable_id: true
+    remote_replication_runtime_verified: false
+  atomic_field_spawn:
+    - each production member is spawned deferred with its deterministic full transform
+    - stable identity, owner, field tag, and presentation cutoff are assigned before FinishSpawningActor
+    - all twenty-four legacy actor names remain RedMineableAsteroid_00 through RedMineableAsteroid_23
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldPIETests.cpp
+    sha256: FC70D1CDEC425741004A77F9BA215FA20A262F009BA17228EE5292536A9F7B2C
+    shipping_runtime_changed: false
+    behavior:
+      - loads /Game/RedMMO/Maps/RedPlanetGen in rendered standalone PIE
+      - requires exactly twenty-four scenery-owned tagged production field members
+      - selects member 23 by immutable stable ID rather than actor name or array index
+      - replays seed 0x4F524531 and verifies the exact transform, rotation, and scale
+      - uses an exact collision trace and a bounded test teleport to position the pawn and camera 15000 cm from the surface
+      - applies seven production RegisterMiningHit calls without changing capacity, scale, cutoff, tags, or stable ID
+      - requires the other twenty-three field members to remain Active and full
+      - ends PIE and verifies zero PIE worlds
+
+source_identities:
+  - {path: Source/RedMMO/RedMineableAsteroid.h, sha256: 947B57F73E0D71CFFDFF91E157FAD352A353A11234445E9E525B5AB915CBC740}
+  - {path: Source/RedMMO/RedMineableAsteroid.cpp, sha256: E207EF19F8A0C1FCC8CC34157C29F7DDC699B8AC13F96771745958748F87F81D}
+  - {path: Source/RedMMO/RedSpaceScenery.cpp, sha256: 8A51CEFA1F30604515ECC7A58BF72E68A44F9FBB32EE7F31035929E974D1F21E}
+  - {path: Source/RedMMO/Tests/RedDEF0003ActualFieldPIETests.cpp, sha256: FC70D1CDEC425741004A77F9BA215FA20A262F009BA17228EE5292536A9F7B2C}
+  - {path: Tools/tests/test_def0003_asteroid_depletion_contract.py, sha256: 3E9BE76FAB2D2FCA8316C48FAE4A72E678865D3E04162B279A455BE3B591450B}
+
+offline_contract:
+  result: 18_of_18_passed
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/contract_tests.stderr.log
+    sha256: 37A8971A85073E0C3C7D6E15DF86E4AFEA1C06B4C3FD824DAEC59C0A93189ADE
+
+resource_and_process_gate:
+  machine:
+    total_physical_ram_gib: 31.872
+    gpu: NVIDIA GeForce RTX 3080
+    dedicated_vram_mib: 10240
+  prelaunch_free_physical_ram_gib_observed_range: [16.7, 17.2]
+  prelaunch_free_vram_mib_approximate: 8600
+  postrun_free_physical_ram_gib: 16.865
+  postrun_free_commit_headroom_gib: 35.961
+  postrun_free_vram_mib: 8670
+  postrun_free_disk_d_gib: 1141.160
+  prelaunch_unreal_or_build_processes: 0
+  unreal_processes_launched_during_slice: 3
+  final_acceptance_run_unreal_processes: 1
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched because sustained free physical RAM remained
+    below the required 18-20 GiB range.
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/TitanEditor_build_revert_cleanup.log
+      sha256: 39AD5447D8EAD7240EC99F5F74E02131E2BEDF37A5B9D157C984C843F8FE860C
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: 82BE62673255C48D286D43A108D3CF357C2B0144D7A735DF724BBC00F18B71C1
+    corrected_attempt:
+      result: failed_then_repaired
+      cause: wrong UE 5.8 SpawnActor overload in the new deferred-spawn implementation
+      failed_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/TitanEditor_build.log
+  titan_game:
+    target: Titan Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/Titan_build.log
+      sha256: B5359DA5CDDB487CD3439E57895769BBAEE855BBB26947A016EC52E04E560EDC
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/Titan.exe
+      sha256: B7F19E7935558270ABF239F27F83161EDE19742345228E173FDF16439E343FF6
+
+validation_correction:
+  finding: >-
+    An independent read-only audit initially inferred that the transient PIE
+    settings root was leaked by the harness.
+  attempted_change: >-
+    A duplicate manual RemoveFromRoot was temporarily added to the post-PIE
+    wait command.
+  failed_evidence:
+    runtime_log: D:/RedMMOTitan/Saved/Crashes/UECC-Windows-C0E8888143017868C938A4A9AF6F00B8_0000/Titan.log
+    runtime_log_sha256: AD9C0886E9304334F1FD70275E66086199B3242B098CE2B9A6D658913F328612
+    crash: D:/RedMMOTitan/Saved/Crashes/UECC-Windows-C0E8888143017868C938A4A9AF6F00B8_0000
+    crash_context_sha256: F3E4AE0DCCC52B4F72E7207FB318F3D1F3C4794CA885BE590537F6A6B9F774BC
+    result: >-
+      The test reached every acceptance marker, then the duplicate cleanup
+      asserted in FUObjectArray::IndexToObject and terminated the editor.
+  root_cause_and_recovery: >-
+    UE 5.8 FStartPIEForAutomationCommand already removes the rooted
+    EditorPlaySettings in its destructor, including abort and teardown paths.
+    The duplicate cleanup was reverted byte-exact to the prior harness hash,
+    TitanEditor rebuilt, and the final rendered run passed and shut down
+    cleanly. The failed intermediate run is not acceptance evidence.
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  topology: one_standalone_pie_world
+  steam_transport: false
+  automation:
+    test: RedMMO.Mining.DEF0003.ActualGeneratedFieldMemberPIE
+    result: pass
+    pass: 1
+    fail: 0
+    time_seconds: 6.097
+    artifact_ids:
+      report: 68F89AF04FEE1952D7F393B40BF85204
+      log: 88E71C2140C12887A4AE59935136CC96
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/RunAutomationTest_final.json
+      sha256: C77F177B3C751BD4D4D10E489A1219A4E113CBDA520B3A9153B0E06355FEDBA0
+    report_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/RunAutomationTest_final.txt
+      sha256: A8E76D71807E88F69F455A37B919411BA0A5F096BC7F57716D5BC3361E066FC7
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/Titan_runtime_final.log
+    sha256: 0ECC5F875A6519D9B27DC922A77C1EACDE009CBEB01383A9FD1ED2E607E86CA1
+    bytes: 440886
+  markers:
+    identity: >-
+      pass=1 stableId=asteroid-field.red.mars.deep-space/0x4F524531/23
+      seed=0x4F524531 ordinal=23 cohort=24 owner=Red_DeterministicSpaceScenery
+      actorName=RedMineableAsteroid_23 transformPass=1
+      location=(-4002040.2,-3381053.7,2760070.4)
+      scale=(14.99576,17.45299,9.80450)
+    range: >-
+      pass=1 altitudeKm=53.216 playerTravelKm=57.001 surfaceGapCm=15000.0
+      cameraToBoundsCm=52076.9 cullCm=2000000.0 traceExact=1
+      recentlyRendered=1 ldCull=2000000.0 cachedCull=2000000.0
+      hudVisible=1
+    hit: >-
+      pass=1 actualFieldMember=1 hits=7 extracted=6000 capacity=6000
+      capacityUnchanged=1 phase=1 sequence=1 rewardDelta=6 receipt=1
+      otherMembersPristine=23
+    transition: >-
+      pass=1 phase=1 sequence=1 collision=0 hidden=0 rewardDelta=6
+      receipt=1 hudVisible=1 hudText=STONE_0_IRON_6_CRYSTAL_0
+    final: >-
+      pass=1 phase=2 sequence=2 hidden=1 explosion=1 debris=12
+      recentlyRenderedDebris=0 rewardDelta=6 receipt=1 postHit=0
+      fieldCount=24 otherMembersPristine=23 hudVisible=1
+      hudText=STONE_0_IRON_6_CRYSTAL_0
+    result: >-
+      acceptancePass=1 evidenceClass=real_gpu_visual actualFieldMember=1
+      stableIdentity=1 testTeleport=1 playerControlledTravel=0
+      projectileDelivery=0 multiplayer=0 steamTransport=0
+    complete: "pieEnded=1 acceptancePass=1"
+  failure_scan:
+    fatal_or_assert_or_ensure: 0
+    out_of_memory: 0
+    gpu_crash_or_device_removed: 0
+  nonblocking_runtime_messages:
+    - disabled Voxel invoker class is absent and ship fallback warnings remain
+    - r.MotionVectorSimulation has an existing render-thread-safety warning
+    - teardown reports one SpawnActor refusal while the world is closing
+    - the automation report classifies these messages as FailMessages even though its result is Pass with fail count zero
+
+visual_review:
+  window: "Titan Preview [NetMode: Standalone 0] (64-bit/PC D3D SM6)"
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/Captures/DEF0003_Field_Before.png
+    sha256: 4A48074C55AB9015DB7A6C304ABF5D7030EA8807BA7D84DB3460E7D87B59D734
+    finding: the actual generated member fills the close frame and the visible HUD reads STONE 0 IRON 0 CRYSTAL 0
+  transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/Captures/DEF0003_Field_Transition.png
+    sha256: FFF07F11E4E91C6EFFD8C623F12560EBDE210019467199D45F76C012E4F3D8D4
+    finding: the intact target remains present while the visible HUD changes to IRON 6
+  final:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/Captures/DEF0003_Field_Explosion.png
+    sha256: 477CE13DEBB56D9EA22E0C1ECCD25F1E356325377C92C6425B95B91EDFBFE529
+    finding: the large intact asteroid body is absent, a small bright destruction effect is visible, the planet background is exposed, and IRON 6 persists
+  limitations:
+    - all three frames are extremely close and contain severe foreground clipping, so they do not accept polished mining framing
+    - the twelve simulating debris components were not recently rendered and individual debris pixels are not accepted
+    - the bounded harness teleported the pawn and camera; it does not accept player-controlled travel into the field
+
+protection:
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+accepted:
+  - authority-initialized immutable stable identity for each generated field member
+  - exact twenty-four-member production cohort and deterministic seed replay
+  - actual member 23 at 53.216 km altitude inside its 20 km presentation cutoff
+  - seven production mining calls extracting the full 6000 ore without mutating capacity or identity
+  - immediate collision shutdown, bounded intact transition, final hidden state, one explosion actor, and twelve simulating debris components
+  - exactly one six-Iron reward, one receipt, visible replacement-HUD update, and twenty-three pristine peer members
+  - clean PIE teardown and clean editor shutdown
+
+canonical_sync:
+  module: M00
+  module_status: incomplete_retry
+  retry_count: 32
+  queue_sha256_after: 84CDD354F4C7579DB7A7766EB1215C3B2BE3882A0803A82C5FAA141A3A22E598
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldPIE_20260723_1004/project_knowledge_integrity_final.json
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+remaining:
+  - player-controlled travel into the field and naturally acquired mining range
+  - polished non-clipped actual-field destruction framing and visibly resolved debris
+  - two-client distance-cull, stable-ID, depletion, reward, and HUD parity for an actual field member
+  - simultaneous client-originated final-hit RPC arrival if wire-path contention acceptance is required
+  - late join during Depleting, within and outside the replay window, and after Depleted
+  - explicit server-restart persistence or respawn policy if required
+  - audible destruction and reward-feedback acceptance
+  - packaged Windows, Steam transport, and two-account multiplayer acceptance
+
+next_safe_action: >-
+  Preserve this generated-field checkpoint. In a separate bounded rendered
+  slice, use the existing one-process two-client topology against an actual
+  stable-ID field member and verify near/far presentation cutoff parity without
+  overriding its production cutoff. Keep controlled travel, visible debris,
+  late join, audio, persistence, packaging, and Steam as separate explicit
+  gates, and do not package below the sustained 18-20 GiB physical-RAM gate.
+
+claim_limit: >-
+  This record accepts one actual generated deep-space-field member's immutable
+  local identity, deterministic placement, in-range rendering, production
+  depletion, reward, HUD update, peer isolation, and final runtime state in a
+  rendered standalone PIE process on the RTX 3080. Positioning used an explicit
+  bounded test teleport, not player-controlled flight. It does not prove remote
+  stable-ID replication, projectile or RPC delivery, two-client field-member
+  parity, polished presentation, visible debris pixels, late join, audio,
+  persistence, packaging, Steam transport, two accounts, or broad multiplayer.

@@ -1,0 +1,131 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r65-seeded-palm-binding-static.2026-08-05
+captured_utc: "2026-08-05T21:38:34Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r65-read-only-seeded-palm-category-binding-audit
+evidence_class: static
+result: pass_exact_binding_and_supported_disable_path_identified_no_mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 53.36
+  commit_headroom_gib: 55.92
+  gpu_dedicated_used_gib: 0.90
+  free_d_drive_gib: 767.33
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  map_saved: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+
+exact_current_binding:
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  foliage_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_GrassEligible_R29
+  biome_property_path: biome_data[*].foliage_data
+  bound_biomes: [Craters, Hills, Mountains]
+  unbound_biomes: [Desert, Ocean, Poles]
+  foliage_property_path: foliage_list[0]
+  category: tree
+  mesh: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_Tree_OasisPalm01_R09
+  source_family: project-owned alias of reviewed Stylized Desert Oasis palm
+  controls:
+    foliage_density: 10.0
+    density_vertex_color_channel: GREEN
+    invert_density_vertex_color_mask: false
+    spawn_distance: 6
+    scalable_density: true
+    uniform_scale: [0.8, 1.5]
+    slope_degrees: [0, 8]
+    lods:
+      - {activation_distance: 3, density_scale: 0.4, mesh: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_Tree_OasisPalm01_R09}
+      - {activation_distance: 4, density_scale: 0.3, mesh: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_Tree_OasisPalm01_R09}
+  distribution_input: >-
+    The tree entry reads the GREEN terrain vertex-color density channel. The
+    ProfileV1 generation graph preserves the R05 masked-tree contract for the
+    Craters, Hills and Mountains vertex-color outputs.
+
+prior_runtime_crosscheck:
+  evidence: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassEligibilityReloadPIE_R29C_20260805T1245Z/result.json
+  exact_r29_asset_hash_matches_current: true
+  static_mesh_components: 718
+  palm_gpu_components: 260
+  palm_mesh_identity: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R09/Meshes/SM_Tree_OasisPalm01_R09
+  all_reported_palm_components_visible: true
+  r09_transform_signature_tree_instances: 429385
+  interpretation: >-
+    The prior fresh-reload runtime proves that this exact R29 entry creates the
+    repeated palm components observed visually. R65 did not rerun PIE, so the
+    component and transform counts are historical runtime crosschecks rather
+    than a new current-runtime census.
+
+installed_ppg_contract:
+  plugin_root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  foliage_data_header:
+    path: Source/PPG/Public/FoliageData.h
+    sha256: A6086644FC15B39A8F6FC16B0BFB8395D11DF89C0A7705F768DC3C1E06471AFF
+  foliage_data_implementation:
+    path: Source/PPG/Private/FoliageData.cpp
+    sha256: 325B668A8A8D6B036BD57868DE787210BEDB2697B86A7D61F7331EAB3BA1C259
+  dispatch_implementation:
+    path: Source/PPG/Private/ChunkObject.cpp
+    sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  spawner_implementation:
+    path: Source/PPG/Private/PlanetSpawner.cpp
+    sha256: 6C73A5BCA90629364CF60062713B72B6E85C14A4454FB04A3D4E1FD6B79291F8
+  verified_behavior:
+    - UFoliageData publicly owns foliage_list and each FFoliageList owns density, mesh variants, density channel, scale, placement, cull, LOD and collision controls
+    - validation accepts any finite foliage_density greater than or equal to zero
+    - BuildFoliageDispatchParams skips an entry when its effective density is less than or equal to zero
+    - an empty mesh list with no legacy mesh is invalid and is not a supported disable mechanism
+    - an explicit editor change to a bound UFoliageData is observed by APlanetSpawner and calls RegeneratePlanet
+
+safe_supported_paths:
+  whole_bound_category_disable:
+    supported: true
+    project_owned_successor_change: foliage_list[0].foliage_density = 0.0
+    distribution_effect: tree candidates are skipped while grass and rock entries remain intact
+    required_gate: rollback plus save, fresh reload/regeneration, MapCheck and real-D3D12 player-scale verification
+  one_for_one_tree_replacement:
+    supported: true
+    project_owned_successor_change: replace foliage_list[0].meshes[*].mesh and matching foliage_list[0].lods[*].meshes[*]
+    distribution_effect: >-
+      R09 already proved exact quantized transform equality for a one-for-one
+      tree/grass/rock mesh rebind with all non-mesh fields preserved.
+    required_gate: same rollback, reload/regeneration, MapCheck and real-D3D12 verification
+  per_biome_selective_disable:
+    supported_without_new_profile_split: false
+    reason: >-
+      Craters, Hills and Mountains share the same R29 FoliageData object, so a
+      density change affects the tree entry in all three. Selective control
+      would require separate project-owned successor FoliageData bindings and
+      a new transform-equality/runtime proof before it can be called safe.
+
+mutation_accounting:
+  unreal_started: false
+  regeneration_called: false
+  save_called: false
+  map_or_asset_changed: false
+  manual_foliage_placement_or_removal: false
+  source_or_vendor_changed: false
+
+next_safe_action: >-
+  Under a byte-exact rollback, create one project-owned successor of the exact
+  R29 FoliageData with only foliage_list[0].foliage_density set to zero, bind it
+  through the existing ProfileV1 biome_data foliage slots, regenerate once and
+  require fresh reload, MapCheck and player-scale D3D12 proof. Do not empty the
+  mesh array, delete actors or hand-place replacement trees. A visually
+  approved replacement tree may later use the proven one-for-one mesh route.
+
+claim_limit: >-
+  R65 identifies the exact persisted seeded-palm binding and two installed-PPG
+  supported control paths. It does not remove, reduce or replace palms, mutate
+  the planet, regenerate PPG, produce new runtime or visual evidence, or prove
+  artistic acceptance.

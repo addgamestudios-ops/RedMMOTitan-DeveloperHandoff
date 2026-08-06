@@ -1,0 +1,206 @@
+schema_version: 1
+id: evidence.m07.island-district-v6l.shoreline-pass-overall-visual-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T10:28:46Z"
+evidence_class: real_gpu_visual
+result: scratch_v6l_boundary_clipped_shoreline_pass_overall_visual_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  scratch_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10Rollback_PreV6L_20260727T1004Z
+  manifest:
+    bytes: 1679
+    sha256: C7FF4C40DDEBFA41A78BFDAB325764311C699E39F60CA5C79DAD625E2790793C
+  pre_v6l_map_sha256: 566556583CBB590A720B5E453C4CFEEE83657DE04CAA6CC77F3B06590489C814
+  pre_v6l_source_sha256: A6AE343A3C935AF9838018B47D9A43027EF0DB0776830B0699F5455EB87B8242
+
+scratch_implementation:
+  surface_contract: V6L
+  technique: >-
+    Edge-cached Sutherland-Hodgman clipping with 24-step bracketed
+    bisection retains the water-side endpoint at the compact-island contour,
+    reuses shared crossing vertices, preserves triangle winding, and removes
+    only fully dry source triangles.
+  topology:
+    source_triangle_count: 3274240
+    fully_dry_source_triangle_count: 12291
+    clipped_source_triangle_count: 1752
+    clipped_output_triangle_count: 2631
+    boundary_vertex_count: 1752
+    boundary_edge_count: 1752
+    output_vertex_count: 1640153
+    output_triangle_count: 3262828
+    non_manifold_boundary_vertex_count: 0
+    degenerate_clipped_triangle_count: 0
+    reversed_clipped_triangle_count: 0
+    maximum_retained_mask_signed_distance_cm: -1.0597069888262922e-08
+  dependency_and_source_gates:
+    source_landscape_actor_count: 0
+    source_foliage_actor_count: 0
+    compact_terrain_rvt_binding_count: 0
+    geology_runtime_virtual_texture_packages: []
+    geology_rvt_named_packages: []
+    local_ocean_runtime_virtual_texture_packages: []
+    local_ocean_rvt_named_packages: []
+  scratch_map:
+    bytes: 1166360990
+    sha256: 3D7B08C17073FE724AB2CEE9609B745657D2B30E829CF4D0EE7BFE70047D695B
+  scratch_source:
+    bytes: 59872774
+    sha256: 3E3187FD1504547DE843C71F5C60D9DD5A2A2A79E7A14D1FD0A884F246CAC17F
+
+implementation_files:
+  cpp:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07LocalOceanDistrict.cpp
+    bytes: 28897
+    sha256: C0B5EB3CB9FA0F16521030F76A47A75F029BE0E57AE4DDBB1703CEEC1AF6F6CC
+  header:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/WorldAuthoring/RedM07LocalOceanDistrict.h
+    bytes: 10458
+    sha256: 1FDBB3C2879F3B4D84F7CE0F5F3B6357E454ACB6E02CCDECC0FBE37EF0A18C6D
+  build_script:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/build_m07_island_district_v10.py
+    bytes: 60838
+    sha256: 186728F677FEC7736674520629D2A985F62678D40157611EB263AEDE3DA518D0
+  audit_script:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/audit_m07_island_district_v10.py
+    bytes: 48007
+    sha256: 85F89DE73BDE270E3B2DB28B3AAD84DB7F6EB1312BA93DBA591CA634E3E18DDC
+  focused_test:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_local_ocean_boundary_clipping_contract.py
+    bytes: 5280
+    sha256: DC90744E7342FA80F35A7F95116B25942AE573AC15647CDAEA9C7AA1D2E8EFA0
+    result: 4_of_4_passed
+
+durable_reports:
+  serialized_editor_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6L_TitanEditorBuild_20260727T1010Z.log
+    bytes: 12304
+    sha256: 26FB4A00346E25C467431B60DEC0C042FA2B0CB26EB184792E4CA3DFEF1D3390
+    result: succeeded_5_actions
+  seed:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LBuild_20260727T1012Z/island_district_v10_v6l_seed.json
+    bytes: 1697
+    sha256: ADD18949218F6914AF0B20171CA2C71D3824E3EC2F816068154A49A70A6F6B82
+    status: passed
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LBuild_20260727T1012Z/island_district_v10_v6l_build.json
+    bytes: 64833
+    sha256: 99101CB89E42257DD8CF467C404DDB818EB9C1E41441AAF39AEE5F6A84FBE39F
+    status: passed
+    evidence_class: scratch_editor_map_mutation
+  first_audit_harness_failure:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LBuild_20260727T1012Z/island_district_v10_v6l_audit.json
+    bytes: 826
+    sha256: E8BC24FA5470FCFE672A8E862B49D9DE7C646174269B6DFC712AC203DD86A0AC
+    status: failed
+    exact_cause: >-
+      The audit retained an ocean UObject reference after loading the authored
+      source world, then dereferenced the now-unloaded object while writing the
+      report. The audit was changed to snapshot the vertex count before the
+      world switch; the map was not rebuilt or modified for this harness fix.
+  fresh_process_audit_retry:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LBuild_20260727T1012Z/island_district_v10_v6l_audit_retry1.json
+    bytes: 53009
+    sha256: 8CD58B7C93CCDCDF7B7D4DADAC890E7F260F3865AA9573596650143DCECACDE9
+    status: passed
+    evidence_class: fresh_process_ue58_nullrhi_asset_audit
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LRealGPU_20260727T102539Z/capture_result.json
+    bytes: 9486
+    sha256: F0DAE89B8EB3586FC5B770ED9D9507BD73FE506F3D3F2AF52E353E6FF96D168D
+    status: passed_pending_pixel_review
+  pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LRealGPU_20260727T102539Z/pixel_review.json
+    bytes: 3268
+    sha256: 74704F125E59279654F1E879E69A881614D49CD4D4B5542244921D8159E4B420
+    status: targeted_shoreline_topology_pass_overall_visual_failed
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_exit_code: 0
+  minimum_observed_free_ram_gib: 31.092
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LRealGPU_20260727T102539Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 1335258
+    sha256: A890CACC91F87F3E65E790B0A95136025D7B089C56120188D6ABB94F1DC79814
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LRealGPU_20260727T102539Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 1488369
+    sha256: 95BE4F3F88010D05E32EBC697CF596979BF1028CF4710A9B45CC005505D8CB21
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6LRealGPU_20260727T102539Z/M07_IslandDistrict_R15_V10_Standalone.log
+    bytes: 318949
+    sha256: 2BF60A53C4C1BC9FD540CB7B17134F78E229399D331D3C71D7113874E18D991D
+
+verified_improvements:
+  - the repeated triangular V6K shoreline teeth are absent in the matched V6L wide and near D3D12 frames
+  - the clipped contour remains continuous around the visible left and right outer beach arcs
+  - the exact topology counters match the independently projected deterministic V6L totals
+  - source Landscape, foliage, RVT closure, provider, SM6 fallback, and default-material fallback gates remain closed
+
+remaining_failures:
+  - a long vertically fanned reflection streak remains below the left cliff cluster
+  - the exposed peach foundation still reads as a flat cutout instead of a finished natural beach transition
+  - dark water and peach foundation shapes around interior geology do not yet read as the approved vendor-demo island composition
+  - the island district is not ready for human approval or production migration
+
+acceptance:
+  scratch_build_and_fresh_audit: true
+  provider_off_d3d12_runtime: true
+  whole_triangle_sawtooth_removed: true
+  boundary_clipped_shoreline_visible: true
+  foreground_reflection_artifact_eliminated: false
+  natural_beach_transition: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V6L as the scratch shoreline-topology rollback point. In one bounded
+  scratch-only V6M slice, isolate the remaining left-cliff reflection owner and
+  replace the exposed flat peach foundation presentation with a natural
+  beach-height/material transition without reintroducing Landscape, foliage,
+  RVT dependencies, global water, provider use, or production mutation. Then
+  repeat the exact provider-off D3D12 wide and near cameras. Keep Chaos deferred.
+
+claim_limit: >-
+  This proves one scratch-only V6L boundary-clipped shoreline mutation, fresh
+  UE 5.8 audit, provider-off D3D12 SM6 capture, and human matched-camera review
+  with protected hashes unchanged. It accepts only the targeted removal of the
+  V6K whole-triangle shoreline teeth. It does not accept the reflection
+  artifact, beach transition, island composition, gameplay, collision,
+  navigation, performance, Chaos, surface-to-orbit behavior, or production
+  integration.

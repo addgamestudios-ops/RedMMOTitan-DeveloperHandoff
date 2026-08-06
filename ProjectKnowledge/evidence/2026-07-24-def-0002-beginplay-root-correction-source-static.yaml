@@ -1,0 +1,240 @@
+schema_version: 1
+id: evidence.def-0002.beginplay-root-correction.source.static.2026-07-24
+captured_utc: "2026-07-24T07:11:40.0591475Z"
+module_id: M02
+defect_id: DEF-0002
+slice: beginplay-authority-owned-bounded-root-correction
+evidence_class: static
+result: passed_source_contracts_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - replace the one ARedShip BeginPlay direct unswept ship-root correction with the existing bounded reversible placement transaction
+    - preserve planet-frame initialization on every role while making the corrective pose attempt authority-owned
+    - preserve all protected maps, vendor and artist repositories, handoffs, user assets, and unrelated dirty work
+  explicitly_not_changed:
+    - the three separate ClampToPlanetSurface root-correction branches
+    - passive fitted-envelope or native and rotation-changing initial-overlap recovery
+    - maps, Blueprints, assets, Config, plugins, vendor content, artist repositories, artist handoffs, production fields, HUD, mining, or Steam integration
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, native compilation, cook, package, game, Steam, or multiplayer process
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1530
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [14.571, 14.527, 14.550]
+  committed_gib_samples: [24.826, 24.901, 24.850]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [30.046, 29.971, 30.022]
+  disk_d_free_gib: 1140.010
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_below_the_canonical_memory_gate
+  action_decision: one_non_packaging_static_M02_BeginPlay_root_correction_slice
+
+implementation:
+  exact_source_delta:
+    path: Source/RedMMO/RedShip.cpp
+    function: ARedShip::BeginPlay
+    changed_behavior:
+      - removes the direct SetActorLocation sweep-false TeleportPhysics correction
+      - retains PlanetCenter, PlanetRadius, and MinimumSurfaceClearance initialization on every role
+      - requires authority, ShipMovement, and a successfully configured fitted collision hull before attempting correction
+      - requests the existing TryCommitClearPlacement transaction with the existing radial target, current actor quaternion, required matching PlanetGen terrain, and TeleportPhysics
+      - ForceNetUpdate occurs only after transaction success
+      - transaction refusal logs once and preserves the original pose without a raw transform fallback
+  current_ship_source:
+    bytes: 75893
+    sha256: 311286285B4C07FEC63880D1F5C8D2AE72A5B88656C35F3433161960B5CC66A5
+  unchanged_ship_header:
+    bytes: 14338
+    sha256: A1AD0B47338298AAE77EE4BF2985DD9E06C0A25F4E54BA3261B463F2410E7F3B
+  unchanged_movement_source:
+    bytes: 62438
+    sha256: 7C7549155313A54CDE70B676C04FDDB8651E16C28346AD6FF1E6DFA0BBADD380
+  unchanged_movement_header:
+    bytes: 9341
+    sha256: 87AC109D9C50EDDA947F1F2EA15F14C9F53B85A4757BD991B7BFE930CEED5428
+  new_source_contract:
+    path: Tools/tests/test_def0002_ship_beginplay_placement_contract.py
+    bytes: 20354
+    sha256: 528FFFB504870B212FD09B1C6D269DB7230D1AC04169480DA5AD1E690777F3A6
+  imported_existing_transaction_contract:
+    path: Tools/tests/test_def0002_ship_placement_transaction_contract.py
+    bytes: 51352
+    sha256: CE2881EC31F135F0AA39DA5503929F99E4DFDBFB3BF424C61273692A9F772E7E
+  source_files_modified_by_this_slice: 1
+  test_files_added_by_this_slice: 1
+  reflected_property_or_public_signature_changed: false
+  unrelated_existing_RedShip_changes_attributed_to_this_slice: false
+
+source_contract:
+  authority_and_readiness:
+    - the corrective transaction is lexically contained by one exact HasAuthority, ShipMovement, fitted-hull-ready, and below-minimum-radius gate
+    - collision-hull configuration and selected planet center and radius assignment precede the transaction
+    - no client or simulated role independently commits the BeginPlay correction
+  exact_policy:
+    - the existing center-to-ship radial frame and minimum-radius formula are uniquely preserved
+    - the unique recovery target is selected planet center plus radial up times minimum ship radius
+    - the unique transaction call uses current rotation, matching-planet true, and TeleportPhysics
+    - successful commit alone triggers ForceNetUpdate; rejection has no transform or second placement attempt
+  mutation_sensitivity:
+    explicit_mutants_rejected: 40
+    domains:
+      - missing, inverted, cosmetic, or boolean-bypassed authority and readiness gates
+      - wrong frame, radial target, minimum radius, rotation, exact-planet policy, or teleport mode
+      - ignored or shadowed result and duplicated or alias-based transaction calls
+      - raw actor, root, alias, member-pointer, K2, local, relative, world, direct, no-physics, mutable-direct, scale, component-transform, and world-offset APIs
+      - unreachable declaration or frame-assignment decoys and reordered live frame setup
+    scanner_policy: >-
+      C++ comments and string literals are blanked before structural inspection;
+      unique symbol and assignment counts reject decoy declarations, and a
+      semantic transform-reference family rejects direct Set, Add, Apply,
+      K2, Direct, NoPhysics, DirectMutable, MoveComponent, TeleportTo, and
+      SetComponentToWorld spellings.
+
+verification:
+  focused_beginplay_contract:
+    command: python -B -m unittest -v Tools.tests.test_def0002_ship_beginplay_placement_contract
+    result: 9_of_9_passed
+  combined_current_DEF_0002_contracts:
+    modules:
+      - Tools.tests.test_def0002_ship_beginplay_placement_contract
+      - Tools.tests.test_def0002_ship_placement_transaction_contract
+      - Tools.tests.test_def0002_ship_reboard_contract
+      - Tools.tests.test_def0002_ship_gravity_telemetry_contract
+      - Tools.tests.test_def0002_compass_body_identity_contract
+    result: 37_of_37_passed
+  protected_provenance:
+    modules:
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 15_of_15_passed
+  full_static_discovery:
+    command: python -B -m unittest discover -s Tools/tests -p test_*.py
+    result: 516_of_516_passed
+    note: one negative ProjectKnowledge audit fixture intentionally emits a PKI011 diagnostic that its enclosing unit test accepts
+  whitespace_and_patch_check:
+    command: git diff --check -- Source/RedMMO/RedShip.cpp Tools/tests/test_def0002_ship_beginplay_placement_contract.py
+    result: passed_with_only_existing_LF_to_CRLF_worktree_warning
+  independent_read_only_review:
+    reviewers: 2
+    result: no_remaining_finding_within_the_narrow_source_contract
+    method: reviewers reproduced escaping transform and decoy mutants, then confirmed the hardened contract rejected the reported cases
+
+runtime_and_recovery_limits:
+  - TryCommitClearPlacement intentionally refuses missing or unready fitted hulls, nonfinite frames, routes longer than 100 m, blocking or start-penetrating routes, missing required matching PlanetGen terrain, failed endpoint checks, or a target-pose mismatch
+  - BeginPlay does not retain a bounded pending request, so a hull that becomes ready later in Tick does not automatically retry the initial correction
+  - a bad initial spawn can therefore remain unchanged; this source slice is a fail-closed safety repair, not proof of successful penetration recovery
+  - ClampToPlanetSurface still contains three separate unguarded SetWorldLocation corrections and can run on multiple roles or more than once per tick
+  - source has not been compiled, linked, or executed in Unreal
+  - active-chunk coverage, route-query cost, collision response, replication, gameplay feel, visuals, real-GPU landing and reboard, multiplayer, packaging, and Steam remain unverified
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_BeginPlay_20260724T070150Z/target_currency.json
+  report_bytes: 318288
+  report_sha256: 778394C2E9A9430FA67EEC5FDFA82D7168B9D205ED035C89ED7BFC1B3361CD27
+  audited_project_inputs: 885
+  input_manifest_sha256: F053ABD7B46A555DAB16A5C8022FB424CF9CA0C851E706426690ACFC332BB8A8
+  gate: refused_fail_closed
+  Titan_newer_project_inputs: 22
+  TitanEditor_newer_project_inputs: 9
+  explicit_build_proofs_supplied: 0
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeM02BeginPlayPlacement_20260724T0657Z
+  exact_pre_slice_files: 5
+  pre_slice_identities:
+    - {path: Source/RedMMO/RedShip.cpp, bytes: 75439, sha256: 5C692891140FCCF6C0DA45B08CD730472A0383B0D68CC586962B9627CD02C484}
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 14846, sha256: BFAFA5F4A3C9D0D05E1F97A89B6C22F2236F5FAA1B17AE2D091165F53955DBC1}
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 126841, sha256: 812C1E403C6C832B154017E49A134FEE418165F17B9634B89ACE5385875E60C2}
+    - {path: ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml, bytes: 8898, sha256: E4D7F53579A7573FCCFAFC5D98B08C9905965A80B7B6EB186303202D5AC3023D}
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 227917, sha256: FAF2E11D8F40504B1681310838BC3C05B6362F046328884D893CB9DA463D54AC}
+  new_test_pre_slice_state: absent
+  unrelated_dirty_work_preserved: true
+
+canonical_queue:
+  path: Build/Automation/redmmotitan_module_queue.json
+  bytes: 229601
+  sha256: 2A4BA694BB046501D721AE322EA76B3B3C006257303C148BD2E9A2A9106E5FE3
+  m02_status: queued
+  m02_retry_count: 19
+
+protection:
+  production_map:
+    path: Content/RedMMO/Maps/RedPlanetGen.umap
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield:
+    path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_checkpoint_artist_vendor_handoff_or_user_asset_modified: false
+
+project_knowledge_integrity:
+  prerecord_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_BeginPlay_20260724T070150Z/project_knowledge_integrity_prerecord.json
+  prerecord_report_bytes: 1782
+  prerecord_report_sha256: 6E17F26D5949C986AD942CB5F72DC711BFA1835D4CBBC6277071BCED9D88F839
+  prerecord_result: passed_with_0_errors_and_0_warnings
+  postrecord_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_BeginPlay_20260724T070150Z/project_knowledge_integrity_final.json
+  postrecord_result: passed_with_0_errors_and_0_warnings
+  indexed_evidence_count: 122
+  indexed_route_count: 160
+  queue_sha256: 2A4BA694BB046501D721AE322EA76B3B3C006257303C148BD2E9A2A9106E5FE3
+  note: the_final_report_is_regenerated_after_this_annotation_to_avoid_a_self_referential_digest_claim
+
+postflight:
+  physical_ram_free_gib_samples: [14.168, 14.132, 14.130]
+  committed_gib_samples: [25.232, 25.265, 25.271]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [29.640, 29.607, 29.601]
+  disk_c_free_gib: 125.746
+  disk_d_free_gib: 1140.010
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  exact_unreal_build_processes: 0
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+  expanded_dirty_entries_after_slice: 1531
+
+claim_limit: >-
+  This is static source evidence. It proves only that the direct BeginPlay ship-root
+  teleport is absent and the current inspected source delegates one eligible
+  authority correction to the existing bounded reversible transaction under the
+  stated readiness, frame, argument, success, and rejection contract. It does not
+  prove C++ compilation, Unreal API validity, successful recovery of a bad initial
+  spawn, a deferred retry, ClampToPlanetSurface safety, active-chunk coverage,
+  runtime collision, performance, gameplay, visuals, real-GPU behavior,
+  replication, multiplayer, packaging, or Steam. DEF-0002 remains open.
+
+next_safe_action: >-
+  Preserve this source slice. When sustained physical memory safely reaches the
+  canonical compile gate, compile the serialized current targets and execute the
+  bounded route and BeginPlay paths. Separately design one collision-aware,
+  multi-role-safe replacement for all three ClampToPlanetSurface corrections
+  without mechanically routing intended initial-penetration recovery through a
+  clear-route transaction that rejects start penetration. Until memory is safe,
+  return to another independent offline queue slice.

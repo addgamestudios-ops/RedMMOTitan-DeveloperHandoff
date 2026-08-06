@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "plan_id": "m07.restore-publication-recovery-harness.v1",
+  "module_id": "M07",
+  "status": "dry_run_source_implemented_not_executed",
+  "evidence_class": "static",
+  "requires_separate_execution_authorization": true,
+  "subject": {
+    "production_entrypoint": "Tools.verify_redmmo_content_storage_restore.write_report_atomic",
+    "algorithm_clone_allowed": false,
+    "fixture": "synthetic_tiny_report_only",
+    "live_project_payload_allowed": false,
+    "restore_scan_allowed": false
+  },
+  "implementation_phases": [
+    {
+      "id": "P0",
+      "name": "static_contract",
+      "status": "complete",
+      "may_mutate_storage": false
+    },
+    {
+      "id": "P1",
+      "name": "unelevated_controller_worker_and_preprovisioned_volume_validator",
+      "status": "source_implemented_static_verified_not_executed",
+      "may_mutate_storage": false
+    },
+    {
+      "id": "P2",
+      "name": "privileged_exact_identity_vhdx_broker",
+      "status": "future_separate_authorization",
+      "may_mutate_storage": true
+    },
+    {
+      "id": "P3",
+      "name": "no_host_share_vm_hard_power_test",
+      "status": "future_separate_authorization",
+      "may_mutate_storage": true
+    }
+  ],
+  "paths": {
+    "case_root_template": "D:/RedMMOTitanWindowsData/DisposableRecoveryHarness/{run_id}/mount/{case_id}",
+    "image_root_template": "D:/RedMMOTitanWindowsData/DisposableRecoveryHarness/{run_id}/images",
+    "ledger_root_template": "D:/RedMMOTitanWindowsData/DisposableRecoveryHarnessLedger/{run_id}",
+    "denied_write_roots": [
+      "C:/Users/user",
+      "D:/RedMMOTitan",
+      "D:/RedMMOTitanWindowsData/Diagnostics",
+      "D:/RedMMOTitanWindowsData/PackagedBuilds",
+      "D:/RedMMOTitanWindowsData/UserTemp",
+      "D:/RedMMOTitanWindowsData/VendorStaging"
+    ],
+    "require_previously_absent_run_and_case_paths": true,
+    "network_namespaces_allowed": false,
+    "reparse_points_allowed": false,
+    "drive_letter_mount_allowed": false
+  },
+  "privilege_split": {
+    "controller": "unelevated",
+    "worker": "unelevated_direct_child",
+    "provisioning_broker": "separately_authorized_minimal_elevated_process",
+    "worker_may_elevate": false,
+    "automatic_elevation_allowed": false,
+    "worker_may_manage_disks": false,
+    "controller_may_manage_disks": false
+  },
+  "vhdx_contract": {
+    "format": "VHDX",
+    "allocation": "fixed",
+    "size_mib": 256,
+    "one_fresh_standalone_image_per_case": true,
+    "differencing_chain_allowed": false,
+    "compressed_backing_file_allowed": false,
+    "efs_backing_file_allowed": false,
+    "loopback_or_mapped_share_allowed": false,
+    "attach_flags_required": [
+      "ATTACH_VIRTUAL_DISK_FLAG_NO_DRIVE_LETTER"
+    ],
+    "permanent_lifetime_allowed": false,
+    "retain_creating_handle_through_case": true,
+    "mount_target": "precreated_empty_guid_named_directory",
+    "filesystem": "NTFS",
+    "volume_label": "REDMMO_M07_DISPOSABLE",
+    "preserve_image_and_ledger_by_default": true
+  },
+  "identity_chain": [
+    "run_id",
+    "canonical_image_path",
+    "virtual_disk_id",
+    "physical_device_path_from_creating_handle",
+    "disk_unique_id",
+    "partition_guid",
+    "volume_guid",
+    "canonical_mount_path",
+    "ntfs_volume_serial"
+  ],
+  "safety_guards": [
+    {
+      "id": "G01",
+      "rule": "provisioning requires a previously absent image beneath the exact allowlisted run root"
+    },
+    {
+      "id": "G02",
+      "rule": "destructive provisioning authority is the complete creating-handle identity chain, never a disk number alone"
+    },
+    {
+      "id": "G03",
+      "rule": "pre and post device inventories must identify exactly one new device linked to the created image"
+    },
+    {
+      "id": "G04",
+      "rule": "the disposable volume identity must differ from Windows, user, repository, diagnostics, manifest, protected-map, and ledger volumes"
+    },
+    {
+      "id": "G05",
+      "rule": "worker cwd, temp, pycache, payload, staging, and final paths must resolve inside the exact disposable case root"
+    },
+    {
+      "id": "G06",
+      "rule": "a complete write trace is mandatory and any outside write fails closed"
+    },
+    {
+      "id": "G07",
+      "rule": "the controller may terminate only its nonce-authenticated direct child after an armed checkpoint acknowledgement"
+    },
+    {
+      "id": "G08",
+      "rule": "case roots, report names, ledgers, and outputs are no-clobber and single-use"
+    },
+    {
+      "id": "G09",
+      "rule": "failed or ambiguous cases are preserved and cleanup is never automatic"
+    },
+    {
+      "id": "G10",
+      "rule": "protected hashes, canonical manifest digest, and worktree snapshot must match before and after"
+    }
+  ],
+  "controller_state_machine": [
+    "NEW",
+    "VOLUME_ATTESTED",
+    "PLAN_BOUND",
+    "CASE_CREATED",
+    "WORKER_READY",
+    "CUTPOINT_ARMED",
+    "WORKER_EXIT_OBSERVED",
+    "FRESH_PROCESS_RECOVERY_SCAN",
+    "CLASSIFIED",
+    "REPORT_PUBLISHED"
+  ],
+  "checkpoint_protocol": {
+    "transport": "private_inherited_pipe",
+    "nonce_bound": true,
+    "public_cli_worker_mode_allowed": false,
+    "timeout_seconds": 30,
+    "controller_action": "wait_for_exact_armed_checkpoint_then_terminate_only_recorded_direct_child",
+    "ordered_checkpoints": [
+      "before_temp_create",
+      "after_temp_create",
+      "mid_payload_write",
+      "after_payload_write_before_preflush",
+      "after_preflush_before_rename",
+      "after_rename_before_postflush",
+      "after_postflush_before_final_validation",
+      "after_final_validation_before_return",
+      "after_return_before_complete_ack",
+      "after_complete_ack_before_clean_exit",
+      "normal_success"
+    ]
+  },
+  "outcomes": [
+    "committed",
+    "interrupted_clean",
+    "interrupted_recoverable_stage",
+    "interrupted_valid_final_uncommitted",
+    "failed_unsafe_state"
+  ],
+  "case_matrix": [
+    {
+      "checkpoint": "before_temp_create",
+      "expected_final": "absent",
+      "expected_staging": "absent",
+      "classification": "interrupted_clean"
+    },
+    {
+      "checkpoint": "after_temp_create",
+      "expected_final": "absent",
+      "expected_staging": "empty_single_expected_identity",
+      "classification": "interrupted_recoverable_stage"
+    },
+    {
+      "checkpoint": "mid_payload_write",
+      "expected_final": "absent",
+      "expected_staging": "partial_single_expected_identity",
+      "classification": "interrupted_recoverable_stage"
+    },
+    {
+      "checkpoint": "after_payload_write_before_preflush",
+      "expected_final": "absent",
+      "expected_staging": "exact_single_expected_identity",
+      "classification": "interrupted_recoverable_stage"
+    },
+    {
+      "checkpoint": "after_preflush_before_rename",
+      "expected_final": "absent",
+      "expected_staging": "exact_single_expected_identity",
+      "classification": "interrupted_recoverable_stage"
+    },
+    {
+      "checkpoint": "after_rename_before_postflush",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "interrupted_valid_final_uncommitted"
+    },
+    {
+      "checkpoint": "after_postflush_before_final_validation",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "interrupted_valid_final_uncommitted"
+    },
+    {
+      "checkpoint": "after_final_validation_before_return",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "interrupted_valid_final_uncommitted"
+    },
+    {
+      "checkpoint": "after_return_before_complete_ack",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "interrupted_valid_final_uncommitted"
+    },
+    {
+      "checkpoint": "after_complete_ack_before_clean_exit",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "interrupted_valid_final_uncommitted"
+    },
+    {
+      "checkpoint": "normal_success",
+      "expected_final": "exact",
+      "expected_staging": "absent",
+      "classification": "committed"
+    }
+  ],
+  "committed_predicate": {
+    "all_required": [
+      "authenticated_complete_ack",
+      "clean_worker_exit_code_zero",
+      "fresh_process_scan_exact_final",
+      "zero_staging_files",
+      "zero_unexpected_namespace_entries",
+      "native_identity_continuity",
+      "zero_outside_writes"
+    ],
+    "final_file_presence_alone_is_never_committed": true
+  },
+  "global_fail_conditions": [
+    "corrupt_or_partial_final",
+    "final_and_staging_both_present",
+    "multiple_or_unexpected_staging_files",
+    "unexpected_namespace_entry",
+    "write_outside_allowlist",
+    "protected_hash_drift",
+    "manifest_digest_drift",
+    "worktree_snapshot_drift",
+    "volume_identity_mismatch",
+    "checkpoint_nonce_or_pid_mismatch",
+    "cleanup_targets_unrecorded_identity",
+    "report_overwrite"
+  ],
+  "recovery": {
+    "fresh_process_required": true,
+    "inspect_before_cleanup": true,
+    "read_only_remount_required_for_vhdx_tier": true,
+    "exact_final_may_be_labeled": "recovered_valid_final",
+    "promote_to_original_committed": false,
+    "preserve_on_corruption_or_identity_mismatch": true
+  },
+  "cleanup": {
+    "automatic_cleanup_allowed": false,
+    "broad_recursive_delete_allowed": false,
+    "exact_detach_handle_required": true,
+    "verify_not_attached_before_explicit_delete": true,
+    "delete_requires_matching_external_ownership_ledger": true
+  },
+  "acceptance_tiers": [
+    {
+      "id": "T0",
+      "name": "offline_contract_and_mocked_native_sequence",
+      "claim": "static_contract_only"
+    },
+    {
+      "id": "T1",
+      "name": "disposable_vhdx_process_termination_and_clean_read_only_remount",
+      "claim": "process_interruption_recovery_only"
+    },
+    {
+      "id": "T2",
+      "name": "no_host_share_vm_hard_power_off",
+      "claim": "virtualized_abrupt_interruption_only",
+      "requires_separate_authorization": true
+    },
+    {
+      "id": "T3",
+      "name": "dedicated_hardware_physical_power_loss",
+      "claim": "tested_hardware_stack_only",
+      "requires_separate_authorization": true
+    }
+  ],
+  "required_evidence_booleans": [
+    "process_termination_tested",
+    "fresh_process_recovery_scan_tested",
+    "clean_read_only_remount_tested",
+    "abrupt_power_loss_tested",
+    "physical_media_durability_verified"
+  ],
+  "claim_limits": [
+    "this_static_plan did not create attach initialize format mount detach delete or inspect a virtual disk",
+    "process termination does not simulate loss of operating system or device cache",
+    "normal detach and clean remount may flush state and are not abrupt power loss",
+    "vhdx metadata logging and ntfs recovery do not prove newest application bytes survived",
+    "file backed vhdx does not prove independent physical storage durability",
+    "hardware caches may not honor or persist write through without protected power",
+    "no external restore acl owner retention named stream unreal runtime visual gameplay package steam or multiplayer claim"
+  ],
+  "primary_sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-createvirtualdisk",
+    "https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-attachvirtualdisk",
+    "https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/ne-virtdisk-attach_virtual_disk_flag",
+    "https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskphysicalpath",
+    "https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-detachvirtualdisk",
+    "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setvolumemountpointw",
+    "https://learn.microsoft.com/en-us/powershell/module/hyper-v/test-vhd?view=windowsserver2025-ps",
+    "https://learn.microsoft.com/en-us/powershell/module/storage/repair-volume?view=windowsserver2025-ps",
+    "https://learn.microsoft.com/en-us/windows/win32/fileio/file-caching",
+    "https://learn.microsoft.com/en-us/powershell/module/hyper-v/stop-vm?view=windowsserver2025-ps"
+  ]
+}

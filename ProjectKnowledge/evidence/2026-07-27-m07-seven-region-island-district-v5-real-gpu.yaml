@@ -1,0 +1,144 @@
+schema_version: 1
+id: evidence.m07.seven-region-island-district-v5.real-gpu.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T01:24:50Z"
+evidence_class: real_gpu_visual
+result: scratch_v5_surface_routing_and_visual_readability_improved_perimeter_and_rvt_gate_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V5
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_enabled: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+scratch_implementation:
+  curved_authored_island_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V5
+  curved_authored_source:
+    bytes: 16343238
+    sha256: 70FC9F1733234C1E4271850FE2AB0963588E18BE2FE1D19979DE78FB13913352
+  scratch_map:
+    bytes: 200776304
+    sha256: D7C97790694F3123E4DEBDF4ECCB09FB48306804E7D6EA576D6C5F0886B6B205
+  build_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV5Build_20260727T012019Z/island_district_v5_build.json
+    sha256: CC3ACF215DE100A1AEF6602E5B6284B05A05D5BCD2E47B4A2A664E6FA458A996
+  landscape_curve:
+    landscapes: 2
+    samples_total: 1096290
+    samples_changed: 1096097
+    dressing_actors_curved: 216
+    foliage_instances_before: 28905
+    foliage_instances_after: 28905
+    max_quantization_error_cm: 0.39215087890625
+    max_radial_residual_cm: 0.3921022539725527
+  local_ocean:
+    ocean_triangles: 129249
+    beach_transition_triangles: 0
+    island_beach_enabled: false
+    outer_beach_transition_enabled: false
+    edge_sink_depth_cm: 6500
+    global_shell: false
+  review_lighting:
+    sun_elevation_degrees: 50
+    skylight_intensity: 0.90
+    indirect_lighting_intensity: 0.75
+    fixed_ev100: 13.5
+    exposure_bias: 0
+
+real_gpu:
+  process:
+    executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+    pid: 10144
+    mode: standalone_game
+    clean_exit_requested_by_capture_harness: true
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  exact_map_loaded: true
+  providers_enabled: false
+  player_surface_authority:
+    result: tagged_region15_landscape_hit
+    actor: Landscape_0
+    class: Landscape
+    radius_cm: 795465.44
+    arc_cm: 0.0
+    destination: [107591.54, -779393.36, -117861.25]
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV5RealGPU_20260727T012408Z/M07_IslandDistrict_R15_V5_Wide.png
+    bytes: 2842312
+    sha256: 276B624F3CFE7755D823C2A8C93487FBD48AC70D67963B7F570CFEA537E18108
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV5RealGPU_20260727T012408Z/M07_IslandDistrict_R15_V5_Near.png
+    bytes: 3281383
+    sha256: B5674D750D083BC3BC9A6DAAA551639DC6FA15406B829397DFF0E2360FCD23A9
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV5RealGPU_20260727T012408Z/M07_IslandDistrict_R15_V5_Standalone.log
+    sha256: AED703351EE1C391EDD84CFFF385F0001C8D8A74AE09942AC144AA8CFE1E9A57
+  fatal_errors: 0
+  assertions: 0
+  gpu_crashes: 0
+
+verified_improvements_over_v4:
+  - the automatic player surface resolver waits for the streamed tagged Region-15 landscape and then lands on Landscape_0 instead of falling about 630 m to the lowered PlanetGen basin
+  - the fixed review exposure and higher sun make the island, foliage, and rock faces materially more readable than the clipped blue V4 capture
+  - the near and wide frames visibly render textured cliff and rock faces rather than near-black silhouettes
+  - both generated beach meshes were removed, eliminating the V4 broad opaque beach-transition mesh
+
+remaining_failures:
+  - the wide and near frames retain an unmistakable jagged dark-ocean to peach-desert boundary; the seven-region district perimeter is not a natural beach-to-desert transition
+  - the gray-beige vendor-landscape apron remains legible against the peach desert instead of reading as a natural landform
+  - a broad pale hooked ribbon remains on the island's right side, and detached pale land plus vegetation fragments remain outside the coherent authored island footprint
+  - grass and foliage terminate in cut streaked bands at the mask boundary and visibly extend into lagoon or water areas
+  - the local ocean reads as an opaque dark navy sheet and has not passed water, shoreline, depth, or seam acceptance
+  - all nine original MI_Cliff_03, MI_Cliff_05, and MI_Rock_01 through MI_Rock_07 packages still emit two missing legacy-RVT dependency errors each during source streaming, even though the visible placed components use project-owned texture-authentic adapters
+  - shadow readability is improved but the fixed review lighting has not received human art-direction approval
+
+acceptance:
+  authentic_island_composition_present: true
+  real_gpu_pixels_captured: true
+  automatic_player_surface_routing: true
+  hands_on_player_surface_playtest: false
+  lighting_readability_improved: true
+  lighting_human_acceptance: false
+  rock_visual_readability_improved: true
+  legacy_rvt_load_errors_eliminated: false
+  shoreline_and_perimeter_blend: false
+  local_ocean_visual_acceptance: false
+  performance: false
+  chaos_layer_implemented: false
+  human_visual_acceptance: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V5 as a failed but materially improved rollback point. In a scratch-only
+  V6 successor, replace the opaque seven-region ocean cutoff with a curved
+  depth-and-shore mask that reaches a coherent beach on the island and sinks or
+  fades before the surrounding desert, remove the detached perimeter fragments,
+  and duplicate or sanitize the nine source meshes so loading them cannot pull
+  the original RVT-bound material packages. Repeat the same provider-off D3D12
+  wide and near capture, then request human visual review.
+
+claim_limit: >-
+  This proves automatic tagged-landscape surface routing and visibly improved
+  lighting and geology readability in one disposable D3D12 SM6 scratch run. It
+  does not prove hands-on playability, a correct shoreline or ocean, elimination
+  of legacy RVT load errors, accepted lighting, collision, navigation,
+  performance, Chaos, surface-to-orbit behavior, or production integration.

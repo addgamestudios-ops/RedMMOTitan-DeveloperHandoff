@@ -1,0 +1,176 @@
+schema_version: 1
+id: evidence.m07.tropical-tile-v3-rock-layout-automation.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T23:16:37Z"
+evidence_class: automation
+result: passed_scratch_tile_corrections_and_read_only_vendor_rock_layout_visual_gate_open
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map_v2: /Game/RedMMO/Maps/Tests/M07_TropicalTile_R15_V2
+  scratch_map_v3: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalTile_R15_V3
+  vendor_review_project: D:/RedMMOTitanWindowsData/Scratch/TropicalUE58VisualReview_20260725_1905Z_v2/TropicalUE58VisualReview.uproject
+  vendor_map: /Game/Zenscape_Island/Demo/Zenscape_Island
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_map_saved: false
+  providers_enabled: false
+  pie_entered_for_v3: false
+  real_gpu_visual_accepted: false
+
+scratch_tile_corrections:
+  elevation:
+    status: passed
+    audit: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalTileElevationFix_20260726T222800Z/elevation_fix_audit_attempt3.json
+    audit_sha256: 101384B56F2380EF1DB9DA70728259331224755E20425CFEE1533346D5BFF74B
+    pre_fix_map_sha256: 73A761DB3DB7929058C53C693E5BC3725717C165B8EF2AC2500BD9A4C492D626
+    post_fix_map_sha256: 893DF3076BA3021EB5CBF2B746A2CCE20D4E9488AC884D0694E3889EA99F4EF5
+    hero_cliffs:
+      count: 28
+      raised_count: 28
+      minimum_raise_cm: 438.886343
+      maximum_raise_cm: 4810.371349
+      mean_raise_cm: 2086.925937
+    understory:
+      count: 120
+      raised_count: 42
+      maximum_raise_cm: 13.753082
+    canopy_and_groundcover_already_seated: true
+  region15_reanchor:
+    status: passed
+    audit: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalTileRegion15Reanchor_20260726T225016Z/region15_reanchor_audit.json
+    audit_sha256: 5679D31FF671D936C9FF14434DAE05135670FEFEDEA3226FC2150BD7BC84DD32
+    topdown_proof: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalTileRegion15Reanchor_20260726T225016Z/region15_reanchor_audit_topdown.png
+    topdown_proof_sha256: C470B73C164D65AFCCB6286048C4CCEF3E25435CA750CB1FAD78151377067037
+    explicit_target_region: 15
+    managed_actor_count: 828
+    pre_reanchor_map_sha256: 893DF3076BA3021EB5CBF2B746A2CCE20D4E9488AC884D0694E3889EA99F4EF5
+    post_reanchor_map_sha256: D5480CFFF8801E738CA1EF8B8B38364C39950420551ECE4CCF014989C1465C01
+    seam_used_as_transition: false
+  fused_lighting_successor:
+    status: passed_fresh_load_visual_unverified
+    audit: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalTileFusedLightingDuplicate_20260726T230020Z/fused_lighting_successor_fresh_reopen_audit.json
+    audit_sha256: 963C1A96160C9E5E3306E777CE3941F5D2C48D0BD62B0EB358335762AE7C1FC2
+    source_v2_sha256: D5480CFFF8801E738CA1EF8B8B38364C39950420551ECE4CCF014989C1465C01
+    successor_v3_sha256: 5B2362614F22C5D2077E742BE46A507EF1D451F064139000EA35E74163CDECAA
+    successor_v3_bytes: 109774267
+    actor_count: 1112
+    managed_role_counts:
+      hero_cliff: 28
+      canopy_tree: 80
+      understory: 120
+      groundcover: 600
+    region15_player_start_count: 1
+    dirty_packages_after_fresh_reopen: 0
+    rationale: >-
+      The current game-mode lighting path classifies fused maps by the
+      50km_FusedPrototype map-name token. V3 uses that existing scratch
+      runtime branch without changing production code. Runtime sun/exposure
+      behavior still requires PIE and real-GPU review.
+
+rock_fidelity_root_cause:
+  current_geology:
+    actor_count: 28
+    SM_Cliff_05: 25
+    SM_Cliff_03: 2
+    SM_Cliff_04: 1
+    finding: >-
+      The placed geology is a giant hero-cliff crop rather than the vendor
+      demo's smaller Rock04/Rock06 mix. Nineteen of 28 hero cliffs have scale
+      X above 2.0, which explains the oversized close-up presentation.
+  unsafe_as_serialized:
+    - /Game/Zenscape_Island/Model/Rocks/SM_Rock_04
+    - /Game/Zenscape_Island/Model/Rocks/SM_Rock_06
+  reason: >-
+    Their default material instances hard-reference two absent legacy
+    /Game/Zenscape_Island/Landscape/Texture/RVT_* packages. They remain
+    quarantined as-is pending project-owned no-RVT mesh/material rebinding.
+  candidate_manifest: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/m07_rock_04_06_candidate_closure_manifest.json
+  candidate_manifest_sha256: 128968470FBE8F2C8520D7FEFBFE30F4D3BBAFE87CE8E66492CF003555EF0D5E
+
+vendor_layout_export:
+  status: passed
+  engine: 5.8.0-55116800+++UE5+Release-5.8
+  commandlet_renderer: NullRHI
+  script: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/export_m07_rock_04_06_vendor_layout.py
+  script_sha256: 0509D148183EBD7BC2D9523FB51C11917C36411B9B8293000DF37A548E0A4643
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406VendorLayout_20260726T231147Z/rock_04_06_vendor_layout.json
+  report_sha256: 23339925FC691D975393A0CC7141ED64077C5364AFC630BDFE5A6192771D8A81
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406VendorLayout_20260726T231147Z/UnrealEditorCmd.log
+  log_sha256: D3280B2BF7BE4D60B03D5CF044E52CABBF06CBD175D45EBC306C7DD9F622B0CB
+  source_actor_count: 236
+  selected_actor_count: 1
+  selected_transform_count: 258
+  mesh_instance_counts:
+    SM_Rock_04: 151
+    SM_Rock_06: 107
+  dirty_before: 0
+  dirty_after: 0
+  save_performed: false
+  mutation_performed: false
+  source_map_sha256_before_and_after: 1CBA47E0DADC8495348811EDB32425460F78E6F80541983DB4E410321341FBAE
+  fatal_assert_python_failure_count: 0
+
+vendor_cluster_selection:
+  status: passed
+  script: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/select_m07_rock_04_06_vendor_cluster.py
+  script_sha256: 58D98021853C5A2C0BFB0B4969D3B48A222CCC9B7C1EBD9B34765C88D2ECD306
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406Selection_20260726T231427Z/rock_04_06_vendor_cluster_selection.json
+  report_sha256: 73529A00C5196D365D491491300A4D8AD4DB59F17910A693F66CA043882E59BF
+  selected_count: 6
+  selected_mix:
+    SM_Rock_04: 3
+    SM_Rock_06: 3
+  exact_source_instance_indices:
+    SM_Rock_04: [88, 91, 87]
+    SM_Rock_06: [58, 53, 59]
+  cluster_max_radius_cm: 586.835
+  cluster_min_pair_separation_cm: 243.068
+  invented_transforms: false
+  unreal_launched_for_selection: false
+  asset_or_map_mutation: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+  target_region: 15
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+acceptance:
+  bounds_based_elevation_correction: true
+  exact_region15_anchoring: true
+  v3_fresh_load_clean: true
+  exact_vendor_rock_layout_export: true
+  exact_six_rock_cluster_selected: true
+  no_rvt_adapted_meshes_created: false
+  authoritative_adapted_asset_closure: false
+  adapted_rocks_placed: false
+  runtime_lighting_verified: false
+  rock_visual_fidelity_accepted: false
+  real_gpu_visual_accepted: false
+  production_integration: false
+
+next_safe_action: >-
+  In the isolated TropBiomeV1A scratch only, create project-owned Rock04 and
+  Rock06 mesh duplicates whose material slots use project-owned no-RVT
+  instances with the exact vendor BaseColor, Normal, and packed ORM textures.
+  Prove the adapted packages' fixed-point Asset Registry closure, bounded load,
+  and empty dirty state before placing the selected six-instance cluster.
+  Retain only a reviewed subset of hero cliffs as distant landmarks. Then save
+  only V3 with rollback and obtain matched-camera D3D12 PIE evidence for
+  lighting, elevation, one-tile anchoring, and rock fidelity.
+
+claim_limit: >-
+  This proves scratch automation, fresh map loading, exact vendor transforms,
+  and an offline six-instance selection. NullRHI and static evidence do not
+  prove visual fidelity. V3 has not entered PIE, its fused lighting branch has
+  not been visually verified, Rock04/Rock06 remain quarantined as serialized,
+  no adapted rock asset exists, no rock was placed, and the tile is not
+  visually accepted or approved for production.

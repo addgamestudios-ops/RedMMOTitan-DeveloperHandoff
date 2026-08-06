@@ -1,0 +1,74 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M05-RUNTIME-RESERVATION-REGISTRY-STATIC
+captured_at: 2026-07-22
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed_source_and_offline_contract
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+implemented:
+  - A query-only Blueprint runtime registry exposes the authenticated RED Mars hub-reservation body ID, dataset hash, count, records, and geodesic feature-protection query.
+  - All 27 GUIDs are bound to frozen index, seed, archetype, direction, hub radius, protected radius, blend radius, reservation ID, and source-patch rows from the canonical JSON dataset.
+  - Every public record/query path rejects the layout if any live deterministic region-service field drifts outside the documented direction or radius tolerance.
+  - Each record exposes an immutable namespaced authoring-region ID independent of its archetype/display label.
+  - Empty, misspelled, or otherwise unregistered feature tags fail invalid, blocked, and full-weight instead of bypassing a hub.
+  - Authenticated records are cached once; point queries do not format names, parse GUIDs, or copy tag arrays inside the per-reservation loop.
+  - Two focused Unreal automation tests were authored for exact 27-row C++ output fields and protection-query boundaries but were not compiled or executed under this resource gate.
+files:
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.h
+    sha256: C0DF028E7329583781F585008878D01C6F926652395BBBC32B49D3C360790517
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.cpp
+    sha256: DD5361DE64D636A67B720DFEA4ED8F1B92B83BD388FD3975E084F93A93D69CD3
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    sha256: 12E9AB9C8263F28E8506B150D8008C4E5658763F2CF162844D14C25FEB533477
+  - path: Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    sha256: 4B347F85AC2BABDC52CC86DD9832E63D1D0524A15985171C6107A8C6278708EF
+verification:
+  offline_tests:
+    command: "python -m unittest Tools.tests.test_planet_pcg_reservations Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: "15/15 passed"
+  dataset_check:
+    command: "python Tools/generate_planet_pcg_reservations.py --check"
+    result: "RED_PCG_RESERVATIONS_CURRENT count=27"
+  reservation_dataset_sha256: D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5
+  dataset_file_sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  static_ue58_audit: "No likely C++ or UHT blocker found after the RedMMO/Planet include-path correction."
+  integration_static_findings:
+    - PCG and WorldGen plugins are available in Titan.uproject, but project-owned source has no native PCG/WorldGen module dependency or adapter call site.
+    - The new registry has no production call site and does not activate or spawn PCG, WorldGen, actors, or surface dressing.
+    - RedGameMode, RedFoliageField, and RedWorldAssetPalette retain their fail-safe dressing-suppression defaults.
+resource_gate:
+  samples: 12
+  free_physical_ram_gib_range: [10.957, 11.451]
+  free_virtual_or_commit_headroom_gib_range: [21.883, 22.444]
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  free_vram_mib: 8947
+  unreal_or_build_processes: 0
+  action: "No UHT, Unreal compile, editor, runtime, real-GPU, or packaging process was launched."
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+preservation:
+  - The protected checkpoint, production maps, artist repositories, vendor plugins, binary assets, and generated reservation JSON were not modified.
+  - Surface dressing remains disabled; no WorldGen exclusion volumes or PCG graphs were created.
+remaining_risks:
+  - QueryFeatureProtection still requires a caller-provided planet center; no production adapter may call it until center and radius resolve from an authoritative stable celestial-body snapshot.
+  - The authored Unreal automation tests have not passed a real editor-target compile or executed the actual C++ API.
+  - Static source/config checks cannot exclude serialized PCG or WorldGen actors, per-map overrides, or DataAsset approvals inside binary assets.
+  - Dedicated road, lake, river, and handplaced-structure masks remain absent, and no reviewed WorldGen filtering hook exists.
+claim_limit: >-
+  This evidence proves source structure and offline dataset parity only. It does
+  not prove compilation, UHT, actual C++ execution, asset-registry state,
+  runtime placement, multiplayer behavior, rendered overlap clearance, or
+  visual/gameplay acceptance. The registry is deliberately not wired to PCG or
+  WorldGen.
+next_safe_action: >-
+  When free physical RAM remains materially above the 12 GiB compile floor
+  (preferably at least 14 GiB sustained), run a narrow TitanEditor build and the
+  two RedMMO.WorldAuthoring.HubReservations automation tests. Then resolve body
+  center and radius through the stable celestial registry before reviewing any
+  adapter. Keep packaging deferred until 18-20 GiB remains sustainably free.
+rollback:
+  - Delete only the four new registry/test files and remove this evidence plus its queue/index references.
+  - No map, asset, vendor, artist, or generated-data rollback is required.

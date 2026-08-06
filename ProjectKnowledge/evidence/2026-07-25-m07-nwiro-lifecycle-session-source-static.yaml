@@ -1,0 +1,267 @@
+schema_version: 1
+id: evidence.M07.nwiro-lifecycle-session-source-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T13:07:01.664116Z
+result: passed_exact_offline_lifecycle_and_session_source_implemented_unaccepted
+
+scope:
+  objective: >-
+    Implement only the authorized fail-closed lifecycle/session control group
+    in the isolated external Nwiro Integration Kit candidate: central
+    admission, retained checked route ownership and unbind, generation-bound
+    in-flight leases and drain, complete session/permission reset, stale
+    permission rejection, and owner retention whenever UE may retain the
+    per-port listener. Keep activation and runtime readiness literal false.
+  performed:
+    - authenticate the parent activation evidence, exact three-file source allowlist, rollback bytes, parent queue, and four protected hashes
+    - retain and validate all four /mcp route handles with partial-bind rollback and reverse-order unbind
+    - close admission before route unbind, parked-callback reset, one-shot nonblocking drain evaluation, router release, and any process-owner release attempt
+    - charge every HTTP handler and public direct JSON-RPC entrypoint to a game-thread-only lifecycle-generation lease
+    - reject stale lifecycle lease release before it can decrement the current epoch
+    - reset the active session, session-wide permission flag, pending calls, and session generation on start, stop, valid DELETE, and initialize
+    - keep permission IDs process-monotonic, fail closed at exhaustion, and bind each pending permission to lifecycle generation, session generation, and exact session ID
+    - require exactly one matching MCP-Session-Id on every non-initialize HTTP POST and reject replacement initialize while a session is active
+    - accept only the exact case-sensitive allow permission ID exposed by the MCP card
+    - hard-deny the unauthenticated in-process ACP ProcessJsonRpc path until a separately reviewed connection-bound design exists
+    - conservatively mark listener ownership as retained immediately after GetHttpRouter returns a valid router and refuse process-owner release while that listener may remain
+    - persist the actual fallback BoundPort only after central admission opens
+    - add exact source, model, lineage, rollback, protected-hash, and no-clobber manifest contracts
+    - publish and independently verify one private evidence pair for the exact current 90-file tree and exact parent-to-current three-file lifecycle delta
+  not_performed:
+    - compile, build, install, enable, load, or run the candidate
+    - launch Unreal or initialize, list, or call MCP
+    - bind a socket, probe a port, call a provider, launch ACP, or write client configuration
+    - import, migrate, load, place, render, or modify any environment-pack asset
+    - create or modify any Unreal package, map, protected checkpoint, vendor installation, artist handoff, or Codex configuration
+    - claim live listener readiness, native concurrency, source acceptance, static acceptance, runtime behavior, visuals, gameplay, or real-GPU acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  physical_ram_free_gib: 8.88
+  commit_headroom_gib: 15.99
+  d_drive_free_gib: 1076.94
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4111
+    free_vram_mib: 5943
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_before: 62CEF0F494456E546C512A77219FF6D69F63C152F45F8652115E73B20E9C09B7
+  decision: >-
+    Free physical RAM remained below the one-editor and packaging gates, so
+    this bounded slice stayed entirely offline and source-static.
+
+authorization_and_rollback:
+  authorization:
+    path: Build/Automation/redmmo_nwiro_lifecycle_execution_authorization_v1.json
+    bytes: 4263
+    sha256: 203F1B7A7C7BB2B594B8BF8DFCD8182B8B6386106CCA00AEC15AFF1F1FCF5983
+  exact_candidate_mutation_allowlist:
+    - Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp
+    - Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h
+    - Source/NwiroIntegrationKit/Private/NwiroIKBridge.cpp
+  source_mutation_authorized: true
+  compile_authorized: false
+  install_authorized: false
+  unreal_launch_authorized: false
+  mcp_initialize_authorized: false
+  mcp_tool_call_authorized: false
+  network_authorized: false
+  provider_call_authorized: false
+  asset_or_map_mutation_authorized: false
+  rollback_root: D:/RedMMOTitanWindowsData/Rollback/NwiroRestrictedProbeLifecycle_20260725_1223Z
+  rollback_file_count: 3
+  rollback_matches_all_three_authenticated_parent_bytes: true
+
+lineage:
+  parent_evidence:
+    path: ProjectKnowledge/evidence/2026-07-25-m07-nwiro-activation-ownership-source-static.yaml
+    sha256: 6CEE59968A6E442671E8C79468C1F7A58CE73C2041EFBA39268E9444711CD947
+  parent_candidate_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationOwnershipEvidenceV1/candidate.v1.json
+    sha256: 6DB05AD5720F53B47FC592B714830EAEA450F0BB22269264145413B364219CB5
+  parent_delta_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationOwnershipEvidenceV1/delta.v1.json
+    sha256: 647E8ED20CBBCEDDAD925CD6B72E2FC42949FE7C44E9E5143F26F0A3FF24579A
+  parent_record_set_sha256: 761CB39071366A680D1CE0B2900FEC1103B64206D05E67904661CD3EE215CE11
+  parent_topology_sha256: 7A2C6EE72ACA073C16D79DC01E6E8CB63A76DF8C9CD9291FA5D6413BF1137D18
+  parent_total_bytes: 2207742
+
+candidate:
+  root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1
+  external_unbuilt_uninstalled: true
+  file_count: 90
+  directory_count_excluding_root: 10
+  total_bytes: 2228379
+  record_set_sha256: 4857CA12853867F77C7B81F1133A7E9DB6A8078DDC804AB6D92631791BE9C761
+  topology_sha256: 8788A05E64243D692AD4764421645E68D02951D33DD9C86ED546F0F40A88D6D5
+  parent_revision_unchanged_files: 87
+  parent_revision_modified_files: 3
+  cumulative_vendor_baseline_modified_files: 6
+  added_files: 0
+  removed_files: 0
+  renamed_files: 0
+  lifecycle_changed:
+    - path: Source/NwiroIntegrationKit/Private/NwiroIKBridge.cpp
+      before_sha256: 80C8A3194148C86D1F4E1D479133BB2B76A627698F2E35DC4D6CE822E5FC1AA1
+      after_sha256: 7BC0F35567D5BAB9EF909A2C1AAB72041E097D4EFCEC28CDCA04048A3B5E9406
+    - path: Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp
+      before_sha256: AA3FD57690EB52EEADCC473DA5C15C0F6A555199A06C9EEA4EF18258ECE20099
+      after_sha256: 3188840914AC8644741717FE9EA29DBB8654A906C0D6F1D64FEDE5E4F5FDCEC7
+    - path: Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h
+      before_sha256: E6161EFD3E4F34DE037D329766A61D792ECC572FDCF8D83592AE99277F4AF747
+      after_sha256: F280BD2FF13190FFEE46EAA22EF36F622E8FAC9FA4AB733C345115B596EC86AE
+
+control_state:
+  central_admission:
+    source_present: true
+    accepted: false
+  retained_checked_route_ownership_and_unbind:
+    source_present: true
+    accepted: false
+  generation_bound_request_lease_and_drain:
+    source_present: true
+    accepted: false
+  complete_session_permission_reset:
+    source_present: true
+    accepted: false
+  process_monotonic_permission_identity:
+    source_present: true
+    accepted: false
+  exact_http_session_binding:
+    source_present: true
+    accepted: false
+  unauthenticated_direct_acp_dispatch:
+    hard_denied_in_candidate: true
+    connection_bound_replacement_implemented: false
+  owner_retention_when_listener_may_remain:
+    source_present: true
+    accepted: false
+  production_activation_literal_false: true
+  runtime_readiness_literal_false: true
+  candidate_static_accepted: false
+  runtime_accepted: false
+
+evidence_bundle:
+  root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeLifecycleEvidenceV1
+  private_acl_verified: true
+  same_volume_no_replace_bundle_rename_used: true
+  second_publication_refused: true
+  whole_pair_power_loss_durability_proven: false
+  candidate_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeLifecycleEvidenceV1/candidate.v1.json
+    bytes: 36431
+    raw_sha256: AE9126B0A744456A31E356F3C6147CAAE7D6E1297655B4C8F62C1B525FC16211
+    semantic_sha256: 1FCDA6BB0FD5430A86D153041F1ACD4A779FA4E5A8FF447AAA184A75D2B3A868
+  delta_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeLifecycleEvidenceV1/delta.v1.json
+    bytes: 3478
+    raw_sha256: B0B8B314210586707F87840EB9342D5B9447B8B9D25F5627A7F5393A862D1A3F
+    semantic_sha256: 60A94D92197AC021E5A5BD542A3C143EA5C774ACB65C972B9E0216DF44B9F0C8
+
+tooling:
+  publisher:
+    path: Tools/generate_redmmo_nwiro_lifecycle_manifests.py
+    bytes: 29319
+    sha256: 5C174631BC1D47C43A4586D59915A0434EB61D15808527887519ECAF12EBAF99
+  publisher_tests:
+    path: Tools/tests/test_generate_redmmo_nwiro_lifecycle_manifests.py
+    bytes: 3275
+    sha256: D8B919D7302B429789B557E15C6A86686F9DCC28459B54720963E7CBA7968710
+  source_tests:
+    path: Tools/tests/test_redmmo_nwiro_lifecycle_source.py
+    bytes: 23077
+    sha256: 17B17802255EC8DD12A3988D05F9B76F6F6FB617BAB3281FF3BB8D4423A061E9
+
+verification:
+  publication:
+    command: python -B Tools/generate_redmmo_nwiro_lifecycle_manifests.py --publish
+    exit_code: 0
+    modified_count: 3
+  independent_bundle_verify:
+    command: python -B Tools/generate_redmmo_nwiro_lifecycle_manifests.py --verify
+    exit_code: 0
+    verified: true
+  second_publication:
+    command: python -B Tools/generate_redmmo_nwiro_lifecycle_manifests.py --publish
+    exit_code: 1
+    expected_no_clobber_refusal: true
+  current_source_and_publisher_contracts:
+    run: 30
+    passed: 30
+    failed: 0
+  independent_reviews:
+    review_roles:
+      - ue_5_8_api_and_compile_plausibility
+      - lifecycle_and_session_security
+      - adversarial_test_and_manifest_claim_review
+    p0_inside_bounded_slice: 0
+    p1_inside_bounded_slice: 0
+    runtime_or_broader_readiness_blockers_found: true
+  superseded_historical_current_tree_suite:
+    command: python -B -m unittest Tools.tests.test_redmmo_nwiro_activation_ownership_source -v
+    run: 16
+    passed: 10
+    failed: 2
+    errors: 4
+    status: explicit_historical_replay_blocker
+    explanation: >-
+      This suite intentionally pins the earlier five-file activation revision
+      while reading the now-advanced current candidate. It was not repinned or
+      silently omitted. A separately authorized immutable historical replay
+      snapshot is required to make default discovery green without weakening
+      either revision's assertions.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 8.198
+  commit_headroom_gib: 15.631
+  d_drive_free_gib: 1076.94
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4054
+    free_vram_mib: 6000
+  exact_unreal_or_build_process_count: 0
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_installation_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This proves exact reviewed source presence for the bounded
+  lifecycle/session controls only. Those controls remain unaccepted,
+  unreachable through normal startup because activation and readiness are
+  literal false, uncompiled, uninstalled, and unrun. It does not prove live
+  per-port listener readiness or closure, native concurrency, a working ACP
+  replacement, restricted read-only tool dispatch, Nwiro, MCP, provider,
+  Unreal, asset, map, visual, gameplay, or real-GPU behavior.
+
+remaining_blockers:
+  - UE 5.8 exposes only global void listener startup and global shutdown; there is no reviewed plugin-local per-port liveness or close proof
+  - the retained-listener rule intentionally makes any future activation one-shot per process and the mutex remains Windows-logon-session scoped rather than machine-global
+  - broad tool registry and dispatch, bypassPermissions/dontAsk, adapter/no-Bridge bypasses, reflected Bridge/Panel operations, providers, ACP, and client-config publication remain readiness blockers
+  - NwiroIKMCPAnnotationsSpec still expects direct ProcessJsonRpc tools/list behavior and must be versioned for the restricted candidate before any compile
+  - the superseded activation current-tree suite needs an immutable parent-revision replay snapshot rather than repinning its historical assertions
+  - compile the exact candidate in isolation and run native listener, request-drain, session, stale-permission, and two-process tests before accepting any source control
+  - keep Nwiro, MCP, network, providers, environment-pack migration, mini-hub authoring, and every runtime gate closed until separately authorized and proven
+
+next_safe_action: >-
+  On the next heartbeat, switch to one fresh offline M07 slice. First preserve
+  the parent activation revision as an immutable authenticated replay target so
+  historical and current suites can run green without repinning history. Then,
+  under a new exact authorization and rollback, implement only one additional
+  restricted-mode group: an exact single read-only metadata tool allowlist plus
+  total suppression of permission-bypass, Bridge/Panel, ACP, provider, and
+  client-config publication routes. Keep activation/readiness literal false;
+  do not compile, install, launch Unreal, initialize MCP, contact a provider,
+  or touch any asset or map.

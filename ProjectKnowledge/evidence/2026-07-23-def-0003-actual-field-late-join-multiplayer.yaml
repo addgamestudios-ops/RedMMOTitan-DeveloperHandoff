@@ -1,0 +1,252 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-ACTUAL-FIELD-LATE-JOIN-MULTIPLAYER
+captured_at: "2026-07-23T10:23:12Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-field-retained-depleted-proxy-late-join
+evidence_class: multiplayer
+result: pass_bounded_actual_field_live_session_late_join_4_of_4
+
+scope:
+  authorized:
+    - add one editor-only four-scenario true late-join harness for the actual stable-ID field member
+    - reproduce the retained Depleted proxy failure before changing production behavior
+    - make the smallest Depleted-only network-relevancy repair supported by the failure evidence
+    - compile current TitanEditor and Titan Win64 Development targets
+    - extend the focused offline DEF-0003 contract
+  explicitly_preserved:
+    - Active and Depleting actors continue to use the engine base relevancy result
+    - the 20 km presentation cutoff and existing 50 km network relevancy distance
+    - depletion collision shutdown, stable identity, transform, scale, capacity, and authority
+    - all production maps, protected checkpoints, production VFX, and twenty-three peer field members
+    - artist repositories and handoffs, supplied art, user assets, and unrelated dirty work
+  not_run:
+    - player-controlled travel into the field or naturally acquired mining range
+    - projectile or client-originated mining RPC delivery
+    - simultaneous client-originated final-hit arrival
+    - destruction or reward audio capture
+    - server-restart persistence or explicit respawn behavior
+    - warning-free final visual-polish acceptance
+    - Windows packaging, Steam transport, two accounts, or capacity testing
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldLateJoin_20260723_125551
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldLateJoin_20260723_125551/MANIFEST.txt
+    sha256: A36624F19F00B04732AE098C1B0B13492F71A47014828D5B2477A27718AB5DC0
+  pre_fix_source:
+    header_sha256: 947B57F73E0D71CFFDFF91E157FAD352A353A11234445E9E525B5AB915CBC740
+    cpp_sha256: E207EF19F8A0C1FCC8CC34157C29F7DDC699B8AC13F96771745958748F87F81D
+  pre_slice_contract_sha256: E3131ED027CECFA1AC66A1C0A97EF20B021E670ADDBAF2288FBEB5A6BFAAC29C
+  late_join_harness_existed_before_slice: false
+
+regression_witness:
+  renderer: D3D12 SM6
+  topology: in_process_listen_server_plus_true_late_client
+  harness_only_build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/TitanEditor-build.log
+    sha256: 41CED1F2EB5BE4DA43F18A212CDE5099150B1EE33A41786D5291516251C9CD6C
+  automation:
+    result: pass_1_fail_3
+    total_elapsed_seconds: 32.819859
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/pre-fix-automation-report.json
+      sha256: 43030F999B77D1DA95CFC464758CA10AECB47FB2BC03F96F65A5461961408544
+    report_text:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/pre-fix-automation-report.txt
+      sha256: DE0905D36F112EB9E482589B6D8F957C486F37487D8E4F10AECB13F92171AFFE
+  observed:
+    - the DuringDepleting true-late-client case passed because the intact actor remained base-relevant
+    - the inside-replay, outside-replay, and durable-after-expiry cases all failed to receive the retained asteroid proxy
+    - each failed case had a healthy late connection at 224845 cm, inside the unchanged 5000000 cm network relevancy distance
+    - authority state was Depleted, sequence 2, hidden, and collision-disabled
+    - the causal marker reported lateJoinTargetPresent=0 for all three Depleted cases
+  root_cause: >-
+    Stock actor relevancy rejects an actor that is both hidden and
+    collision-disabled before its normal distance test. The retained asteroid
+    intentionally has exactly that terminal presentation state, so a new
+    in-range connection could not receive the durable Depleted state.
+
+implementation:
+  production_runtime_changed: true
+  production_fix:
+    header:
+      path: Source/RedMMO/RedMineableAsteroid.h
+      sha256: 96430D5497D13D2EA90B11A0B1950A5E7F00DCC35E46F596DFB2FF3CEA0914D2
+    cpp:
+      path: Source/RedMMO/RedMineableAsteroid.cpp
+      sha256: 63CD3183C42E8705B410C06F2504FF721E4E2E3959E4445DA9540BE73F5C45DE
+    behavior:
+      - IsNetRelevantFor returns the engine base result for every base-relevant actor
+      - only Depleted actors rejected by the base path fall back to RootComponent plus IsWithinNetRelevancyDistance
+      - the fallback retains the existing 50 km network relevancy distance
+      - no actor is made AlwaysRelevant and no net-cull distance is overridden
+      - hidden collision is not re-enabled
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldLateJoinPIETests.cpp
+    sha256: C49CB78443DDA32F2D367CC84400120F1A3AF10888EC7BDD5E80A00C2D04A3D1
+    automation_prefix: RedMMO.Mining.DEF0003.ActualFieldLateJoinPIE
+    behavior:
+      - each scenario uses a fresh one-listen-server PIE session and GEditor RequestLateJoin
+      - the late client is a genuine newly created network connection rather than a pre-existing hidden client
+      - actual member asteroid-field.red.mars.deep-space/0x4F524531/23 is selected by immutable stable ID
+      - a bounded player test teleport keeps the late client inside the existing relevance distance without moving the asteroid
+      - all twenty-three peer members must remain pristine
+  focused_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: D5E8F2D311EAF7B43E6BB3431CF59CD2B661C7F0342EFD4869004315C69D039D
+    result: 23_of_23_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/contract-tests-final.log
+      sha256: 30ED67DCFA0A524D105F5314C32C9D23428A64A51CE04AEEA5D0D500BAB2D430
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    elapsed_seconds: 67.25
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/TitanEditor-post-fix-build.log
+      sha256: 162496902CCD0E5A706D81CEE057C9D02DD28C2BB71A9897BF75D03F51E4DF52
+  titan:
+    target: Titan Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    elapsed_seconds: 78.84
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/Titan-post-fix-build.log
+      sha256: 1B26DDFA8A489A42AB93B11A873C46F122E9B27E7A89CEAF85F569DCC48F77B0
+
+runtime_acceptance:
+  evidence_class: multiplayer
+  renderer: D3D12 SM6
+  gpu: NVIDIA GeForce RTX 3080
+  editor_process_count: 1
+  topology: in_process_listen_server_plus_true_late_client
+  online_subsystem: disabled
+  automation:
+    result: pass_4_fail_0
+    total_elapsed_seconds: 29.906218
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/post-fix-automation-report.json
+      sha256: 1EC3EC2F2995BE3CB158E089C9BA15529B35E76056F1806C370A85AF8EFD7E89
+    report_text:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/post-fix-automation-report.txt
+      sha256: 5935DAEE2322D9636483F8BFBDC110393203780F805BFE7FBF64AB3DB6588C50
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/post-fix-editor-runtime.log
+      sha256: 1FA1458AFADD38A399E5B2EA5D806130E17B97A8FE57E448DAB29210D3358C98
+  scenarios:
+    during_depleting:
+      elapsed_seconds: 12.056997
+      result: pass
+      verified:
+        - true late client received Depleting sequence 1
+        - synchronized remaining presentation time was accepted with 85.7 ms clock error
+        - both peers converged to Depleted sequence 2
+    inside_replay_window:
+      elapsed_seconds: 3.558923
+      result: pass
+      verified:
+        - the true late client received the retained Depleted proxy
+        - twelve simulated debris pieces plus active light and tick prove local replay evaluation inside the 0.5-second window
+        - first polling observation was 0.583 seconds and is not used as the replay decision timestamp
+    outside_replay_window:
+      elapsed_seconds: 4.581555
+      result: pass
+      verified:
+        - the true late client received the retained Depleted proxy at observed age 1.461 seconds
+        - stale local replay was suppressed with zero debris, zero active lights, and tick disabled
+    durable_after_transient_expiry:
+      elapsed_seconds: 9.412477
+      result: pass
+      verified:
+        - after explosion and receipt expiry the true late client received Depleted sequence 2
+        - the proxy was hidden with collision disabled and no transient FX or receipt
+        - no duplicate reward occurred and all twenty-three peers remained pristine
+  common_verified:
+    - actual stable member asteroid-field.red.mars.deep-space/0x4F524531/23 was used in all four scenarios
+    - every scenario used one fresh true late-client connection
+    - stable identity, production presentation cutoff, existing network distance, and field peer count were preserved
+    - PIE and the sole rendered UnrealEditor process ended cleanly
+    - the fatal, assert, ensure, OOM, GPU-device-loss, device-removed, and unhandled-exception scan was empty
+
+known_nonblocking_runtime_warnings:
+  - the optional Voxel collision-invoker class is absent and ship code reports its raycast fallback
+  - moving the bounded harness PlayerStart reports a static-capsule mobility warning
+  - r.MotionVectorSimulation reports a render-thread safety warning
+  - teardown reports one attempted SpawnActor while the world is already tearing down
+
+resource_and_process_gate:
+  final_free_physical_ram_gib: 17.91
+  final_free_commit_headroom_gib: 35.16
+  final_free_vram_mib: 8799
+  final_free_disk_d_gib: 1141.12
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched because free physical RAM had not remained
+    sustainably inside the required 18-20 GiB range.
+
+protection:
+  provenance_contract:
+    result: 7_of_7_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/protected-provenance-tests.log
+      sha256: 22737C2164571E7CC5202E8013591A1B6FC96F0F3C0D3D4E8EC1624FA86CC88E
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+remaining_gates:
+  - player-controlled travel and naturally acquired mining range
+  - projectile or client-originated mining RPC delivery
+  - simultaneous client-originated final-hit contention if required
+  - destruction and reward audio
+  - explicit server-restart persistence or respawn semantics
+  - warning-free final presentation
+  - packaged Windows, Steam transport, two-account acceptance, and capacity testing
+
+canonical_sync:
+  module_status: incomplete_retry
+  retry_count: 36
+  queue_sha256_after: 0457ABFB7216D8FF524294C89C5668D9ECD92E03F1DA823CBD8068124CD0F73A
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+  yaml_and_json_parse: 7_of_7_passed
+  integrity_audit:
+    result: historical_failures_unchanged_new_slice_zero
+    error_count: 64
+    warning_count: 0
+    finding_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003ActualFieldLateJoin_20260723_1318/project-knowledge-integrity.json
+      sha256: 7B3471691AA5A3261A161F1CEA02E9E62E3B9FBC2DBCC4D2CC3E6FA2E8C03DB8
+
+claim_limit: >-
+  This is rendered RTX 3080 D3D12 multiplayer/runtime evidence for one actual
+  production field member in one local UnrealEditor process with a listen
+  server and genuine newly connected Client 1. It accepts live-session late
+  join during Depleting, inside and outside the transient replay window, and
+  after transient expiry in durable Depleted state. It does not provide visual
+  pixel acceptance, player-controlled travel, projectile or client-originated
+  RPC delivery, simultaneous wire arrival, audio, server-restart persistence,
+  respawn policy, warning-free polish, packaging, Steam, two accounts,
+  performance capacity, or broad multiplayer acceptance.

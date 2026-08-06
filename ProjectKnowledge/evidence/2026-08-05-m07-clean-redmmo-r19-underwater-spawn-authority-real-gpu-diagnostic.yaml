@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r19-underwater-spawn-authority.real-gpu-diagnostic.2026-08-05
+captured_utc: "2026-08-05T10:32:29Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r19-no-save-surface-occlusion-and-sun-direction-isolation
+evidence_class: real_gpu_visual
+result: pass_native_ppg_water_above_underwater_ocean_spawn_identified
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed_changed: false
+  map_saved: false
+  content_saved: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  resolution: [1280, 720]
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  sole_editor_pid: 6428
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  pawn_class: BP_RedTrooperPlayer_A01_C
+  pawn_location: [-198911217.22968367, 16591254.847640004, -523634710.60749865]
+  pie_stopped_cleanly: true
+  process_count_after: 0
+
+diagnostic:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/diagnose_redmmo_r18_surface_occlusion.py
+    sha256: AE2A827D7F845D0CA255B8DE01E7344FBF4402AED45CFA2885155AF8E21C21E4
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/result.json
+    sha256: 4F5C0D6057D70AAF5D802DD29506996B5BB347963AC6D8D5DE5A21F89785E954
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/unreal.log
+    sha256: 761004570789EC6339EE6FDA4B22E30B23F22DC1B01CF6B69DAB6FB2805B0B9D
+  retained_failed_attempt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1016Z/unreal.log
+    result: aborted_after_exact_pid_cleanup
+    reason: the first verifier advanced its phase after synchronous level load, allowing Slate re-entry to issue repeated MAP LOAD commands
+    project_save_before_abort: false
+
+matched_captures:
+  night_dome_visible:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/R19_night_dome_visible_1280x720.png
+    sha256: D6C82B84584AFE8C77E87AA928B22D49AA48121F8F3DEFBB5F6AF6D05E3F1252
+    visual_result: rippled_overhead_surface_present
+  night_dome_hidden:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/R19_night_dome_hidden_1280x720.png
+    sha256: 91EC41F999B35FF9071CA2794C820B3255A4D7E2B5E5441A0FE2272175D9608B
+    visual_result: rippled_overhead_surface_persists_when_only_star_mesh_is_hidden
+  sun_forward_inward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/R19_sun_forward_inward_1280x720.png
+    sha256: CA0E8FE462665CFC2F016EC74DA4A0F2824E797F30AE3B8721C6657E1B6BA223
+    visual_result: sky_visible_but_ground_character_and_ship_nearly_black
+  sun_forward_outward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R18_SurfaceOcclusion_R19_20260805T1028Z/R19_sun_forward_outward_1280x720.png
+    sha256: 19D4AEFEFD7D7C8197EC7E78479F27F42C9686D97B59B3713D12BC5CDDC53413
+    visual_result: ground_character_and_ship_lit_while_rippled_water_surface_is_visible_overhead
+
+cause_isolation:
+  r18_star_mesh_owner: /Engine/BasicShapes/Sphere.Sphere
+  star_mesh_hiding_removed_covering_surface: false
+  saved_floor:
+    label: Floor
+    location: [0.0, 0.0, 34639.5]
+    scale: [8.0, 8.0, 8.0]
+    angular_dot_to_current_player: -0.7460567975165534
+    conclusion: opposite-side_saved_floor_is_not_the_covering_surface
+  radial_visibility_traces:
+    pawn_outward_blocking_hit: false
+    outside_inward_blocking_hit: false
+    interpretation: consistent_with_noncolliding_ppg_water_and_does_not_identify_a_covering_terrain_chunk
+  prior_live_spawn_evidence:
+    elevation_below_native_sea_datum_cm: 244389.77
+    biome: Ocean
+    biome_strength: 1.0
+    foliage_binding: null
+  corrected_classification: >-
+    The current player start is on generated terrain below PPG sea datum and
+    beneath PPG's visible non-colliding radial water mesh. The rippled water
+    surface, not the R18 star dome, saved Floor_0, or a second terrain shell,
+    is the gray overhead layer in the R18/R19 surface views.
+
+installed_ppg_source:
+  path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+  sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  exact_contract:
+    - line 2174 creates visible water when ChunkMinHeight is below zero and GenerateWater is enabled
+    - lines 2464-2465 make WaterChunk non-colliding but visible
+    - lines 2486-2494 bind PlanetData water material plus HeightMap and PlanetRadius to the generated WaterChunk
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This diagnostic corrects the R18 surface-occlusion owner and proves which
+  transient sun-forward sign lights the current underwater ground view. It
+  does not accept the current spawn, surface day/night, native water art,
+  biome/grass presentation, moon, standalone, replication or multiplayer.
+
+next_safe_action: >-
+  Preserve seed 1337 and all ProfileV1 bindings. In a separate guarded
+  transaction, sample completed generated chunks for an above-sea-level land
+  point with fitted terrain collision and a foliage-eligible biome, move only
+  PlayerStart plus its attached label there under rollback, then re-run matched
+  surface-day/night and visible approved-grass proof. Do not add a manual floor,
+  disable native water, or bind foliage globally to Ocean.

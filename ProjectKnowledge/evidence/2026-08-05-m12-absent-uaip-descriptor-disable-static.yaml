@@ -1,0 +1,93 @@
+schema_version: 1
+id: evidence.m12.absent-uaip-descriptor-disable.2026-08-05
+captured_utc: "2026-08-05T01:27:30Z"
+module_id: M12
+system: project.editor-plugin-dependency
+slice: absent-required-plugin-reconciliation
+evidence_class: static
+result: absent_editor_plugin_entry_disabled_with_exact_rollback
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  descriptor: D:/RedMMOTitan/Titan.uproject
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  descriptor_before_sha256: 0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23
+  descriptor_after_sha256: E5FADD8BA6C825521DBC5556CB0BDC23C911ADC57A31F1D42D0DC92E39B2AEB1
+  exact_change: UnrealAIIntegrationPlatform.Enabled_true_to_false
+  other_descriptor_lines_changed: 0
+
+provenance:
+  historical_installation:
+    descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/UnrealAI7e71c887d91fV2/UnrealAIIntegrationPlatform.uplugin
+    recorded_version: "1.0.0"
+    historical_editor_open_order_record: Build/Windows/FileOpenOrder/EditorOpenOrder.log
+    historical_build_logs_with_plugin_dependency_resolution: 4
+    prior_evidence: ProjectKnowledge/evidence/2026-07-25-unreal-ai-integration-memory-recovery-static.yaml
+  current_installation_shell:
+    root: D:/UE_5.8/Engine/Plugins/Marketplace/UnrealAI7e71c887d91fV2
+    created_utc: "2026-07-12T12:26:40Z"
+    modified_utc: "2026-07-31T22:07:41Z"
+    top_level_entries: [Intermediate]
+    total_files: 50
+    descriptor_files: 0
+    source_files: 0
+    binary_files: 0
+    non_intermediate_files: 0
+  local_recovery_search:
+    searched_roots:
+      - D:/RedMMOTitanWindowsData/Rollback
+      - D:/RedMMOTitanWindowsData/Projects
+      - D:/RedMMOTitanWindowsData/Scratch
+      - C:/Users/user/Documents/Red MMO Windows
+    exact_descriptor_copies_found: 0
+  official_listing:
+    url: https://www.fab.com/listings/0eedf909-00ac-4d95-b109-8fda51800fff
+    advertised_formats: Unreal_Engine
+    advertised_platform_and_version: UE_5.7_and_UE_5.8_Win64
+    entitlement_or_current_delivery_verified: false
+
+decision:
+  rationale: >-
+    UAIP is historically real and intended as an editor-only backup integration,
+    but the executable plugin payload is absent. Keeping an absent plugin enabled
+    prevents every TitanEditor build and falsely presents it as available. M12 has
+    no UAIP source dependency. Disable only the missing entry until the exact full
+    payload is officially reinstalled and authenticated.
+  substitutions_made: []
+  stale_intermediate_deleted: false
+  provider_or_bridge_called: false
+  compile_or_unreal_launch_performed: false
+
+rollback:
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeUAIPAbsentPluginDisable_20260805T0126Z/manifest.yaml
+    sha256: 41AF35AF2DAE1E4A20545D7171DA5CFF98F3E103351E8A7862A97DB976A9AFB3
+  exact_descriptor_copy:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeUAIPAbsentPluginDisable_20260805T0126Z/Titan.uproject.before
+    sha256: 0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23
+
+protection:
+  source_changed: false
+  maps_or_assets_changed: false
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  final_unreal_or_build_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+  desktop_control_used: false
+  project_knowledge_audit:
+    result: fail_with_4_pre_existing_unrelated_PKI012_findings
+    new_or_slice_caused_findings: 0
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M12_UAIPDependencyReconcile_20260805T0126Z/project_knowledge_audit.json
+
+claim_limit: >-
+  This is static project-configuration evidence only. It restores build
+  discoverability by disabling an absent editor plugin entry; it does not prove
+  the subsequent build, compile M12, execute native tests, reinstall UAIP, or
+  satisfy any runtime, visual, gameplay, package or multiplayer gate.
+
+next_safe_action: >-
+  After fresh safeguards, retry exactly one serialized TitanEditor Win64
+  Development build with -NoUBTMakefiles, -NoUBA and MaxParallelActions=1.
+  Do not execute the nine M12 scenarios in the same slice. Re-enable UAIP only
+  after official delivery of the exact full payload is independently verified.

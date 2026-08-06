@@ -1,0 +1,252 @@
+schema_version: 1
+id: evidence.2026-07-24.def-0004.replacement-surface-minimap-presenter-source-static
+captured_utc: "2026-07-24T10:31:38.1403531Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: pass_source_static_surface_minimap_presenter_runtime_acceptance_pending
+
+scope:
+  selected_slice: >-
+    Replace the deliberately collapsed baked fantasy minimap with one bounded
+    replacement-HUD surface presenter backed by the existing local 512-square
+    scene-capture render target. Add explicit source ownership, celestial-frame
+    identity, Surface/Space/Absent modes, monotonic presentation epochs, stale
+    handoff rejection, and fail-closed publication without fabricating contacts.
+  redhud_plugin_source_files_modified: 3
+  redmmo_gameplay_source_files_modified: 4
+  focused_test_files_modified: 5
+  production_maps_modified: 0
+  content_assets_modified: 0
+  config_modified: 0
+  supplied_minimap_or_hud_art_modified: false
+  authority_or_replication_modified: false
+  artist_vendor_vibe_handoff_or_user_assets_modified: false
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_unstaged_paths: 60
+    individual_untracked_paths: 1485
+    total_status_entries: 1545
+    stale_zero_byte_index_lock_preserved: true
+    unrelated_dirty_work_preserved: true
+  resources:
+    total_physical_gib: 31.87
+    free_physical_gib_range: [13.60, 13.69]
+    commit_headroom_gib_approx: 29.1
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib: 8582
+    c_free_gib: 124.48
+    d_free_gib: 1139.99
+  overlap:
+    unreal_editor_build_cook_package_or_game_processes: 0
+    other_overlapping_continuations_detected: 0
+  gate_decision: >-
+    Free physical RAM remained below the required sustained 18-20 GiB gate.
+    No Unreal Editor, UHT, C++ build, commandlet, cook, package, game, Steam,
+    or real-GPU process was launched. The slice remained offline and bounded.
+
+latest_build_evidence:
+  prior_context_only: true
+  latest_successful_related_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  relationship_to_this_slice: predates_current_minimap_source_changes
+  current_minimap_cpp_or_uht_compile: not_run_resource_gate_closed
+  package_currency: stale_unverified
+
+baseline:
+  supplied_minimap_state: >-
+    The only replacement minimap visual was one monolithic supplied sprite with
+    baked fantasy terrain, a player marker, objective marker, and hostile
+    contacts. It was intentionally collapsed in live mode because no trustworthy
+    live replacement consumer existed.
+  available_local_surface_backend: >-
+    RedPlayerCharacter already owned a 512 by 512 local scene-capture render
+    target used only by the hidden legacy HUD. It had no replacement presenter,
+    explicit ownership, canonical celestial frame, mode, ordering, or teardown
+    contract.
+  deliberately_not_bridged:
+    - legacy client-enumerated space radar contacts
+    - replicated enemy-derived legacy blips
+    - fabricated quest, objective, hostile, party, or sensor contacts
+    - baked player, objective, and hostile markers from supplied sample art
+
+implementation:
+  presentation_contract:
+    - explicit ERedHUDMinimapMode values Absent, Surface, and Space
+    - Surface requires a valid local source owner, nonempty canonical celestial frame, valid texture, and positive monotonic epoch
+    - lower epochs, conflicting equal epochs, stale owners, and equal-epoch resurrection after reset fail closed
+    - Space and Absent detach the texture and remain visually collapsed
+    - valid owner handoff resets prior presentation before the new source publishes
+    - stale prior-pawn teardown cannot clear a newer pawn's registered HUD
+  surface_capture_publication:
+    - frame identity comes from the current stable gravity-body ID or deterministic dominant-body query
+    - no invented flat-world frame identifier is used
+    - publication requires non-Space mode, a canonical frame, a fresh matching-frame capture, valid capture and render target, and exact TextureTarget binding
+    - Surface transitions synchronously capture before publishing
+    - Space, missing frame, missing target, or target mismatch invalidates freshness and publishes no surface texture
+    - the recurring local callback can update the replacement surface capture while the legacy HUD remains collapsed
+  replacement_composition:
+    - supplied baked minimap art remains untouched and collapsed
+    - project-owned purple, gold, and teal frame surrounds one exact 512 by 512 live image
+    - a local-owner center cross and LOCAL SURFACE label are presentation-only
+    - all minimap children share the authored minimap origin for coherent customizer scaling
+    - no contact, objective, hostile, party, or space-radar marker is invented
+  lifecycle:
+    - HUD registration and unregister are source-identity scoped
+    - presentation epoch advances on source, texture, mode, and celestial-frame change
+    - reset retains an epoch tombstone and clears the Slate brush resource
+    - native presentation-state query drives replacement capture activity
+
+source_artifacts:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h
+    bytes: 5043
+    sha256: 104D3869346F20CE4B73415B769005F6C2C875A87769C507E8BE3E1A68CCCA72
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    bytes: 11252
+    sha256: 7F35CF41C5369553955D63026D17171201A46E3098238AFA781198D3ED373788
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    bytes: 57610
+    sha256: 0783A75409A7D82C3FD84BC907473C2BAE846965533C7C76D63CB91848E0BD7A
+  - path: Source/RedMMO/RedHUD.h
+    bytes: 4410
+    sha256: 3C2AD693DE4A485F5042FDF93CFCDD56B60E30494E750A59F8901DECDDB82863
+  - path: Source/RedMMO/RedHUD.cpp
+    bytes: 20744
+    sha256: 414DCD2B09FD4C1607CDF16FFA6C651CD8ADB0B44C229A61AD40E4DEEF66DD61
+  - path: Source/RedMMO/RedPlayerCharacter.h
+    bytes: 71406
+    sha256: 0CADFD6C52B5AECC112B1B969EC26334B6A7C35B98FB55B47455185EFB2E15A7
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    bytes: 419740
+    sha256: 7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99
+
+test_artifacts:
+  - path: Tools/tests/test_def0004_replacement_hud_minimap_inventory_contract.py
+    bytes: 17809
+    sha256: DB900C3F26931FC1413A3C1BCB3913CCCBE9A5A8F8AB6ED5BF1AEBABF2AD34AE
+  - path: Tools/tests/test_def0004_legacy_hud_capture_visibility_gate_contract.py
+    bytes: 5852
+    sha256: 432E9495B278F3912989D5C64C64D1A0304D96050CAA6B646CB0A6C52EBE9AB1
+  - path: Tools/tests/test_def0004_legacy_hud_capture_residual_inventory_contract.py
+    bytes: 9895
+    sha256: BFD0CE62366D2A462AA3969D13AF7F8F1CCE538373FBBB9923D1F5BBE667A107
+  - path: Tools/tests/test_def0004_pixel_hud_current_contract.py
+    bytes: 9498
+    sha256: 436574A2AA4006D599191F19741A92B457D797F1F8179CA7E706ACC5EBCE99E5
+  - path: Tools/tests/test_def0006_red_hud_runtime_contract.py
+    bytes: 9167
+    sha256: A7A6FF2A468ABA994A4F89C76957B238B37762A42586F23AA839463B7D25CD94
+
+verification:
+  affected_minimap_and_runtime_contracts:
+    result: 29_of_29_passed
+  all_DEF_0004_static_contracts:
+    command: python -m unittest discover -s Tools/tests -p test_def0004*.py -v
+    result: 120_of_120_passed
+  DEF_0006_runtime_contract:
+    command: python -m unittest -v Tools.tests.test_def0006_red_hud_runtime_contract
+    result: 6_of_6_passed
+  full_offline_discovery:
+    command: python -m unittest discover -s Tools/tests -p test_*.py
+    result: 550_of_550_passed
+    seconds: 70.201
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementSurfaceMinimapPresenter_20260724_1028Z/offline_contract_tests.log
+    log_bytes: 2424
+    log_sha256: C6F63AE11BB7C8B75EBC8B75EF66A55C30448A2676AEE5A8A8ACF3B6D2191981
+    note: >-
+      PKI011 appears once as the expected stdout of an adversarial negative
+      integrity-auditor fixture; the enclosing unittest discovery result is OK.
+  ue_5_8_header_api_check:
+    header: D:/UE_5.8/Engine/Source/Runtime/UMG/Public/Components/Image.h
+    symbol: UImage::SetBrushResourceObject
+    result: present
+  diff_check:
+    result: passed_with_line_ending_warnings_only
+  postrecord_focused_integrity_and_provenance:
+    modules:
+      - Tools.tests.test_def0004_replacement_hud_minimap_inventory_contract
+      - Tools.tests.test_def0004_legacy_hud_capture_visibility_gate_contract
+      - Tools.tests.test_def0004_legacy_hud_capture_residual_inventory_contract
+      - Tools.tests.test_def0004_pixel_hud_current_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 72_of_72_passed
+  independent_read_only_review:
+    reviewers: 3
+    result: pass_for_source_static_claim_after_guard_corrections
+    confirmed:
+      - stale pawn unregister and owner handoff are identity scoped
+      - Space, unknown-frame, and wrong-target publication fail closed
+      - explicit mode request is not overwritten by ship detection
+      - equal-epoch reset resurrection is rejected
+      - image aspect is exact 512 by 512 and child transforms share one origin
+      - no obvious UE 5.8 include, type, or API blocker was found statically
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_checkpoint_artist_vendor_handoff_user_asset_or_package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004ReplacementMinimapPresenter_20260724_1005Z
+  exact_pre_slice_files: 18
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004ReplacementMinimapPresenter_20260724_1005Z/SHA256SUMS-before.txt
+  manifest_sha256: 9FB665D207B2FFEDEDE4E879359571DAF06814D8A11AA0FFF9F29BAC55C849A4
+  pre_slice_queue_sha256: 8E654328B8070BE9430925FC8B8040AA1BCAA8A01450BC6BB7DC47117A5B8FBE
+  exact_pre_slice_bytes_retained: true
+
+project_knowledge_integrity:
+  prerecord_report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementSurfaceMinimapPresenter_20260724_1028Z/integrity_precanonical.json
+  prerecord_report_bytes: 1782
+  prerecord_report_sha256: 3D9AA5AFC1EC61D8BE3D53FCFE7B50FD6FA31F5F1264C1FDDCE5B9E51CE3E02E
+  prerecord_result: passed_with_0_errors_and_0_warnings
+  prerecord_indexed_evidence_count: 126
+  prerecord_indexed_route_count: 164
+  postrecord_report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementSurfaceMinimapPresenter_20260724_1028Z/integrity_final.json
+  postrecord_result: passed_with_0_errors_and_0_warnings
+  postrecord_indexed_evidence_count: 127
+  postrecord_indexed_route_count: 165
+
+canonical_queue:
+  pre_slice_sha256: 8E654328B8070BE9430925FC8B8040AA1BCAA8A01450BC6BB7DC47117A5B8FBE
+  post_slice_sha256: 7C451952864AD946660E199D6535C3E4C5E63A0EDB3C93E84E895389500FCEE9
+  module_id: M09
+  module_status: incomplete_retry
+  retry_count: 26
+
+remaining_blockers:
+  - current C++ and UHT compilation is unproven
+  - no Unreal runtime or real-GPU pixels accept the new surface presenter
+  - first hide-to-show frame may expose the previous render target until the next 0.15-second capture
+  - the project-owned composition is rectangular and does not yet consume the existing circular mask
+  - scene capture is local visual context, not an authoritative sensor or terrain-only map
+  - Space remains deliberately absent and has no authoritative radar producer
+  - objective, hostile, party, and quest markers remain absent without stable authorized producers
+  - possession, travel, late join, resolution scaling, customizer scaling, and measured CPU/GPU/RHI cost remain runtime-unverified
+  - static lexical tests do not replace mutation-sensitive native C++ presenter-state tests
+  - DEF-0004 and M09 remain open or incomplete for their broader HUD, package, Steam, and multiplayer gates
+
+next_safe_action: >-
+  Once sustained free physical RAM reaches at least 18-20 GiB, run one serialized
+  current-source editor build, then a real D3D12 surface/Space/Surface and
+  hide/show/customizer-scale capture with first-visible-frame and GPU-cost
+  evidence. If the RAM gate remains closed, continue another independent offline
+  module instead of weakening the gate.
+
+claim_limit: >-
+  This evidence proves only a bounded source-static replacement-HUD surface
+  minimap presentation contract and its offline lexical regression coverage. It
+  does not prove C++ or UHT compilation, Unreal launch, rendering, pixel quality,
+  first-visible-frame freshness, input behavior, sensor authorization, contacts,
+  objectives, Space radar, measured GPU cost, gameplay, packaging, Steam
+  transport, persistence, travel, late join, or multiplayer acceptance.

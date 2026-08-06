@@ -1,0 +1,79 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r17-runtime-remap-audit-startup-blocked.2026-08-04
+captured_utc: "2026-08-04T23:45:18Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r17-runtime-biome-remap-and-playerstart-foliage-eligibility
+evidence_class: automation
+result: blocked_before_python_execution_switch_next_wake
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  target_planet: /Game/RedMMO/World/PPG/HomeWorld/SeededBiomeSurface/R17/DA_PPG_HomeWorld_SeededBiomeSurface_R17
+  target_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+
+prepared_audit:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/audit_redmmo_r17_runtime_biome_remap_and_foliage.py
+    sha256: 9B0A984B1B7862D30320CBD55A8F1EB78939AC6270B0E67BFFAF219A05575C09
+  intended_readback:
+    - persisted SurfaceMaterialBiomeEntryMap
+    - native material-output names and expected name mapping
+    - SurfaceBiomeStrengthParameterBindings
+    - all per-biome FoliageData bindings and grass entry eligibility
+    - PlanetSpawner minimum biome blend, global foliage density and shared cap
+    - PlayerStart transform and radial direction
+  persistent_writes: false
+
+source_finding:
+  planet_biome_order: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+  material_output_order: [Craters, Mountains, Desert, Hills, Poles, Ocean]
+  expected_name_remap: [0, 3, 1, 2, 5, 4]
+  identity_fallback_is_incorrect: true
+  installed_source:
+    planet_data_cpp_sha256: F9A35F05E4FE7EFA5D353FD5851A8BC78254356CF18D99639536E74F20EA840A
+    chunk_object_cpp_sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  claim_limit: >-
+    This proves that an empty/identity persisted remap would be incorrect. The
+    actual persisted R17 array was not read because the editor did not reach
+    Python, so this is not yet proof that R17 contains that defect.
+
+blocked_run:
+  editor_executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe
+  exact_pid: 7124
+  timeout_seconds: 150
+  stdout:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/R17_RuntimeBiomeAudit_20260805T024054Z.stdout.log
+    sha256: 5B1B2733B48F9641A1A81A368D837B438BC62955C1A652CB592A712FE16EB2E9
+  stderr:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/R17_RuntimeBiomeAudit_20260805T024054Z.stderr.log
+    sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  result_json_created: false
+  observed_stage: UnrealBuildTool ValidatePlatforms
+  blocker: >-
+    UnrealEditor-Cmd remained in SDK/platform validation and never created the
+    RedMMO editor log or entered the Python audit within the bounded 150-second
+    window. The exact process was stopped; repeating the identical launcher is
+    not authorized on the next wake.
+
+protection:
+  production_or_protected_content_changed: false
+  clean_red_packages_changed: false
+  home_map_changed: false
+  r17_planet_changed: false
+  providers_called: false
+  unreal_process_count_after: 0
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+next_safe_action: >-
+  On the next heartbeat switch to the independent authorized night/space
+  presenter slice as required by the ten-minute rotation rule. Use only
+  read-only source/design evidence unless a planet-aware altitude and optical-
+  depth implementation boundary is already fully specified. A later R17 retry
+  must use a materially different proven editor launcher, not the stalled
+  UnrealEditor-Cmd invocation.

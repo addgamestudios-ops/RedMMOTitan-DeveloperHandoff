@@ -1,0 +1,43 @@
+schema_version: 1
+template: celestial.planet
+
+id: "planet.<slug>"
+display_name: "<artist-facing name>"
+status: specified
+authority: server
+
+frame:
+  center_cm: [null, null, null]
+  orientation_source: "registry"
+
+physical:
+  radius_cm: null
+  max_terrain_height_cm: null
+  collision_enabled: true
+
+surface:
+  provider: planetgen
+  profile_id: "planetgen-profile.<slug>"
+  runtime_chunks: planetgen_surface_chunks
+  authored_macro_source_id: "authoring-set.<slug>"
+  authoring_region_ids: []
+
+authored_content_streaming:
+  provider: world_partition
+  contains: [hubs, props, encounters, navigation_patches, local_dressing]
+  excludes: [planetgen_surface_chunks]
+
+atmosphere_id: "atmosphere.<slug>"
+water:
+  enabled: false
+  sea_datum_cm: null
+
+gravity:
+  enabled: true
+  influence_radius_cm: null
+  priority: 0
+  hysteresis_cm: null
+
+evidence:
+  status: specified
+  artifacts: []

@@ -1,0 +1,164 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r10h.presentation-correction-real-gpu.2026-08-02
+captured_utc: "2026-08-02T02:57:52Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r10h-restrained-palette-rounded-rocks-and-matched-player-scale-capture
+evidence_class: real_gpu_visual
+result: passed_structural_and_corrective_visual_pending_human_acceptance
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  source_r10g_home_map_sha256: F28309F6A7B86CCF05C52624853674CF5EA2F9B16A72A9E1BC1EA0E032E01EE1
+  persisted_r10h_home_map_sha256: 57393941EF3992962BE26D7A1141ADE92602A2F61B28647D776A77ACCF458746
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10H_20260802_0532
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10H_20260802_0532/pre_r10h_manifest.json
+  manifest_sha256: 5CBE5430440075D9D5111207DE8E0D3395A968D7F7FA854F0DB58904408BF860
+  file_count: 15
+
+persisted_changes:
+  scope: project_owned_presentation_only
+  exposure:
+    minimum: 0.25
+    maximum: 2.0
+    bias_before: 1.0
+    bias_after: 0.5
+  ground_palette:
+    PaintedGrass: [0.16, 0.26, 0.12]
+    WarmDirt: [0.30, 0.20, 0.12]
+    CoolCliff: [0.20, 0.23, 0.28]
+  grass_a:
+    Blade: [0.16, 0.30, 0.11]
+    Subsurface: [0.13, 0.24, 0.09]
+  grass_b:
+    Blade: [0.20, 0.34, 0.13]
+    Subsurface: [0.16, 0.28, 0.10]
+  rock_aliases:
+    - asset: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10/Meshes/SM_RockVanilla_Medium_01_Normalized_R10H
+      source: /Game/StylizedRocksPack_01/Rocks/Meshes/SM_RockVanilla_Medium_01
+      sha256: 5ABE53BD463D78CA6E8C1AF92AD6B4C37EDBFDA087C00B963D96DA8406E63DDE
+      bounds_cm: [90.0, 50.02, 30.29]
+      lod_count: 4
+      simple_collision_shapes: 1
+    - asset: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10/Meshes/SM_RockVanilla_Small_01_Normalized_R10H
+      source: /Game/StylizedRocksPack_01/Rocks/Meshes/SM_RockVanilla_Small_01
+      sha256: 86B3796F70DA119DA9EB6792D0EE37F466DC8ABFD9E1856929F1282FC3A003C9
+      bounds_cm: [90.0, 59.14, 65.02]
+      lod_count: 4
+      simple_collision_shapes: 1
+  unchanged:
+    - PPG seed and terrain generation
+    - marker logic, density, slot weights, and every seeded transform
+    - water, PlanetData, gameplay, character, ship, and PlanetGen destination
+    - vendor packages and protected production maps
+
+structural_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/build_r10h_visual_balance_a01_result.json
+    sha256: 82686F4C9BA70F38F93B2FF6C8B1E95A12F63E502B30287FD2E9C29B48E39042
+    status: PASS_STATIC_SERIALIZATION_PENDING_FRESH_RELOAD_AND_GPU
+  build_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/run_r10h_visual_balance_guard_a01_result.json
+    sha256: B78B8F0F3B46D5194FE9970FCC0D82750F3784552A7A949C929FABB3625ACE66
+  fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/verify_r10h_fresh_reload_a02_result.json
+    sha256: 97CD1E03BC955CB70CAA46E3D7A77CB8FF368D9AB69B1A5D3BD95F65A822B5A0
+    status: PASS_FRESH_RELOAD_PENDING_TRANSFORM_AND_GPU
+    map_check_errors: 0
+    map_check_warnings: 0
+    actor_labels_exact: 12
+    note: >-
+      The retained a01 verifier failed at Python module import because of a
+      misspelled local constant; it touched no map or asset. The corrected a02
+      process passed and preserved the exact R10H map hash.
+  transform_comparison:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/compare_r10_transform_to_r09_result.json
+    sha256: 6E1DDEF317C16C897BAC8A89761A1F3793B0F073A43FC6D9EC3F2AAC1C613E17
+    status: PASS_EXACT_TRANSFORM_EQUALITY
+    grass_a_instances: 429385
+    grass_b_instances: 1005802
+    rock_instances: 3609
+    differences: []
+    interpretation: >-
+      The category counts plus transform hashes are byte-for-byte equal to the
+      R09 baseline. R10H changes presentation assets and parameters only; it
+      does not change seeded placement or distribution.
+
+real_gpu_evidence:
+  guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/run_r10h_gpu_capture_guard_r01_result.json
+    sha256: EEEC614A57C4D2ED40DCE9299EDB5CB705406C21754D43A2F59130752C802298
+    status: PASS_REAL_GPU_PENDING_HUMAN_VISUAL_ACCEPTANCE
+    free_physical_gib_at_launch: 47.202
+    minimum_free_physical_gib: 40.737
+    free_gpu_memory_mib_at_launch: 9431
+    editor_pid: 17160
+    editor_exit_code: 0
+    unreal_process_count_after: 0
+  capture_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/capture_r10h_surface_resolved_d3d12_r01_result.json
+    sha256: 9B53B9C73917CBEFEC58A0969BF268CF3BD44CB0A727DA7BB40E132FA6A79702
+    evidence_class: real_gpu
+    rhi: D3D12 SM6
+    adapter: NVIDIA GeForce RTX 3080
+    map_saved: false
+    actors_moved: false
+    map_hash_before_after_equal: true
+    map_check_errors: 0
+    map_check_warnings: 0
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10H_20260802_0532/RedMMO_Home_R10H_surface_resolved_player_scale_r01_1920x1080.png
+    sha256: 3B28945B99F239D73CA0045C1375FE1B8256B18C2EC23CC126BB15B3DAF1BEA9
+    dimensions: [1920, 1080]
+    bytes: 2755228
+
+visual_review:
+  human_accepted: false
+  corrective_findings:
+    - the fluorescent-lime grass failure is materially corrected
+    - brightness and saturation return close to the valid R09 reference without returning to the dark R10 failure
+    - the long cuboid rock silhouettes are replaced by smaller rounded or irregular forms
+  remaining_findings:
+    - the foreground retains a noticeable muted olive cast and needs user judgment
+    - one or two distant rock silhouettes can still read chunky from this single view
+    - this frame does not visually review the tree slot or establish gameplay, collision, performance, water, or full-planet acceptance
+  measured_comparison:
+    fluorescent_green_coverage_r10g_percent: 54.77
+    fluorescent_green_coverage_r10h_percent: 0.06
+    lower_frame_luma_r09: 0.3957
+    lower_frame_luma_r10g: 0.5305
+    lower_frame_luma_r10h: 0.4050
+    lower_frame_saturation_r09: 0.2867
+    lower_frame_saturation_r10g: 0.4414
+    lower_frame_saturation_r10h: 0.2895
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  legacy_or_production_changed: false
+  vendor_assets_changed: false
+  ppg_seed_or_distribution_changed: false
+  providers_called: false
+  provider_ports_closed_after: true
+  unreal_process_count_after: 0
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R10H proves a persisted project-owned palette, exposure, and rounded-rock
+  correction in the clean Red PPG home map; fresh reload, MapCheck 0/0, exact
+  R09 transform equality, and one matched provider-off D3D12 SM6 player-scale
+  frame pass. It is a material visual improvement over R10G, but human art-
+  direction acceptance is still pending and the remaining olive cast is not
+  claimed fixed. This proves no PIE gameplay, collision, performance, water,
+  tree presentation, cook, package, multiplayer, or full-planet acceptance.
+
+next_safe_action: >-
+  Present the matched R10H frame for human review. If the remaining olive cast
+  is rejected, make one bounded R10I hue/value correction to the project-owned
+  ground and grass parameters only, retain these rounded rock aliases and the
+  exact transform signature, then repeat the same no-save D3D12 camera. Do not
+  change seed, density, placement, water, character, ship, or vendor assets.

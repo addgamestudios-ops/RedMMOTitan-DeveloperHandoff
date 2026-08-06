@@ -1,0 +1,73 @@
+schema_version: 1
+id: evidence.m07.projectknowledge-evidence-taxonomy-reconciliation.2026-08-05
+captured_utc: "2026-08-05T02:04:30Z"
+module_id: M07
+system: projectknowledge.integrity
+slice: evidence-class-canonicalization
+evidence_class: static
+result: pass
+
+scope:
+  canonical_repo: D:/RedMMOTitan
+  changed_records:
+    - path: ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-home-night-stack-read-only-blocked.yaml
+      before: static_runtime_read_only
+      after: static
+    - path: ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r16-biome-authority-read-only-pass.yaml
+      before: static_runtime_read_only
+      after: static
+    - path: ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r16-smooth-terrain-gameplay-real-gpu-grass-blocked.yaml
+      before: real_gpu_visual_and_automated_real_d3d12_pie
+      after: real_gpu_visual
+    - path: ProjectKnowledge/evidence/2026-08-04-m07-clean-redmmo-r17-seeded-biome-gameplay-pass-visual-failed.yaml
+      before: editor_automation_persisted_and_real_gpu_visual
+      after: real_gpu_visual
+
+verification:
+  before_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_PKI012_Audit_20260805T0201Z/before.json
+    sha256: 4E87F89F933888A0677728959E45A7C31BBD18D8494027655EDE973C75B5F420
+    result: fail
+    findings: {PKI012: 4}
+  after_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_PKI012_Audit_20260805T0201Z/after.json
+    sha256: 4864C01BD450E91619BA382643B0C037EF01F064454B01B73711EA85C87F5492
+    result: pass
+    error_count: 0
+    warning_count: 0
+  focused_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: pass
+    tests_run: 20
+  exact_change_review: >-
+    Each of the four current records differs from its rollback preimage by only
+    the single evidence_class scalar. The first two records are read-only
+    static audits. The latter two retain their strongest durable class as
+    real_gpu_visual because each contains named real-D3D12 player-scale image
+    evidence in addition to automation or persistence evidence.
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeM07PKI012Repair_20260805T0202Z
+  preimages_preserved: 4
+
+protection:
+  unreal_or_build_process_started: false
+  source_map_asset_or_plugin_changed: false
+  providers_called: false
+  desktop_control_used: false
+  protected_maps:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_limit: >-
+  This repairs only canonical ProjectKnowledge evidence taxonomy and proves the
+  integrity auditor plus its focused offline contracts pass. It does not
+  install a plugin, compile, launch Unreal, render, exercise gameplay, package,
+  or test replication or multiplayer.
+
+next_safe_action: >-
+  After the required Windows action-time confirmation, use the already-open
+  official Epic library flow to install the exact entitled
+  UnrealAIIntegrationPlatform and WorldGen dependencies into UE 5.8. Verify
+  their descriptors and complete payloads before re-enabling UAIP or retrying
+  the serialized TitanEditor compile. Do not substitute similarly named tools.

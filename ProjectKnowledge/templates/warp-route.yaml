@@ -1,0 +1,39 @@
+schema_version: 1
+template: travel.warp_route
+
+id: "warp-route.<origin>.<destination>"
+display_name: "<artist-facing name>"
+status: specified
+authority: server
+
+endpoints:
+  origin_body_id: "planet.<origin>"
+  destination_body_id: "planet.<destination>"
+  arrival_anchor_id: "arrival.<destination>"
+
+admission:
+  minimum_departure_altitude_cm: null
+  maximum_entry_speed_cm_s: null
+  required_vehicle_tags: []
+  cooldown_seconds: null
+
+state_machine:
+  phases: [requested, validated, charging, in_transit, arriving, completed]
+  server_owns_phase: true
+  client_role: request_predict_present_and_reconcile
+
+travel:
+  duration_seconds: null
+  corridor_id: "warp-corridor.<origin>.<destination>"
+  deterministic_arrival: true
+  collision_policy: "<disabled_in_corridor or swept>"
+
+streaming_preconditions:
+  destination_surface_ready: true
+  destination_authored_content_ready: true
+  timeout_seconds: null
+  failure_state: aborted
+
+evidence:
+  status: specified
+  artifacts: []

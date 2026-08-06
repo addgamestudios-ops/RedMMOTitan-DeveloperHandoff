@@ -1,0 +1,111 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r59-starter-ship-ppg-parking-runtime.2026-08-05
+captured_utc: "2026-08-05T20:19:46Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r59-starter-ship-authentic-ppg-parking
+evidence_class: automation
+result: starter_ship_parking_pass
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 53.45
+  commit_headroom_gib: 56.15
+  free_gpu_vram_mib: 9201
+  free_d_drive_gib: 767.45
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 1BECF6B4BAB534AB0B64988B17EC4508605D50FA661C9C3C78BDBE9C44FD7DDC
+
+transaction:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarterShipParking_R59_20260805T2002Z/transaction_manifest.yaml
+  rollback_directory: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarterShipParking_R59_20260805T2002Z/Rollback
+  home_map_mutated: false
+  package_save_called: false
+  seed_or_terrain_changed: false
+  foliage_or_seeded_obstacle_changed: false
+
+diagnosis:
+  fixed_candidate_forward_cm: 3000.0
+  attempts_repeating_same_candidate: 8
+  rejection_gate: RedPPGSurface::SweepOwnedTerrain
+  result_before: ForeignBlocked
+  blocker_actor_class: FoliageSpawner
+  blocker_component_class: InstancedStaticMeshComponent
+  blocker_mesh: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10K/Meshes/SM_StoneVanilla_Focal_01_Normalized_R10K
+  interpretation: >-
+    A persistent seeded rock occupied the single fixed parking direction. The
+    old retry loop could not recover because it retried that direction exactly.
+    The rock was retained and was not reclassified as terrain or ignored.
+
+correction:
+  source_files:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGGameplayGameMode.h
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGSurfaceAuthority.cpp
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedShip.cpp
+  behavior: >-
+    Preserve the seed, terrain and all seeded props; on each bounded retry use
+    a deterministic tangent-space candidate around the same PlayerStart and
+    require the existing unique-ready-body, authoritative terrain and fitted
+    ship-envelope gates before accepting it.
+  search_step_cm: 2500.0
+  candidates: 8
+
+build:
+  target: RedMMOEditor_Win64_Development
+  result: succeeded
+  actions: 5
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarterShipParking_R59_20260805T2002Z/build3_stdout.log
+  log_sha256: 5CBB86429B574BC1DB2E26EBDAE10CCCC4DD03DCD34ADFEC13BBA61322888F8B
+  binary_sha256_after: 728992E6FEE98759114E26974337D2AC94B575CD6EC46E39FDECE5F8EE1AC71C
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  provider_plugins_disabled: true
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_starter_ship_parking_r59.py
+  driver_sha256: 97FD582544BE4661F55BBB7737857FC9FE49EDF126C3C870F3F50A62654E7DBB
+  result_file: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarterShipParking_R59_20260805T2002Z/CorrectedRunAttempt7/result.json
+  result_sha256: F4DF8BB3A51D7D30286A65DC1C1891737982DC10F427E15A218DF6C2155DA42E
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarterShipParking_R59_20260805T2002Z/CorrectedRunAttempt7/unreal.log
+  log_sha256: 231BA00B26BE54447C4566986D0C9DD2602F77478D14B49DA826F66BE3EDAC7C
+  generation: {phase: COMPLETE, progress: 1.0}
+  candidate_1: {forward_cm: 3000.0, right_cm: 0.0, result: seeded_rock_blocked}
+  candidate_2: {forward_cm: 3000.0, right_cm: 2500.0, result: accepted}
+  ship_count: 1
+  ship_class: /Game/RedMMO/Gameplay/Trooper/A01/Ship/BP_RedModularStarSparrow_Trooper_A01.BP_RedModularStarSparrow_Trooper_A01_C
+  validated_owned_surface: true
+  validated_owned_surface_gap_cm: 15.0
+  retry_exhaustion_logged: false
+  save_called: false
+
+protected_state:
+  uproject_sha256_before_after: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+harness_notes:
+  - The first launch parsed only the py command because its ExecCmds quoting was incomplete; the exact offscreen editor was stopped and no harness mutation ran.
+  - A diagnostic pass proved ForeignBlocked and identified the seeded rock.
+  - One inspection attempt failed only on an unavailable Python property.
+  - The first corrected runtime parked the ship, but its verifier filtered only the native class name; the exact Blueprint class filter in attempt 7 passed.
+
+claim_boundary: >-
+  R59 proves one existing project-owned starter ship can be deterministically
+  parked on authentic generated PPG terrain without moving the seed, terrain,
+  foliage, rock or map package. It does not prove player entry, flight controls,
+  exit/reboard, projectile, jetpack, standalone packaging, replication,
+  multiplayer, pixels, player acceptance or a developer handoff build.
+
+next_safe_action: >-
+  R60 should run the existing Trooper/StarSparrow A01 gameplay validator against
+  this compiled build, starting with F-entry and independent forward, pitch,
+  yaw, roll, ascent and descent controls plus safe exit/reboard. Keep this a
+  no-save exact-home-map runtime slice and do not change biome or terrain art.

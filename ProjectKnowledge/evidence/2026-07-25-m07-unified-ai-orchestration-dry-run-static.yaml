@@ -1,0 +1,128 @@
+schema_version: 1
+id: evidence.m07.unified-ai-orchestration.dry-run.static.2026-07-25
+captured_utc: "2026-07-25T18:47:54Z"
+module_id: M07
+system: tooling.unified-ai-orchestration
+slice: provider-off-three-candidate-contract-judge-and-audit-publication
+evidence_class: static
+result: passed_provider_off_dry_run_review_recommended_epic_mcp
+
+scope:
+  authorized:
+    - define strict candidate contracts for the verified Epic MCP, UAIP, and Nwiro service identities
+    - validate exactly three hash-pinned mock planning responses
+    - score only structured, bounded, read-only planning evidence
+    - publish one D-resident native no-clobber audit report
+  explicitly_not_run:
+    - call any live MCP service
+    - call a model or provider
+    - initialize a network transport
+    - issue a tool call or executable action
+    - launch or control Unreal
+    - import, generate, migrate, place, modify, or save any asset or map
+    - enter PIE, build, cook, package, or claim visual or gameplay acceptance
+
+preflight_and_postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  postflight_status_entry_count: 188
+  unreal_editor_process_count: 1
+  unreal_editor_pid: 20332
+  additional_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 63.872
+  physical_ram_free_before_publication_gib: 29.842
+  physical_ram_free_after_publication_gib: 34.746
+  commit_headroom_before_publication_gib: 43.329
+  vram_total_mib: 10240
+  vram_free_before_publication_mib: 5041
+  d_free_after_publication_gib: 1069.514
+  protected_checkpoints_unchanged: true
+
+implementation:
+  contract:
+    path: Build/Automation/redmmo_ai_orchestration_dry_run_contract_v1.json
+    sha256: 2592FC1DDEB8A21C96B62C6178809B501D36C0AFE6E0BA7780CF17DAA142CC16
+  source:
+    path: Tools/redmmo_ai_orchestration_dry_run.py
+    sha256: 034D4227EDF76D22473537D230BB80B6F471BD602B0B52ADB161D0FEB979DA7D
+  tests:
+    path: Tools/tests/test_redmmo_ai_orchestration_dry_run.py
+    sha256: A8D21D392CD05DB92C26749992B877F60C1E46D7757600DD7F9ED5808EA96EC3
+  fixtures:
+    epic_mcp: 5B6D669507B7057E128892083A0A7DE57A594DAEAAAED7E0818604847FB844F6
+    uaip: EDD85A571023B0C23BF5A4CC89047622AA33F6B86A707B0D3EBA14636DD82E4B
+    nwiro: C718710E0E96E5776D79C22CB96082AE76979D895E24573161EE2F98E17A5EA7
+  pinned_secure_publication_dependency:
+    source_sha256: B051AF5615D803FF70F34F0EF73A409D0AE9504DE8156CA123FD6D6503428EF8
+    tests_sha256: 5348488548E8B0899AC684F297E965E62D1A4F0E10944BBC9DE0645F6C251C78
+
+policy_and_judge:
+  input_candidates:
+    - epic_mcp
+    - uaip
+    - nwiro
+  required_hard_gates:
+    - exact service, request, evidence, fixture, and capability identities
+    - exact scope, safety, uncertainty, reproducibility, and structured assumption-id sets
+    - empty tool_calls, provider_calls, mutations, and action_intents
+    - no endpoint or credential-like strings
+    - no network, dynamic import, subprocess, arbitrary code, generic dispatch, or action runner
+  deterministic_scores:
+    epic_mcp: 100
+    uaip: 90
+    nwiro: 100
+  tie_break:
+    order: [total_desc, safety_desc, evidence_desc, assumption_count_asc]
+    selected_candidate_id: epic_mcp
+    reason: unique winner after structured assumption count
+  disposition: review_recommended
+  action_gate_present: false
+  execution_authorized: false
+  winning_action_executed: false
+
+security_closure:
+  - the canonical contract digest is code-pinned rather than accepted from caller input
+  - all project inputs are exact-path confined, reject links and hard links, and are read through stable handles with before/after path and identity checks
+  - nonfinite JSON, duplicate keys, unknown fields, integer/boolean type confusion, hash drift, identity drift, partial candidate sets, and missing hard gates poison the whole run
+  - the run directory is created must-be-new with native FILE_CREATE relative to a retained diagnostics-root handle
+  - the run-directory handle remains retained through stage write, flush, no-clobber rename, and final parent/file identity validation
+  - a competing-directory insertion regression fails closed and publishes no report
+  - independent final current-byte review found no remaining P0, P1, or P2 issue in the claimed static boundary
+
+verification:
+  harness_tests:
+    count: 28
+    result: passed
+  secure_publisher_tests:
+    count: 34
+    result: passed
+  combined_tests:
+    count: 62
+    result: passed
+  python_compile: passed
+  git_diff_check: passed
+
+artifact:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/UnifiedAIDryRun_20260725_184731Z/orchestration_report.json
+  bytes: 7974
+  sha256: E179C274169ADE5CA17689155D2B730714B2EC4169BF44F553EA4CA298AA157B
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This evidence proves a deterministic, provider-off, fixture-only comparison
+  and review recommendation over three pinned mock responses. It does not prove
+  that Epic MCP, UAIP, and Nwiro are unified at runtime; it does not call,
+  isolate, or assess any live tool; and it grants no action, provider, editor,
+  mutation, visual, gameplay, build, cook, or package authority.
+
+next_safe_action: >-
+  Begin the separately authorized D-resident stylized-environment source audit:
+  inventory raw formats, dimensions, metadata, duplicate identities, licenses,
+  and the existing Unreal Texture2D assets. Select no pilot until one exact
+  texture set has confirmed local-use rights and documented channel mappings;
+  keep providers and autonomous placement off.

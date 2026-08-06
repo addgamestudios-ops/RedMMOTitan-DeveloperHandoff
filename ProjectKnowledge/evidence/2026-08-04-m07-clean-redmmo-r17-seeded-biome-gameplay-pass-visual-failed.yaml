@@ -1,0 +1,89 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r17-seeded-biome-gameplay-pass-visual-failed.2026-08-04
+captured_utc: "2026-08-04T19:23:00Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r17-seeded-biome-surface-persistence-fresh-reload-gameplay-and-player-view
+evidence_class: real_gpu_visual
+result: gameplay_and_serialization_pass_biome_and_grass_visual_failed
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  persisted_home_map_sha256: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  target_planet: /Game/RedMMO/World/PPG/HomeWorld/SeededBiomeSurface/R17/DA_PPG_HomeWorld_SeededBiomeSurface_R17
+  target_planet_sha256: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_SeededBiomeSurface_R17_20260804_1907_A01
+  pre_r17_home_map_sha256: 3EBFB65273119A7C6F49B94BB85509E053B5FB4DA96474DFD02B845A179529BF
+
+persisted_change:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/build_redmmo_r17_seeded_biome_surface.py
+    sha256: A87A7DD1D6FA0B5701A0CE5F5068F07BFE5204ED85C88F2C16F33978BB072580
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_SeededBiomeSurface_R17_20260804_1907/build_r17_seeded_biome_surface_result.json
+    sha256: 4546FA3588FC2AD9B100C5D777B0DD11597AEDF232AC91D7356895153ACED9D2
+    status: PASS_PERSISTED_R17_PENDING_FRESH_RELOAD_MAPCHECK_AND_REAL_GPU
+  retained:
+    - PPG seed 1337, radius 300000000 cm and R16 smooth generation material
+    - six seeded biome IDs in order Craters, Hills, Mountains, Desert, Ocean, Poles
+    - native PPG water and exact approved R10O foliage bindings
+    - A01 Trooper, rifle, projectile, StarSparrow and Enhanced Input gameplay
+    - protected RedMMOTitan production maps, fused inputs and vendor packages
+
+fresh_runtime:
+  first_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R17_20260804T191424Z/result.json
+    sha256: A2B78C59351CDB851F0FA9484C9F439FF2E28A5FEF0EA118C401D66E814458FC
+  visual_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R17_Visual_20260804T192154Z/result.json
+    sha256: BC192C785B64E9197F0B31FDF6D688E82B52C78628A5604A8CE905D82ABB70EE
+    status: PASS_AUTOMATED_REAL_D3D12_PIE_A01_TROOPER_STARSPARROW
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R17_Visual_20260804T192154Z/R17_SeededBiome_PlayerView.png
+    sha256: 0856BB9FDFEC8250120B3520B3096A0FB32347476800AB88AB352004F5EAEC69
+    dimensions: [1280, 720]
+  map_check_errors: 0
+  map_check_warnings: 0
+  persistent_writes_during_verification: false
+  gameplay_proved:
+    - radial walk, sprint, jump and landing
+    - server-authoritative rifle projectile spawn
+    - fitted owned-surface StarSparrow parking
+    - F entry, forward, strafe, ascent, descent, look, roll, cruise, boost and F exit
+  runtime_grass:
+    selected_source: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+    approved_instances_initial: 0
+    approved_instances_after_ten_second_settle: 0
+
+visual_finding: >-
+  The real D3D12 player-scale frame is still a nearly uniform dark-green field
+  with no readable grass, desert, pale coast, rock-mountain, ocean or pole
+  distinction. The Trooper and real StarSparrow are readable and the broad R16
+  relief remains playable, but R17 does not satisfy biome or foliage visual
+  acceptance. Package binding and gameplay success are not substitutes for
+  rendered asset coverage.
+
+protection:
+  production_or_protected_content_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed: true
+  unreal_process_count_after: 0
+
+claim_limit: >-
+  R17 is durably saved, reloadable and gameplay-valid in automated real-D3D12
+  PIE. It is not an accepted biome, foliage, shoreline, night, art-direction,
+  packaged, standalone, replication, multiplayer or human-play result.
+
+next_safe_action: >-
+  Preserve the R17 rollback, seed, R16 geometry and exact approved grass assets.
+  Inspect and correct only the native Planet Biome Material Output bindings and
+  per-biome foliage eligibility/minimum-blend path so the six seeded identities
+  produce distinct surfaces and grassland spawns. Timebox that correction; if
+  it cannot yield a materially different player view, retain R17 as a failed
+  visual experiment and advance the independent night presenter or packaged
+  gameplay module rather than repeating captures.

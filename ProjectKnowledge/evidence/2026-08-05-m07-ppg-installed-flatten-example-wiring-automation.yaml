@@ -1,0 +1,90 @@
+schema_version: 1
+id: evidence.m07.ppg-installed-flatten-example-wiring-automation.2026-08-05
+captured_utc: "2026-08-05T05:12:30Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: installed-ppg-flatten-example-wiring-read-only
+evidence_class: automation
+result: pass_no_installed_wiring_example_found
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  plugin_root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  official_example: /PPG/Example/Assets/M_PPG_ExampleGeneration
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  first_pid: 24856
+  canonical_pid: 12376
+  minimum_observed_free_physical_ram_gib: 47.20
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+  desktop_control: false
+
+installed_scan:
+  installed_asset_count: 112
+  installed_material_count: 11
+  materials_with_flatten_count: 0
+  valid_wiring_candidate_count: 0
+  official_example:
+    asset: /PPG/Example/Assets/M_PPG_ExampleGeneration
+    expression_count: 86
+    normal_edge_count: 97
+    flatten_node_count: 0
+    sha256: E6990FC10434D2DF7CB85C56A793822C7394D60EF74C413D1277519F9630E996
+  plugin_descriptor_sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+  conclusion: >-
+    No installed PPG material, including the named official example generation
+    material, demonstrates MaterialExpressionPlanetFlattenElevation wiring.
+    Vendor-example provenance cannot be claimed. The native C++ and shader
+    input/behavior contract remains authoritative for a future project-owned
+    unbound wrapper.
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/PPG_InstalledFlattenExampleWiring_20260805_0508_R02/audit_ppg_installed_flatten_example_wiring_result.json
+    sha256: FF23047C6BC1044D43DE5E92BFC0DBD74B25EBB2903B10BCDC9CFEE4C45956FC
+  retained_first_attempt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/PPG_InstalledFlattenExampleWiring_20260805_0508/audit_ppg_installed_flatten_example_wiring_result.json
+    sha256: 25924E64975CD8FC7D30637ACE6A9A2E86770B4324A9B1D41E4F74C2D8D25462
+    disposition: >-
+      Failed on the incorrect expectation that the named example had exactly
+      one flatten node; the canonical retry scanned all installed materials and
+      published the actual zero-hit result.
+  audit_script:
+    path: Build/Automation/audit_ppg_installed_flatten_example_wiring.py
+    sha256: 4E3E3CD17E6A0B3F32E704F15E036970FC53151027B9B5ACAD250FD65A8A2104
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/PPG_InstalledFlattenExampleWiring_20260805_0508_R02/project_knowledge_integrity_after.json
+    sha256: 2700530EE8065486FA8BA2D82018187D27C2F46D01840917E06EBBE5D9CAC8CF
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - all eleven installed PPG material assets were loaded and inspected
+    - no installed material contains MaterialExpressionPlanetFlattenElevation
+    - the named official example contains 86 expressions and 97 normal edges but zero flatten nodes
+    - no save, regeneration, graph edit, map binding or desktop-control action occurred
+  not_verified:
+    - no vendor example provides wiring authority
+    - no ProfileV1 node or threshold parameter was created
+    - ProfileV1 remains unbound and no shoreline, visual or gameplay state changed
+
+next_safe_action: >-
+  Use the already authenticated native C++/shader contract, not vendor-example
+  provenance, for one rollback-backed unbound ProfileV1 wrapper transaction:
+  current Global Height source into Elevation, exact project-owned threshold
+  scalar into Threshold, default Water Level zero, wrapper output into Global
+  Height. Save/reload only ProfileV1 generation; do not bind or regenerate.

@@ -1,0 +1,54 @@
+schema_version: 1
+id: evidence.so-stylized-sparkle-mask-probe-runtime.2026-07-21
+module: M00
+evidence_class: automation
+status: pass_runtime_material_preparation_visual_pending
+
+target:
+  asset: /Game/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02
+  file: Content/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02.uasset
+  hash_before: 3E9582E09AD57EEC9FD6C7B2A3F15379B5F714F0749B1B6B2B0DB560C3E1E8B5
+  hash_after: D17AC45B9B851E676F1EA4357400068CE045E0E8C900C59BC79AE567148AEE9B
+  desired_switches:
+    SimpleSparkle?: true
+    SparklShrinkNear?: false
+
+execution:
+  platform: Windows
+  renderer: NullRHI
+  commandlet: PythonScriptCommandlet
+  launcher: Build/Automation/Invoke-RedSandSparkleMaskProbe.ps1
+  launcher_sha256: 51582F516952455B1768874A5868D2CE380289493484C4EE9D8B23ACB2589775
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleMaskProbe/Runtime_20260721_193932/unreal.log
+  resource_log: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleMaskProbe/Runtime_20260721_193932/resource_guard.log
+  exit_code: 0
+  success_marker: RED_SAND_MASK_PROBE_PREPARED
+  protected_hash_count: 6
+  failure_marker_scan: clear
+  blocker_processes_after: 0
+  free_physical_gib_after: 24.05
+  free_vram_mib_after: 9239
+
+launcher_repairs_verified:
+  - native process handle is materialized before exit so exit code zero remains available
+  - normal CrashReportClientEditor startup helper receives a bounded shutdown drain period
+  - preparation and launcher suites pass 26 of 26 tests
+  - two earlier fail-closed attempts restored the exact baseline bytes before this accepted run
+
+protected_checkpoints:
+  map:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  foundation_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+
+claim_limit: >-
+  This proves exact project-owned material-instance preparation, successful
+  commandlet execution, valid switch marker, clean failure scan, and protected
+  hashes. NullRHI cannot prove visible gold sparkle, scale, motion, or quality.
+
+next_safe_action: >-
+  Run the existing capped real-GPU T02 close, translated, and oblique capture
+  sequence, compare sparkle readability without changing brightness, and keep
+  the diagnostic isolated from production until visual acceptance passes.

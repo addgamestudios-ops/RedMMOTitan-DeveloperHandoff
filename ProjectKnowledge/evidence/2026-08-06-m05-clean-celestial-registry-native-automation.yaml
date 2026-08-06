@@ -1,0 +1,108 @@
+schema_version: 1
+id: evidence.m05.clean-celestial-registry-native-automation
+module: M05
+evidence_class: automation
+status: accepted_partial_native_registry_lifecycle
+timestamp_utc: 2026-08-06T12:31:02Z
+scope: >-
+  One rollback-backed clean-RedMMO native registry execution slice on the
+  real-GPU RenderOffscreen editor host. It corrected only the transient test
+  authority fixture and the production cleanup gate for Unreal's explicit
+  BeginTearingDown phase, rebuilt RedMMOEditor, and executed the existing three
+  RedMMO.Identity.CelestialRegistry groups. No map, asset, Config, package,
+  plugin, vendor source, user asset, CC5, or Blender content changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_dirty_default_count: 60
+  git_dirty_expanded_count: 2399
+  free_physical_ram_gib: 50.99
+  commit_headroom_gib: 53.61
+  gpu_free_mib: 9160
+  gpu_total_mib: 10240
+  d_drive_free_gib: 756.46
+  active_unreal_build_package_process_count: 0
+implementation:
+  fixture_correction: >-
+    The transient authority is now a root-bearing AStaticMeshActor, so its
+    requested center is an actual actor location and satisfies the existing
+    fail-closed structural registration guard.
+  cleanup_correction: >-
+    RemoveWorld now accepts UWorld.bIsTearingDown in addition to UObject cleanup
+    flags. Live-world calls remain ignored; client worlds and invalid worlds
+    remain rejected.
+  files:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistryTests.cpp
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistry.cpp
+verification:
+  editor_build:
+    result: succeeded
+    target: RedMMOEditor Win64 Development
+    final_compile_actions:
+      - RedCelestialFrameRegistry.cpp
+    linked: UnrealEditor-RedMMO.dll
+    final_build_seconds: 4.54
+  disclosed_attempts:
+    - result: three_tests_failed_fixture_authority_location
+      detail: >-
+        Plain AActor had no root component, so every requested nonzero spawn
+        center remained zero and all first registrations correctly failed the
+        production structural guard.
+      log: D:/RedMMOTitan/Diagnostics/M05CelestialRegistryNativeGPU_20260806T1226Z/RedMMO_M05_CelestialRegistryNativeGPU.log
+    - result: runner_fatal_redundant_world_initialization
+      detail: >-
+        The first fixture correction redundantly called InitializeNewWorld on a
+        CreateWorld result and Unreal rejected the duplicate WorldSettings.
+      log: D:/RedMMOTitan/Diagnostics/M05CelestialRegistryNativeGPU_Retry_20260806T1228Z/RedMMO_M05_CelestialRegistryNativeGPU_Retry.log
+    - result: two_pass_one_cleanup_fail
+      detail: >-
+        Root-bearing authority correction passed registration lifecycle and
+        competing-authority conflict. Cleanup exposed the production omission
+        of the documented BeginTearingDown state.
+      log: D:/RedMMOTitan/Diagnostics/M05CelestialRegistryNativeGPU_Retry2_20260806T1229Z/RedMMO_M05_CelestialRegistryNativeGPU_Retry2.log
+  final_automation:
+    renderer: real_gpu_RenderOffscreen
+    result: success
+    unreal_exit_code: 0
+    tests_found: 3
+    tests_completed_success: 3
+    tests:
+      - RedMMO.Identity.CelestialRegistry.Cleanup
+      - RedMMO.Identity.CelestialRegistry.CompetingAuthorityConflict
+      - RedMMO.Identity.CelestialRegistry.RegistrationLifecycle
+    log: D:/RedMMOTitan/Diagnostics/M05CelestialRegistryNativeGPU_Retry3_20260806T1230Z/RedMMO_M05_CelestialRegistryNativeGPU_Retry3.log
+hashes:
+  registry_tests_sha256: 1D068D6C640082D29BFA583432BBDE0FBB7FAECA25FAC94A0E2BC3E9E06B9D30
+  registry_source_sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+  editor_module_sha256: BD4194B7B7BC371355CD273C18C62D0FCDA5B9592B0CC6B93FFE4C7E7E6ACA10
+  passing_log_sha256: EAE8CD51A1005EBA4F3592FDC019BF6402F844513DE669BE31AB7C5FA72EE3D5
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM05CelestialRegistryNativeFixture_20260806T1227Z
+  restores:
+    - RedCelestialFrameRegistryTests.cpp
+    - RedCelestialFrameRegistry.cpp
+    - BinariesWin64
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  clean_home_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  active_unreal_build_package_process_count_after: 0
+  free_physical_ram_gib_after: 50.98
+  commit_headroom_gib_after: 53.56
+  gpu_free_mib_after: 9063
+  d_drive_free_gib_after: 756.38
+acceptance_boundary:
+  proves:
+    - native exact-ID registration and sequential revision lifecycle
+    - sticky competing-authority conflict and exact revision recovery
+    - live-world cleanup refusal and teardown-phase cleanup
+  does_not_prove:
+    - live PPG producer registration or its current radius
+    - replicated client celestial snapshots
+    - authored masks, hub exclusions, travel, standalone, warp, or multiplayer
+next_safe_action: >-
+  Rotate next wake. Later M05/M02 runtime work must exercise the compiled
+  authority-owned PPG producer in the exact ProfileV1 home and then add a
+  separately reviewed replicated client snapshot; do not infer those gates from
+  transient native worlds.

@@ -1,0 +1,240 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0008-DEEP-SPACE-HARNESS-REAL-GPU
+captured_at: "2026-07-23T13:17:43Z"
+module: M09
+defect: DEF-0008
+slice: surface-absence-and-deep-space-mining-harness
+evidence_class: real_gpu_visual
+result: atmospheric_audit_boulder_removed_and_deep_space_mining_visual_accepted
+
+scope:
+  authorized:
+    - replace the misleading non-Shipping atmospheric depletion harness framing
+    - prove that no audit asteroid is present in the surface frame
+    - place the bounded audit target beyond the atmosphere at a credible view size
+    - retain the existing mining, reward, destruction, and receipt assertions
+  explicitly_preserved:
+    - the canonical twenty-four-member mineable production field
+    - all production maps and protected planet checkpoints
+    - fused terrain assets and retained rollback maps
+    - artist repositories, supplied HUD source art, Vibe sources, and SAFE8 handoff
+    - unrelated dirty work and all pre-existing source ownership
+  not_run:
+    - Windows cook or packaging
+    - Steam transport
+    - player-controlled surface-to-space travel
+    - two-client or dedicated-server acceptance
+    - voxel asteroid implementation
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The worktree was already materially dirty. Relevant pre-edit bytes were
+    copied directly to a D-resident rollback; Git was not used as rollback
+    authority, and unrelated entries were not cleaned, staged, reset, or
+    overwritten.
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/DEF0008_DeepSpaceHarness_20260723_160502
+  contents:
+    - exact pre-edit copy of Source/RedMMO/RedPlayerCharacter.cpp
+    - exact pre-edit copy of Tools/tests/test_def0003_asteroid_depletion_contract.py
+    - exact pre-update copies of INDEX, current_state, DEF-0008, and the module queue
+  manifest: D:/RedMMOTitanWindowsData/Rollback/DEF0008_DeepSpaceHarness_20260723_160502/manifest.yaml
+  manifest_sha256: E64FA2ACA1F032847DAE27C6D81A098B74D3E9AC1488A1C11B53896369C39FAC
+
+implementation:
+  production_type:
+    runtime_class: ARedMineableAsteroid
+    representation: static_mesh_not_voxel
+    accepted_mesh: SM_Mining_Asteroid_Med
+  surface_gate:
+    - runs before any transient audit asteroid exists
+    - requires the camera to remain inside the configured eight-kilometre atmosphere
+    - requires exactly twenty-four production mineable asteroids and zero audit asteroids
+    - requires every production member to retain its configured shell, scale, and twenty-kilometre render cull
+    - requires every production member to be farther than its render cull from the surface camera
+  deep_space_gate:
+    - places one transient non-Shipping target at the midpoint of the configured production shell
+    - computes the target from the resolved planet centre, surface radius, and local radial up
+    - retains the production twenty-kilometre render cull instead of forcing unlimited visibility
+    - frames from mesh bounds at a bounded credible angular diameter
+    - requires the target and camera to remain beyond the atmosphere transition guard
+  final_gate:
+    - depletes the transient target through the production RegisterMiningHit path
+    - verifies collision shutdown, transition, explosion, debris, exactly-once Iron reward, and receipt expiry
+    - verifies all twenty-four production field members remain Active, full, and unchanged
+
+source_identities:
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    bytes: 374441
+    sha256: F01FDEDF23FC8E8D57424822A04B5B6795DA0AEAD6DAE1940843D55BB72BC25A
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    bytes: 51305
+    sha256: C8BB238CE93D89D0CA2F4B5A53E7C3A731626C793272DD122EE61FCF7757EE16
+
+build_verification:
+  target: TitanEditor Win64 Development
+  result: succeeded
+  actions: 4
+  execution_seconds: 28.50
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/TitanEditor_build.log
+    bytes: 19912
+    sha256: A30CCB3F0D04A611400EA4CA7FB307B91EB7A107DAB2DC117C19D144C8990DB9
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4105728
+    sha256: 3146C2534D55FDD5DD410C7C357508A1FE3ADCFD11B84A4E687F66ECCF2B0F4E
+  focused_contracts:
+    result: 47_of_47_passed
+    suites:
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+      - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/focused_contracts_clean.log
+      bytes: 11313
+      sha256: E2366AD7D443F1FCFF26A54C02864CB164F7A7769C8C1F48173F4C81D0F9F029
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  mode: listen_server_one_local_client
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  resolution: 1280x720
+  command_line: >-
+    /Game/RedMMO/Maps/RedPlanetGen?Listen -game -d3d12 -windowed
+    -ResX=1280 -ResY=720 -ForceRes -NoSplash -NoAutoMatch -NoSteam
+    -NoLiveCoding -ddc=NoZenLocalFallback -RedDEF0003DepletionAutoCapture
+    -RedDEF0003CaptureDir=D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures
+    -AbsLog=D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/runtime.log
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/runtime.log
+    bytes: 348597
+    sha256: D205F7C85F5BE9EDD96D287573A61A7EA8FAD29461BB1C4804E0863A71104E90
+  surface_marker: >-
+    pass=1 frame=1 viewAltitudeKm=0.502 atmosphereKm=8.000
+    productionField=24 auditAsteroids=0 fieldContract=1
+    minimumFieldAltitudeKm=39.620 minimumViewDistanceKm=43.699
+    cullKm=20.000
+  setup_marker: >-
+    pass=1 staticMesh=SM_Mining_Asteroid_Med voxel=0 targetAltitudeKm=53.400
+    cameraAltitudeKm=53.409 spaceTransitionKm=8.400
+    cameraDistance=45839 angularDiameterDeg=11.42 cullKm=20.000
+  result_marker: >-
+    acceptancePass=1 runtimePass=1 surface=1 setup=1 before=1 begin=1
+    beginHUD=1 mid=1 final=1 explosions=1 debris=9 productionField=24
+    pristineProduction=24 productionUnaffected=1 ironBefore=0 ironAfter=6
+    persistentTallyVisible=0 miningResultPass=1 miningResultVisible=0
+  complete_marker: requesting_clean_exit=1
+  exit: clean
+  failure_scan:
+    fatal: 0
+    assertion: 0
+    ensure: 0
+    unhandled_exception: 0
+    out_of_memory: 0
+    gpu_crash: 0
+    device_removed: 0
+    harness_failure: 0
+
+visual_review:
+  surface:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_Surface.png
+    bytes: 1326402
+    sha256: 6E21A8DD6772558365FD9A7E6088C2F1A2983C74F391BE29C153727CA2B106EA
+    finding: no asteroid is visible hanging in the blue atmospheric surface frame
+  space_before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceBefore.png
+    bytes: 175703
+    sha256: 56DFF0F3BF47828F20C56A427656C25F11C854AC1A69D2536E91958A88C3DF00
+    finding: the intact static-mesh target is fully framed against a black starfield without foreground clipping
+  space_reward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceReward.png
+    bytes: 192810
+    sha256: 3FE9F85E24E40639A06FA844DCE7E2DA166588C8D49FBD2162524E14BB8E81B9
+    finding: the deep-space target and themed MINING YIELD / IRON +6 receipt are simultaneously readable
+  space_transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceTransition.png
+    bytes: 197976
+    sha256: 0B036AD8AB602B4652E190D75AE21FFA50FAAC4DC8B3187DCDD4E6E0EB8E8403
+    finding: the bounded intact transition remains visible in space
+  space_explosion:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceExplosion.png
+    bytes: 150284
+    sha256: F936A35C62999B8DF7801500F8744561CA1C1BF5A835D5AC04DFA2BF2A1D3FA4
+    finding: the target is replaced by a centered destruction flash in space
+  space_debris:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceDebris.png
+    bytes: 131249
+    sha256: E1894D6A7E03DD415477D9D944B36B9B64C8825777F7F4C3B4870EC08159D4E9
+    finding: separated destruction debris is visible around the former target position
+  space_after:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/Captures/DEF0003_SpaceAfter.png
+    bytes: 120909
+    sha256: 239B34FE39CC5C0D801F28159B88594D14B40DCBEBC49463525F08DF3411F12D
+    finding: the depleted target and transient mining receipt are absent while the space field remains
+
+resource_and_process_gate:
+  final_free_physical_ram_gib: 16.719
+  final_free_commit_gib: 33.993
+  final_free_vram_mib: 8740
+  final_free_disk_d_gib: 1141.092
+  launched_unreal_process_count: 1
+  final_unreal_or_build_process_count: 0
+  packaging_ram_rule: respected_no_packaging_launched_below_18_to_20_gib_gate
+
+protection:
+  result: 8_of_8_exact
+  files:
+    - path: Content/RedMMO/Maps/RedPlanetGen.umap
+      sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+      sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    - path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+      sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    - path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+    - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+      sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+      sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+      sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0008_DeepSpaceHarness_20260723_160502/project_knowledge_integrity.json
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+accepted:
+  - the misleading giant atmospheric audit boulder is absent from the surface frame
+  - the bounded acceptance target is a static mesh, not voxel
+  - the target and camera are in deep space beyond the configured atmosphere guard
+  - the target is readable at a bounded credible angular size and retains the production cull
+  - depletion, destruction, exactly-once reward, and transient mining receipt remain functional
+  - all twenty-four production field asteroids remain Active, full, and unchanged
+  - current affected editor source compiles and the bounded real-GPU run exits cleanly
+
+remaining:
+  - player-controlled travel from the surface to the production asteroid field
+  - full production-field mining visual polish without a transient audit target
+  - two-client and dedicated-server traversal/mining acceptance
+  - packaged-client and Steam verification
+
+claim_limit: >-
+  This closes DEF-0008 for the bounded non-Shipping one-client acceptance
+  harness. It proves surface absence and credible deep-space mining pixels in
+  one D3D12 editor-game run while preserving the production field. It does not
+  implement voxel asteroids, accept player-controlled travel, or satisfy
+  package, Steam, dedicated-server, or multiplayer gates.

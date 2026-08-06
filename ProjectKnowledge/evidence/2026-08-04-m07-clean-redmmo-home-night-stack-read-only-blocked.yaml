@@ -1,0 +1,92 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-home-night-stack-read-only-blocked.2026-08-04
+captured_utc: "2026-08-04T19:02:15Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: home-night-stack-and-starfield-capability-audit
+evidence_class: static
+result: current_home_has_no_moon_or_star_presenter_and_review_material_is_not_a_sky
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  persisted_home_map_sha256: 3EBFB65273119A7C6F49B94BB85509E053B5FB4DA96474DFD02B845A179529BF
+
+audit:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/audit_clean_redmmo_home_night_stack.py
+    sha256: D1346FD65B1A0DE30135FE0B01B46F3242A3E1510CB5FC20A75037DA08B78D0B
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_HomeNightStackAudit_20260804T190151Z/result.json
+    sha256: 7D8D0210C049B48EC45531A61AAE2EB14D4D5EDAA6911D80BB51009983520A51
+    status: PASS_READ_ONLY_NIGHT_STACK_AUDIT
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_HomeNightStackAudit_20260804T190151Z/audit.log
+    sha256: 625AC47484FB097578F7F58F31BB94F01887C2F679B57BBB0CAE9C86C7AC7966
+  provider_ports_closed: [5353, 8000, 8765]
+  actor_count: 11
+  dirty_packages: 0
+  map_saved: false
+
+home_stack:
+  directional_sun:
+    count: 1
+    intensity: 6.0
+    atmosphere_sun_light: true
+    atmosphere_sun_light_index: 0
+  skylight:
+    count: 1
+    intensity: 1.0
+    real_time_capture: true
+    color_rgba: [208, 233, 255, 255]
+  sky_atmosphere:
+    count: 1
+    transform_mode: planet_center_at_component_transform
+    center_cm: [0.0, 0.0, -300000000.0]
+  volumetric_cloud_count: 1
+  unbound_post_process_volume_count: 1
+  moon_actor_count: 0
+  star_presenter_actor_count: 0
+
+existing_starfield_assets:
+  parent: /Game/RedMMO/Materials/Sky/StarfieldReview/M_Red_StarfieldTintable
+  sparse_instance: /Game/RedMMO/Materials/Sky/StarfieldReview/MI_Red_Starfield_Sparse_Original
+  dense_instance: /Game/RedMMO/Materials/Sky/StarfieldReview/MI_Red_Starfield_Holo_Original
+  parameters: [Intensity, TintStrength, TintColor, StarfieldTexture]
+  audited_parent_properties:
+    material_domain: surface
+    blend_mode: opaque
+    shading_model: unlit
+    two_sided: true
+    is_sky: false
+  review_usage: >-
+    The existing review map applies the instances only to Engine plane meshes.
+    They are comparison swatches, not a planet-aware night or orbital sky.
+
+blocker: >-
+  The current home map cannot satisfy night-side or space-star acceptance by
+  binding the existing review instances. A supported successor must create a
+  project-owned planet-aware presenter with navigable night fill and
+  altitude/optical-depth star visibility while retaining SkyAtmosphere and the
+  surface-to-orbit transition. A fixed vendor skybox or review plane would be a
+  false implementation and is prohibited.
+
+protection:
+  production_or_protected_content_changed: false
+  clean_home_map_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  unreal_process_count_after: 0
+
+claim_limit: >-
+  This is a fresh-process read-only capability audit. It proves the current
+  serialized actor and material state, not night-side pixels, star visibility,
+  orbit behavior, gameplay, or visual acceptance.
+
+next_safe_action: >-
+  Preserve the R16 terrain/gameplay state and the audited atmosphere stack.
+  Record this night-presenter implementation blocker, then advance the
+  independent PPG biome-authority slice. Return to night presentation only with
+  a project-owned altitude-aware design and require matched real-GPU day,
+  night, and orbit views before acceptance.

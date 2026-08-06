@@ -1,0 +1,182 @@
+schema_version: 1
+id: evidence.m07.island-district-v6f.real-gpu-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T07:02:58Z"
+evidence_class: real_gpu_visual
+result: scratch_v6f_structural_gates_passed_pixel_gate_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  scratch_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  scratch_only: true
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10Rollback_PreV6F_20260727T072500Z
+  pre_v6f_map_sha256: EBB703B88DA7497B8E74489C2C1A7D015F5E47DAEAB5725F9CBED93F814FECE6
+  pre_v6f_source_sha256: 266B4102AFC4F69BCB9E1AE0070C6676B3AA8733C68055C258BBE8C4B458C355
+
+scratch_implementation:
+  surface_contract: V6F
+  module_binary:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4940800
+    sha256: 7A41A6A323ADB798D2498F54D0F362DD8DF777C6D8EE8EDE925D4A211DE15F39
+  local_ocean_material:
+    asset: /Game/RedMMO/Staging/M07/Materials/M_M07_LocalOcean_VertexFade_V6F
+    file: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Content/RedMMO/Staging/M07/Materials/M_M07_LocalOcean_VertexFade_V6F.uasset
+    bytes: 16706
+    sha256: EC8646DFDF5A4EACC994B93865DE9D5F1F00076C125879FF7EA4B96AF6D2D9F8
+    global_water_override_exempt_tag: M07_LocalOcean_NotGlobal
+    opaque_arc_cm: 780000
+    visual_fade_end_arc_cm: 820000
+    physical_sink_start_arc_cm: 840000
+    district_outer_arc_cm: 860000
+    buried_skirt_outer_arc_cm: 940000
+  compact_terrain:
+    source_landscape_actor_count: 0
+    source_foliage_actor_count: 0
+    source_dressing_actor_count: 33
+    vertex_count: 92517
+    triangle_count: 183612
+    rvt_binding_count: 0
+    envelope_center_cm: [20500, 27000]
+    envelope_radius_cm: [19500, 13000]
+    inside_perimeter_blend_cm: 3000
+    outer_ramp_cm: 1000
+    max_accepted_boundary_cell_delta_cm: 877.1405560396379
+    boundary_cell_delta_gate_cm: 1000
+  geology:
+    fixed_point_closure_packages: 26
+    runtime_virtual_texture_packages: []
+    rvt_named_packages: []
+    legacy_geology_component_packages: []
+  scratch_map:
+    bytes: 1165407296
+    sha256: 0F9D7E6D6F471009BE1E198C29B3DF7214943295E3DD4FBEED82025453681F64
+  scratch_source:
+    bytes: 59871947
+    sha256: 4E203C37110352B27B46B0C899FEFCF21043C36089119FEDB156CE7F6653DD66
+
+durable_reports:
+  seed:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6F_20260727T065236Z/island_district_v10_v6f_seed.json
+    sha256: 78310013A4B50CEF3AA1C8524AFF8977784CF00676BB8DAA762057E5FE0A25F9
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6F_20260727T065236Z/island_district_v10_v6f_build.json
+    sha256: 093694D1374DA976583ED048AA9D64FDF2865F34626D20B04B3CFC64BA57E262
+    status: passed
+  fresh_process_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6F_20260727T065236Z/island_district_v10_v6f_audit.json
+    sha256: CEE0F1D7A5507A661C9FE12817639EB21F5FC5D69C591E88685CC82BCA366287
+    status: passed
+    evidence_class: fresh_process_ue58_nullrhi_asset_audit
+
+provider_isolation:
+  preliminary_material_creation:
+    result: material_saved_but_not_provider_off_evidence
+    finding: >-
+      The first material-creation commandlet used singular DisablePlugin
+      switches and briefly bound localhost TCP port 8000. No request or
+      provider action occurred. The launch form was corrected before seed,
+      build, audit, or D3D12 capture.
+  authoritative_seed_build_audit_capture:
+    disable_form: DisablePlugins
+    tcp_5353_observed: false
+    tcp_8000_observed: false
+    tcp_8765_observed: false
+    provider_call_made: false
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6FRealGPU_20260727T070155Z/capture_result.json
+    sha256: AA6328FB6EA0BE4AB086C82D098FB1B1844FE61FEF957F212865F0F544C8C698
+    status: passed_pending_pixel_review
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_exit_code: 0
+  minimum_observed_free_ram_gib: 30.569
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  missing_instanced_usage_warnings: 0
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6FRealGPU_20260727T070155Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 2081552
+    sha256: 77B4880BBB9E6AAEDE1D92313E9CBD4F5DFC3CABCDFB85E999634A2B8B83B544
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6FRealGPU_20260727T070155Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 2196343
+    sha256: 6CEFE870A53C7BD77982B2F6ADB85C53B9DF9907C1E675CF3AA50880076369E1
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6FRealGPU_20260727T070155Z/M07_IslandDistrict_R15_V10_Standalone.log
+    bytes: 319132
+    sha256: B7E13AF3FE035AD24C2758E4CD6253855A869615D82E11820451DDF4C2C48192
+
+verified_improvements:
+  - the prior broad solid foreground terrain smear is materially reduced
+  - source Landscape and InstancedFoliageActor references are absent
+  - the compact terrain perimeter uses a continuous 3000 cm inner blend and accepted boundary cells remain below the 1000 cm delta gate
+  - the local ocean is no longer overwritten by the global masked-water path
+  - the geology fixed-point closure contains no RVT or legacy geology component package
+  - the final seed, build, audit, and D3D12 capture remained provider-off and preserved all protected hashes
+
+remaining_failures:
+  - the wide and near frames retain a pronounced sawtooth boundary where the dark local ocean meets the peach sand planet
+  - the near frame retains a severe dark and vertically fanned foreground cut patch; V6F has not established whether its remaining owner is compact-terrain perimeter geometry or one of the retained dressing actors
+  - the island still reads as disconnected geology above a mostly empty dark sheet rather than an authored Tropical island and beach composition
+  - vertex-alpha material assignment plus the current fade and sink profile did not produce a visually smooth ocean-to-desert transition
+  - water depth, shoreline behavior, collision, player movement, navigation, performance, LOD, seams, and surface-to-orbit behavior remain unaccepted
+
+acceptance:
+  structural_audit: true
+  legacy_rvt_load_errors_eliminated: true
+  local_ocean_global_override_eliminated: true
+  compact_terrain_boundary_delta_gate: true
+  real_gpu_pixels_captured: true
+  foreground_artifact_eliminated: false
+  shoreline_and_perimeter_blend: false
+  local_ocean_visual_acceptance: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Keep V6F as a structurally improved but visually failed rollback point. Do
+  not repeat the same run unchanged. First identify the exact owner of the
+  remaining foreground fan by actor/component bounds and the captured camera
+  ray, and verify the generated water vertex-alpha values plus masked-material
+  interpolation at the visible district boundary. Then implement one
+  scratch-only V6G correction and repeat the same provider-off D3D12 wide and
+  near views. Production migration remains forbidden.
+
+claim_limit: >-
+  This proves a fresh scratch-only UE 5.8 build and audit plus one provider-off
+  D3D12 SM6 wide/near capture with protected hashes unchanged. The structural
+  RVT and source Landscape/foliage gates passed, but the actual pixels still
+  fail the shoreline and foreground-artifact gates. It does not accept visual
+  fit, gameplay, water, collision, navigation, performance, Chaos,
+  surface-to-orbit behavior, or production integration.

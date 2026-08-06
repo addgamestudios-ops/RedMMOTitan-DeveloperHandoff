@@ -1,0 +1,189 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-ability-feed-static
+captured_utc: "2026-07-22T16:15:55Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: bounded_Q_E_ability_feed_implemented_static_acceptance_passed_runtime_open
+
+scope:
+  selected_slice: >-
+    Bridge the existing replicated Q/E loadout and server-synchronized cooldown
+    state into the replacement HUD's existing ability consumer without changing
+    activation, input, authority, replication, art, or layout.
+  source_files_modified: 4
+  test_files_modified_or_added: 2
+  plugin_consumer_files_modified: 0
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  ability_activation_authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 59
+    individual_untracked_paths: 1322
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    samples: 7
+    free_physical_gib_range: [8.837, 9.304]
+    free_commit_gib_range: [19.472, 19.915]
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8917, 8919]
+    gpu_utilization_percent_range: [10, 12]
+    gpu_temperature_c: 42
+    c_free_gib: 132.808
+    d_free_gib: 1141.726
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    other_redmmotitan_continuations: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates remained closed. Physical RAM
+    was below the 12 GiB running abort floor and the sustained 18-20 GiB package
+    floor, so this slice remained offline only.
+
+authoritative_producer:
+  loadout:
+    - AbilitySlotQ
+    - AbilitySlotE
+  cooldown_durations:
+    - GrappleCooldown
+    - SlamCooldown
+  replicated_server_time_endpoints:
+    - GrappleCooldownEndServerTime
+    - SlamCooldownEndServerTime
+  clock: AGameStateBase.GetServerWorldTimeSeconds_with_world_fallback
+  existing_client_prediction: preserved
+  existing_legacy_slot_feed: preserved
+  replication_declarations: preserved
+
+implementation:
+  - path: Source/RedMMO/RedHUD.h
+    before_sha256: 216C87AF7D141F2ECB14DC58DA95E4E63A180714BAABD70B090E3BB9B0D76625
+    after_sha256: D7B73FDFA5EAED5B60278BC41C6AF90326AC084E7BD89064C1C75207B9ACEC76
+    after_length: 3055
+    change: Adds a primitive-only replacement ability-state bridge.
+  - path: Source/RedMMO/RedHUD.cpp
+    before_sha256: E64288356A977CA63D5990C20DC7982BC78F6FE2D7C9BEEDCFC86C0B8E922555
+    after_sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599
+    after_length: 14641
+    change: >-
+      Constructs FRedHUDAbilityState with nonnegative duration, remaining time
+      clamped into duration, full charge, no invented selection, and ready state
+      gated by cooldown and disabled state before calling the existing consumer.
+  - path: Source/RedMMO/RedPlayerCharacter.h
+    before_sha256: B127F5ED922BC39A16D46EE634B36579C37C57E8CE1DEB4158E6CAB6D9E7CBF6
+    after_sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5
+    after_length: 70750
+    change: Allows the existing ability HUD refresh to accept a resolved local replacement HUD.
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    before_sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749
+    after_sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA
+    after_length: 345272
+    change: >-
+      Resolves only the local ARedHUD, retains legacy slot 0/1 calls, maps Q/E
+      into replacement indices 1/2, forwards bounded cooldown and downed/loadout
+      disabled state on the existing status path, and refreshes enabled state
+      before re-showing the HUD after closing the loadout overlay.
+  - path: Tools/tests/test_def0004_pixel_hud_current_contract.py
+    before_sha256: A843D3F1A2AC0809D99A9520F631925CA6739ACEFAE9CC724BB1FE38FEE71FF8
+    after_sha256: 93227B636DEB53450D8F8A5C0B55772C2894A4C716E94590EA1F085425D4AB2B
+  - path: Tools/tests/test_def0004_replacement_hud_ability_feed_contract.py
+    before_state: absent
+    after_sha256: 502A621EAB99E0F125917C85342C47579F9499C1255E446F7DB1FFDA9C10FAC4
+    after_length: 6224
+
+verification:
+  command: >-
+    python -B -m unittest
+    Tools.tests.test_def0004_replacement_hud_ability_feed_contract
+    Tools.tests.test_def0004_replacement_hud_enemy_feed_contract
+    Tools.tests.test_def0004_pixel_hud_noop_feedback_contract
+    Tools.tests.test_def0004_pixel_hud_customizer_route_contract
+    Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_def0002_ship_gravity_telemetry_contract
+    Tools.tests.test_def0002_ship_reboard_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 66_of_66_passed
+  focused_ability_feed_tests: 10_of_10_passed
+  focused_enemy_feed_tests: 8_of_8_passed
+  noop_and_lifecycle_tests: 8_of_8_passed
+  replacement_route_tests: 6_of_6_passed
+  current_DEF_0004_inventory_tests: 8_of_8_passed
+  DEF_0006_regression_tests: 6_of_6_passed
+  DEF_0002_gravity_telemetry_tests: 7_of_7_passed
+  DEF_0002_fighter_reboard_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDAbilityFeed_20260722_1606_retry2/offline_contract_and_provenance_tests.log
+  log_sha256: 7B7C471575F855C14775D274B433EEA1FF33F52C73BF751D210A9C5B1D4AA480
+  independent_review: PASS_no_actionable_findings
+  review_correction: >-
+    Review found a one-frame stale disabled tint when the ability loadout closed.
+    The final source refreshes ability state after clearing bAbilityLoadoutOpen
+    and before re-showing the replacement HUD; an ordering contract covers it.
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004AbilityFeed_1606_retry1/target_currency.json
+  report_sha256: 8FDCF4DB5D7AAAB36DB5CDAA3EE80EF0128143F6D0154F88AFF59C0BCD8E33D7
+  input_manifest_sha256: 148E5E7548E7E3E49F287D1AD2D99E018054ED3D27E2DCBE91DE1F4C96A234D3
+  input_count: 874
+  Titan:
+    currency_state: stale_unproven
+    newer_inputs: 38
+    newer_categories: {config: 2, plugin: 8, source: 28}
+    exact_build_proof: missing
+  TitanEditor:
+    currency_state: stale_unproven
+    newer_inputs: 26
+    newer_categories: {plugin: 2, source: 24}
+    exact_build_proof: missing
+  skip_build_allowed: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004AbilityFeed_20260722_1606
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004AbilityFeed_20260722_1606/pre_slice_manifest.yaml
+  manifest_sha256: 58215A48039C2014C43EE957FC952F0C5504E7245B9545B13598415A2D2ECCE2
+  backed_up_files: 11
+  files_including_manifest: 12
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  pre_slice_topology_checks: 9_of_9_passed
+  final_fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  supplied_HUD_textures: 56_preserved
+  vibe_sources: 8_of_8_preserved
+  artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+
+canonical_queue:
+  pre_slice_sha256: 8D11AFB79D4FAF452EF3B79BA784A4581015DB7CBF2C13085B7DE0501E378AC8
+  post_slice_sha256: BB603C541D02B7E63EB31060CA5AD932A7D48FEFAE13FA9C198F7EAE0D847F15
+  module_status: incomplete_retry
+  retry_count: 10
+
+remaining_blockers:
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - Q/E mapping, cooldown decay, prediction/reconciliation, disabled state, and loadout swaps require runtime verification
+  - the replacement defaults to KeyboardMouse while numeric cooldown visibility and art tint currently target the Gamepad consumer path
+  - unchanged per-tick ability states still rewrite cached/tint state and have no runtime performance measurement
+  - current 16:9 and ultrawide pixels require real-GPU evidence
+  - quest, consumable, and snapshot feeds still have no trustworthy gameplay caller
+  - party and minimap replacement setters remain absent
+  - represented controls, complete layout coverage, persistence, packaging, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves a bounded source bridge and offline contracts only. It
+  does not prove UHT, compilation, runtime cooldown behavior, prediction or
+  replication, default-keyboard visible feedback, performance, pixels,
+  interaction, packaging, Steam transport, gameplay, or multiplayer. The prior
+  July 21 real-GPU HUD evidence predates these changes and cannot accept them.

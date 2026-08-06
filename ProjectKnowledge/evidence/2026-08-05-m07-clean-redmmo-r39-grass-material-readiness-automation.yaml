@@ -1,0 +1,140 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r39-grass-material-readiness.2026-08-05
+captured_utc: "2026-08-05T15:01:10Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r39-exact-grass-material-graph-and-rendering-readiness
+evidence_class: automation
+result: passed_material_graph_and_shader-error-path-falsified
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.92
+  commit_headroom_gib: 49.67
+  free_gpu_vram_mib: 7699
+  free_d_drive_gib: 767.65
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+runtime_audit:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_grass_material_readiness_r39.py
+  driver_sha256: DF2CCF989C4B5BB027F683591BD53642BABE95BF978BB1750E076DF6B3BB83EE
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterialReadiness_R39_20260805T1450Z/result.json
+  result_sha256: C5923F50BA0361EABFF633AB815886DE63ECFD3C181A4131B6E608E552328AAE
+  first_invocation_log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassMaterialReadiness_R39_20260805T1450Z.log
+  first_invocation_log_sha256: 84C3D2FD40A996D9C752660561E7D16612662775169DC24916C520ED119DA988
+  first_invocation_result: >-
+    ExecutePythonScript exited cleanly after the callback script returned and
+    before planet generation completed; it created no result and changed no
+    package. The proven deferred ExecCmds Python invocation was then used.
+  passing_log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassMaterialReadiness_R39_20260805T1450Z_retry.log
+  passing_log_sha256: 159D4D8D2BD451D8A70775E7B4D0105C281F5A77B27E65CC630DC13A0461863C
+  terminal_status: PASS_R39_EXACT_GRASS_MATERIAL_AND_READINESS_AUDIT
+  renderer: D3D12
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  save_called: false
+  screenshot_called: false
+  dirty_packages_after: []
+
+exact_material_graph:
+  parent: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R32/Materials/M_GrassChunks_PPGReadable_R32
+  parent_sha256: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  expressions: 516
+  blend_mode: masked
+  opacity_mask_clip_value: 0.3333
+  two_sided: true
+  base_color:
+    connected: true
+    node_class: MaterialExpressionStaticSwitchParameter
+    parameter: RockBorderMask_Debug
+  opacity_mask:
+    connected: true
+    node_class: MaterialExpressionMaterialFunctionCall
+    output: Result
+  normal:
+    connected: true
+    node_class: MaterialExpressionMultiply
+  instances:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N
+  verified_controls:
+    GrassColor_Custom_Enable: true
+    GrassColor_Effects_Enable: true
+    GrassNearGround_Dithering_Enable: true
+    GrassColor_FromLandscape_Amount: 0.0
+    GrassLocalZ_ScaleMultiply: 1.45
+    GrassHighlights_Amount: 0.62
+    GrassHighlights_Density: 0.82
+  verified_textures:
+    normal: /Game/StylizedRocksPack_01/Common/TilingTextures/T_GrassClumps_01_N
+    scale_variation: /Game/StylizedRocksPack_01/Common/TilingTextures/T_PackedNoiseClouds_01
+
+runtime_binding:
+  approved_components: 196
+  seeded_instances: 2218356
+  registered: 196
+  render_state_created: 196
+  scene_proxy_present: 196
+  positive_last_render_time: 76
+  exact_instance_a_components: 98
+  exact_instance_b_components: 98
+  exact_parent_components: 196
+
+readiness_boundary:
+  shader_or_material_error_lines_in_passing_log: 0
+  shader_or_material_warning_lines_in_passing_log: 0
+  python_asset_compiling_manager_exposed: false
+  python_shader_compiling_manager_exposed: false
+  available_material_compile_api: [recompile_material]
+  recompile_called: false
+  result: >-
+    The suspected absent opacity mask, broken parent linkage and logged shader
+    compile failure are falsified. R39 proves the persisted graph and runtime
+    binding, but Unreal Python exposes no non-mutating pending compile counter,
+    so it does not claim an engine-wide zero-pending-job measurement.
+
+diagnosis:
+  result: >-
+    R37's grass-free normal frame is not explained by placement, density, cull,
+    default visibility, registration, proxy creation, material substitution,
+    an absent BaseColor or OpacityMask connection, or a logged material/shader
+    error. The remaining discriminators are transient pixel-depth/WPO/dither
+    behavior and capture-state/timing at the exact R33/R37 camera.
+  falsified:
+    - R32 OpacityMask is unconnected
+    - R32 BaseColor is unconnected
+    - runtime components use another material or parent
+    - the passing run logs a material or shader compile error
+
+canonical_validation:
+  queue_snapshot_sha256: 08E3F5BA7CA7FC8D9994BD687BC3DC4C0BD1D5200C7347CA5088CE6F65BC8441
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R39_20260805T1502Z.json
+  integrity_report_sha256: 45DA595CDDF8493DD12844AFDB73773673F67668E6A3BCB87F329833AB16E257
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  restored_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R39 is fresh D3D12 PIE material-graph and runtime-binding automation only.
+  It proves no accepted visible grass, terrain, biome diversity, night/space,
+  gameplay, standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Preserve every current package and use one transient exact-camera diagnostic
+  pass to compare R33 and R37 capture-state semantics: record show flags,
+  view mode, camera/projection, near-ground dither inputs and grass-versus-ground
+  depth at the capture boundary. If a pixel capture is necessary, use a labeled
+  grass/depth diagnostic buffer rather than another normal beauty frame. Do not
+  save, change density/placement/cull/visibility, or rewrite the surface.

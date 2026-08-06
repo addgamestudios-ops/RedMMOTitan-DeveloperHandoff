@@ -1,0 +1,136 @@
+schema_version: 1
+id: evidence.m07.tropical-planetary-live-launch.failclosed.2026-07-26
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: tropical-island-biome-native-snap-live-validation-attempt
+evidence_class: automation
+captured_utc: "2026-07-26T12:21:40Z"
+result: failed_closed_before_snap_save
+
+authorization:
+  approved_operation: >-
+    One clean isolated M07 Tropical tile validation launch, allowing only the
+    exact normal editor-owned startup listeners required by the scratch editor
+    while keeping AI, MCP, UAIP, Nwiro, and provider endpoints disabled.
+  launches_performed: 1
+  retry_performed: false
+
+scope:
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map_package: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_maps_or_assets_modified: false
+  authoring_inputs_modified: false
+  providers_enabled_or_used: false
+  PIE_started: false
+  native_snap_executed: false
+  scratch_map_saved: false
+  screenshot_files_created: false
+  real_gpu_visual_acceptance: false
+
+launcher:
+  path: D:/RedMMOTitan/Build/Automation/Start-M07TropicalBiomeLiveValidation.ps1
+  bytes: 155137
+  sha256: 377DEECE4EF0C294840ADF6B9C9DADD4F9533049DB5C771F1D66F471E0334DCC
+  parser_errors: 0
+  independent_reviews: 2
+  independent_review_result: go_within_sampled_normal_operation_boundary
+  no_launch_process_probes:
+    result: passed
+    process_cases: 25
+    listener_cases: 6
+  no_launch_sensor_probes:
+    result: passed
+    fail_closed_sensor_cases: 9
+    exact_process_handle_stop_cases: 2
+    malformed_live_audit_type_rejections: 14
+  sustained_preflight:
+    result: passed
+    samples: 6
+    unreal_started: false
+  actual_validate_platforms_payload:
+    path: D:/UE_5.8/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll
+    sha256: 49DEE1319F2355FEA5626A3A1FD0EEA9AD2DD58F520917C6A546EC3EDA593D2E
+    runtime_tree:
+      files: 98
+      bytes: 47429728
+      manifest_sha256: 02969D6739CFDD4AC371CA5D1EABC44CF93A892B32AE59F6B75E760CA911A6E6
+      reparse_count: 0
+    build_ubt_mutation_path_absent_checks: 3
+
+runtime:
+  run_directory: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_122038_017Z_58d36fd8
+  controller_directory: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/controller_20260726_122037_725Z_6ee288f7
+  editor_pid: 19708
+  monitor_result: guard_aborted_exact_editor_only
+  monitor_samples: 8
+  monitor_sensor_failures: 0
+  minimum_monitor_free_physical_gib: 47.931
+  minimum_monitor_free_commit_gib: 63.649
+  allowed_core_trace_listeners_observed: 1
+  allowed_editor_udp_11111_listeners_observed: 0
+  unexpected_editor_owned_listeners_observed: 0
+  new_zen_processes_observed: 0
+  new_external_trace_servers_observed: 0
+  stop:
+    requested: true
+    exact_pid_only: 19708
+    retained_process_handle_used: true
+    process_tree_or_name_kill_used: false
+    proves_exact_editor_stopped: true
+
+blocker:
+  summary: >-
+    The editor launched the normal UnrealBuildTool ValidatePlatforms startup
+    command, but the sampled Win32_Process record exposed a blank
+    ExecutablePath for the just-created dotnet process. The strict classifier
+    therefore could not attest the executable path and rejected it.
+  process:
+    pid: 22080
+    parent_pid: 24212
+    name: dotnet.exe
+    executable_path: ""
+    creation_utc: "2026-07-26T12:21:39.1249430Z"
+    command_line: >-
+      dotnet "../../Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll"
+      -Mode=ValidatePlatforms -OutputSDKs -AllPlatforms
+      -project="D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject"
+      -log="D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Saved/Logs/AutoSDKInfo.txt"
+      -verbose -timestamps
+  live_audit_created: false
+  pre_snap_backup_created: false
+  map_or_asset_mutation_started: false
+
+post_run_integrity:
+  relevant_unreal_or_build_process_count: 0
+  scratch_map:
+    bytes: 12497095
+    sha256: FBB0EED0191099B99833CA829834BA08DB5786204ED27A04BA38F053B4F1B491
+    unchanged: true
+  protected:
+    Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_hashes_match: true
+
+dependency_transaction_correction:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeV1A_Retry2_20260725_210029Z/transaction_manifest.json
+  bytes: 7145545
+  actual_sha256: 13040F70D3EB76883B4D97A344EE773FCDAB74AE02775E9372AF6AE69193E68B
+  note: >-
+    This corrects the stale hash recorded in the earlier static guard evidence;
+    the transaction manifest's LastWriteTimeUtc remains 2026-07-25T21:07:13.1624610Z.
+
+planet_authoring_contract:
+  invariant_id: INV-STREAM-001
+  statement: >-
+    The 27 square regions remain overlapping tangent-local authoring inputs
+    fused before runtime; they are not runtime World Partition cells.
+
+acceptance:
+  visual_review_ready: false
+  exact_remaining_gate: >-
+    Harden and independently review an executable-path attestation fallback for
+    the normal short-lived ValidatePlatforms process when Win32_Process returns
+    a blank ExecutablePath, then obtain approval for one new guarded launch.
+  production_migration_allowed: false

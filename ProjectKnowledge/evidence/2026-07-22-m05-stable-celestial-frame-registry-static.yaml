@@ -1,0 +1,122 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M05-STABLE-CELESTIAL-FRAME-REGISTRY-STATIC
+captured_at: "2026-07-22T10:04:38.8736049Z"
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed_source_and_offline_stable_id_frame_contract
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree: pre_existing_dirty_worktree_preserved
+implemented:
+  - A shared native RedCelestialFrames boundary now accepts one exact namespaced stable body ID and returns an immutable pointer-free center, nominal-radius, and revision snapshot.
+  - Registration, update, unregister, resolution, and world cleanup are game-thread-only. Registration additionally requires a non-client world, a valid authority actor in that world, HasAuthority, positive finite radius, and a center matching the authority actor's current location within 0.01 cm.
+  - Accepted revisions begin at 1 and advance exactly by 1. Stable-ID high-water state survives unregister; stale, equal, skipped, zero, and maximum revisions fail closed. Rejected competing-authority input marks a sticky conflict without advancing accepted high-water state.
+  - One live authority cannot change world or stable ID after unregistering. Conflict recovery requires exact teardown followed by a different authority's next sequential revision; no insertion-order winner remains resolvable while conflict is set.
+  - RemoveWorld is rejected for a live or client world and can clear registrations, revision state, and authority state only while a server or standalone world is being or has been cleaned up.
+  - The M05 protection query now resolves only BodyId through RedCelestialFrames::ResolveExact. It no longer uses FindMeshPlanet, CLMPlanet discovery, actor iteration, labels, names, radius matching, distance, or sole-candidate inference for body identity.
+  - No authority-owned producer or project production RegisterOrUpdate call site is wired by this checkpoint. The M05 public query therefore intentionally fails closed at runtime until a later reviewed producer exists.
+  - Existing RedGravity FindMeshPlanet declarations, definitions, and callers were not changed by this slice.
+files:
+  - path: Source/RedMMO/RedCelestialFrameRegistry.h
+    sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    role: shared_stable_id_frame_public_boundary
+  - path: Source/RedMMO/RedCelestialFrameRegistry.cpp
+    sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+    role: private_fail_closed_registry_state_machine
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.h
+    sha256: BAAF41E82EE08DEDC7F5BB8CD9328FDBDB17DD3D8B70D5E59328BF001729C095
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistry.cpp
+    sha256: 5C5402C6F1228B0BFAA74AFEAC7A208F0AEA65304884F9050BABCC97109D9BFD
+  - path: Source/RedMMO/WorldAuthoring/RedPlanetHubReservationRegistryTests.cpp
+    sha256: DD7727552B95A92DC2038C205EAD1071BAC217ED439FB617422544878A1AF43A
+    note: unchanged by this slice
+  - path: Tools/tests/test_planet_pcg_runtime_registry_contract.py
+    sha256: 43C42EE7568272B00823411B030C62CC14479E44209DE8DA0DA0F212B8A2166C
+  - path: Source/RedMMO/RedGravityBodies.h
+    sha256: 3463210BC06B2E22355E5B27A662D434C97F835D4D2A87805F53394DBE257911
+    note: unchanged shared dirty source
+  - path: Source/RedMMO/RedGravityBodies.cpp
+    sha256: F4E4E275247F3CB5D4B594C1FDFA917BAB88E32D8F7FA92CDB12779539FA2CD5
+    note: unchanged shared dirty source
+verification:
+  combined_offline_tests:
+    command: "python -B -m unittest Tools.tests.test_audit_world_authoring_packages Tools.tests.test_planet_pcg_reservations Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: "29/29 passed"
+  frame_registry_contract_tests:
+    result: "11/11 passed within the combined suite"
+    coverage:
+      - exact-ID lookup and missing or wrong world/ID rejection
+      - protocol-valid revision-1 competing-authority conflict in either insertion order
+      - stale, equal, skipped, zero, and maximum revision rejection
+      - retained high-water tombstone and live-authority identity retention after unregister
+      - sticky-conflict recovery through exact teardown and next sequential revision
+      - structural checks for game-thread, non-client, authority, current center, cleanup-only removal, and pointer-free snapshots
+  python_syntax:
+    command: "python -B -m py_compile Tools/tests/test_planet_pcg_runtime_registry_contract.py"
+    result: passed
+  dataset_check:
+    command: "python -B Tools/generate_planet_pcg_reservations.py --check"
+    result: "RED_PCG_RESERVATIONS_CURRENT count=27 dataset=D6DE83918473FFD5D8E27AF5502A39A1E25B3370F7D837F62C831A302F66F3B5"
+  package_marker_audit:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/codex-m05-world-authoring-audit-20260722T0923Z.json
+    report_sha256: 9F948F340604344499F6146CC1E0836582BF27288CC1DBDB0539F2E2A5304839
+    check_result: RED_WORLD_AUTHORING_PACKAGE_AUDIT_OK_packages_73_runtime_refs_0_policy_markers_0
+    protected_checkpoint_match: true
+    tree_quiescent_during_scan: true
+  production_callsite_scan:
+    result: no_project_owned_frame_registration_producer_found
+  legacy_caller_contract:
+    result: "9 three-argument, 17 four-argument, and 0 five-argument FindMeshPlanet calls outside RedGravityBodies.cpp"
+  static_ue58_review:
+    result: no_obvious_cpp_or_ue58_api_blocker_found
+    limitations: static_review_only_not_compile_or_cplusplus_execution
+resource_gate:
+  pre_slice_samples: 12
+  free_physical_ram_gib_range: [10.140, 10.913]
+  free_virtual_or_commit_headroom_gib_range: [21.182, 22.036]
+  final_free_physical_ram_gib: 10.446
+  final_free_virtual_or_commit_headroom_gib: 21.640
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  final_free_vram_mib: 8930
+  free_disk_gib:
+    C: 133.21
+    D: 1141.74
+  unreal_or_build_processes: 0
+  action: "No UHT, UnrealBuildTool, Unreal Editor, runtime, cook, package, or real-GPU process was launched."
+protected_foundation:
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json
+    sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json
+    sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+preservation:
+  - Protected checkpoints, production maps, artist repositories and handoffs, vendor plugins, user assets, binary packages, generated reservation data, and unrelated dirty work were not modified.
+  - Surface dressing remains disabled. No PCG graph, WorldGen adapter, exclusion volume, map actor, DataAsset, production map, or production asset was created or changed.
+limitations:
+  - The Python behavior test is a mirror model plus structural source assertions; it is not execution of the C++ registry.
+  - No UHT, compilation, link, DLL export, C++ automation, weak-pointer destruction, cleanup-delegate lifecycle, or client-world behavior has been executed.
+  - No PlanetGen actor type or immutable stable-ID producer is authenticated. The generic registry checks actor ownership, authority, current center, and supplied radius, but it does not independently read or validate PlanetGen's live PlanetRadius.
+  - Client resolution is deliberately rejected. A future client-side consumer requires a server-owned replicated read-only snapshot contract.
+  - No reviewed PCG or WorldGen consumer, road/lake/river/structure mask, runtime placement, multiplayer behavior, overlap clearance, or visual/gameplay acceptance exists.
+  - The selected-marker package audit remains a raw exact-name inventory, not decoded Unreal property, export, dependency, Data Layer, enabled-state, or placement evidence.
+claim_limit: >-
+  This evidence proves only the shared server/standalone stable-ID registry source
+  contract, the M05 exact-ID consumer source path, deterministic offline model and
+  policy checks, and preservation hashes. It does not prove compilation, actual
+  C++ execution, a runtime producer, PlanetGen authentication, cleanup lifecycle,
+  replication, placement, multiplayer, rendering, or gameplay.
+next_safe_action: >-
+  For M05, after at least 14 GiB free physical RAM is sustained, run one serial
+  TitanEditor compile and focused C++ automation before designing an authority-owned
+  PlanetGen producer and cleanup/replication lifecycle. Keep the consumer fail closed
+  and surface dressing disabled. The canonical cross-module next action remains M00's
+  capped real-GPU T02 sparkle capture when its resource gate is safe; packaging remains
+  deferred until 18-20 GiB stays sustainably free.
+rollback:
+  - Remove only Source/RedMMO/RedCelestialFrameRegistry.h and Source/RedMMO/RedCelestialFrameRegistry.cpp if this boundary is rejected.
+  - Restore only the M05 reservation registry and Python contract hunks to the preceding evidence hashes F76C06514AD53BAE8611105AE676FB43696CC13B52C4E40874936005A70D05C9, 3D5D3C3575EC9D8E57FB5A88A07BD762F471CBC5449E068D2B91E44F310DCA1F, and D71EF30D9DC45E680032112CA7CC55683661D6FAECD5C5E96E2AFFD9A6BBD994.
+  - Do not alter RedGravityBodies, maps, assets, artist content, vendor content, generated reservations, protected checkpoints, or unrelated dirty work.

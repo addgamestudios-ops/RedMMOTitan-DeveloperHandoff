@@ -1,0 +1,101 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r07.guarded-build-blocked.2026-08-01
+captured_utc: "2026-08-01T15:23:23Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: bounded-r07-player-surface-lighting-correction
+evidence_class: automation
+result: blocked_rolled_back_without_persisted_map_change
+
+scope:
+  attempted:
+    - create one project-owned R07 surface and planet-data successor
+    - remove the rejected Savanna acacias and invalid rectangular Oasis-water carrier
+    - surface-snap the bounded managed props and expand non-So grass coverage
+    - add restrained lower-hemisphere night fill
+    - create a visible PPG-child mannequin pawn, radial ascend/descend input, GameMode, and visual-only ship
+  explicitly_not_claimed:
+    - no persisted R07 map or asset implementation
+    - no fresh-reload, PIE, gameplay, visual, water, descent, or human acceptance
+    - no production, legacy Titan, vendor-source, provider, plugin, PlanetGen, cook, or package change
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  expected_r06_checkpoint_sha256: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+  home_map_sha256_after_all_guards: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+  r07_remaining_file_count: 0
+  unreal_process_count_after_guard: 0
+
+rollback_and_preflight:
+  evidence_root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R07_20260801_163147
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R07_20260801_163147/pre_r07_manifest_v1.json
+  manifest_sha256: F270B9EB5C6ABA7CDC5FF1EDAE1D507900B91B1C6FCC628E845A6888CD6BF04F
+  manifest_input_count: 93
+  predeclared_no_clobber_target_count: 8
+  rollback_checkpoint: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R07_20260801_163147/rollback_pre_r07/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+  outer_guard_sha256: 5CDB99DF919C5070B8180EF3BA5604CBDBAC30330EE3B28091DF5DFDEB19334E
+  provider_plugins_disabled:
+    - ModelContextProtocol
+    - Nwiro
+    - UnrealAIIntegrationPlatform
+
+durable_runtime_findings:
+  surface_probe:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R07_20260801_163147/probe_r07_pie_surface_result.json
+    sha256: EFBCBDD7F05944281D3D9D44BB5D45B969EBD28C60CCB813F3460230B402041B
+    managed_prop_surface_contract: passed_for_24_existing_and_28_planned_grass_placements
+    valid_local_water_basin_count: 0
+    water_decision: remove_invalid_r06_rectangle_and_leave_oasis_water_blocked
+  ue58_fkey_fix:
+    prior_failure_report_sha256: 9601C36593B2FE956240A264C109AAA4F95368FC14A37DB741647DD017E40056
+    corrected_contract: zero_argument_unreal_key_then_explicit_key_name_property_and_exact_readback
+    next_guarded_run_result: passed
+  blueprint_component_fix:
+    prior_failure_report_sha256: EB0A5C3C346EE380D9C7DFE1151E1F65778CE2CF784F411ED7A116AF32622742
+    corrected_contract: deduplicate_inherited_subobject_handles_by_associated_uobject_identity_then_require_camera_and_springarm
+    next_guarded_run_result: passed
+
+terminal_blocker:
+  attempt: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R07_20260801_163147/attempt_05_parent_beginplay_node
+  build_report_sha256: AF06FF6AA49A36846F9D4C5ABAAC7C72311A62B77767B7B5C628318CC9E1670E
+  guard_report_sha256: 46271BAFE874CF6DA86BA75C265CCBD6C59857D4F541D1940EF739B6504D3D59
+  log_sha256: 986C829AC06E965C1ACD5E6D27E63CCB64E7FA6CAE44181820032B8CDE55CC12
+  exact_error: "Call Parent BeginPlay node is not deterministic; matches=[]"
+  interpretation: >-
+    UE 5.8 accepted the corrected FKey mappings and the logical Camera/SpringArm
+    contract, then the project-owned child pawn graph stopped because the
+    scripted Blueprint node menu exposed no deterministic parent-BeginPlay call.
+    The helper refused to omit the parent call or guess a node, and the outer
+    guard restored the exact R06 map and removed every predeclared R07 target.
+
+future_rock_pack_gate:
+  listing_id: da7827ea-ce2c-4930-b346-160dd4a1cc01
+  title: Stylized Rocks and Stones Pack
+  expected_mesh_count_from_user_listing: 9
+  current_local_state: not_delivered_or_installed
+  policy: >-
+    Prefer its verified exact meshes for the later bounded rock, cliff, and
+    pebble replacement, but do not acquire, import, or claim compatibility until
+    Fab completes the official local delivery and the package closure is audited.
+
+protection:
+  legacy_or_production_changed: false
+  vendor_sources_changed: false
+  providers_called: false
+  home_map_restored_exactly: true
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  This evidence proves two UE 5.8 automation blockers were corrected and that
+  every guarded failure restored the exact R06 checkpoint. It does not prove an
+  implemented R07, a visible character or ship, descent control, corrected night
+  lighting, surface presentation, water, PIE, gameplay, or real-GPU acceptance.
+
+next_safe_action: >-
+  Do not repeat the same automated graph attempt. At the next independent R07
+  slice, use a separately reviewed Unreal-native or visible-editor authoring path
+  to create the child pawn's explicit Parent BeginPlay plus project-owned radial
+  input graph, then rebind hashes and rerun the same outer guard. Keep water
+  blocked until a separately authored terrain depression and shoreline exists.

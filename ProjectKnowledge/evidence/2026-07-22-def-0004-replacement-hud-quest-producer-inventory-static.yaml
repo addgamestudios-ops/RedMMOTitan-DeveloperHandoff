@@ -1,0 +1,198 @@
+schema_version: 1
+id: evidence.2026-07-22.def-0004.replacement-hud-quest-producer-inventory-static
+captured_utc: "2026-07-22T16:38:15Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: no_trustworthy_quest_producer_found_in_bounded_inventory_bridge_refused_hidden_consumer_preserved
+
+scope:
+  selected_slice: >-
+    Inventory only the replacement HUD quest consumer, compiled project-owned
+    C++ sources, and a bounded project-owned asset filename surface. Add no
+    bridge unless an authoritative or replicated per-player quest source can be
+    proven; do not reinterpret resources or publish RedHUD sample defaults.
+  gameplay_source_files_modified: 0
+  plugin_source_files_modified: 0
+  test_files_added: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_or_vibe_repository_modified: false
+  supplied_hud_textures_modified: 0
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 59
+    individual_untracked_paths: 1324
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  sustained_resources:
+    samples: 7
+    free_physical_gib_range: [8.718, 9.277]
+    free_commit_gib_range: [19.308, 19.855]
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib_range: [8908, 8920]
+    gpu_utilization_percent_range: [11, 12]
+    gpu_temperature_c_range: [41, 42]
+    c_free_gib: 132.809
+    d_free_gib: 1141.724
+  overlap:
+    strict_unreal_build_cook_package_processes: 0
+    other_redmmotitan_continuations: 0
+  gate_decision: >-
+    All Unreal, build, package, and real-GPU gates remained closed. Sustained
+    physical RAM was below the 12 GiB running abort threshold and the 18-20 GiB
+    package floor, while commit headroom was below the 24/26 GiB package gate.
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_package_archive_or_shader_started: false
+  current_attempt_archive_exists: false
+  july_17_archive_current_fused_marker: missing
+
+inspected_source_identity:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDTypes.h
+    sha256: 4A43980A692C63EBD3BB7A375880F4E9A5BAE057EF6ABF55A92EE4CD7F0F2A8C
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    sha256: BE926FEF5F105A4331EA18A4D637ABF1C2CF3C1D610688A4C9A53C148829D05F
+  - path: Plugins/RedHUD/INTEGRATION_SNIPPET.cpp
+    sha256: DE90B3092E16F75147805C38D4FDFDAF82446C93F952B981205155842213B4C7
+  - path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOUIDataAssets.h
+    sha256: 2106F4306B2761F765F590FC29F0CCDEF369FCE65327AA4E05BD09DB40CC571F
+  - path: Source/RedMMO/RedHUD.h
+    sha256: D7B73FDFA5EAED5B60278BC41C6AF90326AC084E7BD89064C1C75207B9ACEC76
+  - path: Source/RedMMO/RedHUD.cpp
+    sha256: F2DC68AB7D875C8F5562CD4120FD7DE81452B172B7B4B9F6889CF820A8AEB599
+  - path: Source/RedMMO/RedPlayerCharacter.h
+    sha256: F8DE15EDEBFBDD9E97FB588631007B6DE5D02B04D4EF910983FE0AD292E4F4C5
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA
+
+quest_consumer:
+  state_type: FRedHUDQuestState
+  setter: URedHUDWidget.SetQuestState
+  snapshot_caller: URedHUDWidget.ApplySnapshot
+  rendered_fields: [Title, Objective, Current, Target]
+  live_visibility_gate: State.bVisible
+  cached_visibility_default: false
+  initialized_snapshot_applied: false
+  current_runtime_disposition: hidden_no_gameplay_caller
+
+producer_inventory:
+  result: not_found_in_inspected_cpp_and_bounded_asset_filename_inventory
+  compiled_redmmo_gameplay_caller_count: 0
+  legacy_vibe_hud_quest_caller_count: 0
+  authoritative_quest_model_count: 0
+  replicated_per_player_quest_state_count: 0
+  stable_quest_or_objective_id_count: 0
+  runtime_progress_persistence_owner_count: 0
+  plausible_non_producers:
+    - item: UVibeMMOQuestDataAsset
+      disposition: >-
+        Definition-only primary data asset with title, body, and objective text;
+        it has no stable identity, per-player active/completed state, progress,
+        replication, persistence, or runtime caller.
+    - item: Plugins/RedHUD/INTEGRATION_SNIPPET.cpp
+      disposition: >-
+        Noncompiled example outside every module Source tree. It references
+        AYourPlayerController and undefined ActiveQuest placeholder values.
+    - item: ARedPlayerCharacter.UpdateHUDResources
+      disposition: >-
+        Replicated mining/resource totals feed only the legacy resource tally.
+        They do not represent quest identity, objective state, or progress and
+        were not reinterpreted.
+    - item: FRedHUDQuestState_defaults
+      disposition: >-
+        Sample title/objective values are consumer demonstration defaults, not
+        gameplay evidence. No current source publishes them to the hidden panel.
+  filename_level_content_scan:
+    roots: [Content/RedMMO, Content/UI]
+    matching_quest_objective_or_mission_filenames: 0
+    limitation: serialized_asset_payloads_were_not_decoded
+
+required_future_producer_contract:
+  authority: server_owned
+  identity: immutable_stable_quest_and_objective_ids
+  per_player_state: [active, completed, hidden, current, target]
+  networking: [replication, owner_scope, late_join, stale_clear]
+  persistence: explicit_owner_and_reconnect_or_restart_policy
+  acceptance: >-
+    Only after that producer exists may a presentation-only local HUD bridge be
+    added and tested for server/client parity, quest switching, completion,
+    stale clearing, late join, persistence, and real-GPU visibility.
+
+verification:
+  focused_test: Tools/tests/test_def0004_replacement_hud_quest_inventory_contract.py
+  focused_test_sha256: 34B6BA1D3E41BBA65223FA5563342886B3E694276059ECF0E50057DBED3AFE25
+  focused_test_length: 7835
+  focused_quest_inventory_tests: 6_of_6_passed
+  prior_HUD_shared_and_provenance_contracts: 66_of_66_passed
+  combined_result: 72_of_72_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDQuestInventory_20260722_1629_retry1/offline_contract_and_provenance_tests.log
+  log_sha256: F7CBA1F30DC58D2F766D05E8CFD2F1FA8753B8967852B8609431FD81767E9D53
+  independent_review: PASS_after_contract_scope_correction
+  review_corrections:
+    - unsafe sample defaults are documented as a hazard but are not required by the test contract
+    - caller detection uses path-aware whitespace-tolerant regular expressions
+    - Vibe definition-only checks are scoped to the exact quest asset class
+    - conclusions explicitly exclude undecoded Blueprint graph proof
+
+target_currency:
+  current_report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004AbilityFeed_1606_retry1/target_currency.json
+  current_report_sha256: 8FDCF4DB5D7AAAB36DB5CDAA3EE80EF0128143F6D0154F88AFF59C0BCD8E33D7
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, exact_build_proof: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, exact_build_proof: missing}
+  skip_build_allowed: false
+  audit_rerun: false
+  reason: no_Cpp_Config_plugin_target_or_build_input_changed_in_this_inventory_slice
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004QuestInventory_20260722_1629
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004QuestInventory_20260722_1629/pre_slice_manifest.yaml
+  manifest_sha256: 43681A5E76218567C1AD8DD23E6AB15C50D139F71A64CBD773F8124E10357986
+  backed_up_files: 4
+  files_including_manifest: 5
+  exact_pre_slice_bytes_retained: true
+
+protection:
+  pre_slice_topology_checks: 9_of_9_passed
+  pre_slice_fused_provenance_checks: 7_of_7_passed
+  protected_source_rasters: 135_of_135_matched
+  SAFE8_manifest_entries: 338_of_338_matched
+  supplied_HUD_textures: 56_preserved
+  vibe_sources: 8_of_8_preserved
+  artist_baselines: unchanged
+  production_maps_or_checkpoints_changed: false
+
+canonical_queue:
+  pre_slice_sha256: BB603C541D02B7E63EB31060CA5AD932A7D48FEFAE13FA9C198F7EAE0D847F15
+  post_slice_sha256: A61EA1D3550096E8C28093995D1914104C61F69B01DD42C17C0C8BDB43073DFA
+  module_status: incomplete_retry
+  retry_count: 11
+
+remaining_blockers:
+  - quest HUD wiring has no authoritative or replicated per-player gameplay producer
+  - consumable and snapshot setters still have no trustworthy gameplay caller
+  - current RedHUDRuntime and RedMMO sources require UHT and clean compilation under a safe resource gate
+  - current HUD behavior and pixels require runtime and real-GPU evidence
+  - party/minimap setters, complete layout coverage, controls, persistence, packaging, and multiplayer remain open
+
+claim_limit: >-
+  This evidence proves only a static, fail-closed quest producer inventory and
+  preserves the hidden consumer. It does not prove that no serialized Blueprint
+  can ever contain quest-like data, and it does not implement or accept a quest
+  system, UHT, compilation, runtime behavior, replication, late join,
+  persistence, pixels, gameplay, packaging, Steam transport, or multiplayer.

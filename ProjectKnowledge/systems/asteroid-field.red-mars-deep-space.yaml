@@ -1,0 +1,128 @@
+schema_version: 1
+record: celestial.asteroid_field
+
+id: asteroid-field.red.mars.deep-space
+anchor_body_id: planet.red.mars
+display_name: Red Mars Deep-Space Mining Fields
+status: distance_reciprocal_cull_actual_member_two_client_depletion_destruction_pixels_late_join_audio_and_projectile_rpc_verified
+production_enabled: true
+authority: server
+
+generation:
+  decorative_seed_hex: "0x4D415253"
+  decorative_seed_text: MARS
+  decorative_count: 72
+  decorative_field_count: 5
+  mineable_seed_hex: "0x4F524531"
+  mineable_seed_text: ORE1
+  mineable_count: 24
+  inner_altitude_cm: 3840000.0
+  outer_altitude_cm: 6840000.0
+  distribution: deterministic_irregular_clustered_shell
+  runtime_actor_name_format: RedMineableAsteroid_%02d
+  stable_member_id_format: asteroid-field.red.mars.deep-space/<seed>/<ordinal>
+  stable_member_id_resolved_format: asteroid-field.red.mars.deep-space/0x4F524531/%02d
+
+representation:
+  decorative_runtime_component: UHierarchicalInstancedStaticMeshComponent
+  mineable_runtime_class: ARedMineableAsteroid
+  mineable_actor_tag: RedMarsMineableBelt
+  render_cull_distance_cm: 2000000.0
+  gameplay_atmosphere_transition_cm: 840000.0
+  atmosphere_clearance_cm: 1000000.0
+  client_cull_replication: PresentationCullDistanceCm
+  visual_variants:
+    - AsteroidSpaceport mining mesh variant 0
+    - AsteroidSpaceport mining mesh variant 1
+    - AsteroidSpaceport mining mesh variant 2
+
+mining:
+  enabled: true
+  server_authoritative_hits: true
+  replicated_fields:
+    - ore_capacity
+    - ore_remaining
+    - stable_member_id
+    - visual_variant
+    - presentation_cull_distance_cm
+    - depletion_phase_timestamp_duration_sequence_and_reward_state
+    - owner_resource_totals
+  resource_table_id: pending
+
+evidence:
+  status: runtime_distance_reciprocal_cull_actual_member_two_client_depletion_remote_receipt_destruction_pixels_late_join_audio_and_projectile_rpc_pass
+  artifacts:
+    - ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+    - ProjectKnowledge/evidence/2026-07-21-red-mars-deep-space-asteroids-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-depletion-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-two-client-pie-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-member-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-cull-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-depletion-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-destruction-pixels-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-late-join-multiplayer.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-destruction-reward-audio-automation.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-client-projectile-rpc-automation.yaml
+  proven:
+    - all 72 decorative instances spawned between 39.20 km and 68.32 km altitude
+    - all 24 mineable actors spawned between 39.62 km and 67.12 km altitude
+    - compile-time distance ordering prevents the band entering atmosphere or clearance
+    - the mineable render cutoff initializes locally and replicates to remote clients
+    - one real-GPU inward orbit view contains no asteroid hugging or intersecting the planet limb
+    - one transient production-class asteroid reached authoritative zero ore through RegisterMiningHit on the production map
+    - collision shutdown, the intact two-second transition, post-transition explosion, nine simulated debris pieces, Iron zero-to-six reward, and visible replacement-HUD tally passed on one real-GPU local client
+    - one rendered local two-client listen-server run passed same-frame final-hit idempotence, exactly one remote reward, replicated phase, collision, hidden state, sequence, receipt, inventory, and replacement-HUD parity
+    - authority and remote client each observed one explosion actor and twelve simulating debris components; Client 1 stills visibly prove the intact target, transition, HUD, and final disappearance
+    - all twenty-four generated mineable members now receive authority-initialized immutable replicated stable IDs before FinishSpawningActor
+    - one rendered standalone PIE run authenticated actual member 23 by stable ID, exact twenty-four-member cohort, owner, tag, seed-replayed transform, 53.216 km altitude, and production 20 km presentation cutoff
+    - seven production mining calls depleted that 6000-ore field member, credited Iron zero-to-six exactly once, preserved the other twenty-three members, and retained the visible replacement-HUD tally
+    - one rendered listen-server plus Client 1 run retained actual member 23 on both peers and proved reciprocal near/far rendering at the unchanged 20 km presentation cutoff while the proxy remained inside its 50 km network relevancy distance
+    - one rendered listen-server plus Client 1 run depleted actual member 23 through seven direct authority calls, assigned the exactly-once Iron reward only to the remote player, matched depletion and receipt across peers, matched remote server/client inventory with Client 1 full replacement-HUD text, and preserved all twenty-three other authority members
+    - one final rendered listen-server plus Client 1 run directly accepted 3334 luminous and 201 warm flash pixels, twelve projected and recently rendered debris pieces, four warm-pixel-matched hot pieces, four moving hot pieces, 1843 changed central pixels, and later flash decay
+    - one rendered true-late-client regression run first failed all three post-Depleted timings because the hidden collision-disabled actor was rejected before its distance test
+    - a Depleted-only fallback now retains the terminal proxy within the existing 50 km network distance without changing Active or Depleting base relevancy, the 20 km presentation cutoff, or collision
+    - four fresh true-late-client scenarios pass during Depleting, inside and outside the 0.5-second replay window, and after transient expiry while preserving all twenty-three peer members and preventing duplicate reward
+    - one further rendered two-client automation run started the exact installed reward cue only for the local Client 1 recipient and the exact installed destruction cue from both replicated explosion actors
+    - listen server and Client 1 used distinct unmuted PIE audio devices, and the Client 1 master WAV was non-silent PCM16 with peak 20075 and RMS 2539.239 during the same passing reward, HUD, flash, debris, and peer-preservation gates
+    - one further rendered two-client automation run invoked the reflected production reliable NetServer ServerFire UFunction from the owning Client 1 autonomous proxy
+    - an authority-owned ARedBolt with matching remote-pawn owner and instigator replicated to Client 1 and reduced actual stable member 23 exactly from 6000 to 5820 ore on both peers while preserving all twenty-three other members
+    - one official-MCP rendered two-client run accepted the current transient HUD route: exact IRON +6 appeared only for the remote mining owner, no host receipt or persistent resource tally appeared, replicated inventory matched, and the receipt expired
+    - that run used a unit-scale SM_Mining_Asteroid_Med static mesh with voxel=0 at 53.4 km altitude and the production twenty-kilometre cull while all twenty-four production members remained Active and full
+  pending:
+    - player-controlled travel into the field and naturally acquired mining range
+    - physical fire input if input-device acceptance is required
+    - simultaneous client-originated final-hit RPC arrival if wire-path contention acceptance is required
+    - explicit restart persistence or respawn policy
+    - human-perceived audio mix, attenuation, and concurrency acceptance
+    - warning-free final visual polish
+    - packaged Windows, Steam transport, and two-account acceptance
+  claim_limit: >-
+    The transient audit-asteroid slices prove bounded one-client and in-process
+    two-client replication, direct same-authority-frame competing-instigator
+    idempotence, and remote HUD parity. A separate rendered standalone slice
+    proves stable-ID-authenticated interaction with and depletion of one actual
+    generated field member after a bounded test teleport. Further rendered
+    two-client slices prove reciprocal near/far presentation behavior and
+    authority-to-remote depletion, exactly-once reward, receipt, remote
+    server/client inventory, Client 1 HUD-text parity, and visible flash,
+    debris, debris motion, and decay for that actual stable-ID member without
+    overriding its cutoff. A further rendered multiplayer slice accepts four
+    live-session true-late-client timings for that member. A further automation
+    slice proves exact installed cue routing, separate unmuted PIE audio
+    devices, and non-silent Client 1 master output during the same passing
+    gameplay and pixel gates. One additional automation slice proves an owning
+    Client 1 proxy invoked the production ServerFire RPC, authority delivered
+    its replicated ARedBolt, and actual member 23 replicated exactly from 6000
+    to 5820 ore on both peers after the 180-ore hit. One official-MCP rendered
+    two-client slice further accepts current remote-owner-only transient receipt
+    presentation and expiry against a unit-scale non-voxel deep-space target
+    while preserving the production field. The destruction-pixel runs
+    use a transient close camera and black pixel-test backdrop. The projectile
+    harness uses a bounded teleport, reflected ProcessEvent, and six direct
+    authority calls to finish depletion. Aggregate master-output evidence does
+    not isolate either cue or prove independent listening or perceived mix
+    quality. These runs do not prove player-controlled travel, naturally
+    acquired mining range, physical input, simultaneous wire arrival,
+    server-restart persistence, warning-free final visual or audio polish,
+    packaging, Steam transport, two accounts, performance capacity, or broad
+    multiplayer.

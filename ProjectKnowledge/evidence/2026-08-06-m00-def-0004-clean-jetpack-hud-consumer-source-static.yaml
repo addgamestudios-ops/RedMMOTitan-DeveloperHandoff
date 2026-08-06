@@ -1,0 +1,139 @@
+schema_version: 1
+id: evidence.m00.def-0004.clean-jetpack-hud-consumer-source-static
+module: M00
+defect: DEF-0004
+evidence_class: static
+status: accepted_partial_source_static_build_asset_runtime_pending
+timestamp_utc: 2026-08-06T14:49:36Z
+scope: >-
+  One rollback-backed clean RedMMO source consumer for the existing server-owned
+  jetpack fuel fraction. The exact legacy PlayerStatus placement and authored
+  purple depletion semantics were carried into ARedHUD without copying art or
+  changing maps, gameplay authority, replication, input, Config, packages,
+  plugins, vendor sources or user assets. No Unreal, build, cook, package or
+  desktop-control process was launched.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2427
+  free_physical_ram_gib: 54.47
+  commit_headroom_gib: 54.02
+  gpu_free_mib: 8984
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+  latest_durable_evidence: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-r90-jetpack-hud-resource-currentness-package.yaml
+  queue_sha256_before: 8417EA4985BB9C3E3C18A85721F4F4C4D51EF00F7A6D5EF8F3B620482F578341
+source_before:
+  red_hud_h_sha256: 0F8C85323F0E4990E6D989C980C356C7DEA03F22DDF9984285199DA7ED5A1E4F
+  red_hud_cpp_sha256: 614EB40F51FA37AD59D2BC05B364CCF1C9CF11B150BC93E0DB73ED39351A9436
+  active_presentation: four_rectangle_reticle_only
+source_after:
+  red_hud_h_sha256: 6B20F9D96A52C9DFB13085C9DCD711AD57F1B078C6DBE1F7E9E7C459FBD27BE7
+  red_hud_cpp_sha256: FFBCC5387B646D35A224CEA1E3CF2599564BDD752CEC9AC9F342DE5AC208B20F
+  modified_source_file_count: 2
+implementation:
+  active_hud: ARedHUD
+  producer_getter: ARedPlayerCharacter::GetJetpackFuelFraction
+  producer_source_modified: false
+  gameplay_authority_modified: false
+  replication_modified: false
+  input_modified: false
+  exact_authored_asset_path: /Game/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.T_REDHUD_PlayerStatus
+  asset_load_policy: one_attempt_per_hud_then_fail_closed
+  clean_target_asset_present: false
+  existing_reticle_preserved: true
+  design_canvas:
+    width: 3840
+    height: 2160
+    scale_policy: centered_scale_to_fit
+  player_status_rect:
+    x: 40
+    y: 1995
+    width: 673
+    height: 121
+  jetpack_fuel_purple_interior:
+    x: 190
+    y: 2059
+    width: 310
+    height: 14
+    depletion: right_anchored_missing_tail_mask
+    full_value_mask_width: 0
+    zero_value_mask_width: 310
+  flat_replacement_bar_added: false
+verification:
+  focused_static_checks: 16_of_16_passed
+  exact_authored_asset_path: passed
+  load_attempted_once_fail_closed: passed
+  producer_exposes_fuel_fraction: passed
+  consumer_reads_fuel_fraction: passed
+  consumer_does_not_author_fuel: passed
+  on_foot_only_pawn_cast: passed
+  legacy_player_status_geometry: passed
+  legacy_purple_interior_geometry: passed
+  scale_to_fit_contract: passed
+  right_anchored_missing_tail_mask: passed
+  authored_pixels_drawn_before_mask: passed
+  existing_reticle_preserved: passed
+  clean_texture_still_absent: passed
+  supplied_png_preserved: passed
+  imported_uasset_preserved: passed
+  transient_texture_cache_declared: passed
+  project_knowledge_and_fused_provenance_tests: 27_of_27_passed
+  ue58_draw_texture_signature: D:/UE_5.8/Engine/Source/Runtime/Engine/Classes/GameFramework/HUD.h:278
+  ue58_soft_object_try_load_signature: D:/UE_5.8/Engine/Source/Runtime/CoreUObject/Public/UObject/SoftObjectPath.h:308
+  canonical_integrity_audit: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_CleanJetpackHUDConsumer_20260806T1446Z/project_knowledge_integrity.json
+durable_report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_CleanJetpackHUDConsumer_20260806T1446Z/clean_jetpack_hud_consumer_report.json
+  bytes: 3860
+  sha256: 8A76378BEF7AA1168D472255E70D22A881860FF98180AC1D66EDF0B6D25091E3
+  verifier_path: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_CleanJetpackHUDConsumer_20260806T1446Z/verify_clean_jetpack_hud_contract.py
+  verifier_sha256: C5573BAD6E6B811DAF5AC5ECE5C643A6FBA8E6C7B8AA6E3832BF3ED472632121
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeM00DEF0004CleanJetpackHUDConsumer_20260806T1446Z
+  red_hud_h_sha256: 0F8C85323F0E4990E6D989C980C356C7DEA03F22DDF9984285199DA7ED5A1E4F
+  red_hud_cpp_sha256: 614EB40F51FA37AD59D2BC05B364CCF1C9CF11B150BC93E0DB73ED39351A9436
+  transaction_intent_sha256: FC613CFAA970E8D8B4124E9413717B9089668DB300BC907D2ADDBBB094B75B8E
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_tangent_authoring_inputs_count: 27
+  supplied_player_status_png_sha256: 43DB7D853FBF656A1A5810F3113763A7D736C7611CF7DA7CAD8E24C28AE19FCB
+  imported_player_status_uasset_sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  package_modified: false
+  maps_or_config_modified: false
+  plugin_vendor_or_user_assets_modified: false
+blocker: >-
+  The exact PlayerStatus texture is still absent from the clean project, the
+  new source is uncompiled, and R90 predates it. No authored full, partial,
+  near-empty or regenerating fuel pixel, physical input, generated-surface
+  landing feel, audio, package, replication, multiplayer or human acceptance
+  exists.
+postflight:
+  captured_utc: 2026-08-06T14:52:22Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2428
+  free_physical_ram_gib: 54.51
+  commit_headroom_gib: 54.12
+  gpu_free_mib: 9049
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 13
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+  protected_hashes_match: true
+  clean_player_status_asset_present: false
+  queue_sha256_after: EE2A2ECB04C23CF019CE3B8101573C75AB25CAD410313FC684E9D962D629E839
+next_safe_action: >-
+  Perform one rollback-backed no-clobber clean-project staging/import of the
+  exact supplied PlayerStatus art and verify package identity plus source-load
+  closure without changing maps or gameplay authority. Compile and real-GPU
+  depletion pixels remain separate later gates.
+claim_limit: >-
+  Static source contract only. No compile, package, runtime, visible HUD,
+  physical input, replication, multiplayer, performance, persistence or human
+  acceptance is claimed.

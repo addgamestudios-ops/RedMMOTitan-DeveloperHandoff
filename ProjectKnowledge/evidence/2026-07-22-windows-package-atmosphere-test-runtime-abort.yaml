@@ -1,0 +1,67 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-WINDOWS-PACKAGE-ATMOSPHERE-RUNTIME-ABORT
+captured_at: 2026-07-22
+module: module.M09.windows-development-package
+evidence_class: build
+result: aborted_safely
+requested_action:
+  label: ATMOSPHERE_TEST_20260722
+  fresh_cook: true
+  production_map_only: true
+observed:
+  preflight:
+    free_physical_gb: 12.59
+    free_commit_gb: 23.48
+    blocking_processes: 0
+    result: passed
+  running_samples:
+    - {utc: "2026-07-21T22:25:51Z", free_physical_gb: 12.46, free_commit_gb: 23.47}
+    - {utc: "2026-07-21T22:26:21Z", free_physical_gb: 12.01, free_commit_gb: 21.75}
+    - {utc: "2026-07-21T22:26:53Z", free_physical_gb: 11.14, free_commit_gb: 20.94}
+    - {utc: "2026-07-21T22:27:25Z", free_physical_gb: 11.15, free_commit_gb: 18.97}
+    - {utc: "2026-07-21T22:27:56Z", free_physical_gb: 11.00, free_commit_gb: 19.05}
+    - {utc: "2026-07-21T22:28:28Z", free_physical_gb: 11.08, free_commit_gb: 19.15}
+    - {utc: "2026-07-21T22:28:53Z", free_physical_gb: 7.91, free_commit_gb: 15.99}
+  watchdog_result: "free physical memory crossed the 8 GB abort threshold"
+  phase_reconciliation:
+    exact_phase: build
+    build_command_started_line: 10
+    building_targets_line: 44
+    build_command_completed: false
+    cook_command_started: false
+    main_log_line_count: 67
+    ubt_executor: Unreal Build Accelerator local executor
+    queued_action_count: 25
+    queued_examples:
+      - compile Module.RedMMO.gen.cpp
+      - compile RedGameMode.cpp
+      - link Titan.exe
+    attribution_limit: >-
+      The watchdog recorded system-wide memory and the cmd.exe wrapper PID, not
+      per-child working/private peaks. It proves the UBT/UBA build phase but
+      cannot name the individual child with the highest allocation.
+action:
+  - The watchdog terminated the exact package process tree.
+  - Safety thresholds were not reduced.
+  - No Unreal, AutomationTool, or build process remained after cleanup.
+  - The protected 50 km map hash remained DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D.
+artifacts:
+  stdout: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722_retry/package_stdout.log
+  stderr: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722_retry/package_stderr.log
+  uat_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  memory_guard_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log.memory-guard.log
+  ubt_json: C:/Users/user/AppData/Roaming/Unreal Engine/AutomationTool/Logs/D+UE_5.8/UBA-TitanEditor-Win64-Development.json
+blocker: >-
+  The latest attempt did not reach cook or Zen. UAT was still in BUILD while
+  UnrealBuildTool queued 25 TitanEditor/Titan compile and link actions, including
+  Titan.exe, when system-wide physical memory crossed the hard 8 GB abort floor.
+  This is the second consecutive resource-gated package attempt and must not be
+  retried unchanged.
+next_safe_action: >-
+  Defer M09. Continue a non-packaging independent module; before a later retry,
+  require materially higher sustained physical and commit headroom, compile and
+  prove both TitanEditor and Titan targets separately, and permit a future
+  skip-build package mode only behind exact binary/input currency checks.
+claim_limit: >-
+  This is resource and build-phase forensic evidence only. No cook, Zen, package,
+  runtime, visual, gameplay, or per-child peak evidence was produced.

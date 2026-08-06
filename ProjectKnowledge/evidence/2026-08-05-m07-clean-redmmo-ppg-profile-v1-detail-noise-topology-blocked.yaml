@@ -1,0 +1,81 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-detail-noise-topology-blocked.2026-08-05
+captured_utc: "2026-08-05T04:40:53Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-detail-noise-topology-read-only
+evidence_class: automation
+result: fail_closed_hidden_named_reroute
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  generation_material: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  launched_pid: 26608
+  minimum_observed_free_physical_ram_gib: 49.38
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+  desktop_control: false
+
+topology:
+  expression_count: 122
+  normal_edge_count: 148
+  planet_noise_count: 9
+  unique_highest_frequency_node: MaterialExpressionPlanetNoise_9
+  unique_highest_frequency: 5000.0
+  unique_highest_frequency_octaves: 7
+  direct_consumer: MaterialExpressionNamedRerouteDeclaration_1
+  candidate_count: 0
+  selection_contract:
+    - candidate must be the unique highest-frequency PlanetNoise node
+    - candidate must have a proven graph path to MaterialExpressionPlanetElevationOutput
+  blocker: >-
+    MaterialExpressionPlanetNoise_9 is the unique 5000-frequency node, but its
+    only visible consumer is a named-reroute declaration. UE 5.8 Python does not
+    expose the hidden declaration-to-usage links needed to prove an elevation
+    path, so frequency alone is insufficient and DetailNoise remains untagged.
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1DetailNoiseTopology_20260805_0437/audit_redmmo_ppg_profile_v1_detail_noise_topology_result.json
+    sha256: 62DE65C20DC399947B4FB3F7C1AE8048362B6BE66B55EF213CAD644693FABEEF
+  audit_script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_detail_noise_topology.py
+    sha256: C54F4211D00211354AEDA4B69129C14445F2D470D60FE154A5424E9AB827EC13
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1DetailNoiseTopology_20260805_0437/project_knowledge_integrity_after.json
+    sha256: 5B20249AA3C1595B8E0D0D80363FC42FA9EBB4E3C3CB3EF8DBD8657798BBAC71
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - all nine generation PlanetNoise nodes were inventoried by type, frequency, octaves, direct consumers and normal output paths
+    - MaterialExpressionPlanetNoise_9 is the unique highest-frequency node
+    - no save, regeneration, map binding or desktop-control action occurred
+    - the home map, ProfileV1 generation material and protected maps stayed byte-exact
+  not_verified:
+    - the highest-frequency node is not proven to feed elevation across its hidden named reroute
+    - DetailNoise identity remains unresolved and no graph description was written
+    - ProfileV1 remains unbound and no visible planet, gameplay or runtime state changed
+
+next_safe_action: >-
+  Rotate to a separate read-only relief-partner topology audit. Starting from
+  the persisted Hills and Mountains height-scale identities plus the exact
+  Craters and Desert elevation arithmetic branches, identify only directly
+  connected height-bias or missing scale partners without traversing hidden
+  named-reroute usages. Keep ProfileV1 unbound and do not write, regenerate or
+  save the home map.

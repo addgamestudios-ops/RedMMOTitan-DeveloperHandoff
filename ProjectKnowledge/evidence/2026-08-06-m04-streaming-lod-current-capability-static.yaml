@@ -1,0 +1,92 @@
+schema_version: 1
+id: evidence.m04.streaming-lod-current-capability-static
+module: M04
+evidence_class: static
+status: blocked
+timestamp_utc: 2026-08-06T03:58:00Z
+scope: >-
+  Read-only current-source capability audit of the installed PlanetGen 1.7
+  streaming and LOD implementation against M04. No map, asset, source,
+  project descriptor, plugin, vendor file, package, profile, Config, or build
+  product changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.26
+  commit_headroom_gib: 54.40
+  gpu_free_mib: 9107
+  d_drive_free_gib: 759.39
+  active_unreal_build_package_process_count: 0
+installed_planetgen:
+  root: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5
+  version_name: 1.7.0
+  engine_version: 5.8.0
+  file_count: 471
+  descriptor_sha256: 79135CFFE9381E25A4CFF739AE53F7111C57E1ACA3AD74530C20CF81175EB318
+  clm_planet_header_sha256: 2098B7DFD67F24C2C3D1E3A98C0294FC4BA6539B6564D19CC23DD29A92FD6715
+  clm_planet_source_sha256: 1AEE04868AFDB802D4F0F56A04A0776AC0CA7873F86FC16D9F2A2CFDF7E1541C
+  chunk_header_sha256: 4E1C870ACDE79668845677C135E530F583560F0B07D33FBE6CA0BBAACD5D6DB5
+  chunk_source_sha256: 99189E8483F4387363BDE6E4703DCD73681344CDC0DB893266A110D5F81778BB
+verified_capabilities:
+  static_checks_passed: 18
+  static_checks_total: 18
+  tiered_chunk_resolution_drives_build_resolution: true
+  coarse_edge_stitch_mask: true
+  horizon_culling: true
+  chunk_build_budget_per_tick: true
+  chunk_pool_spawn_budget_per_tick: true
+  planet_lod_hysteresis: true
+  distant_low_poly_sphere: true
+corrected_prior_finding: >-
+  The 2026-07-21 statement that the currently installed PlanetGen terrain has
+  one fixed detailed resolution and no LOD rings is stale for installed
+  PlanetGen 1.7. Its present source computes tier-specific resolutions and
+  passes them into chunk Build with an edge-stitch mask when the feature is
+  enabled.
+current_integration_boundary:
+  expected_project_fork: D:/RedMMOTitan/Plugins/PlanetGenPinned_1_4_0_RedMMO
+  expected_project_fork_present: false
+  clean_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  clean_project_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  clean_project_enabled_world_generator: PPG
+  clean_project_planetgen_enabled: false
+  vendor_source_mutation_allowed: false
+open_source_gaps:
+  streaming_source_model: first_local_player_pawn_only
+  additional_streaming_sources_present: false
+  velocity_look_ahead_present: false
+  async_chunk_generation_token_present: false
+  stale_async_upload_risk: >-
+    UpdateChunks can release an active chunk through Recycle, Recycle clears
+    bBuilding, and the game-thread upload closure accepts only a weak actor
+    pointer without a build generation or key token. A recycled actor can
+    therefore accept an older worker result unless runtime behavior supplies
+    an unproven external ordering guarantee.
+acceptance_not_proven:
+  - tier controls enabled and bound on the clean PPG home planet
+  - fused M02 authoring consumer preserved under the installed vendor version
+  - multi-player, occupied-ship, landing-target, or teleport streaming sources
+  - velocity look-ahead and cook-ready handoff
+  - stale-result rejection under rapid travel
+  - packaged high-speed traversal without holes, walls, or hitches
+  - two-process deterministic seed and late-join parity
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_asset_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+rollback: not_applicable_read_only_audit
+claim_limit: >-
+  This is installed-source capability and blocker evidence only. It is not an
+  editor load, build, runtime, real-GPU, gameplay, package, replication, or
+  multiplayer result and does not approve vendor-source edits or a generator
+  swap on the clean PPG home planet.
+next_safe_action: >-
+  Keep M04 incomplete. On a later authorized M04 wake, first establish a
+  project-owned adapter or pinned successor that preserves the M02 fused
+  consumer and adds multi-source, velocity-look-ahead, and generation-token
+  semantics without editing vendor source. Until then rotate to another
+  independent module; do not bind PlanetGen 1.7 into the PPG home map as a
+  shortcut.

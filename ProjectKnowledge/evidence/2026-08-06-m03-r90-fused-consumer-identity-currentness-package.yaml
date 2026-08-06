@@ -1,0 +1,133 @@
+schema_version: 1
+id: evidence.m03.r90-fused-consumer-identity-currentness-package
+module: M03
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T13:31:22Z
+scope: >-
+  Read-only exact-identity currentness audit between the protected 27 tangent
+  inputs and six fused faces, the current clean RedMMO project, and the exact
+  smoke-tested R90 IoStore index. No Unreal process was launched and no map,
+  ProfileV1 asset, terrain source, fused output, gameplay source, Config,
+  plugin, package, vendor source, or user asset byte changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2420
+  free_physical_ram_gib: 49.88
+  commit_headroom_gib: 47.72
+  gpu_free_mib: 6905
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+  latest_durable_evidence: ProjectKnowledge/evidence/2026-08-06-m05-r90-celestial-frame-integration-currentness-static.yaml
+protected_authoring_source:
+  patch_root: D:/RedMMOTitan/SourceArt/Planet50Km/AuthoringPatches
+  patch_profile_sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  patch_manifest_sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+  patch_count: 27
+  source_raster_count: 135
+  source_dataset_sha256: 228E1CDAC65F0AFFB51101E8639AC65C57063FC4C72D74588D24A194A87504ED
+  face_root: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches
+  face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  face_count: 6
+  face_raster_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+  covered_samples: 396294
+  uncovered_samples: 0
+  seam_comparisons: 3076
+  max_height_land_biome_delta: 0
+audit_contract:
+  exact_identity_term_count: 20
+  exact_identity_terms:
+    - MacroFacesFromPatches
+    - RED_MacroWorld
+    - RED_Height_PX
+    - RED_Height_NX
+    - RED_Height_PY
+    - RED_Height_NY
+    - RED_Height_PZ
+    - RED_Height_NZ
+    - RED_Land_PX
+    - RED_Land_NX
+    - RED_Land_PY
+    - RED_Land_NY
+    - RED_Land_PZ
+    - RED_Land_NZ
+    - RED_Biomes_PX
+    - RED_Biomes_NX
+    - RED_Biomes_PY
+    - RED_Biomes_NY
+    - RED_Biomes_PZ
+    - RED_Biomes_NZ
+  searched_project_roots:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Config
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Plugins
+  searched_content_root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content
+  source_config_plugin_exact_identity_hit_files: 0
+  content_filename_exact_identity_hit_files: 0
+  serialized_uasset_umap_ascii_identity_hit_files: 0
+r90_package_index:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows
+  file_count: 50
+  total_bytes: 1454866566
+  tree_sha256: EA0A13DEF4AD9DB64F4F19E9B3974F6485E3C5368DB10B56019D0E965C4C3315
+  tree_hash_reverified_now: true
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/iostore_list.txt
+  iostore_listing_sha256: 5ADE16F52F7BB0415CB5F15577E12F2C7FDC0A08D45125CB2013BBD33B2B6BB2
+  inspected_line_count: 3301
+  indexed_file_count: 3295
+  uasset_entry_count: 1465
+  umap_entry_count: 3
+  exact_fused_identity_hit_count: 0
+  known_home_and_profile_hit_count: 10
+  package_index_readability_controls:
+    - RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_ShorelineBands_R80.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_OasisWater_R78.uasset
+finding: >-
+  R90 packages the current launchable gameplay, native jetpack and celestial
+  source currency plus the ProfileV1 no-palms, shoreline and native-water
+  closure. Clean RedMMO Source, Config, plugins, Content filenames, serialized
+  uasset/umap ASCII strings and the exact R90 IoStore directory index expose
+  zero occurrences of every protected fused-root, manifest, height, land and
+  biome identity tested. R90 therefore has no traceable exact-name/path
+  consumer closure to the protected six-face continent dataset and must not be
+  described as consuming the fixed fused continents or their borders.
+comparison:
+  r84_exact_identity_hit_count: 0
+  r87_exact_identity_hit_count: 0
+  r88_exact_identity_hit_count: 0
+  r90_exact_identity_hit_count: 0
+  conclusion: r90_source_and_package_currency_did_not_add_fused_consumer_binding
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+postcheck:
+  active_unreal_build_package_process_count: 0
+project_knowledge_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M03_R90_FusedConsumerIdentityCurrentness_20260806T1331Z/project_knowledge_integrity.json
+  result: pass_0_errors_0_warnings
+rollback: not_applicable_no_project_or_package_mutation
+claim_limit: >-
+  Exact-name/path absence cannot exclude a relabeled, embedded, transformed or
+  mathematically similar derivative. This package audit does not prove terrain
+  pixels, borders, collision, hub flatness, water/shoreline agreement,
+  foliage/PCG placement, player/vehicle traversal, replication, multiplayer or
+  human playability. ProfileV1 presence is not proof of fused-face consumption.
+next_safe_action: >-
+  Keep the 27 inputs, six faces and current PPG immutable. The user can play
+  R90 now using the current developer handoff and record controls, jetpack,
+  audio and visible PPG failures. Any fused-face consumer requires separate
+  authorization, rollback, explicit asset-path provenance, and fresh runtime,
+  real-GPU, collision, traversal and package evidence. Rotate the next wake to
+  one read-only M09 R90 gameplay-asset package-closure currentness audit rather
+  than repeating M03.

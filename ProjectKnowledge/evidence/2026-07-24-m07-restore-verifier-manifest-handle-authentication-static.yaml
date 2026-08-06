@@ -1,0 +1,237 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-manifest-handle-authentication.static.2026-07-24
+captured_utc: "2026-07-24T13:10:00Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: windows-local-ntfs-stable-manifest-handle-authentication
+evidence_class: static
+result: passed_static_windows_manifest_handle_authentication_with_restore_and_direct_api_gates_open
+
+scope:
+  authorized:
+    - close the reproduced byte-identical manifest path-replacement gap between validation and authentication
+    - bind manifest open, bounded read, SHA-256, and parsing to one retained Windows local-NTFS file identity
+    - retain a pinned manifest-parent handle and use one native handle-relative non-reparse open with least-privilege access
+    - deny competing writers and delete/name replacement while allowing other readers
+  explicitly_not_run:
+    - direct-API reauthentication across verify_isolated_restore, native 128-bit FILE_ID_INFO, ReFS, UNC, DFS, SMB, mapped drives, or other network-filesystem support
+    - parent-junction adversarial regression, parent-directory durability flush, power-loss testing, external target access, payload copy, actual restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed_start: 1492
+  expanded_untracked_entries_observed_end: 1492
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  background_unreal_mcp_thin_proxy_python_processes_preserved: 8
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_start: 11.944
+  physical_ram_free_gib_end: 11.961
+  commit_limit_gib: 54.872
+  commit_headroom_gib_start: 27.867
+  commit_headroom_gib_end: 27.830
+  disk_c_free_gib_end: 122.637
+  disk_d_free_gib_end: 1139.985
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8572
+  gpu_utilization_percent: 0
+  packaging_and_unreal_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_manifest_handle_slice
+  corrected_final_snapshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/final_preflight_corrected_full.json
+    bytes: 3682
+    sha256: BA8BEA513915C0A027BFC2F6E78EF4769EC75887774937AC2B94994D5FA7D62A
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_this_M07_static_slice
+
+reproduced_pre_fix_defect:
+  affected_boundary: authenticated_storage_manifest_file_identity
+  observation:
+    - the old loader path-statted file A, called Path.read_bytes, then path-statted A again
+    - a deterministic same-volume ABA fixture moved A aside, installed a byte-identical different-file-ID decoy B for read_bytes, and restored A for the second path check
+    - the pinned digest still authenticated the captured bytes, but the loader accepted B without proving that it opened the file identity validated as A
+    - both hash and JSON parse consumed the same immutable payload; no hash-versus-parse split was present or claimed
+  direct_probe_red_before_fix:
+    result: expected_security_failure_reproduced
+    validations: 2
+    byte_identical_decoy_accepted: true
+    original_path_identity_restored: true
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/manifest_identity_aba_red_before_fix.log
+      bytes: 276
+      sha256: F5C7CD844F753300118AF8C0C907A1A79969086C5B96184400EEDC39E6693C1C
+  regression_red_before_fix:
+    result: failed_as_expected_restore_verification_error_not_raised
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/manifest_identity_regression_red_before_fix.log
+      bytes: 1006
+      sha256: 40F2F08084208A9992178693DFB69975DFE4466892CDBAB55C554BB658251A58
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 94387
+    sha256: 2D54526021C89D312EB2761C236C6135CCE22EC909D2C78C8056FF1085334721
+    changes:
+      - pins the validated manifest parent for the complete authentication read and rechecks both retained-handle and lexical-path parent identity afterward
+      - requests only FILE_TRAVERSE, FILE_READ_ATTRIBUTES, and SYNCHRONIZE on the manifest parent, without directory-list or create-child rights
+      - opens only the manifest final component relative to that parent through NtCreateFile with FILE_OPEN, FILE_NON_DIRECTORY_FILE, FILE_SYNCHRONOUS_IO_NONALERT, and FILE_OPEN_REPARSE_POINT
+      - requests only FILE_READ_DATA, FILE_READ_ATTRIBUTES, and SYNCHRONIZE on the manifest file
+      - uses FILE_SHARE_READ, which permits concurrent readers while denying new writers and delete/name replacement for the retained authentication window
+      - rejects directory, reparse, hard-link, offline or recall, invalid identity, non-NTFS, and unexpected-volume cases before reading
+      - transfers the native handle to one CRT descriptor, cross-checks native and Python file identity, and prevents double-close on every ordinary ownership path
+      - reads in bounded chunks, computes SHA-256 over those exact chunks, retains those exact bytes, and rejects size or metadata change
+      - rechecks native handle, Python descriptor, lexical manifest path, and pinned parent identity before returning
+      - compares the caller trust anchor and performs UTF-8 decode, duplicate-key checks, canonical JSON comparison, and semantic validation only on the captured handle bytes
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 56907
+    sha256: 331DFA340E33E27EF1DEF997CD15AF6CAAC77D8A924B31C0676CEC459148F3ED
+    added_contracts:
+      - a byte-identical different-file-ID manifest replacement after validation fails closed before a second path validation and preserves both original and decoy bytes
+      - the retained native manifest handle denies a competing writer
+      - manifest-parent pinning passes the exact traversal and metadata-only access mask and explicitly excludes list and create-child rights
+      - the native relative open retains the supplied RootDirectory and exact least-privilege access, share, disposition, non-directory, synchronous, and open-reparse flags
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  stable_windows_handle_authentication: true
+  least_privilege_parent_and_file_access: true
+  entries: 8228
+  plugins: 4
+  protected_inputs: 4
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/canonical_manifest_stable_handle_authentication_least_privilege.log
+    bytes: 554
+    sha256: 1A739AFCF034E7A1464B3544FC39E266DAB50D181EB313B0BF28EF3E090CED27
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z
+  deterministic_manifest_attack_and_native_contracts:
+    result: passed
+  complete_restore_verifier:
+    result: 26_of_26_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/restore_verifier_26_tests_final.log
+      bytes: 12710
+      sha256: 43014EE60744A04FD402B9EBE37F1F87745CFDB25C9DA8DDE386827D5D0944FD
+  focused_static_and_provenance:
+    result: 93_of_93_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/focused_static_and_provenance_93_tests_final.log
+      bytes: 40034
+      sha256: 977FB66A11E3865341BAE80CA5E84837B163BFBC22D0D50B1E0345B0BCA026C2
+  full_offline_test_discovery:
+    result: 566_of_566_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/full_tools_test_discovery_566_final.log
+      bytes: 2456
+      sha256: D353D8777BCAFE1AE052E0193FFCA70A7AD9C66B50B2036DF5D16312C9AA9FE5
+  python_compile_whitespace_and_line_length:
+    result: passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/static_quality_checks_final.log
+      bytes: 1396
+      sha256: D9F44B2876A839BB4828287A34FF2A1134C22F1301EC051B01F81E589575E27E
+  canonical_integrity_pre_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 131
+    queue_sha256: 603C21F328A0157E7F4472550CA768514775F6C03DCA774D1BCC1EBF2C738E61
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/project_knowledge_integrity_pre_evidence.json
+      bytes: 1782
+      sha256: D47276D0A4F5512B8D6E394DDD66880AD52F0ACAE0DA7ECF5AC91800A2ECD769
+  canonical_integrity_post_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 132
+    queue_sha256: 196339B865290C1E21983D58D741C9AD448BBAC78D2AF9E14BA770B6B1302C6D
+    current_state_sha256: B183C755C62589FD60251DC4635B4ACFB99C6F3021E87A223F543FD8A0E7B1B6
+    index_sha256: 6DAAA84E396108E09B65BD8B768FBE0C6EAAA9FBF4DFB29ADBCB12A2535391D2
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierManifestHandle_20260724_1237Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: 6607D7153534F0B802637AF8940DFDAA3D6BF59CD274BB5EE2B0A3F897203014
+
+independent_review:
+  result: no_blocking_runtime_or_security_finding_for_bounded_manifest_handle_slice
+  conclusions:
+    - native handle ownership transfer and ordinary failure cleanup do not double-close
+    - retained-parent relative open, restricted sharing, non-reparse flags, identity cross-checks, raw digest, and parse flow are coherent
+    - review-found create-child, directory-list, generic-read permission overreaches were removed before final verification
+    - review-requested native RootDirectory, sharing, disposition, and reparse-option contract was added and passed
+    - a manifest-parent junction-swap regression and explicit close-count failure injection remain optional follow-on test hardening
+  review_edits_to_project: false
+  unreal_or_build_process_run_by_reviewers: false
+
+remaining_security_findings:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - reauthenticate direct verify_isolated_restore inputs rather than relying only on the CLI call chain
+    - add a deterministic manifest-parent junction-swap regression while preserving the retained-parent relative-open design
+    - evaluate native 128-bit FILE_ID_INFO before supporting ReFS or network filesystems
+  operational_gates_still_open:
+    - the pinned parent exists only inside load_authenticated_manifest and does not span the earlier CLI isolation-validation call
+    - no parent-directory durability flush or power-loss consistency evidence
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierManifestHandle_20260724_1237Z
+  exact_preimages: 5
+  preimage_hashes:
+    queue: 603C21F328A0157E7F4472550CA768514775F6C03DCA774D1BCC1EBF2C738E61
+    current_state: 3272E21C5D791C7A2C142A2A2C1086BF272FCAECE45525D2E334F9C4E9BC66D5
+    index: D9554F21331CC92466399526279065F022052A6ADCE7048A2452740C177E3B59
+    tests: 9EDE807ECBB238FA877A7196B66CAB78ABD9809273F54DA459406CC32825E570
+    verifier: B966EED2B249EE26DC80D7ABE6A87C676E37E4947C8D9B375413F160E4302778
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, Windows local-NTFS native-handle, canonical-manifest
+  parsing, synthetic-fixture, and deterministic attack evidence only. It closes
+  the reproduced byte-identical final-component path-replacement gap between
+  manifest validation and authentication on the tested Windows local-NTFS
+  boundary. It pins the parent only for the authentication call and does not
+  span earlier CLI isolation validation or reauthenticate direct API callers.
+  Ordinary new writers and delete/name replacement are denied during the read,
+  but privileged or mapped in-place mutation, 64-bit file-ID reuse, native
+  128-bit FILE_ID_INFO, ReFS, network filesystems, parent-directory power-loss
+  durability, external storage, ACLs, and an actual restored payload remain
+  unproven. No RedMMOTitan payload was copied or restored, and the verifier was
+  not executed against an actual restored tree. This is not Unreal load or save,
+  build, runtime, visual, gameplay, package, Steam, or multiplayer evidence.

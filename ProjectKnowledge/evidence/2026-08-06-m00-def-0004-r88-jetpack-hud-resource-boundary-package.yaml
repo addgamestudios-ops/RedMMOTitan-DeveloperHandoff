@@ -1,0 +1,130 @@
+schema_version: 1
+id: evidence.m00.def-0004.r88-jetpack-hud-resource-boundary
+module: M00
+defect: DEF-0004
+evidence_class: package
+status: blocker_confirmed
+timestamp_utc: 2026-08-06T10:38:00Z
+scope: >-
+  Read-only package, target-receipt, project-source, plugin-source, Blueprint
+  identity, and legacy authored-art boundary audit for the reported R88
+  on-foot jetpack resource bar. No Unreal, build, cook, package, map, asset,
+  source, Config, plugin, vendor, or user-content mutation was attempted.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_default_count: 195
+  dirty_expanded_count: 2378
+  free_physical_ram_gib: 51.47
+  commit_headroom_gib: 53.77
+  gpu_free_mib: 9110
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 756.6
+  active_unreal_build_package_process_count: 0
+  package_attempted: false
+
+r88_package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  file_count: 52
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+  target_receipt_sha256: CA1FFA63CB744EB5A364EEFC5F4EF377CA9C75DB2CE03C51ED0AA8B9884D3FBE
+  iostore_listing_sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+
+active_clean_hud:
+  class: ARedHUD
+  game_mode_binding: RedPPGGameplayGameMode.cpp:32
+  header_sha256: 0F8C85323F0E4990E6D989C980C356C7DEA03F22DDF9984285199DA7ED5A1E4F
+  implementation_sha256: 614EB40F51FA37AD59D2BC05B364CCF1C9CF11B150BC93E0DB73ED39351A9436
+  finding: >-
+    The active HUD is a minimal project-owned aiming reticle. DrawHUD emits
+    four rectangles and contains no shield, health, jetpack-fuel, or resource
+    presenter.
+
+legacy_authored_vitals_boundary:
+  location: separate_D_RedMMOTitan_Titan_RedHUD_branch
+  header_sha256: 6E7667FF7429D7ED6BF8D2684AD4D9B36293D368C0652E8539A01D064B57BA34
+  implementation_sha256: C6CEEFD34B539B1955DE9F495206AACD4937DB42307E02C3DAB838408FF44848
+  supplied_player_status_png_sha256: 43DB7D853FBF656A1A5810F3113763A7D736C7611CF7DA7CAD8E24C28AE19FCB
+  imported_player_status_uasset_sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  finding: >-
+    The right-anchored depletion treatment preserving the authored purple
+    PlayerStatus bar remains exact source-static evidence in the legacy branch.
+    It is not integrated into clean RedMMO and does not occur in R88's cooked
+    identity listing.
+
+vibe_boundary:
+  descriptor_sha256: 2A4991BE5FC7418FCA02AD110CF2F8B95AEABD1546EB378BA02AD52E95B8AB27
+  hud_header_sha256: 63517C1222CAE6C4E99E89BC768AEB7B2299D304349FF94297E4938FE214E55E
+  hud_implementation_sha256: D882F421749E035A6A1491E622EBF58AF73CDBD235F178C99C988AFCC411EEC3
+  controller_implementation_sha256: A8A5F2EF3AAB9C191A181EEAA689E1B6832CBA334EE363DD62F3EA49D3CFB2A1
+  receipt_plugin_present: true
+  fuel_presenter: hard_coded_flat_yellow_UBorder
+  set_live_status_total_occurrences: 2
+  set_live_status_external_callers: 0
+  clean_project_controller_subclass_present: false
+  active_in_r88: false
+
+fuel_producer_boundary:
+  player_header_sha256: 4FEA8A173A1022966E959D852878CB65327434F33EBBF29F95624D5B63E815D5
+  player_implementation_sha256: BCD11DF53C33CC57559CF3351FA876C1DC27987999D7AC5EFBDD2ACBAC8182CC
+  input_ini_sha256: 1E7056A6357D723EEC0E48ECA7A161BDA027B84F944B06597D2D1EE6A3CFA780
+  space_bar_action: Jump
+  current_fuel_occurrences: 0
+  max_fuel_occurrences: 0
+  traceable_live_fuel_producer: false
+  gameplay_blueprint:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Characters/BP_RedGameplayCharacter.uasset
+    bytes: 1510140
+    sha256: 7DAD00413C5F1DD16D5256C974D705E27D71A6722EC486061C8957163DCC9CF4
+    exact_fuel_or_hud_identity_hits: 0
+    note: >-
+      Legacy JetpackActor and JetpackExhaust presentation labels exist, but the
+      bounded binary scan cannot prove or exclude a differently named hidden
+      Blueprint implementation.
+
+cooked_identity_counts:
+  RedHUD: 0
+  PlayerStatus: 0
+  ExactLayout: 0
+  FullComposite: 0
+  VibeMMOUIKit: 0
+  Action_Male_and_Female_UI_WB_HUD: 1
+  Jet_Packs_Sci-Fi: 0
+  A_Rifle_Jetpack_Aim_Air: 0
+
+verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_R88_JetpackHUDResourceBoundary_20260806T1030Z/jetpack_hud_resource_boundary.json
+  report_bytes: 7139
+  report_sha256: 5EB72B3CDD90E8376EA6D502445AC797BCDA2033146F8A12F10AB1C861EA2160
+  verification: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_R88_JetpackHUDResourceBoundary_20260806T1030Z/verification.json
+  verification_bytes: 2094
+  verification_sha256: A50A980C69912B7148974199055FFCAD3D98EEC162737EE70FAC3A20D78CD165
+  checks: 48_of_48_passed_after_checker_assumption_reconciliation
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  protected_inputs_user_assets_vendor_sources_and_package_modified: false
+
+finding: >-
+  R88 is launchable but M00/DEF-0004 jetpack HUD/resource acceptance is not
+  met. Its active HUD is crosshair-only; the painted legacy jetpack bar is not
+  integrated or packaged; Vibe's flat-yellow fuel block is unwired; and no
+  traceable clean-project live fuel producer exists.
+
+next_safe_action: >-
+  Perform one independent read-only M00 R88 on-foot jetpack gameplay/input
+  producer dependency-closure audit. Do not migrate legacy RedHUD or wire Vibe
+  without a separate rollback-backed implementation decision.
+
+claim_limit: >-
+  Package, source, and static identity evidence only. This does not prove visual
+  quality, jetpack gameplay, standalone player acceptance, replication,
+  multiplayer, persistence, Steam, or human usability.

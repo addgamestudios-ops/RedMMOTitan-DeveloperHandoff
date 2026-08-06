@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-surface-branch-mapping-blocked.2026-08-05
+captured_utc: "2026-08-05T04:32:23Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-six-surface-branch-read-only-mapping
+evidence_class: automation
+result: blocked_fail_closed_named_reroute_reflection
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  surface_parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_SurfaceParent
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  attempts: 2
+  first_pid: 23992
+  second_pid: 7004
+  minimum_free_physical_ram_gib: 47.05
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  desktop_control: false
+
+exact_branch_roots:
+  Craters: MaterialExpressionBlendMaterialAttributes_5
+  Mountains: MaterialExpressionBlendMaterialAttributes_6
+  Desert: MaterialExpressionBlendMaterialAttributes_7
+  Hills: MaterialExpressionBlendMaterialAttributes_8
+  Poles: MaterialExpressionBlendMaterialAttributes_9
+  Ocean: MaterialExpressionBlendMaterialAttributes_10
+
+partial_graph_findings:
+  Craters:
+    reached_nodes: 101
+    unresolved_named_reroute_usages: 9
+    presentation_signature: 4BFBD953559B10762667AF478179229D39E9F38649A95207D8A88C7E9D721BA2
+  Mountains:
+    reached_nodes: 101
+    unresolved_named_reroute_usages: 9
+    presentation_signature: 4BFBD953559B10762667AF478179229D39E9F38649A95207D8A88C7E9D721BA2
+  Desert:
+    reached_nodes: 39
+    unresolved_named_reroute_usages: 3
+    presentation_signature: 95B7FB233662E4DAAD4AEF94C24E798AD3C0469FFCEF0EFD6A96614B8C093BAB
+  Hills:
+    reached_nodes: 101
+    unresolved_named_reroute_usages: 9
+    presentation_signature: 4BFBD953559B10762667AF478179229D39E9F38649A95207D8A88C7E9D721BA2
+  Poles:
+    reached_nodes: 31
+    unresolved_named_reroute_usages: 2
+    presentation_signature: DE2E302C96F83BF478999C610B0A10CDEF3DCEB3C001D58C95C10295494F5B6B
+  Ocean:
+    reached_nodes: 27
+    unresolved_named_reroute_usages: 1
+    presentation_signature: DEB3D2B5147299CEE8394876A9C4AF01B374E1AC85891D20A7D3CA219C9CDFAC
+  proven_shared_state:
+    - Craters, Mountains and Hills currently have the same reachable presentation signature
+    - every partially traced branch includes StylizedRocksPack_01 painted-grass textures
+    - Craters, Mountains and Hills still reach stock PPG forest and trail textures, so the no-realistic-mix requirement is not yet satisfied
+    - Desert reaches So Stylized desert-sand color and normal textures plus StylizedRocksPack_01 grass textures
+
+blocker:
+  exact: >-
+    UE 5.8 Python reflection returns neither the Declaration object pointer nor
+    DeclarationGuid for serialized MaterialExpressionNamedRerouteUsage nodes.
+    Pointer-only and pointer-plus-GUID runs therefore cannot complete exact
+    per-branch dependency closure without a materially different C++ or text-
+    export interface.
+  disposition: >-
+    Do not retry this Python route unchanged and do not tag or replace branch
+    roots from partial closure. Rotate to another independent ProfileV1 control
+    group on the next wake.
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  canonical_partial_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SurfaceBranches_20260805_0426_R02/audit_redmmo_ppg_profile_v1_surface_branches_result.json
+    sha256: 69D9F24A8F5497322B568B6C10ED53ED6DB1431BB902211C7D55304A43399879
+  first_pointer_only_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SurfaceBranches_20260805_0426/audit_redmmo_ppg_profile_v1_surface_branches_result.json
+    sha256: 78B28FA4076A40B2BAA907356323F655296E28E6D64FD7FCE3AB9D69956312A8
+  audit_script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_surface_branches.py
+    sha256: A2A9C31ADAB449B91E338805595126D7C03C6F4F1755FF16CADB9AB2E0ABCD3A
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1SurfaceBranches_20260805_0426_R02/project_knowledge_integrity_after.json
+    sha256: C89ACD50B8F4F76E1BA441B8DA69061E16FEC3CA43A8B776618EC76FAF41CD85
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - the exact six directly connected branch-root nodes listed above
+    - the partial reachable dependencies and signatures recorded above
+    - both attempts failed closed and changed no project package hash
+  not_verified:
+    - no branch has complete exact dependency closure
+    - no branch identity, replacement, parameter, map binding or regeneration was written
+    - no MapCheck, PIE, real-GPU visual or gameplay acceptance occurred
+
+next_safe_action: >-
+  Switch to the independent ProfileV1 terrain-detail control group. Read-only
+  trace the nine PlanetNoise nodes by topology, frequency, octave and consuming
+  relief branch to determine whether one exact DetailNoise identity is unique.
+  Keep ProfileV1 unbound and make no graph or home-map write in that slice.

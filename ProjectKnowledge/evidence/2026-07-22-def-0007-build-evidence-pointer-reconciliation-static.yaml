@@ -1,0 +1,65 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0007-BUILD-POINTER-RECONCILIATION-STATIC
+captured_at: 2026-07-22
+module: atmosphere_cloud_presentation
+slice: DEF-0007-build-evidence-pointer-reconciliation
+evidence_class: static
+result: passed
+
+resource_preflight:
+  samples: 12
+  interval_seconds: 1
+  free_physical_ram_gib_range: [10.150, 10.285]
+  free_commit_gib_range: [21.496, 21.687]
+  free_vram_mib_range: [8940, 8951]
+  disk_free_gib:
+    C: 133.155
+    D: 1141.737
+  blocker_process_count: 0
+  decision: >-
+    Did not launch Unreal. Physical RAM remained below the canonical 14 GiB
+    M00 real-GPU gate even though commit and VRAM headroom passed.
+
+diagnosis:
+  stale_path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260721_233933_stdout.log
+  stale_path_exists: false
+  preserved_success_log: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260721_235829_stdout.log
+  preserved_success_log_sha256: BD6DA4797434CCABA65D8A80628C429C77947D3F7B963FAF04A6D0A5BF761524
+  observed:
+    - The stale path was cited by both DEF-0007 and its build evidence record.
+    - The preserved log records RedGameMode.cpp compilation, UnrealEditor-RedMMO.dll linking, and TitanEditor metadata generation.
+    - UnrealBuildTool reported Result Succeeded and a 59.19-second total execution time.
+
+repair:
+  - Corrected both canonical records to the existing preserved build log.
+  - Pinned the preserved build log SHA-256 in both records.
+  - Linked DEF-0007 to its build, bounded runtime attempt, and resource-refusal evidence.
+  - Added a fail-closed offline regression test for the pointer, hash, build markers, and still-open real-GPU gate.
+
+verification:
+  command: python -m unittest Tools.tests.test_hi5_terminator_evidence -v
+  result: passed
+  tests_passed: 3
+  assertions:
+    - stale filename absent from both canonical records
+    - existing build log hash equals the pinned digest
+    - compile, link, metadata, result, and execution-time markers present
+    - DEF-0007 remains implemented_awaiting_runtime_acceptance
+    - real_gpu_visual acceptance gate and prior runtime blockers remain linked
+
+protection:
+  map_or_asset_files_modified: 0
+  unreal_processes_launched: 0
+  artist_handoff_files_modified: 0
+  protected_checkpoint_result: unchanged_hash_verified
+  protected_source_rasters_result: 135_of_135_hashes_match_manifest
+
+claim_limit: >-
+  This repairs and authenticates the historical build/link evidence only. It
+  does not prove runtime behavior or visually accept the terminator fade.
+
+next_safe_action: >-
+  When the sustained M00 real-GPU gate passes, run the bounded D3D12 terminator
+  observation from the surface and during ascent. Keep DEF-0007 open until the
+  required frames prove that no rectangular volume edge remains and the day-side
+  HI-5 banks stay readable without visible fade popping.

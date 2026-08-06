@@ -1,0 +1,48 @@
+schema_version: 1
+id: DEF-0007
+title: HI-5 cloud volume bounds create rectangular dark steps at the day-night terminator
+status: implemented_awaiting_runtime_acceptance
+reported_at: 2026-07-21
+evidence:
+  screenshots:
+    - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-f95345b2-da60-4064-ad0d-2ef606ca36c2.png
+    - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-7d29f14e-d505-4432-87a8-8fce8305b129.png
+  build: ProjectKnowledge/evidence/2026-07-21-hi5-terminator-fade-build.yaml
+  runtime_attempt: ProjectKnowledge/evidence/2026-07-22-hi5-terminator-runtime-startup-blocker.yaml
+  resource_refusal: ProjectKnowledge/evidence/2026-07-22-hi5-terminator-real-gpu-resource-refusal.yaml
+observed:
+  - Large rectangular dark steps appear in the blue-to-black sky transition.
+  - The footprint follows the finite world-space HI-5 heterogeneous-volume banks.
+  - Stars and the underlying physical SkyAtmosphere remain visible outside those bounds.
+implementation:
+  summary: >-
+    Added a project-owned runtime presentation update that evaluates each HI-5
+    bank's radial normal against the canonical atmosphere sun every 0.2 seconds.
+    Cloud density now fades with SmoothStep across a broad twilight interval and
+    reaches zero before the VDB AABB enters the dark silhouette. Daylight banks
+    retain the accepted 0.08 density and all vendor materials remain unmodified.
+  files:
+    - Source/RedMMO/RedGameMode.h
+    - Source/RedMMO/RedGameMode.cpp
+verification:
+  compile:
+    result: passed
+    artifact: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedGameMode.cpp.obj
+    diagnostics: D:/RedMMOTitan/Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedGameMode.cpp.sarif
+  link:
+    result: passed
+    diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260721_235829_stdout.log
+    diagnostics_sha256: BD6DA4797434CCABA65D8A80628C429C77947D3F7B963FAF04A6D0A5BF761524
+acceptance_gate:
+  evidence_class: real_gpu_visual
+  steps:
+    - Restart the D3D12 gameplay runtime with the newly linked RedMMO module.
+    - Observe the terminator from the surface and during atmosphere ascent.
+    - Verify no rectangular cloud-volume edges or stepped dark blocks remain.
+    - Verify colorful HI-5 banks remain visible on the illuminated side.
+    - Verify the fade does not visibly pop during the accelerated day-night test.
+blocker: >-
+  The bounded D3D12 UnrealEditor -game attempt on 2026-07-22 remained in engine,
+  Niagara, and enabled editor-plugin initialization for approximately five minutes
+  and never reached gameplay. Repeat the real-GPU gate through a lean game-mode
+  launch or guarded packaged client; do not claim visual acceptance from this run.

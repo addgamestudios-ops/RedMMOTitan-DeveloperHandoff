@@ -1,0 +1,62 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-star-sparrow-content-copy.static.2026-08-03
+captured_utc: "2026-08-03T03:25:00Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: exact-real-flyable-star-sparrow-content-closure-copy
+evidence_class: static
+result: passed_exact_no_clobber_copy_native_parent_and_runtime_pending
+
+source_audit:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanShipGameplayAudit_20260803_A01/titan_ship_gameplay_migration_audit.json
+  report_sha256: ED8B07EA09D72CED8B5378ABEDB8738055A76CC00B3DAAC0FE3D06AFDB358B4F
+  proven_ship: /Game/RedMMO/Ships/BP_RedModularStarSparrow
+  legacy_parent: /Script/RedMMO.RedShip
+  legacy_runtime_limit: reboard_succeeded_but_reliable_post_reboard_takeoff_remained_open
+
+copy:
+  source_packages_exact: 25
+  clean_preexisting_exact: 15
+  copied_missing: 10
+  copied_bytes: 1261606
+  final_exact_packages: 25
+  final_closure_bytes: 6691652
+  missing_or_mismatched: 0
+  closure_digest_sha256: C9A070E50692A0B332B67660BAA378974F0F732EDC99A0F6DB7A79BF293BEE5B
+  allowlist_and_rollback_manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TitanShipContentMigration_20260803_031932Z_A01/allowlist_and_rollback_manifest.json
+  allowlist_and_rollback_manifest_sha256: 65B925CB9582F3A5616DD07F72D6DCAF4E5928376A17F2E476ABF88CD3895D58
+  postcopy_verification: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TitanShipContentMigration_20260803_031932Z_A01/postcopy_verification.json
+  postcopy_verification_sha256: 45EFBEAAEE9221EF66F88342D7AF47C9DCB327FB2A1903DE87FCEC17FD4A9BF4
+  overwrite_count: 0
+  sidecar_or_temp_files: 0
+
+open_native_gate:
+  RedShip_class_available_at_capture: false
+  serialized_compatibility_symbols_observed: [RedShipCollisionDriver, RedSpaceDust]
+  ppg_surface_query: >-
+    APlanetSpawner exposes PlanetData, PlanetRadius, NoiseHeight, generation
+    state and collision configuration but no public ground-height query. The
+    project-owned port must accept only owner-consistent ready PPG chunk hits.
+  required_before_load:
+    - project-owned pruned RedShip and RedShipMovementComponent
+    - inert compatibility shells for serialized legacy class symbols
+    - unique PPG body and owner-consistent terrain adapter
+
+preservation:
+  clean_home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  source_map_or_projectknowledge_changed_by_copy: false
+  map_bind_or_unreal_load: false
+
+claim_limit: >-
+  This is exact static content-copy evidence only. The real ship Blueprint has
+  not loaded or compiled in clean RedMMO, no native parent existed at capture,
+  no map or GameMode is bound, and boarding, possession, flight, landing,
+  collision, exit, replication, multiplayer, visuals, PIE and standalone play
+  remain unverified.
+
+next_safe_action: >-
+  Build the pruned project-owned PPG-aware ship runtime and compatibility shells,
+  then load and compile the exact StarSparrow Blueprint before any map mutation.

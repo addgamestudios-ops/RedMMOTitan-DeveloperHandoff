@@ -1,0 +1,86 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r61-legacy-humanoid-dependency-static.2026-08-05
+captured_utc: "2026-08-05T20:58:00Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r61-legacy-humanoid-dependency-isolation
+evidence_class: static
+result: isolated_to_two_unselected_vendor_skeleton_packages
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_untracked_omitted: 60
+  free_physical_ram_gib: 53.38
+  commit_headroom_gib: 56.00
+  free_gpu_vram_mib: 9152
+  free_d_drive_gib: 767.43
+  unreal_or_build_processes: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 0E567B9062AD5C81352C32F34CD80153B6637A89D826C947F64367801A85E807
+
+observed_warning:
+  source_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_R60_20260805T2024Z/attempt6.unreal.log
+  source_log_sha256: 61A37FD826A06D10572A3DE497D61B39C6B838B86C7ABE23D7622A99E8FE7416
+  first_line: 1904
+  absent_package: /Engine/EngineMeshes/Humanoid
+  absent_on_disk:
+    - D:/UE_5.8/Engine/Content/EngineMeshes/Humanoid.uasset
+    - D:/UE_5.8/Engine/Content/EngineMeshes/Humanoid
+  absent_on_disk_verified: true
+  affected_packages:
+    - path: /Game/Action_Male_and_Female/Skeletons_and_Physics_Assets_Characters/SKEL_UE4M_AMF
+      file_sha256: EDB9211C61E6432B717FA1F7C30EDA84C0E78C590B5959CD9A735D6B30E70BBC
+    - path: /Game/Action_Male_and_Female/Skeletons_and_Physics_Assets_Characters/SKEL_UE4BM_AMF
+      file_sha256: 51CDF17E3B055828F36CC3E3E5044E43E226036304094E35D1B5288B011E6981
+  package_binary_strings: >-
+    Both affected skeleton packages contain the exact
+    /Engine/EngineMeshes/Humanoid package path. No engine replacement package
+    exists in the installed UE 5.8.1 content tree.
+
+current_gameplay_selection:
+  r60_trooper_class: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  body_mesh: /Game/Action_Trooper/Meshes/Trooper_UE4_Tall_Female/SK_TF_Trooper_Standalone_Covered
+  animation_family: /Game/Action_Male_and_Female/Animations/UE4TF
+  selected_skeleton_family: SKEL_UE4TF_AMF
+  selected_skeleton_sha256: D2F571F464272E50952FD7945B54E7604A497BF009BCC7A96DCC9065DFD23A06
+  selected_skeleton_contains_humanoid_path: false
+  project_owned_redmmo_exact_broken_reference_scan: none_found
+  trooper_a01_exact_broken_reference_scan: none_found
+  r60_runtime_effect: >-
+    The selected Tall Female Trooper mesh and UE4TF animation path loaded and
+    passed walk, sprint, jump, land, rifle projectile, ship entry, flight and
+    exit automation despite the two independent editor-startup warnings.
+
+scope_boundary:
+  action_male_and_female_file_count: 544
+  action_male_and_female_bytes: 279889746
+  vendor_assets_modified: false
+  project_content_modified: false
+  map_or_config_modified: false
+  unreal_launched: false
+  interpretation: >-
+    The missing engine reference is embedded in two unselected male skeleton
+    packages from the owned Action_Male_and_Female payload. It is not the
+    skeleton family used by the current A01 Tall Female Trooper. A raw package
+    string scan is static evidence, not an authoritative cook referencer graph,
+    so packaging closure remains unproved.
+
+safe_disposition: >-
+  Do not fabricate or copy /Engine/EngineMeshes/Humanoid, delete the two vendor
+  packages, or edit vendor skeletons. Keep the warnings isolated until the
+  separate cook/package gate proves whether either unselected package is pulled
+  into the developer build. If cook includes either one, use an Unreal
+  AssetRegistry referencer query and migrate only the dependency-closed selected
+  Tall Female gameplay closure into project-owned packages.
+
+claim_boundary: >-
+  R61 statically isolates the two startup warnings and proves they did not block
+  R60 automation. It does not prove physical controls, human visual acceptance,
+  cook exclusion, standalone startup, packaging, replication, multiplayer or a
+  developer handoff build.
+
+next_safe_action: >-
+  The hands-on PIE control-feel gate remains first and requires a declared
+  visible user session. After that acceptance, run a separate cook/package
+  readiness slice and use its authoritative dependency graph to decide whether
+  the two unselected vendor skeleton packages require a project-owned prune.

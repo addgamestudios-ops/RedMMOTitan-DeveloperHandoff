@@ -1,0 +1,74 @@
+schema_version: 1
+id: evidence.m06.t04-exact-zero-build-plugin-blocked
+module: M06
+evidence_class: build
+status: blocked_rolled_back
+timestamp_utc: 2026-08-06T05:48:00Z
+scope: >-
+  One guarded, test-map-only retry to force the existing NightWater_T04 F9
+  atmosphere suppression to exact zero after its interpolation tolerance, then
+  rebuild and run the proven D3D12 F7/F9 auto-capture harness. Production maps,
+  clean RedMMO, vendor assets, packages, CC5, Blender, and desktop control were
+  out of scope.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.16
+  commit_headroom_gib: 54.20
+  gpu_free_mib: 9108
+  gpu_used_mib: 946
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+test_change:
+  file: D:/RedMMOTitan/Source/RedMMO/RedPlayerCharacter.cpp
+  original_sha256: 7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99
+  patched_sha256: FB9B5E532EDF9E2DF6EAC1C8C92D0D9854C98A7081AB337D3C6462754DA04662
+  intent: >-
+    Clamp only the T04 orbit-inspection suppression tail to exact zero and
+    force one exact Rayleigh/Mie setter update while retaining the ordinary
+    0.0001 LUT-rebuild tolerance for all other maps and states.
+  compiled: false
+  runtime_executed: false
+  d3d12_capture_created: false
+build_attempts:
+  - command_variant: normal_serialized_TitanEditor
+    result: blocked_before_source_compilation
+    blocker: Titan.uproject requires absent WorldGen plugin
+    log: D:/RedMMOTitanWindowsData/Diagnostics/NightWater_T04_ExactZero_20260806_084332/T04_ExactZero_TitanEditor_build.stdout.log
+    log_sha256: 4362021D1713B284024D319F3A4ADF67FD6A4BC680534F86C25432B82B175B6A
+  - command_variant: disable_WorldGen_for_isolated_test
+    result: blocked_before_source_compilation
+    blocker: Titan.uproject requires absent FocalRig plugin
+    log: D:/RedMMOTitanWindowsData/Diagnostics/NightWater_T04_ExactZero_20260806_084332/T04_ExactZero_TitanEditor_build_disable_worldgen_v2.stdout.log
+    log_sha256: EB6A59EA366BAA5DB959DF2E523219A1D2FC2BC0846853C2A3B14373C5B9C4D4
+  - command_variant: disable_WorldGen_and_FocalRig_for_isolated_test
+    result: blocked_before_source_compilation
+    blocker: RedMMO.Build.cs unconditionally references missing FocalRig module
+    log: D:/RedMMOTitanWindowsData/Diagnostics/NightWater_T04_ExactZero_20260806_084332/T04_ExactZero_TitanEditor_build_isolated.stdout.log
+    log_sha256: C51FB22EA7195C46E8129E939527230BA5C48E5B1E11985ECEC5AF6049353E93
+plugin_gate:
+  titan_uproject_sha256: E5FADD8BA6C825521DBC5556CB0BDC23C911ADC57A31F1D42D0DC92E39B2AEB1
+  redmmo_build_cs_sha256: C29291BE044EFA51722E247305F6B3415EE2E9B6FCAF8507688BF4933A37F994
+  enabled_missing_win64_plugins: [WorldGen, FocalRig]
+  installed_descriptor_count_for_those_plugins: 0
+  project_configuration_changed: false
+  plugin_install_attempted: false
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M06_T04_ExactZero_20260806_084239
+  restored_source_sha256: 7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99
+  exact_restore_verified: true
+  maps_or_assets_changed: false
+  build_products_changed: false
+conclusion: >-
+  The exact-zero hypothesis is still untested. The guarded build cannot reach
+  RedPlayerCharacter.cpp while the legacy Titan project requires the absent
+  WorldGen and FocalRig payloads, and FocalRig is also a hard editor-module
+  dependency. Expanding into plugin installation or Build.cs/editor-tools
+  surgery would be a separate module, so the uncompiled source change was
+  rolled back byte-for-byte.
+next_safe_action: >-
+  Rotate on the next wake to the independent clean-RedMMO M00 R85 projectile
+  launcher-lifecycle slice. Return to M06 only after an official compatible
+  WorldGen and FocalRig host is available or after a separately reviewed legacy
+  Titan plugin-contract cleanup; then reapply the narrow exact-zero change and
+  run one fresh D3D12 F7/F9 comparison.

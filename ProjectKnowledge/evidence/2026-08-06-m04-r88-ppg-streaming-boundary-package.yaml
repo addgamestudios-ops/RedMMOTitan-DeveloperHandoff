@@ -1,0 +1,122 @@
+schema_version: 1
+id: evidence.m04.r88-ppg-streaming-boundary-package
+module: M04
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T09:44:00Z
+scope: >-
+  One read-only boundary audit tying the exact smoke-tested R88 Windows
+  Development package and target receipt to the installed active PPG source.
+  No Unreal, build, cook, package, editor, desktop-control, map, source, asset,
+  Config, plugin, vendor, user-asset, or rollback process was launched or
+  changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 195
+  dirty_entry_count_expanded_untracked: 2373
+  free_physical_ram_gib: 51.40
+  commit_headroom_gib: 53.61
+  gpu_free_mib: 9083
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+r88_package_boundary:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  target_receipt: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/RedMMO.target
+  target_receipt_sha256: CA1FFA63CB744EB5A364EEFC5F4EF377CA9C75DB2CE03C51ED0AA8B9884D3FBE
+  build_plugins_contains_ppg: true
+  ppg_descriptor_receipt_path_present: true
+  project_ppg_uasset_entries: 20
+  profile_v1_entries: 9
+  packaged_smoke_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/Smoke_20260806T0858Z/packaged_smoke.log
+  packaged_smoke_log_sha256: D3BA0233E543D1AD714FAD53F3E7D2FDC47B6ED0BAD9BADAF9888C0063A5D750
+  generated_chunk_count: 516
+  warning_line_count: 0
+  error_line_count: 0
+active_ppg_identity:
+  descriptor: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/PPG.uplugin
+  descriptor_sha256: C05D163D5F8329463087F25E682D480564F80F2F051F66C87793A9CB98E337E4
+  descriptor_version: 1
+  version_name: "1.0"
+  engine_version: "5.8.0"
+  win64_runtime_modules: [VoxelCore, PPG, ComputeShader]
+  source_hashes:
+    planet_spawner_h: 4A950D5ED6E482426EB5AF4E0D9312D04B5A5B4B2321B3748DE1738356DBB7B2
+    planet_spawner_cpp: 6C73A5BCA90629364CF60062713B72B6E85C14A4454FB04A3D4E1FD6B79291F8
+    planet_data_h: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+    chunk_object_h: C53DC6E36FC75B3343B2E880577669E61DE784DB282A94F141A6D86A49B9228E
+    chunk_object_cpp: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+corrected_capability_boundary:
+  - "six cube-face chunk trees feed geometric recursive LOD: PlanetSpawner.cpp lines 2588-2600"
+  - "MinRecursionLevel 0 and MaxRecursionLevel 5 bound the default hierarchy: PlanetData.h lines 93 and 96"
+  - "per-frame completion/start budgets are 8/8 and concurrent GPU/mesh budgets are 16/8: PlanetSpawner.h lines 370-382"
+  - "foliage upload and per-chunk instance budgets are 10000 and 100000: PlanetSpawner.h lines 386-390"
+  - "thread-safe generation jobs, a monotonic GenerationRevision, cancellation, and current-job identity guards reject stale async work: ChunkObject.h lines 241-242 and ChunkObject.cpp lines 862, 1564 and 1647"
+  - "chunk material generation hashes immutable planet seed, location, rotation and quality while forcing GameTime to zero: ChunkObject.cpp lines 1281-1290"
+  - "max-recursion and far-water tessellation are separately bounded at 64 and 16: PlanetSpawner.h lines 345-349"
+  - "foliage LOD activation is selected from recursion-derived DistanceStep: ChunkObject.cpp lines 1798-1808"
+supersedes_only_this_prior_generalization: >-
+  The 2026-08-06 PlanetGen 1.7 audit correctly described that inactive plugin,
+  but its no-async-generation/key-token statement must not be projected onto
+  clean RedMMO's active PPG. Active PPG has the generation-job and revision
+  guards documented above. The older PlanetGen integration findings remain
+  valid for PlanetGen itself.
+remaining_blockers:
+  - "runtime LOD traversal and FOV resolve player controller zero/first player only; no multi-player view union is present"
+  - "no streaming velocity look-ahead or prediction path was found; source velocity matches are render/WPO controls"
+  - "R88 has zero traceable exact-name/path closure to the protected 27-input six-face fused continent dataset"
+  - "R88 startup smoke is not a fast-flight, region-border, seam, hitch, transient-hole, memory or frame-time test"
+  - "no two-process deterministic region-seed parity or late-join evidence exists"
+report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M04_R88_PPGStreamingBoundary_20260806T0938Z/streaming_boundary.json
+  byte_length: 5100
+  sha256: 640DDC48F354CEFF408B086D5669D499959B59183112DF25CA5EBA61D2C4FDF8
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  tangent_authoring_inputs: preserved
+  fused_faces: preserved
+verification:
+  report_json_parse: passed
+  project_knowledge_integrity_audit: passed_zero_findings
+  focused_projectknowledge_and_fused_tests: 37_of_37_passed
+  yaml_and_queue_json_parse: passed
+  queue_snapshot_sha256: 8A6F92A665F0E66E1736D8FA241939EEFFCDE50A18693C43DC8CFA542900D027
+postcheck:
+  captured_utc: 2026-08-06T09:47:40Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 195
+  dirty_entry_count_expanded_untracked: 2374
+  free_physical_ram_gib: 51.35
+  commit_headroom_gib: 53.70
+  gpu_free_mib: 9161
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 12
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+  protected_hashes_match: true
+rollback: >-
+  Remove only this evidence/index/state/queue linkage and the external report.
+  No package or project rollback is required because no package, project,
+  source, map, asset, Config, plugin, vendor, or user byte changed.
+claim_limit: >-
+  Exact package receipt/startup evidence plus static inspection of the installed
+  active PPG source. This does not prove visible LOD quality, uninterrupted
+  flight, seams, collision, hitching, holes, memory, frame pacing,
+  multiplayer, replication, late join, fused-continent consumption, or human
+  playability.
+next_safe_action: >-
+  Preserve R88 and require the authorized visible human controls/audio/PPG
+  review before a user-ready playable claim. On the next unattended wake,
+  rotate to one independent read-only M05 R88 clean celestial-registry and
+  package-identity boundary audit; do not launch Unreal or edit vendor/project
+  bytes.

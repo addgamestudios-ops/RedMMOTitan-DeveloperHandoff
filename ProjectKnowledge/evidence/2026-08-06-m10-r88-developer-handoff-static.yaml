@@ -1,0 +1,105 @@
+schema_version: 1
+id: evidence.m10.r88-developer-handoff-static
+module: M10
+evidence_class: static
+status: accepted_partial
+timestamp_utc: 2026-08-06T09:22:15Z
+scope: >-
+  One offline M10 handoff-currency slice for the already packaged R88 clean
+  RedMMO candidate. The slice created one external D-resident developer
+  document and canonical evidence only. It did not modify the R88 package,
+  editable project, gameplay source, map, ProfileV1, Config, assets, plugins,
+  vendor roots, protected checkpoints, the 27 tangent inputs, six fused faces,
+  or the legacy Titan project.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 195
+  free_physical_ram_gib: 51.29
+  commit_headroom_gib: 53.51
+  gpu_free_mib: 9157
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+source_evidence:
+  r88_package:
+    path: ProjectKnowledge/evidence/2026-08-06-m00-clean-redmmo-r88-grounded-footstep-package.yaml
+    sha256: 6A559B76F05007C1FE0D451D8930B27C1FA288FA93D662072F3EBB2AA2C7C1ED
+  r88_grounded_audio_runtime:
+    path: ProjectKnowledge/evidence/2026-08-06-m00-clean-r88-a01-grounded-footsteps-runtime.yaml
+    sha256: 8E5C39C5D2F66484297A7E0C930166C40A5548E80C1DA67FDE90F9AE7237FE09
+  r88_fused_consumer_identity_closure:
+    path: ProjectKnowledge/evidence/2026-08-06-m03-r88-fused-consumer-identity-closure-package.yaml
+    sha256: BDFC92641B84206F315944441A344D4DAACA5313599A15334902340200462591
+handoff:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_DeveloperHandoff_20260806T0918Z/DEVELOPER_HANDOFF_R88.md
+  byte_length: 9782
+  sha256: C452083F62C691D366E90A6B8DBFC0AE98C3481714DB8E2851E8E5AA8454FADC
+  verified_sections:
+    - exact R88 launcher, deterministic package tree and binary identities
+    - exact editable D-drive project, home-map, ProfileV1 and seed identities
+    - accepted R85 projectile, R86 rifle presentation and R88 grounded-footstep proof
+    - physical on-foot, rifle, grounded-audio, StarSparrow and PPG visual checklist
+    - hard zero-palms rejection and no-old-checkout boundary
+    - exact protected fused-continent consumer claim limit
+    - project-owned developer starting points and protected extension boundary
+    - exact R82 through R88 scoped rollback chain
+    - explicit visual, controls, replication, multiplayer and traversal limits
+  reference_existence_checks: 21_of_21_passed
+  heading_count: 9
+  controls_check: passed
+  no_palms_check: passed
+  rollback_reference_count: 7
+  claim_limit_check: passed
+  old_checkout_exclusion_check: passed
+artifact:
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows/RedMMO.exe
+  package_tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+  package_file_count: 52
+  package_total_bytes: 1454676382
+editable_project:
+  uproject: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  profile_data_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  ppg_seed: 1337
+preserved:
+  r88_package_tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+postcheck:
+  free_physical_ram_gib: 51.47
+  commit_headroom_gib: 53.77
+  gpu_free_mib: 9159
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+verification:
+  project_knowledge_integrity_audit: passed_zero_findings
+  focused_integrity_and_fused_provenance_tests: 27_of_27_passed
+  yaml_and_json_parse: passed
+  queue_snapshot_sha256: 823DFB815E517A556FF0AA98875E132C5E629B002DF787A7E0A430303A483B04
+  protected_hashes: exact
+rollback: >-
+  Remove only the new external R88 handoff directory and this evidence/index/
+  state/queue linkage. No runtime or project rollback is required because no
+  project or package byte changed. R87 and earlier packages remain separate.
+claim_limit: >-
+  This static packet makes the already-proven R88 package and editable project
+  handoff explicit. It does not satisfy physical player-playtest, perceived
+  audio, current PPG visual, protected fused-continent consumption,
+  replication, multiplayer, persistence, dedicated-server, Steam transport,
+  performance, final-art, or interplanetary-traversal gates and does not
+  complete M10 while its declared dependencies remain incomplete.
+next_safe_action: >-
+  User or developer runs the exact R88 launcher and records physical on-foot,
+  rifle, grounded-audio, StarSparrow and current PPG visual results against the
+  pinned tree hash. Because that visible human gate is unavailable to an
+  unattended no-desktop wake, automation rotates next wake to an independent
+  read-only M09 R88 gameplay-asset package-closure refresh.

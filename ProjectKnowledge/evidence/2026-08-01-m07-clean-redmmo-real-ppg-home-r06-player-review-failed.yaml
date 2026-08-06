@@ -1,0 +1,100 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-real-ppg-home-r06.player-review-failed.2026-08-01
+captured_utc: "2026-08-01T09:25:40Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r06-human-player-review-and-root-cause-audit
+evidence_class: player_playtest
+result: failed_human_visual_and_player_acceptance
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  real_home_map_sha256: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+  prior_r06_evidence: D:/RedMMOTitan/ProjectKnowledge/evidence/2026-08-01-m07-clean-redmmo-real-ppg-home-stylized-region-r06-real-gpu.yaml
+
+player_evidence:
+  black_orbital_view:
+    path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-5bf20eaf-baeb-4e68-a883-0b03ba3dc7b2.png
+    sha256: E697E014428FF8B946A6183ED3438AFDD0F710D71654F865CB16E5A4AF40F524
+    dimensions: [3439, 1242]
+    observed_utc: "2026-08-01T09:04:48Z"
+    viewport_pixels_below_luminance_10_percent: 98.04
+  daylight_ground_view:
+    path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-a27f2830-974f-4dee-a893-747054242c31.png
+    sha256: EB7339D31C0E4E815BAF005FC61C37647CADFCA2DF944FBA0A8F53CCA59AFFBF
+    dimensions: [3423, 1303]
+    observed_utc: "2026-08-01T09:05:40Z"
+  pie_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomeStylizedRegion_R06_20260801_102429/capture_home_stylized_region_r06_water_d3d12.log
+  pie_generation_complete:
+    chunks: 435
+    elapsed_ms: 2630.95
+
+confirmed_failures:
+  - id: ground.presentation
+    finding: The daylight surface reads as broad stock-like olive or lime PPG terrain rather than a low-frequency hand-painted ground treatment.
+    owner: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R05/Materials/M_PPG_Hills_StylizedPilot_R05
+  - id: grass.coverage
+    finding: Ten reduced-scale grass actors read as tiny isolated tufts over large empty ground areas.
+    owner: R06 deliberately removed six of sixteen grass actors and reduced the remaining actors to sixty percent of their R05 scale.
+  - id: props.surface_contact
+    finding: Managed rocks, pebbles, plants, and trees have weak, floating, or ambiguous terrain contact.
+    owner: R05 used one PlayerStart-derived tangent plane plus fixed up offsets; R06 rescaled without radial terrain traces or pivot correction.
+  - id: lighting.night_readability
+    finding: The night or orbital player view is effectively black rather than navigable.
+    owner: Runtime light, skylight, exposure, and night-fill behavior remain unaccepted; a GPUScene stale-light ensure occurred shortly before the captured black frame but causality is not yet proven.
+  - id: trees.unapproved
+    finding: The two Zenscape Savanna acacias are rejected and must be removed until a tree is explicitly selected.
+  - id: oasis_water.carrier
+    finding: Oasis MI_Water is presented on a rectangular Engine plane with a hard edge, no terrain-conforming shoreline, and incorrect planet-light response.
+    owner: /Engine/BasicShapes/Plane at scale 90 by 60 with unchanged Oasis MI_Water; this proves the carrier is wrong, not that the material closure is absent.
+  - id: character.visibility
+    finding: PIE supplies flight and a pawn camera but no visible humanoid third-person character.
+    owner: PPGExampleGameMode uses ExamplePlanetCharacter whose only skeletal presentation asset is /Engine/EngineMeshes/SkeletalCube.
+  - id: flight.descent
+    finding: The clean project has no dedicated planet-relative descent input. Left Shift toggles flight; Left Control is unmapped; S or Down is backward movement rather than an accepted descent control.
+  - id: ship.visibility
+    finding: The clean Red project currently contains no ship package or placed spaceship reference.
+
+validated_correction_boundary:
+  - preserve PPG generation seed 1337, radius 300000000 cm, terrain, gravity owner, cloud, native water owner, biome ownership, and PlayerStart
+  - replace only project-owned presentation assets and the bounded managed visual layer
+  - remove both acacias before the next review
+  - surface-trace and bounds or pivot-correct every retained or new managed actor after PPG generation
+  - create a project-owned child of ExamplePlanetCharacter with the existing clean mannequin mesh and animation while preserving PPG radial gravity, SpringArm, camera, and flight logic
+  - add project-owned Space and Left Control planet-relative vertical flight input; require positive and negative radial-altitude telemetry in PIE
+  - use one class-free static StarSparrow reference only after exact dependency closure and no-clobber copy verification; it remains visual-only, not a flight or travel claim
+  - replace the rectangular water carrier with a terrain-conforming local presentation or remove it if a valid local shoreline cannot be proved
+  - require repeatable day and night PIE evidence with readable terrain and no stale-light ensure before acceptance
+
+live_blocker:
+  observed_editor_pid: 32092
+  observed_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  observed_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  active_second_pie_start_utc: "2026-08-01T09:05:06Z"
+  teardown_observed: false
+  action_taken: No editor focus, stop, save, launch, map mutation, or asset mutation was performed while the user PIE session remained active.
+
+protection:
+  plugins_changed: false
+  ppg_generation_or_planet_contract_changed: false
+  planetgen_destination_changed: false
+  vendor_packages_changed: false
+  legacy_titan_or_redmmotitan_production_changed: false
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  This record proves that the human/player acceptance gate for R06 failed and
+  identifies the current configuration and placement causes. It does not prove
+  any R07 correction, visible character, ship placement, descent control,
+  surface contact, lighting repair, shoreline, gameplay, performance, cook, or
+  package acceptance.
+
+next_safe_action: >-
+  After the user ends the active PIE session, create a new exact rollback and
+  no-clobber manifest, run a read-only generated-surface trace and lighting/input
+  probe, apply one bounded project-owned R07 correction, fresh-reload it, and
+  require player-scale D3D12 PIE evidence for visible third-person presentation,
+  radial ascend and descend, surface contact, readable day and night lighting,
+  and a visible static ship reference before any acceptance claim.

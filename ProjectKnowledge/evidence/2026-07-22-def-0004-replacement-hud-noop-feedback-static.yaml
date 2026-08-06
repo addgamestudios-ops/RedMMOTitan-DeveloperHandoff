@@ -1,0 +1,181 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0004-REPLACEMENT-HUD-NOOP-FEEDBACK-STATIC
+captured_at: "2026-07-22T15:01:32.2217287Z"
+module: module.M09.windows-development-package
+slice: DEF-0004-replacement-HUD-noop-feedback
+evidence_class: static
+result: passed_noop_and_transaction_feedback_source_hardening_defect_remains_open
+
+authorization_and_scope:
+  bounded_defect: DEF-0004
+  intended_change: >-
+    Make replacement-HUD mutation results represent real sanitized state
+    changes, fail closed when a customization rollback snapshot cannot be
+    established, preserve the two-click Reset All path, and provide accurate
+    pause-menu feedback for unavailable, locked, limited, read-only, and
+    already-default operations.
+  modified_source:
+    - Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    - Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    - Source/RedMMO/RedPauseMenuWidget.h
+    - Source/RedMMO/RedPauseMenuWidget.cpp
+  modified_tests:
+    - Tools/tests/test_def0004_pixel_hud_customizer_route_contract.py
+    - Tools/tests/test_def0004_pixel_hud_current_contract.py
+  added_tests:
+    - Tools/tests/test_def0004_pixel_hud_noop_feedback_contract.py
+  explicitly_excluded:
+    - VibeMMOUIKit subsystem compatibility behavior and supplied HUD art
+    - replacement gameplay-domain feeds and remaining painted controls
+    - maps, assets, configuration, packaging, and runtime work
+
+resource_gate:
+  sustained_samples: 7
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [9.392, 9.866]
+  free_commit_gib_range: [19.548, 20.036]
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_free_vram_mib_range: [8890, 8921]
+  gpu_utilization_percent_range: [11, 12]
+  gpu_temperature_c: 42
+  free_disk_gib:
+    C: 132.861
+    D: 1141.729
+  overlapping_unreal_build_or_continuation_processes: 0
+  decision: >-
+    The 14 GiB T02 real-GPU gate and the 18-20 GiB packaging gate were closed.
+    No Unreal, build, cook, package, shader, Zen, IoStore, or real-GPU process
+    was launched.
+
+implementation:
+  change_only_wrapper_results:
+    - requested layouts are sanitized before comparison and delegation
+    - unchanged sanitized layouts return false instead of reporting success
+    - element reset returns false for invalid, unavailable, or already-default elements
+    - full-profile reset returns false when the profile is unavailable or already empty
+    - the shared UVibeMMOHUDLayoutSubsystem compatibility semantics remain unchanged
+  transaction_safety:
+    - preview startup returns a fail-closed result when HUD, subsystem, or layout state is unavailable
+    - every mutation handler stops before changing state when no rollback snapshot exists
+    - non-reset actions disarm Reset All before preview startup
+    - Reset All retains its confirmation across the second preview check and reaches its delegate
+    - page entry, navigation, Apply, and Cancel own their confirmation-disarm lifecycle
+  pause_feedback:
+    - move and scale distinguish unavailable, locked, and movement or size limits
+    - read-only profiles and already-default element or profile resets no longer report success
+
+independent_review:
+  findings_fixed:
+    - preview startup previously allowed mutation to continue after snapshot failure
+    - Reset All confirmation was previously disarmed before its second-click delegate
+    - exact branch and ordering tests were strengthened to fail closed
+  final_result: passed_no_remaining_actionable_static_findings
+  independently_repeated_tests: 35_of_35_passed
+
+source_identity:
+  changed:
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h, before_sha256: DEAFFEC023269CDEDB82E13E77F866223C3A019AE332CD9AF3154B414B9AC4B1, after_sha256: DA356F5A2A74858D94645D1368E58A1277F2EA524E901D5EB9912206DCB8B295}
+    - {path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp, before_sha256: A90C79200B89F75AB7C3BEF8D4C3DE1291D89EA4546757D6DEB757D040B5AF67, after_sha256: 8081F44621E624EC8F7CDC9A52DAACEB040F3B859A238BBE511DF0D716903DD2}
+    - {path: Source/RedMMO/RedPauseMenuWidget.h, before_sha256: 6808AC36F7789F34597EB367E0CF42548B6378C8DDD82D4AA7E3DF84D767F040, after_sha256: 73B45D0A939AB216181B05D20CC13846A4AF326FD445E106B5AAFCE02DD5A212}
+    - {path: Source/RedMMO/RedPauseMenuWidget.cpp, before_sha256: 22806693A1A181ED4C25680E470D7E2F9489165A52038FEB2344E5815DE015FE, after_sha256: 7AB60DDF1C14B3F697799A7D43152A87CFD51E5C404B97DE8265B36D3D8BDA97}
+    - {path: Tools/tests/test_def0004_pixel_hud_customizer_route_contract.py, before_sha256: B418F87281578CF20478CE8382D385181B3CF5950DD662074C8B6C652483F0AC, after_sha256: 8C7C694C978AF6BF5F4BF01B4FB099477E84AD4B87E77DD145BEFB0A2D117178}
+    - {path: Tools/tests/test_def0004_pixel_hud_current_contract.py, before_sha256: 0661B28841F626FA4B636AC2000ED28070BEEB673A5632060F8E86E561A6E881, after_sha256: 4828664A25A2012B57824493549CE92B9B2DC895ED7EFFC2CC8C41F150429A2B}
+  added:
+    - {path: Tools/tests/test_def0004_pixel_hud_noop_feedback_contract.py, sha256: 190BEAB9CF0E173D73AF1B6B256447F42E2885648CF8E44E139977306F6C18B3}
+  unchanged_vibe_compatibility_inputs:
+    - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Persistence/VibeMMOHUDLayoutSubsystem.h, sha256: ADF54F5CBB291CFDB1EB024042E66506A2FB3B37CD2782EA06F7753EFDECF7C5}
+    - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Persistence/VibeMMOHUDLayoutSubsystem.cpp, sha256: 033A81695D5DAB4FC584FBADB401592E40E5A556B3425021D8D899D2E453D690}
+    - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Public/Data/VibeMMOHUDLayoutTypes.h, sha256: AE3C6C885AF0A2F158334793D08124C5175D01F3F1CC76E737D6848F1751B91C}
+    - {path: Plugins/VibeMMOUIKit/Source/VibeMMOUIKit/Private/Data/VibeMMOHUDLayoutTypes.cpp, sha256: 763297D8227E123666F6ADEB24C67DA1798EF2C37706CD173FB2B4D5333E65DA}
+
+verification:
+  command: >-
+    python -B -m unittest
+    Tools.tests.test_def0004_pixel_hud_noop_feedback_contract
+    Tools.tests.test_def0004_pixel_hud_customizer_route_contract
+    Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 35_of_35_passed
+  no_op_and_lifecycle_tests: 8_of_8_passed
+  replacement_route_tests: 6_of_6_passed
+  current_DEF_0004_inventory_tests: 8_of_8_passed
+  DEF_0006_regression_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ReplacementHUDNoOpFeedback_20260722_1439_retry3/offline_contract_and_provenance_tests.log
+  log_sha256: EF7311673ECB6E68DA6FA35E150E3F5C558EDB31A0CE77C621C758BE1C8564A5
+  stdout_sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  diagnostic_retry_history: >-
+    The combined base run passed 32/33 because an exact-string stale scanner
+    matched the newly sanitized delegate; production code was not implicated.
+    Retry1 passed 33/33 after that contract was corrected. Independent review
+    then exposed preview lifecycle and Reset All reachability edges; retry2
+    passed 34/34 after fail-closed preview guards, and retained retry3 passed
+    the final strengthened 35/35 suite.
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004NoOpFeedback_1439_retry2/target_currency.json
+  report_sha256: 0575FBB83E1069D45B6B8D2C5C4A940B5FA19A414E25CE6B152D2F6C4D4BB1A7
+  captured_at: "2026-07-22T14:57:30.972184+00:00"
+  input_count: 874
+  input_manifest_sha256: 3A0DBF82C7B8C19D0E9A9F4FA9ACB857EDE7B9C90546E04CDA21BF4E5FF66BEC
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 35
+  titan_editor_newer_project_inputs: 23
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_or_zen_started: false
+  current_attempt_archive_exists: false
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004NoOpFeedback_20260722_1439
+  manifest_file: pre_slice_manifest.yaml
+  exact_backup_count: 10
+  total_file_count_with_manifest: 11
+  pre_slice_manifest_sha256: C2742A3F13C190798B70B1FF486CE50DBCD5CCC4E18EDC56CD6267C3B8EBBA50
+  new_test_absent_before: true
+  new_evidence_absent_before: true
+
+canonical_sync:
+  module_queue_sha256: 8DE0E862806B6013A741C46EB8AFBB8A90EAB5D64948407047C6A990D23A8D81
+  M09_status: incomplete_retry
+  M09_retry_count: 7
+  DEF_0004_status: open
+  project_wide_next_action_changed: false
+
+supplied_hud_art_identity:
+  root: Content/UI/RedHUD/Textures
+  uasset_count: 56
+  manifest_sha256: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+  modified: false
+
+remaining_acceptance:
+  - compile current RedHUDRuntime and RedMMO sources with exact target proofs
+  - runtime-test locked, limit, read-only, default, and transient target-loss feedback
+  - prove pause-menu move, scale, opacity, hide, lock, reset, cancel, Apply, and save/restart behavior
+  - bind abilities, party, quest, minimap, consumables, enemy presentation, and remaining represented systems
+  - map the replacement reticle and remaining represented layout groups before exposing them
+  - add real handlers or visually remove interactivity from represented painted controls
+  - run real-GPU 16:9 and ultrawide pixel, overlap, controller, and gameplay acceptance
+
+claim_limit: >-
+  This proves change-only sanitized wrapper results, fail-closed preview
+  transactions, Reset All reachability, exact rollback, independent static
+  review, and offline contracts only. It does not prove C++ compilation, UHT,
+  runtime persistence, mouse/controller operation, visible feedback or pixel
+  placement, gameplay feeds, packaging, or multiplayer. DEF-0004 remains open.
+
+next_safe_action: >-
+  Under a safe build gate, compile current TitanEditor and execute a bounded
+  replacement-HUD customization test covering move, cancel, Apply, restart,
+  locked and limit feedback, Reset All, transient target loss, and controller
+  operation. The project-wide next action remains M00's capped T02 close,
+  translated, and oblique real-GPU sparkle captures once its separate 14 GiB
+  physical-RAM gate passes.

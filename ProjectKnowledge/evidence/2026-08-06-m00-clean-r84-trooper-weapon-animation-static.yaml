@@ -1,0 +1,77 @@
+schema_version: 1
+id: evidence.m00.clean-r84-trooper-weapon-animation-static
+module: M00
+evidence_class: static
+status: blocked
+timestamp_utc: 2026-08-06T04:04:16Z
+scope: >-
+  Read-only current-clean-project audit of the R84 Trooper fire input,
+  authoritative projectile path, projectile presentation, and available
+  Trooper animation closure. No Unreal process was launched and no project,
+  asset, package, map, material, or vendor file was changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.23
+  commit_headroom_gib: 54.36
+  free_disk_d_gib: 759.39
+  gpu_free_mib: 9096
+  gpu_used_mib: 958
+  active_unreal_build_package_process_count: 0
+focused_static_checks:
+  passed: 17
+  failed: 0
+  verified:
+    - Enhanced Input Fire uses ETriggerEvent::Started
+    - fire routes through authority or the reliable ServerFire path
+    - authoritative firing applies the configured interval gate
+    - aim is resolved from the active third-person camera
+    - spawn origin resolves the configured muzzle socket
+    - ARedBolt replicates movement, applies point damage on authority, and multicasts impact cosmetics
+    - native ARedBolt defaults to the project-owned tracer material on an Engine BasicShapes sphere
+    - Action_Trooper content is present but exposes no fire, shoot, aim, or recoil asset by name
+current_clean_project_findings:
+  firing_mechanics: source_wired_static_only
+  muzzle_vfx: >-
+    ARedPlayerCharacter::BeginPlay explicitly assigns MuzzleVFX = nullptr
+    because the copied P_Flash_4 effect is documented in source as a
+    spacecraft-style plume rather than an infantry muzzle flash.
+  projectile_visual: >-
+    The A01 asset builder overrides the native stretched sphere tracer with
+    /Game/ProjectilesVol1/Models/SM_Conus. The native source documents the
+    previous cone override as visually resembling an engine plume.
+  weapon_animation: >-
+    The clean character exposes locomotion single-node states only. No fire,
+    recoil, aim montage, upper-body layer, or equivalent runtime property/path
+    exists, and the installed Action_Trooper closure has no correspondingly
+    named animation asset.
+  safe_disposition: >-
+    Do not re-enable P_Flash_4 or keep SM_Conus as a claimed rifle correction.
+    No verified rifle muzzle/tracer/fire-animation closure is currently
+    available in the clean project.
+hashes:
+  red_player_character_cpp: B8BEABC6A9328AE917F754A41E0548D0ECAB9A78D03FCDBC409984263CAC642B
+  red_player_character_h: 722CEE5FB57D9DDFE07B13DBDAB345E64AC8A4B8405C76BAAE778F43D1D7967B
+  red_bolt_cpp: 3E780E83A66221D8EDB3F398F2518FF8A3D01436749DAED23192B0913F975CF9
+  red_bolt_h: 2C5CAEBBF0F767C0B89CE19E027042BE998EE75C7ACEDC258E9D7772AF813D0D
+  a01_builder: C3CB298BD77059B2423E61419C783FD7551F8B04716DB3EB78897D3DE74EC9A8
+  bolt_blueprint: 29ED70E6EA2115E2C7FA48C4F5F13A79222C3EEA8F3518F65ED749BE7EA52EDF
+  trooper_blueprint: 186C50AE14CEF7FA3E3A0C492B86DCB680D2898A75E04C6DEBAB4A507B9F2B08
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  r84_package_file_count: 51
+  r84_package_total_bytes: 1452474808
+claim_limit: >-
+  Static source, asset-presence, and hash evidence only. This confirms current
+  wiring and exact presentation gaps; it does not prove physical input,
+  animation quality, projectile pixels, impact feel, damage in R84, runtime,
+  real-GPU visuals, package currency after a future correction, replication,
+  Steam, or multiplayer acceptance.
+next_safe_action: >-
+  In a separate rollback-backed weapon slice, select or author a project-owned
+  infantry muzzle effect, correct readable tracer geometry, and a compatible
+  Trooper fire/recoil/aim animation closure. Then rebuild the A01 assets and
+  require fresh reload, current build, player-scale real-GPU projectile pixels,
+  and physical-input review before calling the weapon presentation corrected.

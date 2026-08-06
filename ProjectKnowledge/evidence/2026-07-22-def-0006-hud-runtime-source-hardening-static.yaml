@@ -1,0 +1,168 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0006-HUD-RUNTIME-SOURCE-HARDENING-STATIC
+captured_at: 2026-07-22
+module: red_hud_runtime_overlay_cleanup
+slice: DEF-0006-live-overlay-source-hardening
+evidence_class: static
+result: passed
+
+authorization_and_scope:
+  user_request: fix the hud
+  bounded_defect: DEF-0006
+  excluded_open_scope: >-
+    DEF-0004's complete interactive and independently customizable pixel-exact
+    HUD remains separate and open.
+
+resource_preflight:
+  samples: 12
+  free_physical_ram_gib_range: [9.385, 9.860]
+  free_commit_gib_range: [20.503, 21.079]
+  free_vram_mib_range: [8855, 8939]
+  disk_free_gib:
+    C: 133.064
+    D: 1141.736
+  blocker_process_count: 0
+  decision: >-
+    Did not launch Unreal, UnrealBuildTool, cook, or packaging. Sustained physical
+    RAM was below the safe compile and real-GPU gates and far below the 18-20 GiB
+    packaging rule.
+
+implementation:
+  compass:
+    - the replacement compass is now part of its live and customizable layout group
+    - widget-local world-yaw ticking was removed
+    - gameplay forwards the existing stable spherical tangent-frame heading
+    - the owning-player fallback preserves heading updates while the character is attached and the ship is possessed
+  player_and_weapon_state:
+    - live shield, health, fuel, maxima, and both weapon-slot heat states now reach the replacement HUD
+    - overheat cooldown is derived from the actual resume threshold and cooling rate
+    - weapon state is cached and restored when live mode is reapplied
+  baked_ammo_cleanup:
+    - opaque masks cover the supplied 32/248 and 12/72 sample telemetry bands
+    - live HEAT, COOL, or OVERHEAT text and heat rails replace ammunition presentation
+  layer_lifecycle:
+    - a weak explicitly registered legacy HUD cache remains collapsible across character and vehicle possession
+    - the canvas sight and target bars stop drawing whenever the replacement HUD is intentionally collapsed for the loadout
+  geometry_preserved:
+    - weapon cards end at design x=3336 and utility art starts at x=3430
+    - existing weapon, ability, and utility baseline rectangles were not repositioned
+    - offline AABB checks prove those groups remain disjoint
+
+source_identity:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    sha256: DEAFFEC023269CDEDB82E13E77F866223C3A019AE332CD9AF3154B414B9AC4B1
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    sha256: A90C79200B89F75AB7C3BEF8D4C3DE1291D89EA4546757D6DEB757D040B5AF67
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDLayout.cpp
+    sha256: 8A24C9F3AF51F976628A8E7647605267DEE892790D5BEB0D08D8BDB50427D068
+  - path: Source/RedMMO/RedHUD.h
+    sha256: 72B733A08EE0C6073D676F8646EC6BDF392755672AF46A17B4C0BE70CF2B9592
+  - path: Source/RedMMO/RedHUD.cpp
+    sha256: CB6EB26843274F35C70696B01D11FF82A826C2F4B3347C2DEA21909B7FC1EA8A
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: 3609B8407C32035D892C67EB65DBB7BF59BC850FF28E67CD1C85B9322743C405
+  - path: Tools/tests/test_def0006_red_hud_runtime_contract.py
+    sha256: F876D4144D518DDEE942EB2AA5A06C87D5528CED75C16979F91FD270FFBD84BB
+
+supplied_art_inputs:
+  modified: false
+  weapon_slot_01:
+    path: Plugins/RedHUD/Resources/Art/IndividualSprites/T_REDHUD_WeaponSlot_01.png
+    sha256: 733D46C25B7A1ED68792E0E3E4064FE7956A8AF8EC51472525A8CB768D694A41
+    dimensions: [529, 412]
+    observed_baked_value: 32 / 248
+  weapon_slot_02:
+    path: Plugins/RedHUD/Resources/Art/IndividualSprites/T_REDHUD_WeaponSlot_02.png
+    sha256: 9A29E38767DB9F6222C7680E1233E9F2A06C95199980AA2B3AE4433BA3D10188
+    dimensions: [510, 398]
+    observed_baked_value: 12 / 72
+  player_status:
+    path: Plugins/RedHUD/Resources/Art/HighResSprites/T_REDHUD_PlayerStatus.png
+    sha256: 43DB7D853FBF656A1A5810F3113763A7D736C7611CF7DA7CAD8E24C28AE19FCB
+    dimensions: [1536, 301]
+
+verification:
+  command: python -B -m unittest Tools.tests.test_def0006_red_hud_runtime_contract -v
+  result: passed
+  tests_passed: 6
+  assertions:
+    - compass visibility, layout ownership, tangent-heading forwarding, and absence of the old world-yaw tick
+    - live vitals plus two independent heat, overheat, cooldown, and equipped-slot feeds
+    - opaque telemetry-mask containment and strict mask, rail, and text Z order
+    - all player live masks remain inside the authored player-status bounds
+    - weapon, ability, and utility baseline rectangles remain disjoint
+    - weak legacy registration plus canvas sight visibility lifecycle
+
+provenance_regression:
+  command: >-
+    python -B -m unittest Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: passed
+  total_tests_passed: 13
+  protected_provenance_tests_passed: 7
+
+target_currency:
+  command: python -B Tools/audit_windows_target_currency.py
+  result: refused_fail_closed
+  exit_code: 10
+  input_count: 874
+  input_manifest_sha256: 3CB37C10137F1DB2AA0AD97F38CEE81BED7912795283195CBC023140EFEE9915
+  titan:
+    state: stale_unproven
+    newer_project_input_count: 27
+  titan_editor:
+    state: stale_unproven
+    newer_project_input_count: 14
+  skip_build_authorized: false
+
+installed_editor_binary_boundary:
+  red_hud_runtime:
+    path: Plugins/RedHUD/Binaries/Win64/UnrealEditor-RedHUDRuntime.dll
+    sha256: D8D9F2F173DDB2E0509560DD13D0FC663DDBD9254CE77C83A271F435213A8FF4
+    last_write_utc: 2026-07-21T20:26:52.9742035Z
+  red_mmo:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: CE3D81711FC0AAAF03D06BE9060D5215852B289532E503ED3B23E58869E8BF38
+    last_write_utc: 2026-07-21T20:59:28.2000370Z
+  conclusion: >-
+    Both installed DLLs predate this slice's July 22 source identities. The stale
+    editor-lock blocker is gone, but these binaries cannot prove the new HUD code.
+
+historical_real_gpu_boundary:
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/HUD_RealGPU_1280x720_v2.log
+    sha256: 74D6A37F1C96F1F4B2B49B1B8AA1BD40C0916CECC2D8150EE598FB23DAE722E8
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/HUD_ExactArt_NoLegacy_v2.jpg
+    sha256: 5BC4C684ED80FA32C5271FD9BB4E03C1ABF3592A2F28F01B511DF2488D890E40
+  defect_screenshot:
+    path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-21063a75-83fd-4956-8c52-e5cc1d3b07fb.png
+    sha256: A76687137EFB3AD418247249A818D4105D4B27A18B7BF42A23F44E1EF07BA83A
+  conclusion: >-
+    Historical real-GPU evidence predates the current sources and validates only
+    the older exact-art presentation, not this live overlay repair.
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  unreal_or_build_processes_launched: 0
+  map_or_asset_files_modified: 0
+  supplied_hud_art_files_modified: 0
+  artist_handoff_files_modified: 0
+
+claim_limit: >-
+  This proves source wiring, source-art masking intent, data-flow contracts, and
+  baseline geometry only. It is not a C++ compile, UHT, real-GPU, gameplay,
+  ultrawide, controller, packaged, or multiplayer acceptance result. DEF-0006
+  remains open until the current source is built and exercised at runtime.
+
+next_safe_action: >-
+  When sustained physical RAM reaches the safe build threshold and no competing
+  Unreal process exists, build current TitanEditor first. Then run the bounded
+  real-GPU DEF-0006 gate at 16:9 and ultrawide: rotate 360 degrees on foot and in
+  ship flight, fire both slots through overheat and recovery, target a pawn, and
+  inspect legacy, player, weapon, ability, and utility layers. The project-wide
+  canonical next action remains M00's capped T02 sparkle frames when that stricter
+  real-GPU gate passes.

@@ -1,0 +1,213 @@
+schema_version: 1
+id: evidence.m12.native-same-revision-checkpoint-manifest-equivocation-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T04:03:31.5574870Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-same-revision-checkpoint-manifest-equivocation-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only same-revision checkpoint-manifest equivocation scenario to the existing M12 backend test translation unit
+    - prove a revision-one durability base is established before an unchanged same-revision persistence request is issued
+    - prove a canonical conflicting checkpoint manifest fails the exact same-revision base-identity guard without mutating authority, checkpoint content, durability state, or journal export
+    - prove the prior acknowledged capability remains duplicate-idempotent and the untouched exact pending capability remains usable
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - checkpoint restore, multi-volume isolation, journal-capacity release, lifecycle ABA, generated-output adapter, persistence adapter, actor, map, collision cook, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1523
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [16.175, 16.198, 16.185]
+  commit_used_gib_samples: [23.569, 23.518, 23.548]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.304, 31.355, 31.324]
+  disk_c_free_gib: 127.660
+  disk_d_free_gib: 1140.033
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 33
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_below_the_canonical_memory_gate
+  action_decision: one_non_packaging_source_only_M12_same_revision_equivocation_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 165099
+    sha256: 7552F8AA8A9D4635717F1504C04405025EFA7733B04D73735F73A7E771ED45F6
+    added_automation_name: RedMMO.Mining.VoxelBackend.SameRevisionCheckpointManifestEquivocation
+    total_native_automation_scenarios_in_file: 7
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 124800
+    sha256: D403CF9C509EAFA5E8FE06BB1183EC755859ED6E85FA734A4B3BDC9967B63B55
+    total_contracts: 34
+    new_same_revision_equivocation_contracts: 5
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  bounded_fixture:
+    - one bounded backend volume accepts exactly one deterministic one-cell edit and reaches revision one
+    - one real revision-one persistence request validates and is acknowledged before an empty revision-one journal export and exact live checkpoint are captured
+    - one unchanged second request remains at revision one and binds the acknowledged checkpoint manifest, journal tail, authority generation, backend instance, and next process-local capability token
+  reason_specific_rejection:
+    - the detached second request is copied and only its ticket checkpoint-manifest declaration and matching copied checkpoint manifest declaration receive one different canonical SHA-256 identity
+    - expected base manifest, expected base tail, checkpoint tail, target, spec, revision, generation, backend instance, and persistence token remain exact
+    - request validation and backend acknowledgement both reject with the exact same-revision checkpoint identity diagnostic before the live pending-ticket comparison
+  rejection_atomicity:
+    - live revision and authority generation remain exact
+    - target, spec, revision, canonical manifest, chunk count, and every checkpoint chunk coordinate, revision, spec, payload fingerprint, and canonical compressed bytes remain exact
+    - all nine detached journal-export fields remain exact after rejection
+    - the earlier acknowledged ticket remains duplicate-idempotent without consuming the newer pending capability
+    - the untouched newer same-revision ticket still acknowledges and leaves the final validated export byte-identity-equivalent
+  isolation:
+    - all seven native automation macros and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - every registration is ProductFilter and has one exact automation path
+    - the scenario excludes restore, release, invalidation, multi-volume, generated-output, journal-capacity, actor, world, map, Inventory, mesh, voxel-plugin, Steam, and filesystem-adapter APIs
+
+verification:
+  native_source_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/native_same_revision_contract_final_stderr.log
+    bytes: 7850
+    sha256: CEE674DDB15AC3E4783F9B8E7035AF5B196D8B8BB27183B3C71903D56E4B570D
+    result: 34_of_34_passed
+    new_same_revision_equivocation_source_contracts: 5_of_5_passed
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/m12_focused_final_stderr.log
+    bytes: 23655
+    sha256: 15AFE4C2720CC646F581846AE4727EEBD4AD4502AAC2E5FAFFDC856601954D03
+    result: 106_of_106_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 101
+      native_automation_source_contracts: 34
+      new_same_revision_equivocation_source_contracts: 5
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/protected_provenance_stderr.log
+    bytes: 1507
+    sha256: F02220B34F76821CFC3BE09725FC9AE3B2F56600A3475BBCB5FE4C04E9105EC0
+    result: 7_of_7_passed
+  final_static_regressions_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/final_static_regressions_prerecord_stderr.log
+    bytes: 28958
+    sha256: 3496C4DA5C52738C8B6C4739406633F117CECF1D0FF6197EDD7935834353DFDB
+    result: 133_of_133_passed
+    composition:
+      focused_M12_source_and_model_contracts: 106
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  project_knowledge_integrity_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/project_knowledge_integrity_prerecord.json
+    bytes: 1782
+    sha256: 691F75161D5B9E163C747CD38834246C73FE0B6FA2C90FFCBFF75797FC733A66
+    result: passed_with_0_errors_and_0_warnings
+  project_knowledge_integrity_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeSameRevisionEquivocation_20260724T034645Z/project_knowledge_integrity_final.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 115
+    indexed_route_count: 153
+    queue_sha256: 15DF1F279E6DA7106055C95485095F1BC55DEA4E8CB0F35C1E14AE5E523E9C1C
+    note: report_is_regenerated_after_the_final_evidence_annotation_to_avoid_a_self-referential_digest_claim
+  independent_review:
+    cpp_compile_plausibility: clean_at_7552F8AA8A9D4635717F1504C04405025EFA7733B04D73735F73A7E771ED45F6
+    semantic_scope: clean_after_reason_specific_rejection_checkpoint_export_and_capability_survival_review
+    source_contract_mutation_sensitivity: clean_at_D403CF9C509EAFA5E8FE06BB1183EC755859ED6E85FA734A4B3BDC9967B63B55
+    mutation_probes_rejected:
+      - assertion-polarity inversion
+      - reason-check-polarity inversion
+      - zero-iteration chunk loop
+      - decoupled duplicate or exact acknowledgement result
+      - extra bare, compound, prefix, or postfix conflicting-request mutation
+    reviewers: 3
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeSameRevisionEquivocation_20260724T034645Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeSameRevisionEquivocation_20260724T034645Z/preimage_manifest.json
+  manifest_bytes: 2180
+  manifest_sha256: 7E94A7F55148DF084D6C3C4EE032755B81EAD929D425B97942BF07CF96F380C2
+  absent_before_marker: D:/RedMMOTitanWindowsData/Rollback/M12_NativeSameRevisionEquivocation_20260724T034645Z/absent_before.json
+  absent_before_marker_bytes: 196
+  absent_before_marker_sha256: 333CF355671FA493F872853DE7A8F2C92DEE289536B828F39E414EF541B4634C
+  exact_records: 6
+  unrelated_dirty_work_preserved: true
+
+canonical_queue:
+  path: Build/Automation/redmmotitan_module_queue.json
+  bytes: 223062
+  sha256: 15DF1F279E6DA7106055C95485095F1BC55DEA4E8CB0F35C1E14AE5E523E9C1C
+  m12_evidence_records: 12
+  m12_status: in_progress
+  m12_retry_count: 0
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib_samples: [16.308, 16.293, 16.309]
+  commit_used_gib_samples: [23.344, 23.417, 23.404]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.528, 31.456, 31.468]
+  disk_c_free_gib: 127.305
+  disk_d_free_gib: 1140.032
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  exact_unreal_build_processes: 0
+  other_active_codex_continuations: 0
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+claim_limit: >-
+  This is static source evidence. The seventh native automation scenario has
+  not been compiled or executed, and the Python source contracts do not execute
+  the C++ backend. The conflicting manifest is a canonical declared digest used
+  to exercise the same-revision persistence-ticket guard; it is not a separately
+  recomputed external checkpoint or cryptographic authentication. No generated-
+  output or persistence adapter, installed mesh or collision artifact,
+  deformation, suction, Inventory credit, rendering, gameplay, performance,
+  packaging, Steam, or multiplayer behavior is proved.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute all seven exact RedMMO.Mining.VoxelBackend native
+  automation scenarios, including
+  SameRevisionCheckpointManifestEquivocation. If physical RAM remains below the
+  safe gate, the next independent source slice is journal-capacity release
+  before generated-output and persistence adapter work.

@@ -1,0 +1,249 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-RESOURCE-INVENTORY-D3D12-16X9
+captured_utc: "2026-07-23T17:06:24Z"
+module_id: M09
+defect_id: DEF-0004
+system: ui.pause-menu.resource-inventory
+slice: d3d12-16x9-open-authoritative-refresh-close
+evidence_class: real_gpu_visual
+result: passed
+
+scope:
+  accepted:
+    - real Escape opens the default Overview page in a live 1280x720 game window
+    - a real mouse click selects the existing INVENTORY button
+    - Stone, Iron, and Crystal quantity cards are visible only inside Inventory
+    - an authoritative production RegisterMiningHit depletion refreshes Iron from 0 to 6 while Inventory remains open
+    - the permanent combat-HUD Stone, Iron, and Crystal tally remains hidden
+    - Escape or the production close route removes the Inventory presentation and mouse cursor
+    - the transient MINING YIELD / IRON +6 receipt remains allowed after close and expires before the final frame
+  explicitly_not_accepted:
+    - controller navigation or controller close
+    - ultrawide inventory layout
+    - resource persistence across respawn, travel, reconnect, restart, or account login
+    - customized mining-receipt placement
+    - broad DEF-0004 or DEF-0006 gameplay-HUD acceptance
+    - Windows packaging, Steam transport, or two-account acceptance
+
+baseline:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    materially_dirty_before_slice: true
+    unrelated_dirty_work_preserved: true
+  canonical_queue_sha256_before: BF7765FCD8F53F6EA08E0E099C3B932C95A92BB6601B36FF7F06C9BEE9EC11AE
+  resources_before_action:
+    physical_ram_total_gib: 31.872
+    physical_ram_free_sample_min_gib: 14.126
+    physical_ram_free_sample_max_gib: 14.511
+    commit_headroom_sample_min_gib: 29.516
+    d_free_gib: 1140.930
+    gpu: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_free_mib: 7535
+    overlapping_unreal_build_cook_or_package_processes: 0
+  gate_decision: >-
+    Packaging remained closed because sustained free physical RAM was below the
+    mandatory 18-20 GiB package floor. One serialized editor build and one
+    bounded single-process D3D12 game run were allowed.
+
+implementation:
+  purpose: >-
+    Add an opt-in non-default acceptance branch to the existing real-GPU mining
+    harness so durable screenshots bracket the authoritative inventory refresh.
+    Normal gameplay and every harness run without -RedDEF0004InventoryAudit
+    retain their prior behavior.
+  source:
+    path: Source/RedMMO/RedPlayerCharacter.cpp
+    bytes: 384966
+    sha256: E164B48B39B661BB56736BBE4910F859A2E72203F01B76EE38E199E27F6C2D9F
+  command_line_flag: RedDEF0004InventoryAudit
+  behavior:
+    - opens the existing Escape menu and Inventory page before mining
+    - authenticates the exact 1280x720 viewport and current 0/0/0 pawn totals
+    - reuses production RegisterMiningHit and AddResource authority for Iron +6
+    - authenticates 0/6/0 while Inventory is still visible
+    - authenticates the hidden permanent tally before and after the credit
+    - closes the menu and authenticates no visible Inventory and no mouse cursor
+    - records explicit pass-or-fail markers and retains the existing clean exit
+  gameplay_authority_or_replication_modified: false
+  production_map_asset_or_field_modified: false
+
+build:
+  target: TitanEditor Win64 Development
+  configuration: [NoUBA, MaxParallelActions=1]
+  result: succeeded
+  actions: 4
+  execution_seconds: 37.86
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryAudit_Build_20260723_200453/TitanEditor_UBT.log
+    bytes: 20042
+    sha256: 4416305D28B0B5213C017F75195C84EC89C5ABB35C8A2858B93E25912981C894
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4151296
+    sha256: D99FE55F32E91B7E148DBC13F0CE3DDA46B0608F289898101AAEBA669F531204
+  known_warning_scope: pre_existing_UnrealAIIntegrationPlatform_plugin_dependency_warnings
+
+live_input_observation:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen?Listen
+  renderer: D3D12_SM6
+  resolution: 1280x720
+  actual_windows_input:
+    - Escape opened Overview
+    - a mouse click selected INVENTORY
+    - Escape closed Inventory and restored the gameplay HUD
+  result: passed
+  durable_runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_Inventory_UI_D3D12_16x9_20260723_195809/runtime.log
+    bytes: 346811
+    sha256: FC39E53CF706E1B8AA5C614960FE5109C4E13DDBBFB7D23A6EC3C45F27F2BD44
+  limitation: >-
+    The OS-level keyboard and mouse actions were directly observed in the live
+    window during this Codex task. The durable runtime log authenticates the
+    same game launch but does not independently encode individual input events.
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen?Listen
+  command_line_flags:
+    - game
+    - d3d12
+    - windowed
+    - ResX=1280
+    - ResY=720
+    - ForceRes
+    - RedDEF0003DepletionAutoCapture
+    - RedDEF0004InventoryAudit
+  gpu: NVIDIA GeForce RTX 3080
+  rhi: D3D12
+  shader_model: SM6
+  viewport: 1280x720
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryAudit_D3D12_16x9_20260723_200547/runtime.log
+    bytes: 352553
+    sha256: 01B2895BB999EA1A09764E6B025D4AB54E3352CB6C1A8210FB7931EAD19630FA
+  assertions:
+    inventory_open:
+      result: passed
+      visible: true
+      stone: 0
+      iron: 0
+      crystal: 0
+      viewport: 1280x720
+    authoritative_mining_refresh:
+      result: passed
+      visible: true
+      stone: 0
+      iron_before: 0
+      iron_after: 6
+      crystal: 0
+      persistent_tally_visible: false
+      persistent_tally_text: ""
+    inventory_close:
+      result: passed
+      visible: false
+      mouse_cursor: false
+      persistent_tally_visible: false
+      persistent_tally_text: ""
+    aggregate:
+      marker: RED_DEF0003_RESULT
+      acceptance_pass: true
+      inventory_audit: true
+      inventory_opened: true
+      inventory_refresh: true
+      inventory_closed: true
+  clean_log_scan:
+    fatal: 0
+    assertion_failed: 0
+    ensure_condition_failed: 0
+    logwindows_error: 0
+    out_of_memory: 0
+    out_of_video_memory: 0
+    gpu_crashed: 0
+    device_removed: 0
+    harness_failure: 0
+  clean_exit: true
+
+durable_visuals:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_InventoryAudit_D3D12_16x9_20260723_200547/Captures
+  accepted_frames:
+    - name: DEF0003_InventoryBeforeMining.png
+      bytes: 184712
+      sha256: 8BF7DB8DB0286D26B89A6567AB889D5FF77C3E91527422CF3D93F3003A339708
+      proves: Inventory visible with readable Stone 0, Iron 0, and Crystal 0 cards
+    - name: DEF0003_InventoryAfterMining.png
+      bytes: 151719
+      sha256: 26925C46D16B9BB46877425FE7BCBE6D21ED9A9BA18EE91B8D49BDF5B4FFE00E
+      proves: the same visible Inventory refreshes to Iron 6
+    - name: DEF0003_InventoryClosed.png
+      bytes: 197442
+      sha256: AEC5E1D3FCC6F784F933B81C83C95656F9D8120D94ECF969CBAD71083D2588A3
+      proves: Inventory is absent while the allowed transient IRON +6 receipt remains
+    - name: DEF0003_SpaceAfter.png
+      bytes: 122127
+      sha256: 33525868A936F0B3AF2739F43812C6C0077F8104E8EABACE5C5F1BD32A6E6BEB
+      proves: both Inventory and the temporary receipt are absent at expiry
+  visual_gate:
+    functional_quantity_refresh_and_cleanup: passed
+    top_quantity_card_readability: passed
+    persistent_combat_tally_absence: passed
+    legacy_inventory_grid_polish: followup_required
+    observed_followup: >-
+      The underlying Vibe inventory grid still crowds STONE, IRON, CRYSTAL, and
+      repeated EMPTY labels at 1280x720. This does not obscure the three
+      project-owned quantity cards or their refresh, but it is not final visual
+      polish and must be cleaned in a separate bounded layout slice.
+
+protection:
+  protected_file_hashes: 8_of_8_exact
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  supplied_art_or_vibe_source_modified: false
+  production_map_or_asset_modified: false
+  artist_repository_or_handoff_modified: false
+  package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M09_DEF0004_InventoryAudit_20260723_200216
+  source_preimage: RedPlayerCharacter.cpp.pre
+  canonical_preimages: canonical_preimages
+  exact_preimages_retained: true
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 22
+  queue_sha256_after: 1C9BD1AB0BA701E734C211E214A4B1F25F3BFCEB17A384111821FD2DB2FCB778
+  current_state_queue_hash_matches: true
+  defect_status: open
+
+canonical_validation:
+  project_knowledge_audit: passed_0_errors_0_warnings
+  resource_inventory_contract_tests: 9_of_9_passed
+  project_knowledge_integrity_unit_tests: 20_of_20_passed
+  changed_file_diff_check: passed
+
+remaining_blockers:
+  - clean the crowded legacy item and EMPTY labels inside the 16:9 inventory grid
+  - run controller and ultrawide Inventory acceptance
+  - define PlayerState, save-game, respawn, travel, reconnect, and account persistence ownership for resource totals
+  - complete broad DEF-0004 and DEF-0006 gameplay-HUD acceptance
+  - produce a fresh currency-valid Windows package and complete Steam/two-account regression
+
+claim_limit: >-
+  This accepts the bounded 1280x720 real-GPU Inventory open, exact quantity
+  presentation, authoritative mining refresh, tally-free combat HUD, close, and
+  temporary-receipt expiry path. It does not accept controller input, ultrawide
+  Inventory layout, final legacy-grid aesthetics, durable inventory
+  persistence, packaging, Steam, or broad HUD completion.
+
+next_safe_action: >-
+  Preserve the accepted tally-free combat HUD and quantity-card behavior. In
+  one isolated M09 visual-polish slice, remove or reflow the crowded legacy
+  STONE/IRON/CRYSTAL and EMPTY grid labels at 1280x720 without changing the
+  project-owned quantity cards, Vibe source, supplied art, resource authority,
+  replication, maps, or assets. Re-run the same D3D12 gate, then keep controller,
+  ultrawide, persistence, package, and Steam as separate explicit gates.

@@ -1,0 +1,99 @@
+schema_version: 1
+reference_set_id: reference.youtube.ce0fiknbpmw.ue5-cpp-compile-pipeline
+reviewed_utc: "2026-07-24T17:38:00Z"
+review_scope: transcript_claims_official_epic_docs_local_ue58_sources_and_redmmotitan_workflow
+source_kind: external_tutorial
+implementation_or_project_files_reviewed: true
+authority: inspiration_only
+
+sources:
+  - id: reference.youtube.ce0fiknbpmw
+    title: "Unreal Engine 5 C++ Compile Pipeline | UBT, UHT & Live Coding"
+    url: https://youtu.be/Ce0fIKnbpMw
+    reviewed_material:
+      - auto_generated_english_captions
+      - official_epic_ue_documentation
+      - installed_ue_5_8_program_and_editor_source
+      - redmmotitan_target_module_and_build_automation_source
+      - latest_retained_successful_titaneditor_build_log
+    confidence:
+      level: high_for_core_pipeline_medium_for_live_coding_scope
+      basis: >-
+        The bounded caption review was corroborated against Epic documentation,
+        installed UE 5.8 source, RedMMOTitan target and module rules, and one
+        retained successful TitanEditor build log. Tutorial advice remains
+        subordinate to current Epic and repository-owned policy.
+    summary: >-
+      Diagnose Unreal C++ work by the stage that owns the failure: target and
+      plugin resolution, UHT reflection generation, native compilation,
+      linking, metadata and artifact publication, then module loading. Use Live
+      Coding only for bounded runtime patching and retain full editor-closed
+      builds for durable target currency and structural changes.
+    applicable_patterns:
+      - distinguish target or plugin resolution, UHT, compile, link, metadata, load, and runtime-patch failures
+      - declare module dependencies in Build.cs rather than trying to repair missing linkage with an include
+      - retain the exact target, platform, configuration, command, exit code, first owning-stage error, log, receipt, and linked products
+      - use an editor-closed serialized build after header, reflection, module, plugin, constructor, or default-object changes
+      - require artifact and log evidence instead of treating an explanation or one successful translation unit as target success
+    official_corroboration:
+      - claim: UBT manages targets, modules, toolchains, and build actions
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-build-tool-in-unreal-engine
+        status: corroborated
+      - claim: UBT invokes UHT to generate UObject-supporting code before native compilation
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-header-tool-for-unreal-engine
+        status: corroborated
+      - claim: Target.cs selects a target type and target rules
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-build-tool-target-reference
+        status: corroborated
+      - claim: Live Coding patches compiled binaries into a running editor and has constructor or default-value caveats
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/using-live-coding-to-recompile-unreal-engine-applications-at-runtime
+        status: corroborated
+    local_ue_5_8_corroboration:
+      - path: D:/UE_5.8/Engine/Source/Programs/UnrealBuildTool/System/UHTExecution.cs
+        supports: UBT emits the Parsing headers stage before generated-code compilation
+      - path: D:/UE_5.8/Engine/Source/Programs/UnrealBuildTool/Configuration/UEBuildTarget.cs
+        supports: target setup resolves plugins and fails before compile when a required plugin is absent
+      - path: D:/UE_5.8/Engine/Source/Developer/HotReload/Private/HotReload.cpp
+        supports: Hot Reload is rejected while Live Coding is enabled
+      - path: D:/UE_5.8/Engine/Source/Editor/LevelEditor/Private/LevelEditorActions.cpp
+        supports: Live Coding is described as patching C++ function changes and structural recovery routes to an editor-closed build
+    redmmotitan_corroboration:
+      - path: Source/Titan.Target.cs
+        supports: Titan game target selects the RedMMO module
+      - path: Source/TitanEditor.Target.cs
+        supports: TitanEditor target selects the RedMMO module
+      - path: Source/RedMMO/RedMMO.Build.cs
+        supports: runtime and editor-only module dependencies are declared explicitly
+      - path: Plugins/RedHUD/Source/RedHUDRuntime/RedHUDRuntime.Build.cs
+        supports: RedHUD runtime dependencies are declared explicitly
+      - path: Build/Automation/package_windows_50km.ps1
+        supports: guarded BuildCookRun already tracks monotonic build-to-archive macro phases and serializes UBT actions
+      - path: Tools/audit_windows_target_currency.py
+        supports: durable reuse already requires a successful log, exact receipts, products, and current-input proof
+      - path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+        supports: retained TitanEditor evidence explicitly records compile, link, metadata, and Result Succeeded stages
+    bounded_adoption:
+      - keep the existing package macro-phase detector for BuildCookRun
+      - consider a separate compile-only stage classifier only if it covers target setup, UHT, compile, link, metadata, success, failure, and resource abort without duplicating the package classifier
+      - a future compile-only wrapper should use one lock, editor-closed targets, NoUBTMakefiles, NoUBA, and MaxParallelActions 1 under existing process and resource gates
+      - the current RedHUD header and source changes require a serialized current-source build; Live Coding cannot satisfy M09 target-currency or runtime acceptance
+    unsafe_if_copied_without_redmmo_adaptation:
+      - diagnosing only the final red log line instead of the first error in the owning stage
+      - adding a C++ include instead of declaring the required module dependency
+      - treating UHT, one object file, or one DLL patch as a successful current target
+      - using Live Coding as proof for reflected layouts, constructors, defaults, plugins, modules, target linkage, receipts, or package currency
+      - trusting cached UBT makefiles when newly added source may be omitted
+      - launching an external build while Unreal, Live Coding, UBT, UAT, cook, package, or another continuation is active
+      - bypassing RedMMOTitan RAM, commit-headroom, single-worker, target-currency, rollback, or protected-checkpoint guards
+
+adoption_rules:
+  - official Epic documentation, installed UE 5.8 source, and repository-owned policy override tutorial advice on conflict
+  - preserve the pinned PlanetGen fork, production maps, protected checkpoints, artist repositories, vendor roots, and unrelated dirty work
+  - one tutorial review cannot satisfy compile, link, runtime, visual, package, Steam, or multiplayer acceptance
+  - record a classifier or wrapper as a separate bounded implementation slice with focused fixture tests before use
+
+claim_limit: >-
+  This record documents and corroborates useful build-pipeline reasoning. It
+  does not prove that current RedMMO sources compile, that TitanEditor or Titan
+  link, that Live Coding is safe for a particular edit, or that any runtime,
+  visual, package, Steam, or multiplayer gate passes.

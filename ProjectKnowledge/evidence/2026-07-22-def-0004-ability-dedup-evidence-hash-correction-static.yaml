@@ -1,0 +1,140 @@
+schema_version: 1
+id: evidence.def-0004.ability-dedup-evidence-hash-correction.static.2026-07-22
+evidence_class: static
+captured_utc: "2026-07-22T19:26:54Z"
+result: canonical_protection_hash_transcription_repaired_static
+
+scope:
+  defect_id: DEF-0004
+  module_id: M09
+  selected_slice: >-
+    Repair four transcription-only protected-art hashes in the immediately prior
+    Q/E presentation-dedup evidence after direct byte verification. Preserve the
+    historical pre-correction record in an exact D-resident rollback and make no
+    source, gameplay, map, asset, artist-repository, build, or runtime change.
+  explicitly_excluded:
+    - legacy portrait or minimap scene-capture source changes
+    - Unreal Editor, UHT, C++ compilation, cook, or Windows packaging
+    - runtime, visual, gameplay, performance, Steam, or multiplayer acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files: 0
+  tracked_unstaged_before_slice: 60
+  untracked_before_slice: 1349
+  active_unreal_build_package_or_titan_processes: 0
+  physical_ram_samples_gib:
+    count: 8
+    minimum: 7.513
+    maximum: 7.754
+    average: 7.608
+  commit_headroom_samples_gib:
+    count: 8
+    minimum: 17.946
+    maximum: 18.194
+    average: 18.070
+  gpu:
+    adapter: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_used_mib: 1476
+    vram_free_mib: 8578
+  disk_free_gib: {C: 132.54, D: 1141.72}
+  unreal_build_and_package_gate: hard_closed
+  note: >-
+    A stale zero-byte .git/index.lock dated 2026-07-17 was observed with no Git
+    process and was deliberately left untouched.
+
+latest_build_evidence:
+  log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD_before_cook
+  attempt_archive_exists: false
+  ready_marker_exists: false
+  older_july_17_archive: stale_currency_unverified_and_missing_fused_source_marker
+
+finding:
+  record: ProjectKnowledge/evidence/2026-07-22-def-0004-replacement-hud-ability-presentation-dedup-static.yaml
+  pre_correction_record_sha256: 905C1B6610D09A8CA92AB0EECC21B85AEAB6BDD590086200E3B1DAC3E655EBAF
+  post_correction_record_sha256: 17A51A11D866B2069FA1F0549CE1A35A0632B96EB56BF80E8A624C61E2A03386
+  defect_class: evidence_transcription_only
+  protected_bytes_changed: false
+  corrected_fields:
+    - field: protection.foundation_marker_sha256
+      incorrect: 26B00A2088D2EC9291F611F68944401AE72269F5A29196D591922392984B86E8
+      corrected: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - field: protection.hud_manifest_sha256
+      incorrect: 53C1B251C6E5E4408F1AB764E1E153229914F9351B18B5EDDB38A7FDE7A9C431
+      corrected: 53C1B2519211D3F34A6C3C90312C0FBA071E571347E0E788A43B24B9E768C431
+    - field: protection.full_composite_sha256
+      incorrect: 29CE0DBB31E15905CA658EB5B07B7A6D035B8E1AF9F80E24324DC6267865209D
+      corrected: 29CE0DBB74CB2E47A047FF359E3904A52646AC54E6DBC6994D6B258BEAC0209D
+    - field: protection.safe8_archive_sha256
+      incorrect: 7EDC93246B0764DC16DDD886F709E37F2CA6CC0F9969195961862546A510B784
+      corrected: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+direct_verification:
+  protected_file_hashes: 8_of_8_exact
+  protected_source_rasters: 135_of_135_exact
+  supplied_hud_assets: 56_of_56_manifest_exact
+  hud_manifest_algorithm: sorted_repo_relative_path_tab_file_sha256_joined_lf_with_final_lf_utf8
+  vibe_sources: 8_of_8_exact
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_embedded_manifest: 338_of_338_exact
+  prior_ability_dedup_rollback: 2_of_2_exact
+  artist_repositories:
+    safe7: clean_expected_shape_preserved
+    safe8: dirty_expected_shape_preserved
+    safe9: dirty_expected_shape_preserved
+  independent_review: PASS_no_additional_protected_or_canonical_mismatch
+
+diagnostics:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337
+  protected_hashes:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337/protected_hash_verification.json
+    sha256: D5F7AE722EA538C978AAFECE7E7D0C32FB504757E6E8FE5D797CFB62285FAC0B
+  hud_art_manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337/hud_art_manifest_verification.json
+    sha256: 7010AC549E0467A26F1C08363E6D8D71DC8B9426B7023F1AEFA33E9302AB5B77
+  safe8_embedded_manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337/safe8_embedded_manifest_verification.json
+    sha256: 4CB33BFAD33803D9047E4B7E20BF8692EDB61387042355A17F89E3A0C387640C
+  provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337/protected_provenance_tests.stderr.log
+    sha256: 2542260A6448C05DDD0259036F5C3D5A1AE88A2F676B98E61E160E2F704DCE40
+    result: 7_of_7_passed
+  canonical_validation:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_EvidenceHashRepair_20260722_222337/canonical_validation.json
+    sha256: C7F5021612497E04E19B73BE3907D52EAC3B3FFEC5B35CD9E6F2ED71B6776DE4
+    result: 88_yaml_and_queue_json_parse_clean_links_and_currency_exact
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004EvidenceHashRepair_20260722_222337
+  pre_slice_files:
+    - {name: 2026-07-22-def-0004-replacement-hud-ability-presentation-dedup-static.yaml, sha256: 905C1B6610D09A8CA92AB0EECC21B85AEAB6BDD590086200E3B1DAC3E655EBAF}
+    - {name: INDEX.yaml, sha256: 41DC6BB36A987B282175A40BB599AF3F72F86465B887AA70473C61D9728A41FE}
+    - {name: current_state.yaml, sha256: 3522E88875DD985C4DAF141A597B2EC48D4FCB2B8B921A414AF142821938CCC7}
+    - {name: redmmotitan_module_queue.json, sha256: 4C4FB7522421B23B0DC9EC9272C7B1CB90E6AF811D86CEED182DA3FA50A9D72E}
+  exact_pre_slice_bytes_retained: true
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 15
+  evidence_entries_after: 36
+  queue_sha256_after: AF050924E5A09030B292D200088863079477C07E12855B6F10508084379A45FB
+  current_state_queue_hash_matches: true
+
+claim_limit: >-
+  This is static protection and canonical-provenance repair evidence only. It
+  proves the corrected record agrees with directly hashed bytes and established
+  baselines. It does not compile or execute project code, measure the legacy
+  scene-capture cost, render the HUD, accept visuals or gameplay, build or
+  package Windows, or verify Steam or multiplayer.
+
+next_safe_action: >-
+  Keep Unreal, build, cook, package, and real-GPU work closed while physical and
+  commit headroom remain below their gates. On the next heartbeat, inventory and
+  implement only visibility/no-consumer gating for the legacy portrait/minimap
+  CaptureScene calls, retaining render-target lifetime, automatic resume for the
+  visible ability-loadout HUD, and the replacement minimap's fail-closed state.

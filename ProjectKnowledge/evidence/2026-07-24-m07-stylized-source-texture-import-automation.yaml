@@ -1,0 +1,203 @@
+schema_version: 1
+id: evidence.m07.stylized-source-texture-import.automation.2026-07-24
+captured_utc: "2026-07-24T20:15:00Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: authenticated-stylized-source-texture-planning-dds-staging-import-and-resume
+evidence_class: automation
+result: passed_bounded_ue58_texture_import_and_no_clobber_resume
+
+scope:
+  authorized:
+    - inventory the user-supplied immutable D:/styled assets texture tree
+    - create a deterministic content-authenticated import plan
+    - convert one bounded selected batch into project-owned Texture2D packages
+    - stage DDS payloads outside the project when UE 5.8 cannot decode their compression
+    - verify a second same-selection run accepts exact existing assets without overwrite
+  explicitly_not_run:
+    - bulk conversion of all 23599 source textures
+    - mutation, deletion, rename, or relocation of D:/styled assets
+    - production-map, protected-map, vendor-pack, artist-repository, or handoff mutation
+    - Unreal Editor visual review, real-GPU acceptance, build, cook, package, Steam, or multiplayer validation
+    - Nwiro, Meshy, or Tripo generation or provider-credit use
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib_observed: 7515
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  import_gate:
+    kind: nullrhi_python_commandlet_only
+    minimum_free_physical_gib: 6.0
+    basis: prior measured importer peak was 1277 MiB; packaging threshold remains unchanged
+    minimum_free_commit_gib: 12.0
+    first_passing_run_free_physical_gib: 7.255
+    first_passing_run_free_commit_gib: 20.191
+
+source_inventory:
+  source_root: D:/styled assets
+  policy: immutable
+  provenance: user_supplied_local_source_tree
+  allowed_suffixes: [.png, .dds]
+  records: 23599
+  source_bytes: 11408655298
+  source_gib: 10.625
+  category_count: 19
+  source_categories:
+    Stylized_Crystal: 83
+    Stylized_Fabric: 288
+    Stylized_Foliage: 723
+    Stylized_FX: 1101
+    Stylized_Grass: 166
+    Stylized_Ground: 644
+    Stylized_Lava: 37
+    Stylized_Maps: 11855
+    Stylized_Masonry: 694
+    Stylized_Metal: 537
+    Stylized_Props: 3281
+    Stylized_Rock: 923
+    Stylized_Sand: 133
+    Stylized_Sky: 528
+    Stylized_SnowIce: 197
+    Stylized_Structure: 1235
+    Stylized_Terrain: 351
+    Stylized_Trees: 645
+    Stylized_Water: 178
+  plan:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/plan_v2_20260724_2218.json
+    bytes: 18023357
+    file_sha256: 29D15839FAD2E0624856F765C78D4FABBB9693B6023AE62590D89C2833AEAC17
+    dataset_sha256: 83FC1D37DB9861508E7A49EB1FDC28C2D6F730F49D74C0D288764B1343488BB1
+    semantic_plan_sha256: 97E5A38D14FA585C646C3BDFBC5324C75423995646DF0CB5E717B7E54826864C
+
+implementation:
+  importer:
+    path: Tools/import_redmmo_stylized_source_library.py
+    sha256: 0B58EDD1A233BC78419FC9F794D87990E2323F632723FE764DE9E774CC03CCD1
+  guarded_launcher:
+    path: Build/Automation/Invoke-RedStylizedSourceImportBatch.ps1
+    sha256: F09753609BA6F973D792B418D390B3AC1586FEFC69F09AE6B302724CE929DFC0
+  minimal_import_project:
+    path: Titan_AssetImport.uproject
+    sha256: 985DD602577BEFCBE0A943300F24679EE97A1A80EF1A1BDC434270A3B3A6E5B6
+  destination_root: /Game/RedMMO/ArtLibrary/StylizedSource
+  safeguards:
+    - exact project, engine, source-root, destination-root, plan, and user-approval identity
+    - per-source SHA-256 and deterministic source and object identities
+    - fail-closed link, reparse, traversal, collision, plan, selection, resource, and output checks
+    - replace_existing and replace_existing_settings remain false
+    - existing assets require exact metadata, texture settings, source identity, representation, and payload hash
+    - protected checkpoint SHA-256 comparison before and after every commandlet
+    - bounded outside-destination file-count and recent-write checks without whole-project payload rehashing
+    - no-clobber plan, stage manifest, commandlet state, and batch result publication
+
+dds_compatibility:
+  initial_runtime_failure:
+    result: failed_closed
+    engine_error: "DDS DXGIFormat not supported : 71 : BC1_UNORM"
+    selected_asset_created: false
+    crystal_destination_file_count_after_failure: 0
+    log: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/CrystalProbe008_V2_20260724_2238Z/unreal_import.log
+  remediation:
+    decoder: Pillow 12.2.0
+    representation: dds_to_png_pillow_rgba
+    source_mutation: false
+    staged_payload_location: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource
+    authentication:
+      - original DDS path, size, timestamp, and SHA-256 are rechecked before conversion
+      - staged PNG path and SHA-256 are bound into a no-clobber stage manifest
+      - Texture2D metadata retains original DDS identity and records staged representation and payload SHA-256
+      - Unreal import-data source must remain a diagnostics-root PNG whose bytes match the authenticated payload hash
+    deterministic_payloads:
+      first_dds_png_sha256: 92F7F20AFDA1CCE869854E2FE2558B098D275B61A59AC172A5E6973EC763D5F8
+      second_dds_png_sha256: 4E252A1D7D193015CE58E31AB1F87A4087D2501986F6AA7D3CE7DC65D71AC932
+      same_on_import_and_resume: true
+
+ue58_import:
+  project: D:/RedMMOTitan/Titan_AssetImport.uproject
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe
+  rhi: NullRHI
+  category: Stylized_Crystal
+  start: 0
+  limit: 8
+  selected: 8
+  staged_dds: 2
+  direct_png: 6
+  imported_texture2d: 8
+  verified_existing_texture2d: 0
+  commandlet_exit_code: 0
+  duration_seconds: 34.705
+  protected_checkpoints_unchanged: true
+  outside_destination_files_unchanged: true
+  outside_destination_change_count: 0
+  result:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/CrystalProbe008_V2_20260724_2302Z/result.json
+    sha256: ED659D8FE3303D633252966DB539C038310E4DFDB2223B32B4D36FF3FAFBA2B6
+  stage_manifest_sha256: 8ED3FC63F2BF6219A4AA55F3675D9FB289BD37C5FDD9518B47234F56E430D314
+
+resume_verification:
+  category: Stylized_Crystal
+  start: 0
+  limit: 8
+  imported_texture2d: 0
+  verified_existing_texture2d: 8
+  commandlet_exit_code: 0
+  duration_seconds: 29.525
+  protected_checkpoints_unchanged: true
+  outside_destination_files_unchanged: true
+  outside_destination_change_count: 0
+  result:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/CrystalProbe008_V2_Resume_20260724_2304Z/result.json
+    sha256: C8C3EAE7852A7A70331A7AAEFB0A4AE2DF03457F2FB6D52770AE426CCD6B53FB
+  stage_manifest_sha256: 0FC86A3B0B080104BD7EA6E8994D03A0D956F882B457870692BD653FD3DD574A
+
+tests:
+  command: python -m unittest Tools.tests.test_import_redmmo_stylized_source_library Tools.tests.test_invoke_red_stylized_source_import_batch
+  result: passed
+  tests_run: 28
+  passed: 27
+  skipped: 1
+  skipped_reason: Windows privilege-dependent symlink creation fixture
+  importer_test_sha256: AB22AD4291165DA9442BA4A965EDDC4380C47CB4F8982B94B39CF5AC8BAF5C68
+  launcher_test_sha256: C544EA0063911F5E582DC3CF5F5B6665A7813B636D0950DEF7069791F11E27CB
+  python_compile: passed
+  powershell_5_1_parse: passed
+
+protected_inputs_after_slice:
+  - path: Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_StylizedSourceImport_20260724_2315Z
+  preimages:
+    - file: current_state.yaml.pre
+      bytes: 151882
+      sha256: A33A5AFE0D1FA52E57D8B8A2CC6BAE2FEF4D2072088E1FDA98EE7102616ADDED
+    - file: INDEX.yaml.pre
+      bytes: 17135
+      sha256: 5ACEE358A59BE8411EB91E5E1EFEDC2B4CE81154DDE66EC381F000700EDA2766
+    - file: redmmotitan_module_queue.json.pre
+      bytes: 250621
+      sha256: 68CAC820030269A17D435FDA69F1BDF1A6B8E87F84AEDF80641BD45B19792FAD
+
+limitations:
+  - this is bounded automation evidence, not visual, artistic, gameplay, runtime-performance, or Nwiro acceptance
+  - eight legacy Grass probe assets exist but predate v2 metadata and remain intentionally unverified
+  - only eight v2 Crystal assets are accepted; the remaining source records require later bounded batches
+  - source provenance records the user's explicit conversion instruction but does not independently establish third-party redistribution or model-training rights
+  - no generated mesh, material master, asset palette, collection, PCG tag, foliage stress test, or curved-tile placement was accepted
+
+next_safe_action:
+  - use the verified importer in additional bounded category batches without overlapping Unreal
+  - stage the Tropical complete-project payload under D:/RedMMOTitanWindowsData/VendorStaging before any migration
+  - create the isolated Savanna curved-tile test map from the protected fused prototype without editing the source map
+  - require real-GPU seam, material, foliage, culling, overdraw, and performance evidence before production promotion

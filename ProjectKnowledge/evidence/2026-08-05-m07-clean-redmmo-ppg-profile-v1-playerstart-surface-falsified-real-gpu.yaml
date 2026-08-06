@@ -1,0 +1,100 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-playerstart-surface-falsified.2026-08-05
+captured_utc: "2026-08-05T07:23:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-playerstart-surface-and-foliage-emission-diagnostic
+evidence_class: real_gpu_visual
+result: fail_visual_playerstart_hypothesis_falsified
+
+target:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  seed: 1337
+  approved_grass:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+
+diagnosis:
+  prior_playerstart_radius_cm: 300076455.68
+  profile_v1_surface_player_radius_cm: 299755610.23
+  radial_gap_cm: 320845.45
+  source_evidence: >-
+    The prior real-D3D12 log placed the saved PlayerStart at
+    [-199124123.197,16609013.410,-523874079.534] and traced the authoritative
+    ProfileV1 impact at [-198911157.394,16591249.857,-523634643.334].
+  hypothesis: >-
+    Starting 3.208 km above ProfileV1 might keep close PPG foliage/detail LODs
+    from being emitted before the GameMode snaps the player to the surface.
+
+map_transaction:
+  script: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_playerstart_surface_fix.py
+  script_sha256: 26EFDA82780A3979F353B9CDC2069F6CE3A7E6A568C193E742A039CD2664DD64
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PlayerStartSurface_R03_20260805T0658Z/result.json
+  report_sha256: 0268FCBB0E43C7FBF2071DE6570EF91FA00B58DD482233360A48EF0F61EBB598
+  status: PASS_PLAYERSTART_ON_PROFILE_V1_SURFACE_PENDING_FRESH_PIE
+  map_sha256_before: F2B3EC00BE7D858FE4F7CDC2C611D8E0C9741344CCE48D7A4293D5300FD7AF9D
+  map_sha256_after: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+  playerstart_after: [-198911217.230, 16591254.848, -523634710.607]
+  playerstart_rotation_preserved: true
+  attached_text_label_relative_transform_preserved: true
+  all_other_actor_transforms_preserved: true
+  generation_called: false
+  pie_started: false
+  dirty_packages_after: []
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1PlayerStartSurface_20260805T0658Z/RedMMO_PPG_HomeWorld.pre_playerstart_surface.umap
+
+fresh_real_gpu_check:
+  validator: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_trooper_starsparrow_a01_pie.py
+  validator_sha256: D2E246AF72B9F224A6D3E6A0B6F841D624FD21B1D0B605D4AD8BACEAB5F753BD
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1SurfaceFix_R03_20260805T0718Z/result.json
+  result_sha256: 7D85B94E13E1151CB400528596965E0AC6908C743C8B0DF1708B2B29E08D7874
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1SurfaceFix_Launch_R03_20260805T0718Z/launch.log
+  log_sha256: 283CD24C72D111A668FD26100AA763F8AE672FE57465E53884AF73F8A3DDA88B
+  map_check: {errors: 0, warnings: 0}
+  generation: {phase: COMPLETE, progress: 1.0, collisions: true}
+  radial_walk_tangent_displacement_cm: 562.27
+  approved_grass_components_before_settle: 0
+  approved_grass_components_after_settle: 0
+  foliage_actor_static_mesh_components_before_settle: 0
+  foliage_actor_static_mesh_components_after_settle: 0
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_ProfileV1SurfaceFix_R03_20260805T0718Z/ProfileV1_SurfaceFix_PlayerView.png
+  screenshot_sha256: 7ADD6839C1E37822A0CEA6EB1F9182DBBBFF78A9E34882E886C043B6B4D57DD4
+  visual_observation: >-
+    The Trooper and parked StarSparrow are visible on the generated surface,
+    but the surface remains a nearly uniform dark green and contains no visible
+    grass coverage.
+  harness_end_state: >-
+    The observer polled state.json while the validator replaced it, causing a
+    Windows access-denied telemetry write and an intentional fail-closed stop
+    after the foliage settle and radial-walk evidence. This prevents a new full
+    gameplay-pass claim, but it does not invalidate the zero-component foliage
+    census or captured GPU frame.
+
+conclusion: >-
+  Moving the saved PlayerStart onto the measured ProfileV1 surface does not
+  restore foliage emission. The altitude/initial-LOD hypothesis is falsified.
+  The blocker is now below the spawn handoff: ProfileV1 produces no transient
+  PPG GPU foliage components for the preserved R10O foliage data, so the next
+  slice must inspect the generation vertex-color/density-mask and GPU-dispatch
+  eligibility path rather than changing the approved grass mesh, seed, or
+  manually placing foliage.
+
+claim_boundary:
+  verified:
+    - exact rollback-backed PlayerStart relocation and map persistence
+    - fresh MapCheck 0/0, ProfileV1 COMPLETE generation and radial walk at the corrected surface
+    - zero PPG GPU foliage components before and after the settle interval
+    - real-GPU visual failure remains materially unchanged
+  not_verified:
+    - complete A01 gameplay sequence on the successor map because the telemetry file lock stopped the harness early
+    - visible grass, biome separation, shoreline, water, night/space or human acceptance
+    - standalone, replication, multiplayer or travel
+
+next_safe_action: >-
+  On the next bounded M07 wake, compare the exact R10O working generation
+  vertex-color/density contract with ProfileV1 and instrument PPG's
+  BuildFoliageDispatchParams/GPU component creation eligibility. Correct only a
+  proven project-owned density-mask or material-output break; do not move spawn
+  again, substitute grass, hand-place foliage, or recapture the same frame.

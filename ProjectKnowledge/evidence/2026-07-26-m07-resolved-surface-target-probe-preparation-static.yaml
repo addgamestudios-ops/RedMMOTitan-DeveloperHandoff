@@ -1,0 +1,156 @@
+schema_version: 1
+id: evidence.m07.resolved-surface-target-probe-preparation-static.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T17:51:42Z"
+evidence_class: static
+result: passed_runner_ready_unbuilt_unrun
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_modified: false
+  scratch_source_modified: false
+  scratch_automation_modified: true
+  scratch_content_modified: false
+  map_saved: false
+  pie_entered: false
+  providers_enabled: false
+  editor_launched: false
+  existing_editor_reused: false
+
+motivation:
+  - the corrected native exponential-map macro target still requires final ACLMPlanet resolved-surface values before any relocation can be considered
+  - the read-only SampleResolvedSurface wrapper is source-ready but not built or reflected while the existing scratch editor remains open
+  - this slice prepares the exact fail-closed post-build caller without overlapping or changing that editor
+
+authenticated_inputs:
+  query_target_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_08/region15_macro_land_candidate_scan_v2_expmap.json
+    sha256: 6E4840DF4700D1A543F679E63ECF598C86F17EE74C6183D231AC643ECE972752
+    target_offset_from_region15_cm: [-114000, 112000]
+  scratch_map:
+    bytes: 107056719
+    sha256: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+  expected_planet:
+    object_path: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1.RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1:PersistentLevel.BPCLMPlanet_C_0
+    center_cm: [0.0, 0.0, 0.0]
+    radius_cm: 795774.6875
+  reviewed_wrapper_source:
+    - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/RedPlanetResolvedSurfaceProbeLibrary.h
+      sha256: 05053AA8B1924F024752AC68E51A7462B44AD4FA84909D3979CB30A6DE5C66CF
+    - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/RedPlanetResolvedSurfaceProbeLibrary.cpp
+      sha256: 07E36B1ACAC63500EAEFDBFE08F8EB2AD7CDAEF8747C9CC049863453B69C6D58
+
+scratch_automation:
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/probe_m07_resolved_surface_target.py
+    bytes: 22835
+    sha256: 7DC844F8E2BB899BA97812A204950FD55A3E0854DA4A01BC0CAD33047849C89E
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_resolved_surface_target_probe_contract.py
+    bytes: 8309
+    sha256: 883CA9AF47675C613536575BBDDD8F8939E71C811710CC1FC1FFC58826ED7E2F
+
+implemented_contract:
+  exact_sample_footprint:
+    center: 1
+    actor_points: 17
+    flatten_core_ring_points: 16
+    total: 34
+    flatten_core_ring_radius_cm: 23881.25770576344
+    mapping: project-native exponential-map composition
+  exact_binding:
+    - exact scratch project path
+    - exact loaded map package and unchanged on-disk SHA-256
+    - exact PlanetGen object path, center, and radius
+    - exact reviewed wrapper header and source hashes
+    - exact authenticated query-target report hash and offset
+    - exact protected production checkpoint hashes
+  read_only_guards:
+    - refuses PIE or SIE
+    - refuses every pre-existing dirty content or map package
+    - compares dirty-package, map, protected-file, wrapper-source, and query-report state before and after
+    - includes an intentional wrong-world negative control requiring error_code world_mismatch
+    - never moves, rotates, spawns, destroys, selects, imports, saves, or modifies an Unreal object or package
+    - writes only one no-clobber JSON below an already existing resolved D:/RedMMOTitanWindowsData/Diagnostics directory
+  resolved_review_gate:
+    minimum_clearance_above_water_cm: 4000.0
+    derivation: 1500 cm detail amplitude plus 2400 cm beach band plus 100 cm extra margin
+    maximum_resolved_height_range_cm: 1000.0
+    all_samples_must_be_above_water: true
+    relocation_authorized_by_runner: false
+
+verification:
+  offline_contract_tests:
+    passed: 9
+    failed: 0
+  python_compile: passed
+  pure_geometry_execution:
+    authenticated_scan_loaded: true
+    sample_split: "1 + 17 + 16 = 34"
+    tangent_frame_max_absolute_error: 1.1102230246251565e-16
+    first_ring_direction_max_absolute_error: 0.0
+  independent_exact_byte_review:
+    remaining_p0_p2_blockers: 0
+    reviewed_probe_sha256: 7DC844F8E2BB899BA97812A204950FD55A3E0854DA4A01BC0CAD33047849C89E
+    reviewed_contract_sha256: 883CA9AF47675C613536575BBDDD8F8939E71C811710CC1FC1FFC58826ED7E2F
+  compile_or_uht: not_run_existing_editor_open
+  loaded_module_binary_identity: not_available_unbuilt
+  unreal_python_reflection: not_run_unbuilt
+  resolved_target_values: not_run_unbuilt
+  dirty_package_runtime_proof: not_run_unbuilt
+
+resource_and_process_boundary:
+  free_physical_ram_gib: 39.36
+  commit_headroom_gib: 51.88
+  gpu: NVIDIA GeForce RTX 3080
+  gpu_vram_free_mib: 5606
+  d_free_gib: 1038.19
+  existing_editor_pid: 2000
+  other_unreal_or_build_processes: 0
+  editor_policy: >-
+    The one existing scratch editor was left open and untouched because it may
+    be in use. No second editor, build, UHT, cook, package, or automation
+    process was started.
+
+scratch_integrity:
+  map:
+    sha256_before: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+    sha256_after: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+
+acceptance:
+  post_build_runner_ready: true
+  wrapper_built_and_reflected: false
+  resolved_surface_review_passed: false
+  relocation_authorized: false
+  cluster_relocated: false
+  visual_fit: false
+  shading_fixed: false
+  full_tropical_environment_present: false
+  production_integration: false
+
+next_safe_action: >-
+  When the existing scratch editor is no longer in use, close only that exact
+  editor, compile the exact reviewed scratch TitanEditor revision, record the
+  loaded module binary identity, reopen one provider-off editor, and run this
+  exact no-clobber 34-point caller. Independently review its success and
+  wrong-world JSON plus empty dirty-package state. Do not move, snap, save, or
+  render unless every sample clears the 4000 cm water-clearance bound and the
+  resolved height range is at most 1000 cm.
+
+claim_limit: >-
+  This is static runner preparation, not a live Unreal query. It does not prove
+  that the wrapper compiled, UHT reflected it, the loaded DLL matches the
+  reviewed source, the target is dry, relocation is safe, lighting is fixed, a
+  dense Tropical biome exists, or visual, collision, water, shoreline, seam,
+  LOD, performance, gameplay, surface-to-orbit, or production acceptance.

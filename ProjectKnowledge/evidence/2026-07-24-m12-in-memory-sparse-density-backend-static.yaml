@@ -1,0 +1,191 @@
+schema_version: 1
+id: evidence.m12.in-memory-sparse-density-backend.static.2026-07-24
+captured_utc: "2026-07-23T22:59:36Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: project-owned-in-memory-sparse-binary-density-and-material-backend
+evidence_class: static
+result: passed_static_source_and_behavioral_model_uncompiled_unwired
+
+scope:
+  authorized:
+    - implement one bounded project-owned backend behind IRedVoxelAsteroidBackend
+    - keep authority cells, revisions, journals, checkpoint inspection, and stale-work identity isolated from actors and production runtime
+    - add source-inspection and independent Python behavioral-model tests for deterministic generation, atomic edits, corruption, restore, and lifecycle rejection
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, C++ compile, cook, package, game, Steam, or multiplayer process
+    - actor, map, renderer, mesher, collision cooker, RPC, loose-cluster presentation, or Inventory integration
+    - production map, production asteroid field, protected checkpoint, artist repository, handoff, vendor source, or supplied-asset mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 160
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [10.463, 10.389, 10.332]
+  commit_used_gib_samples: [32.538, 32.575, 32.357]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [22.335, 22.297, 22.515]
+  disk_c_free_gib: 124.670
+  disk_d_free_gib: 1140.610
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 7531
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  compile_decision: not_run_after_free_physical_ram_fell_to_8_940_gib
+  action_decision: one_non_packaging_static_M12_backend_slice
+
+postflight:
+  captured_utc: "2026-07-23T23:09:27.765Z"
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_free_gib: 7.348
+  commit_headroom_gib: 18.764
+  disk_c_free_gib: 123.910
+  disk_d_free_gib: 1140.600
+  vram_used_mib: 2899
+  vram_free_mib: 7155
+  gpu_utilization_percent: 2
+  gpu_temperature_c: 35
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  compile_or_unreal_launch_decision: not_run
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+  redmmo_dll_sha256: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+  titan_editor_target_sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+
+implementation:
+  source:
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.h, bytes: 13910, sha256: 7F8942D6C714A77446E02888F679D0533972F3C835693F4804F347337E06545B}
+    - {path: Source/RedMMO/Mining/RedVoxelMiningContracts.cpp, bytes: 38903, sha256: 7482B064811FD7A6CFB3BB258E5F772246B3BD114E5F9C8F2851D45668F9235A}
+    - {path: Source/RedMMO/Mining/RedVoxelAsteroidBackend.h, bytes: 3650, sha256: 007EDFFE7B9BC97F1A0A59836E8C98450CFDF928E33A2D223661FFAE6D581C32}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h, bytes: 2784, sha256: CF5E98681FF4E6D30A8927942CF0497CB35C4BF3BD7DF39E30D20EC476D28DE5}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp, bytes: 55317, sha256: 86DC12755FC78B1FBA783D21F3107D074DFEF23F425A9C4B69D400CA9CF57E72}
+  tests:
+    - {path: Tools/tests/test_m12_voxel_capability_contract.py, bytes: 8932, sha256: B8D235BAF81B980CDEC124C253386EE41A5E5386B234B6FB08DBC944AD44912F}
+    - {path: Tools/tests/test_m12_voxel_authority_contract.py, bytes: 27815, sha256: CB9F1C807DEB395863DF3B7EC48B44843FEFFC565F944B782CF3DA88E4B113A8}
+    - {path: Tools/tests/test_m12_sparse_density_backend_contract.py, bytes: 38982, sha256: BB73C0B2C055315B84AC878C057E75D6E109EF7E8061A1AD84323525DF6CA697}
+  authority_contract_source_modified: true
+  production_runtime_behavior_source_modified: false
+  runtime_consumer_added: false
+  project_build_rule_plugin_or_map_modified: false
+
+backend_contract:
+  storage:
+    - non-empty chunks use a project-owned sparse chunk map; every chunk retains authenticated revision metadata
+    - one canonical byte represents binary empty or solid density together with fixed Stone, Iron, or Crystal material ordinal
+    - the deterministic integer sphere occupies 27 to 36 metres at the 64-cell, 75 to 100 cm profiling candidate
+    - only red.material-table.prototype-v1 is admitted
+  edits:
+    - already validated server brush commands stage candidate cells, material yields, dirty chunks, hashes, operation record, and apply result before committing
+    - accepted yield is exact removed-cell count times authoritative cell-size cubed
+    - zero-volume, stale revision, stale generation, edited-cell cap, dirty-chunk cap, revision overflow, and journal-cap paths fail without live mutation
+    - the private journal fails closed at its ceiling; export, replay, durable checkpoint acknowledgement, and compaction remain unimplemented
+  checkpoints:
+    - portable checkpoints carry the complete immutable volume spec and bounded authority policy required to inspect an absent volume
+    - canonical uint16-run RLE is bounded, recompressed byte-for-byte, and hashes decompressed one-byte cells
+    - whole-volume manifests bind the complete spec, policy, revision, exact sorted chunk set, codec, byte counts, and payload integrity hashes
+    - restore independently re-inspects caller payloads and verification, decodes all chunks to temporary state, checks exact compare-and-swap state, then enters one final game-thread commit block
+    - revision-zero deletion, impossible removed-cell counts, material injection, material resurrection, revision inflation without matching subtractive cells, live rollback, and equal-revision equivocation fail closed
+  stale_work:
+    - generated chunk identity binds canonical volume-spec hash, chunk coordinate, authoritative cells, content revision, and lifecycle generation
+    - stable-ID generation tombstones survive ReleaseVolume inside the backend lifetime and prevent release/recreate ABA
+    - QueueChunkRebuild accepts only exact current identity and deliberately leaves presentation and collision readiness false
+    - no output completion adapter exists yet, so this source does not claim generated mesh or collision readiness
+  scale:
+    max_volume_cells_per_axis: 64
+    max_chunk_cells_per_axis: 16
+    max_edited_cells_per_request: 2048
+    max_dirty_chunks_per_edit: 8
+    max_journal_operations: 512
+    max_checkpoint_chunks: 64
+    max_checkpoint_set_bytes: 16777216
+
+verification:
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_SparseDensityBackend_20260723_222934Z/m12_sparse_density_backend_focused.log
+    bytes: 7865
+    sha256: 1848A6CB129D40A9A9B0B5C910BE95CDE3696816DE632F0E875C7DA2F843B01E
+    result: 37_of_37_passed
+    composition:
+      capability_contracts: 8
+      authority_contracts: 13
+      sparse_backend_source_and_model_contracts: 16
+  static_regressions_without_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_SparseDensityBackend_20260723_222934Z/m12_static_regressions_without_integrity.log
+    bytes: 19773
+    sha256: EEEE5E12AF6C79E2F0F1C421F193A197B8A9AF192E637E461C263619871F3D45
+    result: 89_of_89_passed
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_SparseDensityBackend_20260723_222934Z/m12_final_static_regressions_109.stderr.log
+    bytes: 23673
+    sha256: 436EDC20782DC7A89019AD68225DBCC52FC0A2A6830C3AAFEC83D660C82BE73D
+    result: 109_of_109_passed
+    scope: focused_M12_plus_DEF_0003_plus_DEF_0004_plus_protected_provenance_plus_integrity_contracts
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_SparseDensityBackend_20260723_222934Z/project_knowledge_integrity_post_evidence.json
+    bytes: 1782
+    sha256: 6E844EC48A8CA957D52286106695C9687A7A1FA9F2EA3C8FF9C6FCEDC0B2706E
+    result: passed_with_0_findings
+    indexed_evidence_count: 106
+  canonical_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    sha256: 8671A508924931C484B3F9E195CB3239FDBB32BECAB49822E7109388C989CB49
+
+independent_review:
+  compile_and_design:
+    result: no_concrete_UE_5_8_or_MSVC_static_blocker_found
+    limit: read_only_source_review_not_a_compiler
+  adversarial:
+    result: no_remaining_blocker_to_static_evidence
+    closed_findings:
+      - absent-volume checkpoint reconstruction and forged verification trust
+      - release-recreate generation ABA
+      - impossible checkpoint capacity policies
+      - spec-and-coordinate-bound generated output identity
+      - revision-zero and over-cap deletion forgery
+      - material resurrection and future-revision inflation
+    limit: source_and_independent_behavioral_model_not_executed_C_plus_plus
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_SparseDensityBackend_20260723_222934Z
+  exact_preimages_recorded: 8
+  new_backend_source_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  protected_provenance_pre_slice: 7_of_7_passed
+  protected_provenance_post_slice:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_SparseDensityBackend_20260723_222934Z/protected_provenance_post.stderr.log
+    bytes: 1507
+    sha256: 599E7BDF29236B1EB26023A0C5AC1D59296F65C09A56CC9A8FD443FF57C4A0F4
+    result: 7_of_7_passed
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  unreal_build_cook_or_package_launched: false
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+claim_limit: >-
+  Static source inspection and an independent Python behavioral model only. The
+  model is not the C++ backend and SHA-256 fields are integrity fingerprints,
+  not authenticated signatures. This record does not prove C++ compilation,
+  journal export or C++ replay, persisted checkpoints, generated mesh, collision,
+  a runtime actor, localized visible deformation, suction movement, Inventory
+  credit, controls, real-GPU visuals, profiling, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  When physical memory safely permits, compile the serialized TitanEditor and
+  game targets and add native C++ automation that directly executes deterministic
+  initialization, edits, checkpoint corruption, restore, lifecycle generation,
+  and multi-volume isolation. Add an authenticated generated-output completion
+  boundary and durable checkpoint acknowledgement or journal-export contract
+  before any actor or map wiring. Keep M00 as a dependency and preserve all
+  protected production and artist assets.

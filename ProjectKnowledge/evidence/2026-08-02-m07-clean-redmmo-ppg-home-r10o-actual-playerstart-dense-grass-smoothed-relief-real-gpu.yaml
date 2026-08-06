@@ -1,0 +1,196 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r10o.actual-playerstart-dense-grass-smoothed-relief-real-gpu.2026-08-02
+captured_utc: "2026-08-02T16:02:27Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r10o-actual-playerstart-cap-safe-dense-tall-grass-smaller-painted-ground-smoothed-fine-relief
+evidence_class: real_gpu_visual
+result: passed_runtime_zero_overflow_pending_human_acceptance
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  source_r10n_home_map_sha256: A0F4FECBAAB38CCC40D5B667706D72E8402C2312EB523AAB28CD4C1F1A26C665
+  persisted_r10o_home_map_sha256: C489B6000B359A7B52FBE7FD50A72A76232020DBC9A015DFC61CA2FB1120C46F
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10O_20260802_183909_A01
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10O_20260802_183909_A01/pre_r10o_manifest.json
+  manifest_sha256: 2203BF4B19A49A49ED67A00A1BFC735296AF313825BBC34861EFCBA3ADA556A3
+  source_revision: R10N
+  rollback_method: >-
+    Close Unreal, restore the retained pre-R10O home map, remove only the exact
+    R10O content root and R10O profile, and restore the pinned R10N source set.
+
+root_cause:
+  prior_actual_spawn_gap:
+    - the earlier dense-grass review camera was approximately 5 degrees, or 262 km, from PlayerStart
+    - the actual PlayerStart region was inside a legacy 25 km no-grass suppression cap
+    - the grass slope limit was 8 degrees, rejecting most rolling terrain around the spawn
+  r10n_overflow:
+    requested_density: 180.0
+    editor_generation_max_shared_records: 337648
+    overflowed_chunks_in_actual_pie: 52
+    finding: >-
+      PPG shares a fixed 100000-record per-chunk foliage pool and candidate
+      growth is approximately quadratic with density. R10N therefore produced
+      nondeterministic truncation and was not accepted as the live baseline.
+
+persisted_changes:
+  scope: project_owned_ppg_presentation_and_fine_relief_controls_only
+  created_project_owned_packages: 2
+  package_root: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O
+  packages:
+    - asset: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+      sha256: 4D7B577684CF74CBF56BCB6AF8A6867DAD130C8BACF022CF461D86A53833E18F
+    - asset: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/DA_PPG_HomeWorld_StylizedBinding_R10O
+      sha256: 7C6835CA50EBB06B4C94AA6D1E8B0419B1E0ACF09A44D5CEA5B670FBD5865C5A
+  grass:
+    source_mesh: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+    active_meshes:
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+      - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+    density: 90.0
+    max_shared_records_per_chunk: 100000
+    cap_was_not_increased: true
+    ppg_scale: [1.0, 1.55]
+    pack_local_scale: 1.30
+    pack_local_z_scale: 1.45
+    max_slope_degrees: 30.0
+    highlight_amount: 0.62
+    highlight_density: 0.82
+    highlight_gradient_contrast: 4.20
+    note: >-
+      Density 90 is intentionally lower than the failed R10N numeric value of
+      180. Removing the spawn suppression, allowing 30-degree slopes, and using
+      larger/taller cards yields continuous visible coverage while preserving
+      headroom in the unchanged shared per-chunk foliage pool.
+  ground:
+    material: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_PPG_Home_PaintedLeafGround_Scaled_R10N
+    base_color: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_BC
+    normal: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_N
+    orm: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_ORM
+    macro_noise: /Game/StylizedRocksPack_01/Common/TilingTextures/T_PackedNoiseClouds_01
+    uv_scale_r10m: 4.0
+    uv_scale_r10o: 12.0
+    macro_uv_scales: [1.0, 2.0]
+    normal_amount: 0.20
+    note: the painted marks are one third of their R10M world size and no longer read as oversized leaves
+  terrain:
+    generation_material: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/M_PPG_Generation_SmoothSpawnGrass_R10N
+    seed: 1337
+    hills_details_divisor_before: 100.0
+    hills_details_divisor_after: 200.0
+    mountain_details_divisor_before: 50.0
+    mountain_details_divisor_after: 100.0
+    broad_shape_controls_changed: false
+    note: >-
+      Doubling only the fine-detail divisors reduces small jagged relief while
+      retaining the seed and broad hill/mountain shape. Traversal and artistic
+      acceptance still require the user's live review.
+  unchanged:
+    - PPG seed 1337, radius, biome marker ownership, tree bindings, and rock bindings
+    - character, ship, water, flight, gameplay, and PlanetGen destination
+    - vendor source packages, protected production maps, and unrelated dirty work
+
+structural_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/build_r10o_cap_safe_grass_density_result.json
+    sha256: D9D87358C2B653724980005B71955472667DCFA44E8D41462BA5A5DD65789773
+    status: PASS_STATIC_SERIALIZATION_PENDING_FRESH_RELOAD_MAPCHECK_AND_ACTUAL_PLAYERSTART_PIE
+  build_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/run_r10o_build_guard_result.json
+    sha256: 34C46B970E77CF9268938923426A02D31C8A94C32E1A54B68572B85664A6F864
+  fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/verify_r10o_fresh_reload_result.json
+    sha256: FCF351545977CBE8CFB3F4C9BA7118B9A1DC9C6AC6D3ED6F136590EC62EF6F6A
+    status: PASS_FRESH_RELOAD_AND_MAPCHECK_PENDING_ACTUAL_PLAYERSTART_PIE
+    map_check_errors: 0
+    map_check_warnings: 0
+  verify_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/run_r10o_verify_guard_result.json
+    sha256: B986595675E0B72294553A92B8654E5F74736C6C409143D408AAA6E916ECE2C8
+    status: PASS_FRESH_RELOAD_MAPCHECK_ZERO_OVERFLOW_PENDING_ACTUAL_PLAYERSTART_PIE
+  profile:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Config/RedMMO/PPGStylizedFoliageProfiles/HomeWorld_Presentation_R10O.json
+    sha256: EAFBCE63E1FBE5AE96A52DB9A3AC993D87E3BA8C47927F35B8A630D7A8AABB9D
+
+real_gpu_evidence:
+  pie_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/start_r10o_actual_playerstart_pie_result.json
+    sha256: 9A6ADB1BAD8DA5902471A0BAF911788A8F114B3C8F931C758A4A25A27A2124B1
+    status: PASS_REAL_GPU_ACTUAL_PLAYERSTART_ZERO_OVERFLOW_PIE_READY_PENDING_HUMAN_REVIEW
+    evidence_subclass: D3D12_SM6_actual_untouched_PlayerStart_PIE
+    adapter: NVIDIA GeForce RTX 3080
+    generation_chunks: 435
+    generation_time_ms: 4104.66
+    foliage_overflow_count: 0
+    pawn_class: ExamplePlanetCharacter_C
+    pawn_distance_from_player_start_cm: 0.0
+    playerstart_direction_dot: 1.0
+    grass_mesh_components_present: 2
+    map_saved_by_validation: false
+    pawn_moved_by_validation: false
+  pie_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/run_r10o_actual_playerstart_pie_guard_result.json
+    sha256: CD8BA3D45138717DCF448AC9C94B75AC60CBAD58AF173D3F3E0133B931D60728
+    status: PASS_VISIBLE_EDITOR_ACTUAL_PLAYERSTART_ZERO_OVERFLOW_PIE_LEFT_OPEN_FOR_USER
+    editor_pid: 1880
+    free_physical_gib_at_launch: 45.208
+    minimum_free_physical_gib: 38.405
+  initial_highres_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/RedMMO_Home_R10O_actual_PlayerStart_ground_view_PIE_1920x1080.png
+    sha256: 3992315899A3C94B42290295D723A6294D02AB3CA792EDA15B3B92965E585D08
+    dimensions: [1920, 1080]
+    bytes: 2663509
+  live_review_view:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10O_20260802_183909/R10O_live_window_after_camera_adjust_01.png
+    sha256: 63DF1F4324AF48D9E12171E45D020D205356B90703D5E70B10889C23E0764674
+    dimensions: [1322, 1088]
+    bytes: 1803228
+    note: >-
+      The live PIE camera was reversibly pitched to a useful player-height
+      horizon view after generation. The pawn and map were not moved or saved,
+      and the editor remains open for direct user play and judgment.
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  legacy_or_production_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed: true
+  unreal_process_count_after: 1
+  open_editor_identity: RedMMO - Unreal Editor PID 1880
+  unrelated_dirty_work_preserved: true
+
+visual_review:
+  human_accepted: false
+  confirmed_in_live_view:
+    - continuous dense and tall grass is present at the actual PlayerStart rather than only at a remote review camera
+    - the painted ground marks are materially smaller than R10M
+    - grass covers rolling slopes instead of only sparse near-flat patches
+    - distant terrain retains broad mountain silhouettes with reduced fine relief frequency
+  remaining_findings:
+    - the user must judge density, height, color, painted-ground scale, and traversal feel in the open PIE session
+    - no broader tree, rock, water, character, ship, flight, collision, performance, cook, package, or full-planet acceptance is established
+
+claim_limit: >-
+  R10O proves a rollback-protected real clean-Red PPG home-map persistence,
+  fresh reload, MapCheck 0/0, and actual untouched-PlayerStart D3D12 PIE run with
+  both grass meshes present and zero foliage-buffer overflow across 435 generated
+  chunks. The live review view visibly shows continuous taller grass, smaller
+  painted ground marks, and reduced fine terrain relief. Human visual and
+  traversal acceptance remain pending, and no broader gameplay, performance,
+  water, character, ship, tree, rock, cook, package, or full-planet claim is made.
+
+next_safe_action: >-
+  Let the user play the already-open PIE session. If they request another grass
+  adjustment, change only project-owned profile/material parameters and retain
+  the actual-PlayerStart zero-overflow gate; do not blindly restore density 180
+  or raise the shared 100000-record foliage cap.

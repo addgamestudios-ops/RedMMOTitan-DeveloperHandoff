@@ -1,0 +1,192 @@
+schema_version: 1
+id: evidence.m12.native-generated-output-role-isolation-stale-completion-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T02:17:55.9326948Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-generated-output-role-isolation-and-stale-completion-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only native generated-output scenario to the existing M12 backend test translation unit
+    - prove Presentation and Collision use separate pending capabilities, readiness, and output fingerprints
+    - prove an edit rejects both old-role completions while leaving another chunk's still-current completion valid
+    - prove same-role retry, exact duplicate, and conflicting duplicate behavior is atomic
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - actor, map, output adapter, persistence adapter, collision cook, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1519
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [3.628, 3.593, 3.617]
+  commit_used_gib_samples: [44.604, 44.673, 44.608]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [10.268, 10.199, 10.264]
+  disk_c_free_gib: 123.080
+  disk_d_free_gib: 1139.827
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2555
+  vram_free_mib: 7499
+  gpu_utilization_percent: 11
+  gpu_temperature_c: 41
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_under_severe_physical_memory_pressure
+  action_decision: one_non_packaging_source_only_M12_generated_output_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 75363
+    sha256: 534ED57497861D98744D722474A6839FDEB88B85937E4B4056984BE62F362A1B
+    added_automation_name: RedMMO.Mining.VoxelBackend.GeneratedOutputRoleIsolationAndStaleCompletion
+    total_native_automation_scenarios_in_file: 4
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 46157
+    sha256: F20F5E700C273FFC400CEC79AA6979D5AE5071F6FBA5F2B65874AF085DD1F6FD
+    total_contracts: 19
+    new_generated_output_contracts: 5
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  bounded_fixture:
+    - one deterministic 16-cubed volume with 8-cubed chunks uses target chunk 0,0,0 and unrelated chunk 1,0,0
+    - rejected combined-role queueing returns a default request and consumes no capability token
+    - seven distinct canonical 64-hex output fingerprints make every callback identity explicit
+  independent_role_completion:
+    - Presentation and Collision queue against one immutable target snapshot with consecutive single-role tokens
+    - Presentation completion readies only Presentation and preserves the pending Collision role and empty Collision fingerprint
+    - the initial exact Collision completion then readies both roles against the same source revision
+  stale_edit_and_unrelated_work:
+    - one bounded edit dirties exactly the target chunk and advances its content revision and generation without changing the unrelated chunk revision
+    - each pre-edit target callback is rejected separately and an immediate query proves all nine output-state fields remain exact
+    - the unrelated pending Presentation callback remains valid after the other chunk changes and does not roll back global revision
+  retry_and_duplicate_atomicity:
+    - a same-revision Presentation retry supersedes only the older Presentation attempt while preserving the Collision attempt
+    - an immediate before-and-after query proves the rejected superseded callback preserves all nine target output-state fields
+    - Collision completes independently before the newest Presentation callback produces a both-ready exact state
+    - an exact duplicate Presentation callback is idempotent and an immediate query preserves all nine fields
+    - a conflicting duplicate fingerprint is rejected and a final query preserves all nine fields
+  isolation:
+    - all four native automation macros, backend includes, and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - each native scenario creates its own backend instance
+    - no actor, world, map, Inventory, mesh adapter, voxel plugin, Steam, or filesystem adapter is referenced
+
+verification:
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z/m12_generated_output_role_isolation_focused_final.log
+    bytes: 20213
+    sha256: 86DFD38B1ADA69B447924B92E1A6DF20E5CE865AE5C73FFF7C8CE3F84A6FB5F1
+    result: 91_of_91_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 72
+      native_automation_source_contracts: 19
+      new_generated_output_source_contracts: 5
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z/protected_provenance_final.log
+    bytes: 1507
+    sha256: 6EBA151C955E7F58B6D0F9C3B97BAF930D821BAA3F3EC9DA749CD69F19959F25
+    result: 7_of_7_passed
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z/m12_generated_output_role_isolation_final_static_regressions.log
+    bytes: 25517
+    sha256: 33F0FB914FFB805C441357F7A2581867E500B1B44C3103DE88FFE78A21B6C934
+    result: 118_of_118_passed
+    composition:
+      focused_M12_source_and_model_contracts: 91
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z/project_knowledge_integrity_postrecord.json
+    bytes: 1782
+    sha256: 6C91BAD9F6B007B8568B2C039132CAB1DBE54DF3425A5C1D3E330C2605CCDEE5
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 112
+  independent_review:
+    api_compile_plausibility: no_obvious_UE58_signature_include_macro_type_or_test_API_blocker
+    semantic_review: exact_role_stale_retry_duplicate_and_conflict_branches_match_the_current_backend_API
+    source_contract_review: exact_polarity_order_call_counts_and_nine_field_atomicity_are_pinned
+    review_fixes:
+      - complete the initially pending Collision role before editing so Presentation completion cannot conceal Collision mutation
+      - require the rejected combined-role request to remain default and prove the first valid token remains one
+      - query immediately after each stale, duplicate, and conflicting callback and compare all nine state fields
+      - query immediately before and after superseded Presentation rejection before allowing Collision completion
+      - bind source-contract assertions to exact TestTrue or TestFalse polarity and exact callback arguments
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeGeneratedOutputRoleIsolation_20260724_015208Z/rollback_manifest.json
+  manifest_bytes: 2215
+  manifest_sha256: 99003F286702E1BAE1B60ED0B2B240A5D103C2BA1A937D083B593307E25E1E5A
+  exact_records: 7
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+canonical_queue:
+  path: D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json
+  bytes: 222194
+  sha256: 52047758FF82538BBE0EF4F8E1B6E7DA5D2ADB90D9C3C37148C42933BDA1228A
+  m12_evidence_records: 9
+
+postflight:
+  captured_utc: "2026-07-24T02:21:03.8963369Z"
+  physical_ram_free_gib: 3.331
+  commit_used_gib: 44.911
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 9.961
+  vram_total_mib: 10240
+  vram_used_mib: 2527
+  vram_free_mib: 7527
+  gpu_utilization_percent: 11
+  gpu_temperature_c: 42
+  unreal_build_cook_or_package_processes: 0
+  unreal_build_cook_package_or_native_compile_launched_by_slice: false
+  packaging_gate: remained_closed
+
+claim_limit: >-
+  This is static source evidence. The fourth native automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute the
+  C++ backend. It does not prove an installed mesh or collision artifact,
+  deformation, suction, Inventory credit, rendering, gameplay, performance,
+  packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute all four exact RedMMO.Mining.VoxelBackend native
+  automation scenarios. If physical RAM remains unsafe for compilation, the
+  next independent source slice is deterministic initialization, followed
+  separately by multi-volume isolation, same-revision equivocation, and
+  journal-capacity release before adapter work.

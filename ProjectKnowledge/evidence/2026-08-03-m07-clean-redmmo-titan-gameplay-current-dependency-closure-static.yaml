@@ -1,0 +1,158 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-titan-gameplay-current-dependency-closure.static.2026-08-03
+captured_utc: "2026-08-03T02:54:00Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: current-source-asset-registry-closure-and-bounded-no-customization-payload
+evidence_class: static
+result: pass_current_hard_soft_closure_bounded_payload_identified_migration_not_performed
+
+current_registry_audit:
+  tool: Build/Automation/audit_titan_gameplay_dependency_closure.py
+  tool_sha256: 4C87CF78DF980B123907D8051F904D085A352DF18F6F5AFE2C383346BAD86E77
+  engine: 5.8.1-56057345
+  project_context: D:/RedMMOTitan/TitanGameplayAudit.uproject
+  project_context_policy: temporary_module_free_descriptor_removed_after_audit
+  entry_map: /Engine/Maps/Entry
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/TitanGameplayCurrentClosure_A10.json
+  report_bytes: 1199252
+  report_sha256: 9C3A99E72C6303F84024C9F681F0E700C79B61132D251DEA8B8F48C8859443D7
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/TitanGameplayCurrentClosure_A10.log
+  log_sha256: C934F79E53596BA9A1B989A61CDF4B46102B94D04223B33D9FDC2633109DC33F
+  explicit_roots: 22
+  game_packages: 728
+  game_package_bytes: 443035130
+  reliable_package_edges: 3470
+  hard_package_edges: 3389
+  soft_package_edges: 81
+  unresolved_game_packages: 0
+  map_packages: 0
+  dirty_content_before_after: [0, 0]
+  dirty_maps_before_after: [0, 0]
+  package_prefix_counts:
+    Action_Male_and_Female: 544
+    Action_Trooper: 139
+    ProjectilesVol1: 21
+    RedMMO: 16
+    SoStylized: 4
+    BeamsPack: 4
+  external_requirements:
+    script_leaves: 23
+    plugin_mount_leaves: 87
+    critical_script_paths:
+      - /Script/RedMMO
+      - /Script/FocalRig
+      - /Script/VibeMMOUIKit
+      - /Script/ControlRig
+      - /Script/RigVM
+      - /Script/Niagara
+  category_limit: >-
+    UE Python dependency options do not reliably separate searchable-name or
+    management categories when package-reference flags are disabled. A10
+    therefore claims current hard and soft package closure only; the detailed
+    historical registry dump remains a supplemental non-package-category view.
+
+failed_closed_precursor:
+  run: A08
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/TitanGameplayCurrentClosure_A08.log
+  log_sha256: 01929152BA49827E41A74E729BF953E41BD8CD5EE780250DDDBCB55F6A8811D5
+  result: failed_closed_missing_reviewed_roots
+  cause: >-
+    A stripped engine-plugin set left ControlRig, animation, Niagara, VFX and
+    related packages with unknown custom versions, so eleven reviewed roots
+    were absent from the registry. The accepted A10 audit restored the required
+    standard engine plugin context while keeping MCP, Nwiro and adjacent AI
+    providers disabled.
+
+historical_registry_supplement:
+  source: D:/RedMMOTitanWindowsData/CookSandboxes/Night_T03_20260719_033826/Windows/Titan/Metadata/DevelopmentAssetRegistry.bin
+  source_sha256: EEA6CF01E80A0AD7DCEFC365CF6D89AE0EE53AF8E2529DD983F4580D730BEC3F
+  detailed_dump_pages:
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/DevelopmentRegistryDump_A06_DependencyDetails/Page_00000.txt
+      sha256: 8E733693AFAC150C98215AFA8A67CC1084B2B3F773670CF7DB26576439D1A1C4
+    - path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/DevelopmentRegistryDump_A06_DependencyDetails/Page_00001.txt
+      sha256: BAFF8C759D9AC362A4310567110F571D9957A96E602E43CEFF89B24BFB997D7E
+  limit: historical_only_not_current_source_or_runtime_proof
+
+clean_project_overlap:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/TitanGameplayCleanOverlapAndBoundedPayload_A11.json
+  report_bytes: 11788
+  report_sha256: C6FCC289DDD3DC5B36041C736169084ADA50B5B88AF38BB085934B04607B128B
+  full_closure:
+    present_exact: 4
+    present_hash_mismatch: 0
+    missing: 724
+    missing_bytes: 442880771
+    exact_present_family: SoStylized_grounded_footstep_cue_and_three_waves
+  rejected_wholesale_roots:
+    - /Game/RedMMO/Characters/BP_RedGameplayCharacter
+    - /Game/RedMMO/UI/BP_RedMultiplayerPlayerController
+  rejection_reason: >-
+    Each root expands to 656 packages and all 544 Action_Male_and_Female
+    customization packages. The character directly references customization
+    tables, body parts and defaults; the controller directly references the
+    advanced customization controller. Bulk migration would violate the
+    behavior-pruned clean-project boundary.
+  strict_payload:
+    roots: 15
+    packages: 128
+    bytes: 118284320
+    already_exact: 4
+    missing: 124
+    missing_bytes: 118129961
+    action_male_and_female_packages: 0
+  optional_animated_payload:
+    packages: 137
+    bytes: 121247374
+    already_exact: 4
+    missing: 133
+    missing_bytes: 121093015
+    action_male_and_female_packages: 0
+    additional_gates: [FocalRig_availability, ControlRig_load, native_facade, Blueprint_compile]
+
+decision:
+  full_legacy_blueprint_copy: rejected
+  first_actionable_native_tranche:
+    - RedGravityBodies
+    - RedCharacterMovement
+    - RadialGravityComponent
+  tranche_rule: >-
+    Port the radial movement and gravity kernel first, remove only the legacy
+    RedSpaceScenery coupling, keep the clean home map unbound, and require
+    serialized editor and game builds before the pruned RedPlayerCharacter
+    compatibility facade is attempted.
+  content_copy_status: not_performed
+  home_map_bind_status: not_performed
+
+preservation:
+  clean_home_map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+  protected_redplanetgen_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_50km_test_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  asset_or_map_loaded: false
+  asset_or_map_saved: false
+  gameplay_packages_copied_or_bound: false
+  ppg_seed_or_markers_changed: false
+  provider_or_desktop_control_used: false
+
+canonical_verification:
+  yaml_and_json_parse: passed
+  integrity_fixture_tests: 20_of_20_passed
+  integrity_audit:
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TitanGameplayModuleBootstrap_20260803_021500_A01/ProjectKnowledgeClosureA12/project_knowledge_integrity.json
+    report_sha256: BB04003A7FA01AA2AEBEB797E78EB5AA962D1DA8F8DCBFED62ACA2702BD8B1D1
+  queue_snapshot_sha256: D77225F0F43B3C06D8C26B02F8F3001F4D6A095F6725BE825F8A392C1D43F6FD
+
+claim_limit: >-
+  This closes the current hard/soft Asset Registry package graph and identifies
+  bounded payload candidates. It does not authorize or perform migration,
+  prove FocalRig or VibeMMOUIKit compatibility, load or compile retained
+  Blueprints, add the native player facade, bind a GameMode, run PIE, or prove
+  visuals, audio, replication, multiplayer, cook, package or standalone play.
+
+next_safe_action: >-
+  Build the rollback-backed radial kernel in the clean RedMMO native module,
+  with no map or content binding. After both targets compile, implement a new
+  behavior-pruned RedPlayerCharacter facade and use the strict no-customization
+  payload rather than either legacy fan-out Blueprint root.

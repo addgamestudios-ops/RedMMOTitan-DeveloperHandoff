@@ -1,0 +1,149 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M09-POST-DEF-0002-TARGET-CURRENCY-RECONCILIATION-STATIC
+captured_at: "2026-07-22T15:42:00Z"
+module: module.M09.windows-development-package
+slice: post-DEF-0002-current-target-currency-reconciliation
+evidence_class: static
+result: passed_current_currency_record_reconciled_targets_remain_stale_unproven
+
+authorization_and_scope:
+  intended_change: >-
+    Reconcile M09 and DEF-0006's mutable blocker text to the newest durable
+    post-DEF-0002 target-currency audit without rewriting historical evidence.
+  files_modified:
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0006-red-hud-runtime-overlay-cleanup.yaml
+    - ProjectKnowledge/evidence/2026-07-22-m09-post-def-0002-target-currency-reconciliation-static.yaml
+  source_or_asset_modified: false
+  explicitly_preserved:
+    - all Source, Config, map, asset, plugin, package, build-product, and supplied HUD-art bytes
+    - all production maps, protected checkpoints, rollback checkpoints, artist repositories, handoffs, user assets, and unrelated dirty work
+
+source_revision_and_worktree:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 59
+  individual_untracked_files_before: 1317
+  conflicts_before: 0
+  policy: pre_existing_dirty_worktree_preserved
+
+resource_and_process_gate:
+  sustained_samples: 7
+  sampled_utc_range: ["2026-07-22T15:37:25.457Z", "2026-07-22T15:37:46.152Z"]
+  total_physical_ram_gib: 31.872
+  commit_limit_gib: 52.872
+  free_physical_ram_gib_range: [9.008, 9.513]
+  free_commit_gib_range: [19.495, 19.995]
+  rtx_3080_total_vram_mib: 10240
+  free_vram_mib_range: [8915, 8916]
+  gpu_utilization_percent_range: [11, 13]
+  gpu_temperature_c: 43
+  free_disk_gib:
+    C: 132.783
+    D: 1141.727
+  other_continuation_overlap_count: 0
+  unreal_build_cook_package_overlap_count: 0
+  decision: >-
+    Physical RAM was below the 12 GiB running-abort threshold, the 14 GiB T02
+    real-GPU gate, and the 18-20 GiB packaging gate. No Unreal, Titan, UBT,
+    UAT, build, cook, package, shader, IoStore, Zen, or real-GPU process was
+    launched.
+
+fresh_currency_audit:
+  tool: Tools/audit_windows_target_currency.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0002GravityTelemetry_1510/target_currency.json
+  report_sha256: 63E49DA1B3ADF8EF6BC1F02A22123A73CB0D15F42A57CB0756570BAD4BFCBF46
+  captured_utc: "2026-07-22T15:25:25.759649Z"
+  input_count: 874
+  input_manifest_sha256: 91423A0D0C9285728DD427CFF6DF5A9CC2F933F38955114D99DEF07E0328ED6B
+  gate_result: refused_fail_closed
+  skip_build_allowed: false
+  build_proofs_supplied: 0
+  titan:
+    currency_state: stale_unproven
+    newer_project_input_count: 38
+    newer_categories: {config: 2, plugin: 8, source: 28}
+    proof_status: missing
+  titan_editor:
+    currency_state: stale_unproven
+    newer_project_input_count: 26
+    newer_categories: {plugin: 2, source: 24}
+    proof_status: missing
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_audit_windows_target_currency
+    Tools.tests.test_package_windows_50km_guard
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 28_of_28_passed
+  currency_tests: 8_of_8_passed
+  unchanged_package_guard_tests: 7_of_7_passed
+  unchanged_DEF_0006_HUD_contract_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+
+latest_build_evidence:
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_package_archive_shader_started: false
+  current_attempt_archive_exists: false
+  prior_archive_note: >-
+    The July 17 successful archive has a ready marker but lacks the current
+    fused source hash and remains currency-unverified.
+
+canonical_reconciliation:
+  before:
+    M09_current_blocker_counts: {Titan: 35, TitanEditor: 23}
+    DEF_0006_current_blocker_counts: {Titan: 33, TitanEditor: 21}
+    queue_sha256: 5AF558B145368727CD9C209389F2177B928F04D0D451D669AA72BC2D96D95EBC
+  after:
+    M09_current_blocker_counts: {Titan: 38, TitanEditor: 26}
+    DEF_0006_current_blocker_counts: {Titan: 38, TitanEditor: 26}
+    queue_sha256: FC0789D695AB591D85047C88F1E1BB14851B7FFA5DD25DA7CF9231E9349F18E2
+  historical_records_rewritten: false
+  project_wide_next_action_changed: false
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM09CurrencyReconcile_20260722_1536
+  exact_backups: 4_of_4
+  files_plus_manifest: 5
+  manifest_sha256: 89526482F54A8ECE8D71B5DCA41FAF360F55EC35BC33AFFB8802DD8777DE2BCC
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_topology: 9_of_9_passed
+  protected_source_rasters: 135_of_135_passed
+  safe8_embedded_manifest: 338_of_338_passed
+  supplied_HUD_art_assets: 56
+  artist_repository_baselines_changed: false
+
+limitations:
+  - neither Windows target is current or proven by an exact build-time proof
+  - DEF-0004 and DEF-0006 HUD source remains uncompiled and runtime-unverified
+  - no build, cook, package, runtime, visual, gameplay, Steam, or multiplayer acceptance ran
+
+claim_limit: >-
+  This accepts only the current M09 static currency record and its fail-closed
+  refusal. It does not authorize SkipBuild and cannot satisfy any build,
+  package, runtime, visual, gameplay, Steam, or multiplayer gate.
+
+next_safe_action: >-
+  Keep M09 deferred. Compile TitanEditor and Titan separately only when a safe
+  resource gate permits, create exact proofs from successful logs and resulting
+  receipts/products, and rerun the currency audit. The project-wide next action
+  remains M00's capped real-GPU T02 close, translated, and oblique sparkle frames
+  once its separate 14 GiB physical-RAM gate passes; packaging remains deferred.

@@ -1,0 +1,35 @@
+schema_version: 1
+id: playtest.red-mars.hud-atmosphere-flight.2026-07-21
+evidence_class: player_playtest
+map: /Game/RedMMO/Maps/RedPlanetGen
+runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/HUD_UserPlaytest_20260721_195429/HUD_UserPlaytest.log
+screenshots:
+  - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-67b247c8-4b7b-4779-aff5-af2e9a297ecc.png
+  - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-45b7fc68-0ed8-4068-a515-63da767492e9.png
+accepted_by_player:
+  - full-planet flight and return to the opposite surface
+  - ship exit after landing
+  - character and ship gravity transition behavior
+observed_defects:
+  - light-side stars remain absent after crossing into space
+  - light-to-dark atmosphere transition has visible stepped bands
+  - atmosphere limb thickness appears asymmetric around the planet
+  - only approximately two cloud banks were visible during the tested route
+  - exact-art HUD is oversized and contains baked sample values
+  - cooldown list, consumables, combo prompt, quest panel, and supplied reticle are unwanted
+  - party, player status, enemy plate, abilities, utilities, and weapon swap require about 50 percent scale
+  - weapon presentation must use heat and overheat cooldown rather than ammunition
+  - enemy plate must appear only for a selected or aimed-at enemy
+requested_hud_contract:
+  - keep supplied art but compose from individual sprites
+  - restore prior gameplay crosshair
+  - retain compass art with live heading and dynamic numbers
+  - show cooldown text only while an activated ability is cooling down
+  - position player status at the lower left
+  - position reduced utilities at the bottom edge
+  - add a heat bar above each reduced weapon slot
+  - every HUD group supports independent move, scale, opacity, visibility, lock, reset, and persisted layout
+  - on-foot and spacecraft HUD layouts are separate saved profiles
+  - spacecraft HUD uses a dedicated flight reticle, flight instrumentation, weapon heat presentation, and ship abilities
+  - entering or exiting a spacecraft swaps profiles without carrying infantry-only widgets into flight
+status: recorded_implementation_started_acceptance_pending

@@ -1,0 +1,61 @@
+{
+  "authorization_id": "redmmo.m07.nwiro-restricted-probe.activation-ownership-source.v1",
+  "authorized_utc": "2026-07-25T11:30:09.216Z",
+  "baseline_lineage": {
+    "baseline_manifest_path": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.baseline.v1.json",
+    "baseline_manifest_sha256": "AACAC06301F470A270870DD48FF4085CCA44A3370E9CE504592F79D11EA7996A",
+    "candidate_manifest_path": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.candidate.v1.json",
+    "candidate_manifest_sha256": "089695420CDEA6C5A1C3E4FC8F392C6F0124900CD8D1D6EA660AF58A681423CE",
+    "delta_manifest_path": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.delta.v1.json",
+    "delta_manifest_sha256": "46353DB99034745DEFA7974B8A7A2491F23B8837D2BA3C97AEC6B4576183566C",
+    "record_set_sha256": "F1D91F85B8D7BE403D3AEFAA3348CE65B4CDC6EC52F1627CB141339C39FD1D4A",
+    "topology_sha256": "16DC68F9DDEFB5A957822EFB58A129BC11C18BFE98B8121B4E3010C1606EA3AD"
+  },
+  "build_authorized": false,
+  "candidate_root": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1",
+  "candidate_static_acceptance_authorized": false,
+  "compile_authorized": false,
+  "exact_initial_files": {
+    "NwiroIntegrationKit.uplugin": "D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E",
+    "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp": "34C1BB2E81A7FFF742D043EC8E983783C047BA9C5ABBA4BE9CDB4806AD7CD8D7",
+    "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h": "CB310B6A8857AD8824F5899C13C263FEE5EF5558F3F7BCE9E8EA0198B7272498",
+    "Source/NwiroIntegrationKit/Private/NwiroIntegrationKit.cpp": "0AF1C0174BB2AF09A9555D6E6EBB471E0F9C1FF43B3E1537A0EFA415C0AA2BCF",
+    "Source/NwiroIntegrationKit/Public/NwiroIK.h": "B6769D41894A85FAE704B565F46D6545BEDD5E77BD59756ECAC3665508912C74"
+  },
+  "exact_mutation_allowlist": [
+    "NwiroIntegrationKit.uplugin",
+    "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp",
+    "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h",
+    "Source/NwiroIntegrationKit/Private/NwiroIntegrationKit.cpp",
+    "Source/NwiroIntegrationKit/Public/NwiroIK.h"
+  ],
+  "file_addition_authorized": false,
+  "file_removal_authorized": false,
+  "install_authorized": false,
+  "mcp_initialize_authorized": false,
+  "mcp_tool_call_authorized": false,
+  "network_authorized": false,
+  "one_bounded_slice_authorized": true,
+  "parent_queue": {
+    "path": "D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json",
+    "sha256": "EC45DB0289F7F830F4A82FF42C774BDA23BBCDA0369FE7BC30664D3D39AC40DA"
+  },
+  "production_activation_authorized": false,
+  "project_asset_or_map_mutation_authorized": false,
+  "protected_inputs": {
+    "D:/RedMMOTitan/Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset": "412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562",
+    "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen.umap": "1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724",
+    "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap": "4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284",
+    "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap": "DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D"
+  },
+  "provider_call_authorized": false,
+  "rollback_root": "D:/RedMMOTitanWindowsData/Rollback/NwiroRestrictedProbeActivationOwnership_20260725_1130Z",
+  "runtime_acceptance_authorized": false,
+  "schema_version": 1,
+  "source_control_implementation_authorized": {
+    "default_off_activation": true,
+    "process_wide_single_owner": true,
+    "remaining_restricted_mode_controls": false
+  },
+  "unreal_launch_authorized": false
+}

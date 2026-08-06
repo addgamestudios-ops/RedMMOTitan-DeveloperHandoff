@@ -1,0 +1,175 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0003-ASTEROID-DEPLETION-SOURCE-IMPLEMENTATION-STATIC
+captured_at: 2026-07-22
+module: M00
+slice: DEF-0003-asteroid-depletion-source-implementation
+evidence_class: static
+result: source_implemented_awaiting_build_and_runtime_acceptance
+
+authorization_and_scope:
+  bounded_defect: DEF-0003
+  files_modified:
+    - Source/RedMMO/RedMineableAsteroid.h
+    - Source/RedMMO/RedMineableAsteroid.cpp
+    - Source/RedMMO/RedResourcePickup.h
+    - Source/RedMMO/RedResourcePickup.cpp
+    - Source/RedMMO/RedShipExplosionFX.h
+    - Source/RedMMO/RedShipExplosionFX.cpp
+    - Source/RedMMO/RedPlayerCharacter.h
+    - Source/RedMMO/RedPlayerCharacter.cpp
+    - Tools/tests/test_def0003_asteroid_depletion_contract.py
+  explicitly_preserved:
+    - Source/RedMMO/RedBolt.h
+    - Source/RedMMO/RedBolt.cpp
+    - all production maps, protected checkpoints, assets, vendor plugins, artist repositories, and unrelated dirty work
+
+resource_and_process_gate:
+  sampled_duration_seconds: 31
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [11.083, 11.484]
+  lowest_followup_free_physical_ram_gib: 10.171
+  free_commit_gib_range: [20.732, 21.126]
+  rtx_3080_free_vram_mib_range: [8943, 8954]
+  gpu_utilization_percent_range: [11, 13]
+  gpu_temperature_c: 43
+  final_free_commit_gib: 20.196
+  final_free_vram_mib: 8941
+  disk_free_gib:
+    C: 132.851
+    D: 1141.736
+  unreal_build_cook_package_overlap_count: 0
+  decision: >-
+    The physical-RAM gate was closed and declined below 11 GiB. No Unreal,
+    UnrealBuildTool, build, cook, package, shader compile, Titan runtime, or
+    real-GPU acceptance process was launched.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003Depletion_20260722_1241
+  manifest_sha256: 5314985F8E14A5ED2990774B916023F9AACE89210FD3F60EEA582C763497C0A5
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  exact_files: 8_of_8
+  note: >-
+    Every backup is byte-identical to the pre-edit working-tree identity,
+    including the user's pre-existing tracked changes and the untracked source
+    files. Repository HEAD was not substituted for dirty work.
+
+implemented_contract:
+  authority_and_exactly_once:
+    - mining remains authority-gated and clamps ore at exact zero
+    - only Active may enter Depleting, so simultaneous final hits cannot start a second transition
+    - the replicated atomic payload carries Active, Depleting, Depleted, server start time, duration, sequence, reward-spawned, and reward-granted state
+    - sequence-checked timers prevent stale callbacks from mutating a newer state
+  presentation_and_collision:
+    - collision shuts down immediately when authority enters Depleting
+    - the intact asteroid remains visible for a bounded default two-second presentation interval
+    - Depleted hides but does not destroy the asteroid, preserving a live-session late-join result
+    - clients without GameState keep collision off and retry until synchronized server time exists; client-local world time is never compared to the server timestamp
+  destruction_feedback:
+    - an asteroid-specific replicated explosion factory uses 15 km net cull and five-second actor life instead of global relevance
+    - explosion start time and a maximum 0.5-second replay window are initial-bunch replicated
+    - late joiners outside the replay window suppress fresh explosion, sound, light, and local Chaos debris creation
+    - Chaos debris remains client-local cosmetic physics and cannot damage or push players
+  reward_delivery:
+    - the mining player's server inventory is credited once when the ship or character resolves through the instigator chain
+    - Stone, Iron, and Crystal totals now replicate and RepNotify the HUD
+    - one finite-range replicated receipt actor carries type, amount, radial up, and collectible state
+    - a directly granted receipt is noncollectible and server-bounded to four seconds
+    - fallback collectible overlap is authority-only, phase-guarded by consumed state, and disables collision before credit and destruction
+  durability_boundary: >-
+    Depleted state is durable for the live replicated actor and live-session late
+    join. BeginPlay still initializes a fresh actor, so server-restart persistence
+    and an explicit respawn policy are not implemented.
+
+source_identity_after:
+  - path: Source/RedMMO/RedMineableAsteroid.h
+    sha256: 95AE8393B4544ACEE23E89506B055DDACA28204F346F5B3F7512A29C124B99EA
+  - path: Source/RedMMO/RedMineableAsteroid.cpp
+    sha256: 10CD6347521C8938A807FD30E5CF6951C3347120D0AB2A1D10FD86A9895192DE
+  - path: Source/RedMMO/RedResourcePickup.h
+    sha256: 7762C6C57FF52812EF360CC75FAA60B038A8E5FA2E255C7E9CB3A55475B4B193
+  - path: Source/RedMMO/RedResourcePickup.cpp
+    sha256: 8E180200D225E056E8B6E82DD43DA9644A2C4228781546B1159C04886AF0F240
+  - path: Source/RedMMO/RedShipExplosionFX.h
+    sha256: ABA5060EB49E14F34490E8FFC22F511C21730C4895FDD53F9F7941BC6BAD9F25
+  - path: Source/RedMMO/RedShipExplosionFX.cpp
+    sha256: DD399450AF609AC33AC5A55AB2936D457F2A2A5C021113E13224747915E818EF
+  - path: Source/RedMMO/RedPlayerCharacter.h
+    sha256: B127F5ED922BC39A16D46EE634B36579C37C57E8CE1DEB4158E6CAB6D9E7CBF6
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: 17EB2B688A0F411FFC10B23AAE31E690F3145B5A1B009E18881A98A6CB62C925
+
+verification:
+  focused_command: python -B -m unittest Tools.tests.test_def0003_asteroid_depletion_contract -v
+  focused_result: 10_of_10_passed
+  combined_command: >-
+    python -B -m unittest Tools.tests.test_def0003_asteroid_depletion_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract -v
+  combined_result: 16_of_16_passed
+  static_review:
+    - corrected the UE 5.8 include to GameFramework/GameStateBase.h
+    - no remaining obvious UHT or C++ blocker found by focused read-only review
+    - git diff --check passed for all tracked touched files
+    - trailing-whitespace scan passed for all untracked touched files
+  covered:
+    - pinned historical seven-hit sequence ending at exact zero ore
+    - authority and one-way transition guards
+    - replicated phase, timestamp, duration, sequence, and live-session late-join state
+    - immediate collision shutdown and bounded visible delay
+    - finite-relevancy destruction actor and stale replay suppression
+    - direct exactly-once reward grant plus replicated short receipt and fallback collection
+    - replicated inventory RepNotify to HUD
+    - exact eight-file rollback identities
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0003/target_currency.json
+  report_sha256: 6DEE4221BB6E3F535C5D8993AF3AAA988FF805FE33A3366DB9AA189629B2775A
+  input_count: 874
+  input_manifest_sha256: 45BBE3263C84B978CBF3FB27EBAC49451A232971E94454F9CCDD8DE83ECF71D4
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 33
+  titan_editor_newer_project_inputs: 21
+  build_proofs_supplied: 0
+
+canonical_sync:
+  module_queue_sha256: E507B0CECFB9911045E4AC35D24AB14954B2AF3A3745185277FA4489AF052DE5
+  current_state_snapshot_sha256: E507B0CECFB9911045E4AC35D24AB14954B2AF3A3745185277FA4489AF052DE5
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_embedded_manifest: 338_of_338_passed
+  protected_source_rasters: 135_of_135_passed
+
+remaining_acceptance:
+  - compile and link current TitanEditor and Titan targets under a safe resource gate
+  - real-GPU proof of readable destruction, sound, local debris, reward receipt, and two-second transition
+  - runtime collision shutdown with no invisible blocker
+  - exact one inventory increment and visible HUD update on listen and remote clients
+  - two-client phase, effect, receipt, and reward parity under simultaneous final hits
+  - late join during Depleting, inside and outside the FX replay window, and after Depleted
+  - decide and implement explicit server-restart persistence or respawn semantics if required by the MMO design
+
+claim_limit: >-
+  Static source and offline tests prove the intended contracts are present and
+  preserve an exact rollback. They do not prove compilation, linking, collision,
+  timing, rendering, audio, Chaos behavior, inventory/HUD delivery, replication,
+  late join, server persistence, packaging, or multiplayer. DEF-0003 is
+  implemented only at source level and remains open for build and runtime acceptance.
+
+next_safe_action: >-
+  When sustained resources permit, compile TitanEditor and Titan separately and
+  refresh exact target proofs. Then run a bounded real-GPU two-client DEF-0003
+  acceptance covering simultaneous final hits, collision, the two-second phase,
+  explosion/debris, one HUD reward, and late join inside/outside the replay
+  window. The project-wide next action remains M00's capped T02 sparkle captures
+  when its separate real-GPU gate passes; packaging remains deferred.

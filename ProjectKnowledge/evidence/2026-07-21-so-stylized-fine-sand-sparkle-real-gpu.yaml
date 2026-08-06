@@ -1,0 +1,114 @@
+schema_version: 1
+id: evidence.sand.so-stylized.red-mars.2026-07-21.gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T12:02:39+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+target: presentation.sand.so-stylized
+
+scope:
+  opt_in_flag: -RedSandSparkleT02
+  default_runtime_unchanged: true
+  vendor_assets_modified: false
+  production_map_saved: false
+  project_owned_assets:
+    - Content/RedMMO/Materials/DesertSparkleTest/MFI_DesertSandSparkle_T02.uasset
+    - Content/RedMMO/Materials/DesertSparkleTest/M_Planet_DesertSparkle_T02.uasset
+    - Content/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02.uasset
+
+action:
+  - inspect the purchased So Stylized desert demo function, material instance, scalar values, vector value, and static-switch branches
+  - build an isolated project-owned material-function instance and PlanetGen-compatible material path
+  - reconnect the vendor Attributes output to the PlanetGen MatLayerBlend top-material input after proving the automatic function replacement disconnected it
+  - verify the material graph has exactly one live vendor-function consumer and that the final material-instance overrides are effective
+  - run three capped real-GPU comparisons at the same close, translated, and oblique camera positions
+  - test vendor brightness 15 with spherical 3D projection, brightness 120 with spherical 3D projection, and brightness 120 with the vendor demo projection branch
+
+result:
+  editor_compile_gate: pass
+  asset_creation_and_save_gate: pass
+  graph_connection_gate: pass
+  effective_override_gate: pass
+  real_gpu_clean_exit_gate: pass
+  fine_grain_not_clumpy_gate: pass
+  restrained_gold_sparkle_gate: fail
+  module_status: incomplete_retry
+  observed:
+    - the isolated surface is visibly finer and less clumpy than the prior production presentation
+    - no readable gold sparkle appears in close or oblique frames at vendor brightness 15
+    - raising only isolated sparkle brightness to 120 produces no readable sparkle, ruling out ordinary intensity as the blocker
+    - switching only SparkleProject3D from true to the vendor demo's false branch also produces no readable sparkle
+    - runtime applied the opt-in T02 material and completed all three captures in each accepted diagnostic run
+    - both final runs exited normally without fatal, assertion, out-of-video-memory, GPU-crash, or device-removal markers
+  exact_blocker: >-
+    The purchased MF_DesertSand branch is live and its scalar, vector, and static
+    overrides are effective, but its sparkle contribution remains pixel-invisible
+    after PlanetGen material-attribute blending. The next isolated diagnostic must
+    prove the sparkle mask/output path with SimpleSparkle enabled and near-shrink
+    disabled before any additional artistic tuning.
+  claim_limit: >-
+    Fine-grain sand presentation is accepted only for the opt-in T02 diagnostic.
+    Gold sparkle is not accepted, the default production material is unchanged,
+    and no packaged Windows client was produced by this module.
+
+artifacts:
+  graph_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/graph_interface_audit_reconnected.log
+    sha256: C7E1EF01DEF9619CAF743EC4C22C96DE00A5B4E60718675C6061EEE4826BA5FB
+  override_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/effective_override_branch_audit_v4.log
+    sha256: 865D28BE08558406CB445E6460EC6F317A52F268E72F4489E0F72A527C9BC174
+  vendor_brightness_capture:
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_20260721_111900/runtime.log
+      sha256: 0547B2402D12DC6513C2FE6C2E253B8B7CE074D14636C57D523E6C693C57AE47
+    close_frame:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_20260721_111900/Captures/SandSparkle_T02_Close_A.png
+      sha256: 46FC5F1274E53972EAC750D54912580D27EA1B6C5E839E83F484E2FA890516CF
+    oblique_frame:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_20260721_111900/Captures/SandSparkle_T02_Oblique.png
+      sha256: 272A2259477CD03D67988FB230A7A8299E2278EB144E499ABC5A6B8D559A8B08
+  brightness_120_capture:
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_20260721_115551/runtime.log
+      sha256: 28C4A34EC3E131D19B0413D8EA4D1B4404CBF87515D442D22CD1DC8EE4F65856
+    close_frame:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_20260721_115551/Captures/SandSparkle_T02_Close_A.png
+      sha256: 4E1ABB39CB7126A42C8D7E15113AA586F2BF68B3F1DED1165E3A754CA2F1900B
+    resource_summary:
+      peak_working_set_mb: 4362.9
+      peak_total_vram_used_mb: 3376
+  vendor_projection_capture:
+    build_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/build_editor_project3d_off.log
+      sha256: 3BFB4792B2F8F9E716CAD97436BAFC0B525C20AD0C7B9F8C93B6BDBB8BB5E54D
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_Project3DOff_20260721_120155/runtime.log
+      sha256: 6B19339C347580E246E6843DEC913E4EB6C3DA5A8FCF4B134231839D06C442CD
+    close_frame:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_Project3DOff_20260721_120155/Captures/SandSparkle_T02_Close_A.png
+      sha256: 6749A5C6D171DCEB5CADCDD1FCD0274FC90B5D4BCE1063ACF208DB801263F9CB
+    oblique_frame:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleT02/RealGPU_Project3DOff_20260721_120155/Captures/SandSparkle_T02_Oblique.png
+      sha256: 736F1DCCFEA3D4983DF659894C030A24F4580E256684B88556FFACDE1BFDAABC
+    resource_summary:
+      peak_working_set_mb: 4242.1
+      peak_total_vram_used_mb: 3395
+
+protected_checkpoint:
+  map_path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  package_marker_path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+  package_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  modified: false
+
+machine_safety_audit:
+  post_exit_unreal_process_count: 0
+  post_exit_free_ram_gb: 12.21
+  post_exit_vram_used_mb: 2257
+  post_exit_free_vram_mb: 7797
+
+next_safe_action: >-
+  Advance to the capped Windows client module. Revisit sparkle later with one
+  isolated SimpleSparkle mask-path proof; do not keep increasing brightness.

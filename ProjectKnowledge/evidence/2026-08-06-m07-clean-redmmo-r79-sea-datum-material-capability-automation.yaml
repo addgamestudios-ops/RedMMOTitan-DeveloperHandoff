@@ -1,0 +1,105 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r79-sea-datum-material-capability.2026-08-06
+captured_utc: "2026-08-06T01:47:19Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r79-read-only-sea-datum-material-capability-audit
+evidence_class: automation
+result: capability_pass_project_owned_adapter_required
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib_before: 52.65
+  commit_headroom_gib_before: 55.05
+  gpu_free_vram_mib_before: 9123
+  free_d_drive_gib_before: 767.27
+  unreal_or_build_processes_before: 0
+  desktop_control: false
+
+active_profile:
+  profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  seed: 1337
+  generation: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+  surface: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_BiomePresentation_R73
+  water: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_OasisWater_R78
+  profile_sha256: AA3B15F4538145C6B51B589D6B8F3E40899ACC136F573101E86C5790783E22C2
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+
+installed_ppg_capability:
+  plugin_root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  deterministic_sea_datum_source: BiomeMap top-half alpha
+  encoding: alpha equals 1.0 at or above sea; below sea alpha equals clamp(finalElevation,-1,0)+1
+  surface_runtime_binding: MaterialInst.SetTextureParameterValue(BiomeMap, BiomeMap)
+  water_runtime_binding: WaterMaterialInst.SetTextureParameterValue(HeightMap, BiomeMap)
+  native_water_gate: ChunkMinHeight below zero with bGenerateWater
+  bound_to_each_generated_surface_mid: true
+  vendor_edit_required: false
+  source_proof:
+    generation_utilities:
+      path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Shaders/GenerationUtilities.usf
+      sha256: 95A81B360982B54EAA48DC0E1828B2915DC03142BF5BD5284C3BE4061AE87171
+      relevant_lines: [768, 769, 770, 773, 774, 775, 779, 780, 781]
+    chunk_object:
+      path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+      sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+      relevant_lines: [2174, 2318, 2356, 2493]
+    biome_map_sampler:
+      path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/MaterialExpressionPlanetBiomeMapSample.cpp
+      sha256: 126DAE8111F7B1BC72654DF858E984393650DF87EFCC60B34199437008345FED
+      relevant_lines: [16, 22, 23, 124, 125, 156, 157, 160]
+
+surface_graph_contract:
+  parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_BiomePresentation_R73
+  parent_sha256: 8D33435C91E0FE4813D5077991EDC6990AD5257395F67D6F5FDACBCE4F260992
+  instance_sha256: 17C83A43FCB0AB9B22AC7EF499D53A8B7B2435B3F709CA585374E64F48371E91
+  biome_map_sampler_count: 1
+  biome_material_output_count: 1
+  public_sampler_outputs: [Biome IDs, Strengths]
+  alpha_or_depth_output_exposed: false
+  current_ocean_alpha_driver: R73_OceanAquaBlend scalar parameter
+  current_ocean_sea_datum_driven: false
+  named_style_candidate: BeachLayerContrast
+  candidate_classification: >-
+    BeachLayerContrast is a role-presentation control, not a sea-datum input.
+    The current public sampler has no alpha/depth output through which it could
+    receive the deterministic underwater elevation.
+
+safe_next_route:
+  action: >-
+    Create one rollback-backed project-owned successor of R73 with a
+    triangle-consistent BiomeMap-alpha sampler and derive dry, wet and
+    submerged sand masks from that exact runtime-bound datum.
+  forbidden: [manual water plane, manual spline, terrain move, seed change, topology change, foliage placement, palm reintroduction, vendor edit]
+  next_evidence_gate: fresh exact-coast D3D12 dry-wet-submerged A/B plus reload and MapCheck
+
+execution:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_sea_datum_r79.py
+  driver_sha256: 120742611751873A16EBA02B8566DE36EA2EF044E7818D260C289F08DE70184F
+  final_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeaDatum_R79_20260806T0147Z/result.json
+  final_result_sha256: 2780C2D5A1495DD4E86B5DB3F0493F778F959E4F78A76B05271566C35038FDA9
+  final_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeaDatum_R79_20260806T0147Z/R79_audit.log
+  final_log_sha256: 86B9D08821A4C38F2D95E864CAF73122AA787CCDB12D95FD2AB670F4C0A45C08
+  renderer: D3D12
+  map: /Engine/Maps/Entry
+  dirty_packages_before_after: 0
+  generation_called: false
+  map_saved: false
+  providers_closed: [11111, 5353, 8000, 8765]
+  preserved_failed_diagnostics:
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeaDatum_R79_20260806T0121Z
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeaDatum_R79_20260806T0140Z
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1SeaDatum_R79_20260806T0144Z
+
+postflight:
+  free_physical_ram_gib_after: 52.60
+  commit_headroom_gib_after: 55.11
+  gpu_free_vram_mib_after: 9171
+  free_d_drive_gib_after: 767.27
+  unreal_or_build_processes_after: 0
+
+claim_limit: >-
+  R79 is read-only D3D12 Entry reflection plus installed-source proof. It does
+  not implement or visually accept shoreline bands, smooth terrain, prove
+  hands-on controls, create a standalone build, or prove replication or
+  multiplayer.

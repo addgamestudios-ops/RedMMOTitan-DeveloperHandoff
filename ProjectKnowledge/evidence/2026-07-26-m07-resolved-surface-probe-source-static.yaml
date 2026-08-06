@@ -1,0 +1,126 @@
+schema_version: 1
+id: evidence.m07.resolved-surface-probe-source-static.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T17:24:37Z"
+evidence_class: static
+result: passed_source_ready_unbuilt
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_modified: false
+  scratch_source_modified: true
+  scratch_content_modified: false
+  map_saved: false
+  pie_entered: false
+  providers_enabled: false
+  editor_launched: false
+  existing_editor_reused: false
+
+motivation:
+  - all 17 current staged Tropical actors are already proven to be in authored ocean about 116.1 m below sea datum
+  - the corrected native exponential-map macro scan does not authorize relocation without final resolved-surface samples
+  - the user-supplied runtime captures fail visual acceptance with silhouettes, clipped blue presentation, sparse dressing, and a stair-stepped planet lighting boundary
+
+user_visual_evidence:
+  - path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-6b633970-f769-4732-ad57-6e42ffc19065.png
+    bytes: 3922826
+    sha256: 932301E03AD64D129D92A634F06013997CDEB8B9C6E205CEC403FD6A191BA42D
+    observation: stair-stepped dark/light boundary and visibly tiny sparse Tropical cluster
+  - path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-75f94ee0-7918-4f88-a999-4eb28a210b63.png
+    bytes: 2956688
+    sha256: D4C6C8D8F8C9965E383F34553772B8883E99E825BD64106D7EFB9AF584D388E0
+    observation: standalone PIE pawn, terrain, and props render as silhouettes against clipped blue presentation
+  - path: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-5a51e0d1-3c0e-459e-9610-474b253fce98.png
+    bytes: 2522836
+    sha256: 4F4A14C76815A24B6E729018E75B6FD35DA202C2DDB53B29B3598DE970C30564
+    observation: wider standalone PIE view confirms the same silhouette failure and sparse four-mesh dressing
+
+scratch_source:
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/RedPlanetResolvedSurfaceProbeLibrary.h
+    bytes: 1386
+    sha256: 05053AA8B1924F024752AC68E51A7462B44AD4FA84909D3979CB30A6DE5C66CF
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Source/RedMMO/RedPlanetResolvedSurfaceProbeLibrary.cpp
+    bytes: 6645
+    sha256: 07E36B1ACAC63500EAEFDBFE08F8EB2AD7CDAEF8747C9CC049863453B69C6D58
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_resolved_surface_probe_contract.py
+    bytes: 4141
+    sha256: 3D0323F27AC156F965A938D313219EBE2834B14CD3E4EEA278AA49AD30EEEDB7
+
+implemented_contract:
+  - exposes one read-only Blueprint/Python-callable point sample backed by ACLMPlanet::SampleResolvedSurface
+  - binds the exact live world package, exact PlanetGen object path, and one unique planet center within one centimeter
+  - rejects missing context, empty identities, non-finite input, invalid planet state, unavailable resolved state, and non-finite or nonpositive derived radii
+  - returns compact JSON containing query direction, exact resolved point and height, sea and water radii, and clearance above water
+  - reports surface_above_water only; it does not misrepresent that geometric result as an authored land-mask sample
+  - contains no actor/component/package mutation, map save, terrain generation, or persistence call
+
+verification:
+  offline_contract_tests:
+    passed: 7
+    failed: 0
+  python_compile: passed
+  independent_reviews:
+    - initial review found zero P0, two P1, and three P2 findings
+    - all source P1/P2 findings were corrected
+    - final exact-hash review found zero remaining P0 through P2 source blocker
+  compile_or_uht: not_run_existing_editor_open
+  unreal_python_reflection: not_run_unbuilt
+  runtime_json_schema: not_run_unbuilt
+  dirty_package_before_after: not_run_unbuilt
+  resolved_target_sample: not_run_unbuilt
+
+resource_and_process_boundary:
+  total_physical_ram_gib: 63.87
+  minimum_observed_free_physical_ram_gib: 39.51
+  commit_headroom_gib: 52.30
+  gpu: NVIDIA GeForce RTX 3080
+  gpu_vram_free_mib: 5548
+  d_free_gib: 1038.19
+  existing_editor_pid: 2000
+  editor_policy: >-
+    The one existing scratch editor was not terminated, built over, automated,
+    or overlapped because it remained open and might be in use.
+
+scratch_integrity:
+  map:
+    bytes: 107056719
+    sha256_before: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+    sha256_after: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+
+acceptance:
+  source_ready: true
+  runtime_probe_ready: false
+  relocation_authorized: false
+  cluster_relocated: false
+  visual_fit: false
+  shading_fixed: false
+  full_tropical_environment_present: false
+  production_integration: false
+
+next_safe_action: >-
+  After the existing scratch editor is no longer in use, close only that exact
+  editor, build the scratch TitanEditor target, reopen one provider-off editor,
+  and run an actual Unreal Python reflection call over the corrected target's
+  complete 17-actor and core-ring footprint. Parse success and error JSON and
+  prove zero dirty packages before and after. Do not move, snap, save, or render
+  a new visual pass unless every required sample clears the reviewed water and
+  flattening bounds.
+
+claim_limit: >-
+  This is static, scratch-only source and test evidence. It does not establish
+  compilation, UHT/reflection exposure, live resolved-surface values, a safe dry
+  relocation, corrected lighting, dense biome dressing, gameplay, water,
+  shoreline, collision, performance, visual acceptance, or production use.

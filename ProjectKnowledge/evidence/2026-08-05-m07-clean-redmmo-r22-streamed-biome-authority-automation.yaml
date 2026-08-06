@@ -1,0 +1,108 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r22-streamed-biome-authority.2026-08-05
+captured_utc: "2026-08-05T11:11:41Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r22-no-save-streamed-generated-chunk-biome-authority
+evidence_class: automation
+result: pass_above_sea_foliage_eligible_seeded_direction_found_no_save
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  seed_changed: false
+  map_saved: false
+  content_saved: false
+  player_start_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_called: false
+  transient_view_pawn: BP_RedTrooperPlayer_A01_C
+  editor_process_count_after: 0
+
+installed_ppg_authority:
+  chunk_source:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+    sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+    finding: each generated chunk creates one PF_FloatRGBA BiomeMap whose top half stores material indices plus elevation and whose bottom half stores strengths
+  shader_source:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Shaders/GenerationUtilities.usf
+    sha256: 95A81B360982B54EAA48DC0E1828B2915DC03142BF5BD5284C3BE4061AE87171
+    finding: top-half alpha is clamp(finalElevation, -1, 0) plus 1, so 1.0 is at or above sea level and values below 1.0 encode underwater depth
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/probe_redmmo_profile_v1_streamed_biome_authority_r22.py
+    sha256: 07D124C03F44819C8192474A1252FE3AF7CEEC01465207149B294009BB50C088
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1BiomeAuthority_R22_20260805T1110Z/result.json
+    sha256: 1A92C984FA0F3826594B3CDA71C034B0B790DEDCF6B7F9456AA86D12D8AB06BB
+  view_altitude_cm: 100000.0
+  deterministic_fibonacci_directions_available: 32
+  directions_evaluated_before_positive_authority: 6
+  unique_collision_components_seen: 613
+  above_sea_foliage_eligible_candidates: 146
+  terminal_status: PASS_R22_ABOVE_SEA_FOLIAGE_AUTHORITY_DIRECTION_FOUND_NO_SAVE
+
+selected_seeded_direction:
+  direction: [0.6373856079770922, 0.6562177003101466, -0.4038785913406841]
+  component_world_location: [191215682.39312765, 196865310.09304398, -421163577.4022052]
+  component_path: /Game/RedMMO/Maps/UEDPIE_0_RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.PlanetSpawnerBP_C_1.StaticMeshComponent_2920
+  sea_authority_alpha: 1.0
+  at_or_above_sea: true
+  dominant_biome_index: 0
+  dominant_biome_name: Craters
+  dominant_biome_strength: 1.0
+  foliage_data: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+  recursion_level: 3
+  collision_fit_proven: false
+  slope_proven: false
+
+interpretation: >-
+  R22 replaces the failed exact-radial trace family with live per-chunk PPG
+  authority. After six deterministic view directions it found 146 current
+  collision-enabled generated chunks whose own BiomeMap reports at/above sea
+  and a foliage-enabled dominant biome at at least 90 percent strength. The
+  best ranked chunk is 100-percent Craters and therefore has the approved
+  project-owned foliage profile. This is enough to select one local direction
+  for a materially narrower collision-fitting gate, but it is not yet a safe
+  PlayerStart because exact collision contact, surface normal and clearance are
+  still unproven.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1BiomeAuthority_R22_20260805T1110Z
+  manifest_sha256: D6F951B0FE993CD162A28A051AC1C8E587191B1C74AE902DE7D0D57FF585151B
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves a seeded above-sea foliage-eligible generated-chunk direction
+  through live PPG biome authority only. It does not establish collision fit,
+  slope, a valid land spawn, visible grass, surface day/night, moon, standalone,
+  replication, multiplayer, or player acceptance.
+
+next_safe_action: >-
+  On the next bounded wake, stream only the selected R22 direction and fit
+  native collision locally against the selected generated component or its
+  immediate neighbors. Require exact surface contact, outward normal, runnable
+  slope and capsule clearance before moving PlayerStart plus its attached label.
+  Preserve seed 1337 and do not repeat the 32-direction scan, add a floor,
+  disable water, globally carpet Ocean or change topology.

@@ -1,0 +1,87 @@
+schema_version: 1
+id: evidence.runtime-asset-reference-repair-compile-reconciliation.2026-07-21
+module_id: M09
+captured_local: "2026-07-21T16:04:29+03:00"
+platform: Windows
+evidence_class: build
+result: pass
+
+reconciliation: >-
+  The earlier guarded wrapper record ended before compilation completed, but
+  UnrealBuildTool's own log continued and records a successful single-action
+  TitanEditor Win64 Development build. This evidence supplements rather than
+  rewrites the original timeout observation.
+
+build:
+  command: >-
+    D:/UE_5.8/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll
+    TitanEditor Win64 Development -Project=D:/RedMMOTitan/Titan.uproject
+    -WaitMutex -NoHotReloadFromIDE -NoUBA -MaxParallelActions=1
+  action_count: 6
+  compiled_sources:
+    - Source/RedMMO/RedGameMode.cpp
+    - Source/RedMMO/RedPlayerCharacter.cpp
+    - Source/RedMMO/RedResourcePickup.cpp
+  linked_target: Binaries/Win64/UnrealEditor-RedMMO.dll
+  metadata_target: Binaries/Win64/TitanEditor.target
+  result_line: "Result: Succeeded"
+  total_execution_seconds: 327.95
+  error_warning_or_fatal_marker_count: 0
+
+source_hashes:
+  - path: Source/RedMMO/RedGameMode.cpp
+    sha256: 108DB0E864A2444A0EEB3A8E47FD15E331A004937F5BFFD07BE4FF79EB92BD7B
+    matches_static_repair_evidence: true
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: D9DE72F18C602002927A4D10496141BC0B25CD273B8A018CA21A6F399E5855F9
+    matches_static_repair_evidence: true
+  - path: Source/RedMMO/RedResourcePickup.cpp
+    sha256: 84EC69D9843249CC5358295E431A0C9859ABA7ECBCDA43A4C47B6BF3CD61522B
+    matches_static_repair_evidence: true
+
+artifacts:
+  preserved_ubt_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_RuntimeReferenceCompile_20260721/UnrealBuildTool_Log.txt
+    sha256: 45D3A21746C6D5F77B3DAC2FD13520275295F02DFC1B9F2B1E3128F489EB5040
+  objects:
+    - path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedGameMode.cpp.obj
+      sha256: BAFC08F4F3AE7373321B214674D7DB6EAC00E4672A5B042E7F6912270A3ADEEB
+      last_write_utc: 2026-07-21T11:02:03.8046297Z
+    - path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedPlayerCharacter.cpp.obj
+      sha256: 6AEA9F3F0FADC9C6677765C28AC8F52E565DDEC34A0A4BD7899A8B6472B160A9
+      last_write_utc: 2026-07-21T11:02:41.9547929Z
+    - path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedResourcePickup.cpp.obj
+      sha256: B53435449C3942CBEE6BE60F142D6B32177F30809F430857EAE95C69FAF7C476
+      last_write_utc: 2026-07-21T11:02:45.8523207Z
+  editor_module:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: B95979D3EC9A1ABE50675DFCDA693025A721BB4505BFF326AFB7DE7C0DD55DBB
+    last_write_utc: 2026-07-21T11:02:55.4043833Z
+  target_metadata:
+    path: Binaries/Win64/TitanEditor.target
+    sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+    last_write_utc: 2026-07-21T11:02:56.6364985Z
+
+freshness_check:
+  relevant_cpp_header_build_rule_plugin_project_or_config_inputs_newer_than_target: 0
+
+protected_hashes:
+  map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    matches_canonical: true
+  foundation_ready_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    matches_canonical: true
+
+claim_limit: >-
+  This proves only that the current runtime-reference repair source compiled and
+  linked successfully for TitanEditor. It does not prove UAT cook, stage,
+  IoStore archive, packaged launch, exact HUD presence, visuals, gameplay,
+  Steam transport, or multiplayer.
+
+next_safe_action: >-
+  Do not rebuild unchanged source. Run the guarded production-only fresh Zen
+  cook, stage, IoStore, and archive only after sustained free physical RAM has
+  a material safety margin, then run the bounded packaged and multiplayer gates.

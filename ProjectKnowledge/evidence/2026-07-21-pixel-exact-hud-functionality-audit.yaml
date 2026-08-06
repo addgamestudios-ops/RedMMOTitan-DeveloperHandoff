@@ -1,0 +1,73 @@
+schema_version: 1
+id: evidence.hud.pixel-exact-functionality.2026-07-21.static-01
+captured_local: "2026-07-21"
+evidence_class: static
+scope: supplied_pixel_exact_hud_interactivity_and_live_data
+
+result:
+  exact_art_visual_state: accepted_by_prior_real_gpu_gate
+  exact_art_interactivity_gate: fail
+  exact_art_live_data_gate: fail
+  exact_art_per_element_customization_gate: fail
+  separate_pause_menu_native_bindings: present_not_pixel_exact
+
+findings:
+  - >-
+    RedHUD BeginPlay explicitly selects SetLiveDataMode(false), so the default
+    supplied-art presentation is ExactArt rather than the live component mode.
+  - >-
+    ExactArt renders one supplied T_REDHUD_FullComposite_Exact image and collapses
+    every component sprite and live widget. The composite therefore retains its
+    baked sample values rather than receiving live health, weapon, ability,
+    minimap, party, quest, heat, or cooldown data.
+  - >-
+    RedHUDRuntime contains no UButton, OnClicked, mouse-handler, or hit-region
+    implementation. The exact-art widget is set HitTestInvisible, so painted
+    inventory, skill, settings, utility, and weapon regions are not clickable.
+  - >-
+    Live snapshot setters exist inside RedHUDRuntime, but no RedMMO gameplay code
+    calls ApplySnapshot, SetPlayerVitals, SetWeaponState, SetAbilityState, or
+    SetLiveDataMode(true).
+  - >-
+    Escape, multiplayer, inventory, skills/loadout, settings, and HUD layout
+    controls exist in a separate native pause-menu implementation. They do not
+    use the supplied pixel-exact HUD art and do not make the painted exact-art
+    regions interactive.
+
+source_evidence:
+  - path: D:/RedMMOTitan/Source/RedMMO/RedHUD.cpp
+    lines: 15-46
+    proves: default exact-art mode, legacy HUD collapse, and Escape/F8 bindings
+  - path: D:/RedMMOTitan/Source/RedMMO/RedHUD.cpp
+    lines: 65-70
+    proves: exact widget is HitTestInvisible when visible
+  - path: D:/RedMMOTitan/Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    lines: 184-187
+    proves: one full-composite texture is the exact reference overlay
+  - path: D:/RedMMOTitan/Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    lines: 413-489
+    proves: exact mode collapses component art and all live widgets
+  - path: D:/RedMMOTitan/Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    lines: 492-509
+    proves: exact composite remains fully opaque and untouched
+  - path: D:/RedMMOTitan/Source/RedMMO/RedPauseMenuWidget.cpp
+    lines: 280-326
+    proves: separate native pause navigation has bound handlers
+  - path: D:/RedMMOTitan/Source/RedMMO/RedPauseMenuWidget.cpp
+    lines: 431-527
+    proves: separate settings and HUD-customization buttons have handlers
+
+claim_limit: >-
+  This is a source audit, not a compile or real-GPU interaction test. It proves
+  the current exact-art architecture is a static, hit-test-invisible composite
+  and identifies the separate native menu bindings. It does not prove that the
+  separate pause menu works in the current uncompiled source or that any future
+  componentized pixel-exact HUD will match the supplied art.
+
+acceptance_needed:
+  - rebuild the supplied HUD as exact per-element art, not a single interactive-looking bitmap
+  - bind live gameplay data for vitals, heat, weapons, abilities, party, quest, and minimap
+  - add real hit regions and handlers for every control represented as interactive
+  - preserve the supplied pixels at the target reference resolution
+  - support independent move, scale, opacity, visibility, lock, and persistence per HUD element
+  - run source binding tests, a clean compile, and a real-GPU mouse/controller interaction pass

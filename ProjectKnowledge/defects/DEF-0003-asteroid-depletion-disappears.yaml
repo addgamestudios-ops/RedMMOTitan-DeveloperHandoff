@@ -1,0 +1,327 @@
+schema_version: 1
+id: DEF-0003
+title: Mineable asteroid disappears instantly at zero ore
+status: implemented_awaiting_runtime_acceptance
+severity: major
+found_utc: "2026-07-21"
+owner_domain: space_mining_feedback
+
+affected:
+  map_asset_path: /Game/RedMMO/Maps/RedPlanetGen
+  runtime_class: ARedMineableAsteroid
+
+observed: >-
+  Repeated ship fire reduced a large asteroid to zero ore, after which the
+  asteroid vanished immediately with no destruction transition or mining reward feedback.
+
+expected: >-
+  Depletion should enter a replicated destruction state with readable fracture
+  or explosion VFX, debris or resource pickup feedback, collision shutdown, and
+  a bounded cleanup delay rather than an unexplained instant disappearance.
+
+impact:
+  blocked_claims: [asteroid_mining_feedback_accepted, asteroid_depletion_replication_accepted]
+
+evidence:
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceRuntime_20260721_040045/runtime.log
+  playtest: ProjectKnowledge/playtests/2026-07-21-space-flight-asteroid-landing.yaml
+  static_source_contract: ProjectKnowledge/evidence/2026-07-22-def-0003-asteroid-depletion-source-contract-static.yaml
+  static_source_implementation: ProjectKnowledge/evidence/2026-07-22-def-0003-asteroid-depletion-source-implementation-static.yaml
+  sequence_uht_repair_compile: ProjectKnowledge/evidence/2026-07-23-def-0003-sequence-uht-repair-compile.yaml
+  current_target_links: ProjectKnowledge/evidence/2026-07-23-m05-registry-build-nullrhi.yaml
+  one_client_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-depletion-real-gpu.yaml
+  two_client_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-two-client-pie-real-gpu.yaml
+  actual_field_member_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-member-real-gpu.yaml
+  actual_field_two_client_cull_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-cull-real-gpu.yaml
+  actual_field_two_client_depletion_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-depletion-real-gpu.yaml
+  actual_field_two_client_destruction_pixels_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-destruction-pixels-real-gpu.yaml
+  actual_field_late_join_multiplayer_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-late-join-multiplayer.yaml
+  destruction_reward_audio_automation_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-destruction-reward-audio-automation.yaml
+  actual_field_client_projectile_rpc_automation_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-client-projectile-rpc-automation.yaml
+  current_transient_mining_receipt_real_gpu_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0004-mining-receipt-real-gpu.yaml
+  remote_owner_transient_mining_receipt_multiplayer_acceptance: ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+
+source_implementation_static:
+  verified_safeguards:
+    - mining mutation is authority-gated
+    - extracted ore is bounded by remaining ore
+    - OreRemaining is replicated and forces a net update after mining
+    - Active, Depleting, and Depleted plus timestamp, duration, sequence, and reward state replicate as one payload
+    - zero ore disables collision immediately while the intact mesh remains visible for a bounded default two seconds
+    - sequence guards make the authority transition and reward handoff one-way and idempotent
+    - after the intact transition, a finite-relevancy replicated explosion actor creates local cosmetic Chaos debris and suppresses stale late-join replay
+    - generated field members receive an authority-initialized immutable replicated stable ID before FinishSpawningActor
+    - direct server inventory credit replicates the resource totals and refreshes the HUD
+    - a short noncollectible replicated receipt or authority-collected fallback supplies reward feedback
+    - the direct-credit receipt routes one installed cue only to the locally controlled mining instigator
+    - each replicated explosion actor routes one installed spatial destruction cue on both peers
+    - the asteroid is retained hidden after Depleted for live-session late join
+    - a Depleted-only relevancy fallback retains that hidden collision-disabled terminal proxy within the existing 50 km network distance without making it globally relevant
+  exact_rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003Depletion_20260722_1241
+  offline_contract_tests_passed: 29
+  status_reason: >-
+    The missing source contracts are implemented and statically guarded. Both
+    current targets link, and one bounded production-map D3D12 run now accepts
+    the authoritative local zero-ore transition, immediate collision shutdown,
+    readable intact delay, post-delay explosion and debris, exactly-once local
+    reward, and visible replacement-HUD tally. A separate rendered two-client
+    PIE run accepts same-frame final-hit idempotence, exactly one remote reward,
+    remote phase, collision, receipt, inventory, and replacement-HUD parity,
+    plus replicated explosion and debris runtime state. A third rendered
+    standalone slice authenticates and depletes one actual generated
+    deep-space-field member by immutable stable ID while preserving its
+    twenty-three peers and delivering the visible reward tally. A fourth
+    rendered listen-server plus Client 1 slice proves reciprocal near/far
+    presentation behavior for that actual member without overriding the
+    production cutoff. A fifth rendered listen-server plus Client 1 slice
+    depletes that stable-ID member, awards the remote player exactly once,
+    matches replicated phase, receipt, inventory, and full replacement-HUD
+    text, and preserves the other twenty-three field members. A sixth rendered
+    pass directly reads Client 1 viewport pixels and accepts the remote
+    red-white flash, hot and gray debris pieces, debris motion, and flash decay
+    while preserving those replication and reward gates. A seventh rendered
+    multiplayer slice first reproduces the hidden Depleted proxy late-join
+    failure, then accepts four true-late-client timings after a narrow
+    Depleted-only 50 km relevancy repair. An eighth rendered two-client
+    automation slice proves exact installed reward and explosion cue routing,
+    separate unmuted PIE audio devices, and non-silent Client 1 master output
+    during the same passing reward, HUD, flash, and debris gates. A ninth
+    rendered two-client automation slice proves an owning Client 1 autonomous
+    proxy invoked the production reliable NetServer ServerFire RPC, authority
+    delivered a replicated ARedBolt, and actual member 23 replicated exactly
+    from 6000 to 5820 ore on both peers after its 180-ore hit. A tenth rendered
+    two-client slice through the official UE 5.8 MCP accepts the current transient presentation:
+    only the remote mining owner receives exact IRON +6, the host receives no
+    credit or receipt, replicated inventory matches, the permanent tally stays
+    absent, and the receipt expires while the unit-scale non-voxel target stays
+    at 53.4 km and all twenty-four production members remain pristine. DEF-0003 remains
+    open for simultaneous client-originated final-hit arrival if required and
+    explicit restart persistence or respawn semantics.
+  durability_limit: >-
+    Depleted is durable for the live actor session only. BeginPlay initializes a
+    fresh actor, so server-restart persistence and an explicit respawn policy are
+    not implemented or claimed.
+
+current_hud_reconciliation:
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0004-mining-receipt-real-gpu.yaml
+  remote_owner_evidence: ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+  verified:
+    - authoritative Stone, Iron, and Crystal totals remain replicated and cached for a future inventory consumer
+    - the permanent combat-HUD resource tally is removed
+    - positive mining credit presents one owner-only themed receipt with the resource name and amount
+    - a local D3D12 run accepted IRON +6 at reward and accepted its disappearance after 3.25 seconds
+    - an official-MCP two-client D3D12 run accepted exact remote-owner IRON +6, no host receipt, replicated inventory parity, and receipt expiry
+  historical_evidence_note: >-
+    Earlier DEF-0003 records that show a persistent full Stone, Iron, and
+    Crystal tally authenticate the historical depletion path but no longer
+    describe the current HUD presentation.
+  pending:
+    - a quantity-bearing inventory screen
+
+audit_presentation_defect:
+  id: DEF-0008
+  evidence: ProjectKnowledge/defects/DEF-0008-audit-asteroid-atmospheric-placement.yaml
+  accepted_evidence: ProjectKnowledge/evidence/2026-07-23-def-0008-deep-space-harness-real-gpu.yaml
+  status: resolved
+  finding: >-
+    The prior one-client 120-metre atmospheric spawn is removed. Current
+    one-client and two-client acceptance targets use a unit-scale
+    SM_Mining_Asteroid_Med static mesh at the 53.4 km shell midpoint with the
+    production twenty-kilometre render cull; all twenty-four production members
+    remain in their guarded 38.4 to 68.4 km altitude shell.
+
+build_verification:
+  verified:
+    - the inner uint32 Sequence remains reflected, unsigned, and hidden from Blueprint
+    - the outer replicated depletion state remains Blueprint-readable
+    - UE 5.8 UHT passes for TitanEditor and Titan
+    - RedMineableAsteroid.cpp compiles in both target environments
+    - current TitanEditor and Titan Win64 Development targets compile and link
+    - twenty-nine focused depletion contracts pass, including deep-space remote-receipt presentation, stable member identity, atomic field spawn, actual-field two-client depletion, rendered destruction-pixel, true late-join, Depleted relevancy, and audio-routing gates
+  evidence:
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-sequence-uht-repair-compile.yaml
+    - ProjectKnowledge/evidence/2026-07-23-m05-registry-build-nullrhi.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-depletion-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-two-client-pie-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-member-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-cull-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-depletion-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-destruction-pixels-real-gpu.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-late-join-multiplayer.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-destruction-reward-audio-automation.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-client-projectile-rpc-automation.yaml
+    - ProjectKnowledge/evidence/2026-07-23-def-0004-remote-owner-mining-receipt-multiplayer.yaml
+  claim_limit: >-
+    Linked targets are build evidence only. The separate D3D12 record supplies
+    bounded one-client, local two-client depletion, actual-field-member
+    depletion, actual-field reciprocal culling, actual-field two-client
+    depletion/reward/HUD parity, and actual-field two-client visible flash,
+    debris, debris-motion, bounded live-session late-join, exact audio-component
+    routing, and non-silent Client 1 mixer-output gates. They do not prove
+    package, Steam transport, two accounts, persistence, controlled travel,
+    naturally acquired mining range, physical input, simultaneous
+    client-originated final-hit wire arrival, independent listening, perceived
+    audio mix quality, warning-free final visual polish, performance capacity,
+    or broad multiplayer acceptance.
+
+one_client_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-depletion-real-gpu.yaml
+  verified:
+    - the transient audit asteroid reached exactly zero ore through the production RegisterMiningHit path
+    - collision disabled immediately and an exact trace found no invisible blocker
+    - the intact asteroid remained readable during the bounded two-second transition
+    - the intact mesh hid before one owned explosion and nine simulated debris pieces appeared
+    - Iron changed from zero to six exactly once and the visible replacement HUD read STONE 0, IRON 6, CRYSTAL 0
+    - six UI-inclusive frames were visually inspected and the one Unreal process exited cleanly
+  limits:
+    - the bounded run used a transient audit asteroid rather than one of the twenty-four spawned deep-space-field members
+    - no remote client, simultaneous final hit, late join, persistence, audio capture, package, Steam, or multiplayer gate ran
+
+two_client_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-two-client-pie-real-gpu.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - exactly one listen world and one remote-client world ran in one D3D12 RTX 3080 UnrealEditor process
+    - direct authority calls used the remote-server pawn and host pawn as competing instigators on one server frame; the remote first hit extracted eighteen and the host second hit extracted zero
+    - aggregate Iron increased by six exactly once, assigned only to the remote first hitter
+    - Active, Depleting, and Depleted phase, collision, hidden state, and sequence matched on authority and remote client
+    - one receipt, one explosion actor, and twelve simulating debris components existed in both worlds
+    - the remote inventory and visible replacement HUD both read STONE 0, IRON 6, CRYSTAL 0
+    - UI-inclusive Client 1 captures visibly show the intact asteroid, transition, HUD, and final disappearance
+    - PIE ended cleanly, the editor shut down cleanly, and the fatal, assert, ensure, OOM, GPU-crash, and device-removed scan was empty
+  limits:
+    - the bounded run used a transient audit asteroid rather than one of the twenty-four spawned deep-space-field members
+    - it used in-process local PIE without Steam transport or two accounts
+    - the final still does not visibly resolve the explosion flash or debris pieces; those pass as real-GPU runtime assertions only
+    - no simultaneous client-originated final-hit RPC arrival was exercised
+    - no distance-cull boundary, late join, persistence, audio, package, or Steam gate ran
+
+actual_field_member_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-member-real-gpu.yaml
+  topology: one_rendered_standalone_pie_world
+  verified:
+    - exactly twenty-four scenery-owned production field members were present with unique authority-initialized immutable stable IDs
+    - actual member asteroid-field.red.mars.deep-space/0x4F524531/23 matched its seed-replayed transform and remained inside the configured altitude shell
+    - an exact collision trace, recently-rendered state, and component cutoff values proved the selected member was inside its unchanged 20 km presentation range
+    - seven production RegisterMiningHit calls depleted all 6000 ore without changing capacity, identity, transform scale, or cutoff
+    - Iron increased from zero to six exactly once, one receipt existed, the replacement HUD updated, and all twenty-three peer members remained Active and full
+    - collision disabled during the intact transition and final state contained one explosion actor and twelve simulating debris components
+    - PIE ended cleanly, the editor shut down cleanly, and the fatal, assert, ensure, OOM, GPU-crash, and device-removed scan was empty
+  limits:
+    - the harness used a bounded test teleport rather than player-controlled flight into the field
+    - no projectile or client-originated mining RPC delivery was exercised
+    - the very close frames contain severe foreground clipping and do not accept polished mining presentation
+    - individual debris pixels were not accepted and the debris components reported not recently rendered
+    - no remote client, distance-cull boundary, late join, persistence, audio, package, or Steam gate ran
+
+actual_field_two_client_cull_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-cull-real-gpu.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - exactly twenty-four authority field members existed and actual member asteroid-field.red.mars.deep-space/0x4F524531/23 retained stable identity, transform, scale, Active phase, and full ore on authority and Client 1
+    - authority and remote proxy kept the unchanged 2000000 cm production presentation cutoff and the actual 5000000 cm network relevancy distance
+    - both-far, both-near, host-near/client-far, and host-far/client-near rendered states passed with exact traces, projected-size checks, independent reference primitives, and per-peer last-render timestamps
+    - four UI-inclusive frames were captured and visually inspected, PIE ended cleanly, and the sole D3D12 UnrealEditor process shut down cleanly
+  limits:
+    - the harness used transient cameras and a bounded remote-pawn test teleport
+    - no mining, depletion, reward, HUD mutation, player-controlled travel, projectile delivery, late join, persistence, audio, package, or Steam gate ran
+    - Client 1 frames contain the forward-shading multiple-directional-light warning and are not polished-presentation acceptance
+
+actual_field_two_client_depletion_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-depletion-real-gpu.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - exactly twenty-four authority field members existed and actual member asteroid-field.red.mars.deep-space/0x4F524531/23 retained stable identity, transform, scale, production cutoff, and full initial ore on authority and Client 1
+    - six remote-instigator authority calls plus a same-server-frame remote final call depleted all 6000 ore; a competing host call returned zero
+    - aggregate Iron increased by six exactly once, only the remote player received it, one receipt existed on each peer, and all twenty-three other authority field members remained Active and full
+    - Active, Depleting, and Depleted phase, collision, hidden state, sequence, one explosion actor, and twelve simulating debris components matched on authority and remote client
+    - remote inventory and visible replacement HUD both read STONE 0, IRON 6, CRYSTAL 0
+    - the UI-inclusive before and final frames visibly show the actual target, its removal, and readable baseline and rewarded HUD text
+    - PIE ended cleanly, the editor shut down cleanly, and the fatal, assert, ensure, OOM, GPU-crash, and device-removed scan was empty
+  limits:
+    - the harness used a bounded remote-pawn test teleport and transient cameras rather than player-controlled travel
+    - mining used direct authority calls; no projectile, client-originated mining RPC, or simultaneous wire-path arrival was exercised
+    - the transition frame does not present the complete tally readably and the final frame does not visibly resolve individual debris pixels
+    - Client 1 frames retain the forward-shading multiple-directional-light warning and are not polished destruction-presentation acceptance
+    - no late join, audio, restart persistence, respawn, package, Steam, two-account, or capacity gate ran
+
+actual_field_two_client_destruction_pixels_runtime_acceptance:
+  evidence_class: real_gpu_visual
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-two-client-destruction-pixels-real-gpu.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - stable member asteroid-field.red.mars.deep-space/0x4F524531/23 retained identity, transform, scale, production cutoff, replicated depletion, exactly-once remote reward, receipt, inventory, full Client 1 HUD text, and twenty-three pristine authority peers
+    - a direct 1280x722 Client 1 viewport read accepted 3334 central luminous and 201 central warm flash pixels
+    - both debris captures contained twelve simulating, twelve recently rendered, and twelve projected pieces; all four hot pieces matched warm pixels
+    - four hot pieces moved, 1843 central pixels changed, and later luminous and warm pixels decayed below 75 percent of the flash sample
+    - five manually inspected frames visibly resolve the target, baseline and rewarded HUD, red-white flash, hot and gray debris pieces, and debris motion
+    - PIE and the sole D3D12 UnrealEditor process ended cleanly
+  limits:
+    - the harness used a bounded remote-pawn test teleport, transient 300 m destruction camera, and black pixel-test backdrop
+    - mining used direct authority calls; no projectile, client-originated mining RPC, or simultaneous wire-path arrival was exercised
+    - gameplay frames retain the forward-shading multiple-directional-light warning, so warning-free final visual polish is not claimed
+    - no late join, audio, restart persistence, respawn, package, Steam, two-account, or capacity gate ran
+
+actual_field_late_join_multiplayer_acceptance:
+  evidence_class: multiplayer
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-late-join-multiplayer.yaml
+  topology: one_listen_server_plus_one_true_late_client_in_one_editor_process
+  verified:
+    - the pre-fix rendered run passed Depleting but reproduced three healthy in-range late-client failures after the actor became hidden and collision-disabled
+    - the production repair keeps base relevancy for all normal cases and gives only Depleted actors an existing-distance fallback
+    - a true late client received Depleting sequence 1 with synchronized remaining time and converged to Depleted sequence 2
+    - a true late client inside the 0.5-second replay window created twelve simulated debris pieces and active local presentation
+    - a true late client outside the replay window received the durable proxy while stale debris, lights, and ticking remained suppressed
+    - after explosion and receipt expiry a true late client received hidden collision-disabled Depleted sequence 2 with no transient FX, receipt, or duplicate reward
+    - every scenario used actual member asteroid-field.red.mars.deep-space/0x4F524531/23 and preserved all twenty-three peers
+    - all four post-fix automation cases passed in one rendered RTX 3080 D3D12 editor process
+  limits:
+    - this accepts local live-session late join, not server-restart persistence or respawn behavior
+    - the harness used a bounded test teleport and direct authority setup rather than player-controlled travel or a client-originated mining RPC
+    - no screenshots or pixel thresholds were captured, so this is multiplayer/runtime evidence rather than visual-polish acceptance
+    - the run retained known Voxel-invoker, harness PlayerStart-mobility, motion-vector, and teardown warnings
+    - no audio, package, Steam, two-account, capacity, or broad multiplayer gate ran
+
+destruction_reward_audio_automation_acceptance:
+  evidence_class: automation
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-destruction-reward-audio-automation.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - actual member asteroid-field.red.mars.deep-space/0x4F524531/23 retained stable identity, replicated depletion, exactly-once remote reward, full Client 1 HUD text, visible destruction-pixel gates, and twenty-three pristine peers
+    - the installed direct-credit reward cue started only on Client 1 for the locally controlled replicated mining instigator
+    - the installed spatial destruction cue created a local audio component from the replicated explosion actor on both peers
+    - listen server and Client 1 used distinct audio devices, and Client 1 was unmuted with positive device and application volume
+    - Client 1 master output was valid stereo PCM16 at 48 kHz with 92915 samples at or above absolute 128, peak 20075, and RMS 2539.239
+    - the official UE 5.8 MCP automation report passed 1/1, PIE ended cleanly, the editor shut down, and all eight protected hashes remained exact
+  limits:
+    - this is aggregate master-output automation; it does not isolate samples from either cue or prove independent-player listening
+    - human-perceived mix quality, attenuation, concurrency, warning-free polish, packaged audio, and Steam transport remain unaccepted
+    - the harness retained its bounded test teleport and direct authority mining calls rather than player-controlled travel, projectile delivery, or a client-originated RPC
+
+actual_field_client_projectile_rpc_automation_acceptance:
+  evidence_class: automation
+  evidence: ProjectKnowledge/evidence/2026-07-23-def-0003-actual-field-client-projectile-rpc-automation.yaml
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  verified:
+    - Client 1's locally controlled autonomous proxy resolved the reflected production ServerFire UFunction with reliable NetServer flags and invoked it through ProcessEvent
+    - authority spawned one ARedBolt owned and instigated by the remote server pawn, and the matching bolt proxy replicated to Client 1 with sequence 60001
+    - an unobstructed 11991.1 cm preflight path ended on actual stable member asteroid-field.red.mars.deep-space/0x4F524531/23
+    - the projectile extracted exactly 180 ore and authority plus Client 1 replicated exactly from 6000 to 5820 while all twenty-three peer members remained pristine
+    - six subsequent direct authority calls completed the remaining 5820 ore while exactly-once remote Iron 6, full HUD text, destruction pixels, audio routing and mixer output, and peer preservation remained passing
+    - official UE 5.8 MCP automation passed 1/1 on RTX 3080 D3D12 SM6, PIE/editor teardown was clean, the severe runtime scan was empty, and all eight protected hashes remained exact
+  limits:
+    - the harness used a bounded test teleport and reflected ProcessEvent rather than player-controlled travel, naturally acquired range, or physical input
+    - only the first hit traversed the client RPC and projectile path; six direct authority calls completed depletion
+    - simultaneous client-originated final-hit wire arrival was not exercised
+    - retained Voxel-invoker, motion-vector, and teardown warnings prevent a warning-free claim
+    - no restart persistence, respawn, package, Steam, two-account, capacity, or broad multiplayer gate ran
+
+acceptance_to_close:
+  - prove simultaneous client-originated final-hit RPC arrival if wire-path contention acceptance is required
+  - define and verify explicit server-restart persistence or respawn semantics if required
+  - accept human-perceived audio mix, attenuation, and concurrency if required for final polish

@@ -1,0 +1,53 @@
+schema_version: 1
+id: evidence.windows-compile-resource-gate-retry-03.2026-07-21
+module_id: M09
+captured_utc: 2026-07-21T12:57:22Z
+evidence_class: static
+result: incomplete_retry
+
+decision: >-
+  Do not launch TitanEditor, UnrealBuildTool, cook, or package in this run.
+  Across 21 sustained samples, free physical RAM remained only 0.948 to
+  1.226 GiB above the 12 GiB safety floor. That is not a material margin for
+  the pending compile after an earlier guarded attempt crossed below the floor.
+
+samples:
+  duration_seconds: 20.0
+  count: 21
+  free_physical_ram_gib:
+    minimum: 12.948
+    average: 13.111
+    maximum: 13.226
+  commit_headroom_gib:
+    minimum: 26.010
+    average: 26.193
+  rtx_3080_vram_mib:
+    free: 7741
+    used: 2313
+    total: 10240
+  d_drive_free_gib: 1141.341
+
+process_check:
+  unreal_titan_ubt_compiler_shader_or_crash_blockers: 0
+  note: No exact Unreal, Titan, UnrealBuildTool, compiler, linker, shader-worker, or crash-reporter process was running.
+
+protected_hashes:
+  map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    matches_canonical: true
+  foundation_ready_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    matches_canonical: true
+
+claim_limit: >-
+  This evidence proves only that the third guarded compile retry was correctly
+  deferred and that protected hashes remained unchanged. It does not prove C++
+  compilation, cooking, packaging, packaged launch, visuals, gameplay, or
+  multiplayer.
+
+next_safe_action: >-
+  Continue one non-launching project-owned module. Retry the isolated capped
+  TitanEditor compile only after free physical RAM remains materially above
+  12 GiB for a sustained sample; do not begin cook or package first.

@@ -1,0 +1,74 @@
+schema_version: 1
+id: evidence.runtime-asset-reference-repair.2026-07-21.static-01
+evidence_class: static
+captured_local: "2026-07-21T14:00:00+03:00"
+platform: Windows
+target: module.M09.windows-development-package
+
+result:
+  broken_runtime_path_static_gate: pass
+  replacement_asset_presence_gate: pass
+  editor_compile_gate: incomplete_guard_timeout
+  fresh_package_gate: not_run
+  packaged_launch_gate: not_run
+  gameplay_gate: not_run
+  observed:
+    - all four known-missing runtime asset path strings are absent from Source after the repair
+    - BiomeSand now loads the existing MI_PlanetBiome_RED fallback directly
+    - skydive freefall and landing default to constructor-loaded Tall Female jump animations compatible with the active Trooper skeleton
+    - resource pickups now create a dynamic instance from the mesh's existing cook-safe material and set Color, BaseColor, and GlowColor parameters
+    - the single-worker TitanEditor build reached UnrealBuildTool target setup without a C++ error, but the command guard stopped it before compilation completed
+    - free physical RAM fell from 12.29 GB to 11.72 GB during the bounded build attempt and later measured 11.51 GB, so the build was not restarted
+    - no Unreal, Titan, UAT, compiler, linker, shader-worker, or crash-reporter process remained after the guard stopped the attempt
+
+repaired_references:
+  - removed: /Game/RedMMO/Materials/MI_PlanetDesert_RED
+    replacement: /Game/RedMMO/Materials/MI_PlanetBiome_RED
+    source: Source/RedMMO/RedGameMode.cpp
+  - removed: /Game/RedMMO/Anims/Skydive/A_Skydive_Freefall_TRPR
+    replacement: /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonJump_Loop
+    source: Source/RedMMO/RedPlayerCharacter.cpp
+  - removed: /Game/RedMMO/Anims/Skydive/A_Skydive_Land_TRPR
+    replacement: /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonJump_End
+    source: Source/RedMMO/RedPlayerCharacter.cpp
+  - removed: /Game/RedMMO/Materials/M_ResourcePickup
+    replacement: existing_mesh_material_dynamic_instance
+    source: Source/RedMMO/RedResourcePickup.cpp
+
+checks:
+  broken_runtime_path_count_under_source: 0
+  replacement_source_asset_missing_count: 0
+  git_diff_check: pass
+  blocking_process_count_after_attempt: 0
+  editor_build_clean_exit: false
+  editor_build_error_marker_count_observed: 0
+
+artifacts:
+  source_files:
+    - path: Source/RedMMO/RedGameMode.cpp
+      sha256: 108DB0E864A2444A0EEB3A8E47FD15E331A004937F5BFFD07BE4FF79EB92BD7B
+    - path: Source/RedMMO/RedPlayerCharacter.cpp
+      sha256: D9DE72F18C602002927A4D10496141BC0B25CD273B8A018CA21A6F399E5855F9
+    - path: Source/RedMMO/RedResourcePickup.cpp
+      sha256: 84EC69D9843249CC5358295E431A0C9859ABA7ECBCDA43A4C47B6BF3CD61522B
+  incomplete_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RuntimeReferenceRepair_20260721/Build_TitanEditor.log
+    sha256: 88F8FC961D81F3D6019A56BDDCCCCF66EEDF05DB3D0637F175EFA44B6AE8E821
+
+protected_checkpoint:
+  map_path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  ready_marker_path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+  ready_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  modified: false
+
+claim_limit: >-
+  The missing-path repair is statically verified only. The editor build did
+  not reach a clean exit, and no cook, package, launch, visual review, gameplay
+  test, or multiplayer test was performed. This evidence must not be used to
+  claim the repaired paths work at runtime.
+
+next_safe_action: >-
+  When physical RAM is sustained materially above 12 GB, rerun the capped
+  single-worker TitanEditor build to a clean exit. Only then run the guarded
+  production-only fresh Zen package workflow and its container and launch gates.

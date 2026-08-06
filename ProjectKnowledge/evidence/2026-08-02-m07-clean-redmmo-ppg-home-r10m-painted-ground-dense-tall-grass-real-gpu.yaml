@@ -1,0 +1,179 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-home-r10m.painted-ground-dense-tall-grass-real-gpu.2026-08-02
+captured_utc: "2026-08-02T12:35:44Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r10m-natural-painted-ground-dense-tall-pack-grass
+evidence_class: real_gpu_visual
+result: passed_structural_and_real_gpu_pending_human_acceptance
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  source_r10l_home_map_sha256: 16F64299C2536B4D0F6493F541181DF41CD625FBADA52E4DC9EC7441AFB0F786
+  persisted_r10m_home_map_sha256: B19019D31369D0325896BA871EB083036DE64516EF51314CF89A74B30366DB10
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10M_20260802_152417_A01
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_HomePresentation_R10M_20260802_152417_A01/pre_r10m_manifest.json
+  manifest_sha256: BB68B0066327F2886A4286564212F6D6F9E43068383EE48A51460A4AEEC5A06E
+  file_count: 9
+
+persisted_changes:
+  scope: project_owned_ppg_ground_and_grass_presentation_only
+  created_project_owned_packages: 7
+  package_root: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M
+  ground:
+    material: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Materials/MI_PPG_Home_PaintedLeafGround_Natural_R10M
+    parent: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10L/Materials/M_PPG_Home_PaintedLeafGround_R10L
+    base_color: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_BC
+    normal: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_N
+    orm: /Game/StylizedRocksPack_01/Common/TilingTextures/T_StylizedGrass_01_ORM
+    macro_noise: /Game/StylizedRocksPack_01/Common/TilingTextures/T_PackedNoiseClouds_01
+    uv_scale: 4.0
+    macro_uv_scales: [1.0, 2.0]
+    note: >-
+      R10K incorrectly reused the vendor landscape scalar 0.55 as a direct UV
+      multiplier, magnifying away the painted texture detail. R10M uses a
+      separately calibrated direct tiling value and restores the exact pack
+      BC, Normal, ORM, and macro color-variation inputs. The pack has painted
+      blade/leaf-like marks and mottling, but no literal fallen-leaf texture.
+  grass:
+    source_mesh: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+    density_r10k: 110.0
+    density_r10m: 180.0
+    ppg_scale_r10k: [0.82, 1.40]
+    ppg_scale_r10m: [0.90, 1.45]
+    pack_local_scale: 1.10
+    pack_local_z_scale: 1.30
+    highlight_amount: 0.50
+    highlight_density: 0.74
+    color_intensity: 0.68
+    note: >-
+      R10L proved the requested height and density but its stronger color and
+      highlight calibration rendered neon lime. R10M retains the density and
+      height while using a restrained natural calibration.
+  unchanged:
+    - PPG seed 1337, biome marker logic, generated terrain geometry, and placement distribution
+    - R10K compact rock aliases and all tree bindings
+    - character, ship, water, flight, gameplay, and PlanetGen destination
+    - vendor source packages and protected production maps
+
+project_owned_packages:
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Materials/MI_PPG_Home_PaintedLeafGround_Natural_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Materials/MI_GrassChunks_Natural_A_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Materials/MI_GrassChunks_Natural_B_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Meshes/SM_GrassChunk_Natural_A_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Meshes/SM_GrassChunk_Natural_B_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/Profiles/DA_PPG_HomeWorld_StylizedForest_R10M
+  - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10M/DA_PPG_HomeWorld_StylizedBinding_R10M
+
+structural_evidence:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417
+  build:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/build_r10m_natural_painted_ground_grass_result.json
+    sha256: A49AB271C0CBAD7F3DFD6E134596FD1FE167A4C50D85ADC0D244960097B756E4
+    status: PASS_STATIC_SERIALIZATION_PENDING_FRESH_RELOAD_AND_GPU
+  build_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/run_r10m_build_guard_result.json
+    sha256: E56881BFE4ACEB3E5A29206695D5F08DD0412E8BAB925F79C4E0383B15F2D559
+  fresh_reload:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/verify_r10m_fresh_reload_result.json
+    sha256: 36AB0E6A81E7C8D10FD73F5B7953F96B7AB9F11DF92C7BE06D30115774F20676
+    status: PASS_FRESH_RELOAD_AND_MAPCHECK_PENDING_REAL_GPU
+    map_check_errors: 0
+    map_check_warnings: 0
+    dirty_packages: 0
+  verify_guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/run_r10m_verify_guard_result.json
+    sha256: FE74C572322CDD3B7B3B66D5834EA9AE65D55046FC86702DAEC9B42C43EFC638
+  profile:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Config/RedMMO/PPGStylizedFoliageProfiles/HomeWorld_Presentation_R10M.json
+    sha256: B18FE973B297E65522E3E6A17A97C13CC7D5201ABAFDC0DCCF6E70F1E918AC54
+  distribution_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/r10m_distribution_preservation_contract.json
+    sha256: DCB236B55CA331B432D1EA16580B35125FE589BBF7376BFE1062A0756F9F56BE
+    status: PASS_PRESERVED_DENSITY_HEIGHT_WITH_NATURAL_COLOR_CALIBRATION
+
+real_gpu_evidence:
+  guard:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/run_r10m_gpu_capture_guard_result.json
+    sha256: E945D286557E1D230B810759F3C1F8451C558B3FAE4AAE071BBE9505500A9FD5
+    status: PASS_REAL_GPU_PENDING_HUMAN_VISUAL_ACCEPTANCE
+    free_physical_gib_at_launch: 46.114
+    minimum_free_physical_gib: 38.651
+    free_gpu_memory_mib_at_launch: 9430
+    editor_pid: 19324
+    editor_exit_code: 0
+    unreal_process_count_after: 0
+  capture_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/capture_r10m_surface_resolved_d3d12_result.json
+    sha256: 1ACAF88FC2C24F2076E6B8124CDE3F026EDB2CE746EF446C8F9A23819FBF673E
+    evidence_class: real_gpu
+    evidence_subclass: d3d12_editor_preview_after_authoritative_no_save_pie_surface_trace
+    rhi: D3D12 SM6
+    adapter: NVIDIA GeForce RTX 3080
+    map_saved: false
+    actors_moved: false
+    map_hash_before_after_equal: true
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_HomePresentation_R10M_20260802_152417/RedMMO_Home_R10M_natural_painted_leaf_ground_dense_tall_grass_1920x1080.png
+    sha256: 77FFC7B4EE13F3136590F45A686A02505F888A88CA123B808A50EB49C22D3B8D
+    dimensions: [1920, 1080]
+    bytes: 2643760
+
+terrain_smoothing_audit:
+  current_generation_material: /Game/RedMMO/World/PPG/HomeWorld/StylizedPilot/R05/Materials/M_PPG_Generation_CapFoliage_R05
+  terrain_shape_changed_in_r10m: false
+  verified_controls:
+    - HIllsHeight
+    - HillsDetails
+    - MountainsHeight
+    - MountainDetails
+    - MountainCurve
+    - FBM and erosion detail/frequency/rounding graph inputs
+  finding: >-
+    Hills and mountains can be made less jagged, but these are generation-graph
+    controls rather than harmless material-instance presentation sliders. Any
+    change regenerates terrain planet-wide even with seed 1337 and therefore
+    requires a separate rollback-backed matched-camera test covering coastline,
+    collision, buildability, slope, and foliage contact.
+
+visual_review:
+  human_accepted: false
+  confirmed_in_frame:
+    - grass coverage is substantially denser and blades read taller than R10K
+    - the exact pack-painted BC, Normal, ORM, and macro variation are visible beneath the cards
+    - highlights remain readable without the R10L neon-lime blowout
+  remaining_findings:
+    - final color, density, height, and underlayer balance require the user's visual judgment
+    - the bright sky/horizon and terrain-shape smoothing are separate future slices
+    - this frame does not establish tree, character, ship, water, flight, collision, performance, cook, package, or full-planet acceptance
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  legacy_or_production_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed_after: true
+  unreal_process_count_after: 0
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R10M proves the real clean-Red PPG home map persists the exact pack-painted
+  ground family with corrected direct tiling and macro variation, plus denser
+  and taller grass using project-owned instances. Fresh reload, MapCheck 0/0,
+  protected hashes, and a player-scale RTX 3080 D3D12 SM6 frame pass. Human
+  visual acceptance remains pending, and no terrain smoothing or broader
+  gameplay, sky, water, performance, cook, package, or full-planet claim is made.
+
+next_safe_action: >-
+  Present the exact R10M frame for human review. If accepted, retain R10M as the
+  presentation baseline and separately test two project-owned generation-graph
+  smoothing variants at seed 1337 with matched cameras; do not change the terrain
+  in the accepted presentation slice.

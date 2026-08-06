@@ -1,0 +1,83 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r26-land-playerstart-reload-mapcheck-automation.2026-08-05
+captured_utc: "2026-08-05T11:55:43Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r26-fresh-reload-mapcheck-r25-land-playerstart
+evidence_class: automation
+result: pass_fresh_reload_playerstart_label_ppg_authority_mapcheck_no_save
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: false
+  content_saved: false
+  generation_called: false
+  pie_started: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  editor_process_count_after: 0
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_r25_land_playerstart_reload_mapcheck_r26.py
+    sha256: 671F7C7502DB382D0BF4352E992F9E53A8C380D97B0627C679E40FC22B8854E1
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R25LandPlayerStartReload_R26_20260805T1200Z/result.json
+    sha256: 7A50363E6A398CE4CC3B1C07C064FC4C099C6F75AB191B124550009C0B9F4449
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R25LandPlayerStartReload_R26_20260805T1200Z/unreal.log
+    sha256: 03EC87FB45DC3308CEC82F607A0B96342B88FC33E723BE67BB6C16BC27A047FF
+  r25_result_sha256: FD2FC0FBCCE02BCF4CFF7236835BCD330A85E2A44B641E36E6FDB5E8747CEBAF
+  terminal_status: PASS_R26_R25_LAND_PLAYERSTART_FRESH_RELOAD_MAPCHECK_NO_SAVE
+
+fresh_reload:
+  actor_count: 12
+  playerstart_location: [191298068.87328622, 196950130.75085244, -421017596.52606624]
+  playerstart_rotation: [0.0, -5.282776832580566, 0.0]
+  attached_label: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld.RedMMO_PPG_HomeWorld:PersistentLevel.TextRenderActor_0
+  attached_label_relative_location: [-176.14661082754293, 194.88393431659483, 23.27325318406838]
+  attached_label_relative_rotation: [-27.99034882719883, -29.396086596022894, 4.179246447900821]
+  attached_label_relative_scale: [1.0, 1.0, 1.0]
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  planet_radius_cm: 300000000.0
+  max_foliage_instances_per_chunk: 100000
+  native_water_preserved: true
+  game_mode: /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01
+  map_check_errors: 0
+  map_check_warnings: 0
+  dirty_packages_after: {content: [], maps: []}
+
+rollback:
+  retained_from_r25: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1R24LandPlayerStart_R25_20260805T1150Z
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves fresh disk reload, exact PlayerStart and attached-label
+  persistence, exact PPG authority bindings and MapCheck 0/0 without save or
+  PIE. It does not prove runtime spawn grounding, visible approved grass,
+  surface day or night, broader gameplay, standalone, replication, multiplayer
+  or player approval.
+
+next_safe_action: >-
+  Run one bounded provider-off real-D3D12 PIE at the exact verified saved start.
+  Require ProfileV1 generation COMPLETE, a grounded Trooper capable of radial
+  movement, an above-water player view and visible approved grass at player
+  scale before a separate matched surface-day/night visual gate.

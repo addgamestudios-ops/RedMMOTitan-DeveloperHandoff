@@ -1,0 +1,58 @@
+schema_version: 1
+reference_set_id: reference.codelikeme.planet-tutorials
+creator: CodeLikeMe
+reviewed_utc: "2026-07-20"
+review_scope: public_titles_and_descriptions
+implementation_or_project_files_reviewed: false
+authority: inspiration_only
+
+sources:
+  - id: reference.codelikeme.interplanetary-hyper-speed
+    title: Unreal Engine Interplanetary Hyper Speed Travel System
+    url: https://youtu.be/8X69SwD_quA
+    summary: >-
+      Demonstrates a player-facing loop for taking off, accelerating between
+      planets, arriving, landing, and walking on the destination body.
+    applicable_patterns:
+      - "Use explicit travel phases for charge, transit, arrival, and recovery."
+      - "Frame warp as a route between registered bodies, not an arbitrary world-space teleport."
+      - "Coordinate destination terrain and presentation readiness before arrival."
+    unsafe_if_copied_without_redmmo_adaptation:
+      - "Client-driven teleport, interpolation, or destination choice; RedMMO warp is server-authoritative."
+      - "Routes keyed by actor reference or display name instead of immutable body and route IDs."
+      - "Skipping collision, cancellation, replication, late join, persistence, and destination streaming gates."
+
+  - id: reference.codelikeme.managing-multiple-planets
+    title: "Unreal Engine 5 - Managing Multiple Planets"
+    url: https://youtu.be/zNJHjc9nNBA
+    summary: >-
+      Uses proximity to select the detailed voxel planet, atmosphere, and
+      gravity body so a player can travel among multiple spherical worlds.
+    applicable_patterns:
+      - "Centralize body discovery and dominant-body selection."
+      - "Use proxy/detail representation changes to control distant-body cost."
+      - "Treat atmosphere, gravity, and detailed surface as coordinated body capabilities."
+    unsafe_if_copied_without_redmmo_adaptation:
+      - "One global closest-planet toggle in a multiplayer world where different players occupy different bodies."
+      - "Client-only nearest-distance gravity without server priority, hysteresis, stable IDs, and reconciliation."
+      - "Treating detailed voxel activation as World Partition or conflating PlanetGen chunks with authored-content cells."
+
+  - id: reference.codelikeme.planet-blueprint
+    title: Unreal Engine 5 Planet Blueprint
+    url: https://youtu.be/7dYlM3O67lI
+    summary: >-
+      Groups planet mesh, atmosphere, gravity field, radius controls, and a
+      distant low-poly proxy behind one Blueprint-facing planet definition.
+    applicable_patterns:
+      - "Expose one coherent body record with explicit radius, atmosphere, gravity, and representation references."
+      - "Keep a distant proxy distinct from the near detailed surface."
+      - "Drive dependent systems from the same physical body parameters."
+    unsafe_if_copied_without_redmmo_adaptation:
+      - "Using Blueprint component scale as the physical radius or automatically scaling unrelated gameplay thresholds."
+      - "Making one visual Blueprint the network authority for gravity, saves, warp, or streaming."
+      - "Assuming a single spherical mesh covers authored macro terrain, PlanetGen chunk streaming, water, and World Partition content."
+
+adoption_rules:
+  - "Translate useful patterns into the celestial registry and templates before implementation."
+  - "Keep the pinned PlanetGen 1.4 fork and protected 50 km checkpoint untouched."
+  - "Require RedMMO build, runtime, multiplayer, and real-GPU evidence; tutorial behavior is not project acceptance."

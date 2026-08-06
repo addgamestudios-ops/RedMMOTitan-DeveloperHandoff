@@ -1,0 +1,222 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-RESOURCE-INVENTORY-IMPLEMENTATION-AUTOMATION
+captured_utc: "2026-07-23T15:02:27Z"
+module_id: M09
+defect_id: DEF-0004
+system: ui.pause-menu.resource-inventory
+slice: default-collapsed-stone-iron-crystal-inventory-presentation
+evidence_class: automation
+result: passed
+
+scope:
+  authorized:
+    - resolve the trustworthy inventory menu and input owner
+    - route the existing Stone, Iron, and Crystal totals into a quantity-bearing inventory presentation
+    - retain the accepted removal of those totals from the always-on combat HUD
+    - compile the affected editor module and exercise the real widget tree in one focused Unreal automation test
+  explicitly_preserved:
+    - all protected production maps, fused terrain assets, and rollback checkpoints
+    - the canonical twenty-four-member production mineable field
+    - supplied RedHUD art and all VibeMMOUIKit source
+    - resource authority, replication policy, and the accepted transient mining receipt
+    - artist repositories, handoff archives, packages, user assets, and unrelated dirty work
+  not_run:
+    - D3D12 or other rendered-pixel review of the new inventory page
+    - mouse or controller interaction acceptance
+    - save, restart, respawn, travel, or account persistence
+    - Windows cook or packaging
+    - Steam transport or two-account networking
+
+baseline:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    materially_dirty_before_slice: true
+    unrelated_dirty_work_preserved: true
+  canonical_queue_sha256_before: 1C6AA2F78CDBD1484561607BA3F4366D7951740C5B5DEC571651120828EF7948
+  resources_before_action:
+    physical_ram_total_gib: 31.872
+    physical_ram_free_gib: 16.306
+    commit_headroom_gib: 33.448
+    d_free_gib: 1141.035
+    gpu: NVIDIA GeForce RTX 3080
+    vram_total_mib: 10240
+    vram_free_mib: 8624
+    overlapping_unreal_build_cook_or_package_processes: 0
+  gate_decision: >-
+    Packaging remained closed because free physical RAM was below the sustained
+    18-20 GiB package floor. One serialized editor build and one focused
+    renderer-disabled automation process were allowed; no cook or package was
+    started.
+
+latest_package_evidence_inspected:
+  pointer:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+    sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    bytes: 15739
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  disposition: stale_failed_attempt_not_reused
+
+inventory_owner:
+  open_close_owner: ARedHUD
+  open_input: Escape
+  surface: URedPauseMenuWidget
+  opening_page: Overview
+  inventory_page_index: 1
+  inventory_activation: existing_INVENTORY_button
+  default_visibility: collapsed_with_pause_menu
+  local_character_resolution:
+    - directly possessed ARedPlayerCharacter
+    - attached local character while piloting
+  online_pause_policy: world_continues
+
+resource_state_contract:
+  authoritative_mutation: ARedPlayerCharacter.AddResource_on_server
+  fields: [ResStone, ResIron, ResCrystal]
+  replication: ordinary_DOREPLIFETIME_with_OnRep_Resources
+  owner_only_replication_claim: false
+  local_presentation_scope: owning_local_HUD_and_pause_menu
+  authority_or_replication_modified: false
+  durable_persistence_owner: none
+  limitation: current_pawn_session_totals_only
+
+implementation:
+  source_files_modified:
+    - path: Source/RedMMO/RedPauseMenuWidget.h
+      bytes: 5327
+      sha256: 4F41581BCB39FD73587BC0B75EBAC8A6D260C22B07B9035EFBF40166EED02D26
+    - path: Source/RedMMO/RedPauseMenuWidget.cpp
+      bytes: 52792
+      sha256: F4C759882B61C76F1FAAA44DE516282EE6B0223C5A78BA25018DC1D5041B7ED6
+    - path: Source/RedMMO/RedHUD.cpp
+      bytes: 17272
+      sha256: A2FD4BD4E8F3F3A6582ADA4EA68CF688DF296E4609AC8CFAA62E41B29C105101
+    - path: Source/RedMMO/Tests/RedUIControlBindingTests.cpp
+      bytes: 12482
+      sha256: 0E46801C31B5843EC7BB28F5DD728B197F8D693BDCC6C29BD1EE6448A07F4F08
+  focused_contract_added:
+    path: Tools/tests/test_def0004_resource_inventory_contract.py
+    bytes: 8874
+    sha256: F9C42391943A4A0462C5CA93FB08444C110BD1453DE2E92A93C57B3281DDEF84
+  behavior:
+    - three RedMMO-owned themed quantity cards show exact Stone, Iron, and Crystal totals inside the existing inventory page
+    - stable inventory records 2, 3, and 4 use the existing Resources category and expose the same quantities in item detail
+    - construct, menu-open, Inventory-navigation, and already-created-menu replication refresh paths update the presentation
+    - the permanent combat-HUD resource line remains absent and its prior hidden cache behavior is retained
+    - no supplied icon was invented and no Vibe widget or supplied texture was modified
+
+static_verification:
+  suites:
+    - Tools.tests.test_def0003_asteroid_depletion_contract
+    - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+    - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+    - Tools.tests.test_def0006_red_hud_runtime_contract
+    - Tools.tests.test_def0004_resource_inventory_contract
+  result: 58_of_58_passed
+  duration_seconds: 0.663
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ResourceInventory_20260723_145221Z/focused_contracts.stderr.log
+    bytes: 13853
+    sha256: 7CA8C5DD0A671D07498D2120C02F611049D48889FDB60B007EE18CEBDDBE5EF4
+
+build_verification:
+  target: TitanEditor Win64 Development
+  configuration:
+    - NoUBA
+    - MaxParallelActions=1
+  implementation_build:
+    result: succeeded
+    actions: 7
+    uht_executed: true
+    execution_seconds: 67.26
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ResourceInventory_20260723_145221Z/TitanEditor_UBT.log
+      bytes: 16035
+      sha256: D4D38B9ECDBB0F094DC308CAEB2AD635426BFF16BC4CEE75FE7A75C8F48C3A48
+  final_automation_build:
+    result: succeeded
+    actions: 4
+    execution_seconds: 12.43
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ResourceInventory_20260723_145221Z/TitanEditor_UBT_final.log
+      bytes: 15080
+      sha256: A57D257F4EE4E2281D2ED31A285D3F422D3209BF1FD990FDFEE1018ECBD5FC1A
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4137984
+    sha256: 3B53003518F7C811559F736B81D327458CE456E369B5B6D2BA7E3CE27DE1BD68
+  known_warning_scope: pre_existing_UnrealAIIntegrationPlatform_plugin_dependency_warnings
+
+unreal_automation:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe
+  renderer: NullRHI
+  test: RedMMO.UI.Controls.NoDeadEnds
+  exercised:
+    - native pause-menu construction
+    - exact 12, 34, and 56 quantity publication and retrieval
+    - all three Resources-category records
+    - all three quantity-card widget identities
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ResourceInventory_20260723_145221Z/AutomationReport/index.json
+    bytes: 1100
+    sha256: 966CBA791742C9441ECB1D28A956C63495EFD0CC1F9F4B820C372069F6674E71
+    succeeded: 1
+    failed: 0
+    test_warnings: 0
+    test_errors: 0
+    duration_seconds: 0.0578898005
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_ResourceInventory_20260723_145221Z/ResourceInventory_Automation.log
+    bytes: 382170
+    sha256: 166AC79DF0FD3B6679B54EDCECA9635A2F2C4A707E69652BFFD9F2822AE822B9
+    completion_marker: "TEST COMPLETE. EXIT CODE: 0"
+    startup_or_environment_warnings_present: true
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/DEF0004_ResourceInventory_20260723_144640Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/DEF0004_ResourceInventory_20260723_144640Z/manifest.yaml
+  exact_source_preimages: 4
+  exact_canonical_preimages: 4
+  new_contract_absent_before_slice: true
+
+protection:
+  protected_file_hashes: 8_of_8_exact
+  fused_provenance_tests: 7_of_7_passed
+  protected_source_rasters: 135_of_135_exact
+  vibe_or_supplied_art_source_modified: false
+  production_map_or_asset_modified: false
+  artist_repository_or_handoff_modified: false
+  package_modified: false
+
+canonical_sync:
+  module: M09
+  status: incomplete_retry
+  retry_count: 21
+  evidence_entries_after: 43
+  queue_sha256_after: 964638D45702A5F1913A2EC886ECD7441FA1845059B3BD04D18D53CE46EF9DA9
+  current_state_queue_hash_matches: true
+  defect_status: open
+
+remaining_blockers:
+  - the new inventory presentation has no real-GPU pixel review at 16:9 or ultrawide
+  - mouse and controller open, navigate, select, and close behavior is not accepted
+  - resource totals have no PlayerState, save-game, travel, respawn, or account persistence owner
+  - full DEF-0004 and DEF-0006 gameplay-UI acceptance remains open
+  - fresh Windows package currency, Steam transport, and two-account acceptance remain open
+
+claim_limit: >-
+  This evidence proves current source compilation, focused static contracts, and
+  one renderer-disabled native widget automation test. NullRHI produced no
+  rendered pixels and cannot accept appearance, layout, interaction, gameplay,
+  GPU behavior, packaging, Steam, or multiplayer. The inventory route therefore
+  remains visually unaccepted until a bounded real-GPU review is completed.
+
+next_safe_action: >-
+  Preserve this default-collapsed inventory route and run one bounded D3D12
+  visual/interactivity acceptance at 16:9. Verify that Escape opens Overview,
+  INVENTORY reveals the three quantities, the combat HUD remains tally-free,
+  values refresh after an authoritative mining credit, and closing the menu
+  removes every inventory card from gameplay. Keep persistence, packaging,
+  Steam, and broad HUD acceptance separate.

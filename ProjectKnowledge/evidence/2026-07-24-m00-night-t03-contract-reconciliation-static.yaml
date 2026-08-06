@@ -1,0 +1,191 @@
+schema_version: 1
+id: EVIDENCE-2026-07-24-M00-NIGHT-T03-CONTRACT-RECONCILIATION-STATIC
+captured_at: "2026-07-24T06:41:23Z"
+module: module.M00.beams-grapple-and-night-client-baseline
+evidence_class: static
+result: passed_current_contract_reconciled_and_active_cook_dependency_validated
+
+scope:
+  changed_project_files:
+    - Build/Automation/Invoke-NightT03TargetedCook.ps1
+    - Tools/tests/test_night_t03_milkyway_binding.py
+    - Tools/tests/test_night_t03_cook_guard.py
+  gameplay_source_files_changed: 0
+  unreal_asset_or_map_files_changed: 0
+  config_or_plugin_files_changed: 0
+  build_outputs_changed: false
+  unreal_or_build_processes_launched: 0
+  ownership: M00_Night_T03_static_contract_drift
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_worktree:
+    total_entries: 1529
+    tracked_change_entries: 60
+    untracked_entries: 1469
+    preservation: unrelated_entries_untouched
+  stale_git_index_lock:
+    path: D:/RedMMOTitan/.git/index.lock
+    bytes: 0
+    last_write_utc: "2026-07-17T06:57:35Z"
+    action: left_untouched
+  memory_samples:
+    count: 3
+    free_physical_gib_range: [14.557, 14.632]
+    free_commit_gib_range: [30.129, 30.231]
+    package_gate_required_free_physical_gib: "18-20 sustained"
+    decision: no_unreal_build_cook_or_package
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    free_vram_mib: 8582
+    utilization_percent: 0
+  free_disk_gib:
+    D: 1140.01
+  unreal_or_build_processes: 0
+  latest_unreal_log:
+    path: Saved/Logs/Titan.log
+    last_write_utc: "2026-07-23T13:49:22Z"
+    terminal_state: clean_exit
+  project_knowledge_integrity_prerecord:
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_093345_M00NightT03Contract/project_knowledge_integrity_pre.json
+    report_sha256: EEC4EFD7762BD9594E4A25F0C3704AA60252BDD74D812540B9529967B5CEC4B6
+
+corrected_stale_findings:
+  prior_focused_result: 8_of_12_passed
+  failure_count: 4
+  root_cause: >-
+    The tests still described the earlier M_RedStar_T03MilkyWay,
+    SM_SkySphere-active, 1000 km experiment. M00's July 19 build and real-GPU
+    A/B history deliberately superseded that path with the world-direction
+    material, the known-rendering BasicSphere, and a 100 km shell. The targeted
+    cook guard already used the superseding material but still explicitly
+    packaged and validated only the retained legacy SkySphere rather than the
+    active BasicSphere dependency.
+  stale_expectations:
+    - project material M_RedStar_T03MilkyWay
+    - active mesh NightT03SkySphereMesh
+    - target radius 100000000 cm
+    - artifact M_RedStar_T03MilkyWay.uasset
+
+current_contract:
+  isolation_gate: bNightStarTuningTest_for_map_name_containing_Night_T03
+  project_material:
+    package: /Game/RedMMO/Environment/Tests/M_RedStar_T03MilkyWayWorldDir
+    sha256: 07465B0479B5AEE8985F3FBB16A532CD63CAA3B1C8B1A63CC715376DA4FC189A
+  atlas:
+    package: /Game/SpaceColony/Textures/T_milky_way
+    sha256: 4832A07BC7F79DC05804B4852276CC412B6A1DC40EECC2AC6480906CE4EBD40B
+  active_mesh:
+    package: /Engine/BasicShapes/Sphere
+    sha256: 0870A30B75AF88E6117261B1CE6138ED90DA85C90FDE9FC39380705AB1870B61
+    selection: exact_NightT03BasicSphereMesh_identity
+  retained_legacy_diagnostic_mesh:
+    package: /Engine/EngineSky/SM_SkySphere
+    sha256: F6A198E8268DF4DC97173B6D20BF30E7FF487F35EB7CB89811FD5E812252B959
+    active_selection: false
+  target_shell_radius_cm: 10000000
+  radius_derivation: active_mesh_bounds_sphere_radius
+  readiness_requires:
+    - Night_T03 isolation gate
+    - non-null project material
+    - non-null BasicSphere mesh
+    - created material instance
+    - exact active BasicSphere identity
+
+implemented:
+  - The binding contract now checks the exact WorldDir material object path rather than accepting its old prefix.
+  - The Night T03 request expression is normalized and compared exactly, so replacing either null guard or the conjunction fails the test.
+  - The active selection block must assign BasicSphere and must not assign the retained legacy SkySphere.
+  - The readiness identity and 100 km bounds-derived scale are checked against BasicSphere.
+  - The cook guard now explicitly requests and validates Engine/BasicShapes/Sphere alongside the retained SkySphere diagnostic input.
+  - Package assignments, package-list membership, artifact paths, and fail-closed Test-Path checks are parsed from their live statements rather than accepted from comments or unrelated text.
+  - RedSpaceScenery C++ source, maps, materials, vendor texture, and engine assets were not changed.
+
+files:
+  - path: Build/Automation/Invoke-NightT03TargetedCook.ps1
+    preimage_sha256: 98418380DB192D699AE992A4AAD781FDAED4D4428187D37614B3D657F3017F75
+    postimage_sha256: 5F09B7115C41810BE0478015FD79EAC5F74D82D3C4B1346CB88DDF57D0AE2656
+  - path: Tools/tests/test_night_t03_milkyway_binding.py
+    preimage_sha256: 7ED7CE5A2093EBBDE7C6628131DDC633151051961A0C8250DB20E3845F3BA912
+    postimage_sha256: C4F4928AAED429476523DC2F084D82846A44CF5C5DA2BAAEC07B363ACDD5BE38
+  - path: Tools/tests/test_night_t03_cook_guard.py
+    preimage_sha256: 7AF3E709A7DFF94B6EE3F63D84786EE1416EFDCA4811F82DA5B8215E2D9A4A8B
+    postimage_sha256: C5FFDF8F62772E64C7FBE8F09C54EFAA8DC3CAA18D32488D62B9DBB2864B07ED
+  - path: Source/RedMMO/RedSpaceScenery.cpp
+    sha256: 8A51CEFA1F30604515ECC7A58BF72E68A44F9FBB32EE7F31035929E974D1F21E
+    state: unchanged_by_this_slice
+  - path: Source/RedMMO/RedSpaceScenery.h
+    sha256: 6170A67AD2FDE6B64CF8AE17D57170FD275E956A6DA55F7B64F54EEE6F81A6EF
+    state: unchanged_by_this_slice
+
+verification:
+  focused_night_t03_contracts:
+    command: "python -B -m unittest -v Tools.tests.test_night_t03_milkyway_binding Tools.tests.test_night_t03_cook_guard"
+    result: 12_of_12_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_093345_M00NightT03Contract/night_t03_focused_final.log
+    log_sha256: CB5CBCC662EB6187AF2586CD7628317181EB212C8CFD5428F7A91982893CF2FE
+  powershell_ast:
+    target: Build/Automation/Invoke-NightT03TargetedCook.ps1
+    result: passed_with_0_parse_errors
+    token_count: 1390
+    error_log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_093345_M00NightT03Contract/night_t03_guard_powershell_ast.log
+    error_log_sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  full_static_discovery:
+    command: "python -B -m unittest discover -s Tools/tests -p test_*.py -v"
+    result: 507_of_507_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_093345_M00NightT03Contract/full_static_discovery_final.log
+    log_sha256: 503ECA81AA28BE0C675B02A95C8EC88BD675A214CBA2965CC4652E75F14817EC
+  project_knowledge_integrity:
+    result: passed_with_0_findings
+    report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_093345_M00NightT03Contract/project_knowledge_integrity_final.json
+    report_sha256: 4270E858AFDE20FF9E4F8F979A320F1E1B4D7B7D84E7EA5C4A94B53AAF970EEF
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M00_NightT03Contract_20260724_093426
+  exact_preimages:
+    - Build/Automation/Invoke-NightT03TargetedCook.ps1
+    - Tools/tests/test_night_t03_milkyway_binding.py
+    - Tools/tests/test_night_t03_cook_guard.py
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/INDEX.yaml
+  preimage_hashes_recorded: true
+
+protection:
+  night_t03_test_map_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  all_match: true
+
+canonical_sync:
+  prior_module_queue_sha256: CB763BD541E534629250B78582CEA82528EF89F3AA7F7300C63870A241D80910
+  module_queue_sha256_after: FAF2E11D8F40504B1681310838BC3C05B6362F046328884D893CB9DA463D54AC
+  module_status: incomplete_retry
+  retry_count_after: 39
+  status_advanced: false
+
+preservation:
+  - Protected checkpoints, production and fused maps, fused heightfield, artist repositories and handoffs, vendor content, user assets, and unrelated dirty work were not modified.
+  - Production star count and production sky selection were not changed; Night T03 remains an isolated visual-test path.
+  - No Unreal Editor, UHT, UnrealBuildTool, cook, package, runtime, multiplayer, or real-GPU process was launched.
+
+limitations:
+  - This is static source, PowerShell AST, and Python contract evidence only.
+  - The cook guard was not executed beyond static parsing and no cook artifact was produced.
+  - The current RedSpaceScenery source was not compiled or executed by this slice.
+  - The latest real-GPU Night T03 results still show no readable Milky Way and do not accept the visual presentation.
+  - Moon and surface-night stars, readable terrain and water, vendor-only Beams tether, current packaged smoke, package currency, Steam, and multiplayer remain unverified or incomplete.
+
+claim_limit: >-
+  This evidence proves only that the current isolated Night T03
+  WorldDir/BasicSphere/100 km source contract is represented by fail-closed
+  offline tests and that the targeted cook guard now explicitly requests and
+  validates its active BasicSphere dependency. It does not prove a C++ build,
+  asset cooking, runtime load, D3D12 pixels, Milky Way or moon visibility,
+  night terrain or water readability, grapple presentation, package currency,
+  Steam transport, or multiplayer acceptance.

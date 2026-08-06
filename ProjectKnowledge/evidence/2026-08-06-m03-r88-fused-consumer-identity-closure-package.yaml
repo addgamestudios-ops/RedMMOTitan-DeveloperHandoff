@@ -1,0 +1,128 @@
+schema_version: 1
+id: evidence.m03.r88-fused-consumer-identity-closure-package
+module: M03
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T09:12:24Z
+scope: >-
+  Read-only exact-identity closure audit between the protected 27 tangent-input/
+  six-face fused terrain source, the current clean RedMMO project, and the exact
+  smoke-tested R88 packaged IoStore index. No Unreal process was launched and
+  no map, profile, source raster, fused output, gameplay source, Config, plugin,
+  content package, vendor asset, package, rollback, or user asset byte changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 195
+  free_physical_ram_gib: 51.29
+  commit_headroom_gib: 53.54
+  gpu_free_mib: 9084
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+protected_authoring_source:
+  patch_root: D:/RedMMOTitan/SourceArt/Planet50Km/AuthoringPatches
+  patch_profile_sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  patch_manifest_sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+  patch_count: 27
+  source_raster_count: 135
+  source_dataset_sha256: 228E1CDAC65F0AFFB51101E8639AC65C57063FC4C72D74588D24A194A87504ED
+  face_root: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches
+  face_manifest: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches/RED_MacroWorld.json
+  face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  face_count: 6
+  face_raster_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+  provenance_evidence: ProjectKnowledge/evidence/2026-08-06-m03-protected-27-input-provenance-static.yaml
+audit_contract:
+  exact_identity_term_count: 20
+  exact_identity_terms:
+    - MacroFacesFromPatches
+    - RED_MacroWorld
+    - RED_Height_PX
+    - RED_Height_NX
+    - RED_Height_PY
+    - RED_Height_NY
+    - RED_Height_PZ
+    - RED_Height_NZ
+    - RED_Land_PX
+    - RED_Land_NX
+    - RED_Land_PY
+    - RED_Land_NY
+    - RED_Land_PZ
+    - RED_Land_NZ
+    - RED_Biomes_PX
+    - RED_Biomes_NX
+    - RED_Biomes_PY
+    - RED_Biomes_NY
+    - RED_Biomes_PZ
+    - RED_Biomes_NZ
+  searched_project_roots:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Config
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Plugins
+  searched_content_root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content
+  source_config_plugin_exact_identity_hit_files: 0
+  content_filename_exact_identity_hit_files: 0
+  serialized_uasset_umap_ascii_identity_hit_files: 0
+  serialized_byte_scan_seconds: 107.7
+r88_package_index:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  file_count: 52
+  total_bytes: 1454676382
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  tree_hash_reverified_now: true
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R88_Package_20260806_0853Z/iostore_list.txt
+  iostore_listing_encoding: UTF-8
+  iostore_listing_sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+  inspected_line_count: 3301
+  indexed_file_count: 3295
+  exact_fused_identity_hit_count: 0
+  known_home_and_profile_hit_count: 10
+  package_index_readability_control:
+    - RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_ShorelineBands_R80.uasset
+    - RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_OasisWater_R78.uasset
+finding: >-
+  R88 packages the current PPG home map and ProfileV1 presentation closure,
+  including no-palms, shoreline-bands and native-water assets. However, clean
+  RedMMO Source, Config, plugins, Content filenames, serialized uasset/umap
+  ASCII strings and the exact R88 IoStore directory index expose zero
+  occurrence of every protected fused-root, manifest, height, land and biome
+  identity tested. Therefore R88 has no traceable exact-name/path closure to
+  the protected six-face continent dataset. The launchable R88 candidate must
+  not be described as consuming the protected fixed fused continents or their
+  land/biome borders.
+comparison:
+  r84_exact_identity_hit_count: 0
+  r87_exact_identity_hit_count: 0
+  r88_exact_identity_hit_count: 0
+  conclusion: r88_gameplay_audio_package_currency_did_not_add_fused_consumer_binding
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+postcheck:
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+rollback: not_applicable_no_project_or_package_mutation
+claim_limit: >-
+  Exact-name/path absence does not exclude a relabeled, embedded, transformed,
+  or mathematically similar derivative. This package audit does not prove
+  terrain pixels, continent-border stability, collision, hub flatness,
+  water/shoreline agreement, foliage/PCG placement, player/vehicle traversal,
+  replication, multiplayer, or human playability. Presence of the current PPG
+  profile closure is not proof of protected fused-face consumption.
+next_safe_action: >-
+  Keep the 27 inputs and six fused faces immutable. A clean-RedMMO fused-face
+  consumer requires separate user authorization, rollback, explicit asset-path
+  provenance, and fresh runtime, real-GPU, collision, traversal and package
+  evidence; do not silently replace the current PPG terrain. Rotate the next
+  non-desktop wake to an R88 developer-handoff currency update so the developer
+  receives the exact launchable package plus this fused-continent claim limit.

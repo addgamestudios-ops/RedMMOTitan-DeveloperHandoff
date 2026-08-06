@@ -1,0 +1,239 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-TWO-CLIENT-PIE-REAL-GPU
+captured_at: "2026-07-23T06:34:46Z"
+module: M00
+defect: DEF-0003
+slice: two-client-listen-server-depletion-parity-and-remote-hud
+evidence_class: real_gpu_visual
+result: two_client_local_pie_depletion_replication_and_remote_hud_pass_field_late_join_audio_persistence_and_steam_open
+
+scope:
+  authorized:
+    - run one bounded rendered two-client listen-server parity test in one UnrealEditor process
+    - add an editor-only automation harness and focused offline source contracts
+    - use one transient production-class asteroid on the production map
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - fused terrain assets and retained rollback maps
+    - artist repositories, artist handoffs, supplied art, and unrelated dirty work
+    - production mining, player, HUD, map, and replication classes
+  not_run:
+    - Windows packaging
+    - Steam transport or two-account session flow
+    - actual generated deep-space-field interaction
+    - late join
+    - destruction or reward audio acceptance
+    - server-restart persistence or respawn acceptance
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  preexisting_dirty_entry_count: 154
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003TwoClientPIE_20260723_0600
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003TwoClientPIE_20260723_0600/manifest.yaml
+  manifest_sha256: 986860C6EC773DD87BFE6EC805EBC5F615011778D34813D141C4D9E9A48A27EB
+  prior_state:
+    - Tools/tests/test_def0003_asteroid_depletion_contract.py retained byte-exact
+    - Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp was absent
+    - INDEX, current state, DEF-0003, asteroid-field system record, and canonical queue retained byte-exact
+
+implementation:
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    sha256: 62F1BC9F36502618C072F72B6A73EDB591F2A18A9577771A345AE26130055A9C
+    shipping_runtime_changed: false
+    topology:
+      play_net_mode: PIE_ListenServer
+      requested_players: 2
+      run_under_one_process: true
+      launch_separate_server: false
+      online_subsystem_allowed: false
+    behavior:
+      - loads /Game/RedMMO/Maps/RedPlanetGen
+      - resolves exactly one listen-server world and one remote-client world
+      - matches the remote server and client pawns by replicated PlayerState ID
+      - spawns one transient capacity-18 production-class asteroid
+      - directly invokes RegisterMiningHit for the remote-server pawn and host pawn on the same authority frame
+      - queries the actual remote replacement HUD and captures the Client 1 window
+      - ends PIE and verifies that both in-process PIE worlds are gone
+  offline_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: 4639595421E3E36B5D713805B92D4BA69C394A45ACC60C555473AA8505ACBB74
+    result: 15_of_15_passed
+
+resource_and_process_gate:
+  machine:
+    physical_ram_total_gib: 31.872
+    gpu: NVIDIA GeForce RTX 3080
+    dedicated_vram_mib: 10240
+  prelaunch_free_physical_ram_gib_range: [17.218, 17.715]
+  prelaunch_free_commit_headroom_gib_minimum: 36.486
+  prelaunch_free_vram_mib: 8616
+  postrun_free_physical_ram_gib: 17.015
+  postrun_free_commit_headroom_gib: 36.014
+  postrun_free_vram_mib: 8683
+  postrun_free_disk_gib: {C: 130.712, D: 1141.194}
+  prelaunch_unreal_or_build_processes: 0
+  launched_unreal_processes: 1
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched because sustained free physical RAM remained
+    below the required 18-20 GiB range.
+
+build_verification:
+  target: TitanEditor Win64 Development
+  result: succeeded
+  serialized_max_parallel_actions: 1
+  remote_execution: disabled
+  hot_reload: disabled
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/TitanEditor_build_retry3.log
+    sha256: 47B1AD0F67A20653912EBB09067D4C9318B2F10D6229D91DF279455352FAF845
+  output:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: DCA474897DBC2BB4D976090D0738D32F4DB6BFC649DABA671F160D5F97E888F4
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  process_id: 25984
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  topology: one_listen_server_plus_one_remote_client_in_one_editor_process
+  steam_transport: false
+  automation:
+    test: RedMMO.Mining.DEF0003.TwoClientPIEParity
+    result: pass
+    pass: 1
+    fail: 0
+    time_seconds: 7.381
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/RunAutomationTest_final.json
+      sha256: F9298FEB6964C1A754BDB37B97077745D84617419B743A399FBBE61E98857AA9
+    report_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/RunAutomationTest_final.txt
+      sha256: 7A065F3CD5983BD789C9F5AE9452D677DBFAD84D050E532FF12B0FF2FD53BAB2
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/Titan_runtime_final.log
+    sha256: 8BEF2ED368DCA44D19C11590529513D856C10377423EB66914065960F83130BC
+    bytes: 464063
+  markers:
+    topology: >-
+      pass=1 pieWorlds=2 listen=1 clients=1 serverPlayers=2
+      remotePlayerId=257 hostRole=3 remoteServerRole=3 remoteClientRole=2
+    before: "pass=1 phase=0/0 collision=1/1 hidden=0/0"
+    same_frame_final_hits: >-
+      pass=1 sameServerFrame=1 first=18 second=0 aggregateIronDelta=6
+      remoteDelta=6 hostDelta=0 phase=1 sequence=1 collision=0
+    transition: >-
+      pass=1 phase=1/1 sequence=1/1 collision=0/0 hidden=0/0
+      receipt=1/1 remoteIron=6/6 hostIron=0 hudBackend=1 hudVisible=1
+      hudText=STONE_0_IRON_6_CRYSTAL_0
+    final: >-
+      pass=1 phase=2/2 sequence=2/2 collision=0/0 hidden=1/1
+      explosion=1/1 debris=12/12 receipt=1/1 postHit=0
+      remoteIron=6/6 hostIron=0 hudBackend=1 hudVisible=1
+      hudText=STONE_0_IRON_6_CRYSTAL_0
+    complete: "pieEnded=1 acceptancePass=1"
+  failure_scan:
+    fatal_or_assert_or_ensure: 0
+    out_of_memory: 0
+    gpu_crash_or_device_removed: 0
+  nonblocking_runtime_messages:
+    - disabled Voxel invoker class is absent and ship fallback warnings remain
+    - r.MotionVectorSimulation has an existing render-thread-safety warning
+    - teardown reports one SpawnActor refusal while the world is closing
+    - the automation report classifies these messages as FailMessages even though its result is Pass with fail count zero
+
+visual_review:
+  remote_window: "Titan Preview [NetMode: Client 1] (64-bit/PC D3D SM6)"
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/Captures/DEF0003_MP_Remote_Before.png
+    sha256: 47CEB68AB2BDE49446C4D532FA9C2AFEA59C2BAC21472343AB57868089627E14
+    finding: remote-client window visibly frames the intact asteroid and HUD
+  transition:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/Captures/DEF0003_MP_Remote_Transition.png
+    sha256: E27340AF9B60A577FE4698880B5F25AF8A304A746A33093CD8E0BCCBF7B9BAA4
+    finding: intact rock remains visible during Depleting and the HUD remains present
+  final:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/Captures/DEF0003_MP_Remote_Explosion.png
+    sha256: 4AECBA2C9C1B8338652D134475DC66EE08F0E1470833D3BCB49A8301CBD56F34
+    finding: the intact asteroid is visibly absent and the remote HUD remains present
+  limits:
+    - the explosion flash and individual debris pieces are not visibly resolved in the final still
+    - explosion actor and twelve simulating debris components pass as remote real-GPU runtime assertions, not as accepted explosion pixels
+    - an existing multiple-directional-light warning is visibly overlaid in all three captures
+
+protection:
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+  accepted:
+  - local two-client listen-server topology in one rendered Unreal process
+  - same-authority-frame competing-instigator idempotence through direct authority calls
+  - exactly one reward assigned to the remote first hitter
+  - remote Active, Depleting, and Depleted phase parity
+  - remote collision, visibility, receipt, inventory, and replacement-HUD parity
+  - one replicated explosion actor and twelve simulating debris components on both worlds
+  - clean PIE teardown and clean editor shutdown
+
+canonical_sync:
+  module: M00
+  module_status: incomplete_retry
+  retry_count: 31
+  queue_sha256_after: BF6682EDDCE059903CC7EBAA8096C7296E2BC62F0ACF222061BA2FD88B134E4A
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_TwoClientPIE_20260723_0616/project_knowledge_integrity_sealed.json
+  report_sha256: A736073C6C7D09A55BEF1C906F9764D0B4F827ABA89DA5BC17002A14EAEA5DF8
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+remaining:
+  - depletion of an actual generated deep-space-field member at mining range
+  - two-client distance-cull behavior for an actual field member
+  - simultaneous client-originated final-hit RPC arrival if wire-path contention acceptance is required
+  - late join during Depleting, within and outside the replay window, and after Depleted
+  - explicit server-restart persistence or respawn policy if required
+  - audible destruction and reward-feedback acceptance
+  - visible explosion and debris pixel acceptance on the remote client
+  - packaged Windows, Steam transport, and two-account multiplayer acceptance
+
+next_safe_action: >-
+  Preserve this transient two-client checkpoint. In a separate bounded slice,
+  travel to and deplete one of the twenty-four generated deep-space-field
+  members at mining range while proving its stable identity and presentation
+  range. Keep late join, audio, persistence, packaging, and Steam as separate
+  explicit gates, and do not package below the sustained 18-20 GiB physical-RAM
+  gate.
+
+claim_limit: >-
+  This record accepts bounded in-process two-client listen-server replication
+  and remote HUD parity for one transient production-class asteroid on the
+  production map. The competing hits were direct authority calls with distinct
+  remote-server and host instigators on one server frame, not simultaneous
+  client-originated RPC arrival. It is genuine D3D12 RTX 3080 runtime evidence,
+  but it is not Steam transport, a two-account test, a packaged build, an
+  actual generated field-member interaction, late join, audio, or persistence
+  acceptance. The stills accept the remote window, intact/depleting
+  presentation, HUD, and final disappearance; explosion and debris component
+  parity remain runtime-asserted rather than visibly accepted pixels.

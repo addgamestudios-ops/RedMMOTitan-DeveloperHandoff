@@ -1,0 +1,98 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r21-multidirection-land-probe-blocked.2026-08-05
+captured_utc: "2026-08-05T11:01:55Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r21-no-save-multidirection-generated-land-probe
+evidence_class: automation
+result: blocked_collision_lod_streamed_but_exact_radial_traces_missed
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  seed_changed: false
+  map_saved: false
+  content_saved: false
+  player_start_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_called: false
+  transient_view_pawn: BP_RedTrooperPlayer_A01_C
+  editor_process_count_after: 0
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/probe_redmmo_profile_v1_multidirection_land_r21.py
+    sha256: 0803F46B971094CEC9D010C16DC1F6C6CA18B3815935DF8C65771943185AADEF
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1LandProbe_R21B_20260805T1100Z/result.json
+    sha256: 60649D4CF14EA2FA92535FDE643998E835202FF4B8F16FF35586DC22378A8114
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1LandProbe_R21B_20260805T1100Z/unreal.log
+    sha256: 0642E55FE6AF441FD575AB8E9C766903DD647FAAE162F15ADDE267D8BC28D52E
+  view_altitude_cm: 100000.0
+  deterministic_fibonacci_directions: 32
+  directions_evaluated: 32
+  query_collision_components_per_direction:
+    minimum: 39
+    maximum: 167
+  native_ppg_collision_hits: 0
+  selected_candidate: null
+  terminal_status: BLOCKED_NO_VIABLE_LAND_IN_R21_MULTIDIRECTION_SCAN
+
+retained_high_altitude_attempt:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1LandProbe_R21_20260805T1055Z/result.json
+  result_sha256: EC8B2B8E9FBBAAD1DD382733B3717E5E1691D33C5250429C56ABF603C18308EB
+  log_sha256: 390D16326CADD9DC5121A3814A7125A3DA9B6AFD8DF13AC956F5DA155AF93E24
+  script_sha256_at_execution: 74E62507EA01F9C883BEDB1FA259DAEACCFD1BD75430708A44DEBA2A74AED7A6
+  view_altitude_cm: 2000000.0
+  deterministic_fibonacci_directions: 32
+  finding: all directions had zero query-collision components at coarse collision LOD
+
+interpretation: >-
+  R21A proved that a 20 km view altitude is outside collision LOD. R21B then
+  moved the transient PIE view through the same 32 global directions at 1 km;
+  PPG streamed 39 to 167 collision-enabled components per direction, proving
+  that the view-driven global streaming route works. The exact requested radial
+  line nevertheless hit none of those current components. Repeating different
+  view altitudes or the same exact-direction trace is therefore not justified.
+  This result does not prove seed 1337 lacks land.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1LandProbe_R21B_20260805T1100Z
+  manifest_sha256: 68BB06F9058FE060D305FF85A6BD91C630CFEFAB3549751436527252F9E21237
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves view-driven global PPG component streaming and its collision-LOD
+  boundary only. It does not establish a valid land spawn, surface lighting,
+  visible grass, moon, biome composition, standalone, replication, multiplayer,
+  or player acceptance.
+
+next_safe_action: >-
+  Stop the view-altitude and exact-radial trace family. On a later independent
+  bounded slice, use the installed PPG generation and biome-map authority to
+  rank deterministic land directions analytically before requesting local
+  collision around one selected direction. Preserve seed 1337 and require an
+  above-sea height, foliage-eligible dominant biome, then fitted native PPG
+  collision before any PlayerStart save. Do not add a floor, disable water,
+  carpet Ocean, change seed, or repeat R21 unchanged.

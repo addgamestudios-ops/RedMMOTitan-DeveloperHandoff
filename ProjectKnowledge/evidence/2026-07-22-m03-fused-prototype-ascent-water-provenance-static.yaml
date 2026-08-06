@@ -1,0 +1,167 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M03-FUSED-PROTOTYPE-ASCENT-WATER-PROVENANCE-STATIC
+captured_at: "2026-07-22T10:36:36.8210224Z"
+module: module.M03.27-seamless-square-authoring-heightmaps-and-flat-hub-patches
+evidence_class: static
+result: passed_provenance_reconciliation_runtime_acceptance_pending
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree: pre_existing_dirty_worktree_preserved
+
+finding:
+  - The current fused-prototype bytes are an intentional July 19 ascent-safety save, not an unexplained protected-file mutation.
+  - The successful authoring log emits the exact current prototype hash together with unchanged production and protected-checkpoint hashes.
+  - The authoring source keeps the authored sea datum and masks but disables PlanetGen's complete global water sphere because it became an overhead shell during ascent.
+  - The exact prior water-enabled fused bytes and the pre-water-calibration bytes remain separately retained; neither was restored, moved, deleted, or rewritten.
+  - The packaged-fused verifier's local pre/post source-hash guard now authenticates the current intentional save. Path presence in IoStore is not byte currency, so the verifier also fails closed unless a future archive ready marker records the exact package-time fused source hash.
+
+artifact_topology:
+  current_ascent_safe_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    size_bytes: 12457859
+    last_write_utc: "2026-07-19T18:53:33.3531138Z"
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    git_state: untracked_pre_existing_asset
+  exact_artist_staging_copy:
+    path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_PlanetArtist_UE58_20260719/Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    size_bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_enabled:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    size_bytes: 1753928
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_calibration:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+    size_bytes: 1753278
+    sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+
+successful_save_evidence:
+  log: D:/RedMMOTitanWindowsData/BuildLogs/FixFusedAscentWater_20260719.log
+  sha256: FDCBADA5A922481F76A920920D578B7BB8135BEE7D502ADD18B01907B370A1D0
+  markers:
+    - "line 2384: RED_FUSED_50KM_PROTOTYPE_READY reports sea_level=0.5, stamps=27, changed=1, and prototype SHA-256 4C84D775...B0B6284"
+    - "line 2384: production SHA-256 1DF9E6ED...9346724 and checkpoint SHA-256 DA598701...7F6E7D"
+    - "line 2385: Python script executed successfully"
+    - "line 2408: Success - 0 error(s), 21 warning(s)"
+  authoring_source:
+    path: Tools/create_fused_50km_prototype.py
+    sha256: 93AEA69128DA62C188F35A78F2FC7A98C8FA66BC56FE1456E8202B42CB81CDDF
+    intent_marker: 'set_if_different("enable_water", False)'
+    interpretation_limit: >-
+      The unchanged source plus authenticated save marker strongly establishes
+      authoring intent. This slice did not decode the binary map property.
+
+failed_immediate_automation:
+  log: D:/RedMMOTitanWindowsData/BuildLogs/FusedAscentFix_Automation_20260719.log
+  sha256: 69986622318F3DCB8A7A027ACF3E7C47529722E5E250896AB154FC8556D14C27
+  command_scope: null_rhi_redmmo_planet_fusedterrain
+  failure:
+    - "line 2526: Fatal error in Core/Private/Misc/NotNull.cpp line 12"
+    - "line 2527: Null assigned to TNotNull"
+    - no successful test-completion marker exists
+  acceptance: failed_diagnostic_only
+
+later_bounded_runtime_context:
+  evidence_record: ProjectKnowledge/evidence/2026-07-21-red-mars-starfield-hi5-clouds-real-gpu.yaml
+  log: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/SkyCloud_RealGPU_Retry.log
+  sha256: 936C1D5884E0D3ECBD4A52F2237DC4AFF47BFA257C2E25BD31B6E56A3F253A76
+  markers:
+    - "line 2231: current fused-prototype world brought up for play"
+    - "line 2319: current fused-prototype map load complete"
+    - "line 2614: clean RequestExit(0)"
+  claim_limit: >-
+    This proves that the current map loaded in a later real-GPU sky/cloud run.
+    That bounded run did not decode or accept terrain, shoreline, water,
+    collision, traversal, packaging, or multiplayer behavior.
+
+protected_foundation:
+  - path: Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json
+    sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json
+    sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+    note: all 135 referenced raster hashes match; all 27 authority rasters retain C86F9760AD0441C3310FF498884D9993CD9E18F8C2B0E375F554CEE299BD948D
+
+implemented_static_guard:
+  - path: Build/Automation/verify_packaged_fused_prototype.ps1
+    sha256: CC1DC0C3A85258880EF50D717DE549E88C57D5BC4B303E50D610823D18B14392
+    change: >-
+      Local expected fused-prototype hash updated from the retained July 14 bytes
+      to the intentional current July 19 bytes. The verifier additionally
+      requires an exact fused_prototype_source_sha256 package-time ready-marker
+      line before container inspection or launch.
+  - path: docs/PLANET_50KM_IMPLEMENTATION_SPEC.md
+    sha256: 277DF38F9A7A928935448CDB8979A9A44CF614F5ACEBF95765E9306EA558476B
+    change: current, prior-water, and pre-water topology plus evidence limits documented
+  - path: Tools/tests/test_fused_prototype_provenance.py
+    sha256: 31CB066EEC931324FB4698FA0C7C7AE8E6354F5BE7588D733F00ABD03A47182F
+    change: fail-closed hashes, save markers, failure markers, guard, and specification contract tests
+
+verification:
+  offline_tests:
+    command: "python -B -m unittest Tools.tests.test_fused_prototype_provenance -v"
+    result: "7/7 passed, including all 135 protected source raster hashes"
+  python_syntax:
+    command: "python -B -m py_compile Tools/tests/test_fused_prototype_provenance.py"
+    result: passed
+  powershell_syntax:
+    target: Build/Automation/verify_packaged_fused_prototype.ps1
+    result: ast_parse_zero_errors
+  unreal_processes_launched: 0
+  map_or_asset_packages_written: 0
+
+resource_gate:
+  pre_slice_samples: 12
+  free_physical_ram_gib_range: [10.118, 10.280]
+  free_virtual_or_commit_headroom_gib_range: [21.227, 21.393]
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  free_vram_mib_range: [8864, 8901]
+  free_disk_gib:
+    C: 133.25
+    D: 1141.74
+  unreal_or_build_processes: 0
+  action: >-
+    The physical-RAM gate was closed. No Unreal Editor, commandlet, runtime,
+    build, cook, package, shader, IoStore, or Zen process was launched.
+  final_slice_samples: 4
+  final_free_physical_ram_gib_range: [10.281, 10.341]
+  final_free_virtual_or_commit_headroom_gib_range: [21.582, 21.639]
+  final_free_vram_mib_range: [8920, 8923]
+
+preservation:
+  - Protected checkpoints, production maps, the current fused map, retained test-map bytes, rollback files, artist repositories and handoffs, vendor plugins, user assets, and unrelated dirty work were not modified.
+  - No restoration was attempted. The stale guard and documentation were corrected around the existing byte topology.
+
+limitations:
+  - Static provenance is not visual, gameplay, collision, decoded-property, runtime-automation, packaging, or multiplayer acceptance.
+  - The immediate post-save fused automation failed before a successful test result.
+  - The later real-GPU run was scoped to sky/cloud presentation and cannot approve the water change.
+  - The July 17 default archive predates the current July 19 save and lacks the new source-hash ready-marker line, so it now fails closed as currency-unverified.
+  - The package producer does not yet emit the required fused source hash. A later M09 slice must add that marker and build a fresh archive before this verifier can accept package currency.
+  - The packaged-fused verifier's broader runtime marker expectations were not modernized or executed; they may reveal separate stale assumptions when a safe current package exists.
+
+claim_limit: >-
+  This evidence proves only the provenance of the current fused-prototype bytes,
+  exact retention of two rollback states, protected-foundation preservation, and
+  the updated local source and fail-closed archive-currency guards. No current
+  packaged archive has byte-currency evidence. M03 remains in progress.
+next_safe_action: >-
+  The canonical cross-module next action remains M00's capped real-GPU T02
+  sparkle capture when its resource gate is safe. For M03, perform decoded
+  property verification and one bounded rendered shoreline/terrain acceptance
+  slice only when resources permit. Packaging remains deferred until at least
+  18-20 GiB physical RAM is sustainably free.
+rollback:
+  - Restore only the verifier hash comment/entry and this slice's documentation/test/knowledge records if the provenance interpretation is rejected.
+  - Do not overwrite, delete, rename, or move any current, prior-water, pre-water, production, checkpoint, fused-asset, artist-handoff, or user asset bytes.

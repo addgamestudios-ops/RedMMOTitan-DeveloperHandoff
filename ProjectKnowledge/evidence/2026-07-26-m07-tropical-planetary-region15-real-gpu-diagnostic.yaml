@@ -1,0 +1,127 @@
+schema_version: 1
+id: evidence.m07.tropical-planetary-region15.real-gpu-diagnostic.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T15:55:37.8979903Z"
+evidence_class: real_gpu_visual
+result: true_pie_radial_probe_succeeded_visual_fit_failed
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_modified: false
+  scratch_only: true
+  providers_enabled: false
+
+native_snap_and_stage:
+  managed_tropical_actors: 17
+  actors_snapped: 17
+  actors_skipped: 0
+  collision_enabled: false
+  scale_changed: false
+  nonmanaged_transforms_changed: false
+  pre_snap_map:
+    bytes: 12497095
+    sha256: FBB0EED0191099B99833CA829834BA08DB5786204ED27A04BA38F053B4F1B491
+  snapped_map:
+    bytes: 76963217
+    sha256: 7CFC0DC3FFA113A44148CD9423556FE94385EB226806F9C3E8FA42815CA0D5A2
+
+region15_pie:
+  player_start_relocated_in_scratch: true
+  map_before:
+    bytes: 76963217
+    sha256: 7CFC0DC3FFA113A44148CD9423556FE94385EB226806F9C3E8FA42815CA0D5A2
+  map_after:
+    bytes: 107056719
+    sha256: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+  audited_actor_delta: PlayerStart transform and tag
+  exhaustive_serialized_package_delta_proven: false
+  rollback_map: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/pre_playerstart_region15_7CFC0DC3.umap
+  final_map:
+    bytes: 107056719
+    sha256: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+  true_pie_started: true
+  net_mode: Standalone 0
+  begin_play_location_cm: [115275.82, -833540.55, -125455.98]
+  begin_play_radius_cm: 850774.7
+  radial_movement_component_active: true
+  surface_snap_location_cm: [106351.17, -769007.92, -115743.19]
+  surface_snap_delta_cm: 65770.3
+  surface_normal: [0.14, -0.98, -0.15]
+  surface_normal_outward_radial_dot: 0.999987
+  stopped_cleanly: true
+
+real_gpu:
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  editor_pid: 2000
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/M07_TropicalRegion15_PIE_underwater_overexposed.jpg
+    bytes: 129801
+    sha256: B3916EF80A6381B804EE946F10ACD2043C610F3FD8302B8D134F853C620EB4A8
+  observed:
+    - runtime view is dominated by blue water-like or fog-like presentation and clipped white exposure
+    - only faint tropical silhouettes are visible above the blue horizon
+    - the capture cannot support biome, shoreline, seam, or water-depth approval
+  visual_fit_accepted: false
+
+prior_viewport_diagnostics:
+  ground_sha256: CA2213D8D7683DB5346DA720623C37B196897F0E5070958158125C6209D04974
+  curvature_sha256: E70B0D4DA5261D9A0791149002234360A039086723B2D74132D9B4A6FF999D47
+  horizon_sha256: C22BD4DA1467BE9FF20A02AA80BD0E8D39D55673FDA4CF8461F8AE36965E21B0
+  result: planet_and_props_rendered_but_overexposure_jagged_dark_band_tiny_biome_and_absent_water_prevent_acceptance
+
+artifacts:
+  live_snap_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_04/live_validation_audit.json
+    sha256: 1A06781BD23DAB26AA16E8FD8D5EDD0976A56A983B0B27396F6B0A6C29366F4B
+  player_start_script:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/move_playerstart_to_tropical_region15.py
+    sha256: 05E712E7B98EAE49DA3060E08494A0553D1CEEDC3C1D8DC83F93086C4F626184
+  player_start_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/playerstart_region15_audit.json
+    sha256: 3A510BF3CFC8423D56CBDBB06679E063E79F73CB678393EFE8926D61BF44BD4E
+  pie_postflight:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/postflight_region15_pie.json
+    sha256: 9DF0E04F2AE8D6553DD867F656D205D5A2250EA87D0F5290A8E33CE82EC8A14D
+  bounded_log_excerpt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_05/region15_pie_log_excerpt.txt
+    sha256: 2F2BE7F31B2CB6B4266B31722AE7E17D6BE861797EBA844BED54119B98501DE5
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+runtime_observations:
+  true_pie_started: true
+  radial_movement_initialized: true
+  terrain_surface_query_returned_hit: true
+  surface_normal_outward_radial_dot: 0.999987
+
+acceptance:
+  player_playtest: false
+  terrain_collision: false
+  tropical_prop_collision: false
+  buildability: false
+  water_depth_or_shoreline: false
+  seams_or_lod: false
+  performance: false
+  surface_to_orbit: false
+  visual_fit: false
+  production_integration: false
+
+next_safe_action: >-
+  In the same scratch map only, query the authoritative land/water mask and
+  terrain and water radii at all 17 Tropical actor points. Correct the cluster
+  elevation or choose an authenticated land point before another clean local-up
+  real-GPU capture. Keep tropical prop collision, buildability, seams, LOD,
+  performance, surface-to-orbit, and production migration behind later gates.
+
+claim_limit: >-
+  This diagnostic proves true PIE at the region-15 tangent, radial movement
+  initialization, and radial surface snap on the disposable scratch planet. It
+  does not prove Tropical prop collision, buildability, water or shoreline
+  correctness, seams, LOD, performance, surface-to-orbit transition, visual
+  fit, or production integration.

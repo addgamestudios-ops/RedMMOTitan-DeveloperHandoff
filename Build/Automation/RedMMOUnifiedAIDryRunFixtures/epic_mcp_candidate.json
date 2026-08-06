@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "candidate_id": "epic_mcp",
+  "request_id": "M07-UNIFIED-AI-DRY-RUN-001",
+  "request_sha256": "2FF5CE882740091CE9D3048DBE9F8D77FD560840667AE219FCC3C4CE0236C1FC",
+  "service_evidence_sha256": "EE1B6C83096C8E41EBD9734A7F5B4D5A46EC634C26ED881E4BBD89A60FFAFC08",
+  "response": {
+    "answer_text": "Use the verified Epic Asset Registry inspection surface for a future, separately approved read-only dependency query. This mock response is planning evidence only.",
+    "evidence_refs": [
+      "live_runtime_identity",
+      "asset_registry_closure",
+      "protected_checkpoint_hashes"
+    ],
+    "scope_claims": [
+      "service_identity_bound",
+      "read_only_capability_only",
+      "provider_off",
+      "no_editor_or_asset_mutation",
+      "separate_future_action_gate"
+    ],
+    "safety_controls": [
+      "pinned_fixture",
+      "strict_schema",
+      "no_generic_dispatch",
+      "no_runtime_transport"
+    ],
+    "uncertainty_disclosures": [
+      "mock_not_live_call",
+      "installed_service_not_unified",
+      "winning_response_not_execution_authority"
+    ],
+    "reproducibility_steps": [
+      "verify_input_hashes",
+      "rerun_provider_off_harness"
+    ],
+    "assumptions": [],
+    "recommended_capability": {
+      "capability_id": "asset_registry_read_only_inspection",
+      "kind": "read_only_planning",
+      "description": "Plan an exact-path Asset Registry query without emitting a tool call or arguments."
+    },
+    "tool_calls": [],
+    "provider_calls": [],
+    "mutations": [],
+    "action_intents": []
+  }
+}

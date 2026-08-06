@@ -1,0 +1,83 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-home-binding-automation.2026-08-05
+captured_utc: "2026-08-05T06:34:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-home-map-binding
+evidence_class: automation
+result: pass_persisted_home_binding_pending_fresh_reload_mapcheck_runtime_visual
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  isolated_start_world: /Engine/Maps/Entry.Entry
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 50.94
+  commit_headroom_gib: 49.79
+  free_gpu_vram_mib: 7836
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1HomeBinding_20260805T0627Z
+  manifest_sha256: C54C6D1E52F6676647BEDD0395BE0A5E45A3EDD5849F11CC1F4AB79BF91D5F81
+  home_preimage_sha256: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+
+transaction:
+  host: WindowsEditor D3D12_SM6 RenderOffscreen
+  editor_pid: 22920
+  script: D:/RedMMOTitan/Build/Automation/apply_redmmo_ppg_profile_v1_home_binding.py
+  script_sha256: FF925F7C385C617FE58D69B0DE1247DA06D856FF6387A5F8AB42D68D4FA589FB
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1HomeBinding_20260805_0627/apply_redmmo_ppg_profile_v1_home_binding_result.json
+  result_sha256: D1FDF4058DC08E4E7F4B96A39331A61E72AD69E347F422D98F4039B70442B33F
+  status: PASS_PROFILE_V1_BOUND_TO_HOME_PENDING_FRESH_RELOAD_MAPCHECK_RUNTIME_VISUAL
+  source_planet_data: /Game/RedMMO/World/PPG/HomeWorld/SeededBiomeSurface/R17/DA_PPG_HomeWorld_SeededBiomeSurface_R17
+  target_planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  exact_modified_package: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256_before: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  home_map_sha256_after: F2B3EC00BE7D858FE4F7CDC2C611D8E0C9741344CCE48D7A4293D5300FD7AF9D
+  actor_count_before_after: 11
+  actor_identity_transforms_preserved: true
+  a01_game_mode_preserved: true
+  generation_seed: 1337
+  planet_radius_cm: 300000000.0
+  noise_height_cm: 600000.0
+  max_foliage_instances_per_chunk: 100000
+  exact_biome_order: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+  exact_foliage_bindings_preserved: true
+  native_water_preserved: true
+  profile_packages_saved: false
+  explicit_regeneration_called: false
+  pie_started: false
+  dirty_packages_after: []
+
+hash_gates:
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation_before_after: 5165A27F0423735256EEE768739CE9547FEF7849BCA05540AAD63DF5BA1D96E3
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  source_r17_planet_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_night_t03_before_after: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+
+claim_boundary:
+  verified:
+    - the actual clean RedMMO home map now serializes the ProfileV1 PlanetData reference
+    - the binding save preserved map actor identity/transforms, A01 gameplay, seed, biome order, foliage bindings, native water and every authenticated non-map package hash
+  not_verified:
+    - the saved map has not yet passed a separate fresh-process reload or MapCheck
+    - ProfileV1 has not yet generated in PIE after binding
+    - no terrain, shoreline, biome, foliage, gameplay, night/space or real-GPU visual acceptance exists for this binding
+    - no standalone, replication or multiplayer claim exists
+
+next_safe_action: >-
+  Run one separate fresh-process reload of the saved home map, verify the exact
+  ProfileV1 binding and MapCheck with zero dirty packages, and preserve the
+  rollback. Only after that gate passes may a later bounded real-D3D12 PIE
+  generation/gameplay/visual acceptance run begin.

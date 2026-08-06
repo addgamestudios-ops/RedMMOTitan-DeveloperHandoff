@@ -1,0 +1,124 @@
+schema_version: 1
+id: evidence.m00.r89-clean-jetpack-producer-build
+module: M00
+defect: DEF-0004
+evidence_class: build
+supplemental_evidence_classes: [static_source_contract, editor_build]
+status: clean_native_jetpack_producer_source_and_editor_build_passed_runtime_pending
+timestamp_utc: 2026-08-06T11:11:35Z
+scope: >-
+  One rollback-backed clean-project ARedPlayerCharacter source-only jetpack
+  producer. The slice changed two project-owned native source files and added
+  one diagnostics-only static contract. It did not wire HUD, mesh, VFX, audio,
+  animation or assets; did not launch Unreal; did not cook or package; and did
+  not touch maps, Config, plugins, vendor sources or user assets.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_default_count: 195
+  dirty_expanded_count: 2380
+  free_physical_ram_gib: 51.31
+  commit_headroom_gib: 53.57
+  gpu_free_mib: 9095
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 13
+  d_drive_free_gib: 756.6
+  active_unreal_build_package_process_count: 0
+  package_attempted: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeCleanJetpackProducer_R89_20260806T1103Z
+  header_preimage_sha256: 4FEA8A173A1022966E959D852878CB65327434F33EBBF29F95624D5B63E815D5
+  implementation_preimage_sha256: BCD11DF53C33CC57559CF3351FA876C1DC27987999D7AC5EFBDD2ACBAC8182CC
+  required: false
+
+implementation:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  class: ARedPlayerCharacter
+  source_files_modified: 2
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlayerCharacter.h
+    bytes: 15645
+    sha256: 41CC0642D3E1E70A05381C990C0DF5AC0C9E150F4DCC8FD97003A2ABD24FC425
+  implementation_file:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+    bytes: 35245
+    sha256: D871AF7CEAA5329F2AA7DF739CA81108F8DEC4C437F2A54A2C61B1FDA9D645D4
+  contracts:
+    - existing Enhanced Jump Started and Completed/Canceled submit ordered thrust intent transitions
+    - existing Sprint Started and Completed/Canceled submit boost intent transitions
+    - only authority owns and mutates replicated fuel, engagement, thrust and boost facts
+    - the server validates controller ownership, movement availability, visibility and collision before accepting positive intent
+    - server-side tap timing engages after a 0.05-to-0.30-second second press instead of accepting client-authored engagement
+    - legacy feel defaults are retained at 100 fuel, 18 per second drain, 22 per second regen, 12 extra boost drain, 2600 cm/s2 lift and 950 cm/s maximum radial-up speed
+    - lift remains opposite the active gravity direction in MOVE_Falling and Sprint applies the 1.85 acceleration and 1.55 maximum-up-speed multipliers
+    - fuel exhaustion is locked until Jump release, then server regeneration resumes
+    - the owning autonomous client predicts lift only from local held intent plus replicated server facts; normal CharacterMovement server correction remains authoritative
+    - ship possession, hidden state, collision disable or disabled movement force server thrust, boost and engagement off
+    - Blueprint-pure fuel fraction and state getters expose a later HUD/presentation producer boundary without wiring a consumer now
+
+static_verification:
+  script: D:/RedMMOTitan/Diagnostics/R89CleanJetpackProducer/audit_r89_jetpack_producer.py
+  script_bytes: 2570
+  script_sha256: 26E3B75AFB98AE886361ECFE2CECDD032B581087D44AC246A1ABD76BB31CA7AF
+  checks: 19_of_19_passed
+  forbidden_raw_state_rpcs_absent:
+    - ServerSetJetpackFuel
+    - ServerSetJetpackEngaged
+    - ServerSetJetpackState
+
+project_knowledge_verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M00_R89_CleanJetpackProducer_20260806T1103Z/project_knowledge_integrity.json
+  integrity_result: pass_0_errors_0_warnings
+  integrity_unit_tests: 20_of_20_passed
+
+editor_build:
+  target: RedMMOEditor Win64 Development
+  engine: 5.8.1
+  max_parallel_actions: 1
+  uht_result: passed
+  compile_link_result: succeeded
+  actions: 7
+  total_execution_seconds: 23.84
+  log: D:/RedMMOTitan/Diagnostics/R89CleanJetpackProducer/RedMMOEditor_R89_20260806T1109Z.log
+  log_bytes: 8868
+  log_sha256: 8A6AFFA7893005CB784D046F93BDA5914CEA327096A8B7F19C01ADDD21158AD1
+  module_dll: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+  module_dll_bytes: 841216
+  module_dll_sha256: A38F4D6124E2F5B169E28BF06F2CCD3AAF09C34C48B30413A4D805DA2B344711
+  bounded_correction: >-
+    The first compile exposed only a C4099 class-versus-struct forward
+    declaration mismatch for FLifetimeProperty. Changing the declaration to
+    class removed that source-local error; the serialized final build then
+    passed UHT, all compilation, linking and metadata writes.
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  protected_inputs_user_assets_vendor_sources_maps_assets_config_and_plugins_modified: false
+  active_unreal_build_package_process_count_after: 0
+
+finding: >-
+  The clean project now has a compiled source-level jetpack fuel/state producer
+  that closes the prior missing-producer blocker without copying the legacy raw-
+  state authority model. This is meaningful M00 progress, but no Unreal runtime,
+  input, depletion, correction-quality, ship-transition, HUD, visual, audio,
+  package, standalone or multiplayer acceptance follows from a successful
+  source contract and editor build.
+
+next_safe_action: >-
+  Run one no-save provider-off D3D12 exact-home runtime acceptance that records
+  ordinary single Jump, accepted 0.30-second double-tap engagement, radial
+  MOVE_Falling ascent, server fuel drain/release regeneration, Sprint boost,
+  exhaustion-until-release and forced shutdown across StarSparrow possession.
+  Keep HUD, jetpack presentation, packaging and multiplayer as later separate
+  slices.
+
+claim_limit: >-
+  Static source and RedMMOEditor build evidence only. No gameplay feel, real-GPU
+  pixels, audio, visual, package, standalone, replication-quality, multiplayer,
+  persistence or human acceptance is claimed.

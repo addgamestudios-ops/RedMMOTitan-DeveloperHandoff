@@ -1,0 +1,97 @@
+schema_version: 1
+id: evidence.m00.clean-r86-locomotion-single-node-guard-build
+module: M00
+evidence_class: build
+status: accepted_build_runtime_visual_pending
+timestamp_utc: 2026-08-06T07:02:54Z
+scope: >-
+  One bounded no-save R86 runtime-diagnostic and project-owned correction. Four
+  provider-off D3D12 RenderOffscreen launches authenticated the clean RedMMO
+  project, fixed ProfileV1 home map, seed 1337, native seeded water, Trooper,
+  Enhanced Input contexts, and protected hashes. The accepted diagnostic found
+  that SetAnimationState treated Unreal's transient AnimSingleNodeInstance as
+  if a project AnimBlueprint owned the mesh, so every locomotion PlayAnimation
+  call was skipped. The guard now defers only when AnimationBlueprint mode is
+  active. RedMMOEditor compiled and linked successfully. No map, PPG profile,
+  terrain, seed, content package, Config, vendor source, or user asset changed.
+runtime_diagnostic:
+  renderer: D3D12 RenderOffscreen
+  provider_plugins_disabled: true
+  map_check_errors: 0
+  map_check_warnings: 0
+  authenticated_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  authenticated_profile: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  authenticated_seed: 1337
+  authenticated_native_water: true
+  accepted_root_cause: >-
+    ARedPlayerCharacter::SetAnimationState returned whenever GetAnimInstance()
+    was non-null. AnimationSingleNode itself creates a transient AnimInstance,
+    so the condition prevented Idle, Walk, Run, and jump PlayAnimation calls.
+  failed_runs:
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T064534Z/result.json
+      cause: stale base-harness rifle-ready profile selection
+      tracked_hashes_unchanged: true
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T064841Z/result.json
+      cause: validator queried serialized animation_data instead of transient runtime player
+      tracked_hashes_unchanged: true
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T065108Z/result.json
+      cause: live single-node player had no asset because gameplay guard skipped PlayAnimation
+      tracked_hashes_unchanged: true
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R86_20260806T065503Z/result.json
+      cause: confirmed gameplay guard defect after runtime-player query correction
+      tracked_hashes_unchanged: true
+  severe_log_match_count: 0
+source_change:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPlayerCharacter.cpp
+  before_sha256: FFAFC221EDF961BB784C6EF4266E85020D22E3E1C5B0618F5FF0E3962C7029DA
+  after_sha256: 7BF20653F177E0D248C57143EA1351A15EFAD86C7FBC37CE3254CF228B6ADD7B
+  correction: >-
+    Preserve the AnimBlueprint ownership guard, but require animation mode
+    AnimationBlueprint before returning; AnimationSingleNode now reaches the
+    existing exact ResolveAnimation and PlayAnimation path.
+validator:
+  path: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r86_infantry_presentation_pie.py
+  sha256: 29F35162A7121F53446DEDBAE46EFB17C00612269A667155EBD3E86D2F781E00
+  syntax: passed
+  corrections:
+    - selects the existing rifle-ready base profile before compiling the inherited harness
+    - reads the transient AnimSingleNodeInstance animation asset with serialized data only as fallback
+    - waits the existing 20-frame locomotion settle window before requiring the live clip
+build:
+  target: RedMMOEditor Win64 Development
+  invocation: >-
+    D:/UE_5.8/Engine/Build/BatchFiles/Build.bat RedMMOEditor Win64
+    Development -Project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -WaitMutex -NoHotReloadFromIDE
+  result: succeeded
+  free_physical_ram_gib_at_entry: 51.45
+  compiled_action: RedPlayerCharacter.cpp
+  linked_action: UnrealEditor-RedMMO.dll
+  build_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R86_LocomotionGuard_20260806T070300Z_RedMMOEditor_build.log
+  build_log_sha256: F611B5BDECE898D12754087FDB74325A6B821175C1D871C946C838DCF279E5D6
+  build_log_bytes: 8251
+  editor_module_sha256: CB17DF9619B65350D5E6BBCA3D2963F0908A4D9F050C9552EC67C7BC1F7C65A6
+  editor_module_bytes: 813056
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M00_R86_InfantryPresentation_20260806T062716Z
+  status: valid_for_full_r86_source_and_exact_six-package_rollback
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  active_unreal_build_package_process_count_after: 0
+  provider_listener_count_after: 0
+claim_limit: >-
+  Root-cause runtime diagnostic plus successful editor compile/link only. The
+  post-build R86 D3D12 player-scale muzzle/fire/locomotion capture has not run,
+  so visual acceptance, PIE acceptance, physical input, packaging, replication,
+  multiplayer, space traversal, and user hands-on acceptance remain unproven.
+next_safe_action: >-
+  Fresh provider-off D3D12 R86 no-save rerun using the corrected validator and
+  rebuilt module. Require exact P_Flash_17 at the rifle muzzle, exact
+  A_Rifle_Fire_Single live, rifle locomotion before and after fire, continued
+  tangent displacement, three player-scale captures, MapCheck 0/0, clean
+  teardown, and unchanged home/ProfileV1/protected hashes before acceptance.

@@ -1,0 +1,66 @@
+schema_version: 1
+id: evidence.hud.pixel-exact.2026-07-21.real-gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T06:46:28+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+scope: supplied_pixel_exact_hud_art_import_and_default_combat_presentation
+
+source_contract:
+  supplied_bundle: C:/Users/user/Downloads/Telegram Desktop/RED_HUD_UE58_PixelExact/RED_HUD_UE58_PixelExact
+  generated_or_recreated_art_used: false
+  default_mode: exact_art
+  full_composite_sha256: 417F5BFF7BB17C33EEC18BDA6D5FF584B3FB0330DF582C6F7126A6B5E81BF574
+  note: >-
+    Exact-art mode displays the supplied flattened composite without tinting,
+    recoloring, reconstruction, or generated replacement art.
+
+result:
+  source_art_validation_gate: pass
+  texture_import_gate: pass
+  ue58_compile_and_link_gate: pass
+  real_gpu_visual_gate: pass
+  legacy_combat_hud_isolation_gate: pass
+  clean_shutdown_gate: pass
+  observed:
+    - source bundle validator reported RED HUD validation passed
+    - exactly 56 project texture assets exist under /Game/UI/RedHUD/Textures
+    - imported folder counts are 14 ExactLayoutSprites, 14 HighResSprites, 27 IndividualSprites, and 1 Masks
+    - RedHUD and RedHUDRuntime mounted and loaded in the D3D12 runtime
+    - the supplied combat composite rendered over live gameplay at 1280x720
+    - the former legacy status, Q/E, and weapon widgets no longer rendered beneath the supplied composite
+    - the runtime log contains no fatal, ensure, out-of-video-memory, GPU-device-loss, or RED HUD missing-texture marker
+    - the runtime completed an orderly Alt-F4 engine shutdown
+
+artifacts:
+  real_gpu_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/HUD_ExactArt_NoLegacy_v2.jpg
+    sha256: 5BC4C684ED80FA32C5271FD9BB4E03C1ABF3592A2F28F01B511DF2488D890E40
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/HUD_RealGPU_1280x720_v2.log
+    sha256: 74D6A37F1C96F1F4B2B49B1B8AA1BD40C0916CECC2D8150EE598FB23DAE722E8
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/Build_TitanEditor_Reconcile_verify.log
+    sha256: AA8EB12C52E5075EBBB99AC4E3D66A83873233B0DB1FCC59CB70C68928048787
+  import_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/ImportRedHUD_UE58_retry.log
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: C2C71B4903C87E870CEAD0EC853E21EA4CBCD4DCA60014C08CE6AB4BB101DCCD
+
+protection:
+  protected_checkpoint: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703
+  modified: false
+  production_map_saved_or_mutated_by_test: false
+
+claim_limit: >-
+  This accepts the supplied flattened combat HUD as the default exact-art
+  presentation and proves that it renders alone over live gameplay. The values
+  baked into that flattened composite are intentionally static. The separate
+  component-based live-data mode and the pre-existing interactive loadout remain
+  distinct modes and have not received pixel-exact visual acceptance in this gate.
+
+next_safe_action: >-
+  Obtain user visual approval of the exact combat frame before promoting any
+  component-based live-data layout changes or replacing the existing loadout.

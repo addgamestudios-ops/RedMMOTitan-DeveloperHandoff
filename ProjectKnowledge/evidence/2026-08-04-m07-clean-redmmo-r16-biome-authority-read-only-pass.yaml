@@ -1,0 +1,97 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r16-biome-authority-read-only-pass.2026-08-04
+captured_utc: "2026-08-04T19:05:15Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r16-native-ppg-biome-authority-audit
+evidence_class: static
+result: native_seeded_biome_surface_path_confirmed
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  persisted_home_map_sha256: 3EBFB65273119A7C6F49B94BB85509E053B5FB4DA96474DFD02B845A179529BF
+
+audit:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/audit_redmmo_ppg_continent_biome_controls_r15.py
+    sha256: 4DE83AC7B6FA3606DBD09E2A6E58E8592A8639B61DBA953121EBD23523B6546C
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_BiomeAuthorityAudit_R16_20260804T190444Z/result.json
+    sha256: 81634572ED054C5F8B80EEABD6788F3BD5FEB406B8E4BE45B8FD7457ACFE02B3
+    status: PASS_READ_ONLY_CONTROL_INVENTORY
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_BiomeAuthorityAudit_R16_20260804T190444Z/audit.log
+    sha256: CC24B0E95C3616FE58B3AFB6BD32D8F702680E078FF4FC29A593C414892BA4F3
+  dirty_packages: 0
+  map_saved: false
+  provider_ports_closed: [5353, 8000, 8765]
+
+current_binding:
+  planet_data: /Game/RedMMO/World/PPG/HomeWorld/SmoothTerrain/R16/DA_PPG_HomeWorld_SmoothTerrain_R16
+  generation_material: /Game/RedMMO/World/PPG/HomeWorld/SmoothTerrain/R16/Materials/M_PPG_Generation_SmoothRolling_R16
+  generation_seed: 1337
+  planet_radius_cm: 300000000.0
+  noise_height_cm: 600000.0
+  biome_mask_material: /PPG/Example/Assets/M_PPG_ExampleBiomeMask
+  global_surface_material: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_PPG_Home_PaintedLeafGround_Scaled_R10N
+  native_water_material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  generate_water: true
+
+seeded_biomes:
+  order: [Craters, Hills, Mountains, Desert, Ocean, Poles]
+  foliage_bindings:
+    Craters: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+    Hills: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+    Mountains: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+    Desert: null
+    Ocean: null
+    Poles: null
+
+diagnosis: >-
+  The six seeded biome identities are present, but every rendered chunk receives
+  one global painted-leaf surface material. This explains why the R16 player
+  frame is uniformly green even though the PlanetData still lists Desert,
+  Ocean, and Poles. The current mask is the stock PPG example and the current
+  surface graph exposes no per-biome surface parameters.
+
+native_supported_path:
+  source_headers:
+    - path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Public/PlanetData.h
+      sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+    - path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Public/MaterialExpressionPlanetBiomeMaterialOutput.h
+      sha256: 1345991F2DEDCE7F5994AB1234FA1447930D3E076252E23259BB89D0A0984156
+  confirmed_controls:
+    - Planet Biome Mask Output with 1 to 16 named seeded layers
+    - Planet Biome Material Output with per-biome material-attribute inputs
+    - biome cell resolution and seed
+    - biome transition and optional height blending
+    - biome material height-blend smoothness
+    - Voronoi warp strength and scale
+    - per-biome foliage data and minimum biome-blend spawn threshold
+  constraint: >-
+    The next implementation must use these native seeded bindings. It must not
+    hand-place regions or replace the approved grass mesh, and it must retain the
+    R16 smooth generation material and working A01 gameplay.
+
+protection:
+  production_or_protected_content_changed: false
+  clean_home_map_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  unreal_process_count_after: 0
+
+claim_limit: >-
+  This proves a supported native PPG implementation path and the current
+  uniform-surface cause. It is not a biome mutation, reload, GPU visual,
+  coastline, traversal, water, or human-acceptance result.
+
+next_safe_action: >-
+  Create a no-clobber R17 PlanetData successor that keeps R16 generation, seed,
+  radius, native water, gameplay, and foliage bindings, but binds a
+  project-owned six-layer biome mask and Planet Biome Material Output. First
+  use grassland, So Stylized desert sand, pale coast, rock mountain, ocean, and
+  pole materials in their exact seeded slots; checkpoint before the one-map
+  rebind and require fresh reload, MapCheck, matched D3D12 surface/orbit views,
+  coastline continuity, and radial movement before acceptance.

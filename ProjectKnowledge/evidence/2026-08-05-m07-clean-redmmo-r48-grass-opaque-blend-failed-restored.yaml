@@ -1,0 +1,118 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r48-grass-opaque-blend.2026-08-05
+captured_utc: "2026-08-05T17:27:58Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r48-approved-grass-opaque-blend-only-discriminator
+evidence_class: real_gpu_visual
+evidence_classes: [automation, fresh_reload_pie_real_gpu, visual_review, rollback]
+result: opaque_blend_does_not_restore_readable_grass_and_was_removed
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.32
+  commit_headroom_gib: 49.32
+  free_gpu_vram_mib: 7974
+  free_d_drive_gib: 767.62
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+transaction:
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGGrassBlend_R48_20260805T1722Z
+  rollback_manifest_sha256: 681B83B82AEA273B1E0B8489303E7468784DF9BC708E4A3CC4C467DEAED48B51
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_grass_blend_opaque_r48.py
+  apply_driver_sha256: 2E728FB8A1989F6EBF3A78D63A788C38A721CD58546116364AF95C4C6A7727C4
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassBlendOpaque_R48_20260805T1723Z/apply_result.json
+  apply_result_sha256: A8148DF593B887920E41E36B5EF0CF14903B4114A65EAB96FC635155B0C2030F
+  apply_log_sha256: 6AECBFF090B336959C2DA371052C43C22F8042AF56ACA66BB08BF6C4EC15725A
+  changed_asset: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R32/Materials/M_GrassChunks_PPGReadable_R32
+  changed_only: blend_mode Masked to Opaque
+  preserved:
+    - graph topology
+    - two-sided flag
+    - opacity clip 0.3333
+    - dithered LOD flag
+    - instanced-static-mesh usage
+    - both R10N instance packages and all effective controls
+    - both approved grass meshes
+    - density 90 and scale 1.0-1.55
+    - R29 eligibility and seed 1337
+    - seeded distribution, surface, ProfileV1 and home map
+
+runtime:
+  verifier: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_blend_opaque_r48_lit_first.py
+  verifier_sha256: 7251B7A9AEA5FE26C359234F257A319B829F938775D1D5F3DACE106016FE1C5D
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassBlendOpaque_R48_20260805T1725Z/verify_result.json
+  result_sha256: 657CA31B24A6B8B32FF26B02801DDDC53D0DF22A3BDA9FE6772F6DD8D4723C44
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassBlendOpaque_R48_20260805T1725Z/unreal.log
+  log_sha256: 461A9CC387FCE6A12EFCE95CE9106B86A115BC437F7A388576C6971BE610D118
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassBlendOpaque_R48_20260805T1725Z/R48_untouched_lit_first_opaque.png
+  screenshot_sha256: F44B130FD5A5CC884417B7F8A63778AF57A20B755172F24379555502385A24BC
+  renderer: real_D3D12_RenderOffscreen
+  generation: COMPLETE
+  exact_camera_delta:
+    location_cm_max_abs: 0.0000940859317779541
+    rotation_deg_max_abs: 0.0
+    fov_max_abs: 0.0
+  pre_capture_census:
+    approved_components: 196
+    seeded_instances: 2218356
+    visible: 196
+    hidden_in_game: 0
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    positive_last_render: 76
+  capture_mutations:
+    view_mode_command: false
+    visibility_cycle: false
+    component_property_write: false
+    save: false
+  visual_result: >-
+    Independent review of the untouched player-scale Lit-first frame still
+    shows a smooth green floor with no readable approved DenseTall grass in the
+    near or mid ground. Dense repeated palms remain visible. Returning R32 to
+    the vendor Opaque blend policy is therefore insufficient.
+  matched_r46_pixel_characterization:
+    changed_pixels_over_two_levels_percent: 29.6140
+    mean_absolute_rgb_difference: 2.3763
+    interpretation: temporal and foliage-frame variation does not create readable grass
+  verifier_boundary: >-
+    The strict verifier captured the valid exact-camera frame after the fully
+    ready census, then reported the previously observed readiness drift before
+    stopping PIE. R48 remains a visual/runtime FAIL, not a pass.
+
+rollback:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassBlendOpaque_R48_20260805T1727Z/rollback_result.json
+  result_sha256: 5BA47DD9198A14D953ED9491DD6936AC1149698A7FA1965B6EA990FA063DF5B3
+  opaque_postimage_sha256: E70E920D46B123E5C1BC82C09A3D53FD86869AF6953F1C08732BB01AE2507797
+  masked_preimage_restored_sha256: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  r48_change_retained: false
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  approved_mesh_a_sha256: 6F215104F1374403194D8AB4DA79B3FF16CCBF86472746E5CD433E03118B2443
+  approved_mesh_b_sha256: 3C50C87B594CE012F680EF51BA306C2DF09FDAED10C06F7F60AFA4E62F678475
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R48 falsifies the blend-only repair. It does not prove accepted grass, biome
+  art, gameplay, standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Do not repeat opacity blend, depth, remap, eligibility, visibility, density,
+  cull, instance-refresh, render-state or identical capture loops. Use one
+  rollback-backed project-owned material-instance WPO-only discriminator that
+  sets the authenticated CameraWPO, DistanceFieldWPO, MeshMaskingWPO,
+  PlayerWPO, PlayerWPOScale and landscape-luminance WPO intensities to zero on
+  both approved aliases while preserving the restored Masked parent and every
+  other control. Require fresh untouched Lit-first exact-camera pixels.

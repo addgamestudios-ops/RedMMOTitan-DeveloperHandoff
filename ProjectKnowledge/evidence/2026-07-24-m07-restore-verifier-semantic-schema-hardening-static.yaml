@@ -1,0 +1,172 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-semantic-schema-hardening.static.2026-07-24
+captured_utc: "2026-07-24T10:56:09Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: authenticated-manifest-semantic-schema-and-generated-root-enforcement
+evidence_class: static
+result: passed_static_semantic_schema_hardening_with_windows_handle_races_open
+
+scope:
+  authorized:
+    - harden the project-owned isolated-restore verifier against authenticated but semantically invalid future manifests
+    - add internally consistent adversarial fixtures for selection policy, project identity, plugin metadata, descriptor identity, protected-input uniqueness, entry-scope typing, ordering, and excluded generated plugin roots
+    - authenticate the existing 8228-entry canonical manifest after the hardening without scanning the live project as a restore
+  explicitly_not_run:
+    - external target access, payload copy, actual restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1488
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib: 13.103
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 28.684
+  disk_c_free_gib: 124.435
+  disk_d_free_gib: 1139.99
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8572
+  gpu_utilization_percent: 0
+  packaging_and_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_verifier_hardening_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_M12_and_this_M07_static_slice
+
+reproduced_pre_fix_defects:
+  authenticated_semantic_mutants_accepted:
+    - selection_policy.content_files set to boolean true
+    - project_identity.engine_association set to boolean false and module_names set to a scalar string
+    - plugin metadata fields set to boolean or scalar values of the wrong JSON type
+    - protected input record duplicated
+    - plugin records reversed out of canonical order
+  internally_resigned_generated_root_mutant:
+    path: Plugins/RedHUD/Binaries/Win64/Injected.dll
+    accepted_by_pre_fix_manifest_loader: true
+    policy_conflict: Binaries is an explicitly excluded immediate generated plugin root
+  evidence_reconciliation: >-
+    The earlier generic statement that all type-confused manifests fail closed
+    was broader than its tests. This record supersedes only that semantic-schema
+    aspect with mutation-sensitive fixtures and exact rejection assertions.
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 53095
+    sha256: CD9C5540CF66795D235789BD43D6FF3621855C88798DB12C0043FAD854455EC3
+    changes:
+      - requires the complete versioned selection-policy mapping to equal the verifier contract
+      - rejects non-string entry scopes cleanly instead of allowing an unhandled type error
+      - validates project engine association and a unique canonical module-name list containing RedMMO
+      - validates optional plugin text and boolean metadata with exact JSON types
+      - requires canonical plugin order and a matching immediate plugin-ID.uplugin descriptor
+      - validates canonical generated-root observation lists and rejects every manifest member under an excluded immediate generated plugin root
+      - requires protected-input records to be unique and in canonical path order
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 26082
+    sha256: 9C3ED9668B6680A14E2EFD3B6109AB274EC63596D1470A620BFE063057829F4B
+    focused_result: 12_of_12_passed
+    added_contracts:
+      - authenticated semantic-schema drift is rejected at its intended validation boundary
+      - an internally re-signed generated-root member with recomputed global and plugin signatures is rejected
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  strict_structure_validated_after_hardening: true
+  entries: 8228
+  plugins: 4
+  protected_inputs: 4
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierSemanticSchema_20260724_1058Z
+  focused_static_and_provenance:
+    result: 79_of_79_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierSemanticSchema_20260724_1058Z/focused_static_and_provenance_tests.log
+      bytes: 33642
+      sha256: FB5DCFD9C8EFC97BBD035082DADB19DAD69599E5A019643FDF10316DDDF2C3A4
+  full_offline_test_discovery:
+    result: 552_of_552_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierSemanticSchema_20260724_1058Z/full_offline_test_discovery.log
+      bytes: 245830
+      sha256: 1A4E3EC93DDB80E60999EEA0EC7E2BF3F3A14DCE4212EFD864A584A59640C1C9
+  python_compile: passed
+  whitespace_check: passed
+  canonical_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 128
+    queue_sha256: 6B1DF3C6F6DF5838F41FF9C43E0B4D311B1AFEB6AB7E40BCCE1ABBA2C97738C6
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierSemanticSchema_20260724_1058Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: F5B2C394F3551E0B8532906A7046FA9F882FAB83C16F4032455B86538F051DA9
+
+remaining_security_findings:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - bind restored-file hashing to one stable opened file identity so an ABA path swap cannot produce false success
+    - compare Windows file identities so extended-path aliases cannot bypass active-project or restore-output isolation
+    - bind report publication to a validated diagnostics-parent identity so a junction swap cannot redirect output
+    - bound manifest reads on one stable handle and reject unsafe Windows output names
+    - reauthenticate the direct verify_isolated_restore API inputs rather than relying only on the CLI call chain
+  operational_gates_still_open:
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierStrictSchema_20260724_1046Z
+  exact_preimages: 5
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, canonical-manifest parsing, and synthetic-fixture
+  evidence only. It closes the reproduced semantic-schema and excluded-root
+  acceptance gaps, but it does not close the separately reproduced Windows
+  handle-replacement, path-alias, or output-publication races. No external
+  target was supplied, no RedMMOTitan payload was copied or restored, and the
+  verifier was not executed against the 8228-file payload or an actual restored
+  tree. This is not Unreal load or save, build, runtime, visual, gameplay,
+  package, Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  While physical RAM remains below the sustained Unreal compile and package
+  gate, harden M07 restored-file hashing around one stable opened handle and add
+  the reproduced ABA regression. Then address Windows path identity and
+  diagnostics-parent publication identity in separate bounded slices. Keep
+  external copy, ACL proof, and one real isolated restore-and-rehash execution
+  as independent operational gates.

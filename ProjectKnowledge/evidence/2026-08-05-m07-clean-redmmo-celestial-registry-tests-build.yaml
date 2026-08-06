@@ -1,0 +1,85 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-celestial-registry-tests-build.2026-08-05
+captured_utc: "2026-08-05T00:43:00Z"
+module_id: M07
+system: identity.clean-redmmo-celestial-frame-registry
+slice: native-development-automation-source-and-editor-build
+evidence_class: build
+result: passed_compiled_unwired_registry_tests_not_executed
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  descriptor_or_build_rules_changed: false
+  content_or_map_changed: false
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeRedMMOCelestialRegistryTests_20260805T0040Z/manifest.yaml
+  manifest_sha256: 26E58BE9959FDEF632C634F7C86957DC348C602200D006F07B9EE3D61D2DE15B
+  target_state_before: test_source_absent
+  rollback_scope: remove_only_the_new_test_source_then_rebuild
+
+source:
+  test_file:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistryTests.cpp
+    sha256: 466B2FDF8702D3FFEDF771A43205544BA45F0C829CBF76076E442109095DDAD5
+  compiled_scenarios:
+    - RedMMO.Identity.CelestialRegistry.RegistrationLifecycle
+    - RedMMO.Identity.CelestialRegistry.CompetingAuthorityConflict
+    - RedMMO.Identity.CelestialRegistry.Cleanup
+  covered_contracts:
+    - authority_registration_and_exact_stable_id_lookup
+    - sequential_revision_update_and_skipped_revision_rejection
+    - exact_revision_unregister_and_tombstone_resurrection_rule
+    - competing_authority_conflict_and_explicit_recovery
+    - live_world_cleanup_rejection_and_teardown_cleanup
+  runtime_execution: not_attempted_in_this_slice
+
+static_verification:
+  production_registry_callsites_outside_implementation_and_tests: 0
+  registry_header_sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+  registry_implementation_sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+  producer_or_consumer_wiring_added: false
+
+build:
+  target: RedMMOEditor Win64 Development
+  engine: UE 5.8.1
+  command_flags: [-WaitMutex, -NoHotReloadFromIDE, -NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  result: succeeded
+  actions: 4
+  elapsed_seconds: 55.14
+  compiler_errors: 0
+  compiler_warnings: 0
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryTestsBuild_20260805T0040Z/RedMMOEditor_build.log
+    sha256: 5C31F66C4BA9EF9D17E26C855740F4D83233BA086E50097C9C1EEEED9A716B4A
+  module_dll:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 859B8B581DE8B6F39BD0B1139514A3395A308B18BA7BB86A048C21AB40621A00
+
+protection:
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  r17_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_editor_launched: false
+  provider_ports_closed: [5353, 8000, 8765]
+  providers_called: false
+  desktop_control_used: false
+  final_unreal_or_build_process_count: 0
+
+claim_limit: >-
+  The clean RedMMO editor module now contains and compiles the three focused
+  celestial-registry automation groups. They were not executed in this slice,
+  and the registry remains unwired. This is not PPG registration, cleanup
+  runtime, client replication, warp, visuals, standalone, travel or multiplayer
+  evidence.
+
+next_safe_action: >-
+  Execute only RedMMO.Identity.CelestialRegistry in one separately bounded
+  provider-off Unreal process and record per-test results. Do not repeat the
+  previously stalled broad editor launcher unchanged; use the narrowest viable
+  automation entry and retain exact PID cleanup and protected-hash checks. If
+  startup again cannot reach test discovery within the bound, record it and
+  rotate to another independent authorized M07 slice.

@@ -1,0 +1,109 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0005-SHUTTLE-RAMP-BUILD-RECONCILIATION-STATIC
+captured_at: 2026-07-22
+module: shuttle_loading_ramp
+slice: DEF-0005-build-link-lineage-reconciliation
+evidence_class: static
+result: passed
+
+resource_preflight:
+  samples: 12
+  duration_seconds: 26
+  free_physical_ram_gib_range: [9.439, 9.941]
+  free_commit_gib_range: [20.798, 21.278]
+  free_vram_mib_range: [8837, 8934]
+  disk_free_gib:
+    C: 133.140
+    D: 1141.736
+  blocker_process_count: 0
+  decision: >-
+    Did not launch Unreal or a build. Sustained physical RAM remained below the
+    canonical 14 GiB M00 real-GPU gate and below the 18-20 GiB packaging rule.
+
+source_identity:
+  - path: Source/RedMMO/RedShuttleBase.h
+    sha256: FECD06BBDB6D6623638EC89D9BC092B40741A19EFEA48EE7A90239591C4244F6
+    last_write_utc: 2026-07-21T18:19:08.1441518Z
+  - path: Source/RedMMO/RedShuttleBase.cpp
+    sha256: 8AA71FB81C38FC44662726EA40DF61262F73F61296C7185920DA99AD72479610
+    last_write_utc: 2026-07-21T18:26:30.3199907Z
+
+historical_compile_attempt:
+  preserved_log:
+    path: D:/RedMMOTitanWindowsData/RedirectedAppData/Local/UnrealBuildTool/Log-backup-2026.07.21-18.27.53.txt
+    sha256: 38C0F27FA8B36D30D90D381E1CFADF4D3F6C94B1FE8733021A0FEB727BB82B1B
+  observed:
+    - UnrealHeaderTool completed successfully before C++ actions.
+    - RedShuttleBase.cpp compiled at action 24 of 29.
+    - RedMMO import-library linking completed.
+    - only final DLL replacement failed because the then-running Unreal Editor held UnrealEditor-RedMMO.dll open.
+  object:
+    path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedShuttleBase.cpp.obj
+    sha256: 6CBBEBC9E8B496EA82B3E4C60EFDF96B09A9BAD88DD718F666001BD883441B68
+    last_write_utc: 2026-07-21T18:32:13.4350075Z
+  sarif:
+    path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/RedShuttleBase.cpp.sarif
+    sha256: 82FA5F5E0E126CFBC7227F1AD9B23A4A6CB22136E9ED3895CF7A161496F0F9DB
+    result_count: 0
+
+subsequent_editor_link:
+  preserved_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereTerminator_20260721_235829_stdout.log
+    sha256: BD6DA4797434CCABA65D8A80628C429C77947D3F7B963FAF04A6D0A5BF761524
+  link_response:
+    path: Intermediate/Build/Win64/x64/UnrealEditor/Development/RedMMO/UnrealEditor-RedMMO.dll.rsp
+    sha256: ABABD63BD9722D8791D748F584A95207D46468128B9271CEBBD9BA2A656B18C6
+    red_shuttle_object_line: 79
+    output_dll_line: 155
+  editor_module:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: CE3D81711FC0AAAF03D06BE9060D5215852B289532E503ED3B23E58869E8BF38
+    last_write_utc: 2026-07-21T20:59:28.2000370Z
+  target_metadata:
+    path: Binaries/Win64/TitanEditor.target
+    sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+    last_write_utc: 2026-07-21T20:59:29.9052096Z
+  observed:
+    - the link response includes the compiled RedShuttleBase.cpp object
+    - the later build linked UnrealEditor-RedMMO.dll and wrote TitanEditor.target
+    - UnrealBuildTool reported Result Succeeded and 59.19 seconds total execution
+    - the DLL contains RuntimeLoadingRampCollision and the new seven-piece collision diagnostic strings
+
+verification:
+  command: python -B -m unittest Tools.tests.test_def0005_shuttle_ramp_evidence -v
+  result: passed
+  tests_passed: 3
+  assertions:
+    - all pinned source, log, object, response, DLL, and target hashes match
+    - compile, historical file-lock failure, later successful link, and DLL string anchors are present
+    - DEF-0005 remains implemented_awaiting_runtime_acceptance with a real_gpu_gameplay_collision gate
+
+target_currency_boundary:
+  evidence: ProjectKnowledge/evidence/2026-07-22-m09-target-currency-fail-closed-static.yaml
+  titan: stale_with_26_newer_inputs_and_no_exact_build_proof
+  titan_editor: stale_with_9_newer_inputs_and_no_exact_build_proof
+  skip_build_authorized: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_source_rasters: 135_of_135_hashes_match_manifest
+  unreal_processes_launched: 0
+  map_or_asset_files_modified: 0
+  artist_handoff_files_modified: 0
+
+claim_limit: >-
+  This is a static reconciliation of preserved compile and link lineage for the
+  current RedShuttleBase editor source identity. The historical DLL-lock blocker
+  is no longer current, but this evidence does not make either whole target
+  current and does not prove packaged output, runtime marker emission, walking
+  collision, projectile clearance, closed-door behavior, visuals, or multiplayer.
+
+next_safe_action: >-
+  Keep DEF-0005 open. Under safe build resources, rebuild current TitanEditor
+  and Titan, then run the bounded real-GPU ramp acceptance: deploy, walk up and
+  down, shoot along both edges, close the door, and confirm no phantom floor.
+  The project-wide canonical next action remains M00's capped T02 sparkle frames
+  when its stricter real-GPU resource gate passes.

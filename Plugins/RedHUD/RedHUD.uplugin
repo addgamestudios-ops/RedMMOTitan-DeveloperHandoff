@@ -1,0 +1,25 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0.0",
+  "FriendlyName": "RED Pixel-Exact HUD",
+  "Description": "Native UMG runtime HUD using the supplied RED MMO raster artwork and a fixed 3840x2160 canonical layout.",
+  "Category": "UI",
+  "CreatedBy": "RED MMO",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "Plugins": [
+    {
+      "Name": "VibeMMOUIKit",
+      "Enabled": true
+    }
+  ],
+  "Modules": [
+    {
+      "Name": "RedHUDRuntime",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

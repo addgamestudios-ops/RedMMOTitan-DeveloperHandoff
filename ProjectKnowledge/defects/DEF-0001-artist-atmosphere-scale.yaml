@@ -1,0 +1,73 @@
+schema_version: 1
+id: DEF-0001
+title: Artist handoff atmosphere is oversized relative to the 50 km planet
+status: open
+severity: major
+found_utc: "2026-07-20"
+owner_domain: world_tech_art
+
+affected:
+  handoff_id: handoff.planet-artist.artist-b-safe8
+  map_asset_path: /Game/RedMMO/Maps/RedPlanetGen_50km_ArtistCanvas
+  archive: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+
+observed: >-
+  In the artist handoff presentation, the atmosphere reads substantially too
+  large for the 50 km planet and dominates the intended planetary scale.
+
+expected: >-
+  The visible limb must derive from the planet's explicit physical radius and a
+  reviewed atmosphere height, remain unit scale, and read proportionally from
+  both the surface and orbit.
+
+impact:
+  blocked_claims: [artist_handoff_visual_accepted, atmosphere_visual_accepted]
+  terrain_authoring: "May continue only with the defect understood; do not promote the handoff's sky presentation."
+
+facts:
+  - "The protected body radius is 795774.71546 cm."
+  - "An external structural reload report records a 795774.6875 cm planet radius and exactly one visible atmosphere component."
+  - "That report contains no map hash or serialized atmosphere dimensions and therefore does not authenticate the protected SAFE8 map."
+  - "The protected SAFE8 map hash B23473BA...56933 differs from the current main-repo ArtistCanvas hash E51C976D...6E97F."
+  - "The protected SAFE8 blank-canvas script sets AtmosphereHeightKm to 8.0 before preview and save."
+  - "Its embedded PlanetGen path computes atmosphere outer radius as body radius plus atmosphere height."
+  - "That structural result does not validate rendered scale."
+
+root_cause:
+  status: main_runtime_confirmed_safe8_unsafe_bundled_authoring_contract_confirmed_archived_map_state_unverified
+  confirmed:
+    - >-
+      The main fused runtime coupled its rendered shell to the 8 km gameplay
+      ascent, yielding an approximately 8.5 km component height around an
+      approximately 8 km-radius body.
+    - >-
+      The protected SAFE8 authoring script explicitly configures an 8.0 km
+      atmosphere height before preview and save. Applied to the canonical
+      7.9577471546 km target, its embedded PlanetGen radius-plus-height formula
+      would produce a 15.9577471546 km outer radius, or approximately 2.0053
+      times the body radius. This confirms an oversized bundled configuration,
+      not the protected map's final serialized values.
+  remaining_unknowns:
+    - whether the protected SAFE8 map serialized the bundled 8 km value
+    - final serialized atmosphere height, bottom radius, component scale, and parent scale after a corrected regeneration
+    - surface and orbit appearance on a real GPU
+    - the final reviewed thin-shell dimension independent of gameplay ascent
+
+temporary_workaround: >-
+  Hide the atmosphere locally for terrain framing if needed, without treating
+  that viewport-only action as a production fix or visual approval.
+
+acceptance_to_close:
+  - "Record the owning body ID, physical radius, atmosphere bottom radius, height, and component scale."
+  - "Prove there is no duplicate active atmosphere after a fresh reload."
+  - "Capture surface and orbit views on a real GPU; build-only and NullRHI evidence are rejected."
+  - "Pass an explicit proportional-scale review and preserve the protected checkpoint."
+
+evidence:
+  external_structural_only_not_safe8_map_authenticated:
+    - D:/RedMMOTitanWindowsData/ArtistHandoff/artist_canvas_surface_reload_verify.json
+  safe8_authoring_root_cause:
+    - ProjectKnowledge/evidence/2026-07-22-def-0001-safe8-artist-atmosphere-root-cause-static.yaml
+  related_main_runtime_fix:
+    - ProjectKnowledge/evidence/2026-07-21-red-mars-atmosphere-decoupling-real-gpu.yaml
+  visual_evidence: pending

@@ -1,0 +1,152 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r30-grass-dispatch-render-state-automation.2026-08-05
+captured_utc: "2026-08-05T12:55:57Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r30-installed-ppg-gpu-foliage-dispatch-render-state-diagnostic
+evidence_class: automation
+result: pass_dispatch_instances_registration_render_state_and_scene_proxy_proven_pixel_failure_remains
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 50.04
+  commit_headroom_gib: 49.88
+  free_gpu_vram_mib: 7719
+  free_d_drive_gib: 767.97
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  map_saved: false
+  content_package_saved: false
+  seed: 1337
+
+installed_ppg_source_contract:
+  plugin_root: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2
+  component_header: Source/PPG/Public/PPGGPUFoliageComponent.h
+  component_implementation: Source/PPG/Private/PPGGPUFoliageComponent.cpp
+  dispatch_implementation: Source/PPG/Private/ChunkObject.cpp
+  verified_public_cpp_facts:
+    - GetNumInstances returns the private NumInstances counter
+    - IsInstanceDataReady verifies generated or uploaded render data readiness
+    - RegisterComponent follows SetGeneratedInstances or SetInstances
+    - CreateSceneProxy refuses zero-instance or meshless components
+    - the scene descriptor publishes NumInstancesGPUOnly
+    - cull distance is assigned through SetCullDistances
+  python_limitation: >-
+    Installed PPG does not mark GetNumInstances or IsInstanceDataReady as
+    UFUNCTIONs, and inherited registration/render-state methods are not exposed
+    on PPGGPUFoliageComponent in Unreal Python. A project-owned read-only bridge
+    was therefore required; vendor source was not edited.
+
+writes:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGFoliageDiagnostics.h
+    sha256: D2135016C15CFFA0EFCBF8F5EA248B1E7276A49CA3900E997618FEBABBB6B6EE
+    role: reflected read-only diagnostic result and Blueprint/Python bridge
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGFoliageDiagnostics.cpp
+    sha256: 7E9E2A9FF103F6662000D4EBF3FB32615C7241D2DFC6060DB3FFC7AFAF1BA30A
+    role: installed-PPG public C++ counter, registration, render-state, scene-proxy, bounds and render-time reader
+vendor_source_changed: false
+map_or_asset_package_changed: false
+
+build:
+  target: RedMMOEditor Win64 Development
+  command_policy: serialized_MaxParallelActions_1_NoUba
+  result: succeeded
+  actions: 5
+  elapsed_seconds: 37.32
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGFoliageDiagnostics_R30_20260805T1250Z.log
+  log_sha256: 224EFCF5CAEF1533A7C4883784BF9C277D2AF067C1C8E5E08AAED8D840DD6967
+  editor_module: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+  editor_module_sha256: 605309D402C517099F3E608255F87176E4401773519AC9A638E2D2F56EF15700
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  generation_phase: COMPLETE
+  approved_grass_component_count: 196
+  positive_instance_component_count: 196
+  total_reported_instances: 2218356
+  instance_data_ready_component_count: 196
+  registered_component_count: 196
+  render_state_created_component_count: 196
+  scene_proxy_component_count: 196
+  positive_instance_origins_within_500m: 4
+  positive_instance_bounds_within_500m: 144
+  nearest_24_positive_last_render_time_count: 14
+  nearest_instance_count_range: [72, 9929]
+  nearest_bounds_distance_to_pawn_range_cm: [0.0, 9163.821187754]
+  nearest_meshes:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  nearest_component_materials:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N
+  base_material: /Game/StylizedRocksPack_01/Common/GrassChunks/Materials/M_GrassChunks_Base
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+diagnosis: >-
+  R29's missing grass pixels are not caused by zero dispatch records, pooled
+  unregistered components, absent render state, missing scene proxies or a
+  substituted material. All 196 approved components report positive instance
+  counts and are data-ready, registered, render-state-created and proxied; the
+  nearest components report positive last-render times and preserve the exact
+  approved mesh/material identities. The remaining failure is downstream of
+  component creation: GPU-only per-instance spatial distribution, per-instance
+  culling/LOD, depth/contact, or silhouette/material pixel readability at the
+  player camera. Component origin and aggregate bounds are chunk-level and do
+  not prove that an individual blade transform lies beside the pawn.
+
+automation:
+  script: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_grass_dispatch_r30.py
+  script_sha256: E278D7CE130348CDC847A89D4226BEBAD1C942B72841E8187BFCB87BCDA79B1F
+  passing_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassDispatch_R30B_20260805T1300Z/result.json
+  passing_result_sha256: E6FA2EA76FC56C5FEC7AED63D222BF5DCD26E1DD7E03FF7C80CF6A4CCD04252B
+  passing_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassDispatch_R30B_20260805T1300Z/unreal.log
+  passing_log_sha256: 3311AAE850084AE6E4B0A271B2C3FFC30DBF5511526F0D4FCBD4242C818C1857
+  terminal_status: PASS_R30_NO_SAVE_PPG_GRASS_DISPATCH_DIAGNOSTIC
+  discarded_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassDispatch_R30_20260805T1255Z/result.json
+    result_sha256: 35B2DE4A08860BB9339AD0E05CCC5917C8EE3F6EE9F30BC69EE1489C322F0EEA
+    log_sha256: 3B4F826E04391AC2CB7973713A53570AEBCD753C0DE7CD61F30AC34FFF059D72
+    cause: generated_struct_field_name_mismatch_after_bridge_call_before_count_collection
+    project_changed: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGFoliageDiagnostics_R30_20260805T1250Z
+  manifest_sha256: 271BC8C91AA7D1E4493730F2DE18EA4890DD067BB05A15CF50A93F779D3BC39C
+  policy: remove_only_the_two_exact_hash_project_owned_new_source_files_then_rebuild
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves a compiled read-only diagnostic bridge and one fresh D3D12 PIE
+  dispatch/render-state census. It does not prove visible grass blades, correct
+  per-instance placement, accepted biome art, gameplay, package, standalone,
+  replication, multiplayer or player approval.
+
+next_safe_action: >-
+  Keep R29 and the compiled read-only bridge. Do not repeat eligibility,
+  registration or proxy checks. In one transient no-save D3D12 diagnostic,
+  isolate the approved grass proxies at the exact player camera by hiding only
+  non-grass foliage and terrain after generation, then capture an unlit and a
+  wireframe/grass-only view without saving. This materially different render
+  evidence must decide between absent nearby GPU transforms versus present but
+  visually swallowed blades. Only after that distinction may a rollback-backed
+  project-owned depth/cull/material correction be selected.

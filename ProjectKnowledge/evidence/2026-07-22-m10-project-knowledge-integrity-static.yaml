@@ -1,0 +1,211 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-PROJECT-KNOWLEDGE-INTEGRITY-STATIC
+captured_at: "2026-07-22T20:57:25Z"
+module: M10
+slice: preparatory-project-knowledge-integrity-audit
+evidence_class: static
+result: failed_closed_62_legacy_metadata_gaps_and_5_tool_hardening_limits_recorded_m10_remains_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Add and fixture-test a read-only, fail-closed integrity auditor for the
+    canonical ProjectKnowledge graph, then record its first real repository
+    result without repairing legacy records or advancing M10 acceptance.
+  production_files_modified: 0
+  source_or_runtime_files_modified: 0
+  protected_files_modified: 0
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  new_tooling:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  explicitly_preserved:
+    - production maps, protected checkpoints, and fused prototype assets
+    - artist repositories, archives, handoffs, and all source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+  not_attempted:
+    - repair of any legacy metadata finding
+    - Unreal Editor, UBT, UHT, build, cook, package, shader, Zen, or IoStore work
+    - runtime, real-GPU, visual, gameplay, Steam, or multiplayer acceptance
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1357
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_count: 0
+    competing_project_writer_before_slice: false
+  resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 6.569, maximum: 6.908, average: 6.779}
+    commit_headroom_gib: {minimum: 16.911, maximum: 17.284, average: 17.132}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1500_to_1503, free_mib: 8551_to_8554, utilization_percent: 11_to_13, temperature_c: 41}
+    disk_free_gib: {C: 132.43, D: 1141.71}
+  decision: static_offline_only
+  latest_package_evidence:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_stage_package_archive_started: false
+    failure: physical_memory_guard_below_8_gib
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 29210
+    sha256: 445326E4A07A5CBABF78D6A15F9A6984853E6D4725FDB681B6131893E08C90F2
+    properties:
+      - read-only against the repository; JSON output is restricted to the derived D-resident diagnostics root
+      - rejects the currently indexed unsafe or missing routes, malformed indexed YAML, malformed top-level canonical section schemas, and duplicate module or evidence IDs
+      - checks retry blockers, completed-module dependency state, resolvable completed-module evidence references, M10 dependency state, defect evidence pointers, embedded queue/current-state record links, and the current queue snapshot
+      - checks common static, build, or automation attempts to affirm higher runtime gates in result, status, or nested gate fields
+      - validates SHA-256 field syntax and rejects unindexed top-level YAML evidence records
+      - exits nonzero and writes a machine-readable report for the current canonical repository and covered fixture failures
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 11924
+    sha256: 3F2BD55E8C902E57727278B2DAB35844240B6DC7BD3ABEE1C487B7DF77ED6440
+    focused_contracts_passed: 10
+
+real_repository_audit:
+  phase: initial_before_independent_fail_closed_hardening
+  command: >-
+    python -B Tools/audit_project_knowledge_integrity.py --project-root
+    D:/RedMMOTitan --output
+    D:/RedMMOTitanWindowsData/Diagnostics/M10_ProjectKnowledgeIntegrity_20260722_2043/integrity.json
+  expected_exit_code: 1
+  result: fail_closed
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_ProjectKnowledgeIntegrity_20260722_2043/integrity.json
+    bytes: 17124
+    sha256: 9EDDE851B1B5ACE915612F588101F534096E72F71B621FC164DEBFFC80B6C962
+  audited_counts:
+    indexed_routes: 100
+    evidence_records: 65
+    defect_records: 7
+    queue_modules: 12
+  finding_count: 61
+  finding_code_counts:
+    PKI009_missing_evidence_id: 23
+    PKI011_missing_evidence_class: 17
+    PKI012_unsupported_evidence_class: 20
+    PKI016_malformed_sha256_field: 1
+  malformed_hash_location: >-
+    ProjectKnowledge/evidence/2026-07-22-def-0004-ability-dedup-evidence-hash-correction-static.yaml.direct_verification.safe8_archive_sha256
+  malformed_hash_value: exact
+  interpretation: >-
+    These are pre-existing canonical metadata gaps exposed by the new auditor.
+    They are durable M10 blockers, not gameplay regressions and not permission
+    to rewrite all historical evidence in this slice.
+
+canonical_reconciliation:
+  final_report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_ProjectKnowledgeIntegrity_20260722_2043/integrity_final.json
+    bytes: 17352
+    sha256: F5243679FEEE770E9120D2AE6A1F55A1611AED1D5B4E86715D85082CC45E06C1
+    expected_exit_code: 1
+    result: fail_closed_62_legacy_findings_after_independent_hardening
+  final_counts:
+    indexed_routes: 101
+    evidence_records: 66
+    defect_records: 7
+    queue_modules: 12
+  final_hashes:
+    queue_sha256: 35C52ACECCF3360C84A59D56DBDB2366E1030452520F0E6065CA950D2498461A
+    current_state_sha256: 8DC8A8C526393E3C9DD76EF37D95B5B77D649F3658D4D618E37EA3266A004EAC
+    index_sha256: 85A5052D7981674A9E15CF74E391D35EFFA60D56E053E607648491A4551DADAC
+  queue_snapshot_matches: true
+  note: >-
+    The evidence file received this immutable final-report pointer after the
+    final audit. Its stable id and evidence_class were already present during
+    that audit, so this pointer-only append cannot alter any reported finding.
+
+regression_verification:
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_ProjectKnowledgeIntegrity_20260722_2043/focused_regression_tests.log
+    bytes: 13782
+    sha256: D6C175D7784AFE38CFB4150AACBF34B21AE0B52234DA3374CAE9F39DE7D3C3E1
+  result: 32_of_32_passed
+  suites:
+    - Tools.tests.test_project_knowledge_integrity
+    - Tools.tests.test_fused_prototype_provenance
+    - Tools.tests.test_audit_windows_target_currency
+    - Tools.tests.test_package_windows_50km_guard
+
+independent_review_hardening:
+  result: five_fail_closed_gaps_closed_before_finalization
+  changes:
+    - repository and non-diagnostics output paths are rejected before any write
+    - malformed canonical INDEX sections produce structured findings instead of exceptions or silent omission
+    - every indexed YAML route is syntax parsed
+    - completed modules require a resolvable indexed evidence ID or path and cannot complete over incomplete dependencies
+    - static, build, and automation records cannot affirm higher gates through result, status, or nested affirmative gate fields
+    - the failed-report zero-exit override was removed
+  new_live_finding:
+    code: PKI022
+    module: M01
+    reason: completed_module_has_no_resolvable_indexed_evidence_id_or_path
+  final_expected_finding_count: 62
+
+remaining_auditor_hardening:
+  status: open_recorded_for_later_bounded_M10_slices
+  severity: P2
+  limits:
+    - current_state.queue must be type-checked before snapshot lookup so malformed scalar data produces a report instead of an exception
+    - affirmative gate parsing must handle verified and succeeded while excluding explicitly negative results such as not_visual_accepted
+    - completed-module evidence needs success, module-or-claim association, and module-specific evidence-class compatibility rather than reference resolution alone
+    - orphan discovery currently covers only top-level evidence YAML and must include yml and nested records
+    - schema_version validation must reject booleans and floats and extend to every indexed canonical YAML record
+  impact: >-
+    These limits do not alter the reproduced 62 findings in the current
+    repository, but they prevent calling the auditor complete or generally
+    fail-closed for arbitrary malformed/future records.
+
+m10_dependency_gate:
+  M00: incomplete_retry
+  M02: queued
+  M03: in_progress
+  M04: incomplete_retry
+  M05: in_progress
+  M06: incomplete_retry
+  M07: in_progress
+  M09: incomplete_retry
+  decision: keep_M10_queued
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10ProjectKnowledgeIntegrity_20260722_2051
+  retained_files: 4
+  queue_before_sha256: A62C666B04F08D3EAEFB9B20E4ED25F10104C403567A089833CB517640FB2AE3
+  current_state_before_sha256: 3C6B57069B2D75ED0B4994E56CBB556C6BC0EC2AF174B0B3A582ADBB4591FC16
+  index_before_sha256: D76D506183E45DF994FB2B8F0AD3831E780898171966941D7F34FEE457057908
+  invariants_before_sha256: 2FCDE641F89C6D643A7E8F53A887F3774C32AB39F84E2890DB7D48EBD95DF061
+
+claim_limit: >-
+  This is static tooling and blocker evidence only. The auditor passed its
+  fixtures and reports the live canonical repository's 62 current findings;
+  five documented P2 hardening limits remain. It does not make M10 complete,
+  repair the final 62 legacy findings, compile project targets, or prove
+  visuals, gameplay, packaging, Steam transport, or multiplayer behavior.
+
+next_safe_action: >-
+  With Unreal and packaging still resource-closed, take one isolated M10
+  auditor-hardening category first, beginning with malformed current-state and
+  strict schema handling. Rerun adversarial fixtures before beginning legacy
+  metadata cleanup. Do not combine that work with gameplay, HUD, map,
+  artist-handoff, or runtime work.

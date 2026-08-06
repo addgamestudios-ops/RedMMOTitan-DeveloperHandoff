@@ -1,0 +1,176 @@
+schema_version: 1
+id: evidence.M07.cc5-protocol-1-2-deployment-readonly-runtime.2026-07-25
+evidence_class: automation
+module: M07
+captured_utc: 2026-07-25T02:08:02Z
+result: passed_exact_reviewed_protocol_1_2_deployment_and_readonly_cc5_runtime
+
+scope:
+  objective: >-
+    Replace the pre-final Character Creator bridge installation with the exact
+    reviewed protocol 1.2 files at a closed-host boundary, migrate the private
+    config with an explicit empty linked-presets object, restart CC5 once, and
+    repeat only authenticated status, active-character inspection and paginated
+    morph-list acceptance without applying a morph or saving a project.
+  performed:
+    - capture a full-window visual record of the disposable Brute preview
+    - discard the unsaved disposable preview after explicit user confirmation
+    - wait for CharacterCreator.exe to exit before changing any installed plugin file
+    - retain an exact rollback copy of the prior config and four installed plugin files
+    - add an explicit empty linked_presets object while preserving the bridge token, queue root, save root and private ACL
+    - copy only the four exact reviewed protocol 1.2 plugin files into the CC5 OpenPlugin directory
+    - restart installed Character Creator 5.11 once
+    - authenticate the automatically started protocol 1.2 bridge without using Script > Load Python in this session
+    - verify the blank scene fails closed, then load the disposable HD Caricature Mixer Brute and run one successful inspect plus one 25-row morph page
+    - rerun all 33 focused bridge contracts
+    - rehash all four protected Unreal assets
+  not_performed:
+    - add a morph allowlist entry
+    - add or apply a linked preset
+    - issue set_approved_morph or save_project_as
+    - save or overwrite the disposable Brute project
+    - install the pinned external mcp 1.28.1 dependency
+    - modify active Codex MCP configuration
+    - launch Unreal, build, cook, package, import, migrate, or modify a game asset
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/CC5MCP_Protocol12Deploy_20260725_015900Z
+  prior_config:
+    bytes: 366
+    sha256: 6E82B1485CE4C476A19D95EF925147B1412A646E23FA436384273AC5CC595AE3
+  prior_installed_files:
+    - {name: __init__.py, bytes: 59, sha256: E2A74C1BA934AC50BAD13047F8D2F665435322D396F25E16A602FE38F22D9053}
+    - {name: bridge_core.py, bytes: 18325, sha256: FA6C569677B11911D5486726F9912AD66D8EA6CB5518ABF53B8B875E81BCE0B4}
+    - {name: main.py, bytes: 27545, sha256: 53C7DC28D2D34D6D39D264EBBCD4316E2D79F5031D0D49DF4A86613AAAB08733}
+    - {name: windows_security.py, bytes: 14236, sha256: 922182E34294DBBF75BC98AA7508DE4B14350B0626DC60BB44FD6682DA322061}
+
+private_config_after_migration:
+  path: D:/RedMMOTitanWindowsData/CC5MCPBridge/config.json
+  bytes: 390
+  sha256: 119FC14855C1ADC8CAF9F4047715B31CDA708C67BFBFFE4D2B1AB67236BCE32E
+  json_valid: true
+  enabled: true
+  bridge_token_unchanged: true
+  bridge_token_value_recorded: false
+  queue_root_unchanged: true
+  save_root_unchanged: true
+  morph_allowlist_count: 0
+  linked_presets_field_present: true
+  linked_preset_count: 0
+  acl:
+    owner: DESKTOP-9MA6DG9/user
+    inheritance_disabled: true
+    explicit_full_control_principals:
+      - current_user
+      - SYSTEM
+      - Builtin_Administrators
+
+installed_exact_reviewed_revision:
+  root: D:/cc5/Character Creator 5/Bin64/OpenPlugin/RedMMO_CC5_MCP
+  cc5_was_closed_during_sync: true
+  files:
+    - {name: __init__.py, bytes: 59, sha256: E2A74C1BA934AC50BAD13047F8D2F665435322D396F25E16A602FE38F22D9053, exact_project_source_match: true}
+    - {name: bridge_core.py, bytes: 24458, sha256: 047AEEBF55FE6BBAB00458B101D6F7743207C898C2A84C8C1DE55C165CA9CCC8, exact_project_source_match: true}
+    - {name: main.py, bytes: 39013, sha256: B60FA68FB97960E24D38AC702CE14BCE18219FB688BE7E9946CF2C93FE15EFFF, exact_project_source_match: true}
+    - {name: windows_security.py, bytes: 14236, sha256: 922182E34294DBBF75BC98AA7508DE4B14350B0626DC60BB44FD6682DA322061, exact_project_source_match: true}
+
+cc5_runtime_acceptance:
+  process:
+    executable: D:/cc5/Character Creator 5/Bin64/CharacterCreator.exe
+    pid_at_capture: 27976
+    product_version: 5.11.1909
+    api_version: 0.8.4
+    window_title_at_capture: Character Creator 5 - Brute.ccAvatar *
+  startup:
+    single_restart_after_closed_sync: true
+    manual_script_load_used: false
+    exact_reviewed_revision_reached_authenticated_running_status: true
+    prior_host_warning_absence_verified: false
+  authenticated_status:
+    protocol_version: "1.2"
+    state: running
+    live: true
+    heartbeat_age_seconds_at_final_check: 0.398
+    bridge_instance_id: 432856c129d040a084c4b82c0921a107
+    project_epoch: 10
+    requests_processed: 2
+    last_error: null
+  request_history_after_deployment:
+    - operation: inspect_active_character
+      scene: default_blank
+      result: expected_refusal
+      error_code: active_character_ambiguous
+      queue_bucket: quarantine
+    - operation: inspect_active_character
+      scene: disposable_HD_Caricature_Mixer_Brute
+      result: success
+      character_name: CC3_Base_Plus
+      character_object_id: "5255271560704"
+      character_signature: f5d478d72afcadd8c77815a74ec118908f7b49112faa0ab1a708ef395eaf35b3
+      project_identity: 85e454329447f81df8ace8af9df57e638f78612ba642706d254837af7550179c
+    - operation: list_active_character_morphs
+      scene: disposable_HD_Caricature_Mixer_Brute
+      result: success
+      offset: 0
+      limit: 25
+      returned_count: 25
+      total_reported_live_morphs: 4109
+  mutation_request_count: 0
+  linked_preset_request_count: 0
+  save_request_count: 0
+  version_files_after_acceptance: 0
+  disposable_scene_saved: false
+
+validation:
+  focused_tests:
+    command: python -B -m unittest Tools.tests.test_cc5_mcp_bridge
+    run: 33
+    passed: 33
+    failed: 0
+  canonical_integrity:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_Protocol12_20260725_0208Z/integrity.json
+    result: pass
+    errors: 0
+    warnings: 0
+
+resources_at_capture:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 6.914
+  d_drive_free_gib: 1076.949
+  gpu: {name: NVIDIA GeForce RTX 3080, total_vram_mib: 10240, used_vram_mib: 4042, free_vram_mib: 6012}
+  exact_unreal_or_build_process_count: 0
+  cc5_process_count: 1
+  decision: >-
+    The bounded slice remained inside CC5 bridge deployment and read-only
+    verification. Unreal and every build, cook and package path stayed closed.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This proves the exact reviewed protocol 1.2 plugin is installed and reached a
+  live authenticated CC5 5.11 RLPy session after a closed-host restart, and
+  that read-only active-character inspection plus one paginated morph listing
+  work against the disposable Brute. It does not prove a configured or applied
+  linked preset, a safe morph change, save-as, the pinned mcp 1.28.1 external
+  environment, Codex MCP registration, visual character quality, or Unreal
+  integration. The prior automatic-loader warning was not reproduced or
+  inspected in the console, so only this session's no-manual-load startup is
+  accepted.
+
+remaining_blockers:
+  - install and smoke-test the pinned stable official mcp 1.28.1 dependency in an isolated external environment before any Codex MCP registration
+  - externally review exact Brute body/head morph identifiers, fixed safe values, character signature and generated definition digest before adding one named preset
+  - test one small reversible named pair only after the preset definition and fresh character/project bindings are approved
+  - test one explicit no-overwrite save-as snapshot separately after mutation rollback acceptance
+  - investigate the prior main has no attribute rl_plugin console warning without weakening the now-proven restart path
+
+next_safe_action: >-
+  Keep the live config's morph allowlist and linked presets empty. In a separate
+  bounded offline slice, pin and install mcp 1.28.1 into an isolated external
+  environment and repeat initialize plus the exact six-tool strict-schema
+  smoke test without registering Codex or issuing a CC5 mutation.

@@ -1,0 +1,231 @@
+schema_version: 1
+id: evidence.m12.generation-cas-release.source-static.2026-07-24
+captured_utc: "2026-07-24T08:51:14.1228680Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: exact-generation-lifecycle-release-and-release-recreate-aba-protection
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - harden the isolated project-owned M12 backend lifecycle release boundary
+    - prevent delayed teardown for one authority generation from deleting a recreated same-ID volume
+    - add one development-only exact-generation release and recreation regression scenario
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - generated-output adapter, persistence adapter, actor, map, deformation, collision cook, suction, Inventory, renderer, production-field, asset, or plugin integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1536
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_free_gib_samples: [13.538, 13.573, 13.529]
+  commit_used_gib_samples: [25.766, 25.782, 25.783]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [29.106, 29.090, 29.090]
+  disk_c_free_gib: 124.728
+  disk_d_free_gib: 1140.009
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  packaging_and_native_build_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_source_only_M12_generation_cas_release_slice
+
+defect_closed_in_source:
+  prior_behavior:
+    - IRedVoxelAsteroidBackend exposed void ReleaseVolume with only a stable ID
+    - the sole implementation blindly removed the current same-ID volume
+    - a delayed generation-one owner could therefore delete a recreated generation-two authority volume
+    - the eight existing native scenarios explicitly excluded ReleaseVolume
+  corrected_behavior:
+    - ReleaseVolume returns bool and requires StableId, ExpectedAuthorityGenerationToken, and OutError
+    - game-thread, nonzero-token, target-existence, and exact-generation checks all precede the sole removal
+    - zero, missing, stale, and future generations fail without changing the live volume
+    - exact release removes one generation while LastIssuedGenerationTokens remains intact
+    - no alternate backend implementation or runtime callsite exists
+
+implementation:
+  source_files:
+    - {path: Source/RedMMO/Mining/RedVoxelAsteroidBackend.h, bytes: 5943, sha256: 79601371E30D89DF6CA559AC4CE874B231FBF0534437D4EB538CB0854BABEA9A}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h, bytes: 3593, sha256: E973D79BF605E89A49BA23AF9ED85344F96CEDDF4C97DE380772917A88F194E7}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp, bytes: 81407, sha256: 54DD9CF493C3B77D648654EEC3A898A313CA4D1E99A71035481D3C21D8716F9E}
+    - {path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp, bytes: 196739, sha256: 0185A1B6C69F6CC3766DD43FC5C3F01BC45D9D1E62E73EC328C1E4347102F711}
+  source_contract_files:
+    - {path: Tools/tests/test_m12_sparse_density_backend_contract.py, bytes: 41441, sha256: A4722013363D446D50D0748F8BB6465A9BB44879FC2F479F98803421CC0AB724}
+    - {path: Tools/tests/test_m12_native_backend_automation_contract.py, bytes: 153003, sha256: 2BB75F0CDF4167D3E0BC9040F5C231237B3AF5871954AED4668044BCAC213C35}
+    - {path: Tools/tests/test_m12_voxel_authority_contract.py, bytes: 30126, sha256: 988585539F7CAB5BCFD7003799E027B0F51E8C9518AC1637F83318DEA193124A}
+  prior_recorded_source_identities:
+    backend_interface_sha256: 31863EDE6EC7A81026E83D474BCE55786678BD541DD94DB141BD0B63515784C9
+    sparse_backend_header_sha256: 59D34FD70DC8A9B1D97DBC7BBEA2F3289CAB11E19A5CA3CA0328B36C5DB5518B
+    sparse_backend_cpp_sha256: A31572109209338DDBAE4EAE07D8D0D9DD54264F6A7841C49B536DFBCC001A2C
+    native_test_translation_unit_sha256: 816DE1F79CCCE6AF9E787E86B3EEAFDD07FB71716928093DAAC6E2C1CD2E2031
+    native_source_contract_sha256: AADDE9A59998C75892F32FC84DFF6C5D0EBE19E852374C05D15BF887F4970F1B
+  native_automation_name: RedMMO.Mining.VoxelBackend.ReleaseRecreateGenerationCAS
+  total_native_automation_scenarios_in_file: 9
+  compile_state: uncompiled
+  execution_state: unexecuted
+  build_rule_plugin_map_asset_vendor_or_artist_handoff_modified: false
+
+native_scenario_authored:
+  lifecycle_sequence:
+    - generation one initializes with a canonical checkpoint
+    - zero-generation release rejects and preserves generation one
+    - exact generation-one release succeeds and a duplicate missing release rejects
+    - the same stable ID recreates with generation two equal to generation one plus one
+    - generation two receives one accepted deterministic edit and a complete checkpoint capture
+    - stale generation-one and future-generation release requests both reject
+    - after stale rejection, generation-two revision, generation, manifest, chunk identities, and compressed chunk bytes remain exact
+    - exact generation-two release succeeds and the same stable ID recreates with generation three equal to generation two plus one
+  mutation_sensitive_static_checks:
+    - require game thread precedes zero-token rejection
+    - zero-token rejection precedes lookup
+    - missing-target rejection and exact-generation comparison precede the sole live-volume removal
+    - error clearing and success follow removal
+    - stale, future, and exact result variables are bound to their intended generation arguments
+
+verification:
+  native_source_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/native_contract_stderr.log
+    bytes: 146
+    sha256: 0AD386E9EBB5F12D4E7A0F167F62A9A79B506E14160CCBFFA5619C93F776CDCE
+    result: 42_of_42_passed
+    new_generation_cas_release_contracts: 2_of_2_passed
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/m12_focused_stderr.log
+    bytes: 219
+    sha256: 6CE26288DEE07DBE344C71DB6959A3E58D991C64D08CFDB53669B31EF646222E
+    result: 114_of_114_passed
+  combined_static_regressions_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/static_regressions_prerecord_stderr.log
+    bytes: 247
+    sha256: BEE7836F2529473FD3D0A5C5659B6B3ABB559491FBB3EF3CA0BCBFF32E4E8BE7
+    result: 141_of_141_passed
+    composition:
+      focused_M12_source_and_model_contracts: 114
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_stdout:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/static_regressions_prerecord_stdout.log
+      bytes: 199
+      sha256: 0A4671FAFE40E9773F80C2AB3B7CB44DADED3AC83D65241B40E3C30EDFCE72ED
+      note: the single JSON failure line is an intentional integrity negative fixture and the unittest suite completed OK
+  full_offline_discovery_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/full_offline_discovery_stderr.log
+    bytes: 631
+    sha256: A85DEA70ADF33186398239A55A6B50E23D148A80CED82D79CED3BDD1821EE550
+    result: 525_of_525_passed
+  full_offline_discovery_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/full_offline_discovery_postrecord_stderr.log
+    bytes: 631
+    sha256: D8D8810E02A8AAB5C707BB5E4C3FA9196DCEEA5009B7F40B7F93BDC89CD4C8C8
+    result: 525_of_525_passed
+    expected_negative_fixture_stdout:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/full_offline_discovery_postrecord_stdout.log
+      bytes: 199
+      sha256: DDE227E4DCDA95C07A41AA639FCBB7DE3464C16A89D7DBEE4826732F373F6655
+      note: the single JSON failure line is an intentional integrity negative fixture and the unittest suite completed OK
+  combined_static_regressions_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/static_regressions_postrecord_stderr.log
+    bytes: 246
+    sha256: 300EC80B64A5A03AF37E8BE3A4D5F7B13ED62BF04FA3C6206FF205AEF1799584
+    result: 141_of_141_passed
+    expected_negative_fixture_stdout:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/static_regressions_postrecord_stdout.log
+      bytes: 199
+      sha256: C4B39482BA20C2FA7779ADCAA42F877734D174573C6CC0374BE749A64C50D3A6
+      note: the single JSON failure line is an intentional integrity negative fixture and the unittest suite completed OK
+  project_knowledge_integrity_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/project_knowledge_integrity_prerecord.json
+    bytes: 1782
+    sha256: E6E089574193C4D935D1962976F860F1D49778CC9FF765D30F1CBD3889A97282
+    result: passed_with_0_errors_and_0_warnings
+  project_knowledge_integrity_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_GenerationCASRelease_20260724T084456Z/project_knowledge_integrity_final.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 124
+    indexed_route_count: 162
+    queue_sha256: 223C15830BF5790547E75496AAAF54549EAE1FF87263DA6536F4DD47E8D476C0
+    note: report_is_regenerated_after_the_final_evidence_annotation_to_avoid_a_self_referential_digest_claim
+
+independent_review:
+  cpp_compile_plausibility: clean
+  signature_match: pure_virtual_override_and_definition_exact
+  failure_atomicity: all_rejections_precede_the_sole_remove
+  tombstone_preservation: LastIssuedGenerationTokens_is_not_removed
+  callsite_census: one_interface_one_implementation_six_dev_test_calls_zero_runtime_calls
+  source_contract_mutation_sensitivity: check_order_single_remove_and_exact_stale_future_result_bindings_pinned
+  reviewers: 2
+  limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+  currency: predates_all_M12_source_and_does_not_compile_or_link_M12
+  stale_build_graph_risk: cached_TitanEditor_and_Titan_UBT_makefiles_contain_zero_M12_source_names
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_plugin_vendor_artist_handoff_or_unrelated_dirty_work_modified: false
+  existing_D_resident_rollback_roots_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_file_entries_observed_with_untracked_expansion: 1539
+  stale_zero_byte_git_index_lock_preserved: true
+  physical_ram_free_gib_samples: [13.166, 13.225, 13.246]
+  commit_used_gib_samples: [26.113, 26.053, 26.004]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [28.759, 28.819, 28.868]
+  disk_c_free_gib: 124.731
+  disk_d_free_gib: 1140.009
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  exact_unreal_build_package_or_runtime_processes: 0
+  packaging_and_native_build_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+  canonical_queue_sha256: 223C15830BF5790547E75496AAAF54549EAE1FF87263DA6536F4DD47E8D476C0
+
+claim_limit: >-
+  This is source-static evidence. The ninth C++ automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute
+  the backend. Exact-generation release prevents a stale same-ID lifecycle
+  owner from deleting the current in-memory generation; it does not prove
+  persistence-safe unload, crash recovery, authentication, replication,
+  deformation, generated presentation or collision, suction, Inventory
+  credit, rendering, gameplay, performance, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  When physical memory safely permits, rebuild serialized TitanEditor and
+  Titan Development targets with -NoUBTMakefiles, -NoUBA, and
+  -MaxParallelActions=1 so the stale cached build graphs cannot omit M12, then
+  execute all nine RedMMO.Mining.VoxelBackend native scenarios and require nine
+  successes, zero failures, and process exit zero. Generated-output and
+  persistence adapter work remains gated on those compile and native-execution
+  results. If physical RAM remains below the 18-20 GiB gate, continue the
+  independent queued M07 checksummed Content/project-plugin storage-readiness
+  manifest slice rather than weakening the gate.

@@ -1,0 +1,72 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r80-playable-development-package
+module: M09
+evidence_class: build
+status: accepted_partial
+timestamp_utc: 2026-08-06T02:25:00Z
+scope: >-
+  One fresh Win64 Development build, cook, stage, IoStore/Pak archive, and
+  bounded offscreen D3D12 packaged-executable smoke for the clean RedMMO R80
+  PPG home world.
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R80_Playable_20260806_0214Z_Retry1/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R80_Playable_20260806_0214Z_Retry1/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  file_count: 51
+  total_bytes: 1452100867
+  tree_sha256: 3FB2ED6FBF69249B149555FB5DAA598C7F04F0164229E233F364F95ADE1FB19A
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 1F191227471BDE9C15F886B112ED02525C0748E83E695C25F0B76C6A848FB5C1
+  handoff_readme_sha256: D012872A8B7750D62D384E33ABF74D246A8CCC5B1D8D9D8D622849F6EA4B5648
+build:
+  result: success
+  cook_packages: 1417
+  iostore_packages: 1410
+  uat_exit_code: 0
+  elapsed_seconds: 389
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R80_PlayablePackage_20260806T0214Z_Retry1/uat_stdout.log
+compile_correction:
+  file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGWorldProfileAdapter.cpp
+  defect: >-
+    The runtime Game target attempted to call the WITH_EDITORONLY_DATA-only
+    UMaterial::GetExpressions API.
+  correction: >-
+    Cooked runtime now fails that optional material-graph-authentication control
+    closed as unresolved, while editor builds retain the exact existing graph
+    authentication path.
+smoke:
+  renderer: D3D12
+  resolution: 1280x720
+  mode: offscreen_unattended_no_sound
+  fatal_count: 0
+  planet_generation_complete: true
+  generated_chunk_count: 516
+  generation_time_ms: 15683.74
+  trooper_surface_spawn: true
+  starsparrow_surface_spawn: true
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R80_PlayablePackage_20260806T0214Z_Retry1/Smoke/packaged_smoke.log
+  stopped_processes:
+    - launcher_pid_12032
+    - exact_child_pid_3700
+  generated_saved_data: >-
+    Moved out of the handoff tree and preserved under the Smoke diagnostics
+    folder; the delivered package contains no smoke-generated Saved directory.
+known_defects:
+  - >-
+    Three handled UVChannelData initialization ensures occurred in texture
+    streaming after boot. They emitted preserved ensure reports but did not
+    terminate the process or prevent PPG generation, player placement, or ship
+    placement.
+  - Physical keyboard and mouse feel is not yet human-accepted.
+  - Replication, multiplayer, space traversal, and warp are not accepted here.
+claim_limit: >-
+  This is a real launchable R80 Win64 Development candidate whose package,
+  D3D12 boot, PPG generation, player spawn, and ship spawn passed. It is not a
+  warning-free final build and does not prove physical input feel, replication,
+  multiplayer, space traversal, every biome, or final art acceptance.
+next_safe_action: >-
+  User or developer launches RedMMO.exe and performs the physical on-foot and
+  Trooper-to-StarSparrow control checklist. Record exact failures. Independently
+  isolate the three UVChannelData streaming ensures without changing the PPG
+  seed, terrain, biome bindings, or package candidate.

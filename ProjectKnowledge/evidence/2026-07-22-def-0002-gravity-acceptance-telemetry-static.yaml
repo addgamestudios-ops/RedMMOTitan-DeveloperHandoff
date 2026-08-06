@@ -1,0 +1,202 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0002-GRAVITY-ACCEPTANCE-TELEMETRY-STATIC
+captured_at: "2026-07-22T15:29:28.9006458Z"
+module: M02
+slice: DEF-0002-gravity-acceptance-telemetry
+evidence_class: static
+result: source_telemetry_implemented_awaiting_compile_and_runtime_acceptance
+
+authorization_and_scope:
+  bounded_defect: DEF-0002
+  intended_change: >-
+    Add an explicit, read-only acceptance snapshot for the cached and queried
+    gravity frame so a later real-GPU landing and reboard run can measure stable
+    body identity, radial-up agreement, and optional settled ship alignment.
+  gameplay_behavior_changed: false
+  files_modified:
+    - Source/RedMMO/RedShipMovementComponent.h
+    - Source/RedMMO/RedShip.h
+    - Source/RedMMO/RedShip.cpp
+    - Build/Automation/redmmotitan_module_queue.json
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml
+    - ProjectKnowledge/evidence/2026-07-22-def-0002-gravity-acceptance-telemetry-static.yaml
+  files_added:
+    - Tools/tests/test_def0002_ship_gravity_telemetry_contract.py
+  explicitly_preserved:
+    - Source/RedMMO/RedShipMovementComponent.cpp
+    - Source/RedMMO/RedPlayerCharacter.cpp
+    - all collision, recovery, landing, parking, compass, replication, and HUD behavior
+    - all Config, map, asset, plugin, package, artist-repository, handoff, user-asset, and unrelated dirty-work bytes
+
+source_revision_and_concurrency:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  staged_files_before: 0
+  tracked_unstaged_files_before: 59
+  individual_untracked_files_before: 1315
+  conflicts_before: 0
+  two_snapshot_key_file_drift: 0
+  other_continuation_overlap_count: 0
+  unreal_build_cook_package_overlap_count: 0
+
+resource_gate:
+  sustained_samples: 7
+  sampled_utc_range: ["2026-07-22T15:12:34Z", "2026-07-22T15:12:55Z"]
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [9.397, 9.681]
+  free_commit_gib_range: [19.726, 20.017]
+  rtx_3080_total_vram_mib: 10240
+  rtx_3080_free_vram_mib_range: [8919, 8920]
+  gpu_utilization_percent_range: [11, 13]
+  gpu_temperature_c: 42
+  free_disk_gib:
+    C: 132.773
+    D: 1141.728
+  decision: >-
+    Physical RAM remained below the 14 GiB T02 real-GPU gate and far below the
+    18-20 GiB packaging gate. No Unreal, Titan, UBT, UAT, build, cook, package,
+    shader, IoStore, Zen, or real-GPU process was launched.
+
+rollback_checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002GravityTelemetry_20260722_1510
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0002GravityTelemetry_20260722_1510/pre_slice_manifest.yaml
+  manifest_sha256: DE247FE974F3FCB7EB98A0AF42766A77360E55C7E347721E777AF6F90CA30FB6
+  exact_backups_plus_manifest: 8_of_8
+  source_identities_before:
+    - {path: Source/RedMMO/RedShipMovementComponent.h, sha256: B67AD2ADCFB9E93E863A3CE21ADFDD01F0C3579F14488424F5497ABA84C6B9DB}
+    - {path: Source/RedMMO/RedShip.h, sha256: CB9B6A70AF7A05E710A227BC7D1A2E16F5BD54985E32633ADF44E9B0D6F663BF}
+    - {path: Source/RedMMO/RedShip.cpp, sha256: B750E9E6A81530BCFC95B15C697C97371058F00A6C237123C7103ACA6FEFC02D}
+  note: >-
+    The backups capture the exact pre-edit working-tree identities, including
+    the user's pre-existing tracked changes. Repository HEAD was not substituted
+    for dirty work.
+
+implemented_contract:
+  movement_component_readback:
+    - URedShipMovementComponent exposes only its cached stable gravity-body ID through a BlueprintPure const getter
+    - the getter does not refresh or change dominant-body state
+  explicit_snapshot:
+    - ARedShip exposes LogGravityAcceptanceSnapshot as an explicit Exec and BlueprintCallable command
+    - the command has no Tick, landing, reboard, exit, or other automatic invocation
+    - the bounded phase is restricted to alphanumeric, underscore, hyphen, and period characters and 64 characters
+  comparison:
+    - the query reuses QueryDominantBodyDetailed with the cached stable ID and GravityBodySwitchHysteresis
+    - cached and queried IDs must match
+    - cached and queried centers and radii must remain within 1 cm
+    - cached and queried radial-up vectors must have dot product at least 0.9999
+    - optional settled alignment requires ship-up dot radial-up at least 0.95
+  report_fields:
+    - phase, local role, net mode, authority, cached and queried body IDs
+    - cached and queried centers and radii, center delta, radius delta, and radial-up dot
+    - ship-up dot, frame pass, alignment required, alignment pass, landing assist, and settled state
+    - explicit failure reasons for unavailable world, movement, body, or invalid and mismatched frames
+  mutation_boundary: >-
+    The command reads cached movement state, queries the world, computes values,
+    and logs them. It does not change body selection, transforms, velocity,
+    movement input, landing state, parking state, compass state, or replication.
+
+source_identity_after:
+  - path: Source/RedMMO/RedShipMovementComponent.h
+    sha256: 5682ACE07E4E5AFB800C83B632EBD9B8C2D1FAA2ED0F32905D45A0FC7A95C970
+  - path: Source/RedMMO/RedShip.h
+    sha256: A590CB62BA4F886810C2B4CAD3752F81137B5BE4E7629A90DEA6CEEF27340B0A
+  - path: Source/RedMMO/RedShip.cpp
+    sha256: B0F19832CD1221A88DCA08ED41B94B85DB483D89E77AC5F1DFADCC42CD01783E
+  - path: Tools/tests/test_def0002_ship_gravity_telemetry_contract.py
+    sha256: 10F7F6F40D1102643C14126B4B26BE9DD847FDBFFB4717A81E96058C06607628
+unchanged_relevant:
+  - {path: Source/RedMMO/RedShipMovementComponent.cpp, sha256: 9CEBD528B3C61C430D52C89AC336C6FF4C0175B8AA3A63A5016187A322D86328}
+  - {path: Source/RedMMO/RedPlayerCharacter.cpp, sha256: ED21529094101E707F09635C6D8DFBD3A427BC8989C45D1CAC2B4D742E8F3749}
+  - {path: Tools/tests/test_def0002_ship_reboard_contract.py, sha256: 3E1A87FBAD3218A83000A234112841D32C7A3C15FEC2838B01B796F51DF15B40}
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_def0002_ship_gravity_telemetry_contract
+    Tools.tests.test_def0002_ship_reboard_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  result: 20_of_20_passed
+  gravity_telemetry_contract_tests: 7_of_7_passed
+  existing_fighter_reboard_contract_tests: 6_of_6_passed
+  protected_provenance_tests: 7_of_7_passed
+  clean_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0002_GravityAcceptanceTelemetry_20260722_1510_retry1/offline_contract_and_provenance_tests.log
+  clean_log_sha256: E8E1CAE9B1AAB44E2DECBE5AE79E23AAAD458F24F7330B77BACAE509283F09D1
+  clean_stdout_sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  retry_history: >-
+    The initial combined run found one escaped-quote literal error in the new
+    static test, not in production code. A first review then found that overall
+    PASS did not enforce optional ship alignment and that phase text was not
+    parser-safe. Both production review findings and the test literal were fixed;
+    the final independent review passed with no actionable static blocker.
+  compile_uht_verified: false
+  runtime_console_or_blueprint_routing_verified: false
+
+target_currency:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0002GravityTelemetry_1510/target_currency.json
+  report_sha256: 63E49DA1B3ADF8EF6BC1F02A22123A73CB0D15F42A57CB0756570BAD4BFCBF46
+  captured_at: "2026-07-22T15:25:25.759649Z"
+  input_count: 874
+  input_manifest_sha256: 91423A0D0C9285728DD427CFF6DF5A9CC2F933F38955114D99DEF07E0328ED6B
+  result: refused_fail_closed
+  skip_build_allowed: false
+  titan_newer_project_inputs: 38
+  titan_editor_newer_project_inputs: 26
+  build_proofs_supplied: 0
+
+latest_build_evidence:
+  target_report_before_slice: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_DEF0004NoOpFeedback_1439_retry2/target_currency.json
+  target_report_before_slice_sha256: 0575FBB83E1069D45B6B8D2C5C4A940B5FA19A414E25CE6B152D2F6C4D4BB1A7
+  package_pointer: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+  package_pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_log: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+  pointed_log_sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  exit_code: 1
+  terminal_phase: UBT_UBA_BUILD
+  cook_stage_zen_iostore_or_shader_started: false
+  note: >-
+    The latest guarded package attempt produced no current archive. The July 17
+    archive remains the last successful archive but lacks the current fused
+    source hash, so package currency is unverified.
+
+canonical_sync:
+  module_queue_sha256: 5AF558B145368727CD9C209389F2177B928F04D0D451D669AA72BC2D96D95EBC
+  current_state_snapshot_sha256: 5AF558B145368727CD9C209389F2177B928F04D0D451D669AA72BC2D96D95EBC
+  project_wide_next_action_changed: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  protected_topology: 9_of_9_passed
+  protected_source_rasters: 135_of_135_passed
+  safe8_embedded_manifest: 338_of_338_passed
+  hud_art_assets: 56
+  vibe_pinned_sources: 8_of_8_passed
+  artist_repository_baselines_changed: false
+
+remaining_acceptance:
+  - compile and link current TitanEditor and Titan targets with exact proofs under a safe resource gate
+  - invoke the snapshot before landing and after reboard and require frame pass plus aligned settled snapshots
+  - implement bounded collision-aware fitted-envelope passive recovery
+  - add reversible exact/native landing and parking post-clearance validation
+  - run real-GPU landing, exit, reboard, takeoff, and stationary compass acceptance
+  - run two-client authority, replication, late-join, and multiplayer acceptance
+
+claim_limit: >-
+  Static source inspection and offline tests prove that the explicit read-only
+  telemetry contract is present and rollback-protected. They do not prove UHT,
+  compilation, console or Blueprint routing, gravity-frame values at runtime,
+  collision recovery, landing, reboard, takeoff, compass behavior, rendering,
+  packaging, replication, or multiplayer. DEF-0002 remains open.
+
+next_safe_action: >-
+  Under a later safe resource gate, compile TitanEditor and Titan and invoke the
+  snapshot in a bounded real-GPU landing and reboard run. The project-wide next
+  action remains M00's capped T02 close, translated, and oblique sparkle captures
+  once its separate 14 GiB physical-RAM gate passes; packaging remains deferred.

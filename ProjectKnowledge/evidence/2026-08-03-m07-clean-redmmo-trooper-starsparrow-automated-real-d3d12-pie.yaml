@@ -1,0 +1,118 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-trooper-starsparrow.automation.2026-08-03
+captured_utc: "2026-08-03T06:32:40Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: dependency-closed-trooper-starsparrow-home-bind-and-automated-d3d12-pie
+evidence_class: automation
+result: passed_automated_one_player_d3d12_pie_controls_human_package_multiplayer_pending
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256: 1310D92641AC25DAEA4DF289A8B2C16A46F3F0D4AECB7FB9F4616FE5CEAD5209
+  game_mode: /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01
+  trooper: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  ship: /Game/RedMMO/Gameplay/Trooper/A01/Ship/BP_RedModularStarSparrow_Trooper_A01
+  focal_rig_or_customization_payload_present: false
+  production_redmmotitan_mutated: false
+
+migration:
+  focalrig_free_trooper_animation_rifle_payload_packages: 135
+  exact_starsparrow_payload_packages: 25
+  project_owned_a01_assets: 18
+  rejected_visual_only_ship_removed: true
+  seed_terrain_and_ppg_binding_preserved: true
+  approved_grass_source: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+  approved_grass_aliases:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+
+build:
+  evidence_dir: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_A01_FinalBuild_20260803T062935Z
+  editor:
+    target: RedMMOEditor_Win64_Development
+    result: succeeded
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_A01_FinalBuild_20260803T062935Z/RedMMOEditor_build.log
+    log_sha256: 84CA27DE8130A6892903B4737D679A7EDD839BDE0AEED664C1B4179AE3143B0D
+    module_dll_sha256: 1224F080947BD51208C116F0BC2D5A79E70756BA1AE0FD740DF0CD884C343D44
+  game:
+    target: RedMMO_Win64_Development
+    result: succeeded
+    log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_A01_FinalBuild_20260803T062935Z/RedMMOGame_build.log
+    log_sha256: E07D305BC476DE3FBAA119DD738743F649DA41ECB752222933752BB0455B1E26
+    executable_sha256: 0D7A0C89DADA6885EB751B8B5E69694E7B235F6EA77E12045AE15606A11DA163
+
+automated_pie:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_20260803T063155Z/result.json
+  result_sha256: 5D11C4DB723833D20C0467FA0C96F239AB06F9C7A13B7C94416FB92821E563A3
+  launch_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_Launch_20260803T063155Z/UnrealEditor-Cmd.log
+  launch_log_sha256: 403AEF00C0368F3BB587D51BC356402A1999F38454396391DD4AD51F69848BFE
+  renderer: D3D12_SM6_RenderOffscreen
+  null_rhi_forbidden: true
+  map_check_errors: 0
+  map_check_warnings: 0
+  dirty_content_after: 0
+  dirty_maps_after: 0
+  pie_stopped: true
+  tests:
+    radial_walk_tangent_displacement_cm: 512.2762660177849
+    radial_walk_speed_cm_s: 599.9999999991244
+    radial_sprint_tangent_displacement_cm: 883.7988626669925
+    radial_sprint_speed_cm_s: 999.9999999882929
+    radial_jump_takeoff_and_land: passed
+    server_authoritative_projectile_spawn: passed
+    fitted_ship_parking_owned_surface_gap_cm: 15.0
+    f_context_ship_entry_and_possession: passed
+    ship_up_displacement_cm: 1173.3346956045386
+    ship_forward_displacement_cm: 1273.2372981043823
+    ship_strafe_displacement_cm: 1052.1493882118377
+    ship_down_displacement_cm: 630.4124238432596
+    ship_mouse_look_and_roll: passed
+    cruise_max_speed_cm_s: 5998.802783601421
+    boost_max_speed_cm_s: 11998.746580050236
+    boost_speed_ratio: 2.000190206761008
+    f_context_ship_exit_and_trooper_restore: passed
+    exit_capsule_bottom_owned_surface_gap_cm: 10.0
+    exit_separated_from_fitted_ship_envelope: true
+
+authority_corrections:
+  - PPG surface queries accept only exact ready generated chunk ownership and fail closed for ambiguous or unready home bodies.
+  - The home GameMode applies the PPG floating-origin lifecycle before re-resolving the body and grounding the Trooper.
+  - Ship parking and pilot exit expose authoritative fitted-envelope and owned-surface validation telemetry.
+  - On-foot and ship Enhanced Input contexts are switched during the F entry and exit possession transaction.
+
+rollback:
+  map_bind_checkpoint: D:/RedMMOTitanWindowsData/Rollback/RedMMO_HomeGameplayBind_A01_20260803T045406Z/manifest.json
+  final_log_cleanup: D:/RedMMOTitanWindowsData/Rollback/RedMMO_A01_FinalLogCleanup_20260803T062756Z/manifest.json
+  final_log_cleanup_sha256: FF1C8AE47CAB2D2074C788503DD24F562FE041963CAF44678307972BA55F994C
+
+preservation:
+  persistent_writes_during_final_pie: false
+  protected_hashes_unchanged: true
+  tracked_home_and_gameplay_hashes_unchanged: true
+  provider_ports_5353_8000_8765_listening_after: false
+  grass_asset_substituted: false
+
+open_gates:
+  - Physical keyboard, mouse and controller feel plus human hands-on acceptance are not proven by direct Enhanced Input action injection.
+  - The run disabled sound; audible rifle, footsteps, airborne silence and ship audio remain unproven.
+  - Cruise and boost max-speed telemetry passed at an exact 2.0 ratio, but their dedicated settle phases recorded zero displacement; sustained boost translation remains a separate proof.
+  - Packaged standalone, cook, travel, replication, late join and multiplayer are not proven.
+  - The configured one-player home-map flow passed; shipless or pre-existing-ship spawn flows and PPG origin replication are not generalized.
+  - RenderOffscreen D3D12 is not human art-direction, grass-visibility or visual acceptance.
+
+claim_limit: >-
+  This proves one fresh-process, automated, one-player D3D12 PIE flow on the
+  actual clean RedMMO PPG home map: owned-surface Trooper grounding, radial
+  walk/sprint/jump/land, server-authoritative projectile spawn, fitted ship
+  parking, F possession, independent forward/strafe/ascent/descent, look, roll,
+  speed-limit boost telemetry, and safe F exit. It does not prove physical
+  input feel, audio, sustained boost translation, packaged standalone, travel,
+  replication, multiplayer, visual acceptance or human play acceptance.
+
+next_safe_action: >-
+  Run one visible no-save hands-on PIE on the same saved home map for physical
+  input and presentation review. After that review, keep packaging and
+  replication as separate guarded modules rather than promoting this automation
+  result to standalone or multiplayer acceptance.

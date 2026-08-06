@@ -1,0 +1,127 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r66-seeded-palms-disabled-real-gpu.2026-08-05
+captured_utc: "2026-08-05T21:57:04Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r66-project-owned-seeded-palm-disable-fresh-reload-mapcheck-d3d12
+evidence_class: real_gpu_visual
+result: pass_narrow_palm_disable_retained_full_visual_acceptance_open
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 53.01
+  commit_headroom_gib: 55.61
+  gpu_dedicated_used_gib: 0.90
+  free_d_drive_gib: 767.33
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  map_saved: false
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1NoPalms_R66_20260805T2144Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1NoPalms_R66_20260805T2144Z/manifest.json
+  verified_preimages:
+    - {file: DA_PPG_ProfileV1_PlanetData.uasset, sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970}
+    - {file: DA_PPG_ProfileV1_GrassEligible_R29.uasset, sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8}
+    - {file: RedMMO_PPG_HomeWorld.umap, sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3}
+  restore_route: >-
+    With Unreal closed, restore the exact ProfileV1 preimage and delete only
+    /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66,
+    then require a fresh reload and MapCheck.
+
+exact_writes:
+  packages:
+    - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+      operation: project-owned duplicate of R29 with only foliage_list[0].foliage_density changed from 10.0 to 0.0
+      sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+    - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+      operation: rebound existing Craters, Hills and Mountains foliage_data references from R29 to R66
+      sha256_before: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+      sha256_after: 4D22E5BD8DC106061BC3EF086BB95FA85AA570A4BAD66325E002135E1C7AC96F
+  unchanged:
+    - R66 grass entry index 1 is structurally identical to R29
+    - R66 rock entry index 2 is structurally identical to R29
+    - R66 tree mesh and all tree LOD mesh identities remain the project-owned Oasis palm alias; only effective density is zero
+    - Desert, Ocean and Poles retain null foliage_data bindings
+    - the home map, seed, terrain, grass and rock distribution, project source, vendor packages and protected maps were not saved
+
+apply:
+  script: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_no_palms_r66.py
+  script_sha256: 33761AD3CD6BFDCD62C462C946194DF58D71A8DEC64382F9EAEDE42E10A8F4D9
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1NoPalms_R66_20260805T2144Z/Apply/apply_result.json
+  result_sha256: 696B2AAA518D95E104395D365489942B25C3609DBFAAEE8C90A293F1528EFFE1
+  status: PASS_R66_NO_PALMS_SUCCESSOR_BOUND_PENDING_FRESH_RELOAD
+  first_invocation_note: >-
+    The first hidden apply invocation passed an unquoted ExecCmds value and
+    executed only the bare py console command. It produced no result, target or
+    profile change and its exact unattended Engine Entry process was stopped.
+    The corrected quoted invocation then completed the authenticated apply.
+
+fresh_reload_verification:
+  script: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_no_palms_existing_viewport_r66.py
+  script_sha256: 6AE841AA6583E6B447A5F74328E7764DF40E49E8EDD038023BBC675DFD96BEFF
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1NoPalms_R66_20260805T2144Z/Capture/result.json
+  result_sha256: 9E68D78842097F5A315F5A8F44C840C83CAC5070FB599380CBF0FE93DA264A88
+  renderer: D3D12
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  palm_census:
+    samples: 429
+    components_min_max: [0, 0]
+    instances_min_max: [0, 0]
+  approved_grass_census:
+    components: 196
+    instances: 2218356
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    stable_post_capture_samples: 164
+    identity_sha256: F03A7C5A42ACA54855EE8775EAF8EFDFBE0327FBCD157CD7435549B13F0316C4
+  dirty_packages_after: {content: [], maps: []}
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  unreal_or_build_processes_after: 0
+
+visual_evidence:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1NoPalms_R66_20260805T2144Z/Capture/R66_no_repeated_palms_existing_viewport.png
+  capture_sha256: 00BE752A46284E0315C7950C2C8409EFBA40EB1D2488B897ED4379109F677C96
+  dimensions: [1014, 550]
+  independently_reviewed: true
+  observed:
+    - no repeated seeded palms are visible at the saved player-scale view
+    - dense approved grass remains visible across near and mid ground
+    - the Trooper and parked StarSparrow remain visible
+    - the grass and ground remain over-saturated neon green
+    - the surface sky remains black in this view
+  art_acceptance: false
+
+retention_decision: >-
+  Retain R66 because it removes only the rejected repeated seeded palm category
+  through the installed PPG public density control while preserving the exact
+  grass and rock entries, seed, generated terrain, map and protected assets.
+
+next_safe_action: >-
+  Do not repeat palm or grass visibility diagnostics. The next independent M07
+  art slice must use a materially different project-owned painted ground
+  texture or material branch, not another tint-only pass, while retaining the
+  exact R66 foliage bindings and grass/rock distribution. The black surface sky
+  remains a separate unaccepted presentation gate. Hands-on input feel,
+  standalone packaging, replication, multiplayer and a developer handoff build
+  remain separately unproved.
+
+claim_limit: >-
+  R66 proves the persisted project-owned whole-category palm disable, fresh
+  ProfileV1 reload, MapCheck, PPG regeneration, zero palm components, stable
+  approved grass census and one real-D3D12 player-scale frame. It does not prove
+  full biome art acceptance, correct ground palette, day/night acceptance,
+  physical-device controls, standalone packaging, replication, multiplayer or
+  a developer-ready handoff build.

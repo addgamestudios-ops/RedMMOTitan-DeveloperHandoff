@@ -1,0 +1,114 @@
+schema_version: 1
+reference_set_id: reference.youtube.ga-5ejeleju.ue57-steam-multiplayer-part1
+reviewed_utc: "2026-07-24T17:50:15Z"
+review_scope: transcript_description_official_epic_valve_docs_and_current_redmmotitan_steam_stack
+source_kind: external_tutorial
+implementation_or_project_files_reviewed: true
+authority: inspiration_only
+
+sources:
+  - id: reference.youtube.ga-5ejeleju
+    title: "How to create a Multiplayer Game using Steam | Unreal Engine 5.7+ | Pt. 1"
+    url: https://youtu.be/Ga-5eJElejU
+    published_date: "2026-03-04"
+    reviewed_material:
+      - auto_generated_english_captions
+      - published_video_description_and_configuration_snippet
+      - official_epic_ue_5_8_documentation
+      - official_valve_steamworks_documentation
+      - current_redmmotitan_plugin_config_session_source_and_windows_steam_guide
+    confidence:
+      level: high_for_visible_setup_and_local_comparison_medium_for_spoken_nuance
+      basis: >-
+        The complete bounded caption sequence and published configuration were
+        compared with current Epic and Valve primary documentation and the
+        exact UE 5.8 RedMMOTitan Steam stack. Auto-generated captions can lose
+        product names and punctuation, so official documentation and current
+        project source override the tutorial.
+    summary: >-
+      The tutorial starts a new UE 5.7-or-newer project, adds the third-party
+      Advanced Sessions binaries, creates a C++ class, enables Steam-related
+      plugins, uses App ID 480 and a pasted Engine.ini block, replaces the game
+      instance with Advanced Friends Game Instance, verifies Steam from
+      Standalone or a build, and begins a menu/lobby UI. It is useful as an
+      introductory listen-session checklist but is not a dedicated-server,
+      persistence, scale, security, deployment, or MMO-server design.
+    applicable_patterns:
+      - verify that the intended online subsystem actually initializes in a separate game process
+      - exercise explicit create, advertise, find, join, invite, leave, failure, and reconnect paths
+      - keep lobby or session UI separate from transport and authoritative gameplay code
+      - test matching client builds with distinct Steam accounts and retain subsystem, identity, session, travel, and transport logs
+      - replace App ID 480 with the project's real entitled App ID before release testing
+    official_corroboration:
+      - claim: UE loads the default online service selected in Engine.ini and exposes asynchronous session interfaces
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/online-subsystem-in-unreal-engine
+        status: corroborated
+      - claim: SteamDevAppId 480 is a shared development test ID and a real title requires its assigned App ID
+        url: https://dev.epicgames.com/documentation/unreal-engine/online-subsystem-steam-interface-in-unreal-engine?lang=en-US
+        status: corroborated
+      - claim: SteamSockets uses its own net driver and SteamSockets builds can connect only to compatible SteamSockets builds
+        url: https://dev.epicgames.com/documentation/unreal-engine/using-steam-sockets-in-unreal-engine
+        status: corroborated
+      - claim: dedicated servers require a separate server target and separate server and client execution evidence
+        url: https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-dedicated-servers-in-unreal-engine
+        status: corroborated
+      - claim: App ID 480 belongs to Valve's SpaceWar example
+        url: https://partner.steamgames.com/doc/sdk/api/example?l=english
+        status: corroborated
+      - claim: persistent or competitive dedicated hosting uses the Steam Game Servers API and has separate distribution requirements
+        url: https://partner.steamgames.com/doc/features/multiplayer/game_servers
+        status: corroborated
+      - claim: a Steam-distributed dedicated server uses a separate TOOL App ID and depot workflow
+        url: https://partner.steamgames.com/doc/sdk/uploading/distributing_gs?l=english
+        status: corroborated
+      - claim: Steam networking and relay services require real deployment and route evidence
+        url: https://partner.steamgames.com/doc/features/multiplayer/networking
+        status: corroborated
+    redmmotitan_corroboration:
+      - path: Titan.uproject
+        sha256: 8F7B63580896239941C583C127875E9763DC132CA472E84BC6C75B05F586D732
+        supports: SteamIntegrationKit is enabled while Epic stock OnlineSubsystemSteam and SteamSockets entries remain disabled
+      - path: Plugins/SteamIntegrationKit/SteamIntegrationKit.uplugin
+        sha256: D2C5386CAF78FB68F5B1FF8303CBE08E0E6000EAF3206C144B853D631F5338FB
+        supports: SIK 1.9 supplies replacement OnlineSubsystemSteam and SteamSockets runtime modules for UE 5.8
+      - path: Plugins/SteamIntegrationKit/Source/SteamIntegrationKit/SteamIntegrationKit.Build.cs
+        sha256: B2DEC7D8B2F380EADF7D652D4557C9CB3238E97EF035021214D18F95465DFA90
+        supports: the selected SIK package deliberately uses its bundled Steam provider rather than the engine provider
+      - path: Config/DefaultEngine.ini
+        sha256: 880FF0D02AD7A9E69B9ED50FE06F826B3C9DB1658C502C3A945666200AFE03AD
+        supports: RedGameInstance, Steam App 480 development settings, lobbies, relay, ports, and SteamSocketsNetDriver are already configured
+      - path: Source/RedMMO/RedGameInstance.h
+        sha256: C2C8E987412087822EFA27D956D7899A838AA0AD70996EDF9CA53168B14495AF
+        supports: the project already exposes host, find, join, reconnect, leave, invite, state, and result APIs
+      - path: Source/RedMMO/RedGameInstance.cpp
+        sha256: 1D742F45FF1581AB83FFC7EA267F94DDA73E08145754C7AB41E923E04BF46CD7
+        supports: the project already implements filtered eight-slot listen sessions, travel, discovery, invites, reconnect, and cleanup
+      - path: docs/WINDOWS_STEAM.md
+        supports: SIK is the sole current Steam provider and real two-account packaged acceptance remains open
+    bounded_adoption:
+      - retain the current SIK 1.9 provider topology and RedGameInstance session implementation
+      - use the tutorial only as a checklist for separate-process Steam initialization, lobby UI, and explicit session-flow testing
+      - keep the existing fail-closed package currency, exact artifact, distinct-account, and full gameplay regression gates
+      - treat a dedicated server as a separate architecture slice requiring a Server target, authority review, Steam Game Server configuration, deployment design, and load evidence
+    unsafe_if_copied_without_redmmo_adaptation:
+      - installing Advanced Sessions beside SIK or enabling Epic stock Steam modules beside SIK replacement modules
+      - replacing URedGameInstance with Advanced Friends Game Instance and discarding current product, build, session-type, cleanup, reconnect, and gameplay-travel behavior
+      - pasting the video's mixed SteamSockets and legacy SteamNetDriver configuration into DefaultEngine.ini
+      - changing net drivers or provider ownership without an isolated migration and matching-build packaged regression
+      - treating overlay visibility, one account, PIE, Standalone, startup logs, or one listen host as Steam multiplayer acceptance
+      - treating a listen lobby as a persistent MMO or authoritative dedicated-server deployment
+      - treating App ID 480, steam_appid.txt, or direct SteamID joining as a production release path
+      - bypassing target-currency, package-integrity, RAM, one-process, two-account, protected-checkpoint, or artifact-hash gates
+
+adoption_rules:
+  - official Epic and Valve documentation plus current repository-owned architecture override tutorial advice on conflict
+  - do not add a second Steam provider or second session framework to solve an already-implemented flow
+  - preserve server-authoritative gameplay, one player identity, one active celestial frame, protected maps, artist repositories, vendor roots, and unrelated dirty work
+  - a tutorial review cannot satisfy build, runtime, package, Steam transport, dedicated-server, scale, or multiplayer acceptance
+
+claim_limit: >-
+  This reference proves only a bounded tutorial review and its comparison with
+  primary documentation and current project source. It does not prove that the
+  current targets compile, a package is current, Steam initializes, a lobby is
+  discoverable, two accounts connect, gameplay replicates, relay is used, or a
+  dedicated server exists.

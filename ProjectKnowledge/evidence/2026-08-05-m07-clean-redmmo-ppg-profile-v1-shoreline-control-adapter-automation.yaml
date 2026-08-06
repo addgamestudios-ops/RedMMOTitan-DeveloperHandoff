@@ -1,0 +1,138 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-shoreline-control-adapter-automation.2026-08-05
+captured_utc: "2026-08-05T06:10:29Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-shoreline-control-read-only-adapter
+evidence_class: automation
+result: pass_exact_profile_v1_shoreline_scalar_binding_build_and_three_d3d12_contracts
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  test_map: /Engine/Maps/Entry
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  tracked_dirty_count: 60
+  free_physical_ram_gib: 51.11
+  free_gpu_vram_mib: 7843
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1ShorelineAdapter_20260805T0554Z
+  manifest_sha256: E80B3F50FF63B4C62B4BB3854AEB99B4BE1789D3083E31F5B7EFD741B16F4DA0
+  exact_preimages:
+    RedPPGWorldProfileAdapter.h: F2720014D1BBD249ADE7EC20DE5E3A7813DC88CAFAD20A7AAECDB42142F858B5
+    RedPPGWorldProfileAdapter.cpp: 62014F4B8398B2D4A6D0F9FB4A81A0ED0E57F1E047F011BA2C61D2DD58814541
+    RedPPGWorldProfileAdapterTests.cpp: ED119BD74376EE0D6434429FD9AD7F9237D11E28A7C10FF6DD767F86295AD8A5
+
+writes:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGWorldProfileAdapter.h
+    sha256: 3E5AEBDF23746101EC6AFBD0CE3D333F5E50E7E253645FA262203019BC41A9A2
+    role: read-only scalar graph-control binding and plan diagnostics
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGWorldProfileAdapter.cpp
+    sha256: 55E980ACD80F4C7426C6834F8DCC2ABE79446474D022CA94C2033EE8FC9E91A9
+    role: exact ProfileV1 shoreline scalar, six-wrapper and elevation-output authentication
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGWorldProfileAdapterTests.cpp
+    sha256: 6E8B2C60CF4ED930472EC3D3C34088CD2CDD5752118FDBE71328C93F5FEAE96E
+    role: synthetic fail-closed plus actual serialized ProfileV1 control contracts
+
+binding_contract:
+  control_name: ShorelineFlattenThreshold
+  material_path: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation.M_PPG_ProfileV1_Generation
+  parameter_name: ShorelineFlattenThreshold
+  expression_identity: RedProfile.ShorelineFlattenThreshold
+  persisted_value: 0.005
+  requested_profile_value: 0.012
+  authenticated_consumers: 6
+  exact_consumer_roles: [Craters, Mountains, Desert, Hills, Poles, Ocean]
+  global_height_required_unconnected: true
+  water_level_inputs_required_unconnected: true
+  exact_identity_resolved: true
+  write_authorized: false
+  unresolved_controls_remaining:
+    - ContinentalNoise
+    - DetailNoise
+    - PerBiomeHeightScaleAndBias
+    - PresentationMaterialRoles
+
+build:
+  target: RedMMOEditor Win64 Development
+  command_policy: serialized_MaxParallelActions_1_NoUba
+  result: succeeded
+  actions: 6
+  elapsed_seconds: 92.94
+  compiler_warnings: 0
+  compiler_errors: 0
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMOEditor_PPGProfileV1ShorelineAdapter_20260805T0554Z.log
+  log_sha256: EC969AECAC37D964D9972BD3D194F8324971EF5B2296C188EB77B46AD1FB3A70
+  editor_module: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+  editor_module_sha256: 2B48EE093617E43B712278CC69689A3ABBBFDD0707E39DCE8FC320B87B7CDC44
+
+discarded_launcher_attempt:
+  result: argument_delivery_failed_before_project_start
+  exact_cause: >-
+    The first System.Diagnostics.ProcessStartInfo.ArgumentList invocation under
+    Windows PowerShell started UnrealEditor-Cmd.exe with no arguments. It loaded
+    no project or map, created no log or report, and executed no test.
+  exact_editor_pid_stopped: 13920
+  linked_helpers_stopped: 2
+  retry_policy: materially_different_quoted_argument_line
+
+automation:
+  host: WindowsEditor D3D12_SM6 RenderOffscreen
+  editor_world: /Engine/Maps/Entry.Entry
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGProfileV1ShorelineAdapter_D3D12_20260805T0554Z_R02
+  editor_pid: 24868
+  exit_code: 0
+  elapsed_seconds: 25.82
+  minimum_free_physical_ram_gib: 47.05
+  ram_abort: false
+  timeout: false
+  discovered: 3
+  succeeded: 3
+  failed: 0
+  warnings: 0
+  tests:
+    - RedMMO.WorldAuthoring.PPGWorldProfileAdapter.FailClosed
+    - RedMMO.WorldAuthoring.PPGWorldProfileAdapter.ProfileV1ShorelineControl
+    - RedMMO.WorldAuthoring.PPGWorldProfileAdapter.TransientClone
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGProfileV1ShorelineAdapter_D3D12_20260805T0554Z_R02/runtime.log
+  runtime_log_sha256: B9887C90FDF498DF59EA61FFD716F40DF9286EADB1DDD016C092F61574147B46
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGProfileV1ShorelineAdapter_D3D12_20260805T0554Z_R02/report/index.json
+  report_sha256: 0DB21A397AE0280927F2CE4F622AC174B456B467A0C35D3C37D5E03B9E4F584B
+
+project_knowledge_validation:
+  audit: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPGProfileV1ShorelineAdapter_D3D12_20260805T0554Z_R02/project_knowledge_integrity_after.json
+  audit_sha256: FE443619CFB62BE856388C3992EAA9A78A0734B9D410A38ED3CA7D73B2F6A02C
+  result: pass_zero_findings
+  focused_tests: 20_of_20_pass
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 29BB81A7B842956F0246AB921CA15E5F410DC74A09635C69EA6491295032E634
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary:
+  verified:
+    - exact serialized ProfileV1 shoreline scalar and six consumers are mapped into the project-owned adapter plan
+    - the plan reports persisted-versus-requested values and fails closed when a generation material is absent
+    - the adapter grants no write authority and changes no package
+  not_verified:
+    - the profile value 0.012 is not persisted to the material
+    - ProfileV1 remains unbound and the home planet was not regenerated or saved
+    - no shoreline, terrain, visual, gameplay, standalone or multiplayer acceptance exists
+
+next_safe_action: >-
+  Add a separately gated editor-only persistence transaction that consumes only
+  this exact read-only binding, requires a fresh unbound-generation rollback,
+  changes the scalar from 0.005 to the profile value 0.012, and fresh-reloads
+  the package. Do not bind ProfileV1, regenerate or save the home map.

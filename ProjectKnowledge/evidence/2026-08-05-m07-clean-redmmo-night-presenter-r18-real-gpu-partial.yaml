@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-night-presenter-r18-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T10:10:50Z"
+module_id: M07
+system: presentation.clean-redmmo-planet-aware-night-and-space
+slice: runtime-presenter-map-binding-and-matched-d3d12-review
+evidence_class: real_gpu_visual
+result: orbit_starfield_pass_surface_visual_blocked_by_occluding_spawn_geometry
+
+implementation:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  actor_label: RED_NightPresenter_R18
+  actor_class: /Script/RedMMO.RedPlanetNightPresenter
+  map_actor_count_before_after: [11, 12]
+  map_sha256_before: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+  map_sha256_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  material: /Game/RedMMO/Environment/M_RedAnalyticStarDome
+  material_sha256: E7C36E9E030527AEF5236232296A3AF6E5ECC6D99A886775BB0FD6620D21DA52
+  ownership:
+    - camera-relative non-colliding Engine sphere with project-owned analytic material
+    - separate non-atmosphere low-energy night fill
+    - existing PPG body, SkyAtmosphere, atmosphere sun, skylight, water, seed and gameplay remain owned by their prior systems
+  final_star_parameters:
+    cell_scale: 42.0
+    density: 0.004
+    point_radius: 0.035
+    emission: 3.0
+
+build:
+  target: RedMMOEditor Win64 Development
+  result: succeeded
+  actions: 5
+  duration_seconds: 28.04
+  max_parallel_actions: 1
+  header_sha256: 491115B080433ECADD23AD3E6649DB60EF246A5128E5595C2CAE720E562173D5
+  implementation_sha256: 69487B6649E230906F2A3234D4CE19C505DA029B1950E4A78E7BB84514921112
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenter_R18_20260805T0940Z/RedMMOEditor_build_r02.log
+    sha256: 4424D61333F601627B7D41788386D0E9E06D7E57F02ED94632CC55601DBAD98E
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  resolution: [1280, 720]
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  fresh_reload_actor_count: 12
+  fresh_reload_presenter_count: 1
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  pawn_class: BP_RedTrooperPlayer_A01_C
+  atmosphere_sun_label: DirectionalLight
+  mapcheck_pre_pie: 0_errors_0_warnings
+  mapcheck_pie_world: 0_errors_1_existing_floor_preshadow_warning
+  pie_stopped_cleanly: true
+  dirty_packages_after: 0
+  process_count_after: 0
+
+captures:
+  surface_day:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenter_R18_20260805T0940Z/R18_R02_surface_day_1280x720.png
+    sha256: 51B064DEE566BAC5863515E34BFC882CB86663319D799D355FE22A3394FDD55E
+    weights: {night: 0.0, stars: 0.0, fill: 0.0}
+    visual_result: failed_nearly_black_surface_beneath_occluding_layer
+  surface_night:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenter_R18_20260805T0940Z/R18_R02_surface_night_1280x720.png
+    sha256: 2EF2D85F986ACDCB8D44A4CF5A4426B266C5D452D4A1E245C3FFD1C8B190231E
+    weights: {night: 1.0, stars: 0.18, fill: 0.16}
+    visual_result: fill_is_navigable_but_occluding_gray_generated_layer_blocks_surface_sky_and_stars
+  orbit_night:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenter_R18_20260805T0940Z/R18_R02_orbit_night_1280x720.png
+    sha256: 84331258C6CD44CB7B77BC0246AEF5521945F9F317C9AAE63E4D75BCFE571AE6
+    altitude_cm: 10200096.0
+    weights: {night: 1.0, stars: 1.0, fill: 0.0}
+    visual_result: restrained_sparse_starfield_readable_against_black_space
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresenter_R18_20260805T0940Z/verify_result_r02.json
+    sha256: 7CD79A711F7F9017DAED3DB2C207FCE44EABAEBDF5CD4DC9634FAAD16DA834F1
+
+protected_state:
+  profile_v1_planet_data_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  rollback_directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedNightPresenter_R18_20260805T0940Z
+  rollback_map_sha256: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+
+claim_boundary: >-
+  The bound presenter, deterministic weights, surface night fill and sparse
+  orbit starfield execute in fresh D3D12 PIE. Orbit pixels are visually usable.
+  Surface-day and surface-night presentation are not accepted because the
+  player view is below or inside an occluding generated layer; the daylight
+  surface is nearly black and surface stars are blocked. No moon, correct
+  surface authority, standalone, package, replication or multiplayer behavior
+  is claimed.
+
+next_safe_action: >-
+  In a separate seed-preserving spawn/surface-authority slice, identify the
+  exact occluding actor/chunk and choose a generated above-sea-level land start
+  with fitted collision. Do not globally bind foliage to Ocean and do not add a
+  manual floor. Re-run only matched surface-day and surface-night capture after
+  the spawn is outside all occluding geometry; keep the now-proven orbit
+  starfield parameters unchanged.

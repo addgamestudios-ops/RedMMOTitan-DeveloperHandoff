@@ -1,0 +1,154 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r28-grass-sky-runtime-diagnostic.2026-08-05
+captured_utc: "2026-08-05T12:23:39Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r28-r27-grass-render-registration-and-surface-sky-state
+evidence_class: automation
+result: pass_no_save_diagnostic_grass_not_active_near_spawn_surface_is_full_night
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: false
+  content_saved: false
+  generation_called_explicitly: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  pawn_class: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  pawn_elevation_above_native_sea_cm: 49233.17390936613
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+grass_asset_and_profile:
+  meshes:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  mesh_bounds_cm:
+    box_extent: [73.63537979125977, 75.8082332611084, 64.1250833313934]
+    sphere_radius: 123.61668050644232
+  base_material: /Game/StylizedRocksPack_01/Common/GrassChunks/Materials/M_GrassChunks_Base
+  shading_model: two_sided_foliage
+  nanite_enabled: false
+  project_owned_material_parameters:
+    local_scale_multiply: 1.2999999523162842
+    local_z_scale_multiply: 1.4500000476837158
+    highlight_amount: 0.6200000047683716
+    highlight_density: 0.8199999928474426
+    highlight_gradient_contrast: 4.199999809265137
+  seeded_ppg_entry:
+    bound_biomes: [Craters, Hills, Mountains]
+    density: 90.0
+    scale_min: 1.0
+    scale_max: 1.5499999523162842
+    culling_distance_cm: 50000.0
+    spawn_distance: 1
+    slope_degrees: [0, 30]
+    depth_offset_cm: 20.0
+    lod_count: 0
+
+grass_runtime_diagnosis:
+  objects_returned_by_foliage_actor_component_enumeration: 196
+  component_origins_within_100m_of_pawn: 0
+  component_origins_within_500m_of_pawn: 4
+  component_bounds_within_5m_of_pawn: 0
+  nearest_component_origin_distance_cm: 49655.58415603423
+  nearest_24_distance_range_cm: [49655.58415603423, 53088.235347649104]
+  nearest_24_registered_count: 0
+  nearest_24_render_state_created_count: 0
+  diagnosis: >-
+    R27's visible-flag-only count included inactive pooled components. The
+    nearest sampled DenseTall objects are unregistered, have no render state and
+    sit at or beyond the 500 m entry cull boundary. The approved mesh geometry,
+    material parameters and seeded PPG entry are present, but no active approved
+    grass group is established near the player. This is an eligibility or
+    dispatch-location failure, not evidence that the chosen grass asset or its
+    authored height/highlight parameters were removed.
+
+surface_sky_diagnosis:
+  presenter: /Script/RedMMO.RedPlanetNightPresenter
+  presenter_frame_resolved: true
+  solar_dot: -0.7422196734245035
+  night_hemisphere_weight: 1.0
+  star_visibility_weight: 0.18000000715255737
+  night_fill_weight: 0.1599999964237213
+  atmosphere_sun:
+    label: DirectionalLight
+    atmosphere_sun_index: 0
+    visible: true
+    intensity: 6.0
+  sky_atmosphere_present: true
+  skylight_present: true
+  star_dome:
+    visible: true
+    base_material: /Game/RedMMO/Environment/M_RedAnalyticStarDome
+    blend_mode: opaque
+    shading_model: unlit
+    is_sky: true
+  diagnosis: >-
+    The R27 frame was captured on the fully dark hemisphere, not under a missing
+    sun or failed presenter. The presenter, atmosphere sun, SkyAtmosphere and
+    SkyLight all resolve. The current surface star visibility is only 0.18 and
+    the opaque analytic sky therefore reads predominantly black at this sparse
+    surface setting. Surface-star readability needs a separate project-owned
+    presentation correction while retaining the already accepted orbit
+    parameters.
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/audit_redmmo_r27_grass_and_surface_sky_r28.py
+    sha256: 06B3B3507A522C5852E795732F7A1784E7DB93892FC07F6B507923B99A6775B0
+  passing_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_R27GrassSurfaceSkyAudit_R28B_20260805T1225Z/result.json
+    sha256: 843CFB67ADC5E8932D83A91ADA7E7329420FF8577EE9186FE1D83103A7AA509D
+  passing_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_R27GrassSurfaceSkyAudit_R28B_20260805T1225Z/unreal.log
+    sha256: 5CD4552F524DB70770696F4CE23932EE224261A7DF994F81B570BEB2F6942394
+  terminal_status: PASS_R28_NO_SAVE_GRASS_SURFACE_SKY_DIAGNOSTIC
+  discarded_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_R27GrassSurfaceSkyAudit_R28_20260805T1220Z/result.json
+    result_sha256: 73EBC4FF65470F934C30522EDB90106C7D85893F199A5953BFAD01F516F3B012
+    log_sha256: 06DEDD23D695F26A701ACA1206087091A60815F8C8844F30DA2B48A154981F0E
+    cause: read_only_DirectionalLight_visibility_accessor_mismatch_before_runtime_summary
+    project_changed: false
+
+rollback:
+  retained_from_r25: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1R24LandPlayerStart_R25_20260805T1150Z
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This is a read-only runtime cause isolation. It proves the current DenseTall
+  asset/profile parameters and that no active sampled approved grass render
+  component exists near the verified player spawn. It also proves the black
+  frame is the fully dark hemisphere with a resolved presenter, not a missing
+  sun binding. It does not correct or visually accept grass, surface stars,
+  day/night, broader gameplay, standalone, replication, multiplayer or player
+  approval.
+
+next_safe_action: >-
+  Under a fresh rollback, make one project-owned ProfileV1 grass-eligibility
+  successor that preserves seed, topology, PlayerStart, native water, selected
+  grass meshes and all non-grass foliage. Remove only the inherited grass
+  density-mask condition that leaves no active DenseTall group at this proven
+  Craters start, then require a registered/render-state-created approved
+  component within player range and fresh visible player-scale blades. Keep the
+  surface-star correction as a separate bounded presenter slice so the accepted
+  orbit density and emission remain unchanged.

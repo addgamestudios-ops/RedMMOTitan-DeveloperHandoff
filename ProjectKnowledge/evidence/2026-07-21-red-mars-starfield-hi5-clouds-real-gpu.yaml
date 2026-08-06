@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.sky-clouds.red-mars.production.2026-07-21.gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T09:02:25+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype
+target: atmosphere.red.mars
+
+action:
+  - fix the production-map star visibility path so day-side orbit exposure no longer resolves to zero outside diagnostic fused maps
+  - reduce the production procedural star population from 3200 to 1600 while preserving the isolated 9000-star diagnostic profile
+  - retain daylight surface-star suppression and the existing 7.2 to 8.4 km gameplay-space transition
+  - add a runtime HI-5 coverage contract for twelve cloud banks across north, south, and equatorial latitude bands
+  - compile TitanEditor with one parallel action
+  - launch one bounded 1280x720 D3D12 listen-server diagnostic at 55 percent screen percentage, 768 MB texture pool, and 45 FPS
+  - capture the daytime surface, execute the genuine F9 orbital-drop path, capture the inward orbit view, and exit automatically
+
+result:
+  editor_compile_gate: pass
+  real_gpu_runtime_gate: pass
+  daylight_surface_color_gate: pass
+  daylight_surface_star_suppression_gate: pass
+  day_side_orbit_star_visibility_gate: pass
+  restrained_production_starfield_gate: pass
+  hi5_structural_distribution_gate: pass
+  hi5_surface_presence_gate: pass_bounded_spawn_view
+  thin_atmosphere_regression_gate: pass
+  clean_exit_gate: pass
+  full_planet_cloud_flyover_gate: pending
+  post_reduction_surface_night_star_gate: pending
+  packaged_windows_client_gate: pending
+  observed:
+    - the surface frame presents a bright baby-blue daytime sky with no visible stars
+    - two distinct HI-5 cloud banks are visible from the bounded spawn view, including violet-pink and cyan-toned banks
+    - the final cloud contract reports 12 of 12 banks, four north, four south, four equatorial, positive terrain and atmosphere-top clearances, one revealed set, and zero hidden duplicates
+    - the orbit frame presents a round tan planet, a thin soft blue limb, black space, and a restrained field of small stars without the retired Saturn-like body or broad white corona
+    - runtime reports 1600 production star points split 1242 dim, 312 medium, and 46 bright
+    - surface telemetry reports inSpace=0, spaceAlpha=0, and starAlpha=0
+    - orbit telemetry reports inSpace=1, spaceAlpha=1, exposureAlpha=1, and starAlpha=1
+    - the first cold launch was terminated during startup before map initialization and is retained only as non-acceptance warm-up evidence
+    - the warmed retry exited normally with no fatal, assertion, out-of-video-memory, GPU-crash, or device-removal marker
+  claim_limit: >-
+    This is a bounded real-GPU acceptance of the production daytime sky,
+    daytime star suppression, day-side orbit stars, one surface view of HI-5
+    clouds, and the structural twelve-bank latitude distribution. It does not
+    accept a player-controlled full-planet cloud flyover, the reduced star
+    count from the dark surface, a packaged Windows client, multiplayer, water,
+    or the separate artist handoff map.
+
+artifacts:
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/TitanEditor_build.log
+    sha256: 25C105C977546E2C7201DC89B251F9C89D9E1FB5B3D1684294C8759A2E81AB35
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/SkyCloud_RealGPU_Retry.log
+    sha256: 936C1D5884E0D3ECBD4A52F2237DC4AFF47BFA257C2E25BD31B6E56A3F253A76
+    markers:
+      cloud_contract_pass: 6
+      cloud_contract_fail: 0
+      final_cloud_count: 12
+      final_north_count: 4
+      final_south_count: 4
+      final_equatorial_count: 4
+      surface_stars_hidden: 1
+      orbit_stars_visible: 1
+      fatal: 0
+      assertion_failed: 0
+      out_of_video_memory: 0
+      gpu_crash: 0
+      device_removed: 0
+  gpu_monitor:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/gpu_monitor_retry.csv
+    sha256: E27D8F363580ACD131962C3888D517006E70658B6F36AF2752743EE1292F1C98
+  surface_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/RealGPU_Captures_Retry/SkyCloud_Surface.png
+    sha256: 000E54C5724560F63A05B7B25089791E077102DAB73BF8F934EB5D665BA44DD6
+  orbit_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/RealGPU_Captures_Retry/SkyCloud_Orbit.png
+    sha256: E1F47B63F7754D1DB47E66DA1A7690A83FFC1DB36C21883D2E488350337D3523
+  rejected_cold_start_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/SkyCloud_20260721_084929/SkyCloud_RealGPU.log
+    status: startup_warmup_only_not_acceptance_evidence
+  source:
+    - Source/RedMMO/RedSpaceScenery.cpp
+    - Source/RedMMO/RedGameMode.cpp
+    - Source/RedMMO/RedGameMode.h
+    - Source/RedMMO/RedPlayerCharacter.cpp
+
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  modified: false
+
+machine_safety_audit:
+  peak_observed_vram_used_mb: 3541
+  post_exit_free_ram_gb: 10.71
+  post_exit_vram_used_mb: 2493
+  post_exit_free_vram_mb: 7561
+  unreal_process_count_after_exit: 0
+
+next_safe_action: >-
+  Move to the project-owned So Stylized fine-sand and restrained gold-sparkle
+  presentation module without modifying the protected 50 km checkpoint.

@@ -1,0 +1,103 @@
+schema_version: 1
+id: evidence.m00.r87-a01-grounded-footstep-ownership-audit
+module: M00
+evidence_class: automation
+status: current_a01_footstep_implementation_absent
+timestamp_utc: 2026-08-06T08:18:00Z
+scope: >-
+  One bounded provider-off, no-save UE 5.8 read-only audit of the exact current
+  A01 Trooper animation Blueprint used by the accepted R86 presentation slice,
+  followed by a fixed-point Asset Registry dependency and animation-notify
+  audit. This slice did not open the home map, start PIE, play audio, save a
+  package, change source/content/Config, or mutate PPG state.
+
+current_runtime_owner:
+  anim_blueprint: /Game/Action_Trooper/Animations/Tall_Female/ABP_ThirdPerson_Female_Tall
+  prior_runtime_evidence: ProjectKnowledge/evidence/2026-08-06-m00-clean-r86-infantry-presentation-real-gpu.yaml
+  old_r16b_not_current:
+    anim_blueprint: /Game/RedMMO/Gameplay/Player/Animation/ABP_RedPlanetGroundedAudio_R16
+    pawn: /Game/RedMMO/Gameplay/Player/BP_RedPlanetCharacter_R11
+    evidence: ProjectKnowledge/evidence/2026-08-03-m07-clean-redmmo-r16b-grounded-footsteps-automation.yaml
+
+graph_audit:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_GroundedFootstepAudit_20260806T0813Z/result.json
+  result_sha256: 0017C9D4B129DF14B184D23426DB533F7E9F4C8AE4C0B5D27CBA7192B1B9D093
+  result_bytes: 863
+  log: D:/RedMMOTitanWindowsData/Diagnostics/UnrealEditor_R87_GroundedFootstepAudit_20260806T0813Z.log
+  log_sha256: 2F2CB59B478373CC5214173A63DF12D1364BCC5CCBD79B8D6C113043500F24E3
+  log_bytes: 256234
+  script: Build/Automation/audit_clean_redmmo_r87_trooper_grounded_footsteps.py
+  script_sha256: 3379518E52A79CC5536B16777F9A0BC1B85787D95920A757DAD7000D19D75A9B
+  graph_count: 11
+  node_count: 28
+  footstep_nodes: 0
+  play_or_spawn_sound_nodes: 0
+  notify_nodes: 0
+  is_moving_on_ground_nodes: 0
+  is_falling_nodes: 0
+
+dependency_notify_audit:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_GroundedFootstepAudit_20260806T0813Z/animation_notifies.json
+  result_sha256: 9D3034B1BBECD121A683BBD23770D6F2715F4BE907E2B0DA15E515D366E78900
+  result_bytes: 20174
+  log: D:/RedMMOTitanWindowsData/Diagnostics/UnrealEditor_R87_AnimationNotifyAudit_20260806T0818Z.log
+  log_sha256: 06B28F3E81D056E63D2E186229ECCD88EE8E39E481FAEAB061A1ED83DEBA1028
+  log_bytes: 256057
+  script: Build/Automation/audit_clean_redmmo_r87_trooper_animation_notifies.py
+  script_sha256: 8BCCA4CB1877075CC4C76160F66A8370383441EA526D8266B1D425AFF79085C7
+  closure_package_count: 23
+  asset_count: 23
+  animation_asset_count: 7
+  animation_notify_count: 0
+  sound_asset_count: 0
+  load_failure_count: 0
+  animations:
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_Idle
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_Run
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonJump_End
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonJump_Loop
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonJump_Start
+    - /Game/Action_Trooper/Animations/Tall_Female/A_Female_Tall_ThirdPersonWalk
+    - /Game/Action_Trooper/Animations/Tall_Female/BS_ThirdPerson_Female_Tall_IdleRun
+
+finding: >-
+  The grounded-only R16B graph belongs to the obsolete R11 pawn and cannot be
+  credited to the current A01 Trooper. The current A01 Trooper animation
+  Blueprint contains no footstep/audio/gating nodes, and its complete 23-package
+  dependency closure contains zero animation notifies and zero sound assets.
+  Therefore grounded walk/run audio is not implemented on the current A01 stack;
+  airborne silence cannot count as a corrected grounded-footstep system when no
+  footstep producer exists.
+
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  dirty_content_packages: []
+  dirty_map_packages: []
+  active_unreal_build_package_process_count_after: 0
+
+project_knowledge_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R87_GroundedFootstepAudit_20260806T0813Z/project_knowledge_integrity_v2.json
+  sha256: 9D85C306E83DC5F85D20610C6C504BA0BE920C95E6DD9D1BC74F02E6FC8B425A
+  bytes: 1835
+  result: pass
+  error_count: 0
+  warning_count: 0
+
+claim_limit: >-
+  This is source/asset ownership and absence evidence. It does not prove audible
+  walk/run output, airborne silence, landing resume, physical input, package
+  audio currency, or player acceptance. R87 remains launchable but is not a
+  grounded-footstep-corrected package.
+
+next_safe_action: >-
+  Preserve R87, the current A01 animation closure and every PPG datum. In one
+  rollback-backed project-owned transaction, add an A01-compatible footstep
+  producer whose execution requires IsMovingOnGround and positive locomotion
+  speed, then compile and prove in fresh PIE that walk/run produce events while
+  jump, fall and StarSparrow flight produce none and landing resumes cadence.
+  Only after that runtime gate passes should a new Win64 package be considered.

@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r37-sostylized-ground.2026-08-05
+captured_utc: "2026-08-05T14:36:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r37-sostylized-painted-ground-runtime-coexistence
+evidence_class: real_gpu_visual
+result: failed_visual_gate_restored_byte_exact
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.75
+  commit_headroom_gib: 55.60
+  free_gpu_vram_mib: 7715
+  free_d_drive_gib: 767.70
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+mutation:
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_sostylized_ground_r37.py
+  apply_driver_sha256: 4AC088B9FD7D391EC076A6827550848B9E25AC42E490995654EB0FCF5BAA0012
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R37_20260805T1430Z/apply_result.json
+  apply_result_sha256: 0FC6BD7093E8215622D47FA7545B0016082BF51F7C2A93061739E602D5D949D2
+  terminal_status: PASS_R37_SERIALIZED_PENDING_FRESH_RELOAD_MAPCHECK_AND_D3D12_VISUAL
+  changed_package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+  preimage_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  temporary_postimage_sha256: 4F3E71F0ACE7A20D2B098AC4F72E43285EFB748EB521D90F361313C0F2594445
+  texture_bindings:
+    base_color: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    normal: /Engine/EngineMaterials/DefaultNormal
+    roughness_ao_source: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+  scalar_bindings:
+    R10L_GroundUVScale: 12.0
+    R10L_NormalAmount: 0.0
+    R10L_GroundSpecular: 0.02
+  vector_bindings:
+    R10L_GroundTintA: [1.0, 1.0, 1.0, 1.0]
+    R10L_GroundTintB: [1.0, 1.0, 1.0, 1.0]
+  unchanged: [home_map, ProfileV1_planet_data, R29_foliage, surface_parent, seeded_grass_materials, terrain, seed, topology, placement, water, spawn, gameplay]
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeSoStylizedGround_R37_20260805T1430Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeSoStylizedGround_R37_20260805T1430Z/pre_mutation_manifest.json
+  manifest_sha256: 9E95974DBA729D4393FE9B5B34A96A931CEFFA356412685DCF1BBA84FC3EDD16
+  restored_surface_sha256: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  result: restored_byte_exact_after_failed_visual_coexistence_gate
+
+runtime_verification:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_sostylized_ground_r37_pie.py
+  driver_sha256: F292FE3961F02D3409F1A63FC042B7153F3CA1F623C29BA2DA9EFAB15CCED273
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R37_20260805T1430Z/verify_result.json
+  result_sha256: 8417118C0CBD0DEA9F8A95778C20114225E47B15650D3EE00F4676ECF8387501
+  terminal_status: PASS_R37_FRESH_RELOAD_MAPCHECK_AND_D3D12_CAPTURE_PENDING_PIXEL_REVIEW
+  renderer: D3D12
+  fresh_mapcheck: {errors: 0, warnings: 0}
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  approved_grass_components: 196
+  seeded_grass_instances: 2218356
+  capture_camera_matches_r33: true
+  dirty_packages_after: []
+  screenshot: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGround_R37_20260805T1430Z/player_scale_normal_lit_r37.png
+  screenshot_sha256: B80685A6E2858A23E3A9544707330D258C7CC56D737ADC79AA1640A44179C52A
+  screenshot_bytes: 1487719
+
+independent_pixel_review:
+  result: failed
+  ground: >-
+    The SoStylized source produces a materially different, lower-frequency
+    painted green surface with subtle yellow and blue-green clutter variation;
+    this proves the texture route is active rather than the former
+    StylizedRocks leaf-stroke texture.
+  grass: >-
+    The identical R33 camera shows dense tall blades, but the fresh R37 frame
+    shows no readable grass blades even though all 196 approved components and
+    2,218,356 seeded instances are reported. Counts are therefore not accepted
+    as visible-grass evidence.
+  retained_defects:
+    - dense repeated palms still dominate the region
+    - the surface sky remains pure black
+    - the starter ship rejects its authoritative parking surface after eight attempts
+    - two legacy Action_Male_and_Female skeleton packages report the unavailable /Engine/EngineMeshes/Humanoid dependency during PIE startup
+  acceptance: rejected
+
+canonical_validation:
+  queue_snapshot_sha256: 43AC093E8CCEDA58C3DC5F334A54F3C66C5CFAE635D65C8DB75092A0B15624BD
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R37_20260805T1440Z.json
+  integrity_report_sha256: 803CE6052A22284C9EAE652D1B14454A1FBB1526458030110F7449250DE844E8
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  surface_parent_sha256_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  active_surface_sha256_after_restore: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  R37 proves the dependency-minimal SoStylized ground route serializes, reloads,
+  passes MapCheck and produces materially different painted pixels. It fails the
+  required coexistence gate because approved grass is not visibly rendered in
+  the untouched fresh frame, so the surface package was restored byte-exact.
+  This does not prove accepted grass, terrain, biome diversity, night/space,
+  gameplay, standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Preserve the restored surface and do one read-only fresh-PIE comparison of
+  approved grass component visible, hidden-in-game, scene-proxy, material and
+  last-render state against R33's forced-visibility capture path. Determine why
+  the identical camera loses every blade without transient forcing. Do not
+  repeat the R37 surface write or another normal screenshot until that exact
+  default-visibility blocker is resolved.

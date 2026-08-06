@@ -1,0 +1,127 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-per-biome-shoreline-flatten-automation.2026-08-05
+captured_utc: "2026-08-05T05:51:09Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-per-biome-shoreline-flatten-persist-and-reload
+evidence_class: automation
+result: pass_six_native_per_biome_flatten_wrappers_persisted_fresh_reload_verified_unbound
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  tracked_dirty_count: 60
+  free_physical_ram_gib: 51.15
+  commit_headroom_gib: 49.95
+  free_gpu_vram_mib: 7843
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1ShorelineFlatten_20260805T0518Z
+  manifest_sha256: 0242A301FF375D4354D7830E0A9D0FF485559B9CDC77BFE14755243272BF01F8
+  generation_preimage_sha256: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  retained: true
+
+persist_transaction:
+  editor_world: /Engine/Maps/Entry.Entry
+  renderer: D3D12_RenderOffscreen
+  provider_off: true
+  expression_count_before: 122
+  expression_count_after: 129
+  generation_sha256_before: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  generation_sha256_after: 29BB81A7B842956F0246AB921CA15E5F410DC74A09635C69EA6491295032E634
+  modified_packages:
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+  shared_scalar:
+    node: MaterialExpressionScalarParameter_13
+    parameter_name: ShorelineFlattenThreshold
+    identity: RedProfile.ShorelineFlattenThreshold
+    default: 0.005
+  wrapper_count: 6
+  wrappers:
+    - {role: Craters, source: MaterialExpressionAdd_0, node: MaterialExpressionPlanetFlattenElevation_0, target: Craters Height}
+    - {role: Mountains, source: MaterialExpressionReroute_0, node: MaterialExpressionPlanetFlattenElevation_1, target: Mountains Height}
+    - {role: Desert, source: MaterialExpressionDivide_0, node: MaterialExpressionPlanetFlattenElevation_2, target: Desert Height}
+    - {role: Hills, source: MaterialExpressionAdd_3, node: MaterialExpressionPlanetFlattenElevation_3, target: Hills Height}
+    - {role: Poles, source: MaterialExpressionSubtract_3, node: MaterialExpressionPlanetFlattenElevation_4, target: Poles Height}
+    - {role: Ocean, source: MaterialExpressionSubtract_4, node: MaterialExpressionPlanetFlattenElevation_5, target: Ocean Height}
+  global_height_connected: false
+  water_level_inputs_connected: false
+  water_level_defaults: 0.0
+  save_called: true
+  regeneration_called: false
+  home_map_saved: false
+  profile_bound_to_home: false
+  dirty_packages_after: []
+  result: PASS_PROFILE_V1_SIX_PER_BIOME_SHORELINE_FLATTEN_WRAPPERS_PERSISTED_UNBOUND
+
+fresh_process_reload:
+  editor_world: /Engine/Maps/Entry.Entry
+  renderer: D3D12_RenderOffscreen
+  provider_off: true
+  generation_sha256_before_after: 29BB81A7B842956F0246AB921CA15E5F410DC74A09635C69EA6491295032E634
+  expression_count: 129
+  shared_scalar_count: 1
+  wrapper_count: 6
+  exact_sources_targets_and_identities_verified: true
+  global_height_connected: false
+  save_called: false
+  regeneration_called: false
+  home_map_saved: false
+  profile_bound_to_home: false
+  dirty_packages_after: []
+  result: PASS_PROFILE_V1_SIX_PER_BIOME_SHORELINE_FLATTEN_WRAPPERS_FRESH_RELOAD_UNBOUND
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  profile_generation_after_reload: 29BB81A7B842956F0246AB921CA15E5F410DC74A09635C69EA6491295032E634
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  persist_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PerBiomeShorelineFlatten_20260805_0541/apply_redmmo_ppg_profile_v1_per_biome_shoreline_flatten_result.json
+    sha256: 1082A3F3649753C710E798D51B2FF647C2AEDF8BA4C2E125E1EBA1865171110C
+  persist_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PerBiomeShorelineFlatten_20260805_0541/UnrealEditor-Cmd.log
+    sha256: 0008F3ABC34BABF3DB4D738BC8E64DC9F4F18281DDF30AB335D9CE566F5B75F7
+  persist_script:
+    path: Build/Automation/apply_redmmo_ppg_profile_v1_per_biome_shoreline_flatten.py
+    sha256: 58C5430B37EE842DC17B6E99E60B3FED6FD0BD521BF5640E89AB6E4721F6FEC9
+  reload_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PerBiomeShorelineFlatten_20260805_0541/verify_redmmo_ppg_profile_v1_per_biome_shoreline_flatten_reload_result.json
+    sha256: 3AC9E4C76EFB8559630C118917E35396BCE5E766FD3A57926AECDBED4AD22D15
+  reload_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PerBiomeShorelineFlatten_20260805_0541/UnrealEditor-Cmd-Reload.log
+    sha256: 53748CCEA8C9BD358C1430735E2ED0AC128A2099D570BBFC26FFD396E80E2D01
+  reload_script:
+    path: Build/Automation/verify_redmmo_ppg_profile_v1_per_biome_shoreline_flatten_reload.py
+    sha256: 77C062A4B2F62D855334EC0FCFD3FE2E3EAEF5AB436E5E324F93F4DCF45B7DAC
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1PerBiomeShorelineFlatten_20260805_0541/project_knowledge_integrity_after.json
+    sha256: D51D861B8EF911C5C1B153B80DD6D55D0FA69B094F87D32622B4BF37363D5775
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - one project-owned unbound generation material persistently contains the shared scalar and six exact native flatten wrappers
+    - a separate fresh process reloaded and verified the exact serialized identities, sources, targets, defaults and unchanged hash gates
+  not_verified:
+    - ProfileV1 is not bound to the home planet and no regeneration occurred
+    - there is no real-GPU shoreline, terrain, gameplay or human visual acceptance
+    - per-biome preblend flatten is not claimed equivalent to exact post-blend flatten near biome transitions
+
+next_safe_action: >-
+  Map the persisted ShorelineFlattenThreshold identity into the project-owned
+  PPG profile adapter/control surface without binding ProfileV1, regenerating
+  the planet or saving the home map. Keep visual and runtime acceptance closed.

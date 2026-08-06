@@ -1,0 +1,197 @@
+schema_version: 1
+id: evidence.m05.client-celestial-snapshot-boundary-static
+module: M05
+evidence_class: static
+status: accepted_implementation_boundary_replication_pending
+timestamp_utc: 2026-08-06T15:56:00Z
+
+scope: >-
+  One read-only source and serialized-identity audit of the current clean RedMMO
+  authority celestial registry/producer and the missing ordered client snapshot
+  boundary. It authenticates the exact current files, records the precise
+  replication blockers and pins the smallest safe production adapter contract.
+  It does not edit source, launch Unreal, package, mutate a world, or claim that
+  replication or multiplayer works.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2440
+  free_physical_ram_gib: 54.54
+  commit_headroom_gib: 54.22
+  gpu:
+    model: NVIDIA_GeForce_RTX_3080
+    free_mib: 8951
+    total_mib: 10240
+    utilization_percent: 11
+  d_drive_free_gib: 754.19
+  active_unreal_build_package_process_count: 0
+  provider_listener_count: 0
+  canonical_queue_sha256_before: DFE6971FAB9FB494C4ED1938B71100F23E95F441314DDF4178AB70984B11A654
+  active_defects:
+    DEF-0001: open
+    DEF-0002: open
+    DEF-0003: implemented_awaiting_runtime_acceptance
+    DEF-0004: open
+    DEF-0005: implemented_awaiting_runtime_acceptance
+    DEF-0006: implemented_awaiting_build_and_runtime_acceptance
+    DEF-0007: implemented_awaiting_runtime_acceptance
+    DEF-0008: resolved
+
+authenticated_inputs:
+  registry_header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedCelestialFrameRegistry.h
+    sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+  registry_cpp:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistry.cpp
+    sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+  registry_tests:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistryTests.cpp
+    sha256: 1D068D6C640082D29BFA583432BBDE0FBB7FAECA25FAC94A0E2BC3E9E06B9D30
+  game_mode_header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPPGGameplayGameMode.h
+    sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+  game_mode_cpp:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  game_mode_asset:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01.uasset
+    sha256: 6C82ABFDDAF01BEF719AA4D66D2D510F1F1BF955C507167141A1E199CD1607C1
+  build_rules:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/RedMMO.Build.cs
+    sha256: 2848C6CAEBD45625D3AE3AECC45A6D7DC183199C25F8FAB15859BB412AD25906
+
+audit:
+  status: PASS_MISSING_REPLICATION_BOUNDARY_AUTHENTICATED_AND_MINIMAL_CONTRACT_PINNED
+  focused_checks: 33_of_33_passed
+  current_authority_registry_present: true
+  current_authority_ppg_producer_present: true
+  current_client_replication_surface_present: false
+  current_client_consumer_present: false
+  current_project_game_state_subclass_present: false
+  exact_findings:
+    - RedCelestialFrames::FFrameSnapshot is a plain non-USTRUCT value with no UPROPERTY replication metadata
+    - ResolveExact deliberately rejects NM_Client worlds
+    - RegisterOrUpdate requires a live authority actor and exact server revision plus one ordering
+    - ARedPPGGameplayGameMode owns the sole production registration and immediate exact self-readback
+    - GameMode has no GetLifetimeReplicatedProps override and assigns no GameStateClass
+    - clean source contains no project GameState subclass, celestial OnRep hook, celestial DOREPLIFETIME or FastArray snapshot
+    - zero independent production registry consumers exist outside the GameMode self-check
+    - the exact GameMode asset has no readable GameStateClass or RedCelestial serialized override identity
+    - existing Core, CoreUObject and Engine dependencies are sufficient for the minimal GameState adapter
+
+harness_correction:
+  first_attempt: >-
+    Rejected a diagnostics-only count that included registry-native test
+    ResolveExact calls when measuring production consumers.
+  correction: >-
+    The preserved adapter now excludes the registry implementation and tests,
+    requires exactly one production lookup in the GameMode self-check, and
+    separately requires zero consumers outside GameMode.
+  project_mutation_from_failed_attempt: false
+
+minimal_implementation_contract:
+  new_files:
+    - Source/RedMMO/Public/RedCelestialFrameGameState.h
+    - Source/RedMMO/Private/RedCelestialFrameGameState.cpp
+  modified_files:
+    - Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+  net_snapshot:
+    reflection: USTRUCT_BlueprintType
+    fields:
+      - FName_StableId
+      - FVector_CenterCm
+      - double_NominalRadiusCm
+      - uint64_Revision
+    structural_validation:
+      - namespaced_non_none_stable_id
+      - finite_center_without_nan
+      - finite_positive_radius
+      - nonzero_revision
+      - unique_stable_id_per_authoritative_array
+    quantization_guard: >-
+      Do not choose a bounded FVector_NetQuantize representation until its
+      range is proven for the current 300000000 cm center.
+  authority_container:
+    class: ARedCelestialFrameGameState_derived_from_AGameStateBase
+    property: ReplicatedUsing_OnRep_CelestialFrames_array
+    writer: >-
+      Authority-only UpsertCelestialFrame after registry RegisterOrUpdate and
+      exact server self-readback both pass.
+    game_mode_binding: >-
+      ARedPPGGameplayGameMode explicitly assigns the native GameStateClass.
+  client_ordering:
+    late_join: accept_any_structurally_valid_nonzero_current_revision_when_absent
+    existing_client: >-
+      Accept strictly newer revisions. An equal revision must carry an
+      identical payload; reject a lower revision or equal-revision conflict.
+    skipped_intermediate_revisions: >-
+      Allow them on clients because property replication may coalesce server
+      states; exact plus-one ordering remains server-registry-only.
+    exact_consumer: ResolveClientExact_on_GameState_not_the_authority_registry
+    deterministic_array: canonicalize_by_StableId_and_reject_duplicates
+  acceptance_ladder:
+    - focused_static_contract
+    - RedMMOEditor_build_and_native_ordering_tests
+    - one_server_two_client_real_replication_test
+    - initial_revision_advance_coalesced_jump_stale_equal_conflict_and_late_join_cases
+    - only_then_add_an_independent_radar_or_minimap_consumer
+
+artifacts:
+  diagnostics_root: D:/RedMMOTitan/Build/Diagnostics/2026-08-06_m05_client_frame_snapshot_boundary_r01
+  result:
+    path: D:/RedMMOTitan/Build/Diagnostics/2026-08-06_m05_client_frame_snapshot_boundary_r01/result.json
+    sha256: E102433BF5E330E10A9FBE721EE2D33C576AA50808C229C22FAA21D6399F9268
+  corrected_audit_adapter_sha256: 265F700AC533A899CFBB0280F23EA3EC9D4218CC191B0C67EEC6DCBD1982E381
+  transaction_intent_sha256: 53D2573D499F407BECCD5F0DAE05CDCD94F9DBE65D21B604F82639B0AB958607
+  preserved_first_attempt_sha256: C9091BBFDF7E7C7A3FCD4AAEB0EC57C14A02F337F2D69489D83EDA555271DF65
+
+preserved:
+  project_package_source_map_profile_config_plugin_vendor_user_bytes_changed: false
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_tangent_authoring_inputs_count: 27
+
+postflight:
+  free_physical_ram_gib: 54.53
+  commit_headroom_gib: 54.26
+  gpu_free_mib: 9012
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 12
+  d_drive_free_gib: 754.19
+  active_unreal_build_package_process_count: 0
+  provider_listener_count: 0
+  canonical_queue_sha256_after: 9B475CDBB5ACB350E737F5569B7067FFF06A93CCF7DB47D3807E5C5B809F4A18
+
+verification:
+  project_knowledge_and_fused_tests: 37_of_37_passed
+  test_log: D:/RedMMOTitanWindowsData/Diagnostics/M05_ClientFrameSnapshotBoundary_20260806T1556Z/project_knowledge_and_fused_tests.log
+  test_log_sha256: 792FB86D5F4521C48384426E67046C5D8A3351DDB9C18B372AB58926E78637D1
+  canonical_integrity_audit: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M05_ClientFrameSnapshotBoundary_20260806T1556Z/project_knowledge_integrity.json
+  canonical_integrity_report_sha256: 922440285E975FDAC8FE75DF36BD03B2323B26AB6B4B15F09E29DEEA09A2C0DF
+  git_diff_check: passed
+
+rollback: >-
+  Remove only this diagnostics directory and its evidence/index/state/queue
+  linkage. No project or runtime rollback is needed because the slice is
+  read-only.
+
+blocker: >-
+  The ordered client snapshot is now design-pinned but unimplemented. There is
+  still no replicated GameState surface, client cache/accessor, native ordering
+  test, real server/client topology, late-join proof or radar/minimap consumer.
+
+next_safe_action: >-
+  Rotate next wake to another independent authorized safe module. On a later
+  M05 implementation wake, add only the rollback-backed GameState snapshot and
+  native ordering tests described here; keep radar/minimap, masks, hubs, PCG,
+  world mutation and packaging as separate later slices.
+
+claim_limit: >-
+  Static current-source and serialized-identity evidence only. It does not
+  compile, launch Unreal, replicate state, run multiple clients, render UI,
+  mutate gameplay/world state, package, prove performance or establish human
+  acceptance.

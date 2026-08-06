@@ -1,0 +1,206 @@
+schema_version: 1
+id: evidence.m07.grass-gpu-defaults.static-build.2026-07-23
+captured_utc: "2026-07-23T15:22:58Z"
+module_id: M07
+system: foliage.grass-gpu-defaults
+slice: shadow-and-distance-field-cost-removal-for-dense-fallback-ground-cover
+evidence_class: build
+supporting_evidence_classes: [static]
+result: passed_runtime_gpu_measurement_pending
+
+scope:
+  authorized:
+    - review the linked stylized-components repository and both grass-rendering videos
+    - determine whether the repository can be installed as an Unreal Engine dependency
+    - apply one safe independent grass-performance improvement
+    - preserve production maps, protected checkpoints, artist work, supplied assets, and unrelated dirty work
+  explicitly_not_run:
+    - Unreal packaging or cook
+    - production, checkpoint, fused-prototype, or artist-map mutation
+    - grass-enabled rendered playtest or GPU profiling
+    - new grass asset authoring
+    - compute-shader blade generation, new material WPO, or distant terrain-tint implementation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib: 11.567
+  virtual_memory_free_gib: 27.791
+  disk_d_free_gib: 1140.97
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2028
+  vram_free_mib: 8026
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: serialized_editor_compile_allowed_packaging_not_started
+
+external_review:
+  repository:
+    url: https://github.com/cortiz2894/stylized-components
+    classification: threejs_react_three_fiber_typescript_glsl_web_demo
+    license: MIT
+    unreal_plugin: false
+    installed_into_project: false
+    reason: >-
+      The repository has no Unreal module, uplugin descriptor, UAsset content,
+      or UE build integration. Installing its JavaScript runtime would add an
+      incompatible web dependency rather than optimize the game.
+  videos:
+    - url: https://www.youtube.com/watch?v=G8HH_pMKOhk
+      title: how grass works in Ghost of Tsushima
+      reviewed_from: English transcript
+    - url: https://www.youtube.com/watch?v=bp7REZBV4P4
+      title: How do Major Video Games Render Grass?
+      reviewed_from: English transcript
+  transferable_principles:
+    - stable jittered tile-grid or instance scatter
+    - clustering and noise instead of uniform density
+    - early distance, frustum, biome, slope, and water rejection
+    - no dense-grass shadow pass unless explicitly justified
+    - cheap vertex wind and rounded-normal lighting
+    - lower-detail distant geometry followed by terrain-level far-field representation
+  project_mapping:
+    reference: docs/GRASS_GPU_STRATEGY.md
+    note: architecture ideas only; no third-party shader or source code was copied
+
+active_state_audit:
+  production_map: /Game/RedMMO/Maps/RedPlanetGen
+  production_planetgen:
+    bEnableFoliage_serialized: false
+    bEnableGrass_serialized: false
+    bEnableGrass_value_byte_offset: "0x22D20"
+    grass_asset_references_found: 0
+  protected_and_fused_maps:
+    bEnableFoliage_serialized: false
+    bEnableGrass_serialized: false
+    grass_asset_references_found: 0
+  fallback_field:
+    serialized_in_current_maps: false
+    default_counts: {grass: 0, flowers: 0, rocks: 0, cliffs: 0, snow: 0}
+    default_suppression: true
+  game_mode:
+    default_surface_dressing_suppression: true
+    behavior:
+      - clears PlanetGen foliage and grass asset arrays and instanced components
+      - reasserts suppression for streamed levels
+  latest_runtime_corroboration:
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/runtime.log
+    production_map_entered_play_line: 2928
+    dressing_cleanup_line: 2953
+    disabled_dressing_actors: 157
+  conclusion: >-
+    Current grass instance count is effectively zero. This slice cannot reduce
+    the current frame time; it prepares a cheaper fallback state for later
+    explicit grass activation.
+
+implementation:
+  source:
+    path: Source/RedMMO/RedFoliageField.cpp
+    preimage_sha256: FB88BB55C45FDEA69AF4B888EE52E04B13F97A47C1124855F55E89D4B429962B
+    postimage_sha256: FBBB557CE874AC0988EDFFD3D1F19D1013FF90D56561740606431618E1D7E9E4
+  behavior:
+    shadowless_and_no_distance_field_lighting:
+      - Grass
+      - AlienAccent
+      - SnowAccent
+    shadows_preserved:
+      - DesertRock
+      - DesertCliff
+    cull_distances_preserved_cm:
+      visual_only: 60000
+      collision_enabled: 90000
+  contract:
+    path: Tools/tests/test_grass_gpu_defaults_contract.py
+    sha256: B3295D5011C704D1A7C4A1A049CAA17EB279D0EE8A6FBA6FE02A7A930C56120A
+  design_record:
+    path: docs/GRASS_GPU_STRATEGY.md
+    sha256: 064C3C989632418016F1FEFADDA30D29D65EF6D543F539D9F46ECC19E6EABE4B
+
+verification:
+  focused_static_and_protection_tests:
+    result: 12_of_12_passed
+    suites:
+      - Tools.tests.test_grass_gpu_defaults_contract
+      - Tools.tests.test_fused_prototype_provenance
+    includes:
+      - dense-layer shadow and distance-field defaults
+      - rock and cliff shadow preservation
+      - existing cull-distance preservation
+      - current opt-in and zero-count fallback defaults
+      - PlanetGen collision and shadow defaults
+      - production, checkpoint, fused, and retained rollback hashes
+      - all 135 protected source rasters
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/focused_static_tests.log
+      bytes: 5764
+      sha256: 914272B51B379D14CCAD7FB4E895D6C0D12BFF39DEF7ACD777B36D6FD44FB03D
+  build:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    configuration: [NoUBA, MaxParallelActions_1]
+    actions: 4
+    compiled_translation_unit: RedFoliageField.cpp
+    execution_seconds: 12.90
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/TitanEditor_UBT.log
+      bytes: 14946
+      sha256: 556AB1642682DB00039E79E061E223FD7451A595C472C4FC001ADE95B7CB52E3
+    product:
+      path: Binaries/Win64/UnrealEditor-RedMMO.dll
+      bytes: 4137984
+      sha256: 40F818123AA3BC3BD6C831DBBA0D4B094B5E23FD88069A5881D6B7112225668F
+    warnings: pre_existing_UnrealAIIntegrationPlatform_dependency_declarations
+  canonical_integrity:
+    unit_tests: 20_of_20_passed
+    unit_test_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/project_knowledge_unit_tests.log
+      bytes: 9172
+      sha256: B61B206D73EC2E5031A9C2EF4EBC19E9B61695050145501023BABF9218EAC825
+    live_audit:
+      result: unchanged_historical_findings_only
+      error_count: 64
+      finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+      report:
+        path: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/project_knowledge_integrity_after.json
+        bytes: 17861
+        sha256: 0FDDB1636459416D1E103D798E78D9989DFFD180826A822EC344FDC8EAE08A7D
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_GrassGPUDefaults_20260723_151911Z
+  exact_source_preimages: 2
+  exact_canonical_preimages: 3
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_source_rasters: 135_of_135_exact
+  artist_repository_or_handoff_modified: false
+  supplied_art_or_external_pack_modified: false
+  pinned_PlanetGen_fork_modified: false
+  package_modified: false
+
+canonical_sync:
+  module: M07
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: B5890988F3883626C85C78CA47E5F2229B86F6940F90A19B521797BD54719D28
+  current_state_queue_hash_matches: true
+
+claim_limit: >-
+  Static contracts and compilation prove only the new source defaults and
+  preserved protected bytes. Grass is disabled in the current maps, so this is
+  not measured GPU evidence and does not prove an FPS improvement, appearance,
+  distant transition quality, runtime stability, packaging, or multiplayer.
+
+next_safe_action: >-
+  Preserve the compiled fallback default. When a representative project-owned
+  PlanetGen grass asset and duplicate test map are deliberately authored, run
+  matched D3D12 GPU Visualizer and Shader Complexity captures before and after
+  enabling grass. Evaluate explicit per-asset render cull distances, WPO-disable
+  distance, low-detail distant geometry, and a terrain-level far-field tint in
+  that isolated map before any production-map activation.

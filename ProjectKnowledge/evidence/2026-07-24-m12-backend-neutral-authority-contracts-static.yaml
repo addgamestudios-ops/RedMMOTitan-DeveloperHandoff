@@ -1,0 +1,195 @@
+schema_version: 1
+id: evidence.m12.backend-neutral-authority-contracts.static.2026-07-24
+captured_utc: "2026-07-23T22:12:36Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: backend-neutral-authority-checkpoint-revision-and-logical-suction-contracts
+evidence_class: static
+result: passed_static_source_and_offline_contracts_backend_absent
+
+scope:
+  authorized:
+    - add one project-owned backend-neutral authority-domain foundation for the isolated M12 candidate
+    - define bounded edit, revision, checkpoint, generated-output, loose-cluster, and arrival-credit contracts
+    - add fail-closed offline source and behavioral-model tests
+    - keep the foundation additive, unreflected, unwired, and independent of any absent or future voxel implementation
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, build, cook, package, game, Steam, or multiplayer process
+    - production map, production asteroid field, protected checkpoint, artist repository, vendor content, or supplied-art mutation
+    - voxel backend, runtime actor, prototype map, RPC, Inventory mutation, deformation, mesh generation, collision rebuild, or visible suction implementation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed_before_slice: 159
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [9.128, 9.186, 9.188, 9.157]
+  commit_used_gib_range: [32.205, 32.309]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_range: [22.564, 22.667]
+  disk_c_free_gib: 127.074
+  disk_d_free_gib: 1140.616
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 7698
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_non_packaging_offline_static_M12_slice
+
+latest_prior_build_and_runtime_context:
+  build:
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    result: succeeded
+    redmmo_dll_sha256: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+    titan_editor_target_sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+  real_gpu:
+    log_sha256: AB4C58EE4781EECF43CAF8EE782C46AF6360C4244604B421846FC814A0C1D446
+    limit: prior_runtime_context_only_not_M12_runtime_evidence
+
+implementation:
+  source:
+    - path: Source/RedMMO/Mining/RedVoxelMiningContracts.h
+      bytes: 13544
+      sha256: 3C53A3EA4DAC1B0897C3A369878198175503E487F38E630E2F4AA48B06F80AFE
+    - path: Source/RedMMO/Mining/RedVoxelMiningContracts.cpp
+      bytes: 36104
+      sha256: 8FADB5CEAB1D0D4468E0CE2F85A7D51D4C8C3B1D7232F035854F10F9587D1BF5
+    - path: Source/RedMMO/Mining/RedVoxelAsteroidBackend.h
+      bytes: 3650
+      sha256: 007EDFFE7B9BC97F1A0A59836E8C98450CFDF928E33A2D223661FFAE6D581C32
+  test:
+    path: Tools/tests/test_m12_voxel_authority_contract.py
+    bytes: 27421
+    sha256: B6E0CE3AD6725B209CE968F356825285C6BB1D5FEAAE9A686D6F3E98CA0C148D
+  production_source_modified: false
+  existing_runtime_consumer_added: false
+  project_config_build_rule_plugin_or_map_modified: false
+
+authority_contracts:
+  request_and_revision:
+    - client envelope contains no yield, amount, removed volume, removed-cell count, or material ID
+    - server edit and backend result bind exact target, sequence, expected revision, prediction token, and authority generation
+    - one global volume revision advances monotonically while each collector retains its own contiguous sequence high-water
+    - rejection retains revision and contains no removed cells, yield, or dirty chunks
+  material_and_bounds:
+    - accepted yield is calculated from removed-cell count times authoritative cell-size cubed
+    - edited cells, dirty chunks, yield entries, loose clusters, request rate, dimensions, checkpoint chunks, and bytes have immutable hard ceilings
+    - checked positive multiplication guards volume, chunk, checkpoint, and cell-count calculations
+  identity_and_checkpoints:
+    - immutable volume fields have deterministic canonical serialization and a recomputed project-owned SHA-256 fingerprint
+    - each checkpoint binds stable ID, dimensions fingerprint, seed, material table, coordinate, generation version, revision, allowlisted codec, decompressed size, and canonical payload SHA-256
+    - whole-volume validation requires the exact complete unique chunk set, one common revision, canonical manifest SHA-256, and aggregate byte ceiling
+    - atomic restore is compare-and-swap constrained to absent initialization or exact current revision and generation under a quiesced replacement; live rollback to an older revision is forbidden
+  generated_outputs:
+    - exact target, coordinate, content revision, content hash, and advanceable generation token reject stale asynchronous output
+    - dedicated-server collision readiness and client presentation readiness can be required independently
+  logical_suction_and_credit:
+    - server-owned cluster states advance one revision through bounded transitions
+    - reservation proof remains server-private and future replication requires a separate reflected DTO
+    - credit requires matching cluster, source, collector, reservation, observed revision, eligibility, line of sight, arrival distance, arrival timing, and collected transition
+    - output credit carries ClusterId plus CollectedRevision as the durable-ledger idempotency tuple
+
+isolation_proof:
+  forbidden_from_contract_layer:
+    - AActor, UObject, UActorComponent, UFUNCTION, replication macros, RPCs, SpawnActor, AddResource, Inventory mutation, pickup classes, generated triangles, DynamicMesh, ProceduralMesh, and VoxelWorld
+  runtime_source_scan:
+    new_contract_callsites_outside_contract_files: 0
+    prototype_actor_header_present: false
+    loose_cluster_actor_header_present: false
+    prototype_map_present: false
+  plugin_and_build:
+    voxel_uproject_entry_enabled: false
+    voxel_runtime_module_dependency_added: false
+    geometry_scripting_runtime_dependency_added: false
+
+independent_review:
+  first_pass_findings_closed:
+    - whole-volume authenticated atomic checkpoint restore
+    - server-observed arrival evidence and idempotent credit payload
+    - exact asynchronous output readiness query
+    - immutable hard ceilings and checked multiplication
+    - exact cell-derived removed volume
+  second_pass_findings_closed:
+    - restore compare-and-swap mode, current-revision and current-generation preconditions, and live rollback rejection
+    - role-specific dedicated-server collision versus client presentation readiness and generation-overflow rejection
+    - canonical volume-spec SHA-256 recomputation
+  final_spot_check_findings_closed:
+    - stable IDs reject canonical-serialization delimiters and whitespace so distinct identity pairs cannot hash through an ambiguous field boundary
+    - quiesced restore rejects generation tokens at or above uint64 maximum minus one so the mandatory generation advance remains representable and admissible
+  final_obvious_ue_5_8_compile_blockers_found_statically: 0
+  limit: read_only_static_review_not_a_compiler_or_runtime_result
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_BackendNeutralContracts_20260723_213932Z
+  exact_preimages:
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 97806, sha256: 5B19CFBBBA16F3181AAB02B7A102E685E4A11132E1224CA367E52ADCBC5AB9D5}
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 13116, sha256: 9BB8EC23C58758B2D0EFB5ADF219484E73648F216F316086C964D01DC7823CCA}
+    - {path: ProjectKnowledge/systems/on-foot-voxel-asteroid-mining.yaml, bytes: 9431, sha256: 9002819071D8BF2EEDA64F1BEE069EA6486021ABDD7267DD1EF847489369FBB3}
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 219777, sha256: E9AAF956393A9FB5C80EBC4A7339C050C18B66A0A88034BA3AB6BFC5F31B2CBE}
+  new_source_backend_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+verification:
+  focused_authority_contracts:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_BackendNeutralContracts_20260723_213932Z/m12_authority_contracts_clean.log
+    bytes: 2791
+    sha256: 871756C9A7DF5F4727AFA1EE3F1D64BB3EAE8F63A100E19A8CEC71502DE253D7
+    result: 13_of_13_passed
+  combined_capability_and_authority_contracts:
+    result: 21_of_21_passed
+  final_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_BackendNeutralContracts_20260723_213932Z/m12_final_static_and_provenance_tests.log
+    bytes: 20619
+    sha256: 99C581CD5D251E55536E2DD601C0F0C293BCE3C2BD6863B3593E4D3C9F247044
+    result: 93_of_93_passed
+    suites:
+      - Tools.tests.test_m12_voxel_capability_contract
+      - Tools.tests.test_m12_voxel_authority_contract
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_resource_inventory_contract
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_project_knowledge_integrity
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_BackendNeutralContracts_20260723_213932Z/project_knowledge_integrity_final.json
+    result: passed
+    error_count: 0
+    warning_count: 0
+
+protection:
+  protected_provenance_pre_slice: 7_of_7_passed
+  protected_provenance_post_slice: 7_of_7_passed
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_source_rasters: 135_of_135_exact
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  production_map_or_field_modified: false
+  protected_checkpoint_or_heightfield_modified: false
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+
+canonical_sync:
+  module: M12
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: 3F34052B34BB5BAC9ADE2E441225CCAA680E3947848B95B730A3540EEC0938D1
+
+claim_limit: >-
+  This evidence proves an additive, backend-neutral, static authority-domain
+  foundation and offline behavioral or source-inspection contracts. The source
+  is uncompiled and unwired. It does not prove a voxel backend, density edits,
+  localized deformation, a persistent cavity, generated mesh, collision,
+  suction movement, Inventory credit, replicated wire DTOs, late join, real-GPU
+  visuals, performance, packaging, Steam transport, or multiplayer.
+
+next_safe_action: >-
+  Implement one bounded project-owned in-memory sparse-density backend behind
+  IRedVoxelAsteroidBackend with deterministic base material cells, atomic brush
+  edits, monotonic revisions, bounded journals, exact whole-volume checkpoints,
+  and stale generated-output rejection. Add compiled C++ automation when the
+  resource gate permits. Do not create or wire an actor or map until source,
+  compile, corruption, replay, and profiling gates pass.

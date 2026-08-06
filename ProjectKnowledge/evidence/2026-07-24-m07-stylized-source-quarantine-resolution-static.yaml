@@ -1,0 +1,212 @@
+schema_version: 1
+id: evidence.m07.stylized-source-quarantine-resolution.static.2026-07-24
+captured_utc: "2026-07-24T21:15:41Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: authenticated-review-decisions-and-exact-stable-id-quarantine-resolution
+evidence_class: static
+result: passed
+
+scope:
+  authorized:
+    - encode the canonical disposition of the eight imported miscategorized packages as exact stable-ID decisions
+    - resolve those decisions against the authenticated v3 taxonomy without importing anything
+    - group decisions by complete source-family membership and expose global duplicate payload conflicts
+    - prove that the resulting artifact contains zero import authority
+  explicitly_not_run:
+    - modify the existing dirty category-based importer or launcher
+    - import, delete, move, rename, overwrite, promote, deduplicate, or reference any Unreal package
+    - mutate D:/styled assets, the authenticated v2 plan, or the accepted v3 taxonomy outputs
+    - edit any production, protected, test, vendor, or artist map
+    - launch Unreal Editor, build, cook, package, Nwiro, Meshy, Tripo, or a real-GPU test
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  free_physical_gib: 8.347
+  free_commit_gib: 21.365
+  free_d_drive_gib: 1105.490
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 7475
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  selected_work_mode: offline_static_only
+
+latest_build_evidence_inspected:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_20260724_060908_DEF0005Lineage/lineage_snapshot/TitanEditor_final_link_20260723.log
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded
+  note: >-
+    This is pre-existing build evidence only. No build ran in this slice and it
+    does not validate the new offline resolver.
+
+authenticated_inputs:
+  taxonomy:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Taxonomy/taxonomy_v3_20260724_2038_a.json
+    file_sha256: 46DD7F969C7E1E829A32C8671C36535A4D1D25EE4BF0A98871895DE24CEE5ADD
+    semantic_sha256: EAF4C579B35E11FAC8DBD245D78AF99A6145211664A488095CD13441BF262418
+    ruleset_sha256: 65D63916B0E0A9C85221D018DDDC54495E334EFCE17D7C190BD69D7210177B57
+    record_count: 23599
+  plan:
+    file_sha256: 29D15839FAD2E0624856F765C78D4FABBB9693B6023AE62590D89C2833AEAC17
+    semantic_sha256: 97E5A38D14FA585C646C3BDFBC5324C75423995646DF0CB5E717B7E54826864C
+    dataset_sha256: 83FC1D37DB9861508E7A49EB1FDC28C2D6F730F49D74C0D288764B1343488BB1
+
+implementation:
+  resolver:
+    path: Tools/resolve_redmmo_stylized_source_selection.py
+    sha256: E8FD98470372D7655B7B0C1A6A9879829A385037E636E421D8C874061E15A339
+  tests:
+    path: Tools/tests/test_resolve_redmmo_stylized_source_selection.py
+    sha256: 7A5B353B672144C387C4E5218457E381B9459E105932ACDEEE6FADCD9A09E94D
+  decisions:
+    path: Build/Automation/redmmo_stylized_review_decisions_v1.json
+    schema: redmmotitan.stylized_source_review_decisions.v1
+    file_sha256: A49C0430584E3CFA6A21E9BD2555081745E8FF4DC0B1355E2FFAB0C02DEA662F
+    semantic_sha256: 9FC71F2715DA6D0E2D9DC291DE83818FB5E682776E548B37B6C80BDD6D81EE37
+    authority_kind: canonical_evidence
+    decision_count: 8
+    action: retain_quarantined_in_place
+  policy:
+    - source-category ranges are never selection authority
+    - only exact stable source IDs bound to exact taxonomy identities are resolved
+    - every reviewed source-family folder must be covered completely
+    - stable group IDs derive from the complete sorted member-ID set
+    - schema v1 rejects every approve_import action until reviewer identity and the decision hash are authenticated outside the caller-supplied document
+    - self-asserted human_review authority is never sufficient import authority
+    - any globally duplicated payload blocks import approval in schema v1
+    - selected record count may not exceed 64
+    - zero selected records produce a non-import-ready quarantine resolution with importer_ready false
+    - outputs are restricted to the D-resident selection diagnostics root and are no-clobber
+
+determinism:
+  generation_a:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Selections/resolved_selection_v1_20260724_2130_a.json
+    file_sha256: A535FCD1B016047DCF0A595000BC195F75D326D0B2B664E0037DB13AA508814F
+    authenticated_verify_exit_code: 0
+  generation_b:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Selections/resolved_selection_v1_20260724_2130_b.json
+    file_sha256: A535FCD1B016047DCF0A595000BC195F75D326D0B2B664E0037DB13AA508814F
+    authenticated_verify_exit_code: 0
+  byte_identical: true
+  semantic_selection_sha256: 157B9F765C7C21C15CBE1AB32B6FCD342D05589816106C233D6453433BA735BD
+
+resolution:
+  schema: redmmotitan.stylized_source_resolved_selection.v1
+  selection_count: 0
+  selection_ready: false
+  importer_ready: false
+  selection_kind: quarantine_resolution
+  approval_gate: disabled_until_externally_anchored_human_review
+  quarantine_count: 8
+  deferred_count: 0
+  undecided_count: 23591
+  decision_group_count: 2
+  importer_gate: not_integrated_category_import_remains_paused
+  groups:
+    - stable_group_id: RED-STYLIZED-GROUP-15F395A36EB3DEE9463B9FD5
+      family_path: Stylized_Trees/DEC_Door_Assorted_Wood_000
+      family_member_set_sha256: 15F395A36EB3DEE9463B9FD5B60B5FCCE77699C6E2DFD7999C4FA7F2D5F033DB
+      member_count: 4
+    - stable_group_id: RED-STYLIZED-GROUP-9208D07C54510B71AA499586
+      family_path: Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000
+      family_member_set_sha256: 9208D07C54510B71AA49958613B58A903F3B0C729FF3BEFFD02C08FE834764CC
+      member_count: 4
+  exact_quarantined_ids:
+    - RED-STYLIZED-23D277C769A794268322DDCD
+    - RED-STYLIZED-49156E6D8B89646879AC66CE
+    - RED-STYLIZED-65EEBE012F31939103276E82
+    - RED-STYLIZED-89F6B653298F543090E22EC9
+    - RED-STYLIZED-97A4BCF1F33DD45A956262E4
+    - RED-STYLIZED-BF0EF79909C676D4626B846C
+    - RED-STYLIZED-DD4C2E1C2ED32FA61D422750
+    - RED-STYLIZED-E8A8A6157181F6058A861B24
+
+duplicate_payload_finding:
+  global_duplicate_payload_group_count: 995
+  global_duplicate_payload_record_count: 7464
+  decision_touched_duplicate_group_count: 2
+  groups:
+    - source_sha256: BB149214880B4402F6CB9D8F40E827ABA6223AFC2702370BD18B469DAE0A95FE
+      member_count: 2
+      stable_source_ids:
+        - RED-STYLIZED-49156E6D8B89646879AC66CE
+        - RED-STYLIZED-BF0EF79909C676D4626B846C
+    - source_sha256: FA79988A4338D8A76A9E4E560F0218BE080905D63B709351BAB72B4C471B9990
+      member_count: 4
+      stable_source_ids:
+        - RED-STYLIZED-89F6B653298F543090E22EC9
+        - RED-STYLIZED-C6AAEA1B0294439FCB98BAAF
+        - RED-STYLIZED-DD4C2E1C2ED32FA61D422750
+        - RED-STYLIZED-F86B4AC0B9534537A648014F
+  new_observation: >-
+    The entry normal payload is shared by two additional, still-undecided
+    Stylized_Trees records: an interior wood floor normal and a Granok house
+    wood-floor normal. The resolver exposes all four members and does not merge,
+    delete, or approve any of them.
+
+verification:
+  focused_resolver_tests:
+    run: 13
+    passed: 13
+    failed: 0
+  combined_taxonomy_importer_launcher_resolver_tests:
+    run: 53
+    passed: 52
+    skipped: 1
+    failed: 0
+  py_compile_exit_code: 0
+  authenticated_generation_a_verify_exit_code: 0
+  authenticated_generation_b_verify_exit_code: 0
+  no_clobber_probe:
+    expected_exit_code: 1
+    existing_output_unchanged: true
+    diagnostic_contains: Refusing to overwrite diagnostics file
+  independent_fail_closed_review:
+    finding: >-
+      Caller-supplied human_review authority was initially self-asserted and
+      could not constitute trusted import approval.
+    correction: >-
+      Every approve_import action is now rejected before selection assembly;
+      the output sets importer_ready false and the CLI reports RESOLVED rather
+      than READY.
+  project_knowledge_integrity:
+    audit_exit_code: 0
+    error_count: 0
+    warning_count: 0
+    queue_sha256: 2EC285F2099002B071B8B0F01E6BDC86EAF7292E8523264811A35138D3F0A9F8
+    report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity/m07_quarantine_resolution_20260724_2130.json
+    report_sha256: A69AED635BC0F596BD969A1A5AE6548FA40FCADA6D1D4F6F437E0272015002DE
+    focused_contracts_run: 20
+    focused_contracts_passed: 20
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is static fail-closed review and quarantine evidence. It deliberately
+  authorizes zero imports and does not approve any of the 2640 taxonomy machine
+  candidates. Positive approval is disabled until reviewer identity and the
+  decision hash are anchored outside caller-supplied data. The resolver has not
+  been integrated into the current importer,
+  whose category-based authorization therefore remains paused. It does not
+  prove license, provenance, identity, family completeness beyond the two
+  reviewed folders, duplicate disposition, pixel, PBR, material, Unreal
+  dependency, artistic, curved-tile, Nwiro, runtime, performance, package,
+  multiplayer, or real-GPU acceptance.
+
+remaining_blockers:
+  - define and verify an externally anchored human-review identity and decision-hash trust contract
+  - build a no-clobber review-request artifact for one small safe candidate family and obtain explicit human review of identity, rights, dependencies, and destination through that trust contract
+  - add an explicit global duplicate-payload disposition schema before any duplicated source can be approved
+  - finish or isolate the existing dirty importer staging changes before exact-selection integration
+  - replace category authorization in both staging and Unreal runtime with authenticated exact stable-ID selection, then bump and bind stage and state schemas
+  - keep all imports paused until the launcher also requires the resolved selection and proves category fallback is absent
+
+next_safe_action:
+  - create one deterministic review request for a small non-duplicated machine-candidate family without approving it, with an external authority anchor designed separately from the request payload
+  - only after the authority anchor is validated, implement positive exact-ID approval and integrate it into a clean importer slice

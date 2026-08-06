@@ -1,0 +1,102 @@
+schema_version: 1
+id: evidence.so-stylized-sparkle-mask-probe-guard.2026-07-21
+module: M00
+evidence_class: static
+status: pass_safe_refusal
+
+scope:
+  launcher: Build/Automation/Invoke-RedSandSparkleMaskProbe.ps1
+  launcher_sha256: 51582F516952455B1768874A5868D2CE380289493484C4EE9D8B23ACB2589775
+  launcher_tests: Tools/tests/test_invoke_red_sand_sparkle_mask_probe.py
+  launcher_tests_sha256: C3C3FB1C59481CD2ADFB0F19C24942A1D8A4CF5A08DD3815B69ECF3A86F994D2
+  exact_target: /Game/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02
+
+offline_acceptance:
+  powershell_ast: pass
+  python_compile: pass
+  preparation_tests: 9_of_9_passed
+  launcher_tests: 17_of_17_passed
+  combined_tests: 26_of_26_passed
+  hardened_controls:
+    - blocking-process enumeration fails closed
+    - sustained RAM, commit, and VRAM preflight is required before launch
+    - runtime RAM, commit, VRAM, unsafe-log, and ten-minute deadline guards are present
+    - the exact started process tree is cleaned up on caught runtime failure
+    - target recovery uses the deterministic hash-named baseline backup
+    - protected hashes are rechecked after caught runtime failure
+    - the result marker requires typed changed, rollback_backup, desired switches, and protected hash count
+    - success and failure exits do not collapse through Write-Error termination
+  fixture_coverage:
+    - timeout boundary
+    - fail-closed CIM enumeration failure
+    - missing and wrong marker fields
+    - exact rollback restore and missing-backup refusal
+    - changed-result backup hash validation
+    - live harmless parent-plus-child process-tree termination by exact started PID
+
+offline_followup_2026_07_21:
+  exact_process_tree_fixture: pass
+  parent_and_child_survived_cleanup: false
+  unreal_or_build_processes_started: 0
+  blocker_processes_after: 0
+  free_physical_gib_after: 13.588
+  decision: no_go_unreal
+  reason: >-
+    The exact process-tree cleanup path is now exercised against a harmless
+    parent-plus-child PowerShell fixture. Physical RAM remained below the
+    sustained 14 GiB material-launch margin, so no Unreal process was started.
+
+live_preflight:
+  sample_count: 12
+  sample_interval_seconds: 1
+  minimum_free_commit_gib: 25.037
+  minimum_free_physical_gib: 11.947
+  minimum_free_vram_mib: 7783
+  blocker_processes_before: 0
+  blocker_processes_after: 0
+  required_free_commit_gib: 18.0
+  required_free_physical_gib: 14.0
+  required_free_vram_mib: 6500
+  exit_code: 20
+  decision: no_go_unreal
+  reason: >-
+    Physical RAM crossed below the 12 GiB project hard floor during the sustained
+    sample and did not meet the launcher's 14 GiB material margin. The launcher
+    refused before starting Unreal or creating a runtime diagnostic directory.
+
+runtime_followup:
+  status: superseded_by_runtime_pass
+  evidence: ProjectKnowledge/evidence/2026-07-21-so-stylized-sparkle-mask-probe-runtime.yaml
+  launcher_repairs:
+    - native process handle materialized before exit-code inspection
+    - bounded normal CrashReportClientEditor helper shutdown drain
+
+hash_guard_after_refusal:
+  target:
+    path: Content/RedMMO/Materials/DesertSparkleTest/MI_PlanetBiome_DesertSparkle_T02.uasset
+    sha256: 3E9582E09AD57EEC9FD6C7B2A3F15379B5F714F0749B1B6B2B0DB560C3E1E8B5
+  protected_map:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_foundation_marker:
+    path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+    sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+
+diagnostic_log: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleMaskProbe/guarded_launcher_preflight_20260721.log
+offline_followup_log: D:/RedMMOTitanWindowsData/Diagnostics/SandSparkleMaskProbe/exact_process_tree_fixture_20260721.log
+
+remaining_limits:
+  - full Start-Process orchestration has not been exercised against Unreal
+  - the commandlet has not loaded or compiled the material permutation
+  - no real-GPU close, translated, or oblique sparkle capture exists
+
+claim_limit: >-
+  This evidence accepts only the offline guard implementation and its live
+  fail-closed refusal. It does not prove that the mask probe executed, that the
+  material changed or compiled, or that gold sparkle is visually present.
+
+next_safe_action: >-
+  Keep Unreal closed while free physical RAM is below the sustained 14 GiB
+  material margin. On a later safe run, invoke this guarded launcher without
+  PreflightOnly, verify the exact switch pair and held values from the commandlet
+  marker, then run the capped real-GPU close, translated, and oblique captures.

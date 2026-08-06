@@ -1,0 +1,61 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-profile-v1-ocean-foliage-role-blocked.2026-08-05
+captured_utc: "2026-08-05T09:31:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-ocean-foliage-role-mutation-gate
+evidence_class: static
+result: blocked_unsafe_global_ocean_foliage_assignment_rejected
+
+inputs:
+  live_playerstart_biome_evidence: ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-ppg-profile-v1-playerstart-biome-real-pie.yaml
+  playerstart_world_location: [-198911217.22968367, 16591254.847640004, -523634710.60749865]
+  planet_center: [0.0, 0.0, -300000000.0]
+  planet_radius_cm: 300000000.0
+  measured_playerstart_elevation_cm: -244389.767741919
+  dominant_biome:
+    id: 4
+    name: Ocean
+    strength: 1.0
+    foliage: null
+
+installed_ppg_contract:
+  planet_data_header:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Public/PlanetData.h
+    sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+  foliage_data_header:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Public/FoliageData.h
+    sha256: A6086644FC15B39A8F6FC16B0BFB8395D11DF89C0A7705F768DC3C1E06471AFF
+  chunk_dispatch_source:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Source/PPG/Private/ChunkObject.cpp
+    sha256: BAAAB0CD184A10800E71D30ACCE6C918FC280D4632E9EC718ED73F5BFF61FE2A
+  foliage_shader:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/Procedur890d9e860517V2/Shaders/Foliage.usf
+    sha256: D59467A45D609B36C60FD5B01714E350EBA6A4E0F89ECB11F7A1C5D6D9D741CF
+  facts:
+    - PlanetData exposes one FoliageData pointer per whole biome, not a per-region or per-PlayerStart override
+    - BuildFoliageDispatchParams maps every biome index globally to its FoliageData source
+    - native water datum is zero terrain elevation at PlanetRadius and water meshes cover negative-elevation chunks
+    - the approved grass profile uses inverted BLUE terrain vertex color, while Ocean has no authored vertex-color branch in ProfileV1
+
+decision: >-
+  Do not bind the approved grass profile directly to Ocean. The current start is
+  below sea datum and a per-biome assignment would apply across all Ocean cells,
+  potentially spawning uniform grass on seabed, shore and coastal terrain. PPG
+  exposes no public scoped start-role binding that can preserve Ocean semantics.
+
+mutation:
+  performed: false
+  profile_v1_planet_data_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  home_map_sha256_before_after: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+
+claim_boundary: >-
+  This closes only the proposed direct Ocean-foliage assignment as unsafe. It
+  does not repair spawn, grass, water, shoreline, biome presentation or visuals.
+
+next_safe_action: >-
+  Do not mutate Ocean foliage globally. In a later dedicated spawn-authority
+  slice, choose between a seeded above-sea-level land spawn and an authored
+  project-owned biome-mask start role, then prove the selected location's live
+  biome, elevation, collision and grass without changing the planet seed.
+

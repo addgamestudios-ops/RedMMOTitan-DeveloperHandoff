@@ -1,0 +1,173 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M10-LEGACY-SCHEMA-VERSION-REPAIR-STATIC
+captured_at: "2026-07-23T15:32:06Z"
+module: M10
+slice: legacy-schema-version-repair
+evidence_class: static
+result: passed_two_legacy_schema_version_repairs_audit_backlog_reduced_64_to_62_m10_stays_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Repair only the two indexed historical Windows compile-resource evidence
+    mappings that the strict ProjectKnowledge auditor reports through PKI020
+    because schema_version is absent.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_records_modified:
+    - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry.yaml
+    - ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-02.yaml
+  canonical_records_reconciled_after_verification:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_deferred:
+    - the remaining missing IDs and evidence-class normalization
+    - the independently malformed historical SHA-256 field
+    - the completed M01 evidence-resolution finding
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build, cook, package, runtime, real-GPU, gameplay, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    worktree: heavily_dirty_preexisting_user_and_project_work_preserved
+  resources:
+    physical_ram_total_gib: 31.872
+    initial_physical_ram_free_gib: 11.347
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 1910
+    gpu_free_mib: 8144
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_package_pointer:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    pointer_sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+    status: stale_failed_attempt_not_a_valid_package
+
+repair:
+  records:
+    - path: ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry.yaml
+      change: add_exact_top_level_integer_schema_version_1
+      pre_bytes: 1841
+      pre_sha256: C3E33A3012FDE3F33902E30414BFBF261AAD64F392E30D3F2E7C1093E6741420
+      post_bytes: 1859
+      post_sha256: B496AC2C0DB6916AAFD8130DFB8C7269F345B3D2DD43E798377F6E35F99AC884
+    - path: ProjectKnowledge/evidence/2026-07-21-windows-compile-resource-gate-retry-02.yaml
+      change: add_exact_top_level_integer_schema_version_1
+      pre_bytes: 1928
+      pre_sha256: 03E521D6A3350E479450C17598275CE4F6E1F2003A24AFD12607844EB7B54B7B
+      post_bytes: 1946
+      post_sha256: 6D2AF705F5A06BA9E65B37E6D153C42D58C957B034F220501114D7D75C3A47C0
+  exact_diff: >-
+    Each current record equals its retained preimage after removal of only the
+    eighteen-byte first-line prefix "schema_version: 1" plus LF.
+  historical_semantics_preserved: true
+
+verification:
+  pre_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_LegacySchemaRepair_20260723_153206Z/integrity_pre.json
+    bytes: 17861
+    sha256: EFA9CE9985625D3DD51D9C9931E86173707E5425FF0FC042B8DE9C0FEFC7E217
+    expected_exit_code: 1
+    finding_count: 64
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  post_repair_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_LegacySchemaRepair_20260723_153206Z/integrity_post.json
+    bytes: 17406
+    sha256: F2061DB71DA0D1E0D4E6E173EA5A2228939577954095A87698126B95F38397E4
+    expected_exit_code: 1
+    finding_count: 62
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI022: 1}
+    exact_delta: PKI020_2_to_0_all_other_categories_unchanged
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_LegacySchemaRepair_20260723_153206Z/combined_static_regressions.log
+    bytes: 18162
+    sha256: CCD018AC919F3117CF53DCE5F1AE765B6813DB961FB80849B3F5D64079D01118
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  independent_read_only_review:
+    result: pass
+    confirmed:
+      - the two PKI020 paths are exact and unique
+      - schema_version is an unquoted top-level integer 1 in neighboring records
+      - both repaired files otherwise remain byte-exact to their rollback preimages
+      - PKI020 is absent after repair while the separate host_resource_gate class findings remain
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_source_rasters: 135_of_135_exact
+  result: pass_no_drift
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M10_LegacySchemaRepair_20260723_153206Z
+  retained_preimages:
+    - 2026-07-21-windows-compile-resource-gate-retry.yaml
+    - 2026-07-21-windows-compile-resource-gate-retry-02.yaml
+    - INDEX.yaml
+    - current_state.yaml
+    - redmmotitan_module_queue.json
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_LegacySchemaRepair_20260723_153206Z/integrity_final.json
+    bytes: 17406
+    sha256: FF3EC8E46917E8F154B3CD3E7A1E6F6309C06D7E63127329B6FD9AAC9B4CF5E0
+    expected_exit_code: 1
+    result: failed_closed_with_62_independent_legacy_findings_and_no_PKI020
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_LegacySchemaRepair_20260723_153206Z/final_integrity_and_provenance_tests.log
+    bytes: 12022
+    sha256: 09DE64485BC78B6F91CA7113D2CFED85A32AED43BBD3E8FB1CCB83DB4205E353
+    result: 27_of_27_passed
+  canonical_hashes:
+    index_sha256: 1F95AA216D2C74B0FE951D35495FCAC167BF2363A03E3087A971ABEEDF4A3BA4
+    current_state_sha256: 38DB633DF31D4937412A61CFCA39DDA086890AD4D6D79B8FF07D114A54B4339D
+    module_queue_sha256: C11F4BDD5753EAD3518ABA14006D3C825EA6B3E6FC88394C06DD8B1BA5DDC89A
+    queue_snapshot_matches_current_state: true
+  note: >-
+    This immutable final-report pointer was appended after the final audit. The
+    record already had its stable ID, schema_version, module, evidence class,
+    result, and repair facts during that audit, so the pointer does not alter
+    the reported finding categories.
+
+remaining_m10_blockers:
+  live_metadata_findings: 62
+  categories:
+    missing_evidence_ids: 23
+    missing_evidence_classes: 17
+    noncanonical_evidence_classes: 20
+    malformed_sha256_fields: 1
+    completed_modules_without_resolvable_indexed_evidence: 1
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This is static metadata repair and protected-provenance evidence only. It
+  removes exactly two missing-schema findings; it does not normalize the
+  records' separate host_resource_gate evidence class, repair any other legacy
+  finding, complete M10, or prove Unreal execution, build, runtime, visuals,
+  gameplay, packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  Keep M10 queued. Return to the canonical bounded M09 D3D12 16:9 resource
+  inventory visual and interactivity acceptance when host resources safely
+  permit one Unreal process; otherwise take one different isolated offline
+  metadata category without combining it with gameplay, HUD, maps, or artist
+  work.

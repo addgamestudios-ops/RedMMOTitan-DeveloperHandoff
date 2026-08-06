@@ -1,0 +1,67 @@
+schema_version: 1
+id: evidence.m05.celestial-frame-registry-native-execution-blocked
+module: M05
+evidence_class: build
+status: blocked
+timestamp_utc: 2026-08-06T04:14:16Z
+scope: >-
+  One rollback-backed attempt to add and execute focused development-only C++
+  automation for the existing celestial-frame registry lifecycle branches.
+  No production registry, map, asset, biome, package, or vendor source was
+  changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.23
+  commit_headroom_gib: 54.26
+  free_disk_d_gib: 759.39
+  gpu_free_mib: 9097
+  gpu_used_mib: 957
+  active_unreal_build_package_process_count: 0
+attempt:
+  target: TitanEditor Win64 Development
+  build_policy:
+    - NoUBTMakefiles
+    - NoUBA
+    - MaxParallelActions=1
+  intended_test: RedMMO.WorldAuthoring.CelestialFrames.RegistrySemantics
+  intended_branches:
+    - missing and wrong exact ID
+    - skipped and sequential revision
+    - competing authority conflict
+    - unregister tombstone and exact sequential recovery
+    - weak authority destruction
+    - world cleanup
+  result: blocked_before_cpp_compile
+  exact_error: >-
+    Unable to find plugin 'WorldGen' (referenced via Titan.uproject). Install it
+    and try again, or remove it from the required plugin list.
+  exit_code: 6
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M05_CelestialFrameRegistryNativeTests_20260806T0414Z/TitanEditor_build.log
+  log_sha256: FE747560547A1BE6A02E7FFE1EC6722135EE44EC05D86CC57494387FF8ECA9DA
+rollback:
+  checkpoint: D:/RedMMOTitanWindowsData/Rollback/BeforeM05CelestialFrameRegistryNativeTests_20260806T0414Z
+  manifest_sha256: 81955B97A1CC52327C7A5929E2D0CC876A4CB65DED3AD09D4103875153659229
+  prepared_test_sha256: FD57E6AC2F39B36B475E6334DA2B48E4F2502F45980EAEDEB4C16FD41A787B52
+  prepared_test_final_state: absent_restored
+  production_source_changed: false
+preserved:
+  celestial_registry_cpp_sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+  celestial_registry_h_sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+disposition: >-
+  Do not disable the repository-required WorldGen plugin, copy an unofficial
+  payload, or retain uncompiled test source. The test file was removed
+  byte-clean according to its absent rollback state. M05 native lifecycle
+  execution must wait for an official compatible WorldGen payload or a
+  separately reviewed project-configuration contract change.
+claim_limit: >-
+  Failed build-entry evidence only. UnrealBuildTool rejected the project before
+  compiling the test or production C++. This proves neither the intended test
+  semantics nor runtime, visuals, gameplay, packaging, replication, or
+  multiplayer behavior.
+next_safe_action: >-
+  Rotate on the next wake to another independent authorized module. Return to
+  M05 native lifecycle execution only after M12 records a compatible WorldGen
+  payload or separately authorizes and verifies a project-configuration change.

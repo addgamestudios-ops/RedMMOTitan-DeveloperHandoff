@@ -1,0 +1,214 @@
+schema_version: 1
+id: evidence.m07.asset-library-architecture.static.2026-07-23
+captured_utc: "2026-07-23T19:24:59Z"
+module_id: M07
+system: world-authoring.asset-library-and-repository-architecture
+slice: read-only-inventory-target-architecture-and-engine-first-tool-plan
+evidence_class: static
+result: passed_static_inventory_and_architecture_baseline
+
+scope:
+  authorized:
+    - audit the repository, Unreal source/module layout, Content roots, plugin content, and active project identity
+    - inventory the SoStylized, desert, alien-jungle, tropical, alien-grass, and alien-plant libraries
+    - research senior Unreal large-world organization and the linked Subnautica 2 Unreal Fest talk
+    - define a phased RED MMO target architecture and proprietary world-authoring tool layer
+    - implement one read-only project-owned asset-library inventory tool and focused tests
+  explicitly_not_run:
+    - Unreal Editor, commandlet, build, cook, package, or runtime
+    - filesystem moves or renames of any uasset or umap
+    - production, checkpoint, fused-prototype, artist-map, plugin-content, or vendor-content mutation
+    - project, target, executable, Steam depot, save path, or repository-root rename
+    - Asset Registry decoding, visual approval, performance approval, or license approval
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_entries_observed: 1471
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.87
+  physical_ram_free_gib: 13.88
+  commit_limit_gib: 54.87
+  commit_free_gib: 28.54
+  disk_d_free_gib: 1140.86
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2493
+  vram_free_mib: 7561
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: static_offline_M07_slice_only
+
+research:
+  video:
+    url: https://youtu.be/AalP65lrtpo
+    title: Lessons Learned from Building a Very Large Open World Game in UE5
+    publisher: Unreal Engine
+    presenter_context: Unknown Worlds, Subnautica 2
+    reviewed_from: visible English auto-generated transcript and official description
+    applicable_lessons:
+      - prefer engine systems and extend stable seams before building a replacement platform
+      - placement and rule results must be previewable in the editor
+      - use World Partition, One File Per Actor, bounded builder processing, and Data Layers at scale
+      - attach reusable placement and gameplay meaning through data rather than ticking Blueprint actors
+      - use validators, automated visual patrols, performance traces, managers, and event-driven updates
+      - treat focused plugins as reversible experiments and account for bespoke-tool maintenance
+  primary_unreal_topics:
+    - directory and module structure
+    - recommended asset naming
+    - Asset Manager, Data Assets, Asset Metadata, Content Browser filters, and collections
+    - World Partition, One File Per Actor, Data Layers, Level Instances, and builder commandlets
+    - PCG spatial data and hierarchical generation
+    - Foliage, ISM/HISM, and Water System
+    - Data Validation, editor scripting, and Scriptable Tools
+    - Asset Redirectors, working with assets, and Core Redirects
+  durable_design_record: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md
+
+repository_audit:
+  git_tracked_files: 170
+  git_tracked_content_packages: 0
+  git_tracked_plugin_files: 0
+  active_uproject: Titan.uproject
+  declared_runtime_modules: [RedMMO]
+  titan_named_source_files: 36
+  source_layout_findings:
+    - active project and editor target identities remain Titan
+    - active native module and content namespace are already RedMMO
+    - dormant Source/Titan and Source/TitanEditor depend on absent legacy modules and require Asset Registry proof before removal
+    - editor authoring tools currently share the flat RedMMO runtime module
+    - no dedicated client or server target exists
+  safe_identity_decision:
+    - preserve RedMMO module, /Script/RedMMO, and /Game/RedMMO
+    - atomically rename the project, targets, executable, package, and live product strings only after dependency and rollback proof
+    - preserve historical evidence, artist handoffs, external diagnostics, and redmmotitan v1 schema identifiers
+    - never apply a repository-wide Titan substring replacement
+
+asset_inventory:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetLibraryArchitecture_20260723_192326Z/asset_library_inventory.json
+    bytes: 5161444
+    sha256: 387B695FA2A09766533BF0DDD5CAF11695A2A15EF252F068B6A50ACA9571778C
+    inventory_signature_kind: sorted-package-path-size-type
+    inventory_signature_sha256: 89C0FB3ABFD6A12C1A13719A036E2A47B84DD4CAE82A5F74F6C6BCD06301EF31
+  scope:
+    packages: 7353
+    assets: 7294
+    maps: 59
+    bytes: 10449604064
+    project_owned_packages: 73
+    vendor_or_sample_packages: 7022
+    plugin_content_packages: 211
+    world_partition_external_packages: 47
+    recognized_prefix_assets: 5697
+    unknown_type_assets: 1597
+    basename_collision_groups: 490
+    basename_collision_packages: 1278
+    package_tree_quiescent_during_scan: true
+  priority_libraries:
+    - {root: SoStylized, packages: 729, bytes: 363353499}
+    - {root: StylizedDesertOasis, packages: 166, bytes: 302320943}
+    - {root: AlienJungle, packages: 498, bytes: 833237624}
+    - {root: TropicalAlienWorld, packages: 137, bytes: 1812498146}
+    - {root: Alien_Grass_Pack, packages: 231, bytes: 155829306}
+    - {root: Alien_Plants_Pack, packages: 305, bytes: 703823712}
+  ownership_decision:
+    - preserve vendor package roots as immutable source libraries
+    - create project-owned catalogs, shared collections, material instances, palettes, and thumbnails under /Game/RedMMO
+    - treat filename and path classifications as unreviewed candidates only
+    - require Unreal decoding and technical-art review before promotion
+
+implementation:
+  scanner:
+    path: Tools/audit_redmmo_asset_library.py
+    bytes: 18694
+    sha256: DF1496BB86483984772BFF8F1CB4105F25890D8E5ED25365C24FD292673B053D
+    behavior:
+      - reads project and plugin package paths and filesystem metadata only
+      - records source ownership, provisional naming/type/category signals, and basename collisions
+      - refuses output outside the D-resident diagnostics root
+      - snapshots the package tree before and after the scan and fails closed on concurrent change
+      - never parses, hashes, moves, renames, saves, or modifies Unreal packages
+  tests:
+    path: Tools/tests/test_audit_redmmo_asset_library.py
+    bytes: 5386
+    sha256: 454B5C2626854DB51D9FF3FA94FD4A81E8F35935E7118A419FDCB6A95595D183
+  architecture:
+    path: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md
+    bytes: 19197
+    sha256: CCD7D3768ACD27C0FC916E556420563B7DA3142D2C26BA58B2B7B8D964D5F4CF
+    defined_tools:
+      - Asset Library Curator
+      - Radial Scatter Brush
+      - Path and Negative-Space Director
+      - Biome Mask Composer
+      - Hydrology and Shoreline Author
+      - World Validation and Patrol
+
+verification:
+  focused_static_and_protected_provenance:
+    result: 27_of_27_passed
+    suites:
+      - Tools.tests.test_audit_redmmo_asset_library
+      - Tools.tests.test_practice_biome_layout
+      - Tools.tests.test_alien_asset_gap_register
+      - Tools.tests.test_grass_gpu_defaults_contract
+      - Tools.tests.test_fused_prototype_provenance
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetLibraryArchitecture_20260723_192326Z/focused_static_tests.log
+      bytes: 10976
+      sha256: F3D368574A59FD7B0639061E966861E6920DA31AF9B2F5241F78154675024ABF
+    protected_coverage:
+      - current, retained, production, and protected planet packages retain pinned hashes
+      - protected foundation and all 135 source rasters retain pinned hashes
+      - artist staging copy retains the intended current-save hash
+  canonical_integrity:
+    live_audit:
+      result: passed
+      error_count: 0
+      warning_count: 0
+      report: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetLibraryArchitecture_20260723_192326Z/project_knowledge_integrity.json
+    unit_tests:
+      result: 20_of_20_passed
+      log:
+        path: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetLibraryArchitecture_20260723_192326Z/project_knowledge_unit_tests.log
+        bytes: 9172
+        sha256: C4896F391141F9C35E96C1878BB82D38F5734B0C811F3269CF4F117CC53131F3
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_AssetLibraryArchitecture_20260723_1925Z
+  exact_canonical_preimages: 3
+  new_project_files_have_no_preimage: 3
+  unrelated_dirty_work_preserved: true
+
+protection:
+  Unreal_launched: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_source_rasters: 135_of_135_exact
+  artist_repository_or_handoff_modified: false
+  supplied_art_or_external_pack_modified: false
+  plugin_content_modified: false
+  package_modified: false
+
+canonical_sync:
+  module: M07
+  status: in_progress
+  retry_count: 0
+  queue_sha256_after: 4C79CE24CDFA22068E748204413DC4D34816C9E930B7C31334E181BFF82023F0
+
+claim_limit: >-
+  This is static repository, package-path, architecture, and provenance evidence.
+  It does not decode Unreal asset classes or dependencies, approve licenses or art,
+  prove PBR quality, create a Content Browser catalog, validate natural placement,
+  measure GPU or streaming cost, rename the active project, or satisfy runtime,
+  multiplayer, package, Steam, or visual acceptance.
+
+next_safe_action: >-
+  Preserve all vendor roots and use the official Unreal Asset Registry in one
+  isolated editor process to decode the six priority libraries into a
+  project-owned catalog candidate report. Then author one RedWorldAssetPalette
+  and one isolated review map for a small approved material/mesh family. Do not
+  move packages or start the Titan-to-RedMMO executable rename until asset/plugin
+  storage, dependency proof, protected hashes, Steam paths, and rollback are
+  durably checkpointed.

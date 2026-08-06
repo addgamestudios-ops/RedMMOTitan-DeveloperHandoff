@@ -1,0 +1,155 @@
+schema_version: 1
+id: evidence.m05.r90-celestial-frame-integration-currentness-static
+module: M05
+evidence_class: static
+status: accepted_partial_integration_currentness
+timestamp_utc: 2026-08-06T13:22:42Z
+scope: >-
+  One read-only M05 currentness reconciliation across the passing native
+  celestial-registry lifecycle, the exact-home authority-owned PPG producer,
+  and the current R90 package startup. It closes the stale canonical statement
+  that the producer has never executed. It does not add a replicated client
+  snapshot, mutate source, maps, assets, packages, Config, plugins, vendor or
+  user content, or advance any authored-mask, hub-reservation or PCG gate.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 60
+  dirty_entry_count_expanded_untracked: 2419
+  free_physical_ram_gib: 50.16
+  commit_headroom_gib: 47.97
+  gpu_free_mib: 7002
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 36
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+source_currentness:
+  registry_include_files:
+    count: 3
+    paths:
+      - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistry.cpp
+      - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistryTests.cpp
+      - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+  production_register_callsite:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    line: 143
+    count_outside_registry_and_tests: 1
+  production_exact_lookup_callsite:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedPPGGameplayGameMode.cpp
+    line: 157
+    purpose: immediate_authoritative_self_verification
+    count_outside_registry_and_tests: 1
+  replicated_client_snapshot:
+    doreplifetime_or_onrep_callsite_count: 0
+    consumer_outside_game_mode_registry_and_tests_count: 0
+  hashes:
+    game_mode_cpp_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+    game_mode_header_sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+    registry_cpp_sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+    registry_header_sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+    registry_tests_sha256: 1D068D6C640082D29BFA583432BBDE0FBB7FAECA25FAC94A0E2BC3E9E06B9D30
+native_registry_lifecycle:
+  source_evidence: ProjectKnowledge/evidence/2026-08-06-m05-clean-celestial-registry-native-automation.yaml
+  source_evidence_sha256: F409458DAB6F056B51D50AE816330FCDB8944589F9FB38203CD20ADBA8963721
+  renderer: real_gpu_RenderOffscreen
+  tests_found: 3
+  tests_completed_success: 3
+  tests:
+    - RedMMO.Identity.CelestialRegistry.Cleanup
+    - RedMMO.Identity.CelestialRegistry.CompetingAuthorityConflict
+    - RedMMO.Identity.CelestialRegistry.RegistrationLifecycle
+  log: D:/RedMMOTitan/Diagnostics/M05CelestialRegistryNativeGPU_Retry3_20260806T1230Z/RedMMO_M05_CelestialRegistryNativeGPU_Retry3.log
+  log_bytes: 259482
+  log_sha256: EAE8CD51A1005EBA4F3592FDC019BF6402F844513DE669BE31AB7C5FA72EE3D5
+exact_home_producer:
+  source_evidence: ProjectKnowledge/evidence/2026-08-06-m02-clean-ppg-celestial-frame-producer-runtime.yaml
+  source_evidence_sha256: EBE1D87E33EA9062818627CB1F4BB33BD5464EA39960DB03C9156CE4DA3E760A
+  renderer: D3D12_SM6_RenderOffscreen
+  adapter: NVIDIA_GeForce_RTX_3080
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  game_mode: GM_RedTrooperPPG_A01_C
+  stable_id: planet.red.mars
+  revision: 1
+  center_cm: [0.0, 0.0, -300000000.0]
+  nominal_radius_cm: 300000000.0
+  exact_lookup_verified: true
+  ppg_generated_chunks: 516
+  ppg_generation_ms: 3223.95
+  clean_shutdown: true
+  severe_or_lifecycle_failure_hits: 0
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/M02_PPGCelestialRuntime_20260806T124801Z/RedMMO_M02_PPGCelestialRuntime.log
+  runtime_log_bytes: 188313
+  runtime_log_sha256: E4ABC21CFA4D3D2F2A96683BCA4BC0B3BF3E01331EABEBA077E87B26307E8A36
+r90_package_currentness:
+  source_evidence: ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r90-current-playable-package.yaml
+  source_evidence_sha256: 626CB5A5C277DE71D57C25875BE7C175E906F746BF01F6B411A6B12E3D7672AD
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows/RedMMO.exe
+  package_tree_sha256: EA0A13DEF4AD9DB64F4F19E9B3974F6485E3C5368DB10B56019D0E965C4C3315
+  game_binary_sha256: 88364C664C99EA68E2F8D60B1DC0091EB14896516C3123DD55E4658470F3269C
+  compiled_current_registry_and_game_mode_source: true
+  packaged_publication_matches_exact_home_producer: true
+  packaged_ppg_generated_chunks: 516
+  packaged_ppg_generation_ms: 5152.06
+  packaged_clean_shutdown: true
+  packaged_warning_error_severe_lifecycle_failure_count: 0
+  smoke_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/Smoke_20260806T1300Z/packaged_smoke.log
+  smoke_log_bytes: 86718
+  smoke_log_sha256: C81C963C75D83BC9A8C0A8769D58A90629016CCCB9021681A350C72329856E20
+reconciled_finding: >-
+  The previously open producer-execution gap is closed: current source has one
+  authority-owned production register callsite, M05 native registry lifecycle
+  passes 3/3, M02 executes initial publication and exact lookup in the exact
+  ProfileV1 home, and R90 carries the same source into a packaged startup that
+  publishes the same stable ID, revision, center and radius. There is still no
+  replicated client snapshot or independent production consumer.
+m05_acceptance_boundary:
+  acceptance_bullets_completed_by_this_slice: 0
+  still_open:
+    - handcrafted hub protected-footprint reservations
+    - deterministic desert, ocean, field, lake, river and alien-biome masks
+    - PCG exclusion through hubs, roads, water and authored structures
+    - replicated ordered client celestial snapshot
+    - radar_or_minimap_consumer
+    - runtime center_or_radius mutation and revision advancement
+    - travel, warp, replication, multiplayer and late_join
+  retained_policy: surface_dressing_remains_disabled_until_user_approved_packs
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  fused_faces_count: 6
+  protected_patch_and_face_tests: 22_of_22_passed
+  project_package_source_map_profile_config_plugin_vendor_user_bytes_changed: false
+rollback: >-
+  Remove only this evidence/index/state/queue currentness linkage. No project,
+  package or runtime rollback is required because the slice was read-only.
+postflight:
+  captured_utc: 2026-08-06T13:24:28Z
+  free_physical_ram_gib: 49.91
+  commit_headroom_gib: 47.72
+  gpu_free_mib: 6904
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 39
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+verification:
+  queue_snapshot_sha256: 0845A4744D3FE48771D02EEDB7B1FC745EDDD1609C2D4B3557ED57044B8D7C15
+  yaml_and_json_parse: 4_yaml_1_json_passed
+  project_knowledge_integrity_audit: passed_zero_errors_zero_warnings
+  project_knowledge_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M05_R90_CelestialCurrentness_20260806T1322Z/project_knowledge_integrity.json
+  project_knowledge_integrity_report_bytes: 1836
+  project_knowledge_integrity_report_sha256: B3C97A7B921BB51DA79146DD04A071B4E32F4CC2FF21FD866E13DE80B1903B61
+claim_limit: >-
+  Static cross-artifact currentness backed by prior automation, real-GPU
+  authority runtime and package evidence. It closes only the stale statement
+  that no production producer has executed. It does not prove client state,
+  multiplayer, player-visible UI, authored masks, hub/PCG exclusions, travel,
+  warp, protected fused-world consumption, human playability or M05 completion.
+next_safe_action: >-
+  Rotate next wake to one independent read-only M03 R90 fused-consumer identity
+  currentness audit. On a later M05 implementation wake, design and separately
+  review an ordered replicated client snapshot before adding a radar/minimap
+  consumer; do not mix that work with masks, hub placement or world mutation.

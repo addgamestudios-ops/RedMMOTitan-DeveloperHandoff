@@ -1,0 +1,108 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r38-grass-default-visibility.2026-08-05
+captured_utc: "2026-08-05T14:46:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r38-default-versus-transient-forced-grass-visibility
+evidence_class: automation
+result: passed_visibility_suppression_falsified
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 50.06
+  commit_headroom_gib: 55.88
+  free_gpu_vram_mib: 7728
+  free_d_drive_gib: 767.65
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+runtime_audit:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_grass_default_visibility_r38.py
+  driver_sha256: DC2B8C5DD1262DC54536D45B1DD07E96625D4496FD7BBE6260C359B26B8AF86D
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassDefaultVisibility_R38_20260805T1440Z/result.json
+  result_sha256: F1AC1C9A62C663AD7E3804082195BA29476ABD86CE017B6A6CA034211549E3C0
+  log: D:/RedMMOTitanWindowsData/BuildLogs/RedMMO_GrassDefaultVisibility_R38_20260805T1440Z.log
+  log_sha256: 84F393BFB98AB6A5840087D835A34398982160D45FE128F98C00224726A6ACB3
+  terminal_status: PASS_R38_DEFAULT_VS_TRANSIENT_FORCED_GRASS_VISIBILITY_AUDIT
+  renderer: D3D12
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  save_called: false
+  screenshot_called: false
+  dirty_packages_after: []
+
+default_state:
+  approved_components: 196
+  seeded_instances: 2218356
+  visible_true: 196
+  hidden_in_game_true: 0
+  registered: 196
+  render_state_created: 196
+  scene_proxy_present: 196
+  positive_last_render_time: 76
+  aggregate_bounds_within_500m: 144
+  material_instances:
+    /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N: 98
+    /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N: 98
+  base_material:
+    /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R32/Materials/M_GrassChunks_PPGReadable_R32: 196
+
+transient_force_comparison:
+  operation: set_visibility_true_and_hidden_in_game_false_in_pie_only
+  components_requiring_flag_change: 0
+  forced_positive_last_render_time: 76
+  increased_last_render_count: false
+  restored_visible_true: 196
+  restored_hidden_in_game_true: 0
+  persisted: false
+
+diagnosis:
+  result: >-
+    Default PPG component visibility is not the cause of R37's grass-free
+    screenshot. Every approved component was already visible and not hidden;
+    all had registration, render state and scene proxies, and 76 were reported
+    on screen. The R33 force-visible operation changed no flag and did not
+    increase last-render count in R38.
+  falsified:
+    - PPG removed the approved grass components
+    - default visible false suppresses the grass
+    - hidden-in-game suppresses the grass
+    - missing registration, render state or scene proxy suppresses the grass
+    - forcing visibility alone explains the R33 versus R37 pixel difference
+  remaining_boundary: >-
+    R37's missing readable blades must be investigated downstream as material
+    pixel relevance, surface/grass depth interaction, shader or capture
+    readiness, rather than another placement, density, cull or visibility edit.
+
+canonical_validation:
+  queue_snapshot_sha256: E6B6F79CC25575D8B12D144A2F027A5C2680DD4C34D56456D2B4CA44DBA42D22
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R38_20260805T1448Z.json
+  integrity_report_sha256: 6447FC350474896828E2F4E2D96BD1CFC32BEEEF8CF873119A9F9A4E059EE2EB
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  restored_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R38 is fresh D3D12 PIE component-state automation only. It proves default
+  flags and runtime proxy facts, not visible pixels, accepted grass, terrain,
+  biome diversity, night/space, gameplay, standalone, replication, multiplayer
+  or player acceptance.
+
+next_safe_action: >-
+  Keep the restored surface and perform one read-only exact-material and
+  rendering-readiness audit: authenticate the R32 masked BaseColor/OpacityMask
+  path, per-component material relevance and outstanding shader/asset compile
+  state at the R37 capture boundary. Do not change density, placement, cull,
+  visibility or the surface, and do not take another normal frame until this
+  downstream pixel path is isolated.

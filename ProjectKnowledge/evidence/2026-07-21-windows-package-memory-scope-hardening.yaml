@@ -1,0 +1,94 @@
+schema_version: 1
+id: evidence.windows-package.memory-scope-hardening.2026-07-21.static-01
+evidence_class: static
+captured_local: "2026-07-21T13:43:52+03:00"
+platform: Windows
+target: module.M09.windows-development-package
+
+result:
+  script_static_gate: pass
+  protected_checkpoint_gate: pass
+  runtime_soft_load_manifest_gate: pass
+  default_memory_preflight_gate: blocked_as_designed
+  fresh_package_gate: not_run
+  packaged_launch_gate: not_run
+  multiplayer_gate: not_run
+  observed:
+    - the unsafe legacy cook attempted approximately 5595 packages and previously reached confirmed host-memory exhaustion
+    - the current always-cook scope is limited to three UI roots containing 62 source packages and 14317438 bytes
+    - the production package defaults to /Game/RedMMO/Maps/RedPlanetGen and excludes both protected 50 km checkpoint maps unless explicitly opted in
+    - the explicit runtime manifest contains 24 packages and every corresponding source .uasset exists
+    - the post-package IoStore list has 22 mandatory entries, including the supplied exact HUD composite and all eight validated dynamic runtime additions
+    - Zen Store is enabled, cooker process count is capped at one, and the launcher has preflight plus running memory guards
+    - the launcher verifies the protected map and protected foundation ready-marker hashes before work and before publishing a ready marker
+    - the default preflight refused to launch at 11.86 GB free physical memory, below its 12.0 GB floor
+    - a non-launching positive-branch test passed only with temporary 8.0/6.5 GB test parameters; no Unreal, Titan, UAT, shader, or crash-reporter process was started
+
+runtime_manifest:
+  exact_package_count: 24
+  missing_source_package_count: 0
+  newly_validated_dynamic_packages:
+    - /Game/RedMMO/Materials/MI_PlanetBiome_RED
+    - /Game/RedMMO/UI/Generated/weapon_slot_epic
+    - /Game/RedMMO/UI/Generated/weapon_slot_legendary
+    - /Game/RedMMO/Materials/M_ShipPlume_Cyan
+    - /Game/SoStylized/Environment/Water/Materials/MI_WaterWaves
+    - /Game/SpaceShip/Audio/SC_RocketEngine
+    - /Game/SpaceShip/Audio/SC_RocketEngineHigh
+    - /Game/Vefects/Sand_VFX/Audio/SFX_Attenuation
+  known_missing_source_references:
+    - /Game/RedMMO/Materials/MI_PlanetDesert_RED
+    - /Game/RedMMO/Anims/Skydive/A_Skydive_Freefall_TRPR
+    - /Game/RedMMO/Anims/Skydive/A_Skydive_Land_TRPR
+    - /Game/RedMMO/Materials/M_ResourcePickup
+  note: >-
+    Missing source references were not added as fake cook entries. The desert
+    path has a verified fallback to MI_PlanetBiome_RED. The remaining missing
+    references require later gameplay-path repair or explicit acceptance.
+
+checks:
+  powershell_ast_error_count: 0
+  runtime_package_missing_count: 0
+  container_assert_source_missing_count: 0
+  git_diff_check: pass
+  blocking_process_count_after_tests: 0
+  memory_at_final_capture:
+    free_commit_gb: 26.11
+    free_physical_gb: 12.01
+    commit_limit_gb: 65.60
+
+artifacts:
+  package_script:
+    path: Build/Automation/package_windows_50km.ps1
+    sha256: 24B806EF353E71905436B26ED3BC56CFE2F19027A00E54B008F693BA816F64F8
+  game_config:
+    path: Config/DefaultGame.ini
+    sha256: 5E5CA1A96D19FD66AE4DA294678BA2ADE4FB0562168AE9822D33E2698B9D4C12
+  editor_config:
+    path: Config/DefaultEditor.ini
+    sha256: 97BBC9F301ECDB9832537E7A2A52D4AAC844CCEDAE0D944089FC5228271399B7
+  prior_confirmed_oom_log:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260721_124454.log
+    sha256: 3294D3A7EB5B4BD27B3F04FCECA808F352C18B4428486852E10110FFB5014243
+  prior_incomplete_cook_log:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260721_125900.log
+    sha256: B4DAA1DC8AA382DF24D90CE75ED9F8137E403E2A5EEE45ABDE90B4D510A63A71
+
+protected_checkpoint:
+  map_path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  ready_marker_path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+  ready_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  modified: false
+
+claim_limit: >-
+  This is static packaging-safety and manifest evidence only. No new Windows
+  package was cooked, staged, launched, visually reviewed, or multiplayer
+  tested. The exact HUD is required by the future container gate, but this does
+  not yet prove it exists in a newly produced Windows package.
+
+next_safe_action: >-
+  Wait for materially more than the 12 GB physical-memory floor, then run one
+  guarded production-only fresh Zen cook. Publish no ready marker unless UAT,
+  IoStore entry checks, protected-hash checks, and a bounded packaged launch all
+  pass without fatal, OOM, or GPU-device-loss markers.

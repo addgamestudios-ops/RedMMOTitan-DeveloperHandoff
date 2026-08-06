@@ -1,0 +1,72 @@
+schema_version: 1
+id: evidence.m07.fab-stylized-rocks-stones.ue58-delivery-blocked.2026-08-01
+captured_utc: "2026-08-01T16:22:27Z"
+module_id: M07
+system: world-authoring.clean-redmmo-stylized-geology
+slice: official-fab-entitlement-delivery-and-ue58-compatibility-check
+evidence_class: static
+result: blocked_official_ue58_delivery_unavailable
+
+listing:
+  fab_listing_id: da7827ea-ce2c-4930-b346-160dd4a1cc01
+  title: Stylized Rocks and Stones Pack
+  publisher: Kuro Nozomi
+  entitlement_observed_in_signed_in_launcher: true
+  launcher_status: Saved in My Library
+  add_to_project_button_visible: true
+
+official_format_panel:
+  export_target: Unreal Engine
+  compatible_unreal_versions: "5.3-5.7"
+  target_platforms: [Windows]
+  distribution_method: Asset package
+  blocking_message: "Exporting Unreal Engine files isn't supported yet"
+
+target_project:
+  project_file: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  engine_association: "5.8"
+  installed_engine: "5.8.1"
+  official_compatibility_match: false
+
+local_delivery_audit:
+  listing_id_or_title_in_epic_install_manifests: false
+  listing_id_or_title_in_launcher_installed_records: false
+  listing_id_or_title_in_vaultcache_metadata: false
+  active_download_or_installer: false
+  dedicated_pack_root_in_redmmo: false
+  exact_mesh_inventory_verified: false
+  grass_payload_verified: false
+  dependency_closure_verified: false
+
+preflight:
+  unreal_or_build_processes: 0
+  home_map: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+  home_map_sha256: 5FCD32A7A694218E3DDA15E7EE808F79C0BDF974E17C075555F49FB4EF697AA6
+  existing_r07_files: 0
+  protected_hashes_match: true
+  existing_pre_r07_rollback_pairs_exact: 23/23
+
+actions:
+  - inspected the signed-in official Fab listing in Epic Games Launcher
+  - inspected the official Unreal Engine Formats panel
+  - inspected local Epic manifests, installed records, VaultCache metadata, and RedMMO content roots
+  - did not click Add to project because the official format excludes UE 5.8 and delivery is unavailable
+  - did not download, import, copy, launch Unreal, mutate the home map, or use substitute assets
+
+blocker:
+  summary: >-
+    Ownership is confirmed, but the official listing currently advertises only
+    UE 5.3 through 5.7 and says Unreal Engine export is not supported yet. No
+    official payload or install manifest exists locally, while RedMMO targets
+    UE 5.8. Installation and map integration are therefore blocked.
+  retry_condition: >-
+    Retry only after the official Fab/Epic route exposes a UE 5.8-compatible
+    Add-to-Project delivery for RedMMO or a publisher-supplied compatible
+    asset package. Then create a fresh no-clobber project checkpoint, inventory
+    and hash the exact payload, prove its Asset Registry dependency closure,
+    and separately checkpoint the home map before an exact actor allowlist swap.
+
+claim_limit: >-
+  This evidence confirms account entitlement and the current official delivery
+  blocker. It does not prove that the advertised meshes or grass are installed,
+  UE 5.8 compatible, loadable, placed, surface-snapped, or visually accepted.

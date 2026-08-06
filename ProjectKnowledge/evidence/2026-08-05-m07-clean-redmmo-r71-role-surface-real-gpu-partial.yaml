@@ -1,0 +1,152 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r71-role-surface-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T23:12:20Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r71-project-owned-role-specific-surface-successor
+evidence_class: real_gpu_visual
+result: serialized_and_runtime_pass_visual_partial
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 52.96
+  commit_headroom_gib: 55.33
+  gpu_free_vram_mib: 9136
+  free_d_drive_gib: 767.32
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  home_map_saved: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  r66_no_palms_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  r67_source_instance_sha256_before_after: 745381295CDC76754B9FD347CC85CEBEC3151B042C366CDA40F1908163B8A4F7
+  source_parent_sha256_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+diagnosis:
+  prior_cause: >-
+    All six PlanetBiomeMaterialOutput roles ended in a BlendMaterialAttributes
+    node whose B input was the same project-owned stylized layer and whose
+    global R10_StylizedSurfaceWeight default was 1.0. That masked each role's
+    distinct presentation despite R69 proving all six seeded roles emit.
+  correction: >-
+    Bypass the masking blends at the six output pins and connect each role to a
+    separate authenticated project-owned material-attributes closure. No height,
+    topology, water, foliage, placement, seed or map graph was edited.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1RoleSurface_R71_20260805T2300Z
+  manifest_sha256: 771160C4A4EA6BEEFF9D156DE1A032774985473E871262EDE96B48F0859975CE
+  restore_route: >-
+    With Unreal closed, restore the exact ProfileV1 preimage and remove only
+    M_PPG_ProfileV1_RoleSurface_R71 and MI_PPG_ProfileV1_RoleSurface_R71.
+    Then require a fresh reload and MapCheck. Keep R66, R67, the home map,
+    terrain, water, foliage and vendor sources unchanged.
+
+exact_writes:
+  - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_RoleSurface_R71
+    operation: project-owned role-specific material-parent successor
+    sha256: EA3A5704BDA1706C7720CDFB51F39CE370CCD844E6FECEDEB53CF3ACC4F555DE
+  - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_RoleSurface_R71
+    operation: project-owned instance of the R71 parent
+    sha256: D4D222CF92769F99631B649198DD8C38032BD67B7853CD7B0A288E1657301253
+  - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+    operation: planet_material pointer changed from the retained R67 instance to R71
+    sha256_before: 56EA5F830A8F581C1844B956EBABA556B45E200C397443F37BA921766862FC1A
+    sha256_after: BD5E46F3132A6A8947C1258AB18C0F152DD4836755A414B9CC876E3BD0D6CB0D
+
+role_bindings:
+  Hills: retained R67 SoStylized painted-grass closure
+  Desert: retained verified SoStylized T_DesertSand_BC and T_DesertSand_N closure
+  Mountains: installed StylizedRocksPack_01 T_Rock_Painterly_01_BC with cool restrained tint
+  Craters: installed StylizedRocksPack_01 T_Rock_Painterly_01_BC with warm restrained tint
+  Poles: installed StylizedRocksPack_01 T_Rock_Painterly_01_BC with pale tint
+  Ocean: verified SoStylized sand base with separate aqua-tan submerged tint; existing PPG water system is untouched
+  output_mapping:
+    Craters: MaterialExpressionMakeMaterialAttributes_9
+    Mountains: MaterialExpressionMakeMaterialAttributes_10
+    Desert: MaterialExpressionMakeMaterialAttributes_3
+    Hills: MaterialExpressionMakeMaterialAttributes_8
+    Poles: MaterialExpressionMakeMaterialAttributes_11
+    Ocean: MaterialExpressionMakeMaterialAttributes_12
+
+apply:
+  driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_role_surface_r71.py
+  driver_sha256: 5AA64E98D963662C02C5882109905ADADC3CE8246D594B85AFB12B0506283BD1
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RoleSurface_R71_20260805T2300Z/Apply/result.json
+  result_sha256: FCD693C5F573C34082826A4FAFA9A242A21357FA75ED8BC0C6D1641E5EA633DD
+  status: PASS_R71_ROLE_SURFACE_BOUND_PENDING_FRESH_RELOAD
+  map_saved: false
+  generation_called: false
+
+fresh_reload_verification:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_role_surface_existing_viewport_r71.py
+  driver_sha256: A465B531557CB942D3112931556677B0066F5280AA5ACFC8B1AAACA974AC5161
+  first_attempt: >-
+    Failed before PIE because an inherited verifier pinned stale diagnostics-
+    source hashes. It nevertheless authenticated the serialized six-role graph,
+    made no save or runtime mutation, and exited. The failure is retained under
+    RedMMO_ProfileV1RoleSurface_R71_20260805T2300Z/Capture.
+  passing_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RoleSurface_R71B_20260805T2311Z/Capture/result.json
+  passing_result_sha256: 2EFA8BAC6DABE1D1A3E2F282FB417507AFF7E888C667B48EF1CA19C6DA867695
+  status: PASS_R71_ROLE_SURFACE_FRESH_RELOAD_MAPCHECK_D3D12
+  renderer: D3D12
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  approved_grass:
+    components: 196
+    instances: 2218356
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    stable_post_capture_samples: 164
+  palms:
+    runtime_samples: 429
+    components: 0
+    instances: 0
+  dirty_packages_after: {content: [], maps: []}
+  unreal_or_build_processes_after: 0
+
+real_gpu_visual:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1RoleSurface_R71B_20260805T2311Z/Capture/R71_role_surface_no_palms_existing_viewport.png
+  capture_sha256: AB3BE69660C2C2E6F91D4A126CE45AA0713C1F99AEA3EF73B9B0D285CF772C55
+  dimensions: [1014, 550]
+  independent_review:
+    improvement:
+      - the current player region is no longer presented as one continuous neon-green ground field
+      - dense approved grass, the Trooper and authentic parked StarSparrow remain visible
+      - repeated palms remain absent
+    retained_defects:
+      - one player camera cannot prove visual coverage or transitions for all six roles
+      - the visible role is a cool gray-blue field and still needs art-direction review against the intended hand-painted palette
+      - the surface sky remains predominantly black in normal third-person framing
+      - beach, shoreline and water presentation are not visible in this frame and are not accepted
+    overall_art_acceptance: partial_fail
+
+retention_decision: >-
+  Retain R71 as the first technically verified role-specific surface successor.
+  It removes the global material mask while preserving seed, terrain, seeded
+  foliage, zero palms, character, ship and map identity. Do not call the planet,
+  night, shoreline or developer handoff accepted from this one view.
+
+next_safe_action: >-
+  Run one no-save D3D12 representative-view audit using R69 deterministic role
+  samples to capture materially different Hills, Desert, Mountains and Ocean/
+  coast locations. Require no palms and the same seeded grass census. Judge the
+  actual transitions and palette before any further surface mutation. Keep the
+  black-sky/night correction as a separate bounded module.
+
+claim_limit: >-
+  R71 proves persisted role-specific presentation wiring, one fresh reload,
+  MapCheck, one generation, stable seeded grass, zero palms and one player-scale
+  D3D12 frame. It does not prove full-planet biome visuals, shoreline or water,
+  final night art, terrain smoothing, hands-on controls, standalone packaging,
+  replication, multiplayer or a developer-ready handoff build.

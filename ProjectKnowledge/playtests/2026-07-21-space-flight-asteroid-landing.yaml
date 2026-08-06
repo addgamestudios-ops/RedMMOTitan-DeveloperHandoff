@@ -1,0 +1,36 @@
+schema_version: 1
+playtest_id: playtest.redplanetgen.2026-07-21.space-flight-01
+reported_utc: "2026-07-21"
+map_asset_path: /Game/RedMMO/Maps/RedPlanetGen
+evidence_class: player_playtest
+build_identity:
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceRuntime_20260721_040045/runtime.log
+  source_build: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceFix_20260721_035408/build_stdout.log
+actions:
+  - boarded the surface-parked full fighter with B
+  - flew from the planet toward a large mineable asteroid
+  - fired repeatedly until the asteroid depleted
+  - returned to the planet and exited the fighter on sand
+  - reboarded and attempted to take off
+observed:
+  passed:
+    - surface fighter was visible and boardable
+    - space-flight atmosphere transition had an acceptable smooth fade
+  failed:
+    - depleted asteroid disappeared instantly without breakup, debris, or resource feedback
+    - obsolete custom Saturn-like body dominated the orbital view and made the planet read incorrectly
+    - fighter settled nose-down into sand, then remained unable to fly after reboarding
+    - compass heading spun during the failed landing/reboard state
+    - asteroids appeared too close to the atmosphere instead of in a deep-space mining field
+  art_followup:
+    - preserve the accepted PlanetGen atmospheric fade while evaluating installed So Stylized sky controls
+    - distribute installed HI-5 volumetric cloud variants around the planet below the atmosphere top
+screenshot:
+  - D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-9997b25c-8267-4949-b041-c4b0aa786851.png
+disposition:
+  current_gate: disable_obsolete_saturn_and_relocate_asteroids
+  deferred_defects: [DEF-0002, DEF-0003]
+  claim_limit: >-
+    This run proves fighter boarding and an acceptable atmosphere fade. It does
+    not approve landing recovery, compass behavior, asteroid depletion feedback,
+    clouds, or the orbital planetary composition.

@@ -1,0 +1,214 @@
+schema_version: 1
+id: evidence.m07.disposable-volume-recovery-harness-design.static.2026-07-24
+captured_utc: "2026-07-24T18:09:13Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: disposable-volume-report-publication-recovery-harness-design
+evidence_class: static
+result: passed_static_design_contract_with_execution_and_power_loss_gates_open
+
+scope:
+  authorized:
+    - design one fail-closed disposable-volume recovery harness for the existing Windows local-NTFS report publication path
+    - define exact path, privilege, native identity, checkpoint, outcome, cleanup, rollback, and evidence contracts
+    - add static machine-readable contract tests and run offline regressions
+  explicitly_not_run:
+    - VHD, VHDX, virtual disk, partition, volume, filesystem, mount, attach, detach, format, offline, delete, or cleanup operation
+    - process termination, remount, reboot, VM hard power-off, physical power interruption, hardware-cache, or physical-media test
+    - external target access, payload copy, actual 8228-file restore, restore scan, ACL or owner inspection, retention test, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  git_status_entries_before_slice: 162
+  stale_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_free_gib_start: 8.848
+  commit_headroom_gib_start: 21.683
+  disk_c_free_gib_start: 120.922
+  disk_d_free_gib_start: 1138.611
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib_start: 2564
+  vram_free_mib_start: 7490
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_low_memory_static_M07_recovery_harness_design_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_current_HUD_sources_and_this_M07_static_slice
+
+design:
+  human_readable:
+    path: docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS.md
+    bytes: 9138
+    sha256: 4D1DE2DA33E07D311DD6D2DAA9C67E568489D7025D1D995AAE9E65D7596745F1
+  machine_readable:
+    path: docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS_PLAN.json
+    bytes: 12014
+    sha256: 0F85CA912DE4CC14109A3C6CB7DB79A9C2DD50668C2FAF0E9D848856634AE264
+  static_contract_tests:
+    path: Tools/tests/test_m07_disposable_volume_recovery_plan.py
+    bytes: 8391
+    sha256: 9D6D974779FCB2ABAF23080230E687CC6E7538DE835F4AF032B80D8A6773B5FC
+  production_source_unchanged:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 99742
+    sha256: C545CAD53C84CCF50B4EF4BACF72F419C77F6614B4FB88089816F5BF4FEBED6E
+  production_tests_unchanged:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 80381
+    sha256: 5348488548E8B0899AC684F297E965E62D1A4F0E10944BBC9DE0645F6C251C78
+  decisive_contracts:
+    - controller and worker remain unelevated; an optional minimal VHDX provisioning broker is a separate future implementation and authorization gate
+    - first implementation consumes and validates a pre-provisioned disposable local-NTFS volume and cannot manage disks
+    - one fresh standalone fixed VHDX per future case, no drive letter, no permanent lifetime, and one retained creating handle
+    - destructive provisioning can trust only the complete creating-handle identity chain and never a disk number alone
+    - worker current directory, temporary storage, Python cache, payload, staging, and final output stay inside the exact disposable case root
+    - private nonce-bound checkpoint acknowledgement replaces timing sleeps; the controller may terminate only its recorded direct child
+    - exact final bytes without both authenticated COMPLETE acknowledgement and clean exit remain interrupted_valid_final_uncommitted
+    - corrupt, partial, ambiguous, identity-drifted, or outside-write cases fail closed and are preserved
+    - cleanup is never automatic and cannot use broad recursive deletion
+    - process termination, virtualized abrupt interruption, and physical power loss are separate acceptance tiers
+  primary_platform_sources:
+    - https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-createvirtualdisk
+    - https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-attachvirtualdisk
+    - https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/ne-virtdisk-attach_virtual_disk_flag
+    - https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskphysicalpath
+    - https://learn.microsoft.com/en-us/windows/win32/api/virtdisk/nf-virtdisk-detachvirtualdisk
+    - https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setvolumemountpointw
+    - https://learn.microsoft.com/en-us/powershell/module/hyper-v/test-vhd?view=windowsserver2025-ps
+    - https://learn.microsoft.com/en-us/powershell/module/storage/repair-volume?view=windowsserver2025-ps
+    - https://learn.microsoft.com/en-us/windows/win32/fileio/file-caching
+    - https://learn.microsoft.com/en-us/powershell/module/hyper-v/stop-vm?view=windowsserver2025-ps
+
+verification:
+  focused_design_contracts:
+    command: python -m unittest Tools.tests.test_m07_disposable_volume_recovery_plan
+    result: passed
+    tests: 9
+    exit_code: 0
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RecoveryHarnessDesign_20260724_180335Z/focused_design_contracts.log
+      bytes: 874
+      sha256: CB5F32015CD0AE6237033EC63E5A24C722718AF3ECDFC5A1BF50DEB18F5D8D35
+  existing_restore_verifier_contracts:
+    command: python -m unittest Tools.tests.test_verify_redmmo_content_storage_restore
+    result: passed
+    tests: 34
+    exit_code: 0
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RecoveryHarnessDesign_20260724_180335Z/existing_restore_verifier_contracts.log
+      bytes: 976
+      sha256: 6893F0A410B7A3B4E2078FF41846E40D261C4F5A4217AC5B227E071CE05BC85F
+  full_offline_discovery:
+    command: python -m unittest discover -s Tools/tests -p test_*.py
+    result: passed
+    tests: 583
+    exit_code: 0
+    note: one PKI011 failure object printed by an intentional integrity-checker negative fixture; the enclosing regression and full suite passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RecoveryHarnessDesign_20260724_180335Z/full_offline_discovery.log
+      bytes: 2490
+      sha256: F0F4BE6DB59AC870724927DED9FA765D51337BFE852082BBFF8A43392B39A80B
+  canonical_parse_validation:
+    result: passed
+    parsed:
+      - docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS_PLAN.json
+      - Build/Automation/redmmotitan_module_queue.json
+      - ProjectKnowledge/INDEX.yaml
+      - ProjectKnowledge/current_state.yaml
+      - ProjectKnowledge/evidence/2026-07-24-m07-disposable-volume-recovery-harness-design-static.yaml
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RecoveryHarnessDesign_20260724_180335Z/canonical_parse_validation.log
+      bytes: 22
+      sha256: C2BAA0BCE279934268DF4DB68C121ABD6B9B0E817F5513CA426D4C312195D12F
+  canonical_integrity:
+    command: python Tools/audit_project_knowledge_integrity.py --project-root D:/RedMMOTitan
+    result: passed
+    errors: 0
+    warnings: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RecoveryHarnessDesign_20260724_180335Z/project_knowledge_integrity.json
+
+post_slice_before_canonical_update:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_status_entries: 164
+  physical_ram_free_gib: 9.277
+  commit_headroom_gib: 12.605
+  vram_total_mib: 10240
+  vram_used_mib: 2549
+  vram_free_mib: 7505
+  gpu_utilization_percent: 15
+  unreal_build_cook_package_or_runtime_processes: 0
+  disposable_recovery_harness_root_exists: false
+
+claim_limit: >-
+  This evidence proves only that a fail-closed, privilege-separated,
+  machine-readable recovery-harness design exists and its static contracts pass.
+  No virtual disk or filesystem was created, attached, formatted, mounted,
+  detached, deleted, or inspected. No worker was terminated, no recovery scan or
+  clean remount occurred, and no reboot, VM hard power-off, abrupt physical
+  interruption, hardware-cache, or physical-media test occurred. A normal VHDX
+  detach may flush state and cannot be described as power loss. An exact final
+  file without an authenticated completion acknowledgement and clean worker
+  exit remains uncommitted. This evidence does not satisfy external restore,
+  access-control, runtime, real-GPU, gameplay, package, Steam, or multiplayer
+  acceptance.
+
+remaining_gates:
+  - implement only the unelevated controller, worker, static sequence checks, and pre-provisioned-volume dry-run validator in the next bounded code slice
+  - keep any privileged VHDX create, attach, format, mount, detach, or delete broker behind separate authorization and exact-identity review
+  - execute every checkpoint against fresh disposable local-NTFS volumes with complete write tracing and fresh-process recovery scans
+  - retain a no-host-share VM hard-power test as a separate future gate
+  - retain physical power-loss and hardware-cache validation as a separate dedicated-hardware gate
+  - keep ReFS and network-filesystem support separate
+  - complete the separate external copy, ACL, isolated restore, and exact 8228-file rehash gates
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RecoveryHarnessDesign_20260724_175942Z
+  preimages:
+    index:
+      bytes: 16884
+      sha256: 48247CCBE8821475D33D127763C5733EBBF067A617DADEC1028F6686EF064C43
+    current_state:
+      bytes: 150107
+      sha256: 61F612823B5885E49FF8951BB97690275A2CC571ABE78E6BC88558B2231FA0BB
+    queue:
+      bytes: 251039
+      sha256: EF58F3922BE83D2B04509BB409ADE196E5D4CE2FDB79D926D54EB634A85BCB07
+  new_files_were_absent_before_slice: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  virtual_disk_or_volume_operation_run: false
+  process_termination_or_power_operation_run: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+
+canonical_snapshot:
+  queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 250621
+    sha256: 68CAC820030269A17D435FDA69F1BDF1A6B8E87F84AEDF80641BD45B19792FAD
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 151882
+    sha256: A33A5AFE0D1FA52E57D8B8A2CC6BAE2FEF4D2072088E1FDA98EE7102616ADDED
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 17135
+    sha256: 5ACEE358A59BE8411EB91E5E1EFEDC2B4CE81154DDE66EC381F000700EDA2766

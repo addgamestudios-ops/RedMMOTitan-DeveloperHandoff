@@ -1,0 +1,79 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-home-binding-reload-mapcheck-automation.2026-08-05
+captured_utc: "2026-08-05T06:40:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-home-binding-fresh-reload-mapcheck
+evidence_class: automation
+result: pass_fresh_reload_mapcheck_pending_runtime_visual
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  startup_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  free_physical_ram_gib: 51.02
+  commit_headroom_gib: 49.86
+  free_gpu_vram_mib: 7833
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+automation:
+  host: WindowsEditor D3D12_SM6 RenderOffscreen
+  editor_pid: 5152
+  script: D:/RedMMOTitan/Build/Automation/verify_redmmo_ppg_profile_v1_home_binding_reload_mapcheck.py
+  script_sha256: 8E743F178E045F2557491E41B42C31C3B3122066B958264C9D60F0451712B70B
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1HomeBindingReload_20260805_0637/verify_redmmo_ppg_profile_v1_home_binding_reload_mapcheck_result.json
+  result_sha256: 28E402BB67A3922E92FF10D89F7803F67C729C9C7A8F8CF3F11B4AD30A7F8C5F
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1HomeBindingReload_20260805_0637/verify_editor.log
+  runtime_log_sha256: 1A51D47BFE038C91821ED98A063FA467C0198B920BCF05BDE1C12AC3CCCC608D
+  status: PASS_PROFILE_V1_HOME_BINDING_FRESH_RELOAD_MAPCHECK_PENDING_RUNTIME_VISUAL
+  home_map_sha256_before_after: F2B3EC00BE7D858FE4F7CDC2C611D8E0C9741344CCE48D7A4293D5300FD7AF9D
+  planet_data: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+  actor_count: 11
+  a01_game_mode: /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01
+  generation_seed: 1337
+  planet_radius_cm: 300000000.0
+  max_foliage_instances_per_chunk: 100000
+  native_water_preserved: true
+  map_check_errors: 0
+  map_check_warnings: 0
+  save_called: false
+  pie_started: false
+  explicit_regeneration_called: false
+  dirty_content_after: []
+  dirty_maps_after: []
+
+hash_gates:
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation_before_after: 5165A27F0423735256EEE768739CE9547FEF7849BCA05540AAD63DF5BA1D96E3
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  source_r17_planet_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_night_t03_before_after: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1HomeBinding_20260805T0627Z
+  retained: true
+
+claim_boundary:
+  verified:
+    - a separate fresh Unreal process loaded the actual saved home map and read back the exact ProfileV1 PlanetData binding
+    - MapCheck completed with zero errors and zero warnings without saving or dirtying any package
+    - A01 GameMode, actor count, seed, radius, foliage cap, native water and authenticated hashes remained exact
+  not_verified:
+    - ProfileV1 has not yet completed a bounded PIE generation run after binding
+    - no radial locomotion, projectile, ship, biome, grass, shoreline, night/space or real-GPU visual acceptance exists for ProfileV1
+    - no standalone, replication or multiplayer claim exists
+
+next_safe_action: >-
+  Run one bounded provider-off real-D3D12 PIE generation/gameplay/visual
+  acceptance against this exact verified map. Retain the rollback and mark the
+  result failed if movement, biome separation, grass, shoreline, exposure or
+  other player-scale presentation does not pass measured checks.

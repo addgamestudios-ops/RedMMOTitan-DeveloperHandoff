@@ -1,0 +1,129 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r78-low-absorption-water-real-gpu-retained.2026-08-06
+captured_utc: "2026-08-06T01:17:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r78-transient-low-absorption-sweep-and-retained-successor
+evidence_class: real_gpu_visual
+result: runtime_pass_visual_candidate_retained
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib_before: 52.61
+  commit_headroom_gib_before: 55.05
+  gpu_free_vram_mib_before: 9111
+  free_d_drive_gib_before: 767.27
+  unreal_or_build_processes_before: 0
+  desktop_control: false
+
+checkpoint:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1OasisWater_R78_20260806T0102Z
+  manifest_sha256: 4AB546C3D51D98A5F8292A267BCD6F2FD3841EE79B05CB7E7FF5C69F92470EAD
+  original_profile_sha256: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+
+retained_candidate:
+  parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/M_PPG_ProfileV1_OasisWater_R78
+  parent_sha256: B815972272713EDEC40A6CF33591E2FEF05F54D575C6049B29983330D23022F1
+  instance: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_OasisWater_R78
+  instance_sha256: 2D3DFCC7583CABBCC551DD7D08A2CF5E33CC19465D14EAB5C4308DEC018DAE9A
+  profile_sha256_while_bound: AA3B15F4538145C6B51B589D6B8F3E40899ACC136F573101E86C5790783E22C2
+  required_native_interface: [HeightMap, PlanetRadius]
+  retained_absorption_scale: 0.18
+  retained_absorption_coefficient: [0.05058, 0.01294974, 0.00974718]
+  oasis_normals:
+    - /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_01_N
+    - /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_02_N
+  surface_tint: [0.03, 0.32, 0.36, 1.0]
+  surface_tint_amount: 0.38
+  normal_amount: 0.42
+  home_map_saved: false
+  generation_called_by_apply: false
+  vendor_assets_edited: false
+
+runtime:
+  renderer: D3D12
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_check: {errors: 0, warnings: 0}
+  seed: 1337
+  player_pawn_class: BP_RedTrooperPlayer_A01_C
+  land_role: Desert
+  submerged_role: Desert
+  native_water_component_count: 290
+  native_water_visible_main_pass_count: 289
+  runtime_material_class: MaterialInstanceDynamic
+  runtime_materials_updated_per_variant: 284
+  same_camera_player_location: [-298419347.0250609, -28153084.82130883, -287616847.36352956]
+  same_camera_location: [-298419487.06334436, -28152814.172748636, -287616913.2318498]
+  manual_plane_or_standin_created: false
+  status: PASS_R78_TRANSIENT_ABSORPTION_SWEEP_FRESH_RELOAD_LIT
+
+matched_visual_sweep:
+  roi: {x_min: 0, x_max: 1014, y_min: 195, y_max: 520}
+  candidates:
+    - label: absorption_008
+      scale: 0.08
+      coefficient: [0.02248, 0.00575544, 0.00433208]
+      capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Verify3/Capture/R78_absorption_008_seeded_desert_coast_lit.png
+      capture_sha256: 7738262EB23611F56587938932E802492813F7ADACFC7E0A5A77DD2B85C10E64
+      roi_mean_luma: 0.651453
+      roi_dark_below_0_15_pct: 5.4811
+      review: too_transparent_and_pale
+    - label: absorption_018
+      scale: 0.18
+      coefficient: [0.05058, 0.01294974, 0.00974718]
+      capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Verify3/Capture/R78_absorption_018_seeded_desert_coast_lit.png
+      capture_sha256: 044EA4C98E8A886712C0D6A6411605D71D03B1998010C4EE5F95BDF1EA0086E8
+      roi_mean_luma: 0.389605
+      roi_dark_below_0_15_pct: 9.7360
+      review: selected_readable_shallow_aqua_and_deeper_teal
+    - label: absorption_035
+      scale: 0.35
+      coefficient: [0.09835, 0.02518005, 0.01895285]
+      capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Verify3/Capture/R78_absorption_035_seeded_desert_coast_lit.png
+      capture_sha256: 9F585F5E1873B58B255A7BFAFB635403F42704B37081156B543C5195DEA3BA4F
+      roi_mean_luma: 0.165693
+      roi_dark_below_0_15_pct: 62.1972
+      review: too_dark
+  proven:
+    - All three frames use the same PIE, seeded PPG coast, player location, camera location, exposure and generated distribution; only the runtime absorption parameter changes.
+    - The retained 0.18 value is visibly distinct from both rejected endpoints and produces a readable aqua-to-teal depth response without the R76 black body.
+    - The native PPG shoreline remains seed-derived and terrain-conforming; no square plane, manual actor, palm, seed or topology change is present.
+  overall_art_acceptance: internal_candidate_pass_user_acceptance_pending
+
+execution:
+  apply_driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_oasis_water_r78.py
+  apply_driver_sha256: 949A48BE2FDB97E5FC0EE6EE492292BEBC50B96E7E9A39020745682F67E9AEAC
+  apply_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Apply/result.json
+  apply_result_sha256: C37CFD32FB21060A800AD43B300EFC15F0D3C17FC7B50597EDBE90794C09749F
+  verify_driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_oasis_water_r78.py
+  verify_driver_sha256: 4B2AA70884C7130F287E5770354E7F1EA4B3096F7B20E8A50C843DB388182359
+  verify_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Verify3/result.json
+  verify_result_sha256: 01B8FFF192A2D0B5D743CE3480B2CE8288E40FA51C4D401BB58118D5B65D6692
+  verify_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/R78_verify3.log
+  verify_log_sha256: 6FA82FE8EAF45C3EA0C6B11E0ED7311D08230859FB994CE46F3BB2617F836C99
+  superseded_verify2_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1OasisWater_R78_20260806T0102Z/Verify2/result.json
+  superseded_verify2_note: The first verifier attempt failed safely after the first screenshot because the inherited single-capture state machine expected capture_path at the top level. It saved no package, MapCheck was 0/0 and Unreal exited before Verify3 corrected only the evidence bookkeeping path.
+
+retained_state:
+  decision: retained_selected_0_18_candidate
+  profile_v1_sha256_after: AA3B15F4538145C6B51B589D6B8F3E40899ACC136F573101E86C5790783E22C2
+  home_map_sha256_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  active_parent_present: true
+  active_instance_present: true
+  unreal_or_build_processes_after: 0
+
+next_safe_action: >-
+  Keep R78 active and do not retune absorption again. The next bounded R79
+  shoreline slice should audit and, only where the existing PPG surface graph
+  exposes a deterministic sea-datum input, add project-owned dry/wet/submerged
+  sand bands to the current seeded coastline without a plane, spline, terrain,
+  seed, topology, foliage or vendor change. If that public binding is absent,
+  record the exact blocker and rotate to the independent hands-on physical-
+  control gate.
+
+claim_limit: >-
+  R78 proves one fresh-reload matched D3D12 water-material candidate and retains
+  it in ProfileV1. It does not prove user acceptance, complete beach bands,
+  terrain smoothness, hands-on controls, standalone packaging, replication or
+  multiplayer.

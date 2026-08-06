@@ -1,0 +1,220 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-COMPLETED-EVIDENCE-COMPATIBILITY-STATIC
+captured_at: "2026-07-22T23:03:00Z"
+module: M10
+slice: completed-module-evidence-success-association-and-class-compatibility
+evidence_class: static
+result: passed
+
+authorization_and_scope:
+  intended_work: >-
+    Close only the documented completed-module evidence integrity category:
+    unambiguous indexed resolution, explicit success, exact module association,
+    and declared canonical evidence-class coverage.
+  production_files_modified: 0
+  runtime_or_gameplay_files_modified: 0
+  tooling_files_modified:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_preserved:
+    - production maps, protected checkpoints, fused prototype assets, and archives
+    - artist repositories, handoffs, and all protected source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+    - all 64 historical live-audit findings
+  explicitly_deferred:
+    - recursive nested YAML and yml orphan discovery
+    - all legacy metadata repair
+    - HUD, gameplay, maps, artist work, Unreal, build, cook, package, real-GPU, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1364
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_shader_zen_uba_count: 0
+    competing_project_writer_before_slice: false
+  resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 6.487, maximum: 6.888, average: 6.730}
+    commit_headroom_gib: {minimum: 16.722, maximum: 17.130, average: 16.960}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1513_to_1588, free_mib: 8466_to_8541, utilization_percent: 11, temperature_c: 41}
+    disk_free_gib: {C: 131.962, D: 1141.714}
+  decision: static_offline_only
+  latest_build:
+    path: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+    bytes: 15043
+    sha256: 004D624A8BEFECD9625B8894336B94F171FA4DDCBF8398A48980144B0ABB3335
+    historical_result: TitanEditor_Win64_Development_succeeded
+    current_status: stale_or_unproven
+  latest_package_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    bytes: 15739
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    guard_terminal_physical_free_gib: 7.91
+    cook_stage_package_archive_started: false
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    bytes: 325110
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    inputs: 874
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+pre_implementation_audit:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/integrity_pre.json
+    bytes: 17807
+    sha256: F6F5D997B90236FE894A43C5C05294953D36D4BB373733005062EBE22AFD100B
+  expected_exit_code: 1
+  finding_count: 64
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_completion_codes: {PKI024: 0, PKI025: 0, PKI026: 0}
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 40011
+    sha256: 2B7130CF31298BC3B0394E7C1E62BF710201442DB8A42333C7E1E26E886005C9
+    behavior:
+      - completed evidence must be a non-empty flat list of nonblank strings
+      - completed evidence resolves only through unambiguous stable IDs or bounded indexed repository paths
+      - path syntax takes precedence over ID lookup and the path and ID namespaces are disjoint
+      - unsafe prefixes, Windows drive forms, extension suffixes, ADS-like suffixes, and unterminated punctuation suffixes do not resolve
+      - duplicate evidence IDs cannot satisfy a bare-ID completion link
+      - every present top-level result or status must be an exact explicit success value
+      - successful records must use top-level conflict-safe module or module_id association
+      - completion_evidence_classes must be a non-empty unique list of canonical classes
+      - every declared class requires a successful associated record of that exact class
+      - malformed non-string evidence classes fail closed rather than raising
+      - the first-unmet cascade remains PKI022 resolution, PKI024 success, PKI025 association, then PKI026 policy or coverage
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 37743
+    sha256: 22D2F0FFE92276ADE5DB566AECA2A5006902E5CABAB2F04661A6B8A0B8CFFFC3
+    focused_top_level_methods_passed: 1
+    focused_adversarial_subcases_passed: 72
+    integrity_suite_passed: 15_of_15
+
+verification:
+  slice_intent:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/slice_intent.yaml
+    bytes: 2547
+    sha256: 7B3DC218E232365CA334F7520E69CE3676ED2244AB3D02E176CC571EB639B4D5
+  focused_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/focused_tests.log
+    bytes: 1396
+    sha256: ACC06A7E18065A5B6499006ACF40713735DE465FD4921C6DB71E3E7A129B780E
+    result: focused_method_and_72_subcases_passed
+  combined_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/combined_regression_tests.log
+    bytes: 16024
+    sha256: A6480796FFC0EB5FD850B026807D4FE91A1994ECFAF8C4F320081F53835137D6
+    result: 37_of_37_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  live_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/integrity_final.json
+    bytes: 17807
+    sha256: 03E8F97D8B2AF503B5A7D6F35F6EF8D7A2032A73AAB261619A00D5F1A3E91763
+    expected_exit_code: 1
+    finding_count: 64
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    new_completion_codes: {PKI024: 0, PKI025: 0, PKI026: 0}
+  independent_review:
+    result: pass_after_adversarial_corrections
+    corrections_closed:
+      - scalar, nested, mixed, empty, and blank completed-evidence shapes
+      - free-prose and path-fragment module association
+      - unsafe ASCII or Unicode path prefix, extension, punctuation, Windows drive, and ADS-like boundaries
+      - path and ID namespace collision plus malformed path-like ID fallback
+      - duplicate-ID ambiguity
+      - malformed non-string evidence-class crash
+    final_review_repository_files_modified: 0
+
+protection:
+  pre_reconciliation_result: pass_no_drift
+  index_routes_exist: 104_of_104
+  linked_yaml_records_parsed: 94_of_94
+  json_queue_records_parsed: 1_of_1
+  protected_artifacts_exact: 8_of_8
+  protected_rasters_exact: 135_of_135
+  supplied_hud_assets_exact: 56_of_56
+  vibe_sources_exact: 8_of_8
+  safe8_manifest_members_exact: 338_of_338
+  unrelated_input_sentinels_exact: 874_of_874
+  artist_repository_shapes:
+    SAFE7: clean
+    SAFE8: 4_modified_1_untracked
+    SAFE9: 9_modified_3_untracked
+  unreal_build_or_project_writer_count: 0
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10CompletedEvidenceCompatibility_20260722_2240
+  retained_files: 5
+  auditor_before_sha256: 13F60F2B4154184A4F6F8900E163819A06CE35D11DB3871F9A4FE71CE6D83195
+  tests_before_sha256: 581BB364A31A504056CA3ACBD86A0E386C012F4121FDE5058AEDEF77B1A914F6
+  index_before_sha256: 1505F0CB6C39995A9D2CF74E773561A4405D994A6B67F8E0A005CA87DCC5892D
+  current_state_before_sha256: E9849CE764C909D20BC2D12F6DF153045A0C12BD3F8DAEE53A4855566F9749B2
+  queue_before_sha256: C3FC51D03ACF874EFB577DABEDF3CA9B36ED4A273C8B8B3D126BB560ED99FE1F
+
+canonical_reconciliation:
+  status: complete_for_this_static_slice
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_CompletedEvidenceCompatibility_20260722_2240/integrity_final.json
+    bytes: 17807
+    sha256: 03E8F97D8B2AF503B5A7D6F35F6EF8D7A2032A73AAB261619A00D5F1A3E91763
+    expected_exit_code: 1
+    result: failed_closed_with_64_current_metadata_findings
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    new_completion_codes: {PKI024: 0, PKI025: 0, PKI026: 0}
+    indexed_routes: 105
+    indexed_evidence_records: 70
+    indexed_defect_records: 7
+    queue_modules: 12
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 9886
+    sha256: 629EB5B887374B71F18E164B65CBBA91E41723CB2BB20BEE59FEAE716911384B
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 55161
+    sha256: B2A9AE9A82C2BE346278D1EA9591F66587D08DA2D3AD7DBD4D017A97E28B9C33
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 178385
+    sha256: D70DDD61196ED9BDBF476AADAAF6398427DF3FA61026CAE743136845D4B57B49
+  queue_snapshot_matches_current_state: true
+
+remaining_m10_blockers:
+  auditor_hardening_categories: 1
+  legacy_metadata_findings: 64
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This static slice closes only completed-module evidence resolution, success,
+  association, and declared class coverage. It does not repair the 64 historical
+  findings, close recursive orphan discovery, complete M10, compile project
+  targets, or prove runtime, visuals, gameplay, packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  In a later isolated M10 slice, add recursive nested YAML and yml orphan
+  discovery. Do not combine that work with metadata cleanup, HUD, gameplay,
+  maps, artist work, Unreal, build, package, or runtime categories.

@@ -1,0 +1,103 @@
+{
+  "authority": {
+    "evidence_ids": [
+      "evidence.m07.stylized-source-semantic-taxonomy-overlay.static.2026-07-24",
+      "evidence.m07.stylized-trees-bounded-import-taxonomy-finding.automation.2026-07-24"
+    ],
+    "kind": "canonical_evidence",
+    "name": "ProjectKnowledge canonical quarantine evidence"
+  },
+  "decision_count": 8,
+  "decisions": [
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Color.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "651D82CD8628A675E75DDDFD87FB320544FAC7CBC3CDB903F63BF9605FE74309",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Color",
+      "reason": "Canonical evidence proves this is a wood entry texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-23D277C769A794268322DDCD"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_7504_Normal.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "BB149214880B4402F6CB9D8F40E827ABA6223AFC2702370BD18B469DAE0A95FE",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_7504_Normal",
+      "reason": "Canonical evidence proves this is a wood door texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-49156E6D8B89646879AC66CE"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Color.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "40447663AF5B51EDD149BB8210B6174A9FEE5549D5C0B1ABB63CD9C529626C33",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Color",
+      "reason": "Canonical evidence proves this is a wood door texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-65EEBE012F31939103276E82"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_4883_Normal.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "FA79988A4338D8A76A9E4E560F0218BE080905D63B709351BAB72B4C471B9990",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_4883_Normal",
+      "reason": "Canonical evidence proves this is a wood entry texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-89F6B653298F543090E22EC9"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_6032_Color.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "B4BCB1381C8C3058D79C5D6AED471DA92E592CD02B50C7084D9996E5BF76DCFF",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_6032_Color",
+      "reason": "Canonical evidence proves this is a wood entry texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-97A4BCF1F33DD45A956262E4"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Normal.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "BB149214880B4402F6CB9D8F40E827ABA6223AFC2702370BD18B469DAE0A95FE",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Normal",
+      "reason": "Canonical evidence proves this is a wood door texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-BF0EF79909C676D4626B846C"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Normal.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "FA79988A4338D8A76A9E4E560F0218BE080905D63B709351BAB72B4C471B9990",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Normal",
+      "reason": "Canonical evidence proves this is a wood entry texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-DD4C2E1C2ED32FA61D422750"
+    },
+    {
+      "action": "retain_quarantined_in_place",
+      "expected_object_family": "architecture_door",
+      "expected_relative_path": "Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_5952_Color.png",
+      "expected_review_required": true,
+      "expected_source_sha256": "7703DEB7CBD50CE77E01A63A9FD6A677E629D0BB4A215F35D66F532656FA94B2",
+      "expected_v2_object_path": "/Game/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_5952_Color",
+      "reason": "Canonical evidence proves this is a wood door texture miscategorized under Trees; retain the existing package unreferenced and in place.",
+      "stable_source_id": "RED-STYLIZED-E8A8A6157181F6058A861B24"
+    }
+  ],
+  "schema": "redmmotitan.stylized_source_review_decisions.v1",
+  "taxonomy_binding": {
+    "dataset_sha256": "83FC1D37DB9861508E7A49EB1FDC28C2D6F730F49D74C0D288764B1343488BB1",
+    "plan_file_sha256": "29D15839FAD2E0624856F765C78D4FABBB9693B6023AE62590D89C2833AEAC17",
+    "plan_sha256": "97E5A38D14FA585C646C3BDFBC5324C75423995646DF0CB5E717B7E54826864C",
+    "record_count": 23599,
+    "ruleset_sha256": "65D63916B0E0A9C85221D018DDDC54495E334EFCE17D7C190BD69D7210177B57",
+    "taxonomy_file_sha256": "46DD7F969C7E1E829A32C8671C36535A4D1D25EE4BF0A98871895DE24CEE5ADD",
+    "taxonomy_sha256": "EAF4C579B35E11FAC8DBD245D78AF99A6145211664A488095CD13441BF262418"
+  }
+}

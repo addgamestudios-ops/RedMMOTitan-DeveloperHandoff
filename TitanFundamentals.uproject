@@ -1,0 +1,130 @@
+{
+    "FileVersion": 3,
+    "EngineAssociation": "5.8",
+    "Category": "RedMMO Handoff",
+    "Description": "Developer fundamentals baseline: no PPG/PlanetGen/WorldGen/FocalRig required. Default map is ThirdPersonMap.",
+    "Modules": [
+        {
+            "Name": "RedMMO",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "AdditionalDependencies": [
+                "Engine",
+                "AIModule",
+                "Niagara"
+            ]
+        }
+    ],
+    "Plugins": [
+        {
+            "Name": "ModelingToolsEditorMode",
+            "Enabled": true,
+            "TargetAllowList": [ "Editor" ]
+        },
+        {
+            "Name": "Niagara",
+            "Enabled": true
+        },
+        {
+            "Name": "ControlRig",
+            "Enabled": true
+        },
+        {
+            "Name": "EnhancedInput",
+            "Enabled": true
+        },
+        {
+            "Name": "GameplayAbilities",
+            "Enabled": true
+        },
+        {
+            "Name": "CommonUI",
+            "Enabled": true
+        },
+        {
+            "Name": "PCG",
+            "Enabled": false
+        },
+        {
+            "Name": "Water",
+            "Enabled": true
+        },
+        {
+            "Name": "NwiroIntegrationKit",
+            "Enabled": false
+        },
+        {
+            "Name": "Nwiro",
+            "Enabled": false
+        },
+        {
+            "Name": "VibeMMOUIKit",
+            "Enabled": true
+        },
+        {
+            "Name": "RedHUD",
+            "Enabled": true
+        },
+        {
+            "Name": "ModelContextProtocol",
+            "Enabled": true,
+            "TargetDenyList": [ "Game", "Client", "Server" ]
+        },
+        {
+            "Name": "ToolsetRegistry",
+            "Enabled": true,
+            "TargetDenyList": [ "Game", "Client", "Server" ]
+        },
+        {
+            "Name": "EditorToolset",
+            "Enabled": true,
+            "TargetDenyList": [ "Game", "Client", "Server" ]
+        },
+        {
+            "Name": "UnrealAIIntegrationPlatform",
+            "Enabled": false,
+            "TargetAllowList": [ "Editor" ]
+        },
+        {
+            "Name": "OnlineSubsystemSteam",
+            "Enabled": false
+        },
+        {
+            "Name": "SteamSockets",
+            "Enabled": false
+        },
+        {
+            "Name": "SteamIntegrationKit",
+            "Enabled": false
+        },
+        {
+            "Name": "PlanetGen",
+            "Enabled": false
+        },
+        {
+            "Name": "WorldGen",
+            "Enabled": false
+        },
+        {
+            "Name": "FocalRig",
+            "Enabled": false
+        },
+        {
+            "Name": "PythonScriptPlugin",
+            "Enabled": true,
+            "TargetAllowList": [ "Editor" ]
+        },
+        {
+            "Name": "SunPosition",
+            "Enabled": true
+        },
+        {
+            "Name": "BpGeneratorUltimate",
+            "Enabled": false
+        },
+        {
+            "Name": "VibeUE",
+            "Enabled": false
+        }
+    ]
+}

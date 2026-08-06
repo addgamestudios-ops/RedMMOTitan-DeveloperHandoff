@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-graph-identity-reload-automation.2026-08-05
+captured_utc: "2026-08-05T04:19:44Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-fresh-process-graph-identity-reload
+evidence_class: automation
+result: pass_read_only_fresh_reload_unbound
+
+target_project:
+  descriptor: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  profile_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  renderer: D3D12 RenderOffscreen
+  editor: UE 5.8.1 UnrealEditor-Cmd
+
+execution:
+  launched_pid: 7228
+  exit_code: 0
+  minimum_free_physical_ram_gib: 47.48
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  save_called: false
+  regeneration_called: false
+  dirty_packages_before: []
+  dirty_packages_after: []
+  desktop_control: false
+
+fresh_reload:
+  loaded_packages:
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_BiomeMask
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_SurfaceParent
+    - /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+  internal_bindings:
+    generation: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_Generation
+    biome_mask: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_BiomeMask
+    surface_instance: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/MI_PPG_ProfileV1_Surface
+    surface_parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_SurfaceParent
+  exact_identity_count: 10
+  exact_identities:
+    - RedProfile.ElevationOutput
+    - RedProfile.BiomeMaskOutput
+    - RedProfile.ContinentalNoise
+    - RedProfile.Relief.Ocean.HeightScale
+    - RedProfile.Relief.Ocean.HeightBias
+    - RedProfile.Relief.Poles.HeightScale
+    - RedProfile.Relief.Poles.HeightBias
+    - RedProfile.Relief.Hills.HeightScaleOnly
+    - RedProfile.Relief.Mountains.HeightScaleOnly
+    - RedProfile.PresentationRoles;Order=Craters,Mountains,Desert,Hills,Poles,Ocean
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  source_r15_surface_parent_before_after: BAE8D5DFC16E342D6AB679475DDDDB6478A03DE0DC51C5DE587A3EBF17174227
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+remaining_fail_closed:
+  - DetailNoise exact graph target
+  - Craters HeightScale and HeightBias
+  - Hills HeightBias
+  - Mountains HeightBias
+  - Desert HeightScale and HeightBias
+  - ShorelineFlattenThreshold connected control
+  - per-role surface branch asset selection
+
+artifacts:
+  canonical_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GraphIdentityReload_20260805_0416/verify_redmmo_ppg_profile_v1_graph_identity_reload_result.json
+    sha256: 7A38E0E2E090835598E30266A05D78F2A6502928BFDC7B044307EDE11D9350E2
+  verification_script:
+    path: Build/Automation/verify_redmmo_ppg_profile_v1_graph_identity_reload.py
+    sha256: DE39B0AD81D965C1AAC6FF0788A169CF406D9D747DACEA84486752B1AAB04C45
+  rollback_for_preceding_write:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1GraphIdentity_20260805T0405Z
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GraphIdentityReload_20260805_0416/project_knowledge_integrity_after.json
+    sha256: 98A2A5A4FF7FDA39A73216A86EB4CCCC6410D9F44CBCEA9B4A8B9C1839D5C248
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - the five ProfileV1 packages reload from disk at their exact recorded hashes
+    - all ten semantic descriptions and the project-owned surface-parent relationship persist
+    - ProfileV1 PlanetData points only to its project-owned generation, mask and surface packages
+    - the verifier called neither save nor regeneration and left zero dirty packages
+  not_verified:
+    - ProfileV1 remains unbound to the home map
+    - no home-map load, MapCheck, regeneration, PIE, real-GPU visual or gameplay acceptance occurred
+    - unresolved graph controls and role-specific surface selections remain fail-closed
+
+next_safe_action: >-
+  Read-only map each of the six connected ProfileV1 surface-output branches to
+  its exact material-function, texture and parameter dependencies. Identify
+  shared versus distinct branch presentation and candidate project-owned role
+  replacements without writing, binding, regenerating or saving the home map.

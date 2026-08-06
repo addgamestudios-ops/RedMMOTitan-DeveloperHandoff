@@ -1,0 +1,242 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-stylized-presentation-r02.real-gpu.2026-08-01
+captured_utc: "2026-08-01T03:11:43Z"
+module_id: M07
+system: world-authoring.clean-redmmo-ppg-stylized-presentation
+slice: corrected-normal-orm-normalized-mesh-and-locked-exposure-comparison
+evidence_class: real_gpu_visual
+result: passed_technical_correction_locked_comparison_visual_acceptance_failed
+
+scope:
+  authorized:
+    - continue only the isolated clean Red project presentation study
+    - hide the map label transiently for clean comparison captures
+    - replace realistic normal and packed-mask holdovers in project-owned R02 materials
+    - build project-owned mesh proxies with normalized scale and pivot presentation
+    - preserve matched PPG generation, biome-mask, lighting, and camera controls
+    - collect a real-GPU baseline, So Stylized, and Desert Oasis comparison
+  explicitly_not_done:
+    - no promotion or binding to the PPG home-world map
+    - no vendor-source or PPG-plugin asset mutation
+    - no terrain remodelling, water change, PlanetGen map change, or provider call
+    - no PIE, gameplay, collision, tree-scale, performance, or player acceptance claim
+
+preflight:
+  canonical_project: D:/RedMMOTitan
+  isolated_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  evidence_root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025
+  physical_ram_free_gib_before_locked_capture: 40.12
+  d_drive_free_gib: 966.09
+  competing_unreal_editor: false
+  provider_ports_8000_5353_8765_open: false
+  one_editor_rule_observed: true
+
+rollback:
+  manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/rollback_manifest_pre.json
+  manifest_sha256: 6799C1F1A2F260099683428C611286956E784C52F8C558BF51AB924A514C03B7
+  target_root: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02
+  maps_root: /Game/RedMMO/Maps/Review/PPGStylizedPresentation/R02
+  existing_file_overwritten: false
+  disposition: remove only the named R02 project-owned assets and maps after consulting the manifest
+
+technical_texture_contract:
+  source_manifest: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/technical_texture_sources/technical_texture_source_manifest.json
+  source_manifest_sha256: F7B6EC0D04405CC5DDB526F87D75BE30E79569B3B576012BFE47CE2A13B7C94A
+  assets:
+    flat_normal:
+      asset: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Technical/T_PPG_FlatNormal_R02
+      rgba: [128, 128, 255, 255]
+      compression: TC_NORMALMAP
+    sand_mask:
+      asset: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Technical/T_PPG_ORD_Sand_R02
+      rgba: [255, 194, 128, 255]
+    grass_mask:
+      asset: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Technical/T_PPG_ORD_Grass_R02
+      rgba: [255, 209, 128, 255]
+    trail_mask:
+      asset: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Technical/T_PPG_ORD_Trail_R02
+      rgba: [252, 184, 128, 255]
+    rock_mask:
+      asset: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Technical/T_PPG_ORD_Rock_R02
+      rgba: [248, 168, 128, 255]
+  packed_channel_semantics:
+    r: ambient_occlusion
+    g: roughness
+    b: neutral_height
+  linear_mask_import_verified: true
+
+normalized_mesh_stage:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/normalized_mesh_stage_result.json
+  report_sha256: E8C761380ED49D4CB30B4DA14336BE0EDB6C2AB0F1B4E536504228E604A2D284
+  status: success
+  project_owned_proxy_count: 10
+  max_bounds_error_cm: 0.0000443
+  bounds_tolerance_cm: 1.0
+  ppg_placement_density_and_probability_rules_changed: false
+  materials_and_lods_preserved: true
+  vendor_hashes_unchanged: true
+  caution: >-
+    The So Stylized tree retains an external custom complex-collision dependency;
+    the proxy stage is accepted for visual review only and does not claim gameplay
+    collision. The Oasis tall-grass proxy can reach about 2.96 m at foliage scale
+    1.0 and has only a 0.01 probability weight; it has no GPU appearance proof.
+
+asset_stage:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/asset_stage_result.json
+  report_sha256: 37C2B6405718D3F3712BD1C4F90CFFD02692DA4170189AFBEEC7D54B0F9D58B4
+  status: ASSET_STAGE_PASS
+  created_asset_count_excluding_normalized_meshes: 11
+  variants:
+    so_stylized:
+      surface: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/SoStylized/M_PPG_Surface_SoStylized_R02
+      foliage: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/SoStylized/DA_PPG_Foliage_SoStylized_R02
+      planet: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/SoStylized/DA_PPG_Planet_SoStylized_R02
+    oasis:
+      surface: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Oasis/M_PPG_Surface_Oasis_R02
+      foliage: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Oasis/DA_PPG_Foliage_Oasis_R02
+      planet: /Game/RedMMO/ArtStudies/PPGStylizedPresentation/R02/Oasis/DA_PPG_Planet_Oasis_R02
+  material_expression_replacements_per_variant: 16
+  all_identified_r01_realistic_holdovers_removed:
+    - sandstone_cracks_ord
+    - rocky_trail_ord
+    - leafy_grass_nor
+    - leafy_grass_ord
+    - forest_leaves_02_nor
+    - forest_leaves_02_ord
+    - rock_face_03_ord
+  forest_color_neutral_white_preserved: true
+
+review_maps:
+  creation_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/map_creation_result.json
+  creation_report_sha256: 87FA2DB6F568A1620180D02E8D96004650130F1E17E2BC5E54A0B917B64988A4
+  binding_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/map_bind_result.json
+  binding_report_sha256: 94277A0CE80CC9C47E7BAFBD01B6FC9865769E8378EE191E4E3CCF638DB100BF
+  baseline: /Game/RedMMO/Maps/Review/PPGStylizedPresentation/R02/Red_PPG_Presentation_Baseline_R02
+  so_stylized: /Game/RedMMO/Maps/Review/PPGStylizedPresentation/R02/Red_PPG_Presentation_SoStylized_R02
+  oasis: /Game/RedMMO/Maps/Review/PPGStylizedPresentation/R02/Red_PPG_Presentation_Oasis_R02
+  home_world_binding_changed: false
+
+real_gpu_capture:
+  primary_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/capture_result_locked_exposure.json
+  primary_report_sha256: C7DDB8299659E9819010A798BB9FECB8213535F4D8684B1EE4282A203AE80C6A
+  runtime_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/capture_d3d12_locked.log
+  runtime_log_sha256: 8F2AC049466944DF1CA592F9C7B1530753BCF396797295C9B613DB466638810D
+  status: PASS
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  matched_generation_contract: true
+  matched_biome_mask_contract: true
+  matched_camera_contract: true
+  exposure:
+    r_eye_adaptation_quality_before: 2
+    r_default_feature_auto_exposure_before: 1
+    transient_capture_values: [0, 0]
+    restored_before_exit: true
+  text_render_actor_hidden_transiently: true
+  text_render_actor_restored_before_exit: true
+  providers_called: false
+  provider_ports_after_capture_open: false
+  map_saved: false
+  package_saved: false
+  pie: false
+  dirty_maps_at_end: []
+  exact_editor_pid_stopped_after_result: 7584
+  other_unreal_after_cleanup: false
+  screenshots:
+    baseline_close:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_baseline_close_1920x1080.png
+      sha256: 9A99571DA2FB8DF4ECD5C9E6422D3D6DA583E4DCB3BA85C38385D6D4F5A75122
+    baseline_wide:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_baseline_wide_1920x1080.png
+      sha256: E238929EFAFC15348172099DA2377E88F8BE475AEC580836327CA142B4286333
+    so_stylized_close:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_so_stylized_close_1920x1080.png
+      sha256: 8AD9F035A0033DA052A6D44FDD97F41803C042863EEB0CF8B0D00DABE6C3D182
+    so_stylized_wide:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_so_stylized_wide_1920x1080.png
+      sha256: 50D8C47566AD2E445579F38F84C19CA7B5488C7037981D484196EEC8013F519C
+    oasis_close:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_oasis_close_1920x1080.png
+      sha256: BD45369681A569986A983E933C9F55B18F677CC04B47CA3D3C4872CDB5E63D6E
+    oasis_wide:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_StylizedPresentation_R02_20260801_053025/PPG_R02_LOCKED_oasis_wide_1920x1080.png
+      sha256: 955AB1F90AB346F04A58B5213BDD5D6CED26CEDA1F65F1EAB5414EFF1EDAD111
+
+comparison_metrics_full_frame:
+  note: image-space diagnostics only; not artistic acceptance by themselves
+  mean_luminance_close:
+    baseline: 0.306734
+    so_stylized: 0.306240
+    oasis: 0.298057
+  mean_luminance_wide:
+    baseline: 0.263368
+    so_stylized: 0.265791
+    oasis: 0.266305
+  mean_abs_rgb_so_vs_oasis_0_to_255:
+    close: 5.5335
+    wide: 4.1929
+  neighbor_abs_luma_close:
+    baseline: 0.026697
+    so_stylized: 0.026545
+    oasis: 0.024663
+  finding: >-
+    Locked exposure removes the prior bright/dark flip and proves the two stylized
+    variants are currently very similar. It does not prove a final lighting grade.
+
+independent_visual_review:
+  locked_exposure_comparison_valid: true
+  so_stylized:
+    result: rejected_as_current_visual_target
+    reasons:
+      - lime and mint terrain reads artificially saturated
+      - magenta and burgundy patches remain distracting
+  oasis:
+    result: preferred_only_as_next_iteration_base
+    reasons:
+      - slightly calmer olive and tan balance
+      - fewer distracting magenta patches
+      - not visually accepted or promotion-ready
+  common_failures:
+    - dense sharp photoreal grass and specular strand sparkle still dominate player-distance views
+    - removing realistic normal and ORM maps did not remove high-frequency BaseColor/card detail
+    - fixed capture exposure is dark and contrast-heavy, suitable for A/B but not final grading
+    - no tree is visible and the tree probe exposed no exact generated instance
+    - rock scale has no gross giant or floating failure, but contact is obscured and not accepted
+    - generated rock placement differs from baseline despite matched rules, so strict same-instance spatial A/B is not proven
+    - no player-scale reference is present
+
+protection:
+  ppg_home_world:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/Maps/RedMMO_PPG_HomeWorld.umap
+    sha256_before_and_after: 86E9252F6627B1B514F16A5004874930A2869B1856D18DD72D1225EAEF3C34DD
+  ppg_example_map_sha256: 86E9252F6627B1B514F16A5004874930A2869B1856D18DD72D1225EAEF3C34DD
+  ppg_example_planet_data_sha256: 0C55184D81FFE9B15617525F0D92051383587C83AA7D420FE3078F922C3F076A
+  ppg_example_surface_sha256: C7BB49B309F55DBCAFB12108A57806FAAC67E9E71CE6C37A0C2497E9C57DDD07
+  ppg_source_foliage_sha256: 736BE835F57B92ECCF8C8FE42A968084F18BB88671EAA2DB2FDD8A9D2D97E1A0
+  uproject_sha256: 269E8C84CFEE2C668E8CCD04A41E30206E15B6E7767EF106D9527F23C56D36E5
+  default_engine_sha256: A736AF02C9C056B9FC84DA8158A9B867D7F999D9150C4051AA00A90A65471B0A
+  celestial_registry_sha256: 014A280FE3E445E42BB8CDD67314FCAA01E33EED66A655A465ED185B038030A8
+  protected_hashes_unchanged: true
+  vendor_hashes_unchanged: true
+  legacy_titan_or_redmmotitan_content_changed: false
+
+claim_limit: >-
+  R02 proves serialized project-owned technical-channel correction, normalized
+  visual proxies, three isolated review maps, and a provider-off real-GPU D3D12
+  matched-camera comparison with locked exposure and hidden/restored text. It does
+  not prove acceptable hand-painted art, exact foliage-instance identity, trees,
+  collision, gameplay, PIE, performance, planet travel, or home-world promotion.
+
+recommendation: >-
+  Continue from Oasis only as the narrower color-direction winner. In an R03
+  isolated review map, replace the shared grass BaseColor with a project-owned
+  low-frequency painted warm-olive ground underlayer, retain only sparse cards,
+  determine whether the white flecks are baked color before reducing specular,
+  freeze or fingerprint instance transforms, and add a player-scale tree/rock
+  contact view. Recapture with a deliberate fixed EV that lifts ground readability
+  without restoring sky clipping. Do not promote either R02 variant.
+
+next_approval_gate: >-
+  One isolated R03 Oasis-derived painted-ground plus sparse-grass implementation
+  and matched real-GPU player/tree/rock review. Home-world binding remains a later
+  explicit user visual-acceptance gate.

@@ -1,0 +1,104 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r23-local-native-collision-fit-partial.2026-08-05
+captured_utc: "2026-08-05T11:24:04Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r23-selected-direction-native-component-collision-fit
+evidence_class: automation
+result: partial_native_contact_and_runnable_slope_proven_capsule_clearance_api_unsupported
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: false
+  content_saved: false
+  player_start_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_called: false
+  transient_view_pawn: BP_RedTrooperPlayer_A01_C
+  capsule_radius_cm: 34.0
+  capsule_half_height_cm: 88.0
+  editor_process_count_after: 0
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/probe_redmmo_profile_v1_local_collision_fit_r23.py
+    sha256: 3A3982B26F13EE5FEAD07949EAA4FBD4B6D41424C0EFD15F24FB493249C186ED
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1CollisionFit_R23D_20260805T1130Z/result.json
+    sha256: 90DE04FA94048E90096F1A6204B2D2BF953228D1BF957F185BE8C35BB5AA61D6
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1CollisionFit_R23D_20260805T1130Z/unreal.log
+    sha256: E181B9ABC42D167239D0CEB2DBDB8B591C0B4059C3627DC87C43619C7401C261
+  query_collision_components: 102
+  local_above_sea_foliage_authority_components: 102
+  components_evaluated: 64
+  previewed_native_contact_and_slope_passes: 23
+  preview_elevation_cm_range: [43937.4923706055, 51076.8890380859]
+  preview_surface_normal_radial_dot_range: [0.924034898281635, 0.99936974654947]
+  viable_after_capsule_clearance: 0
+  terminal_status: BLOCKED_R23D_NO_LOCAL_COMPONENT_PASSED_COLLISION_SLOPE_CLEARANCE
+
+best_native_contact:
+  direction: [0.6373835185262386, 0.6561638880335101, -0.4039693086756211]
+  hit_location: [191243536.9683295, 196878487.01919892, -421208843.92556864]
+  hit_normal: [0.6226235351618212, 0.6817043194043745, -0.38421238185151607]
+  elevation_cm: 44684.88693237305
+  surface_normal_radial_dot: 0.99936974654947
+  proposed_capsule_center: [191243608.99266708, 196878561.16571826, -421208889.5741005]
+  dominant_biome: Craters
+  dominant_strength: 1.0
+  foliage_profile: /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10O/Profiles/DA_PPG_HomeWorld_StylizedForest_R10O
+
+blocker: >-
+  Native LineTraceComponent now succeeds directly against the selected PPG
+  generated terrain collision and proves above-sea contact plus runnable outward
+  normals. The remaining GetClosestPointOnCollision clearance query returns no
+  usable distance for PPG's triangle collision body, so this API cannot certify
+  the Trooper capsule at the proposed center. PlayerStart must remain unchanged
+  until a component-local capsule sweep or transient swept-pawn settle proves no
+  overlap and stable grounding.
+
+retained_parser_attempts:
+  paths:
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1CollisionFit_R23_20260805T1120Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1CollisionFit_R23B_20260805T1125Z/result.json
+    - D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1CollisionFit_R23C_20260805T1128Z/result.json
+  note: these no-save attempts only resolved UE 5.8 Python output ordering and HitResult exposure before the canonical R23D trace result
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1CollisionFit_R23D_20260805T1130Z
+  manifest_sha256: EF981CC5C1EF9EE7AE56732AC2381A331D205F4ACCAC8AF7C4D5AF1D26318F37
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves native generated-terrain contact, above-sea elevation and runnable
+  slope at one seeded foliage-eligible location. It does not prove capsule
+  clearance, stable grounding, a saved PlayerStart, visible grass, surface
+  day/night, gameplay, standalone, replication, multiplayer or player approval.
+
+next_safe_action: >-
+  On the next wake, use the exact best R23 contact with a component-local capsule
+  sweep or transient swept Trooper placement plus overlap and grounding checks.
+  Save nothing unless capsule clearance and stable radial grounding pass. Do not
+  repeat global scans or use GetClosestPointOnCollision on the PPG triangle body.

@@ -1,0 +1,141 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r56-star-density-real-gpu-proven-restored.2026-08-05
+captured_utc: "2026-08-05T19:30:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r56-transient-analytic-star-density-occupancy-discriminator
+evidence_class: real_gpu_visual
+result: analytic_star_path_renders_and_saved_density_is_insufficient_at_surface_view
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 53.71
+  commit_headroom_gib: 56.39
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.47
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: 5C0872E181F91F4174A5CF0C5B42BEF3555061CF888A90DCE531812B88C48E09
+  desktop_control: false
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  viewport_request: [1280, 720]
+  captured_existing_viewport: [1014, 550]
+  capture_api: URedPPGFoliageDiagnostics::RequestViewportScreenshot_to_FScreenshotRequest
+  provider_plugins_disabled: true
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_star_density_r56.py
+  driver_sha256: A7E7D82BDC38719D5E6ABC1117580935F206795C9EE465E35B0E78C616214A08
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensity_R56_20260805T1929Z/result.json
+    sha256: 99F2DED8B8A7EA30408062706A6B315D32097F106E9D2D04CAB51669BD7383B7
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensity_R56_20260805T1929Z/unreal.log
+    sha256: 7A6AF0E30EA5C729EC0A96894151212401AD3FD98FEBCEE50967937200251743
+
+control:
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  property: RedPlanetNightPresenter.StarDensity
+  original_density: 0.004
+  tested_density: 1.0
+  restored_density: 0.004
+  constant_material: /Game/RedMMO/Environment/M_RedAnalyticStarDome
+  star_material_sha256_before_after: E7C36E9E030527AEF5236232296A3AF6E5ECC6D99A886775BB0FD6620D21DA52
+  constant_star_controls:
+    cell_scale: 42.0
+    point_radius: 0.035
+    emission: 3.0
+    surface_visibility_weight: 0.18
+  atmosphere_visible_before_during_after: [true, true, true]
+  cloud_radius_km_before_during_after: [6360.0, 6360.0, 6360.0]
+  presenter_weights_before_during_after:
+    night_hemisphere: [1.0, 1.0, 1.0]
+    star_visibility: [0.18, 0.18, 0.18]
+    night_fill: [0.16, 0.16, 0.16]
+  camera_location_cm: [191297894.99426436, 196950314.12170947, -421017759.8002778]
+  camera_rotation_deg: [20.411666768959616, -46.37008029227468, 111.80009049544569]
+  camera_location_delta_cm: 0.0
+  camera_rotation_max_delta_deg: 0.0
+  grass_before_test_after:
+    components: [196, 196, 196]
+    instances: [2218356, 2218356, 2218356]
+    registered: [196, 196, 196]
+    instance_data_ready: [196, 196, 196]
+    scene_proxy: [196, 196, 196]
+    within_run_identity_sha256: 332558BF5012F2EDE8E11ADE28DCD88E9F811F94D2449D594AE64AF146090B2B
+
+captures:
+  density_0_004:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensity_R56_20260805T1929Z/R56_star_density_0004.png
+    sha256: 78EF58BCEE9050302B40E8822A951578B24D8BB64261D62AFF789F566AA91AF9
+    bytes: 1016704
+    independent_review: >-
+      The full-night surface sky is uniformly black without a readable star,
+      while the Trooper, dense saturated grass and repeated palms are visible.
+  density_1_0:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensity_R56_20260805T1929Z/R56_star_density_1000.png
+    sha256: BE841BBE662B0F8BC749B965879818FF235C27ACF962578C116D92BF3570AB9B
+    bytes: 1015788
+    independent_review: >-
+      Numerous small neutral-white stars become clearly visible in the same
+      exposed black sky while foreground composition remains equivalent.
+  top_100_pixel_metrics:
+    baseline_exact_black_fraction: 0.3906508875739645
+    density_1_exact_black_fraction: 0.378836291913215
+    baseline_nearblack_mask_pixels: 41442
+    density_1_on_same_mask_nearblack_fraction: 0.9749288161768255
+    density_1_on_same_mask_luma_40_plus_pixels: 420
+    density_1_on_same_mask_neutral_bright_pixels: 237
+    density_1_on_same_mask_nearwhite_pixels: 2
+    full_frame_changed_pixels: 492075
+    note: >-
+      Moving foliage changes other pixels. The 237 neutral-bright pixels inside
+      the baseline near-black sky mask correspond to independently reviewed
+      visible analytic stars.
+
+diagnosis:
+  proven:
+    - the StarDome component, project-owned analytic material, camera-relative sphere and retained depth path render at the saved surface camera
+    - the prior black starless frame is not caused by a fully broken material or hidden dome
+    - raising only analytic cell occupancy from 0.004 to 1.0 reveals stars while atmosphere, clouds, weights, scale and camera remain constant
+    - the saved 0.004 density is therefore insufficient for reliable star coverage at this surface view
+    - R42 visibility-weight increases could not create samples where sparse occupancy produced none; R56 explains that prior result
+  art_boundary: >-
+    Density 1.0 is an intentionally saturated diagnostic and is not an art
+    candidate. A restrained intermediate density requires its own matched
+    player-scale visual gate before persistence.
+
+restoration:
+  transient_property_retained: false
+  density_restored_before_pie_stop: true
+  persistent_save_called: false
+  dirty_packages_after: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  rollback_artifact: not_required_transient_pie_value_restored_and_packages_byte_exact
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  approved_instance_a_sha256_before_after: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  approved_instance_b_sha256_before_after: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary: >-
+  R56 proves the analytic star rendering path works at this saved surface view
+  and identifies the current density as inadequate there. It does not persist a
+  correction or accept star art, night lighting, grass/foliage art, moon,
+  gameplay, standalone, replication or multiplayer behavior.
+
+next_safe_action: >-
+  Run one no-save matched R57 art candidate at StarDensity 0.08, preserving the
+  exact material, point radius, emission, visibility weight, atmosphere, cloud
+  radius, camera, grass, foliage, surface, seed, map and vendor state. Persist
+  nothing unless that restrained candidate produces readable non-noisy stars.

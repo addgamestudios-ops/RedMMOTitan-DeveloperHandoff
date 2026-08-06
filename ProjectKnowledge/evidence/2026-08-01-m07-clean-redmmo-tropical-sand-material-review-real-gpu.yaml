@@ -1,0 +1,138 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-tropical-sand-material-review.real-gpu.2026-08-01
+captured_utc: "2026-08-01T00:02:19Z"
+module_id: M07
+system: world-authoring.clean-redmmo-tropical-cove-materials
+slice: project-owned-dry-and-wet-sand-review
+evidence_class: real_gpu_visual
+result: passed_technical_creation_and_capture_pending_human_selection
+
+scope:
+  isolated_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  created_only:
+    - project-owned duplicate textures under /Game/RedMMO/Materials/Biomes/TropicalCove/Textures
+    - one project-owned review master material and two review material instances
+    - one isolated project-owned material review map
+  explicitly_not_run:
+    - production or legacy Titan map, asset, config, or plugin mutation
+    - vendor asset overwrite
+    - bulk import
+    - PPG home-world material replacement
+    - cliff or grass material pass
+    - PIE, gameplay, build, cook, package, or production promotion
+    - NWIRO, Meshy, UAIP, MCP, or external provider action
+
+source_selection:
+  dry_sand:
+    pack: Stylized Nature - Desert Savanna Environment
+    base_color: /Game/Zenscape_Savanna/Landscape/Texture/T_Sand_basecolor
+    normal: /Game/Zenscape_Savanna/Landscape/Texture/T_Sand_normal
+    roughness: /Game/Zenscape_Savanna/Landscape/Texture/T_Sand_Roughness
+    ambient_occlusion: /Game/Zenscape_Savanna/Landscape/Texture/T_Sand_AO
+  wet_sand:
+    pack: Stylized Nature - Tropical Island and Underwater Environment
+    base_color: /Game/Zenscape_Island/Texture/Landscape/T_Sand_Stylized_BaseColor
+    normal: /Game/Zenscape_Island/Texture/Landscape/T_Sand_Stylized_Normalsand_04_normal_dx_2k
+    ambient_occlusion: /Game/Zenscape_Island/Texture/Landscape/T_Sand_AO
+    roughness_policy: >-
+      No owned wet-roughness texture was confirmed. The wet review instance reuses
+      the project-owned linear dry-roughness texture with RoughnessScale 0.24;
+      no packed-channel semantics were guessed.
+
+channel_contract:
+  base_color: 2048x2048, sRGB true, TC_DEFAULT
+  normal: 2048x2048, sRGB false, TC_NORMALMAP
+  dry_roughness: 2048x2048, sRGB false, TC_MASKS, red channel
+  ambient_occlusion: 2048x2048, sRGB false, TC_MASKS, red channel
+  packed_orm_or_mask: none selected or bound in this pass
+
+created_assets:
+  master_material:
+    path: /Game/RedMMO/Materials/Biomes/TropicalCove/M_RedMMO_TropicalCove_Surface_Review
+    sha256: 1D7AEFDCD4C0303DF01E586FDBD1678F7E5AF75D56BC10674382436B9EF7AD25
+    outputs: [BaseColor, Normal, Roughness, AmbientOcclusion, Specular]
+  dry_instance:
+    path: /Game/RedMMO/Materials/Biomes/TropicalCove/MI_RedMMO_DrySand_Review
+    sha256: 9280F03F9D3B7E9C6852C905B745CFE44B2410412E908BDCC09C798E2E7D0795
+    scalars: {UVScale: 4.0, RoughnessScale: 1.0, Specular: 0.25}
+  wet_instance:
+    path: /Game/RedMMO/Materials/Biomes/TropicalCove/MI_RedMMO_WetSand_Review
+    sha256: 0D17EDD72A7F276397445B1156B0D84A16F8F6C9698713E85219CDC07DACBF47
+    scalars: {UVScale: 4.0, RoughnessScale: 0.24, Specular: 0.48}
+    tint: [0.72, 0.78, 0.80, 1.0]
+  textures:
+    dry_base_color: {sha256: 7FF1B162FFBC00437B2E192E33985B1DCA8569902FE70C56E16750FEFC1F9603}
+    dry_normal: {sha256: 50D86BA90ABDAB8FF7635534DCCC25DE581C842535613B4F50D3D4FC380DEAA8}
+    dry_roughness: {sha256: 6A115A7C50B8378F8EF71094F9B0A892137CCF7DD5FCB91D67359413A8132E48}
+    dry_ao: {sha256: B5EFF93C4B729B011F26B614886FD3447748DB9B203F0CBE5EC7026BD52572FB}
+    wet_base_color: {sha256: 5EC3460F73DED4D68A8540ACA9C2C54C9330D3DD4FC268704954DC85FFC50592}
+    wet_normal: {sha256: CA2394E58B1AF52F206B13067A36432EDCFCA5726B79997F904AF5C3A00099B9}
+    wet_ao: {sha256: C9B88F0D4E7DC33D0A6401C370B237248A96C7E0F4653F0C13927014956F57AF}
+  review_map:
+    path: /Game/RedMMO/Maps/Review/RedMMO_TropicalCove_MaterialReview
+    sha256: B2A0EFCCEA5DDC10D6EEB0FC187882A2ACF662920EF4E35F6CBCEF10DC17F474
+    map_check: 0_errors_0_warnings
+    exposure: fixed
+
+verification:
+  creation_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/create_redmmo_tropical_sand_materials_retry3.log
+    sha256: 615D60F6AA9CC2972E7417A2A3F45B9A0F76CCEBEC3775D2D6B956816E300C89
+    result: passed
+  fresh_process_persistence_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/audit_redmmo_tropical_sand_materials.log
+    sha256: 1ABF0A695814AB849DE2FB8543E0A68DD08B9E9CC1660BCC0A698736651843F4
+    evidence_class: runtime_editor_nullrhi_persistence
+    result: passed
+    dirty_targets: []
+  map_creation_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/create_redmmo_tropical_sand_review_map_retry.log
+    sha256: E2903D91FED9AF3E9F717BBA636E52E155450BC4312477C28B023A6CF3882A6E
+    result: passed
+  real_gpu_capture_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/capture_redmmo_tropical_sand_review_clean2.log
+    sha256: 9F8D7D6F6784C7373FA7ED4BDDD360FE42D2D4A1F5419ED29F0AA23A12A46968
+    rhi: D3D12_SM6
+    result: three_clean_frames_captured
+    map_saved_during_capture: false
+    pie: false
+
+real_gpu_screenshots:
+  comparison:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/TropicalCove_Sand_Comparison_Wide_Clean.png
+    sha256: 3E6B1C7F76B1597A5515D49BDAF9DB318448AC745B54F3882CBB87EEC7454220
+  dry_ground:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/TropicalCove_DrySand_Ground_Clean.png
+    sha256: C01DA78875691997C4E890EC5CBE3BFA2B5C6BEBA3F6F3D712BFDB91C858C83D
+  wet_ground:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_PlanetGen_Coexist_20260801_0225/TropicalCove_WetSand_Ground_Clean.png
+    sha256: F32764F32F84FBCC8E33CF726E6B60B2B5DC4216FC83A80147B8295FEB87F5B8
+  observed_only: >-
+    The dry candidate reads warmer, streaked, and faceted; the wet candidate
+    reads smoother, gold-toned, and lower-roughness. Human selection remains open.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/RedMMO_TropicalCoveMaterials_20260801_0241
+  postflight_manifest: postflight_manifest.json
+  failed_partial_quarantine_sha256: 8AF8D65E1E7DAEB01B1569C9794BEFD81BE149B80B90223C7E2DF20496B8194B
+  action: delete only the exact new packages after re-verifying their hashes
+
+integrity:
+  isolated_project_uproject_sha256: 269E8C84CFEE2C668E8CCD04A41E30206E15B6E7767EF106D9527F23C56D36E5
+  isolated_ppg_home_map_unchanged: true
+  celestial_registry_unchanged: true
+  source_vendor_packages_unchanged: true
+  production_and_legacy_targets_changed: false
+  protected_production_hashes_exact: true
+  unreal_processes_after_slice: 0
+
+next_gate:
+  - user visually selects or rejects the dry and wet sand candidates
+  - only after that, run a separate project-owned cliff material review pass
+  - run grass as its own later pass; do not conflate it with sand acceptance
+
+claim_limit: >-
+  This proves project-owned material construction, exact texture-channel semantics,
+  fresh-process persistence, isolated map loading, MapCheck, and real-D3D12 SM6
+  visual rendering. It does not prove PPG-home placement, terrain blending, gameplay,
+  performance, production acceptance, cliff or grass materials, or packaged output.

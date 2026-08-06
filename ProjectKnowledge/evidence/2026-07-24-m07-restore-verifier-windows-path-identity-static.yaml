@@ -1,0 +1,219 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-windows-path-identity.static.2026-07-24
+captured_utc: "2026-07-24T11:45:36Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: windows-local-path-identity-and-unsupported-namespace-isolation
+evidence_class: static
+result: passed_static_windows_path_identity_isolation_with_publication_and_manifest_handle_races_open
+
+scope:
+  authorized:
+    - close the reproduced normal-versus-extended-DOS path alias bypass at active-project, manifest-versus-restore, and restore-output isolation boundaries
+    - compare existing Windows filesystem identities without treating common volume ancestors as overlap
+    - fail closed when a stable local path identity is unavailable
+    - reject UNC, extended-UNC, device, volume-GUID, DFS, and mapped-network-drive namespaces until a separate network-filesystem identity gate exists
+  explicitly_not_run:
+    - diagnostics-parent publication handle pinning, manifest stable-handle reads, native Windows reparse-safe directory opens, or direct-API manifest reauthentication
+    - external target access, payload copy, actual restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1490
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  background_unreal_mcp_thin_proxy_python_processes_preserved: 8
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib: 13.008
+  commit_limit_gib: 54.872
+  commit_headroom_gib: 28.509
+  disk_c_free_gib: 124.382
+  disk_d_free_gib: 1139.988
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8571
+  gpu_utilization_percent: 0
+  packaging_and_M12_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_windows_path_identity_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_M12_and_this_M07_static_slice
+
+reproduced_pre_fix_defect:
+  affected_boundaries:
+    - active Unreal project versus caller-supplied restore root
+    - storage manifest versus caller-supplied restore root
+    - not-yet-created diagnostics report output versus caller-supplied restore root
+  observation:
+    - D:/RedMMOTitan and //?/D:/RedMMOTitan name the same NTFS directory
+    - Path.relative_to treats the two spellings as disjoint
+    - both spellings expose the same nonzero device and inode identity
+    - the old lexical-only overlap check accepted the alias as an isolated restore
+    - the old lexical-only overlap check accepted a report below a normal diagnostics root when the restore used its extended-DOS alias
+  red_before_fix:
+    result: 3_expected_assertions_failed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/extended_alias_regression_red_before_fix.log
+      bytes: 7198
+      sha256: 4DCD47E38B0E24AABC602911FE7F34D419C2538F25545A1298BE399DB5ABC1AA
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 60112
+    sha256: 55158F2372DE09A3CC29312D1222616A024470EBD18241FF8CEE4858AB5A03C4
+    changes:
+      - retains lexical ancestor checks as the fast path and unchanged non-Windows behavior
+      - derives each existing Windows path identity from the nonzero device and inode pair already used by the verifier file-identity model
+      - compares each endpoint identity only with the other path's existing ancestor chain in both directions, avoiding the false positive that would result from intersecting complete ancestor sets
+      - handles not-yet-created report paths by walking to their nearest existing ancestors
+      - makes missing or zero stable identity a fail-closed RestoreVerificationError
+      - validates the active Unreal project itself as a plain non-reparse directory for both CLI and direct verification paths
+      - accepts normal local DOS paths and their tested extended-DOS aliases
+      - rejects UNC, extended-UNC, device, volume-GUID, and DFS namespaces before metadata traversal
+      - queries GetDriveTypeW and rejects unknown, missing-root, and remote mapped-drive inputs
+      - narrows the generated report claim to point-in-time local-DOS validation and explicitly leaves directory handles unpinned
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 35262
+    sha256: 419F298DDAC37CA26BBE894D6E46DFA6164374E331B29CC56AB343712CECF056
+    added_contracts:
+      - exact and descendant extended-DOS aliases cannot bypass active-project isolation
+      - an extended-DOS restore containing the active project cannot bypass reverse-containment isolation
+      - a manifest inside an extended-DOS spelling of its restore remains rejected
+      - an extended-DOS restore cannot hide a diagnostics report inside itself, while a distinct sibling remains accepted
+      - zero stable path identity fails closed
+      - UNC, extended-UNC, device, volume-GUID, and remote mapped-drive inputs fail closed
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  strict_structure_validated_after_path_identity_hardening: true
+  entries: 8228
+  plugins: 4
+  protected_inputs: 4
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/canonical_manifest_authentication_final.log
+    bytes: 276
+    sha256: BC9244BFB04D50033DE7088E2A58CAD296695D9BCFD41EFCD57647AFA5FD6ABA
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z
+  focused_windows_path_identity:
+    result: 4_of_4_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/windows_path_identity_regressions_final.log
+      bytes: 2748
+      sha256: 2F96B4101DC9E6077CA78F0E1257D9779FCB4792E6D8153E908F461A26C9A949
+  complete_restore_verifier:
+    result: 17_of_17_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/restore_verifier_full_suite_post_local_dos_guard.log
+      bytes: 8646
+      sha256: 24F13DEF031F6347BADC47365CB5C34593F7B8CB6C78DA3B85B5BD5E69417F95
+  focused_static_and_provenance:
+    result: 84_of_84_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/focused_static_and_provenance_tests_post_local_dos_guard.log
+      bytes: 35890
+      sha256: 9F187269071A4DF84968EA6F42EC6A651E6A65A00A3D0B782C5FC6D17B7FB572
+  full_offline_test_discovery:
+    result: 557_of_557_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/full_offline_test_discovery_post_local_dos_guard.log
+      bytes: 234610
+      sha256: 36DA7BC0F899769031587161E2707A233B502AA7498B7984ACA654BF9623A622
+  python_compile: passed
+  whitespace_check: passed
+  canonical_integrity_pre_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/project_knowledge_integrity_pre_evidence.json
+      bytes: 1782
+      sha256: D76B8C03E4250A24F2B7D13C694401CCF47944DA4BDA17A70D2FE0B1C25A088D
+  canonical_integrity_post_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 130
+    queue_sha256: 316E9BBFD36376CAD869BB86D17A975067091A7ED38738BACF4596364B340590
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPathIdentity_20260724_1130Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: B7365063A9A3660A3B0A01DCC18C3C3E23C15689768AF6B772F0C357BECCE0FC
+
+independent_review:
+  result: no_blocking_correctness_issue_for_the_bounded_local_ntfs_alias_slice
+  conclusions:
+    - endpoint-versus-other-ancestry identity comparison is the correct minimal shape and avoids shared-volume-root false positives
+    - nonzero device and inode identity is defensible for the tested local NTFS normal and extended-DOS aliases
+    - UNC and mapped-network namespaces must remain fail-closed until a dedicated identity policy exists
+    - native FILE_ID_INFO would provide a higher-assurance 128-bit file ID for a later ReFS or network-filesystem gate
+    - diagnostics-parent publication and manifest stable-handle reads remain separate
+
+remaining_security_findings:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - bind diagnostics report creation, temporary-file write, and no-clobber publication to one validated diagnostics-parent directory identity
+    - read and authenticate the manifest through one stable opened handle
+    - reauthenticate direct verify_isolated_restore inputs rather than relying only on the CLI call chain
+    - evaluate native FILE_ID_INFO and reparse-safe directory handles before supporting ReFS, UNC, DFS, SMB, or mapped-network paths
+  operational_gates_still_open:
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierPathIdentity_20260724_1130Z
+  exact_preimages: 5
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, local-NTFS path-identity, canonical-manifest parsing,
+  and synthetic-fixture evidence only. It closes the reproduced normal-versus-
+  extended-DOS active-project and restore-output alias bypasses and rejects
+  unsupported network or device namespaces, but it does not pin directory
+  handles or close diagnostics-parent publication, manifest-read, native
+  reparse-open, ReFS, network-filesystem, or every privileged namespace race.
+  No external target was supplied, no RedMMOTitan payload was copied or
+  restored, and the verifier was not executed against an actual restored tree.
+  This is not Unreal load or save, build, runtime, visual, gameplay, package,
+  Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  While physical RAM remains below the sustained Unreal compile and package
+  gate, bind M07 diagnostics report publication to one validated parent
+  directory identity so a junction or alias swap cannot redirect temporary-file
+  creation or final no-clobber publication. Keep manifest stable-handle reads,
+  direct-API reauthentication, native FILE_ID_INFO, external copy, ACL proof,
+  and one actual isolated restore-and-rehash execution as separate bounded
+  gates.

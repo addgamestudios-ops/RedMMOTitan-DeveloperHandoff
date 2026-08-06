@@ -1,0 +1,215 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M01-DESIGN-EXPORT-TRANSLATION-COMPLETION-STATIC
+captured_at: "2026-07-23T16:37:55Z"
+module: M01
+slice: design-export-translation-completion-evidence-resolution
+evidence_class: static
+result: passed
+
+scope:
+  claim: >-
+    Authenticate the existing completed M01 design-translation acceptance from
+    its original export and the repository-owned geometry, biome, parameter,
+    ownership, migration, and rollback specifications.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_records_modified: 0
+  canonical_metadata_changes:
+    - index this evidence record
+    - link this evidence path from completed M01
+    - declare M01 completion_evidence_classes as static
+  explicitly_deferred:
+    - M02 through M11 implementation and acceptance
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build launch, cook, package, runtime, real-GPU, gameplay, HUD, Steam, and multiplayer work
+
+source_export:
+  path: C:/Users/user/Desktop/fortnite-maps-on-octosphere-planet-20260714.json
+  bytes: 183272
+  sha256: AFF0E1685FD02005E34A0738322B52A30BB6A6FAF97C4BBF85AA10E87D33DC81
+  parse_result: valid_json
+  top_level_properties: [exported_at, session_id, title, session, message_count, messages]
+  messages_count: 32
+  interpretation: requirements_input_not_direct_terrain_data
+
+acceptance_authentication:
+  design_conversation_reduced_to_explicit_geometric_and_biome_requirements:
+    result: passed
+    evidence:
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:3-5 identifies the export and its 32-message requirements-only role"
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:7-31 defines the continuous sphere, 50 km circumference, 795774.715 cm datum radius, 27 square authoring inputs, and six-face fused runtime topology"
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:35-45 defines polar, tundra, boreal, desert, tropical, island-chain, and ocean biome targets"
+  current_PlanetGen_parameters_and_radius_owners_inventoried:
+    result: passed
+    evidence:
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:201-239 requires one terrain-to-runtime surface contract, shared planet center and radius ownership, and deterministic sampling"
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:257-278 inventories the named 50 km smoke-profile radius, gravity radius, tile size, chunk cap, resolution, terrain preset, height bounds, sea levels, water, and foliage state"
+      - "docs/PLANETGEN_PINNED_FORK.md:3-18 identifies the active project-local PlanetGen owner and modified/default-owning source files"
+      - "docs/PLANETGEN_PINNED_FORK.md:20-31 inventories applied actor/noise ownership and the exposed 50 km test profile"
+  migration_risks_and_rollback_path_documented:
+    result: passed
+    evidence:
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:282-288 preserves the playable map and named rollback checkpoint while isolating fused-field work"
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:541-551 requires production restoration by old map/profile selection rather than source reversion"
+      - "docs/PLANET_50KM_IMPLEMENTATION_SPEC.md:553-573 records external-reference licensing and first-pass migration limits"
+      - "docs/PLANETGEN_PINNED_FORK.md:3-7 documents project-local override behavior and removal rollback with Unreal and UBT closed"
+      - "docs/PLANETGEN_PINNED_FORK.md:31-39 preserves production-map isolation and records remaining pooling, LOD, and Chaos risk"
+
+authenticated_artifacts:
+  implementation_spec:
+    path: docs/PLANET_50KM_IMPLEMENTATION_SPEC.md
+    bytes: 41208
+    sha256: 277DF38F9A7A928935448CDB8979A9A44CF614F5ACEBF95765E9306EA558476B
+  pinned_fork_spec:
+    path: docs/PLANETGEN_PINNED_FORK.md
+    bytes: 3746
+    sha256: EAD692E9BBAD897A4CE8E3450F95EDBB4DA44DF58350041246EC8638B219A1F3
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_dirty_entries: 60
+    untracked_entries: 1406
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  resources:
+    physical_ram_free_gib: {minimum: 14.292, maximum: 14.553}
+    commit_headroom_minimum_gib: 29.683
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 2504
+    gpu_free_mib: 7550
+    gpu_utilization_percent: 11
+    gpu_temperature_c: 43
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_build_evidence:
+    record: ProjectKnowledge/evidence/2026-07-23-m07-grass-gpu-defaults-static-build.yaml
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/TitanEditor_UBT.log
+    result: succeeded_before_this_slice
+    note: no_build_was_started_or_claimed_by_this_slice
+
+baseline_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M01_CompletionEvidenceResolution_20260723_163553Z/baseline_project_knowledge_integrity.json
+  result: failed_closed
+  finding_count: 1
+  finding_code_counts: {PKI022: 1}
+  finding: completed_M01_required_a_resolvable_indexed_evidence_ID_or_path
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M01_CompletionEvidenceResolution_20260723_163553Z
+  retained_preimages: [INDEX.yaml, current_state.yaml, redmmotitan_module_queue.json]
+
+independent_read_only_review:
+  result: passed
+  export_declared_message_count: 32
+  export_messages_array_count: 32
+  counts_match: true
+  acceptance_results:
+    explicit_geometry_and_biome_requirements: accepted_as_static_documentation
+    PlanetGen_parameters_and_shared_radius_consumers: accepted_as_static_inventory
+    migration_risks_protected_checkpoints_and_rollback: accepted_as_static_documentation
+  scope_confirmation: no_files_edited_and_no_Unreal_build_or_package_run
+
+verification:
+  precanonical_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M01_CompletionEvidenceResolution_20260723_163553Z/integrity_precanonical.json
+    bytes: 1707
+    sha256: 7B3171F7EA80012764B8C6E04271B2FE71AD86161A349476E5263BDDC974D052
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_routes: 133
+    indexed_evidence_records: 96
+    queue_modules: 12
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M01_CompletionEvidenceResolution_20260723_163553Z/static_regressions_precanonical.log
+    bytes: 18182
+    sha256: 9CE5C0E46A74093A0720B3A7E796824328538CB1341933E12926F4C964BE4025
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  exact_integrity_transition:
+    baseline: {result: failed_closed, PKI022: 1}
+    after_M01_record_before_snapshot_reconciliation: {result: failed_closed, PKI015: 1}
+    after_snapshot_reconciliation: {result: passed, findings: 0}
+  canonical_files:
+    index:
+      path: ProjectKnowledge/INDEX.yaml
+      bytes: 12348
+      sha256: 5615C76156231A4E6E2A45A1AEA866BE96C3894CCA68962355B3E2B2FF723E00
+    current_state:
+      path: ProjectKnowledge/current_state.yaml
+      bytes: 83999
+      sha256: 0211E16371CDDF8A90F3880A412295B30A01B53067BAF73D6657EB36F0F5528F
+    module_queue:
+      path: Build/Automation/redmmotitan_module_queue.json
+      bytes: 209295
+      sha256: BF7765FCD8F53F6EA08E0E099C3B932C95A92BB6601B36FF7F06C9BEE9EC11AE
+    queue_snapshot_matches_current_state: true
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M01_CompletionEvidenceResolution_20260723_163553Z/integrity_final.json
+    bytes: 1707
+    sha256: 713E7BF513A004DA8D07C07AAB2BD7CBAED12253E65CA32722A133C81B27A08B
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_routes: 133
+    indexed_evidence_records: 96
+    queue_modules: 12
+    finding_code_counts: {}
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M01_CompletionEvidenceResolution_20260723_163553Z/final_integrity_and_provenance_tests.log
+    bytes: 12040
+    sha256: 60E6F0FD7DE2E82C993AF11CDAB6A005E88F43184B99B9BF4F0004FFECF249C0
+    result: 27_of_27_passed
+  m01:
+    status: completed
+    completion_evidence_classes: [static]
+    indexed_completion_pointer: ProjectKnowledge/evidence/2026-07-23-m01-design-export-translation-completion-static.yaml
+  m10:
+    status: queued
+    dependencies_complete: false
+    dependency_statuses:
+      incomplete_retry: [M00, M04, M06, M09]
+      queued: [M02]
+      in_progress: [M03, M05, M07]
+  note: >-
+    The final-audit and final-test pointers were appended after those artifacts
+    were created. This append does not change the stable evidence id, module,
+    evidence class, exact top-level pass result, queue snapshot, or acceptance
+    source hashes; a subsequent pointer audit confirms the record remains valid.
+
+claim_limit: >-
+  This is static authentication of the already completed M01 design-export
+  translation only. It proves that the source conversation was reduced to
+  explicit repository-owned requirements, current PlanetGen parameters and
+  radius ownership were inventoried, and migration/rollback risks were
+  documented. It does not prove Unreal execution, build success, runtime,
+  visuals, gameplay, HUD, packaging, Steam, multiplayer, or completion of M10.
+
+next_safe_action: >-
+  Keep M10 queued until all eight dependencies and its acceptance gates are
+  complete. Resume the canonical bounded M09 D3D12 16:9 resource-inventory
+  visual and interactivity acceptance when host resources safely permit one
+  Unreal process.

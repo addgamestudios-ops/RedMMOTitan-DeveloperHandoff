@@ -1,0 +1,122 @@
+schema_version: 1
+id: evidence.m03.r92-fused-consumer-identity-currentness-package
+module: M03
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T19:16:00Z
+scope: >-
+  Read-only exact-identity currentness audit between the protected 27 tangent
+  inputs and six fused faces, the current clean RedMMO project, and the exact
+  accepted R92 IoStore listing. The interrupted takeover verifier was repaired
+  to read the real seam field names (max_*_delta_u16/u8) and then executed.
+  No Unreal process was launched and no map, ProfileV1 asset, terrain source,
+  fused output, gameplay source, Config, plugin, package, vendor source, or
+  user asset byte changed.
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/M03_R92_FusedConsumerIdentityCurrentness_20260806T1803Z/transaction_intent.yaml
+  verifier: D:/RedMMOTitanWindowsData/Diagnostics/M03_R92_FusedConsumerIdentityCurrentness_20260806T1803Z/verify_r92_fused_consumer_identity.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M03_R92_FusedConsumerIdentityCurrentness_20260806T1803Z/m03_r92_fused_consumer_identity_live.json
+  report_sha256: EF6B2F00458C10D41E5E6812089F7F8D7C08E7DA79EAFB3A868C46B9FD732A2B
+  focused_checks: 23_of_23_passed
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 197
+  free_physical_ram_gib: 53.1
+  active_unreal_build_package_process_count: 0
+  latest_durable_evidence: ProjectKnowledge/evidence/2026-08-06-m10-r92-agent-takeover-static.yaml
+protected_authoring_source:
+  patch_root: D:/RedMMOTitan/SourceArt/Planet50Km/AuthoringPatches
+  patch_profile_sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  patch_manifest_sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+  patch_count: 27
+  source_raster_count: 135
+  source_dataset_sha256: 228E1CDAC65F0AFFB51101E8639AC65C57063FC4C72D74588D24A194A87504ED
+  face_root: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches
+  face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  face_count: 6
+  face_raster_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+  uncovered_samples: 0
+  seam_comparisons: 3076
+  max_height_land_biome_delta: 0
+audit_contract:
+  exact_identity_term_count: 20
+  exact_identity_terms:
+    - MacroFacesFromPatches
+    - RED_MacroWorld
+    - RED_Height_PX
+    - RED_Height_NX
+    - RED_Height_PY
+    - RED_Height_NY
+    - RED_Height_PZ
+    - RED_Height_NZ
+    - RED_Land_PX
+    - RED_Land_NX
+    - RED_Land_PY
+    - RED_Land_NY
+    - RED_Land_PZ
+    - RED_Land_NZ
+    - RED_Biomes_PX
+    - RED_Biomes_NX
+    - RED_Biomes_PY
+    - RED_Biomes_NY
+    - RED_Biomes_PZ
+    - RED_Biomes_NZ
+  searched_project_roots:
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Source
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Config
+    - D:/RedMMOTitanWindowsData/Projects/RedMMO/Plugins
+  searched_content_root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content
+  source_config_plugin_exact_identity_hit_files: 0
+  content_filename_exact_identity_hit_files: 0
+  serialized_uasset_umap_ascii_identity_hit_files: 0
+r92_package_index:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z/Windows
+  file_count: 50
+  total_bytes: 1455490099
+  tree_sha256: 11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409
+  tree_hash_reverified_now: true
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/iostore_list_utf8.txt
+  r91_to_r92_added_paths:
+    - ../../../RedMMO/Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.uasset
+  r91_to_r92_removed_paths: []
+  exact_fused_identity_hit_count: 0
+  known_home_and_profile_hit_count: 10
+finding: >-
+  R92 adds only the PlayerStatus HUD path relative to R91 and exposes zero
+  tested protected fused-root, height, land, or biome identities in current
+  project source/config/plugins, content filenames, serialized assets, or its
+  exact IoStore listing. R92 therefore has no traceable exact-name/path
+  consumer closure to the protected six-face continent dataset and must not be
+  described as consuming the fixed fused continents or their borders.
+comparison:
+  r84_exact_identity_hit_count: 0
+  r87_exact_identity_hit_count: 0
+  r88_exact_identity_hit_count: 0
+  r90_exact_identity_hit_count: 0
+  r92_exact_identity_hit_count: 0
+  conclusion: r92_source_and_package_currency_did_not_add_fused_consumer_binding
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+postcheck:
+  active_unreal_build_package_process_count: 0
+rollback: not_applicable_no_project_or_package_mutation
+claim_limit: >-
+  Exact-name/path absence cannot exclude a relabeled, embedded, transformed or
+  mathematically similar derivative. This package audit does not prove terrain
+  pixels, borders, collision, hub flatness, water/shoreline agreement,
+  foliage/PCG placement, player/vehicle traversal, replication, multiplayer or
+  human playability. ProfileV1 presence is not proof of fused-face consumption.
+next_safe_action: >-
+  Keep the 27 inputs, six faces and current PPG immutable. The user/developer
+  should play exact R92 against the hands-on checklist. Any fused-face consumer
+  requires separate authorization, rollback, explicit asset-path provenance,
+  and fresh runtime, real-GPU, collision, traversal and package evidence.
+  Rotate unattended work to an independent authorized module rather than
+  repeating this exact-identity absence audit.

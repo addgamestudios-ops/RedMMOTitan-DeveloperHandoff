@@ -1,0 +1,215 @@
+schema_version: 1
+id: evidence.def-0002.placement-route-corridor-source.static.2026-07-24
+captured_utc: "2026-07-24T05:12:03.0571170Z"
+module_id: M02
+defect_id: DEF-0002
+slice: landing-parking-bounded-route-preflight
+evidence_class: static
+result: passed_source_contracts_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - close the bounded source gap where landing and normal parking validated only the requested endpoint and could cross blocking geometry
+    - preserve the existing reversible placement transaction, fitted envelope, exact PlanetGen policy, pilot-state rollback, and unrelated movement paths
+    - harden the static contract against route, proxy-shape, rotation-composition, collision-response, and rollback regressions
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool, native translation-unit compilation, cook, package, game, Steam, or multiplayer process
+    - map, Blueprint, asset, Config, plugin, vendor, artist repository, artist handoff, HUD art, or production-field mutation
+    - passive fitted-envelope penetration recovery, native fitted-box initial-overlap recovery, or BeginPlay and ClampToPlanetSurface correction changes
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1525
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [16.073, 15.993, 15.987]
+  commit_used_gib_samples: [23.708, 23.632, 23.677]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.165, 31.240, 31.196]
+  disk_c_free_gib: 127.281
+  disk_d_free_gib: 1140.031
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_below_the_canonical_memory_gate
+  action_decision: one_non_packaging_static_M02_landing_parking_route_preflight_slice
+
+implementation:
+  movement_source:
+    path: Source/RedMMO/RedShipMovementComponent.cpp
+    bytes: 62438
+    sha256: 7C7549155313A54CDE70B676C04FDDB8651E16C28346AD6FF1E6DFA0BBADD380
+  movement_header:
+    path: Source/RedMMO/RedShipMovementComponent.h
+    bytes: 9341
+    sha256: 87AC109D9C50EDDA947F1F2EA15F14C9F53B85A4757BD991B7BFE930CEED5428
+  source_contract:
+    path: Tools/tests/test_def0002_ship_placement_transaction_contract.py
+    bytes: 51352
+    sha256: CE2881EC31F135F0AA39DA5503929F99E4DFDBFB3BF424C61273692A9F772E7E
+  other_gameplay_source_modified_by_this_slice: false
+  reflected_property_or_public_signature_changed: false
+  map_asset_config_plugin_vendor_artist_or_handoff_modified: false
+
+route_contract:
+  prerequisites:
+    - requires a finite positive dominant-body frame, normalized current and target rotations, a movable query-enabled sphere root, and one rigid directly attached query-enabled fitted box
+    - rejects a placement delta that differs from the movement plane constraint by more than 0.01 cm
+    - bounds one transaction to 10000 cm translation and at most ninety two-degree shortest-path rotation segments
+  full_route_preflight:
+    - performs one native sphere-root component sweep across the complete translation route
+    - for fixed rotation, sweeps the real fitted box through native collision and exact matching-PlanetGen terrain
+    - for changing rotation, composes the scaled root-to-envelope offset and relative box rotation for every shortest-path screw-motion segment
+    - pads each rotating proxy by its pivot-corner arc deviation plus the existing angular safety padding
+    - checks every proxy through the fitted envelope collision channel and response mask plus exact matching-PlanetGen terrain
+    - blocking hits, start penetration, invalid bounds, nonfinite padding, and required-planet NoMatchingPlanet all fail closed
+  atomic_commit:
+    - after complete route approval, performs one unswept root move inside one deferred FScopedMovementUpdate
+    - analytically composed target fitted-box pose avoids stale attached-child transforms inside the deferred scope
+    - fitted-box native, sphere-root native, exact endpoint, movement-hit, and requested-pose postconditions all gate success
+    - every failed postcondition reverts the complete scoped move before returning false
+
+verification:
+  focused_placement_contract:
+    command: python -B -m unittest -v Tools.tests.test_def0002_ship_placement_transaction_contract
+    result: 9_of_9_passed
+  combined_DEF_0002_contracts:
+    modules:
+      - Tools.tests.test_def0002_ship_placement_transaction_contract
+      - Tools.tests.test_def0002_ship_reboard_contract
+      - Tools.tests.test_def0002_ship_gravity_telemetry_contract
+      - Tools.tests.test_def0002_compass_body_identity_contract
+    result: 28_of_28_passed
+  prior_M02_HUD_mining_provenance_boundary:
+    modules: 18
+    result: 153_of_154_passed_with_1_unrelated_current_failure
+    unrelated_failure: >-
+      DEF-0004 quest producer inventory still asserts that the compiled RedMMO
+      tree contains no JournalState identifier, while the independent current
+      M12 voxel journal implementation intentionally contains that name.
+  protected_provenance:
+    modules:
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 15_of_15_passed
+  full_static_discovery:
+    command: python -B -m unittest discover -s Tools/tests -p test_*.py
+    result: 496_of_504_passed_with_7_failures_and_1_error_outside_M02
+    unrelated_findings:
+      - DEF-0004 quest-inventory JournalState expectation
+      - DEF-0005 shuttle compile-link binary anchors
+      - DEF-0005 shuttle lineage hash pins
+      - Night_T03 Milky Way cook dependency
+      - Night_T03 project-owned sky hard reference and engine mesh
+      - Night_T03 selection scope
+      - Night_T03 sky-radius derivation
+      - M07 Planet PCG legacy mesh-planet ABI expectation
+  whitespace_and_patch_check:
+    command: git diff --check -- Source/RedMMO/RedShipMovementComponent.cpp Source/RedMMO/RedShipMovementComponent.h Tools/tests/test_def0002_ship_placement_transaction_contract.py
+    result: passed_with_only_existing_LF_to_CRLF_worktree_warnings
+  independent_read_only_review:
+    reviewers: 2
+    implementation_review: no_obvious_fail_open_path_in_the_supported_source_contract
+    mutation_review: 12_of_12_targeted_unsafe_mutants_rejected
+    rejected_mutation_domains:
+      - shortest-path hemisphere normalization
+      - blocking-hit or start-penetration semantics
+      - segment progression and rotating fitted-envelope offset
+      - proxy angular padding and exact proxy shape
+      - deferred scoped rollback
+      - relative and target fitted-envelope rotation composition
+      - proxy native response-mask binding
+      - envelope and root sweep-response parameter provenance
+
+known_limits:
+  - source has not been freshly compiled or executed in Unreal
+  - exact terrain coverage depends on active matching PlanetGen chunks at runtime and has not been demonstrated here
+  - up to ninety native plus exact proxy segments can create a one-frame cost spike and requires profiling
+  - conservative proxy padding can reject a geometrically clear near-terrain route
+  - normal surface parking above the 100 m local bound fails closed unless an established orbital or emergency path applies
+  - initial fitted-envelope overlap recovery remains intentionally fail-closed
+  - landing feel, collision response, gameplay, visuals, replication, multiplayer, packaging, and Steam remain unverified
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeM02PlacementCorridor_20260724_0744
+  exact_pre_slice_files: 7
+  pre_slice_identities:
+    - {path: Build/Automation/redmmotitan_module_queue.json, bytes: 223540, sha256: C83C7AB92B02FC6CCBB2255625655ECA00071EA6178F24F7AF7CA98D4C57A3E4}
+    - {path: ProjectKnowledge/current_state.yaml, bytes: 121159, sha256: E3750D2CFC5931F51CE511B4F656DBE7BDA6FFADCC8B0E8C57316AF9D88C03D0}
+    - {path: ProjectKnowledge/INDEX.yaml, bytes: 14344, sha256: 6529BB53A7E2DCCABD13252122C1380F68405F48D050E1592BFC12C9E90E8528}
+    - {path: ProjectKnowledge/defects/DEF-0002-fighter-landing-gravity-recovery.yaml, bytes: 7228, sha256: 7A2E6A7C1FBFB141DFBD406516B9D3604FF784625831215A3D6F42708EFF9937}
+    - {path: Source/RedMMO/RedShipMovementComponent.cpp, bytes: 55544, sha256: D2E3BB13FD336648909BA6CF1D611AF0C2FBCECFE56E969ABB6F8E0D6D779B34}
+    - {path: Source/RedMMO/RedShipMovementComponent.h, bytes: 9230, sha256: 8ADBEF8E47949C882EA787FBEF77BF80FBC1F3FCF808C395322615F1C7703136}
+    - {path: Tools/tests/test_def0002_ship_placement_transaction_contract.py, bytes: 34054, sha256: EC900F08080C691F19F9CAA4FAD2AC4FAF66358E567218F56F344FCF71B8BF4B}
+  unrelated_dirty_work_preserved: true
+
+canonical_queue:
+  path: Build/Automation/redmmotitan_module_queue.json
+  bytes: 224967
+  sha256: 097106F5D998D201B2CFEFA1F8BC8E05202B848A44783B9015A0B7EF9E3C60F6
+  m02_status: queued
+  m02_retry_count: 18
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_checkpoint_artist_vendor_handoff_or_user_asset_modified: false
+
+postflight:
+  physical_ram_free_gib_samples: [15.733, 15.643, 15.692]
+  commit_used_gib_samples: [23.899, 24.054, 23.957]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [30.973, 30.818, 30.915]
+  disk_c_free_gib: 127.226
+  disk_d_free_gib: 1140.029
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  exact_unreal_build_processes: 0
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+project_knowledge_integrity:
+  prerecord_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_PlacementRoute_20260724T051203Z/project_knowledge_integrity_prerecord.json
+  prerecord_report_bytes: 1782
+  prerecord_report_sha256: D2F884605497ACD327CE0197FFE9C1ACB9E6CF6E3F7A89253F71BB260F670953
+  prerecord_result: passed_with_0_errors_and_0_warnings
+  postrecord_report: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M02_PlacementRoute_20260724T051203Z/project_knowledge_integrity_final.json
+  postrecord_result: passed_with_0_errors_and_0_warnings
+  indexed_evidence_count: 117
+  indexed_route_count: 155
+  queue_sha256: 097106F5D998D201B2CFEFA1F8BC8E05202B848A44783B9015A0B7EF9E3C60F6
+  note: the_final_report_is_regenerated_after_this_annotation_to_avoid_a_self_referential_digest_claim
+
+claim_limit: >-
+  This is static source evidence. It proves that the bounded fail-closed route
+  contract and mutation-sensitive tests are present in the current source; it
+  does not prove C++ compilation, Unreal collision-query overload validity,
+  active-chunk coverage, runtime collision, performance, landing feel, visuals,
+  gameplay, replication, multiplayer, packaging, or Steam behavior. DEF-0002
+  remains open.
+
+next_safe_action: >-
+  Preserve this M02 source slice. When sustained physical memory safely permits,
+  compile the serialized current targets and run a controlled real-GPU landing,
+  rejected-parking, committed-parking, reboard, takeoff, and stationary-compass
+  acceptance with route-cost profiling. Until then, return to the canonical M12
+  compile/native-automation gate or another independent offline queue slice.

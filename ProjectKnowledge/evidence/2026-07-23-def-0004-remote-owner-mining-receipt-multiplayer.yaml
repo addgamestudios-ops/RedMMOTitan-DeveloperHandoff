@@ -1,0 +1,274 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-REMOTE-OWNER-MINING-RECEIPT-MULTIPLAYER
+captured_at: "2026-07-23T13:46:47Z"
+module: M09
+defect: DEF-0004
+system: ui.red-hud.mining-receipt
+slice: two-client-remote-owner-transient-mining-receipt
+evidence_class: multiplayer
+result: pass_remote_owner_receipt_and_deep_space_two_client_visual
+
+scope:
+  authorized:
+    - harden the existing editor-only two-client mining receipt acceptance
+    - prove that only the remote mining owner receives the transient receipt
+    - prove that the receipt expires while authoritative inventory totals remain replicated
+    - keep the bounded target in the production deep-space shell with production presentation limits
+    - compile current TitanEditor and run one bounded rendered two-client acceptance
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - the canonical twenty-four-member mineable production field
+    - fused terrain assets and retained rollback maps
+    - artist repositories, supplied HUD source art, Vibe sources, and SAFE8 handoff
+    - production gameplay code and unrelated dirty work
+  not_run:
+    - Windows cook or packaging
+    - Steam transport or two-account networking
+    - a quantity-bearing inventory screen
+    - ultrawide visual acceptance
+    - dedicated-server acceptance
+    - player-controlled surface-to-space travel
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The worktree was already materially dirty. Relevant pre-edit bytes were
+    copied directly to a D-resident rollback; Git was not used as rollback
+    authority, and unrelated entries were not cleaned, staged, reset, or
+    overwritten.
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/DEF0004_RemoteReceipt_20260723_162928
+  contents:
+    - exact pre-edit copy of Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    - exact pre-edit copy of Tools/tests/test_def0003_asteroid_depletion_contract.py
+    - exact pre-update copies of INDEX, current_state, DEF-0003, DEF-0004, the asteroid-field system record, and the module queue
+  manifest: D:/RedMMOTitanWindowsData/Rollback/DEF0004_RemoteReceipt_20260723_162928/manifest.yaml
+
+implementation:
+  production_runtime_changed: false
+  two_client_harness:
+    - resolves the production planet frame and places one transient target at the 53.4 km shell midpoint
+    - teleports the authority-side remote pawn one kilometre from the target and waits for its replicated client pawn
+    - retains unit actor scale and the production twenty-kilometre render cull
+    - frames the static-mesh target from deep space at a bounded 3-to-14-degree angular diameter
+    - records the accepted representation as SM_Mining_Asteroid_Med static mesh with voxel=0
+    - requires twenty-four unique production field IDs to remain Active, full, in-shell, and production-cull limited before and after the transient test
+  receipt_gate:
+    - grants exactly six Iron to the remote mining owner and zero to the host
+    - requires exact remote text IRON +6 with a positive bounded remaining lifetime
+    - requires no host receipt and no persistent Stone, Iron, or Crystal tally
+    - retains exact cached receipt text after expiry while requiring hidden presentation and zero remaining time
+    - captures before, reward, explosion, and post-expiry remote-client windows
+
+source_identities:
+  - path: Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    bytes: 46294
+    sha256: D5857BD92C0358B87A1E34E294032D3C0BBD21977BDC263E712690DB7E67E511
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    bytes: 53876
+    sha256: A22493835BEEE31A853E6CAF95A60759D5FBC9402BA69A0759A775D243B35F84
+
+build_verification:
+  target: TitanEditor Win64 Development
+  result: succeeded
+  actions: 4
+  execution_seconds: 19.66
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/TitanEditor_build.log
+    bytes: 19912
+    sha256: BADCA660CC8EDD3B08F7FC0BC94AA53BDC6A320B7FB2D80C444DBA97B81EA9FC
+  product:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    bytes: 4122112
+    sha256: DD2173E9ECEFDF8F785078086B6BABEB431EAB1FA1D765530019AFA2896CF8A1
+  focused_contracts:
+    result: 48_of_48_passed
+    suites:
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+      - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/combined_contracts.log
+      bytes: 11566
+      sha256: 000514D32423F75DA0D26027B57911BDBB80FD9E2118896048B5C88A3AC420F1
+
+official_mcp_runtime:
+  connection: official_ue_5_8_uaip_mcp
+  command: UAIP.Editor.Execution.RunAutomationTest
+  test: RedMMO.Mining.DEF0003.TwoClientPIEParity
+  result: pass
+  pass: 1
+  fail: 0
+  skip: 0
+  cancelled: 0
+  elapsed_seconds: 9.763951
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/RunAutomationTest.json
+    bytes: 1329
+    sha256: 95E9CA312B6FD8EC83B71073A353D0353A29AAEB7B43F22E38F7144550589F80
+  report_text:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/RunAutomationTest.txt
+    bytes: 43924
+    sha256: 227ACEACBEF00915FE68F7AB046039700C6B0F96EC0464A8A41E5FFF53FFF439
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  topology: one_process_two_pie_worlds_listen_server_plus_remote_client
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  remote_client_render_area: 640x480
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/runtime.log
+    bytes: 485834
+    sha256: 17FCE148E0E80A50927A494C61366C8369D93A46DC28A542CFBB30E7EECDB4D8
+  topology_marker: >-
+    pass=1 pieWorlds=2 listen=1 clients=1 serverPlayers=2
+    hostRole=3 remoteServerRole=3 remoteClientRole=2
+  setup_marker: >-
+    pass=1 deepSpace=1 atmosphericTarget=0 targetAltitudeKm=53.400
+    spaceTransitionKm=8.400 pawnDistanceKm=1.000 productionField=24
+    pristineProduction=24 cullKm=20.000 scaleOverridden=0
+    cutoffOverridden=0 staticMesh=SM_Mining_Asteroid_Med voxel=0
+  before_marker: >-
+    pass=1 deepSpace=1 traceExact=1 recentlyRendered=1
+    targetAltitudeKm=53.398 cameraAltitudeKm=53.409
+    cameraDistanceKm=0.458 angularDiameterDeg=11.42
+  reward_marker: >-
+    pass=1 phase=1/1 receipt=1/1 remoteIron=6/6 hostIron=0
+    remoteHUDBackend=1 remoteVisible=1 remoteSeconds=3.25
+    hudText="IRON  +6" remoteOwner=1 hostVisible=0
+    persistentResourceTally=0
+  final_marker: >-
+    pass=1 phase=2/2 explosion=1/1 debris=9/9 receipt=1/1
+    postHit=0 remoteIron=6/6 hostIron=0 remoteVisible=1
+    remoteSeconds=1.32 hudText="IRON  +6" hostVisible=0
+  expiry_marker: >-
+    pass=1 remoteOwner=1 visible=0 secondsRemaining=0.00
+    visibleElapsed=3.48 hudText="IRON  +6" hostVisible=0
+    persistentResourceTally=0 productionField=24
+    pristineProduction=24 productionUnaffected=1
+  result_marker: >-
+    acceptancePass=1 topology=in_process_two_client deepSpace=1
+    remoteOwnerReceipt=1 transientMiningReceipt=1 receiptExpired=1
+    persistentResourceTally=0 productionField=24 pristineProduction=24
+    productionUnaffected=1 cutoffOverridden=0 scaleOverridden=0
+    atmosphericTarget=0 steamTransport=0
+  complete_marker: pieEnded=1 acceptancePass=1
+  critical_failure_scan:
+    fatal: 0
+    assertion: 0
+    ensure: 0
+    unhandled_exception: 0
+    out_of_memory: 0
+    gpu_crash: 0
+    device_removed: 0
+    harness_failure: 0
+  intercepted_nonfatal_log_errors:
+    count: 6
+    accepted_behavioral_claim_impact: none_for_this_bounded_receipt_and_topology_slice
+    findings:
+      - missing optional VoxelCollisionInvokerComponent class and three ship fallback notices
+      - render-thread safety warning for r.MotionVectorSimulation
+      - one SpawnActor teardown warning after the accepted PIE result
+
+visual_review:
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/Captures/DEF0003_MP_Remote_SpaceBefore.png
+    bytes: 58680
+    sha256: E20C7527DEE425A5633E7C99F9F1BE01BE144A85E2C0929ED5325484EF577672
+    finding: a unit-scale static-mesh asteroid is fully framed against a black star field and no resource tally is visible
+  reward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/Captures/DEF0003_MP_Remote_SpaceReward.png
+    bytes: 61252
+    sha256: 0D7A7EFE2E6E9A3BE5AD0C3A58945E5C3194B9EA75EC7205B587EC727CCE28AC
+    finding: the remote client alone shows the purple-and-gold MINING YIELD / IRON +6 receipt while the deep-space target remains readable
+  explosion:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/Captures/DEF0003_MP_Remote_SpaceExplosion.png
+    bytes: 47548
+    sha256: 3142B6CEDF8321C26DB75BE86438642EFC3DFB4DEAF8043CC39D7D7F2C38A045
+    finding: the depleted intact target is absent in space while the still-live receipt remains visible
+  after:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/Captures/DEF0003_MP_Remote_SpaceAfter.png
+    bytes: 45728
+    sha256: 0C00A6D5E93698B73934CB8612172B788F0C8DD9EEC440A50479238BE6FD0BB8
+    finding: the receipt and permanent resource tally are both absent after expiry
+  known_visual_warning:
+    - the pre-existing multiple-directional-light forward-shading warning is visible across the remote captures
+    - this slice does not claim warning-free final HUD or lighting polish
+
+resource_and_process_gate:
+  pre_runtime_free_physical_ram_gib: 16.398
+  pre_runtime_free_commit_gib: 39.374
+  pre_runtime_free_vram_mib: 8733
+  final_free_physical_ram_gib: 16.168
+  final_free_commit_gib: 39.145
+  final_free_vram_mib: 8728
+  final_free_disk_d_gib: 1141.071
+  launched_unreal_process_count: 1
+  final_unreal_or_build_process_count: 0
+  packaging_ram_rule: respected_no_packaging_launched_below_18_to_20_gib_gate
+
+protection:
+  result: 8_of_8_exact
+  files:
+    - path: Content/RedMMO/Maps/RedPlanetGen.umap
+      sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+      sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    - path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+      sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    - path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+    - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+      sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+      sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+      sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_integrity:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/project_knowledge_integrity.json
+    bytes: 17861
+    sha256: 4586C91DBFE9B5F04FD28378A591DD072785764F011A5E631615B4EFEF9A055C
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+  auditor_contracts:
+    result: 20_of_20_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_RemoteReceipt_20260723_162928/project_knowledge_integrity_tests.log
+      bytes: 4002
+      sha256: 40A0EAE2DE74D43F213FDA4B7F603CC7FA6487D033D58D1ADA188236054A98CC
+
+accepted:
+  - the remote mining owner receives exactly one themed IRON +6 receipt and the host receives none
+  - the remote and authority inventory totals agree while the host total is unchanged
+  - the permanent Stone, Iron, and Crystal combat-HUD tally remains absent
+  - the owner receipt expires after its bounded lifetime
+  - the two-client target is a unit-scale static mesh in deep space, not a voxel or atmospheric boulder
+  - all twenty-four production mineable asteroids remain Active, full, and unchanged
+  - current editor code compiles and the official-MCP rendered two-client test passes
+
+remaining:
+  - a real quantity-bearing inventory screen for stored Stone, Iron, and Crystal totals
+  - ultrawide and controller-visible receipt placement acceptance
+  - warning-free final HUD and lighting polish
+  - full DEF-0004 controls, persistence, party, quest, consumable, and minimap scope
+  - packaged-client, Steam, dedicated-server, and two-account verification
+
+claim_limit: >-
+  This accepts the remote-owner route for the transient mining receipt in one
+  in-process two-client D3D12 editor test, including rendered receipt and expiry
+  captures. It does not implement an inventory screen, prove Steam or
+  two-account transport, accept ultrawide layout, or close the broader DEF-0004
+  and M09 gates.

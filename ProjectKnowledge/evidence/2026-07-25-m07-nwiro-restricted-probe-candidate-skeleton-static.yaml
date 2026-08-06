@@ -1,0 +1,232 @@
+schema_version: 1
+id: evidence.M07.nwiro-restricted-probe-candidate-skeleton-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T11:21:09Z
+result: passed_offline_candidate_skeleton_publication_and_lineage_verification
+
+scope:
+  objective: >-
+    Create exactly one isolated project-owned source skeleton for the future
+    Nwiro Integration Kit restricted metadata probe from the previously
+    authenticated descriptor, Resources, and Source fork input, while keeping
+    every build, install, Unreal, MCP, provider, asset, map, and runtime gate
+    closed.
+  performed:
+    - implement and test a fixed-path no-clobber offline candidate publisher and verifier
+    - bind a separate exact operation authorization to the creator, tests, immutable parent contract, source identity, project descriptor, protected inputs, and fixed outputs
+    - externally recheck the exact creator, tests, and authorization hashes in the same trusted coordinator command immediately before the one-time publication
+    - copy exactly the authenticated 90-file and 10-directory descriptor-plus-Resources-plus-Source fork input into a private external D-resident staging root
+    - publish separate canonical baseline, candidate, and complete delta manifests with the delta last as the commit boundary
+    - rerun the independent fixed-path verifier after publication
+    - inspect the resulting private ACLs and confirm the fixed rollback reservation was removed
+  not_performed:
+    - edit any copied source byte or implement any restricted-mode control
+    - compile, install, enable, or load the candidate
+    - launch Unreal, initialize MCP, list or call a tool, bind a transport, or contact a provider
+    - load, upload, migrate, convert, place, render, or modify either environment pack
+    - create or modify any Unreal asset, map, protected checkpoint, artist handoff, or Codex configuration
+    - claim candidate static acceptance, runtime behavior, plugin discovery exclusion beyond the two checked automatic roots, atomic whole-tree snapshot, concurrent-writer resistance, or power-loss durability
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_work_preserved: true
+  physical_ram_free_gib: 9.942
+  commit_headroom_gib: 16.602
+  d_drive_free_gib: 1076.944
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4072
+    free_vram_mib: 5982
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_before: 1DB3EDC5E4F9ED5A69F75D9B2CDF3B85CC76E68C7C929B889DFDA4FA276C80E2
+  candidate_and_three_manifest_targets_absent: true
+  fixed_rollback_reservation_absent: true
+  all_four_protected_hashes_matched: true
+  decision: >-
+    Free physical RAM remained below the Unreal/package gate, so this bounded
+    slice stayed offline and static. No Unreal, build, cook, package, import,
+    plugin, MCP, provider, or GPU workload was started.
+
+reviewed_execution_boundary:
+  immutable_parent_contract:
+    path: Build/Automation/redmmo_nwiro_restricted_probe_candidate_contract_v1.json
+    bytes: 13799
+    sha256: AD53BE2585A6B03F74C53A36EE6A30318F318ACC5F2798E664CBD37BCBEDC7DE
+  publisher:
+    path: Tools/create_redmmo_nwiro_restricted_probe_candidate.py
+    bytes: 77039
+    sha256: 28BCF5F28CB94C136355536D9E1386E21895BA597F857CC2E892E6CB336AC47E
+  publisher_tests:
+    path: Tools/tests/test_create_redmmo_nwiro_restricted_probe_candidate.py
+    bytes: 16875
+    sha256: 8A37907580BF1621743109AC2917F2ADAF8FCEADE5D2E16579BE26B37009F70D
+  execution_authorization:
+    path: Build/Automation/redmmo_nwiro_candidate_skeleton_execution_authorization_v1.json
+    bytes: 4286
+    sha256: E7F85EA3F3586659D5FD16D7275954C86C9266B5D91E50C13BB41A11F406F13C
+    candidate_creation_authorized: true
+    manifest_publication_authorized: true
+    source_mutation_authorized: false
+    build_authorized: false
+    install_authorized: false
+    unreal_launch_authorized: false
+    mcp_initialize_authorized: false
+    mcp_tool_call_authorized: false
+    network_authorized: false
+    provider_call_authorized: false
+    asset_write_authorized: false
+    map_mutation_authorized: false
+  external_trust_anchor: >-
+    The publisher does not circularly embed the authorization raw hash because
+    the authorization embeds the publisher hash. The trusted coordinator
+    independently compared all three exact hashes above in the same
+    single-writer PowerShell process immediately before invoking --create.
+  independent_review:
+    reviewers: 3
+    p0_findings: 0
+    p1_findings_inside_copy_and_manifest_flow: 0
+    authorization_anchor_finding: >-
+      Two reviewers correctly rejected publisher-only authorization as
+      circular. The third review accepted one execution only when the trusted
+      coordinator independently checked all three exact hashes immediately
+      before launch; that exact external condition was used.
+    nonblocking_p2_limits:
+      - ACL verification code does not itself compare inheritance and propagation flags, although direct post-publication inspection proved the created directory and file flags exact
+      - final success verification does not compare retained top-level publication IDs and therefore makes no concurrent-writer claim
+      - the delta binds the immutable contract transitively through both manifests rather than duplicating that binding
+      - single-use enforcement is output-presence based and not power-loss durable
+
+candidate:
+  root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1
+  present: true
+  private_acl_present: true
+  file_count: 90
+  directory_count_excluding_root: 10
+  total_bytes: 2201579
+  record_set_sha256: F1D91F85B8D7BE403D3AEFAA3348CE65B4CDC6EC52F1627CB141339C39FD1D4A
+  topology_sha256: 16DC68F9DDEFB5A957822EFB58A129BC11C18BFE98B8121B4E3010C1606EA3AD
+  vendor_binaries_present: false
+  vendor_intermediate_present: false
+  source_default_off: false
+  restricted_mode_implemented: false
+  candidate_static_accepted: false
+  candidate_runtime_accepted: false
+  outside_two_checked_automatic_plugin_roots: true
+  universal_plugin_discovery_exclusion_proven: false
+  activation_state: not_built_not_installed_not_configured_explicit_additional_paths_unproven
+
+manifests:
+  captured_utc: 2026-07-25T11:20:33.242646Z
+  baseline:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.baseline.v1.json
+    bytes: 32955
+    raw_sha256: AACAC06301F470A270870DD48FF4085CCA44A3370E9CE504592F79D11EA7996A
+    semantic_sha256: 49F95105F500BA4EA2DF9465FB83988AE5ED816EB61DA2030472C354DF127551
+  candidate:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.candidate.v1.json
+    bytes: 33394
+    raw_sha256: 089695420CDEA6C5A1C3E4FC8F392C6F0124900CD8D1D6EA660AF58A681423CE
+    semantic_sha256: BE056CCC5B08C6E0C48EFEE2DCFAB7C7910EE64A562E9065D2D94BD625DD36E3
+  complete_delta:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1.delta.v1.json
+    bytes: 17243
+    raw_sha256: 46353DB99034745DEFA7974B8A7A2491F23B8837D2BA3C97AEC6B4576183566C
+    semantic_sha256: 526199E5E374C606F44B21936269627AFBEF2CDF659A43840526960AC58075B2
+    complete_path_coverage_sha256: A6751170F70550E0649C33F9632CFF64410057F7A75E17FC304BB4562DD6D7AA
+    unchanged_directories: 10
+    copied_exact_files: 90
+    modified: 0
+    renamed: 0
+    added: 0
+    omitted: 0
+    candidate_is_byte_exact_copy: true
+
+verification:
+  publisher_create:
+    command: python -B Tools/create_redmmo_nwiro_restricted_probe_candidate.py --create
+    exit_code: 0
+    reported_status: inert_exact_copy_candidate_skeleton_verified
+  independent_postpublication_verify:
+    command: python -B Tools/create_redmmo_nwiro_restricted_probe_candidate.py --verify
+    exit_code: 0
+    reported_status: inert_exact_copy_candidate_skeleton_verified
+  prepublication_tests:
+    focused_publisher:
+      run: 14
+      passed: 14
+      failed: 0
+    combined_nwiro:
+      run: 81
+      passed: 80
+      skipped: 1
+      failed: 0
+      skip_reason: Windows denied creation of the privilege-dependent symlink fixture
+  reserved_namespace:
+    exact_final_name_count: 4
+    orphan_transaction_count: 0
+    extra_candidate_manifest_count: 0
+  rollback:
+    fixed_failure_reservation_absent_after_success: true
+  acl_direct_inspection:
+    staging_parent:
+      protected: true
+      principals: [current_user, SYSTEM, Administrators]
+      rights: FullControl
+      inheritance: [ContainerInherit, ObjectInherit]
+      propagation: None
+    candidate_root:
+      protected: true
+      principals: [current_user, SYSTEM, Administrators]
+      rights: FullControl
+      inheritance: [ContainerInherit, ObjectInherit]
+      propagation: None
+    each_manifest:
+      protected: true
+      principals: [current_user, SYSTEM, Administrators]
+      rights: FullControl
+      inheritance: None
+      propagation: None
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 9.784
+  commit_headroom_gib: 16.429
+  exact_unreal_or_build_process_count: 0
+  canonical_queue_sha256_after: EC45DB0289F7F830F4A82FF42C774BDA23BBCDA0369FE7BC30664D3D39AC40DA
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This proves one exact offline source-skeleton copy and its current static
+  lineage on the quiescent local machine. The candidate still contains the
+  original source behavior, is not default-off, has none of the twenty-two
+  required controls implemented or accepted, and is not a statically accepted
+  plugin. It has not been compiled, installed, enabled, loaded, or exercised.
+  This evidence proves no Unreal, MCP, provider, Asset Registry, environment
+  pack, map, curved-surface, visual, gameplay, performance, or real-GPU result.
+
+remaining_blockers:
+  - implement all twenty-two restricted-mode controls inside the isolated candidate while keeping source_default_off and every runtime authority false
+  - add adversarial native behavior tests and independent source review before any compile
+  - obtain isolated build provenance and candidate binary attestation before any installation or module-load authorization
+  - keep Nwiro, MCP, network, and provider execution forbidden until a separate exact runtime authorization exists
+  - keep both environment packs allows_usage_with_ai false and complete explicit external rights review
+  - obtain Asset Registry closure, UE 5.8 conversion, exact migration, isolated mini-hub authoring, curved-tile fit, and real-GPU evidence later
+
+next_safe_action: >-
+  In a separate bounded offline source slice, implement only the first
+  default-off activation and process-ownership controls inside the isolated
+  candidate, add adversarial tests, emit an exact source delta, and do not
+  compile, install, launch Unreal, initialize MCP, call a tool, or contact a
+  provider.

@@ -1,0 +1,139 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r67-painted-leaf-ground-real-gpu-partial.2026-08-05
+captured_utc: "2026-08-05T22:08:08Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r67-project-owned-painted-leaf-uv24-surface-successor
+evidence_class: real_gpu_visual
+result: retained_materially_less_saturated_smaller_painted_marks_visual_partial
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 52.83
+  commit_headroom_gib: 55.47
+  gpu_dedicated_used_gib: 1.19
+  free_d_drive_gib: 767.33
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  map_saved: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  source_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  r66_foliage_sha256_before_after: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  protected_test_sha256_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_sha256_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeProfileV1PaintedLeaves_R67_20260805T2202Z
+  manifest_sha256: BAFDAC0E2AABFE72001A7928F012971BD9CF8D695DB3900C94A824F473F1DEB5
+  verified_profile_preimage_sha256: 4D22E5BD8DC106061BC3EF086BB95FA85AA570A4BAD66325E002135E1C7AC96F
+  restore_route: >-
+    With Unreal closed, restore the exact ProfileV1 preimage and delete only
+    /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_PaintedLeaves_R67,
+    then require a fresh reload and MapCheck. Keep the R66 no-palms successor.
+
+exact_writes:
+  packages:
+    - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Materials/MI_PPG_ProfileV1_PaintedLeaves_R67
+      operation: project-owned duplicate of the exact active surface instance with a materially different verified painted-leaf texture closure
+      sha256: 745381295CDC76754B9FD347CC85CEBEC3151B042C366CDA40F1908163B8A4F7
+    - package: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/DA_PPG_ProfileV1_PlanetData
+      operation: planet_material rebound from the unchanged source surface to R67
+      sha256_before: 4D22E5BD8DC106061BC3EF086BB95FA85AA570A4BAD66325E002135E1C7AC96F
+      sha256_after: 56EA5F830A8F581C1844B956EBABA556B45E200C397443F37BA921766862FC1A
+  r67_material:
+    parent: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/M_PPG_ProfileV1_SurfaceParent
+    base_color: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    roughness: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+    normal: /Engine/EngineMaterials/DefaultNormal
+    ground_uv_scale: 24.0
+    prior_r62_ground_uv_scale: 12.0
+    painted_mark_world_size_relative_to_r62: 0.5
+    normal_amount: 0.0
+    specular: 0.02
+    tint_a: [1.0, 1.0, 1.0, 1.0]
+    tint_b: [1.0, 1.0, 1.0, 1.0]
+  unchanged:
+    - R66 no-palms foliage binding for Craters, Hills and Mountains
+    - all grass and rock slots, density, height, cull, LOD and seeded placements
+    - home map, terrain, topology, water, spawn, gameplay, source surface, vendor assets and protected maps
+
+apply:
+  driver: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_painted_leaves_r67.py
+  driver_sha256: 0941ADD5892D8EDFD594F7A603E39354CB92731A162C5A03C20BFC328147AF0A
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1PaintedLeaves_R67_20260805T2202Z/Apply/apply_result.json
+  result_sha256: FFD2A023FEEE48620A9E34D696CBFC7F7582228E93B5F8316C675CBA943112CB
+  status: PASS_R67_PAINTED_LEAVES_BOUND_PENDING_FRESH_RELOAD
+
+fresh_reload_verification:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_profile_v1_painted_leaves_existing_viewport_r67.py
+  driver_sha256: 9FC2978272221C33579BC87A47297F394DF2BFB64540DC29AF40D356333D74EC
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1PaintedLeaves_R67_20260805T2202Z/Capture/result.json
+  result_sha256: 668634D911DEB9C386FEC2A04B840585BF15D7871A5F6C4C04433B465BA5A5B4
+  renderer: D3D12
+  map_check: {errors: 0, warnings: 0}
+  ppg_generation: complete
+  player_pawn: /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01.BP_RedTrooperPlayer_A01_C
+  palm_census: {samples: 431, components: 0, instances: 0}
+  approved_grass_census:
+    components: 196
+    instances: 2218356
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    stable_post_capture_samples: 164
+    identity_sha256: 341A512C4245615BC023685BC1F10144F8F38038CBCD3CDA5010294CE1FDE67A
+  dirty_packages_after: {content: [], maps: []}
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  unreal_or_build_processes_after: 0
+
+real_gpu_visual:
+  capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1PaintedLeaves_R67_20260805T2202Z/Capture/R67_painted_leaves_uv24_no_palms_existing_viewport.png
+  capture_sha256: BB8E0E05856AE71211ACF7D129806DE6C616FC22E3DFEC900308DE5C282F1F0A
+  dimensions: [1014, 550]
+  matched_r66_capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1NoPalms_R66_20260805T2144Z/Capture/R66_no_repeated_palms_existing_viewport.png
+  lower_scene_metrics:
+    r66_mean_saturation: 0.7768
+    r67_mean_saturation: 0.5155
+    r66_saturated_green_percent: 93.7388
+    r67_saturated_green_percent: 30.6097
+    r66_vivid_percent: 22.6395
+    r67_vivid_percent: 19.2845
+  independent_review:
+    improvement:
+      - the neon solid-green ground is replaced by a much lighter, less saturated painted texture family
+      - the verified painted marks are half the R62 world size and therefore no longer read as oversized leaf strokes
+      - dense approved grass remains visible and repeated palms remain absent
+      - the Trooper and parked StarSparrow remain present at the matched player-scale view
+    retained_defects:
+      - painted leaf and clutter marks remain too subtle beneath the grass to call the underlayer art accepted
+      - the pale ground and vivid grass remain imperfectly matched
+      - the surface sky remains mostly black with only sparse stars and no accepted moon/night navigation presentation
+    overall_art_acceptance: partial_fail
+
+retention_decision: >-
+  Retain R67 as a materially better editable starting branch because it directly
+  addresses the oversized painted marks and removes most of the neon-green
+  ground saturation while preserving R66, the full seeded grass census, terrain,
+  map and gameplay. Do not promote it as final art.
+
+next_safe_action: >-
+  Do not repeat tint-only, palm, grass-visibility or UV-scale experiments. The
+  next bounded acceptance slice is a no-save hands-on PIE for physical control
+  feel on the retained R67/R66 state if the user explicitly authorizes the
+  visible launch; otherwise advance the independent project-owned surface-night
+  composition defect without changing terrain or biome bindings. Packaging,
+  replication and multiplayer remain separate later gates.
+
+claim_limit: >-
+  R67 proves a persisted project-owned painted-leaf surface branch, fresh
+  ProfileV1 reload, MapCheck, PPG generation, stable dense seeded grass, zero
+  palms and one matched D3D12 frame. It does not prove final ground art, full
+  night presentation, physical-device controls, standalone packaging,
+  replication, multiplayer or a developer-ready handoff build.

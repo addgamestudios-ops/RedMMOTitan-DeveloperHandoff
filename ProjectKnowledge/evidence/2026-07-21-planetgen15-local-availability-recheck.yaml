@@ -1,0 +1,72 @@
+schema_version: 1
+id: evidence.planetgen15.local-availability-recheck.2026-07-21.static-02
+evidence_class: static
+captured_local: "2026-07-21T14:25:00+03:00"
+platform: Windows
+target: module.M11.planetgen15-ring-world-isolated-evaluation
+
+result:
+  local_planetgen15_presence_gate: fail
+  ringworld_asset_presence_gate: fail
+  pinned_fork_protection_gate: pass
+  protected_checkpoint_gate: pass
+  isolated_compile_gate: not_run
+  real_gpu_gate: not_run
+  observed:
+    - the UE 5.8 Marketplace PlanetGen descriptor still reports VersionName 1.4.0 and EngineVersion 5.8.0
+    - the project-local pinned fork still reports VersionName 1.4.0-redmmo-50km-phase1
+    - the installed Marketplace plugin contains 395 files but zero filenames matching RingWorld, RingMap, M_Ring, or ThinAtmosphere
+    - a bounded source and filename scan found zero ACLMRingWorld, CLMRingWorld, RingMap, M_RingAtmosphere, M_RingClouds, M_ThinAtmosphere, or M_RingPostProcess matches
+    - the current Epic Launcher manifest was last written on 2026-07-17 and points to D:/UE_5.8, but the installed artifact there remains PlanetGen 1.4.0
+    - no alternate PlanetGen descriptor was found in the project plugin root or the common D:/ Epic, Fab, or VaultCache locations checked
+    - Titan.uproject enables the plugin name PlanetGen, which currently resolves to the protected project-local pinned 1.4 fork
+
+audited_locations:
+  - D:/RedMMOTitan/Plugins
+  - D:/UE_5.8/Engine/Plugins/Marketplace
+  - D:/Epic Games/Launcher/VaultCache
+  - D:/Epic/VaultCache
+  - D:/VaultCache
+  - D:/Fab
+  - C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests
+
+artifacts:
+  engine_marketplace_descriptor:
+    path: D:/UE_5.8/Engine/Plugins/Marketplace/PlanetGe5e8f23ed72d1V5/PlanetGen.uplugin
+    version_name: "1.4.0"
+    engine_version: "5.8.0"
+    sha256: 521CF9879BBDCA4BF701B95C2EFF5A75782A12AA523D9C8441FE1F81DB4C4E91
+  project_pinned_descriptor:
+    path: Plugins/PlanetGenPinned_1_4_0_RedMMO/PlanetGen.uplugin
+    version_name: "1.4.0-redmmo-50km-phase1"
+    sha256: 4AE63D950CB510C0F7DDBE9EEE574C834A06D39109CF47C947F85BD6551C221E
+  epic_install_manifest:
+    path: C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests/A57983564DD5D02F1413DB97C7BC9395.item
+    app_name: PlanetGe5e8f23ed72d1V5
+    app_version_string: 5.8.0-55683990+++UE5+Dev-Marketplace-Windows
+    install_location: D:/UE_5.8
+    last_write_local: "2026-07-17T17:34:53+03:00"
+    sha256: 57E5916C0F4F88A08052224F28246FFA7E6DE46F6521D708926FB54E1BFAD562
+  project_descriptor:
+    path: Titan.uproject
+    sha256: 8F7B63580896239941C583C127875E9763DC132CA472E84BC6C75B05F586D732
+
+protected_checkpoint:
+  map_path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  ready_marker_path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+  ready_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  modified: false
+
+claim_limit: >-
+  This is a bounded local static availability audit. It proves that the known
+  project and UE 5.8 Marketplace installs do not contain PlanetGen 1.5's named
+  RingWorld class, demo, or materials. It does not prove that the user's Fab
+  entitlement lacks an update, and it does not satisfy build, runtime, visual,
+  gravity, atmosphere, water, streaming, or playability gates.
+
+next_safe_action: >-
+  Use Epic/Fab to install the PlanetGen 1.5 update into a new isolated D:
+  location. Before enabling it, verify the descriptor and exact RingWorld
+  class, map, and material assets. Never overwrite the project-pinned 1.4 fork
+  or the protected 50 km checkpoint.

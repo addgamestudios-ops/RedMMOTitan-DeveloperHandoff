@@ -1,0 +1,203 @@
+schema_version: 1
+id: evidence.m12.native-multi-volume-isolation-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T03:33:50.7173879Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-multi-volume-isolation-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only multi-volume isolation scenario to the existing M12 backend test translation unit
+    - prove two distinct live volume identities remain isolated inside one backend across accepted and rejected edits
+    - prove generated-output and checkpoint-persistence capabilities cannot cross volume boundaries by foreign authority identity or process-local attempt token
+    - prove accepted edits, generated outputs, checkpoints, acknowledged durability bases, and journal suffixes remain bound to their own volume
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - release or recreation, restore, invalidation, same-revision equivocation, journal-capacity release, actor, map, adapter, collision cook, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1522
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [16.670, 16.654, 16.547]
+  commit_used_gib_samples: [24.831, 24.875, 24.929]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [30.041, 29.997, 29.943]
+  disk_c_free_gib: 123.120
+  disk_d_free_gib: 1140.032
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 2075
+  vram_free_mib: 7979
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 33
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_below_the_canonical_memory_gate
+  action_decision: one_non_packaging_source_only_M12_multi_volume_isolation_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 149634
+    sha256: 4E088FE3D365F22320D168C43ED4D78B8A49A1844989D53B05FE211B05878B61
+    added_automation_name: RedMMO.Mining.VoxelBackend.MultiVolumeIsolation
+    total_native_automation_scenarios_in_file: 6
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 106085
+    sha256: BF09E110E03D10D3E190BDBF3DCF32FF5961D497E79FD872EEA8A21F9C4771D7
+    total_contracts: 29
+    new_multi_volume_isolation_contracts: 5
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  bounded_fixture:
+    - one backend owns exactly two simultaneously live bounded volumes with distinct stable IDs, seeds, canonical specs, checkpoint manifests, and authority content
+    - both volume-local first accepted edits use request sequence one and advance only their own canonical revision from zero to one
+    - the first accepted edit preserves every second-volume checkpoint chunk and every generated-output field
+    - the later accepted second edit preserves the first checkpoint manifest, all nine first-output fields, acknowledged durability base, and journal export
+  rejected_edit_and_queue_atomicity:
+    - a structurally valid second-target edit carrying the first volume revision rejects stale while preserving its requested revision and complete result identity
+    - rejection preserves both canonical manifests, live revisions, generation tokens, and generated outputs
+    - a second-target chunk revision carrying first-volume authority content cannot queue work, consumes no build token, returns a default request, and changes neither output state
+  generated_output_capabilities:
+    - one second-target completion retaining its exact token but splicing first-volume spec and source identity reaches live-authority rejection
+    - one second-target completion retaining its full identity but using the first volume attempt token reaches exact-active-ticket rejection
+    - both exact pending tickets survive the rejected callbacks and independently ready only their own Presentation outputs
+    - all nine output-state fields are re-read and pinned after foreign, hybrid, and exact completion paths
+  persistence_capabilities:
+    - both issued persistence request envelopes validate and bind their own target, spec, checkpoint manifest, revision, journal tail, generation, backend instance, and monotonic token
+    - a second-target acknowledgement retaining its exact token but splicing first-volume checkpoint identity reaches foreign-authority rejection
+    - a second-target acknowledgement retaining its full identity but using the first volume persistence token reaches exact-pending-ticket rejection
+    - both exact pending acknowledgements survive and establish only their own durability bases
+    - after the accepted second edit, the first export remains byte-identity-equivalent by all canonical export fields while the second export has base revision zero and exactly one second-owned revision-one operation
+  isolation:
+    - all six native automation macros and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - every registration is ProductFilter and has one exact automation path
+    - no lifecycle, restore, invalidation, capacity, actor, world, map, Inventory, mesh adapter, voxel plugin, Steam, or filesystem adapter enters the scenario
+
+verification:
+  native_source_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/native_multi_volume_contract_stderr.log
+    bytes: 6667
+    sha256: E8FE1B3B9E5CB02D740060F6D0D0CFD4028FF929865DBE107F8EBE0D64D19AE7
+    result: 29_of_29_passed
+    new_multi_volume_isolation_source_contracts: 5_of_5_passed
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/m12_multi_volume_focused_final_stderr.log
+    bytes: 21260
+    sha256: 26B514848A347BF4B9186D1F32E3D020F94EBBD65F8F2FBAB4710760EAAA838A
+    result: 101_of_101_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 96
+      native_automation_source_contracts: 29
+      new_multi_volume_isolation_source_contracts: 5
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/protected_provenance_stderr.log
+    bytes: 1507
+    sha256: BBE28BCFC6DFD07775784495597E751A27D6AACBFAAE26B8DDF748D1ACFD37E9
+    result: 7_of_7_passed
+  final_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/m12_multi_volume_final_static_regressions_stderr.log
+    bytes: 27974
+    sha256: 8372D69E63B144874BF74C44CEDF7E7C8ED768DED72D09343A44B54EDA855620
+    result: 128_of_128_passed
+    composition:
+      focused_M12_source_and_model_contracts: 101
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  project_knowledge_integrity_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/project_knowledge_integrity_prerecord.json
+    bytes: 1782
+    sha256: 7692A6FAB8C642AC34F7ADAE7BC844B57475D55CFD67F1CA8CB0BD04C7F979AE
+    result: passed_with_0_errors_and_0_warnings
+  project_knowledge_integrity_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeMultiVolumeIsolation_20260724T033049Z/project_knowledge_integrity_final.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 114
+  independent_review:
+    cpp_compile_plausibility: clean_at_4E088FE3D365F22320D168C43ED4D78B8A49A1844989D53B05FE211B05878B61
+    source_contract_sensitivity: clean_at_BF09E110E03D10D3E190BDBF3DCF32FF5961D497E79FD872EEA8A21F9C4771D7
+    semantic_scope: clean_after_edit_output_checkpoint_capability_and_journal_isolation_review
+    reviewers: 3
+    limitation: read_only_source_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeMultiVolumeIsolation_20260724T025959Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeMultiVolumeIsolation_20260724T025959Z/preimage_manifest.json
+  manifest_bytes: 3654
+  manifest_sha256: E81E9B702D6A478EEC9CBF5414EA86316619F1089B566C74C94D5269A14C7A93
+  absent_before_marker: D:/RedMMOTitanWindowsData/Rollback/M12_NativeMultiVolumeIsolation_20260724T025959Z/absent_before.json
+  absent_before_marker_bytes: 293
+  absent_before_marker_sha256: 773EADD01BC5AB5F136997F83156FE298200DBEB0030D99A25F3C3A578F91190
+  exact_records: 6
+  unrelated_dirty_work_preserved: true
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+canonical_queue:
+  path: D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json
+  bytes: 223158
+  sha256: 99127E3228EA4D59D95A60EFC732BAE1694AF06799031EB66F9241D42E74595B
+  m12_evidence_records: 11
+
+postflight:
+  captured_utc: "2026-07-24T03:33:40Z"
+  physical_ram_free_gib_samples: [16.154, 16.143, 16.506]
+  commit_used_gib_samples: [23.572, 23.594, 23.179]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.301, 31.278, 31.693]
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  disk_c_free_gib: 127.663
+  disk_d_free_gib: 1140.033
+  unreal_build_cook_or_package_processes: 0
+  unreal_build_cook_package_or_native_compile_launched_by_slice: false
+  stale_zero_byte_git_index_lock_preserved: true
+  packaging_gate: remained_closed_below_sustained_18_to_20_gib_physical_ram
+
+claim_limit: >-
+  This is static source evidence. The sixth native automation scenario has not
+  been compiled or executed, and the Python source contracts do not execute the
+  C++ backend. No generated-output or persistence adapter, installed mesh or
+  collision artifact, deformation, suction, Inventory credit, rendering,
+  gameplay, performance, packaging, Steam, or multiplayer behavior is proved.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute all six exact RedMMO.Mining.VoxelBackend native
+  automation scenarios. If physical RAM remains below the safe gate, the next
+  independent source slice is same-revision checkpoint equivocation, followed
+  separately by journal-capacity release before adapter work.

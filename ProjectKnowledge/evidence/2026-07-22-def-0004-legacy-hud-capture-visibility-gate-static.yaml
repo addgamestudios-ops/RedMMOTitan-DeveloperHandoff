@@ -1,0 +1,198 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0004-LEGACY-HUD-CAPTURE-VISIBILITY-GATE-STATIC
+captured_at: "2026-07-22T19:42:14Z"
+module: module.M09.windows-development-package
+defect: DEF-0004
+slice: legacy-hud-recurring-scene-capture-visibility-gate
+evidence_class: static
+result: recurring_hidden_legacy_hud_capture_suppressed_static_acceptance_passed_runtime_open
+
+authorization_and_scope:
+  intended_change: >-
+    Stop the local legacy portrait and minimap scene captures from re-rendering
+    while their root HUD is absent from the viewport, collapsed, or hidden,
+    without fabricating a replacement minimap consumer or changing gameplay.
+  production_files_modified: 1
+  test_files_added: 1
+  canonical_files_modified: 4
+  explicitly_preserved:
+    - the initial portrait and minimap prewarm captures
+    - render-target allocation, binding, and legacy resource assignment
+    - the existing 0.15 second timer and alternating capture cadence
+    - visible HitTestInvisible fallback-HUD updates
+    - visible SelfHitTestInvisible ability-loadout updates
+    - DestroyLocalHUD timer, target, and render-target cleanup
+    - gameplay input, ability activation, authority, prediction, and replication
+    - replacement minimap fail-closed state and every supplied HUD asset
+    - production maps, protected checkpoints, artist repositories and handoffs, user assets, and unrelated dirty work
+  not_attempted:
+    - Unreal Editor, UBT, UHT, build, cook, package, shader, Zen, or IoStore work
+    - runtime, real-GPU, visual, gameplay, Steam, or multiplayer acceptance
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1350
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_count: 0
+    competing_project_writer_before_slice: false
+    uaip_mcp_thin_proxy_pairs_without_editor: 4
+  resource_samples:
+    sample_count: 10
+    duration_seconds: 24.3
+    physical_free_gib: {minimum: 7.587, maximum: 7.977, average: 7.769}
+    commit_headroom_gib: {minimum: 17.697, maximum: 18.116, average: 17.901}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1427, free_mib: 8627}
+    disk_free_gib: {C: 132.58, D: 1141.72}
+  decision: static_offline_only
+  latest_package_evidence:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_or_package_started: false
+    archive_or_ready_marker_created: false
+    reason: guarded_abort_below_memory_threshold
+
+implementation:
+  source: Source/RedMMO/RedPlayerCharacter.cpp
+  function: ARedPlayerCharacter::RefreshHudCaptures
+  contract:
+    - return before toggling the portrait/minimap turn when ActiveHUDWidget is invalid
+    - return before toggling when the legacy widget is not in the viewport
+    - return before toggling and both CaptureScene calls for Collapsed or Hidden root visibility
+    - allow HitTestInvisible and SelfHitTestInvisible so the visible fallback and ability loadout continue updating
+    - do not couple the capture consumer to bAbilityLoadoutOpen, ARedHUD, or HasPixelExactHUD
+    - retain the existing portrait/minimap alternation and target-validity guards
+  exact_diff_against_rollback: {added_lines: 12, removed_lines: 0}
+  recurring_hidden_capture_calls_suppressed: true
+  timer_callback_wakes_suppressed: false
+  initial_prewarm_capture_calls_suppressed: false
+  render_target_or_persistent_render_state_memory_released_while_hidden: false
+
+changed_files:
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    pre_sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA
+    post_sha256: 1F6FA8570C86CC1A44C0C329964FC8CBE58BBEBFE1B02E5458AD9A33CF0D3D6F
+    pre_bytes: 345272
+    post_bytes: 345556
+  - path: Tools/tests/test_def0004_legacy_hud_capture_visibility_gate_contract.py
+    pre_state: absent
+    post_sha256: 4BECA09AA6F8234D2C4B1398B3EE4E2B3F1F4ACCFB0667E4AA9CE86CB5C63E9E
+    post_bytes: 5736
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004LegacyHudCaptureVisibilityGate_20260722_1932
+  test_file_absent_before: true
+  files:
+    - {name: RedPlayerCharacter.cpp, sha256: 3A05848AE7CC5A4CF4986FFA2F5FA75EF0C731C68A2B5BE99821E9B90F48CADA}
+    - {name: INDEX.yaml, sha256: 17DA7A84602A8AD68B861415EDC2C6DAFDD9F31818A2BFD5C41C5D3DF6C2E9F8}
+    - {name: current_state.yaml, sha256: 4B799C717A4A0C185E5D2BD2EBF4185FE2FE8DD4ABD362D1EEFEB3C0480CECF1}
+    - {name: DEF-0004-pixel-exact-hud-static-composite.yaml, sha256: CF08F2EDD121B0FFA50E290D40BC2C47E77657EF23D191FED37D5DBE9F19B8C2}
+    - {name: redmmotitan_module_queue.json, sha256: AF050924E5A09030B292D200088863079477C07E12855B6F10508084379A45FB}
+
+verification:
+  command: >-
+    python -B -m unittest
+    Tools.tests.test_def0004_legacy_hud_capture_visibility_gate_contract
+    Tools.tests.test_def0004_pixel_hud_current_contract
+    Tools.tests.test_def0004_pixel_hud_customizer_route_contract
+    Tools.tests.test_def0004_pixel_hud_noop_feedback_contract
+    Tools.tests.test_def0004_replacement_hud_ability_feed_contract
+    Tools.tests.test_def0004_replacement_hud_ability_presentation_dedup_contract
+    Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+    Tools.tests.test_def0004_replacement_hud_enemy_feed_contract
+    Tools.tests.test_def0004_replacement_hud_minimap_inventory_contract
+    Tools.tests.test_def0004_replacement_hud_party_inventory_contract
+    Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+    Tools.tests.test_def0004_replacement_hud_snapshot_inventory_contract
+    Tools.tests.test_def0006_red_hud_runtime_contract
+    Tools.tests.test_def0002_ship_gravity_telemetry_contract
+    Tools.tests.test_def0002_ship_reboard_contract
+    Tools.tests.test_fused_prototype_provenance -v
+  focused_capture_visibility_tests: 4_of_4_passed
+  combined_hud_shared_and_provenance_tests: 118_of_118_passed
+  protected_provenance_tests: 7_of_7_passed
+  log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureVisibilityGate_20260722_1932/offline_contract_and_provenance_tests_final.log
+  log_sha256: C4F2F91CB27434B54A342D5CDC4C4BD1F7B79A00DC65044AAEDA642554D715CD
+  independent_review:
+    result: PASS_no_actionable_issue
+    repeated_tests: 32_of_32_passed
+    finding: exact_12_line_guard_is_compile_safe_and_preserves_visible_fallback_loadout_prewarm_timer_targets_and_teardown
+  currency_and_package_guard_tests:
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureVisibilityGate_20260722_1932/currency_and_package_guard_tests_final.log
+    log_sha256: 62666A11CFABD950625CB6DF9E87C9359BDF8B0117F0EE5CFAAFCAD4FD5E5877
+  final_exit_record:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureVisibilityGate_20260722_1932/final_tests.exit.txt
+    sha256: 7F05EE25CF55B7092AC0DF280591633D505C43058AA1ED43314B10CF81822AAB
+
+target_currency:
+  tool: Tools/audit_windows_target_currency.py
+  report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_LegacyHudCaptureVisibilityGate_20260722_1932/target_currency.json
+  report_sha256: 62379F6B71DE05DAA1DA68AEFFA365102943B34F52EE8610AF306E3E2E0EBC86
+  captured_utc: "2026-07-22T19:40:06.767387Z"
+  input_count: 874
+  input_manifest_sha256: 29EC28DD1090F93BA14DAC625249DE18E9804B419BAE41547436643D5040E93B
+  gate_result: refused_fail_closed
+  skip_build_allowed: false
+  build_proofs_supplied: 0
+  Titan: {currency_state: stale_unproven, newer_inputs: 38, proof_status: missing}
+  TitanEditor: {currency_state: stale_unproven, newer_inputs: 26, proof_status: missing}
+
+protection:
+  result: pass
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  protected_source_rasters: 135_of_135_matched
+  supplied_hud_assets: 56_of_56_matched
+  vibe_sources: 8_of_8_matched
+  safe8_manifest_members: 338_of_338_matched
+  artist_repository_shapes_unchanged: true
+
+canonical_reconciliation:
+  queue:
+    retry_before: 15
+    retry_after: 16
+    evidence_count_before: 36
+    evidence_count_after: 37
+    pre_sha256: AF050924E5A09030B292D200088863079477C07E12855B6F10508084379A45FB
+    post_sha256: 46B714B5DD5D2490FF408CE4D253B68EBCE7302843BDD5D80EAF0BC9AF0E4603
+  index_post_sha256: 51BCC46921A366DCD0A7D6A36ABA2F062B63AD1BB5EAD27A33DD55D17FDD11BF
+  current_state_post_sha256: 33188178CF6B4240952809C1F17F8B82F44A16C878C7C0D5583D171D143029D1
+  defect_post_sha256: F0842066A1DDED31AB0CC27AE08656B674EFFBF7B80DC928D0D7C06417B0DA23
+  current_state_queue_snapshot_matches: true
+
+remaining_blockers:
+  - current RedMMO and RedHUDRuntime source is newer than installed target products and has no exact build proof
+  - compile and UHT are resource-deferred
+  - no runtime evidence proves pause and resume transitions or callback behavior
+  - no GPU profile measures the actual saving
+  - the timer still wakes while hidden and render targets plus persistent render state remain allocated
+  - initial prewarm captures remain intentional and were not optimized in this slice
+  - current pixels, gameplay, packaging, Steam transport, and multiplayer remain unverified
+
+claim_limit: >-
+  Static source and contract evidence proves only that recurring legacy portrait
+  and minimap CaptureScene calls return before rendering while the root legacy HUD
+  is invalid, outside the viewport, collapsed, or hidden, while painted fallback
+  and ability-loadout modes remain eligible. It does not prove compilation, UHT,
+  runtime lifecycle, measured CPU or GPU savings, visual correctness, gameplay,
+  packaging, Steam, or multiplayer.
+
+next_safe_action: >-
+  Keep Unreal, builds, packaging, and real-GPU work closed below the sustained
+  resource gate. A later independent offline HUD slice may inventory residual
+  hidden timer wakes, render-target lifetime, and persistent render state, but
+  must not change lifecycle behavior without exact fallback and loadout proofs.
+  When resources pass, compile RedHUDRuntime, TitanEditor, and Titan separately,
+  produce exact build proofs, rerun currency, and then perform bounded real-GPU
+  lifecycle and profiling acceptance.

@@ -1,0 +1,560 @@
+schema_version: 1
+record: gameplay.system
+
+id: mining.red.asteroid.voxel-on-foot
+module_id: M12
+display_name: On-foot voxel asteroid mining and suction collection
+status: native_journal_capacity_acknowledgement_release_automation_source_static_verified_uncompiled_unexecuted_unwired
+prior_status: native_same_revision_checkpoint_manifest_equivocation_automation_source_static_verified_uncompiled_unexecuted_unwired
+earlier_status: native_multi_volume_isolation_automation_source_static_verified_uncompiled_unexecuted_unwired
+status_history:
+  - backend_neutral_authority_contracts_static_verified_backend_absent
+  - in_memory_sparse_density_backend_static_verified_uncompiled_unwired
+  - generated_output_completion_boundary_static_verified_uncompiled_unwired
+  - journal_checkpoint_persistence_boundary_static_verified_uncompiled_unwired
+  - native_journal_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_checkpoint_restore_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_persistence_ticket_reissue_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_generated_output_role_isolation_stale_completion_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_deterministic_initialization_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_multi_volume_isolation_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_same_revision_checkpoint_manifest_equivocation_automation_source_static_verified_uncompiled_unexecuted_unwired
+  - native_journal_capacity_acknowledgement_release_automation_source_static_verified_uncompiled_unexecuted_unwired
+authority: server
+production_enabled: false
+
+current_boundary:
+  state: current_static_mesh_depletion_is_not_mining
+  facts:
+    - ARedMineableAsteroid stores one scalar OreRemaining and one intact static-mesh presentation
+    - zero ore enters whole-actor depletion, destruction, debris, and direct resource-credit behavior
+    - no localized material volume, persistent carved cavity, or voxel edit state exists
+    - the production field and all protected maps remain outside M12 prototype scope
+
+installed_capability:
+  voxel_backend:
+    state: third_party_absent_project_owned_source_present_uncompiled
+    project_plugin_descriptor_count: 0
+    engine_plugin_descriptor_count: 0
+    uproject_entry:
+      name: Voxel
+      enabled: false
+    redmmo_runtime_module_dependency: false
+    project_owned_backend:
+      class: FRedInMemorySparseVoxelBackend
+      source:
+        - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h
+        - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+      integration: uncompiled_unwired
+    latest_runtime_observation: >-
+      The accepted 2026-07-23 D3D12 log cannot resolve
+      /Script/Voxel.VoxelCollisionInvokerComponent and mounts no Voxel plugin.
+  misleading_legacy_name:
+    path: Source/RedMMO/RedMMOVoxelLibrary.h
+    actual_role: editor-only sky color-curve and atlas authoring helper
+    voxel_edit_api_count: 0
+    policy: do_not_treat_as_a_voxel_backend
+  available_geometry_primitives:
+    - GeometryScripting is enabled and its GeometryScriptingCore module is runtime-capable, but RedMMO does not link it
+    - ProceduralMeshComponent is installed and already linked by RedMMO
+    - built-in Geometry Script exposes mesh voxelization, marching-cubes controls, SDF morphology, and DynamicMesh subtraction that may generate presentation geometry
+    - these primitives can render generated geometry but provide no accepted voxel density store, edit journal, replication, persistence, or late-join contract
+  planetgen_boundary:
+    state: radial_heightfield_not_voxel_volume
+    facts:
+      - each PlanetGen chunk samples one radial height for each coordinate on a two-dimensional grid
+      - the grid is triangulated into one procedural surface section with collision
+      - terrain stamps change geodesic radial height and cannot represent caves, overhangs, internal material, or removed volume
+      - PlanetGen generation-token stale-result rejection is a reusable pattern for discarding obsolete asynchronous M12 remesh work
+  disabled_paths:
+    - ARedBolt::SpawnVoxelCraterStamp is an explicit no-op
+    - ARedPlayerCharacter::SpawnBolt configures ground impact with voxel carving disabled
+    - the historical stamp path was disabled because its preview rendered as accumulating black blobs
+    - enabling the old carve flag while its crater function remains empty could create a resource pickup without removing material
+
+reusable_foundation:
+  resource_pickup:
+    class: ARedResourcePickup
+    verified:
+      - server authority owns overlap collection and calls AddResource exactly once before destruction
+      - resource type, amount, collectible state, and radial up replicate
+      - a noncollectible short-lived variant already supports direct-credit receipt presentation
+    missing_for_m12:
+      - no suction or tractor target
+      - no attraction state or travel timing
+      - actor movement replication is disabled
+      - no line-of-sight, range, ownership, cancellation, or anti-steal policy
+  inventory:
+    verified:
+      - Stone, Iron, and Crystal quantities are absent from the always-on combat HUD
+      - the existing Inventory Resources page owns persistent quantity presentation
+      - the existing transient receipt can be adapted to report collection completion
+    missing_for_m12:
+      - durable PlayerState, save, travel, reconnect, restart, and account ownership
+      - current resource totals live on the replicated pawn and are session gameplay state rather than a durable MMO ledger
+  field_and_network:
+    verified:
+      - deep-space placement, stable member IDs, bounded relevancy, exactly-once reward, and live-session late-join patterns exist for the static-mesh field
+    policy: reuse_patterns_not_production_actors
+
+backend_neutral_contract_foundation:
+  state: static_source_verified_uncompiled_unwired
+  source:
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.h
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.cpp
+    - Source/RedMMO/Mining/RedVoxelAsteroidBackend.h
+  verified_contracts:
+    - client envelopes carry no yield or trusted material result
+    - immutable volume fields are serialized canonically and their SHA-256 fingerprint is recomputed before admission
+    - server edits and atomic backend results bind exact target, sequence, expected revision, prediction token, and authority generation
+    - per-collector contiguous request high-water state supports interleaved collectors against one global volume revision
+    - accepted yield is derived exactly from removed cells and authoritative cell volume
+    - dirty chunks, yield entries, edited cells, checkpoint bytes, and request rates have immutable prototype ceilings
+    - whole-volume checkpoints bind stable ID, seed, material table, volume-spec hash, common revision, exact chunk set, allowlisted codec, canonical payload hashes, and aggregate byte ceiling
+    - whole-volume restore is compare-and-swap constrained to absent initialization or exact-revision and exact-generation quiesced replacement, with live rollback forbidden
+    - role-specific presentation or collision readiness requires the exact content revision, content hash, and advanceable generation token
+    - logical loose-resource transitions are monotonic and collection credit requires matching server-observed eligibility, line of sight, arrival distance, timing, reservation, source, collector, and revision evidence
+    - future durable credit receives the idempotency tuple ClusterId plus CollectedRevision
+  prototype_hard_ceiling:
+    volume_cells_per_axis: 64
+    chunk_cells_per_axis: 16
+    edited_cells_per_request: 2048
+    dirty_chunks_per_edit: 8
+    yield_entries_per_edit: 4
+    loose_clusters_per_edit: 4
+    requests_per_second: 8
+    checkpoint_chunks: 64
+    checkpoint_set_bytes: 16777216
+  isolation:
+    - no runtime consumer, actor, RPC, Inventory mutation, production field, map, plugin, or build-rule wiring
+    - no per-voxel actors, per-voxel RPCs, generated-triangle replication, or client-supplied yield
+    - plain C++ authority-domain types are not reflected wire DTOs; any future replicated DTO must be separate and omit server-private reservation proof
+  offline_verification:
+    focused_authority_contracts: 13_of_13_passed
+    combined_capability_and_authority_contracts: 21_of_21_passed
+
+in_memory_sparse_backend:
+  state: static_source_and_behavioral_model_verified_uncompiled_unwired
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-in-memory-sparse-density-backend-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+  verified_static_properties:
+    - deterministic integer base sphere and fixed binary-density material ordinals
+    - sparse storage for non-empty chunks with authenticated metadata for every chunk
+    - candidate edits, exact cell-derived yields, dirty chunks, hashes, operation record, and apply result are staged before one game-thread commit
+    - portable whole-volume checkpoints carry full immutable spec and bounded policy, use canonical RLE, and are freshly re-inspected before restore
+    - revision-zero deletion, impossible edit volume, material injection, material resurrection, live rollback, equal-revision equivocation, and forward-revision inflation fail closed in source and independent model contracts
+    - generated-output identity binds spec, coordinate, cells, revision, and stable-ID lifecycle generation; queueing never fabricates mesh or collision readiness
+    - stable-ID generation tombstones prevent release-and-recreate ABA inside one backend lifetime
+    - the 64-cell candidate occupies 27 to 36 metres at 75 to 100 cm cells
+  offline_verification:
+    sparse_backend_source_and_behavioral_model_contracts: 16_of_16_passed
+    combined_M12_contracts: 37_of_37_passed
+    static_regressions_before_integrity: 89_of_89_passed
+    prior_final_static_regressions: 109_of_109_passed
+    project_knowledge_integrity: passed_with_0_findings
+  open_gates:
+    - serialized C++ compile and native automation that directly executes the backend
+    - trusted versioned persistence adapter, atomic write and flush, restart load, authenticated replay, corruption, disk-full, and migration behavior
+    - project-owned mesh and collision adapter with installed-artifact fingerprint recomputation
+    - actor, map, visible deformation, traversal, suction, Inventory, profiling, real GPU, multiplayer, and packaging
+
+generated_output_completion_boundary:
+  state: static_logical_ticket_and_completion_model_verified_uncompiled_unwired
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-generated-output-completion-boundary-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.h
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.cpp
+    - Source/RedMMO/Mining/RedVoxelAsteroidBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+  verified_static_properties:
+    - queue issues one detached density/material snapshot and portable volume spec for exactly one Presentation or Collision role
+    - ticket binds source target, spec hash, chunk coordinate, per-chunk revision and content hash, authority generation, build profile, backend-instance GUID, and monotonic attempt token
+    - presentation and collision retain independent pending tickets, readiness, and role-specific output fingerprints
+    - same-role retry rotates only that role token; already-ready work cannot be requeued and the other role remains unchanged
+    - completion revalidates live per-chunk metadata rather than the volume global revision, preserving still-current work when another chunk changes
+    - exact duplicate completion with the same fingerprint is idempotent while conflicting duplicate, wrong role, stale edit, restore, recreation, cross-volume, cross-chunk, profile, instance, generation, and token paths fail without mutation
+    - ready roles require canonical output fingerprints and unready roles require empty fingerprints
+  offline_verification:
+    generated_output_completion_source_and_model_contracts: 14_of_14_passed
+    combined_focused_M12_contracts: 52_of_52_passed
+    final_static_regressions: 124_of_124_passed
+    project_knowledge_integrity: passed_with_0_findings
+  limitations:
+    - no C++ compile or native backend execution
+    - no output adapter or installed presentation or collision artifact
+    - returned request data is a detached mutable copy after handoff
+    - caller-supplied OutputSha256 is shape-validated but not recomputed from an installed artifact
+    - backend-instance GUID, request token, and SHA-256 values are process-local replay and integrity guards, not cryptographic authentication
+
+journal_checkpoint_persistence_boundary:
+  state: static_source_and_behavioral_model_verified_uncompiled_unwired
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-journal-checkpoint-persistence-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.h
+    - Source/RedMMO/Mining/RedVoxelMiningContracts.cpp
+    - Source/RedMMO/Mining/RedVoxelAsteroidBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+  verified_static_properties:
+    - each accepted edit retains one canonical operation binding authority identity, collector, tool, exact brush fields, revision, request sequence, result fingerprint, and prior-operation fingerprint
+    - retained operation IDs and per-collector request sequences are unique while prediction tokens remain correlation data rather than the authoritative idempotency key
+    - export is detached, read-only, bounded to 512 operations, and contains exactly the validated hash-chained suffix after an acknowledged checkpoint
+    - persistence request cross-checks ticket and checkpoint identity and binds exact base, checkpoint manifest and tail, authority generation, backend instance, and monotonic request token
+    - acknowledgement accepts only the exact live pending capability, rejects same-revision manifest equivocation, stages later edits, and compacts only the covered prefix
+    - exact duplicate acknowledgement is idempotent; stale, superseded, cross-volume, restore, recreation, malformed, gapped, and conflicting paths fail without mutation
+    - restore establishes an unacknowledged base and requires fresh capture and acknowledgement before export
+  offline_verification:
+    journal_checkpoint_persistence_source_and_model_contracts: 20_of_20_passed
+    combined_focused_M12_contracts: 72_of_72_passed
+    protected_provenance: 7_of_7_passed
+  limitations:
+    - no C++ compile or native backend execution; the syntax-only probe was inconclusive and is not accepted evidence
+    - no external persistence adapter, atomic write, fsync, restart load, crash recovery, migration, or replay
+    - acknowledgement is a trusted adapter declaration and SHA-256 values are integrity fingerprints rather than authentication
+    - portable journal export is not a replicated or client-safe late-join DTO and does not prove current server incarnation
+
+native_journal_checkpoint_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-journal-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - one deterministic bounded fixture applies two exact edits around a revision-one checkpoint capture
+    - a wrong but structurally valid persistence token reaches the exact live-pending-ticket rejection without changing revision or promoting a journal base
+    - exact acknowledgement compacts only the revision-one prefix and preserves the revision-two operation as the detached suffix
+    - export base manifest, base tail, final tail, operation identity, and duplicate acknowledgement idempotency are asserted
+    - backend include and all backend-using test code remain development-only and the unwired-source admissions name only the exact test translation unit
+  offline_verification:
+    native_automation_source_contracts: 7_of_7_passed
+    combined_focused_M12_contracts: 79_of_79_passed
+    protected_provenance_preflight: 7_of_7_passed
+    final_static_regressions: 106_of_106_passed
+    project_knowledge_integrity: passed_with_0_findings
+  limitations:
+    - native test source is not compiled or executed and therefore proves no backend runtime behavior
+    - no Unreal process, build, actor, map, output adapter, persistence adapter, deformation, collision, suction, Inventory, or rendering path was exercised
+
+native_checkpoint_restore_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-checkpoint-restore-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - a real acknowledged revision-one base and one later revision-two journal suffix exist before restore
+    - payload corruption fails bounded inspection and restore without changing revision, generation, checkpoint manifest, export manifest, or suffix operation identity
+    - exact equal-revision restore succeeds under exact compare-and-swap, preserves content revision, and advances authority generation once
+    - restore invalidates both the previously acknowledged base ticket and the pending revision-two persistence ticket
+    - restored state cannot export until a fresh capture and exact acknowledgement establish a new revision-two durability base
+    - fresh export contains no stale operation or journal tail and validates canonically
+  offline_verification:
+    native_automation_source_contracts: 11_of_11_passed
+    new_restore_source_contracts: 4_of_4_passed
+    combined_focused_M12_contracts: 83_of_83_passed
+    final_static_regressions: 110_of_110_passed
+    project_knowledge_integrity: passed_with_0_findings
+  limitations:
+    - the second native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - no external persistence, output adapter, actor, map, deformation, collision, suction, Inventory, renderer, or Unreal process was exercised
+
+native_persistence_ticket_reissue_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-persistence-ticket-reissue-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - one real acknowledged revision-one durability base and one revision-two journal suffix exist before reissue
+    - two unchanged revision-two captures preserve all eleven non-token checkpoint compare-and-swap fields
+    - the process-local persistence request token advances exactly once
+    - the superseded ticket is rejected without changing revision, durability base, export manifest, suffix count, or suffix operation identity
+    - only the newest exact ticket advances the durability base to revision two
+    - the resulting empty-suffix revision-two export binds the exact checkpoint manifest and history tail and validates canonically
+  offline_verification:
+    native_automation_source_contracts: 29_of_29_passed
+    new_multi_volume_isolation_source_contracts: 5_of_5_passed
+    combined_focused_M12_contracts: 101_of_101_passed
+    protected_provenance: 7_of_7_passed
+  limitations:
+    - the third native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - acknowledgement remains a trusted-adapter declaration rather than external atomic-write or flush proof
+    - no external persistence, output adapter, actor, map, deformation, collision, suction, Inventory, renderer, or Unreal process was exercised
+
+native_generated_output_role_isolation_stale_completion_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-generated-output-role-isolation-stale-completion-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - rejected combined-role queueing leaves a default request, consumes no capability token, and preserves all target output-state fields
+    - Presentation completion readies only Presentation while Collision remains pending, then exact Collision completion readies both roles
+    - one target edit rejects each old-role callback separately while all nine target output-state fields remain exact after each rejection
+    - an unrelated pending Presentation callback remains current when only the target chunk changes
+    - same-role Presentation retry supersedes only the older Presentation attempt and leaves the Collision attempt independently completable
+    - immediate before-and-after queries prove superseded rejection preserves all nine target output-state fields
+    - exact duplicate Presentation completion is idempotent while a conflicting fingerprint rejects without changing any of the nine fields
+  offline_verification:
+    native_automation_source_contracts: 19_of_19_passed
+    new_generated_output_source_contracts: 5_of_5_passed
+    combined_focused_M12_contracts: 91_of_91_passed
+    protected_provenance: 7_of_7_passed
+  limitations:
+    - the fourth native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - no adapter consumes a request or recomputes a fingerprint from an installed presentation or collision artifact
+    - no actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, or production field was exercised
+
+native_deterministic_initialization_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-deterministic-initialization-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - exactly two fresh local backends initialize from one canonical bounded 16-cubed volume spec with 8-cubed chunks
+    - all eight revision-zero chunk identities, checkpoint payload fingerprints, canonical RLE bytes, and full manifests match
+    - duplicate stable-ID initialization rejects while revision, generation, every chunk identity, every payload, and the canonical manifest remain exact
+    - detached Presentation request bytes rehash to the selected checkpoint payload and preserve canonical source, role, and build-profile identity
+    - valid backend-instance capability GUIDs remain distinct and queued work cannot fabricate readiness or mutate canonical revision
+  offline_verification:
+    native_automation_source_contracts: 24_of_24_passed
+    new_deterministic_initialization_source_contracts: 5_of_5_passed
+    combined_focused_M12_contracts: 96_of_96_passed
+    protected_provenance: 7_of_7_passed
+  limitations:
+    - the fifth native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - a generated build request is a detached caller-mutable value rather than API-enforced immutable storage
+    - no adapter, actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, or production field was exercised
+
+native_multi_volume_isolation_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-multi-volume-isolation-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - one backend owns two simultaneously live volumes with distinct stable IDs, seeds, canonical specs, checkpoints, and content
+    - volume-local first accepted edits advance only their own revision, output identity, checkpoint manifest, and journal
+    - a stale cross-volume edit and a retargeted chunk revision reject without mutating either canonical volume or consuming a build token
+    - foreign spec and source identity cannot complete another volume's output ticket even with that volume's exact attempt token
+    - a foreign process-local attempt token cannot complete another volume's otherwise exact output ticket
+    - both exact output tickets survive rejected callbacks and independently ready only their own Presentation output
+    - both persistence request envelopes validate and bind their own target, spec, checkpoint, journal tail, generation, instance, and token
+    - foreign checkpoint identity and foreign persistence token acknowledgements reject without promoting either durability base
+    - both exact acknowledgements survive; a later second-volume edit leaves the first export exact and produces one validated second-owned journal operation
+    - all nine generated-output fields, both authority generations, revisions, manifests, base identities, and export identities are pinned across the isolation paths
+  offline_verification:
+    native_automation_source_contracts: 29_of_29_passed
+    new_multi_volume_isolation_source_contracts: 5_of_5_passed
+    combined_focused_M12_contracts: 101_of_101_passed
+    protected_provenance: 7_of_7_passed
+    final_static_regressions: 128_of_128_passed
+    project_knowledge_integrity_prerecord: passed_with_0_findings
+  limitations:
+    - the sixth native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - no generated-output or persistence adapter consumes the tested request or ticket
+    - no actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, or production field was exercised
+
+native_same_revision_checkpoint_manifest_equivocation_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-same-revision-equivocation-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - one deterministic one-cell edit establishes a real acknowledged revision-one checkpoint base and one canonical empty-suffix journal export
+    - one unchanged second persistence request binds the exact acknowledged manifest, journal tail, revision, generation, backend instance, and next process-local capability token
+    - one copied request changes only its ticket checkpoint manifest and matching copied checkpoint manifest to a different canonical SHA-256 identity
+    - request validation and backend acknowledgement reject with the exact same-revision checkpoint identity diagnostic before pending-ticket comparison
+    - rejection preserves live revision, authority generation, the complete checkpoint manifest and every chunk payload, plus all nine journal-export identity fields
+    - the prior acknowledgement remains duplicate-idempotent and the untouched pending same-revision ticket still acknowledges, leaving the final validated export identical
+  offline_verification:
+    native_automation_source_contracts: 34_of_34_passed
+    new_same_revision_equivocation_source_contracts: 5_of_5_passed
+    combined_focused_M12_contracts: 106_of_106_passed
+    protected_provenance: 7_of_7_passed
+    final_static_regressions_prerecord: 133_of_133_passed
+    project_knowledge_integrity_prerecord: passed_with_0_findings
+  limitations:
+    - the seventh native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - the conflicting manifest is a canonical declared digest used to exercise the same-revision guard, not a separately authenticated external checkpoint
+    - no generated-output or persistence adapter consumes the tested request or ticket
+    - no actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, or production field was exercised
+
+native_journal_capacity_acknowledgement_release_automation:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-native-journal-capacity-release-automation-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - one acknowledged revision-zero base and one accepted one-cell edit exactly fill a journal limited to one operation per checkpoint
+    - an otherwise-valid immutable sequence-two edit is handled but rejected with JournalCapacityReached and a validated zero-yield result
+    - rejection preserves live revision, authority generation, the full checkpoint manifest and every chunk payload, plus the complete one-operation journal identity
+    - capturing a revision-one persistence request alone leaves the journal full and the identical edit rejected
+    - the exact pending ticket survives that second refusal and only acknowledgement compacts the covered prefix into an empty revision-one suffix
+    - the identical rejected edit then succeeds at revision two and its sole exported operation preserves request identity and chains from the acknowledged checkpoint tail
+  offline_verification:
+    native_automation_source_contracts: 40_of_40_passed
+    new_journal_capacity_release_source_contracts: 6_of_6_passed
+    combined_focused_M12_contracts: 112_of_112_passed
+    protected_provenance: 7_of_7_passed
+    final_static_regressions_prerecord: 139_of_139_passed
+    project_knowledge_integrity_prerecord: passed_with_0_findings
+  limitations:
+    - the eighth native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - acknowledgement is a trusted in-memory durability declaration and is not proof of external write, flush, restart recovery, replication, or authentication
+    - ReleaseVolume lifecycle teardown, restore, multi-volume, and generated-output paths are outside this bounded scenario
+    - no adapter, actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, or production field was exercised
+
+generation_cas_release:
+  state: source_authored_static_contract_verified_uncompiled_unexecuted
+  evidence: ProjectKnowledge/evidence/2026-07-24-m12-generation-cas-release-source-static.yaml
+  source:
+    - Source/RedMMO/Mining/RedVoxelAsteroidBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.h
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+    - Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+  verified_static_properties:
+    - ReleaseVolume requires the exact nonzero authority-generation token and reports zero, missing, stale, or future generation rejection without live-state mutation
+    - exact generation-one release retains the stable-ID generation tombstone and same-ID recreation advances exactly to generation two
+    - delayed generation-one teardown cannot delete generation two or change its revision, generation, checkpoint manifest, chunk identities, or chunk bytes
+    - exact generation-two release succeeds and the next same-ID recreation advances exactly to generation three
+    - the generation comparison precedes the sole live-volume removal and no alternate backend implementation or runtime caller exists
+  offline_verification:
+    native_automation_source_contracts: 42_of_42_passed
+    new_generation_cas_release_source_contracts: 2_of_2_passed
+    combined_focused_M12_contracts: 114_of_114_passed
+    protected_provenance: 7_of_7_passed
+    final_static_regressions_prerecord: 141_of_141_passed
+    full_offline_discovery_prerecord: 525_of_525_passed
+    full_offline_discovery_postrecord: 525_of_525_passed
+    project_knowledge_integrity_prerecord: passed_with_0_findings
+  limitations:
+    - the ninth native scenario is not compiled or executed and therefore proves no backend runtime behavior
+    - release does not prove persistence-safe unload, external durability, recovery, replication, or authentication
+    - no adapter, actor, map, deformation, collision cook, suction, Inventory mutation, renderer, Unreal process, package, Steam, multiplayer, or production field was exercised
+
+backend_admission_gate:
+  required_before_voxel_implementation:
+    - project-local source or approved binary distribution with pinned version and license provenance
+    - explicit Unreal Engine 5.8 compatibility
+    - runtime density or material read and bounded brush-edit API
+    - runtime mesh and collision rebuild support with bounded asynchronous work
+    - deterministic base volume or serializable snapshots
+    - dedicated-server compatibility and no editor-only dependency
+    - no mutation of vendor source; isolate integration behind a project-owned adapter
+  rejected_shortcuts:
+    - relabeling whole-mesh destruction as mining
+    - using decals, Chaos fracture, or DynamicMesh booleans as voxel acceptance
+    - spawning one replicated actor or network message per removed voxel
+    - crediting Inventory before the visible material reaches the collector
+    - enabling the dormant Voxel uproject entry without a descriptor, source, license, and UE 5.8 build proof
+
+smallest_isolated_prototype:
+  map_asset_path: /Game/RedMMO/Maps/Tests/RedVoxelAsteroid_M12
+  stable_id: asteroid.red.m12.prototype.001
+  production_map_or_field_replacement: false
+  scale:
+    target_diameter_m: [25, 40]
+    purpose: bounded walkable one-player test body rather than a planet-scale volume
+  initial_density_candidate:
+    dimensions_cells: [64, 64, 64]
+    cell_size_m: [0.75, 1.0]
+    chunk_dimensions_cells: [16, 16, 16]
+    status: profiling_candidate_not_accepted_budget
+    source_of_truth: authoritative_density_and_material_cells
+    generated_outputs:
+      - runtime presentation mesh
+      - bounded rebuilt collision
+  implemented_backend_neutral_types:
+    - RedVoxelMining::FClientEditRequest
+    - RedVoxelMining::FValidatedEdit
+    - RedVoxelMining::FApplyResult
+    - RedVoxelMining::FChunkRevision
+    - RedVoxelMining::FVolumeCheckpoint
+    - RedVoxelMining::FEditOperation
+    - RedVoxelMining::FEditJournalExport
+    - RedVoxelMining::FCheckpointPersistenceTicket
+    - RedVoxelMining::FCheckpointPersistenceRequest
+    - RedVoxelMining::FCheckpointPersistenceAcknowledgement
+    - RedVoxelMining::FCheckpointRestorePrecondition
+    - RedVoxelMining::FLooseClusterState
+    - RedVoxelMining::FServerSuctionArrivalEvidence
+    - RedVoxelMining::FInventoryCreditCommit
+    - IRedVoxelAsteroidBackend
+    - FRedInMemorySparseVoxelBackend
+  future_runtime_types:
+    - serialized compilation and execution of the nine authored native backend scenarios
+    - project-owned mesh and collision adapter that recomputes installed-artifact fingerprints
+    - trusted versioned checkpoint and journal persistence adapter with replay and restart recovery
+    - ARedVoxelAsteroidPrototype
+    - ARedLooseResourceCluster
+  server_authoritative_flow:
+    - player exits the ship and equips a dedicated handheld mining tool
+    - client requests a brush edit with target stable ID, origin, direction, and local prediction token
+    - server revalidates possession, tool state, range, line of sight, rate limit, target ID, and current revision
+    - backend removes only intersected material and returns exact removed volume grouped by material ID
+    - server rejects zero-volume and duplicate requests, advances one monotonic edit revision, and appends one bounded brush operation
+    - server aggregates removed material into a small number of loose clusters rather than per-voxel actors
+    - an eligible cluster acquires the authorized collector only inside bounded range and line of sight
+    - server owns suction collection, cancellation, arrival, exactly-once Inventory credit, and cluster destruction
+    - Inventory updates only after collection arrival and the combat HUD shows only a transient collection receipt
+  replication_and_late_join:
+    - replicate immutable stable ID, base seed, material-table ID, dimensions, and monotonic revision
+    - replicate validated compact brush operations, never generated triangles or one event per voxel
+    - periodically checkpoint dirty chunk density and material state with content hashes
+    - late join receives the newest checkpoint plus subsequent ordered edits before collision or mining is enabled
+    - clients rebuild visible meshes locally while authority retains canonical volume and gameplay collision
+    - stale, duplicate, skipped-revision, wrong-target, and out-of-range edits fail closed
+  gravity_and_traversal:
+    - register the isolated asteroid through a project-owned stable celestial-body adapter
+    - reuse the RedCelestialFrameRegistry stable-frame contract rather than hard-coded actor names
+    - do not mutate the home planet, production scenery bodies, or production asteroid field to prove the prototype
+  performance_budgets_to_define_before_runtime:
+    - voxel size and chunk dimensions
+    - maximum edited voxels and dirty chunks per request
+    - maximum requests and loose clusters per player per second
+    - mesh and collision rebuild milliseconds per frame
+    - replication bytes per edit, checkpoint, and late join
+    - relevance and cleanup distances
+
+acceptance_sequence:
+  - static backend admission and source-contract tests
+  - serialized editor and game-target compile
+  - one isolated real-GPU walk, carve, persistent-cavity, suction, and Inventory-credit pass
+  - authoritative two-player ownership, anti-duplication, competing-collection, and late-join pass
+  - bounded GPU, game-thread, collision-cook, server, and network profiling
+  - only after isolated acceptance, review a separate migration plan for production deep-space fields
+
+next_safe_action: >-
+  When physical memory safely permits, compile the serialized TitanEditor and
+  game targets with -NoUBTMakefiles and execute the nine exact native scenarios
+  RedMMO.Mining.VoxelBackend.JournalCheckpointPersistence,
+  RedMMO.Mining.VoxelBackend.CheckpointCorruptionRestoreInvalidation,
+  RedMMO.Mining.VoxelBackend.PersistenceTicketReissue,
+  RedMMO.Mining.VoxelBackend.GeneratedOutputRoleIsolationAndStaleCompletion,
+  RedMMO.Mining.VoxelBackend.DeterministicInitialization, and
+  RedMMO.Mining.VoxelBackend.MultiVolumeIsolation, and
+  RedMMO.Mining.VoxelBackend.SameRevisionCheckpointManifestEquivocation, and
+  RedMMO.Mining.VoxelBackend.JournalCapacityRelease, and
+  RedMMO.Mining.VoxelBackend.ReleaseRecreateGenerationCAS. Only
+  after those gates pass, implement one
+  project-owned generated-output adapter and one trusted versioned persistence
+  adapter with atomic write, flush, restart load, corruption, disk-full,
+  migration, and replay tests. Do not create or wire an actor or map until
+  source, compile, native corruption, replay, installed output,
+  stale-completion, and profiling gates pass. If physical RAM remains below the
+  safe compile gate, continue another independent queued module rather than
+  weakening this gate.
+
+claim_limit: >-
+  This record includes static backend-neutral contracts, a project-owned
+  in-memory sparse binary-density/material backend, and a logical exact-ticket
+  generated-output completion boundary plus a hash-chained journal export and
+  checkpoint-persistence acknowledgement boundary with offline source/model
+  verification, plus nine development-only native backend automation
+  scenarios. The C++ backend and harness are uncompiled and unwired; neither the
+  Python model nor source-contract suite executes them.
+  No adapter recomputes a fingerprint from an installed artifact, so logical
+  readiness mutation is not proof of generated mesh or collision. No external
+  adapter writes, flushes, reloads, authenticates, or replays the checkpoint and
+  journal data. These records do not deform an actor, move or render a resource
+  cluster, mutate Inventory, launch Unreal, render a cavity, validate controls,
+  profile performance, package, or test multiplayer.

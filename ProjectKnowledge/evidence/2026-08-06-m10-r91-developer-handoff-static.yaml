@@ -1,0 +1,194 @@
+schema_version: 1
+id: evidence.m10.r91-developer-handoff-static
+module: M10
+evidence_class: static
+status: accepted_partial_dependency_and_human_gates_open
+timestamp_utc: 2026-08-06T17:08:06Z
+scope: >-
+  One no-clobber currentness-only developer handoff for the already built R91
+  clean-RedMMO candidate. The external D-resident document pins the exact
+  launcher, package tree, editable project, current HUD and replicated
+  GameState boundaries, hands-on checklist, protected identities, rollback and
+  claim limits. No Unreal, build, cook, package, editor, desktop-control, map,
+  source, asset, Config, plugin, vendor, user-asset, CC5 or Blender work ran.
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/transaction_intent.yaml
+  intent_sha256: 7EBD7DD4DC91FB47C8ED126B0A564E727FC9312E6FA1C0205186445FC802DE5D
+  handoff_directory_absent_at_entry: true
+  r91_modified: false
+  r90_modified: false
+  clean_project_modified: false
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2462
+  free_physical_ram_gib: 54.15
+  commit_headroom_gib: 53.97
+  gpu_free_mib: 8949
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+
+handoff:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/DEVELOPER_HANDOFF_R91.md
+  byte_length: 12562
+  sha256: DD7CAE7A58E7CF629029C5052FDDCBFB35DCA5715F198F1DE4C972D38F23FDA2
+  heading_count: 9
+  focused_document_and_artifact_checks: 30_of_30_passed
+  reference_existence_checks: 28_of_28_passed
+  verified_sections:
+    - exact R91 launcher, tree, launcher hash and current game-binary hash
+    - exact editable D-drive project, home, ProfileV1 and seed identities
+    - prominent PlayerStatus missing-cook warning and fallback-reticle boundary
+    - retained projectile, rifle, grounded-audio and native jetpack evidence
+    - current native HUD consumer and replicated celestial GameState source
+    - M04, M05, fused-world, replication and multiplayer open boundaries
+    - physical controls, jetpack, HUD, audio, StarSparrow and PPG checklist
+    - hard zero-palms, no-square-water and no-old-checkout guards
+    - protected identities, scoped rollback chain and explicit claim limits
+
+audit:
+  script: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/audit_handoff_r91.py
+  script_sha256: CF95F90823309B2DDDB2BA0981C90B0D4BB2957AB2CA9DF55629EE8982FB1CC5
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/handoff_audit.json
+  report_sha256: ACF29128EB6E67D7EA2AC1F532D09879662BBFBBD20085DE5C550572DB76EE1D
+  result: pass
+  disclosed_first_attempt: >-
+    The first audit reported only physical_controls_open because the harness
+    searched for an uppercase phrase while the document used lowercase. The
+    other 29 checks and all 28 references passed. The one case-insensitive
+    harness correction produced the preserved final 30/30 pass; handoff and
+    package bytes did not change.
+
+verification:
+  focused_test_command: >-
+    python -B -m unittest Tools.tests.test_project_knowledge_integrity
+    Tools.tests.test_fused_prototype_provenance
+    Tools.tests.test_import_fused_macro_heightfield -v
+  focused_tests: 37_of_37_passed
+  focused_tests_stdout: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/project_knowledge_and_fused_tests.txt
+  focused_tests_stdout_bytes: 199
+  focused_tests_stdout_sha256: 4AE684B8B1F0D9C6D24766A30654F366EAF02034870791F0CC462FB63F2F8BA5
+  focused_tests_stderr: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/project_knowledge_and_fused_tests.stderr.txt
+  focused_tests_stderr_bytes: 7331
+  focused_tests_stderr_sha256: ED8841068AC3B6E22015FDF95D610BAB035A2D8687718166D0D66797223479CD
+  expected_fail_closed_fixture: >-
+    The stdout PKI011 fail result is the intentional temporary-fixture output
+    from test_cli_fails_closed_but_can_write_a_failed_diagnostic; the full
+    unittest process exited zero and reports 37 tests OK.
+  canonical_integrity_result: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_DeveloperHandoff_20260806T1703Z/project_knowledge_integrity_final.json
+  canonical_integrity_report_sha256: 719ABE47565E385B835ADF0C299BDAE881F57D63600365198583807ED7BF1B45
+
+artifact:
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R91_Playable_20260806T1642Z/Windows/RedMMO.exe
+  configuration: Win64_Development
+  package_tree_sha256: 78CA43D6902FC646EAF640C0344B3E0879A875FBA1A2CDAAB2CE829700E5467E
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 8E3A0909D991E678AF3CDB93B9DA4E082B8BA9D4DCE53B2F2D3D831A9089BC6A
+  clean_file_count: 50
+  total_bytes: 1454950806
+  package_build_cook_archive_and_d3d12_startup: passed
+
+known_r91_blocker:
+  staged_player_status_uasset_sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  cooked_player_status_entry_count: 0
+  packaged_missing_asset_warning_count: 2
+  fallback_reticle_guaranteed: true
+  authored_fuel_pixels_accepted: false
+  next_fix_boundary: >-
+    A later independent M00 slice may add only an explicit project-owned cook
+    reference or narrow directory rule for the exact staged texture, then build
+    a no-clobber successor and require zero warnings plus real-D3D12 fuel pixels.
+
+editable_project:
+  uproject: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  profile_data_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  ppg_seed: 1337
+
+source_evidence:
+  r91_package:
+    path: ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r91-current-playable-package.yaml
+    sha256: 2CC8F56A91850E84029A865F3824681E0E751B654459FFF4FD2D9C43617BCE1C
+  replicated_celestial_gamestate:
+    path: ProjectKnowledge/evidence/2026-08-06-m05-client-celestial-snapshot-build-automation.yaml
+    sha256: FB4EA821A888A30F9055F301B33FCA1B59EE381FCA468E6A1FEC7813224C4350
+  hud_visual_injection_blocker:
+    path: ProjectKnowledge/evidence/2026-08-06-m00-def-0004-hud-fuel-state-injection-blocked.yaml
+    sha256: A49F4470A6257DFB5482E9B3F57C340CD6BF637BE15CEF98F48EE125DA876154
+  jetpack_timing_native_sha256: E66BFDEB82F5DF6CB5666CB904BECE3D4976AE31366A2A67566EA94249BC5F8F
+  jetpack_producer_native_sha256: 70466097BBA0DE9F59F9C8A0FB1EE2F1E98BC333FE24CCBAB21BEE168A05EFC6
+
+current_boundaries:
+  m04: >-
+    Six-face recursive LOD, bounded asynchronous work, stale-result guards,
+    deterministic chunk seed, native water and detail foliage are present;
+    player-zero selection, velocity look-ahead, fast traversal, seam/hole,
+    hitch, frame-time, memory, two-process and late-join acceptance remain open.
+  m05: >-
+    R91 carries the native replicated GameState snapshot and packaged startup
+    records initial publication without snapshot failure. Real server/two-client
+    initial/update/coalescing/stale/late-join transport, radar and minimap remain open.
+  m03: >-
+    The protected 27-input/six-face fused source is byte-proven but has no
+    traceable exact packaged consumer closure in R91.
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  fused_faces_count: 6
+  hard_zero_palms_rule: preserved
+  package_project_source_map_profile_config_plugin_vendor_user_bytes_changed: false
+
+rollback: >-
+  Remove only the new external R91 handoff directory and this evidence/index/
+  state/queue linkage. R91, R90 and the editable project require no rollback.
+  Use the exact scoped implementation rollback listed in the handoff for later work.
+
+postflight:
+  captured_utc: 2026-08-06T17:08:06Z
+  free_physical_ram_gib: 54.23
+  commit_headroom_gib: 54.05
+  gpu_free_mib: 8988
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+
+queue:
+  snapshot_sha256: 96A497782DB47623E0FD51A933ABDF2BC7ABA24D843DD7E90F22B31F847BBD4A
+  module_status: queued
+  retry_count: 19
+
+claim_limit: >-
+  Static handoff currentness tied to the existing R91 package and prior source,
+  build, automation and package evidence. It does not prove PlayerStatus cook
+  closure, authored fuel pixels, human playability, physical controls,
+  perceived audio, visible art, uninterrupted traversal, performance,
+  protected fused consumption, replication, multiplayer, persistence,
+  dedicated server, Steam, warp, final art or game completion.
+
+blocker: >-
+  R91 is launchable now and the developer handoff is current, but PlayerStatus
+  is absent from the cooked container. Human controls, jetpack/landing, audio
+  and current PPG visual review remain required. M10 dependencies, fused-world,
+  server/two-client transport, multiplayer, persistence, server, Steam,
+  performance, travel and final-art gates remain open.
+
+next_safe_action: >-
+  The user or developer launches the exact R91 executable and records checklist
+  results against the pinned tree hash. Preserve R91 unchanged. Rotate the next
+  unattended wake to another independent authorized module; on a later M00
+  return, close only the exact PlayerStatus cook-reference boundary.

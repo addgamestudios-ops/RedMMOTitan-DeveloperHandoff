@@ -1,0 +1,155 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0002-FIGHTER-REBOARD-SOURCE-CONTRACT-STATIC
+captured_at: 2026-07-22
+module: M02
+slice: DEF-0002-fighter-landing-reboard-source-contract
+evidence_class: static
+result: passed_existing_safeguards_with_critical_recovery_gap_open
+
+resource_preflight:
+  samples: 8
+  duration_seconds: 28
+  free_physical_ram_gib_range: [7.950, 11.975]
+  stabilized_free_physical_ram_gib_range: [11.761, 11.975]
+  free_commit_gib_range: [6.037, 21.001]
+  stabilized_free_commit_gib_range: [20.733, 21.001]
+  free_vram_mib_range: [8868, 8891]
+  disk_free_gib:
+    C: 132.869
+    D: 1141.736
+  blocker_process_count: 0
+  decision: >-
+    Did not launch Unreal, UnrealBuildTool, cook, or packaging. Sustained free
+    physical RAM remained below the safe Unreal/build gate and far below the
+    18-20 GiB packaging rule.
+
+historical_failure_boundary:
+  playtest: ProjectKnowledge/playtests/2026-07-21-space-flight-asteroid-landing.yaml
+  source_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceFix_20260721_035408/build_stdout.log
+    sha256: CF6FAC24DE7572BD72CDBAE5D9AC8826E5256D8FF1A9BC428227AE3C0D600351
+    last_write_utc: 2026-07-21T00:59:51.6390806Z
+  failed_runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceRuntime_20260721_040045/runtime.log
+    sha256: FC452ECD48BF9AE2077448B5BFD48D267A349594568D465B302CB14A8BB25D95
+    last_write_utc: 2026-07-21T01:20:13.0596181Z
+  reconciliation: >-
+    The failed run predates the current RedShip and RedShipMovementComponent
+    source timestamps, so it remains authoritative reproduction evidence but
+    cannot accept or reject the newer recovery paths. It also predates the
+    current compass source by more than one day.
+
+verified_existing_source_contracts:
+  - dominant gravity body selection refreshes before the local-controller early return and retains stable-ID hysteresis
+  - exit clears local, server, boost, movement-component, and velocity latches before surface parking
+  - parking and landing query exact owned PlanetGen terrain and use the dominant body's radial-up frame
+  - fitted support distance, tangent-forward reconstruction, and zero-velocity touchdown are present
+  - reboard clears stale flight state before possession and explicitly restores move and look input
+  - local W or positive lift and the server input mirror release a settled landing lock
+  - ship compass heading uses a spherical tangent frame and the last stable heading fallback
+
+critical_open_gaps:
+  - >-
+    TryResolvePassiveTerrainPenetration intentionally returns false whenever the
+    fitted translation envelope is live; passive fitted-hull recovery remains a
+    separate unimplemented response gate.
+  - >-
+    landing and exit parking use unswept TeleportPhysics rotation and location
+    changes without an exact/native post-clearance transaction, so they can
+    create a fitted start overlap that cannot passively recover
+  - >-
+    native fitted-box depenetration and rotation-changing initial penetration
+    remain fail-closed in M02
+  - >-
+    CurrentGravityBodyId is not exposed to the ship's acceptance diagnostics, so
+    the required before/after body-ID and radial-up agreement cannot yet be logged
+  - >-
+    the compass stable-heading cache is not keyed or reset on a dominant-body
+    change and has no current nose-radial reboard runtime acceptance
+
+source_identity:
+  - path: Source/RedMMO/RedShip.cpp
+    sha256: B750E9E6A81530BCFC95B15C697C97371058F00A6C237123C7103ACA6FEFC02D
+    last_write_utc: 2026-07-21T02:25:12.2204785Z
+  - path: Source/RedMMO/RedShip.h
+    sha256: CB9B6A70AF7A05E710A227BC7D1A2E16F5BD54985E32633ADF44E9B0D6F663BF
+    last_write_utc: 2026-07-15T15:43:07.0250623Z
+  - path: Source/RedMMO/RedShipMovementComponent.cpp
+    sha256: 9CEBD528B3C61C430D52C89AC336C6FF4C0175B8AA3A63A5016187A322D86328
+    last_write_utc: 2026-07-21T02:25:12.2037793Z
+  - path: Source/RedMMO/RedShipMovementComponent.h
+    sha256: B67AD2ADCFB9E93E863A3CE21ADFDD01F0C3579F14488424F5497ABA84C6B9DB
+    last_write_utc: 2026-07-21T02:25:12.1992220Z
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: 3609B8407C32035D892C67EB65DBB7BF59BC850FF28E67CD1C85B9322743C405
+    last_write_utc: 2026-07-22T12:06:10.6468164Z
+  - path: Tools/tests/test_def0002_ship_reboard_contract.py
+    sha256: 3E1A87FBAD3218A83000A234112841D32C7A3C15FEC2838B01B796F51DF15B40
+
+verification:
+  command: python -B -m unittest Tools.tests.test_def0002_ship_reboard_contract -v
+  result: passed
+  tests_passed: 6
+  assertions:
+    - dominant-body refresh ordering, stable ID, center, and radius updates
+    - exact-terrain radial parking and landing-assist inputs
+    - reboard state reset and local plus server takeoff release
+    - radial-up touchdown alignment and velocity clearing
+    - tangent-frame ship compass with stable fallback and replacement-HUD forwarding
+    - explicit fitted passive-recovery limitation and open defect state
+
+target_currency:
+  command: python -B Tools/audit_windows_target_currency.py
+  result: refused_fail_closed
+  exit_code: 10
+  input_count: 874
+  input_manifest_sha256: 3CB37C10137F1DB2AA0AD97F38CEE81BED7912795283195CBC023140EFEE9915
+  titan:
+    state: stale_unproven
+    newer_project_input_count: 27
+  titan_editor:
+    state: stale_unproven
+    newer_project_input_count: 14
+  skip_build_authorized: false
+
+installed_binary_boundary:
+  titan_editor_red_mmo:
+    path: Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: CE3D81711FC0AAAF03D06BE9060D5215852B289532E503ED3B23E58869E8BF38
+    last_write_utc: 2026-07-21T20:59:28.2000370Z
+  titan_game:
+    path: Binaries/Win64/Titan.exe
+    sha256: 1D08705EA17049B420257EAAED0C4D558C9D5A81252F77037F0CEAEF8C04346E
+    last_write_utc: 2026-07-21T09:31:14.6630131Z
+  conclusion: >-
+    Installed binaries postdate the current ship source timestamps, but no exact
+    build-time proof authenticates those source hashes, both targets fail the
+    project-wide currency audit, and both binaries predate the current compass
+    source. They cannot accept this defect.
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_embedded_manifest: 338_of_338_passed
+  protected_source_rasters: 135_of_135_passed
+  unreal_or_build_processes_launched: 0
+  map_or_asset_files_modified: 0
+  artist_repository_files_modified: 0
+
+claim_limit: >-
+  This is source inspection and offline regression evidence only. It proves
+  existing recovery safeguards and identifies the remaining fitted-hull failure
+  boundary; it does not prove compilation, collision recovery, landing, exit,
+  reboard, takeoff, compass behavior, replication, rendering, packaging, or
+  multiplayer. DEF-0002 remains open.
+
+next_safe_action: >-
+  In a later M02 slice, implement collision-aware fitted-envelope passive recovery
+  and a reversible exact/native post-clearance transaction for landing and parking,
+  then expose dominant body ID and radial-up agreement for acceptance logging.
+  Build only after the safe RAM gate passes. Close DEF-0002 only after a bounded
+  real-GPU planet approach, landing, exit, reboard, takeoff, and stationary compass
+  run. The project-wide next action remains M00's capped T02 sparkle captures when
+  its stricter real-GPU resource gate passes.

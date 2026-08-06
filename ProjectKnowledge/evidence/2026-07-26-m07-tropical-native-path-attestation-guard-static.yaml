@@ -1,0 +1,192 @@
+schema_version: 1
+id: evidence.m07.tropical-native-path-attestation-guard.static.2026-07-26
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: tropical-live-validation-blank-wmi-dotnet-path-attestation-hardening
+evidence_class: static
+captured_utc: "2026-07-26T13:42:30Z"
+result: passed_static_no_unreal_launch
+
+objective: >-
+  Repair the exact fail-closed blocker from the one approved Tropical
+  planetary-biome launch: Win32_Process returned a blank ExecutablePath for
+  the normal short-lived ValidatePlatforms dotnet child. Preserve every
+  existing launch, ancestry, argv, project, hash, runtime-tree, listener,
+  resource, audit, and exact-process-stop gate.
+
+authorization_boundary:
+  unreal_launch_authorized_in_this_slice: false
+  scratch_map_mutation_authorized_in_this_slice: false
+  operation_performed: offline_guard_repair_and_no_launch_verification_only
+  future_launch_requires_new_explicit_approval: true
+
+authoritative_checkout:
+  root: D:/RedMMOTitan
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  unrelated_dirty_work_preserved: true
+
+launcher:
+  path: D:/RedMMOTitan/Build/Automation/Start-M07TropicalBiomeLiveValidation.ps1
+  bytes: 195689
+  sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+  powershell_parser_errors: 0
+  hardening:
+    - a fresh-host-only versioned P/Invoke type is required; a preloaded same-name type fails closed
+    - OpenProcess uses non-inheritable PROCESS_QUERY_LIMITED_INFORMATION access
+    - GetProcessId, QueryFullProcessImageNameW with flags zero, and GetProcessTimes use the same retained native handle
+    - CloseHandle failure invalidates an otherwise successful native query
+    - native PID must equal the sampled WMI PID
+    - native and WMI creation times must match at the exact WMI microsecond
+    - the native result must be an unprefixed absolute DOS path before the existing exact-path comparison
+    - successful native evidence requires exact Int32 PID, System.String path and creation time, plus strict Boolean native-query success, same-handle, handle-closed, and raw-handle-redaction members
+    - missing, string-confused, false same-handle, false close, and true raw-handle-disclosure evidence all reject
+    - a nonblank WMI path never invokes or overrides through the native fallback
+    - blank-path native fallback is explicit opt-in and is used only at the two bounded dotnet classifier callsites and the matching dotnet audit callsite
+    - command-host and rejected-parent path attestations remain WMI-only; a blank parent path rejects
+    - the cache exists only for one process-enumeration snapshot and its key binds PID, creation time, WMI path, and fallback authorization mode
+    - accepted and rejected process records retain their executable-path attestations, including parent or command-host evidence
+  unchanged_gates:
+    - exact scratch project and map
+    - exact editor, command host, dotnet, UBT, AutomationTool, and runtime-tree hashes
+    - exact argv shape, working-directory basis, ancestry, and creation ordering
+    - provider, MCP, UAIP, Nwiro, messaging, listener, resource, and audit restrictions
+    - retained exact-process-handle stop paths with no name or process-tree kill
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeGuardHardening/rollback_20260726_125731_926Z/Start-M07TropicalBiomeLiveValidation.ps1
+  bytes: 155137
+  sha256: 377DEECE4EF0C294840ADF6B9C9DADD4F9533049DB5C771F1D66F471E0334DCC
+
+verification:
+  native_process_and_listener_probes:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/turnkey_guard_probe_20260726_134112_474Z_071922ae/probe_evidence.json
+    bytes: 113255
+    sha256: 2DF423BF4D680BB36D23AE14F1A0BF37ED4C22CC84BEEF027F7E41DDE95CE0D2
+    launcher_sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+    result: passed
+    native_binding_cases_passed: 26
+    native_binding_cases_total: 26
+    process_classification_cases_passed: 28
+    process_classification_cases_total: 28
+    listener_cases_passed: 6
+    listener_cases_total: 6
+    unreal_started: false
+  sensor_stop_and_audit_probes:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/sensor_failure_probe_20260726_134113_252Z_90e91d56/probe_evidence.json
+    bytes: 25761
+    sha256: 84A3AEB389841A7BE67CDF975CECDE0881B10B7E9E9BBAB4387848D7C2F2D49C
+    launcher_sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+    result: passed
+    fail_closed_sensor_cases_passed: 9
+    retained_exact_handle_stop_cases_passed: 2
+    malformed_live_audit_type_cases_rejected: 14
+    unreal_started: false
+  sustained_preflight:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeLiveValidation/20260726_134126_860Z_9c7e8ec1/monitor_evidence.json
+    bytes: 32447
+    sha256: DF1707EED50157A791B8E22B386C3CBC02ADB5E4652C296F033775D27BFDDC94
+    launcher_sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+    result: preflight_passed_no_launch
+    samples_passed: 6
+    samples_total: 6
+    minimum_free_physical_gib: 47.784
+    maximum_free_physical_gib: 47.816
+    minimum_free_commit_gib: 63.369
+    maximum_free_commit_gib: 63.433
+    initial_blockers: 0
+    unreal_pid: NOT_STARTED
+  canonical_integrity_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropicalBiomeGuardHardening/project_knowledge_audit_20260726_1346.json
+    bytes: 1784
+    sha256: 582E8688F82B4CEC1D63354312530EC0F4F512CF84BD9AACE2EA7D25D2D1B9B3
+    result: pass
+    errors: 0
+    warnings: 0
+
+independent_review:
+  exact_reviewed_sha256: A3927F3097199305AAEFC1119831295875808B6AE17E14E63D586D85B43804FA
+  reviewers_required: 2
+  reviewers_completed: 2
+  verdict: go_for_later_separately_authorized_bounded_normal_operation_launch
+  p0_findings: 0
+  p1_findings: 0
+  p2_findings: 0
+  residual_p2_evidence_boundary: >-
+    The live same-handle native primitive and the complete classifier are
+    tested separately. No probe safely keeps a real short-lived
+    ValidatePlatforms or Turnkey dotnet child alive while WMI returns a blank
+    path and proves the whole positive classifier in one no-launch fixture.
+    The next separately approved guarded run remains the fail-closed
+    normal-operation integration check.
+
+planet_authoring_contract:
+  invariant_id: INV-STREAM-001
+  statement: >-
+    The 27 square regions remain overlapping tangent-local authoring inputs
+    fused before runtime; they are not runtime World Partition cells.
+  authoring_inputs_modified: false
+  runtime_cells_created_or_modified: false
+  production_sphere_modified: false
+
+scratch_stage_after_slice:
+  project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map_package: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  map_file:
+    bytes: 12497095
+    sha256: FBB0EED0191099B99833CA829834BA08DB5786204ED27A04BA38F053B4F1B491
+    unchanged: true
+  staged_actor_count: 17
+  collision_enabled: false
+  pre_snap_altitude_cm: 34000
+  native_planet_snap_complete: false
+  water_or_cloud_assets_applied: false
+  screenshot_pixels_inspected: false
+  real_gpu_planet_fit_accepted: false
+
+resources_after_slice:
+  free_physical_gib: 47.793
+  free_commit_gib: 63.376
+  disk_d_free_gib: 1038.767
+  gpu:
+    model: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 1259
+    free_vram_mib: 8795
+  relevant_unreal_build_cook_package_processes: 0
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap:
+    bytes: 1666226
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap:
+    bytes: 1751713
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap:
+    bytes: 12457859
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset:
+    bytes: 2776732
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_hashes_match: true
+
+claim_limit: >-
+  This proves only the no-launch repair and offline fail-closed guard behavior
+  in the disclosed sampled normal-operation scope. Unreal was not launched.
+  It does not prove that the native fallback will be needed or accepted in the
+  next real editor startup, that the 17 actors are snapped, or that the
+  Tropical assets fit or blend with the spherical planet. It proves no
+  screenshot, visual, collision, gameplay, water, cloud, performance,
+  surface-to-orbit, production-migration, or AI-orchestration acceptance.
+
+remaining_blockers:
+  - a new explicit approval is required before one guarded editor launch, native snap, disposable-map save, or screenshots
+  - the next real run must prove the short-lived dotnet path attestation inside the complete classifier
+  - real-GPU screenshot pixel inspection is required before any visual-fit or blending claim
+  - water, cloud, collision, gameplay, performance, surface-to-orbit flight, and production integration remain separate gates
+
+next_safe_action: >-
+  Ask for explicit approval for exactly one new guarded launch of the isolated
+  scratch project. If approved, run once, allow only the reviewed editor-owned
+  startup listeners, keep all providers and AI endpoints disabled, native-snap
+  and save only the disposable scratch map, and inspect real-GPU screenshots
+  before making any fit claim.

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "authorization_id": "redmmo.m07.nwiro.restricted-probe.lifecycle-source-v1",
+  "captured_utc": "2026-07-25T12:23:18Z",
+  "status": "approved_once_offline_candidate_lifecycle_source_only",
+  "parent_queue": {
+    "path": "D:/RedMMOTitan/Build/Automation/redmmotitan_module_queue.json",
+    "sha256": "62CEF0F494456E546C512A77219FF6D69F63C152F45F8652115E73B20E9C09B7"
+  },
+  "parent_evidence": {
+    "path": "D:/RedMMOTitan/ProjectKnowledge/evidence/2026-07-25-m07-nwiro-activation-ownership-source-static.yaml",
+    "sha256": "6CEE59968A6E442671E8C79468C1F7A58CE73C2041EFBA39268E9444711CD947"
+  },
+  "candidate": {
+    "root": "D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1",
+    "file_count": 90,
+    "directory_count_excluding_root": 10,
+    "total_bytes": 2207742,
+    "record_set_sha256": "761CB39071366A680D1CE0B2900FEC1103B64206D05E67904661CD3EE215CE11",
+    "topology_sha256": "7A2C6EE72ACA073C16D79DC01E6E8CB63A76DF8C9CD9291FA5D6413BF1137D18",
+    "candidate_manifest_sha256": "6DB05AD5720F53B47FC592B714830EAEA450F0BB22269264145413B364219CB5",
+    "delta_manifest_sha256": "647E8ED20CBBCEDDAD925CD6B72E2FC42949FE7C44E9E5143F26F0A3FF24579A"
+  },
+  "exact_candidate_mutation_allowlist": [
+    {
+      "path": "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp",
+      "bytes": 204464,
+      "sha256": "AA3FD57690EB52EEADCC473DA5C15C0F6A555199A06C9EEA4EF18258ECE20099"
+    },
+    {
+      "path": "Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h",
+      "bytes": 4038,
+      "sha256": "E6161EFD3E4F34DE037D329766A61D792ECC572FDCF8D83592AE99277F4AF747"
+    },
+    {
+      "path": "Source/NwiroIntegrationKit/Private/NwiroIKBridge.cpp",
+      "bytes": 293840,
+      "sha256": "80C8A3194148C86D1F4E1D479133BB2B76A627698F2E35DC4D6CE822E5FC1AA1"
+    }
+  ],
+  "authorized_source_controls": [
+    "lock-protected central admission state",
+    "request leases for HTTP and ACP direct-dispatch entrypoints",
+    "retained checked route handles and partial-bind rollback",
+    "route unbind before request drain",
+    "complete session and permission reset on teardown and session delete",
+    "stale permission-generation rejection",
+    "owner retention when an in-flight request or UE per-port listener remains",
+    "replacement of direct bridge session-allow writes with narrow server methods"
+  ],
+  "authorities": {
+    "source_mutation_authorized": true,
+    "rollback_reservation_authorized": true,
+    "project_test_addition_authorized": true,
+    "evidence_bundle_publication_authorized": true,
+    "candidate_file_addition_authorized": false,
+    "candidate_file_removal_authorized": false,
+    "candidate_file_rename_authorized": false,
+    "descriptor_mutation_authorized": false,
+    "compile_authorized": false,
+    "install_authorized": false,
+    "unreal_launch_authorized": false,
+    "mcp_initialize_authorized": false,
+    "mcp_tool_call_authorized": false,
+    "network_authorized": false,
+    "provider_call_authorized": false,
+    "asset_or_map_mutation_authorized": false,
+    "vendor_plugin_mutation_authorized": false,
+    "project_plugin_activation_authorized": false
+  },
+  "required_fail_closed_limits": {
+    "production_activation_literal_false": true,
+    "runtime_readiness_literal_false": true,
+    "global_stop_all_listeners_forbidden": true,
+    "process_owner_release_while_ue_listener_may_remain_forbidden": true,
+    "runtime_acceptance_claim_forbidden": true,
+    "static_acceptance_claim_forbidden": true
+  },
+  "protected_inputs": [
+    {
+      "path": "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen.umap",
+      "sha256": "1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724"
+    },
+    {
+      "path": "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap",
+      "sha256": "DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D"
+    },
+    {
+      "path": "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap",
+      "sha256": "4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284"
+    },
+    {
+      "path": "D:/RedMMOTitan/Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset",
+      "sha256": "412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562"
+    }
+  ]
+}

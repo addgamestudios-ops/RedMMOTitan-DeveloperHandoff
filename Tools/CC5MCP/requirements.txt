@@ -1,0 +1,3 @@
+# Official Model Context Protocol Python SDK stable v1 release.
+mcp==1.28.1
+

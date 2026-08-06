@@ -1,0 +1,183 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-M10-MISSING-EVIDENCE-ID-REPAIR-STATIC
+captured_at: "2026-07-23T16:27:27Z"
+module: M10
+slice: missing-stable-evidence-id-repair
+evidence_class: static
+result: passed_all_23_existing_stable_values_promoted_to_canonical_ids_audit_backlog_reduced_24_to_1_m10_stays_queued
+
+authorization_and_scope:
+  intended_work: >-
+    Repair only the complete PKI009 category by renaming each affected
+    historical record's legacy top-level evidence_id key to the canonical id
+    key while retaining the existing stable value byte-for-byte.
+  production_source_or_runtime_files_modified: 0
+  maps_assets_config_and_artist_repositories_modified: 0
+  historical_evidence_records_modified: 23
+  historical_claims_or_identifier_values_modified: 0
+  explicitly_deferred:
+    - completed M01 evidence resolution
+    - every M10 dependency and final handoff acceptance gate
+    - Unreal, build launch, cook, package, runtime, real-GPU, gameplay, HUD, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    tracked_dirty_entries: 60
+    untracked_entries: 1405
+    conflicts: 0
+    unrelated_dirty_work_preserved: true
+  resources:
+    physical_ram_free_gib: {minimum: 14.679, maximum: 14.782}
+    commit_headroom_minimum_gib: 30.074
+    d_drive_free_gib: 1140.93
+    gpu: NVIDIA_GeForce_RTX_3080
+    gpu_total_mib: 10240
+    gpu_used_mib: 2495
+    gpu_free_mib: 7559
+    gpu_utilization_percent: 11
+    gpu_temperature_c: 43
+    decision: static_offline_only_below_sustained_18_to_20_gib_packaging_gate
+  processes:
+    unreal_editor_build_cook_or_package_count: 0
+    overlap_detected: false
+  latest_build_evidence:
+    record: ProjectKnowledge/evidence/2026-07-23-m07-grass-gpu-defaults-static-build.yaml
+    log: D:/RedMMOTitanWindowsData/Diagnostics/M07_GrassGPUDefaults_20260723_152053Z/TitanEditor_UBT.log
+    result: succeeded_before_this_slice
+    note: no_build_was_started_or_claimed_by_this_slice
+
+identity_repair:
+  records_reported_by_PKI009: 23
+  source_key: evidence_id
+  canonical_key: id
+  stable_values_preserved_byte_for_byte: 23_of_23
+  exact_key_replacements: 23_of_23
+  line_count_delta_per_record: 0
+  byte_delta_per_record: -9
+  other_byte_changes: 0
+  legacy_evidence_id_keys_remaining: 0
+  indexed_evidence_records_after: 94
+  indexed_records_with_canonical_id_after: 94
+  case_insensitive_id_collision_groups_after: 0
+  interpretation: >-
+    Each legacy evidence_id value was already stable, record-specific, and
+    unique. Renaming only the key preserves historical identity and avoids
+    inventing replacement identifiers or expanding any acceptance claim.
+
+exact_change_review:
+  scope:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/slice_scope.yaml
+    bytes: 1655
+    sha256: A8417B17429A08B9E762FE7976D91ECED8DFA243775646858287B72E5B71F98A
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/exact_delta_manifest.json
+    bytes: 17862
+    sha256: 748172CA2176BC8F52746CA9BE286A5559811E5E13107580C6A3DB98728ED67F
+  independent_read_only_review:
+    result: passed_all_23_records
+    coverage: byte_exact_key_rename_value_identity_and_case_insensitive_collision_checks
+
+verification:
+  pre_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/integrity_pre.json
+    bytes: 7061
+    sha256: 08F76287D83E4A2FDD8688D3C96826A38F3E014D87540915A55AA4FD826144D8
+    expected_exit_code: 1
+    finding_count: 24
+    finding_code_counts: {PKI009: 23, PKI022: 1}
+  post_repair_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/integrity_after_id_repair.json
+    bytes: 1941
+    sha256: 428B83DCF1C6F5397152EEC61D3DDB70CD68A4908D0EA087BC128F2448E8D2CC
+    expected_exit_code: 1
+    finding_count: 1
+    finding_code_counts: {PKI022: 1}
+    exact_delta: PKI009_23_to_0_with_PKI022_unchanged
+  combined_static_regressions:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/static_regressions_precanonical.log
+    bytes: 18162
+    sha256: 825FA6F579E7CC1549FF580FF73E5C13902B1385D6D35750A03FFCC0DEEF3440
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+
+protection:
+  protected_50km_checkpoint:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_prototype:
+    path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_water_enabled_prototype:
+    path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+    sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  protected_source_rasters: 135_of_135_exact
+  result: pass_no_drift
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/M10_MissingEvidenceIds_20260723_161949Z
+  retained_preimages:
+    historical_evidence_records: 23
+    canonical_records: [INDEX.yaml, current_state.yaml, redmmotitan_module_queue.json]
+
+canonical_reconciliation:
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/integrity_final.json
+    bytes: 1941
+    sha256: 2AF24A6E953ADDE3AA18BB83BE03D7A99EA1E373C83DE2106268B7297A1EE94D
+    expected_exit_code: 1
+    result: failed_closed_with_1_current_metadata_finding
+    finding_code_counts: {PKI022: 1}
+    indexed_routes: 132
+    indexed_evidence_records: 95
+    indexed_defect_records: 8
+    queue_modules: 12
+  final_integrity_and_provenance_tests:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_MissingEvidenceIds_20260723_161949Z/final_integrity_and_provenance_tests.log
+    bytes: 12022
+    sha256: AAC33D2EA30CE8D4A1B2CC50D4FA47275FEE76A9F56B30844CAC56D1F82ACCF9
+    result: 27_of_27_passed
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 12254
+    sha256: 5589AC9F6AB475F2E98B8B1F449660DA79304F75AB5450E6D7BB56BEE5F91ADC
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 83440
+    sha256: C6DF482F405658755EFDDCE9488DE545D4B21CACAE7A675B4DA93EF01B0323BA
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 208465
+    sha256: F205D1378CA2909F5A866F9951CFB8D2B2C98FF0D272FD76C03A67456881ED13
+  queue_snapshot_matches_current_state: true
+  note: >-
+    This immutable final-audit pointer was appended after the final audit. The
+    evidence record already had its stable id and canonical evidence_class
+    during that audit, so this pointer-only append cannot change the reported
+    finding category or count.
+
+remaining_m10_blockers:
+  live_metadata_findings: 1
+  categories:
+    missing_evidence_ids: 0
+    completed_modules_without_resolvable_indexed_evidence: 1
+  unresolved_record: completed_M01_evidence_resolution
+  dependencies_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  This is static legacy-metadata repair and protected-provenance evidence only.
+  It promotes 23 pre-existing stable values to the canonical id key without
+  changing their identity or claims. It does not resolve M01, complete any M10
+  dependency or acceptance gate, or prove Unreal execution, successful build,
+  runtime, visuals, gameplay, HUD, packaging, Steam, or multiplayer behavior.
+
+next_safe_action: >-
+  Keep M10 queued and keep M01 evidence resolution separate. Return to the
+  canonical bounded M09 D3D12 16:9 resource-inventory visual/interactivity
+  acceptance when host resources safely permit one Unreal process.

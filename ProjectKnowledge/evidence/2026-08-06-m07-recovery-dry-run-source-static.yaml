@@ -1,0 +1,110 @@
+schema_version: 1
+id: evidence.m07.recovery-dry-run-source-static
+module: M07
+evidence_class: static
+status: accepted_partial_source_contract_only
+timestamp_utc: 2026-08-06T11:34:00Z
+scope: >-
+  Reconcile and statically verify the existing project-owned M07 report-
+  publication recovery dry-run source. The plan and design now identify the
+  implemented authenticated descriptor validator, deterministic checkpoint and
+  classification model, production publication hooks, and private worker body.
+  Worker execution remains hard-disabled. No child process, process
+  termination, VHDX operation, volume observation, write trace, recovery scan,
+  remount, project restore, or privileged action occurred.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  git_dirty_default_count: 196
+  git_dirty_expanded_count: 2386
+  free_physical_ram_gib: 51.21
+  commit_headroom_gib: 53.58
+  gpu_free_mib: 9136
+  gpu_utilization_percent: 12
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+verification:
+  command: >-
+    python -m unittest
+    Tools.tests.test_m07_disposable_volume_recovery_plan
+    Tools.tests.test_verify_redmmo_report_publication_recovery
+    Tools.tests.test_verify_redmmo_content_storage_restore
+  tests_run: 58
+  failures: 0
+  errors: 0
+  result: passed
+  verified_contracts:
+    - authenticated plan, volume-descriptor and observation SHA-256 boundaries
+    - duplicate-key and non-finite JSON rejection
+    - canonical D-path, bounded capacity, identity-chain and sentinel checks
+    - nonce, case, PID and HMAC binding
+    - all eleven ordered checkpoint classifications
+    - exact final requires both authenticated COMPLETE and clean exit
+    - corruption, ambiguous namespace, identity drift and outside writes fail closed
+    - production write_report_atomic checkpoint ordering without algorithm cloning
+    - private worker refuses before transport or publication while execution is disabled
+    - public CLI exposes no worker, disk, process, power or output mutation surface
+  deterministic_model_report:
+    report_id: m07.report-publication-recovery-dry-run.v1
+    state: VOLUME_CONTRACT_VALIDATED
+    modeled_classification: committed
+    ready_for_execution: false
+    actual_volume_observed: false
+    process_termination_tested: false
+    fresh_process_recovery_scan_tested: false
+    clean_read_only_remount_tested: false
+    abrupt_power_loss_tested: false
+    physical_media_durability_verified: false
+    note: >-
+      committed is only the deterministic classification of an authenticated
+      synthetic normal-success observation. It is not a live execution claim.
+execution_blockers:
+  - terminal mount point has not been natively observed
+  - the VHDX identity chain remains ledger-only
+  - no provisioning-broker handle exists
+  - complete outside-write tracing is unavailable
+  - worker execution is disabled
+artifacts:
+  dry_run_validator:
+    path: D:/RedMMOTitan/Tools/verify_redmmo_report_publication_recovery.py
+    sha256: 1C401290AE3A08984FB5AAB6785796B6DF1FD5816FE688E31651F20C72FBE085
+  production_publisher:
+    path: D:/RedMMOTitan/Tools/verify_redmmo_content_storage_restore.py
+    sha256: B051AF5615D803FF70F34F0EF73A409D0AE9504DE8156CA123FD6D6503428EF8
+  recovery_tests:
+    path: D:/RedMMOTitan/Tools/tests/test_verify_redmmo_report_publication_recovery.py
+    sha256: 4D41D0FCD107B3208CA02C9B23C9D8766A7E167C5257D4415A66BFB2F28B30E2
+  publisher_tests:
+    path: D:/RedMMOTitan/Tools/tests/test_verify_redmmo_content_storage_restore.py
+    sha256: 5348488548E8B0899AC684F297E965E62D1A4F0E10944BBC9DE0645F6C251C78
+  plan_tests:
+    path: D:/RedMMOTitan/Tools/tests/test_m07_disposable_volume_recovery_plan.py
+    sha256: FD1FEF9027ED50F1052C9F77D0914D04583D8F48C485E50C417357B0CAF49A7B
+  design:
+    path: D:/RedMMOTitan/docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS.md
+    sha256: DBD21001DC9B8E77EB766A5F2BECA4684141A57200461FD485F888F0FE38C6B2
+  plan:
+    path: D:/RedMMOTitan/docs/M07_DISPOSABLE_VOLUME_RECOVERY_HARNESS_PLAN.json
+    sha256: 5875B3682E906501C71B9E32EED16372579E2A723AEC7203EA56416C527268E9
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  active_unreal_build_package_process_count_after: 0
+rollback: >-
+  Documentation/status-only reconciliation plus one test expectation update.
+  Worker execution remains disabled; no live recovery state exists to roll back.
+claim_limit: >-
+  Static source and deterministic synthetic-model evidence only. This does not
+  prove a direct-child controller run, process interruption, fresh-process
+  recovery scan, exact terminal mount identity, outside-write tracing, VHDX,
+  clean remount, abrupt power loss, physical-media durability, external restore,
+  ACLs, Unreal runtime, visuals, gameplay, package, Steam, or multiplayer.
+next_safe_action: >-
+  Keep worker execution disabled. Before any live Tier A run, separately review
+  and implement the direct-child transport/controller boundary, authenticate a
+  pre-provisioned local-NTFS terminal mount with the complete native identity
+  chain, and supply complete outside-write tracing. VHDX provisioning and any
+  process termination remain separately authorized gates.

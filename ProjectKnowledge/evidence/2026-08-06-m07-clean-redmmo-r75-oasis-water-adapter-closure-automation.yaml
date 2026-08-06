@@ -1,0 +1,124 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r75-oasis-water-adapter-closure.2026-08-06
+captured_utc: "2026-08-06T00:23:44Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r75-oasis-water-dependency-and-native-ppg-interface-closure
+evidence_class: automation
+result: pass
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib_before: 52.61
+  free_physical_ram_gib_after: 52.71
+  commit_headroom_gib_before: 55.03
+  commit_headroom_gib_after: 55.15
+  gpu_free_vram_mib_before: 9111
+  gpu_free_vram_mib_after: 9112
+  free_d_drive_gib_before_after: 767.29
+  unreal_or_build_processes_before_after: 0
+  provider_ports_closed_before_after: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  editor_start_map: /Engine/Maps/Entry
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  seed: 1337
+  pie_started: false
+  generation_called: false
+  persistent_map_or_asset_writes: false
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: E19F14597BA1B73C958F6022B92A41B0C1A5F61573390295D3EEBD7484DBC335
+  dirty_packages_after: {content: [], maps: []}
+
+oasis_closure:
+  instance:
+    asset: /Game/StylizedDesertOasis/Materials/Instances/Environment/MI_Water
+    sha256: 28F9086A1A0A2D14111D3119F2119A4AABC22C5E3683D7A1E50050EEEDA443D0
+    parent: /Game/StylizedDesertOasis/Materials/MasterMaterials/M_Water
+    scalar_parameters: [Murkiness, Normal 1 Flatness, Normal 1 Speed X, Normal 1 Speed Y, Normal 1 Tiling, Normal 2 Flatness, Normal 2 Speed X, Normal 2 Speed Y, Normal 2 Tiling, Refraction, Roughness]
+    texture_parameters: [Normal 1, Normal 2]
+    vector_parameters: [Absorption Coefficient]
+  master:
+    asset: /Game/StylizedDesertOasis/Materials/MasterMaterials/M_Water
+    sha256: 97D45E53943DF4D7AD8610FFADC619B6057BD9A34FE09737F280B32B6130AEBD
+    material_domain: surface
+    blend_mode: opaque
+    shading_model: single_layer_water
+    two_sided: false
+    expression_count: 32
+    planar_or_scene_dependency_classes: [MaterialExpressionWorldPosition]
+  normal_1:
+    asset: /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_01_N
+    sha256: 2A0876828658F259F7A090E4111DC6FEB93A79329457CDEAB753377C54580463
+  normal_2:
+    asset: /Game/StylizedDesertOasis/Materials/MasterMaterials/UtilTextures/T_Water_02_N
+    sha256: EA47740B729F0FC927E58D1ADEC56B36ED6A2174EED8DC70C214BD96C7B00BAF
+  same_pack_dependency_count: 4
+  all_dependencies_present_and_loadable: true
+  engine_functions:
+    - /Engine/Functions/Engine_MaterialFunctions01/Texturing/FlattenNormal
+    - /Engine/Functions/Engine_MaterialFunctions02/Utility/BlendAngleCorrectedNormals
+
+native_ppg_interface:
+  material: /PPG/Water/Materials/M_PlanetaryOceanWater
+  dependency_count: 19
+  all_dependencies_present_and_loadable: true
+  consumed_required_parameters:
+    textures: [HeightMap]
+    scalars: [PlanetRadius]
+  ppg_master_contains_required_parameters: true
+  injected_but_not_consumed_by_stock_master:
+    scalars: [ChunkSizeHigh, ChunkSizeLow, PlanetPositionScale]
+    vectors: [ChunkLocationHigh, ChunkLocationLow, ComponentLocation, ComponentLocationHigh, ComponentLocationLWC, ComponentLocationLow, PlanetSpaceRotation]
+  note: Installed ChunkObject.cpp injects the larger transform set into every water MID, but the stock PPG master authenticates HeightMap and PlanetRadius as the consumed public interface.
+
+compatibility_result:
+  direct_oasis_binding_safe: false
+  missing_required_oasis_parameters:
+    textures: [HeightMap]
+    scalars: [PlanetRadius]
+  proven_safe_route: >-
+    Create a project-owned successor of the proven PPG spherical-water graph,
+    preserve HeightMap, PlanetRadius and native chunk ownership, then reuse the
+    verified owned Oasis normal textures and restrained color/roughness controls.
+  forbidden_route: >-
+    Do not bind Oasis MI_Water or M_Water directly to PlanetData and do not add
+    a planar carrier.
+
+execution:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_ppg_oasis_water_adapter_r75.py
+  driver_sha256: CF579B2FF269F35A9F14017C8A02EB66ECA6C00A16D04A41FF37DD363F0BFB12
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_OasisWaterAdapter_R75B_20260806T0022Z/result.json
+  result_sha256: 624A3C45AA54C0AB698B9194FBCE06EC6987A0224FE7831EC4DE8980E04DD910
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_OasisWaterAdapter_R75D_20260806T0022Z.log
+  log_sha256: 8F355601C7C82690D41F3168BA9E0DFBC0C8D9A6629D10B237793D6797B88316
+  renderer: D3D12 offscreen
+  status: PASS_R75_OASIS_CLOSURE_LOADABLE_DIRECT_BIND_INCOMPATIBLE_ADAPTER_ROUTE_PROVEN_NO_SAVE
+  retry_note: >-
+    The first launch used NullRHI against the configured PPG startup map and hit
+    PPG's known FallbackMaterialProxy assertion before Python ran. The next
+    launch revealed a command-line quoting error and its exact editor process
+    was stopped. The corrected quoted D3D12 Entry-map launch produced this pass;
+    neither failed attempt wrote a project package.
+
+retention_decision: >-
+  Retain R73 and R74 unchanged. R75 adds no project asset; it closes the material
+  compatibility decision and authorizes only a project-owned native-PPG
+  successor using the verified Oasis visual inputs.
+
+next_safe_action: >-
+  Create a rollback-backed project-owned R76 water-material successor from the
+  stock PPG spherical graph, preserve HeightMap and PlanetRadius, reuse the two
+  verified Oasis normal maps and restrained aqua/deep-blue controls, bind it
+  only through ProfileV1 WaterMaterial, then fresh-reload and capture the exact
+  R74 coast in D3D12. Never add a plane or change seed, topology, shoreline,
+  foliage, palms, terrain or vendor assets.
+
+claim_limit: >-
+  R75 proves exact installed asset presence, loadability, parameter interfaces,
+  dependency closure and a safe adapter architecture. It does not prove an
+  adapter asset, binding, rendered water, shoreline art, gameplay, packaging,
+  replication, multiplayer or user acceptance.

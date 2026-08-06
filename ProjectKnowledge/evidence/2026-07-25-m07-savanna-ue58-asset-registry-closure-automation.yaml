@@ -1,0 +1,135 @@
+schema_version: 1
+id: evidence.m07.savanna-ue58-asset-registry-closure.automation.2026-07-25
+captured_utc: "2026-07-25T17:10:40Z"
+module_id: M07
+system: environment.crosspack-source-selection
+slice: mounted-savanna-ue58-asset-registry-and-bounded-load-probe
+evidence_class: automation
+result: passed_for_five_mounted_savanna_candidates_tropical_context_unmounted
+
+scope:
+  authorized:
+    - reuse the one already-running UE 5.8 editor
+    - query the official Epic MCP AssetTools against exact reviewed package paths
+    - traverse the completed Asset Registry snapshot to a deterministic fixed point
+    - perform bounded load and PostLoad checks without saving
+    - publish D-resident diagnostic and canonical evidence
+  explicitly_not_run:
+    - launch a second Unreal process
+    - import, migrate, rename, move, place, or save an asset
+    - create, modify, or save a map
+    - create a staging content folder
+    - call Nwiro, Meshy, Tripo, fal.ai, or any other provider
+    - cook, package, PIE, or claim visual or gameplay acceptance
+
+preflight_and_postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  unreal_editor_process_count: 1
+  unreal_editor_pid: 20332
+  physical_ram_total_gib: 63.872
+  physical_ram_free_after_gib: 40.991
+  commit_headroom_after_gib: 54.380
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_after_mib: 5368
+  d_free_after_gib: 1071.546
+  protected_checkpoints_unchanged: true
+
+engine_and_tool:
+  engine_version: 5.8.0
+  changelist: 55116800
+  build_version_sha256: 2DBC75E44F11207D10B94639B222BBCECD2EB2E45EB0A901D0CCA1005D36125E
+  project_descriptor_sha256: 0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23
+  official_mcp_address: 127.0.0.1:8000
+  official_toolset: editor_toolset.toolsets.asset.AssetTools
+  asset_tool_source_sha256: F69C28F1CA3A8BFD2FB8C27E4CB7607DF0264CA278A8166BEAD6DDD0D4F17D20
+  asset_registry_initial_scan_completed: true
+  asset_registry_initial_scan_completed_utc: "2026-07-25T16:26:57Z"
+  dependency_options: default_constructed_unreal.AssetRegistryDependencyOptions
+  dependency_option_values:
+    include_hard_package_references: true
+    include_soft_package_references: true
+    include_game_package_references: true
+    include_editor_only_package_references: true
+    include_searchable_names: false
+    include_soft_management_references: false
+    include_hard_management_references: false
+
+selection_authority:
+  request_sha256: C2791F1FD3D4472D8B433E964335E5BFE44B449C64AE9D9500497B050BC2DF09
+  manifest_sha256: 331427762643D2C3A5CFEF7FAB88C5985310B1768C1683BB0685D53C859CAC37
+  manifest_semantic_sha256: 8D61DE6B1A7561E746BC893A2C1BBB440589D3CC80DDD65801C6A8D529512517
+  requested_crosspack_candidates: 9
+  mounted_savanna_candidates: 5
+  unmounted_tropical_candidates: 4
+  current_savanna_manifest_records_checked: 23
+  current_savanna_manifest_record_mismatches: 0
+
+asset_registry_result:
+  mounted_primary_classes_match_expected: true
+  savanna_packages: 23
+  savanna_internal_edges: 22
+  external_content_leaf_packages: 10
+  external_content_edges: 11
+  script_leaf_packages: 2
+  script_edges: 15
+  total_distinct_nodes_including_terminal_leaves: 35
+  total_edges: 48
+  exact_match_to_prior_offline_savanna_package_set: true
+  missing_or_unresolved_mounted_packages: 0
+  savanna_package_set_sha256: 1C0E77CFBE5340B070D54994BC96AF7868CCE9BA542385D6EBACB19DFD1770AA
+  all_node_set_sha256: A731A065429D5AFD7DB2891E4DF26268290044FBFF64472B2E76F0C8B0BDE9BE
+  edge_set_sha256: 4DEFB0EA92356CC3FF9447CEDE17504D760E724F556AC74464760C21B60E5AD5
+
+bounded_load_result:
+  attempted_content_packages: 33
+  successful_content_packages: 33
+  failed_content_packages: 0
+  dirty_before: 0
+  dirty_after: 0
+  packages_that_became_dirty: 0
+  package_saves: 0
+  note: >-
+    Texture and static-mesh derived data were built transiently while loading.
+    No source package or map became dirty or was saved.
+
+tropical_blocker:
+  source_project_engine_association: "5.4"
+  mounted_in_current_editor: false
+  prior_offline_closure_packages: 45
+  authoritative_ue58_registry_or_load_result: false
+  reason: >-
+    The four Tropical candidates and their source project are isolated from the
+    currently running UE 5.8 project. The prior serialized-reference closure
+    cannot be promoted to current Asset Registry or PostLoad evidence.
+
+artifact:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_SavannaUE58AssetRegistryProbe_20260725_170700Z/asset_registry_closure.yaml
+  bytes: 16667
+  sha256: 0DC7525EE13CAF1033264C7DF96AEB9809C339CA93A9D3F5D4410F382B47E75B
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is live UE 5.8 automation evidence for current Asset Registry
+  discoverability and the recorded default package-reference closure of five
+  mounted Savanna candidates. It also proves that their 23 packages and 10
+  external content leaves completed bounded UObject load and PostLoad without
+  dirtying or saving a package. It does not prove source-package serialization
+  or forward conversion, migration, import, material correctness, shader
+  completion, collision, Nanite, LOD, foliage, water, map placement,
+  curved-tile fit, visual quality, performance, gameplay, cook, package,
+  rights approval, Nwiro processing, or any compatibility property of the four
+  unmounted Tropical candidates.
+
+next_safe_action: >-
+  With separate approval, expose only the four exact Tropical candidates and
+  their authenticated prior 45-package closure in a D-resident isolated UE 5.8
+  scratch project, then run the same read-only Asset Registry and bounded
+  load/PostLoad probe. Do not migrate them into RedMMOTitan, call a provider,
+  author a map, or save a package in that slice.

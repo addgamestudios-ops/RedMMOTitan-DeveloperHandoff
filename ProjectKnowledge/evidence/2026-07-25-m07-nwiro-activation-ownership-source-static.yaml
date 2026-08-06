@@ -1,0 +1,232 @@
+schema_version: 1
+id: evidence.M07.nwiro-activation-ownership-source-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T12:07:08Z
+result: passed_exact_offline_default_off_and_prelistener_process_owner_source_implemented_unaccepted
+
+scope:
+  objective: >-
+    Implement only the first two source controls in the isolated external
+    Nwiro Integration Kit candidate: explicit default-off startup and one
+    fixed, nonblocking process-owner acquisition before future listener work.
+    Keep every compile, installation, Unreal, MCP, network, provider, asset,
+    map, and runtime gate closed.
+  performed:
+    - preserve an exact file-level rollback for every authorized candidate source edit
+    - bind one child authorization to the immutable baseline, exact five-file mutation allowlist, parent queue, rollback, and protected hashes
+    - make the external candidate descriptor explicitly default-off and return from normal module startup before saved-port, server, UI, style, or log-capture work
+    - retain one fixed-name zero-timeout FSystemWideCriticalSection owner before RequestedPort, router, route, listener, or client-config side effects in any future separately authorized ready path
+    - keep both production activation and runtime readiness as literal false-only functions with no command-line, environment, config, CVar, UI, HTTP, ACP, or JavaScript activation input
+    - gate the reviewed Start, Restart, HTTP POST, ProcessJsonRpc, DispatchTool, and client-config server call sites while leaving broader restricted mode unimplemented
+    - add exact normalized function-body contracts, exact source hashes, a model-only ownership contract, and a fixed no-clobber evidence-bundle publisher and verifier
+    - publish and independently verify one private same-volume evidence bundle containing a complete 90-file current manifest and five-modified/85-unchanged delta
+  not_performed:
+    - compile, build, install, enable, load, or run the candidate
+    - launch Unreal or initialize, list, or call MCP
+    - bind a socket, contact a provider, launch ACP, or generate content
+    - import, migrate, load, place, render, or modify any environment-pack asset
+    - create or modify any Unreal package, map, protected checkpoint, vendor installation, artist handoff, or Codex configuration
+    - claim restricted-mode completion, source acceptance, listener ownership, safe teardown, provider suppression, runtime behavior, visual behavior, gameplay, or real-GPU acceptance
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  unrelated_dirty_work_preserved: true
+  physical_ram_free_gib: 9.532
+  commit_headroom_gib: 16.326
+  d_drive_free_gib: 1076.941
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4161
+    free_vram_mib: 5893
+  exact_unreal_or_build_process_count: 0
+  character_creator_process_present_but_independent: true
+  canonical_queue_sha256_before: EC45DB0289F7F830F4A82FF42C774BDA23BBCDA0369FE7BC30664D3D39AC40DA
+  decision: >-
+    Free physical RAM remained below the editor and package gate. This bounded
+    slice therefore stayed entirely offline and source-static.
+
+authorization_and_rollback:
+  authorization:
+    path: Build/Automation/redmmo_nwiro_activation_ownership_execution_authorization_v1.json
+    bytes: 3729
+    sha256: 4FA858EA6FF7EE70EE8B9FB5C5234B647851421E96B90B3BB3C80F6EC934BB42
+  mutation_allowlist_count: 5
+  file_addition_authorized: false
+  file_removal_authorized: false
+  compile_authorized: false
+  install_authorized: false
+  unreal_launch_authorized: false
+  mcp_initialize_authorized: false
+  mcp_tool_call_authorized: false
+  network_authorized: false
+  provider_call_authorized: false
+  asset_or_map_mutation_authorized: false
+  rollback_root: D:/RedMMOTitanWindowsData/Rollback/NwiroRestrictedProbeActivationOwnership_20260725_1130Z
+  rollback_file_count: 5
+  rollback_matches_all_five_authenticated_baseline_bytes: true
+
+candidate:
+  root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeForkCandidateV1
+  external_unbuilt_uninstalled: true
+  file_count: 90
+  directory_count_excluding_root: 10
+  total_bytes: 2207742
+  record_set_sha256: 761CB39071366A680D1CE0B2900FEC1103B64206D05E67904661CD3EE215CE11
+  topology_sha256: 7A2C6EE72ACA073C16D79DC01E6E8CB63A76DF8C9CD9291FA5D6413BF1137D18
+  unchanged_files: 85
+  modified_files: 5
+  added_files: 0
+  removed_files: 0
+  renamed_files: 0
+  changed:
+    - path: NwiroIntegrationKit.uplugin
+      before_sha256: D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E
+      after_sha256: 88A59B34604759DE0657446E78DC8CB88A23837D70F0E27AF523733D8FA421F0
+    - path: Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp
+      before_sha256: 34C1BB2E81A7FFF742D043EC8E983783C047BA9C5ABBA4BE9CDB4806AD7CD8D7
+      after_sha256: AA3FD57690EB52EEADCC473DA5C15C0F6A555199A06C9EEA4EF18258ECE20099
+    - path: Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.h
+      before_sha256: CB310B6A8857AD8824F5899C13C263FEE5EF5558F3F7BCE9E8EA0198B7272498
+      after_sha256: E6161EFD3E4F34DE037D329766A61D792ECC572FDCF8D83592AE99277F4AF747
+    - path: Source/NwiroIntegrationKit/Private/NwiroIntegrationKit.cpp
+      before_sha256: 0AF1C0174BB2AF09A9555D6E6EBB471E0F9C1FF43B3E1537A0EFA415C0AA2BCF
+      after_sha256: C3899FD2D50B5A13E170EC77FE2B67B1FFCFA919AB01D0B55424B322FD663E74
+    - path: Source/NwiroIntegrationKit/Public/NwiroIK.h
+      before_sha256: B6769D41894A85FAE704B565F46D6545BEDD5E77BD59756ECAC3665508912C74
+      after_sha256: 45A3E39F1E5AC4A41B716E2B2904F1D7810567423B9E04264F2605F22070C090
+
+control_state:
+  source_default_off:
+    implemented: true
+    accepted: false
+    static_fact: >-
+      EnabledByDefault is false and normal module startup returns while the
+      production authority is the reviewed literal false-only function.
+  prelistener_process_owner_acquisition:
+    implemented: true
+    accepted: false
+    static_fact: >-
+      A retained fixed-name zero-timeout UE system mutex is acquired after the
+      separate literal-false readiness gate and before all reviewed listener
+      and client-config side effects.
+    scope: >-
+      Cross-process within the current Windows session only. Machine-global
+      ownership and native two-process behavior are not proven.
+  restricted_mode:
+    implemented: false
+    accepted: false
+  remaining_required_control_count: 20
+  candidate_static_accepted: false
+  runtime_accepted: false
+
+evidence_bundle:
+  root: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationOwnershipEvidenceV1
+  private_acl_verified: true
+  same_volume_no_replace_bundle_rename_used: true
+  power_loss_durability_proven: false
+  candidate_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationOwnershipEvidenceV1/candidate.v1.json
+    bytes: 37136
+    raw_sha256: 6DB05AD5720F53B47FC592B714830EAEA450F0BB22269264145413B364219CB5
+    semantic_sha256: 04C8B7BE648589FF1FC13C20283B2ACE118F6161CDB2A7EB94F635F5E5921B8C
+  delta_manifest:
+    path: D:/RedMMOTitanWindowsData/Staging/NwiroRestrictedProbeActivationOwnershipEvidenceV1/delta.v1.json
+    bytes: 3756
+    raw_sha256: 647E8ED20CBBCEDDAD925CD6B72E2FC42949FE7C44E9E5143F26F0A3FF24579A
+    semantic_sha256: 169B137C6823E8187F21BDF0D6322FE03CC79F3559C19576BE7034AE49037712
+  immutable_historical_manifests_preserved: true
+  note: >-
+    The earlier CandidateV1 candidate and delta manifests remain immutable
+    exact-copy bootstrap evidence and are not cited as the current revision.
+
+tooling:
+  publisher:
+    path: Tools/generate_redmmo_nwiro_activation_ownership_manifests.py
+    bytes: 23939
+    sha256: 7A648D576E9D410031B5560DE0F0C5825FBECE63E32C463D8C9B94F48D271B37
+  publisher_tests:
+    path: Tools/tests/test_generate_redmmo_nwiro_activation_ownership_manifests.py
+    bytes: 4841
+    sha256: D8DFEE58A10D225F64DE43340875C2FE6AC2096A33F5DAE9D8AD0E15E92B2D18
+  source_tests:
+    path: Tools/tests/test_redmmo_nwiro_activation_ownership_source.py
+    bytes: 15589
+    sha256: DA540889BC1C9B75A287CABF1B1E194A5141234BFE5DAE3D79D16A8A29E5D25A
+
+verification:
+  publication:
+    command: python -B Tools/generate_redmmo_nwiro_activation_ownership_manifests.py --publish
+    exit_code: 0
+    modified_count: 5
+  independent_bundle_verify:
+    command: python -B Tools/generate_redmmo_nwiro_activation_ownership_manifests.py --verify
+    exit_code: 0
+    verified: true
+  source_and_publisher_contracts:
+    run: 22
+    passed: 22
+    failed: 0
+  combined_current_nwiro_offline_contracts:
+    run: 70
+    passed: 70
+    failed: 0
+  historical_precreation_contract_note: >-
+    Two old contract-only assertions intentionally require the candidate root
+    to be absent and are no longer current-tree gates after the authorized
+    skeleton publication. Their immutable artifacts were not edited.
+  independent_reviews:
+    review_roles: 4
+    p0_inside_narrow_two_control_scope: 0
+    p1_inside_narrow_two_control_scope: 0
+    broader_runtime_acceptance_blockers_found: true
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+postflight:
+  physical_ram_free_gib: 9.112
+  commit_headroom_gib: 16.211
+  d_drive_free_gib: 1076.941
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4066
+    free_vram_mib: 5988
+  exact_unreal_or_build_process_count: 0
+  protected_checkpoint_changed: false
+  production_map_changed: false
+  project_descriptor_changed: false
+  vendor_plugin_installation_changed: false
+  game_asset_or_map_changed: false
+
+claim_limit: >-
+  This proves exact reviewed source presence for explicit default-off startup
+  and pre-listener process-owner acquisition only. Both controls remain
+  unaccepted, unreachable through normal startup because activation and
+  readiness are literal false, uncompiled, uninstalled, and unrun. It does not
+  prove exclusive listener ownership, safe teardown, ACP/provider/config
+  suppression, session isolation, request draining, native concurrency, MCP,
+  provider, Unreal, asset, map, visual, gameplay, or real-GPU behavior.
+
+remaining_blockers:
+  - unchanged reflected bridge and panel entrypoints can still write MCP config, launch ACP, enumerate providers, or perform broader operations if invoked in-process
+  - HTTP route handles are discarded and Stop does not unbind or close the per-port listener before releasing ownership
+  - off-thread and request-admission lifecycle state is unsynchronized and has no in-flight request lease or drain
+  - session permission state is not reset across every restart and session-deletion path
+  - add the remaining twenty restricted-mode controls and adversarial source contracts
+  - compile the exact candidate in isolation and run native Windows two-process, listener-lifecycle, request-drain, restart, bridge, ACP, provider, config, and permission tests before acceptance
+  - keep Nwiro, MCP, network, provider, environment-pack migration, mini-hub authoring, and all runtime gates closed until separately authorized and proven
+
+next_safe_action: >-
+  In the next bounded offline source slice, authorize and implement only one
+  fail-closed bridge/transport lifecycle control group: central admission
+  closure, retained route ownership, in-flight drain, and permission reset
+  before process-owner release. Keep production activation and readiness
+  literal false, and do not compile, install, launch Unreal, initialize MCP,
+  contact providers, or touch assets or maps.

@@ -1,0 +1,96 @@
+schema_version: 1
+id: evidence.m12.titan-editor-retry-worldgen-blocked.2026-08-05
+captured_utc: "2026-08-05T01:33:08Z"
+module_id: M12
+system: mining.voxel-backend.native-automation
+slice: serialized-titan-editor-compile-retry
+evidence_class: build
+result: blocked_before_source_compilation_missing_required_worldgen_plugin
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  project: D:/RedMMOTitan/Titan.uproject
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  content_or_map_changed: false
+  source_changed: false
+  uaip_entry_enabled: false
+
+preflight:
+  physical_ram_free_gib: 52.09
+  commit_headroom_gib: 49.79
+  gpu: NVIDIA_GeForce_RTX_3080
+  gpu_vram_free_mib: 7689
+  d_drive_free_gib: 768.08
+  active_unreal_or_build_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+
+rollback:
+  build_products_manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeM12TitanEditorCompile_20260805T0108Z/manifest.yaml
+    sha256: 3E03DEBAE428F284A35DA8A9BAE6682D098006FF9217E7BDC56D1080ED76A138
+  descriptor_before_uaip_disable:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeUAIPAbsentPluginDisable_20260805T0126Z/Titan.uproject.before
+    sha256: 0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23
+
+build:
+  target: TitanEditor Win64 Development
+  flags: [-WaitMutex, -NoHotReloadFromIDE, -NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  exit_code: 6
+  result: Failed_OtherCompilationError
+  elapsed_seconds: 0.88
+  source_compilation_started: false
+  native_m12_scenarios_compiled: 0_of_9
+  native_m12_scenarios_executed: 0_of_9
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M12_TitanEditorCompileRetry_20260805T0130Z/TitanEditor_build.log
+    sha256: 5D07D141397B30AEED0DC9ED991249C0E7AB2958E4A454705FCE1D3954617ECB
+    bytes: 1946
+  exact_error: >-
+    Unable to find plugin 'WorldGen' (referenced via Titan.uproject). Install it
+    and try again, or remove it from the required plugin list.
+
+worldgen_diagnosis:
+  project_descriptor_entry:
+    name: WorldGen
+    enabled: true
+  former_engine_root: D:/UE_5.8/Engine/Plugins/Marketplace/WorldGenab6305bc725eV5
+  former_engine_root_created_utc: "2026-07-17T14:40:51Z"
+  former_engine_root_modified_utc: "2026-07-31T22:09:24Z"
+  current_top_level_entries: [Intermediate]
+  current_file_count: 1
+  current_descriptor_count: 0
+  current_source_file_count: 0
+  current_binary_file_count: 0
+  exact_descriptor_present_in_project_plugins: false
+  exact_descriptor_present_in_engine_marketplace: false
+  exact_descriptor_present_in_clean_redmmo_plugins: false
+  project_configuration_changed_in_this_slice: false
+
+postcondition:
+  build_products_unchanged:
+    UnrealEditor-RedMMO.dll: D623A8F365C09B10665B75A66AA5F55BA2D7BEC2D10681E83BDE237BBBCB00BD
+    UnrealEditor-RedMMO.pdb: C51F0A804C93AE217BEE3D2B36B2AF1D9679C4388CDC951A74F9456BA18898B1
+    TitanEditor.target: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  final_unreal_or_build_process_count: 0
+  providers_called: false
+  desktop_control_used: false
+  project_knowledge_audit:
+    result: fail_with_4_pre_existing_unrelated_PKI012_findings
+    new_or_slice_caused_findings: 0
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M12_TitanEditorCompileRetry_20260805T0130Z/project_knowledge_audit.json
+
+claim_limit: >-
+  This is failed build evidence only. UBT advanced past the corrected UAIP entry
+  but stopped at the next absent enabled plugin before compiling M12. All nine
+  scenarios remain uncompiled, unexecuted and unwired; no runtime, visual,
+  gameplay, package, standalone, replication or multiplayer claim is supported.
+
+next_safe_action: >-
+  Do not change WorldGen or repeat the build in the next wake. Rotate to one
+  independent static M07 ProjectKnowledge evidence-taxonomy reconciliation:
+  inspect the four existing PKI012 records, assign only canonical evidence
+  classes supported by each record, and rerun the integrity auditor. Do not
+  launch Unreal, compile, or mutate maps, assets, source, or plugin settings.

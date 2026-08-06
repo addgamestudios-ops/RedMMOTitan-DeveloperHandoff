@@ -1,0 +1,118 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r36-sostylized-grass-closure.2026-08-05
+captured_utc: "2026-08-05T14:19:57Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r36-sostylized-painted-ground-roughness-and-material-closure
+evidence_class: automation
+result: passed_read_only_binding_semantics_proven
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.75
+  commit_headroom_gib: 55.60
+  free_gpu_vram_mib: 7715
+  free_d_drive_gib: 767.70
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+audit:
+  driver: D:/RedMMOTitan/Build/Automation/audit_redmmo_sostylized_grass_closure_r36.py
+  driver_sha256: 966DE68D2C9586EE4A4930090F059B1E26DFAA933CD889AAE4BEA1EE8EDEE180
+  passing_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGrassClosure_R36B_20260805T1425Z/closure_audit.json
+  passing_result_sha256: 69A3E1DE55EFF1929CEFD79EAC4A4554D2CEA97BC02A570AF8100F9C455AF7C2
+  terminal_status: PASS_READ_ONLY_SOSTYLIZED_CLOSURE_EXPORTED
+  renderer: D3D12
+  editor_exit_code: 0
+  material_records: 3
+  ignored_material_function_referencers: 2
+  map_loaded: false
+  save_called: false
+  regeneration_called: false
+  dirty_packages_after: []
+  failed_closed_attempt:
+    result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGrassClosure_R36_20260805T1420Z/closure_audit.json
+    result_sha256: 65DA410E963506044244D6C94FDD19A780B42F040856B2FCEAFCB71A47A27037
+    error: MaterialEditingLibrary.GetUsedTextures rejects MaterialInstanceConstant
+    disposition: corrected to inspect instance texture parameters and parent material separately; no package changed
+
+texture_semantics:
+  color:
+    asset: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    role_proven_by_parameter_name: Grass Color Texture
+    package_sha256: A79C24EA6A1284E8E190CF46FF2349B9117B3A930A5C506C2D3764057890CF71
+    export: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGrassClosure_R36B_20260805T1425Z/exports/T_Grass1_BC.png
+    export_sha256: 0A543AC27EB9697CC30152A49D3997994B6E5F5A9F2EB25E514872B717472512
+    dimensions: [4096, 4096]
+    rgb_mean: [128.558, 172.267, 93.507]
+    rgb_min: [81, 139, 54]
+    rgb_max: [180, 207, 180]
+  roughness:
+    asset: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+    role_proven_by_parameter_name: Grass Roughness Texture
+    package_sha256: D0DF945E92DAE229AC684350D4C20FAD9783FE388C839BD14602A5277A445069
+    export: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SoStylizedGrassClosure_R36B_20260805T1425Z/exports/T_Grass1_R.png
+    export_sha256: 8A2C75B5913ED3E381F5B1E4AD67EAAD05FB077F37EA8ED5D70646A9BEDF42CC
+    dimensions: [4096, 4096]
+    grayscale_mean: 218.589
+    grayscale_min: 189
+    grayscale_max: 228
+    visual_finding: high, restrained grayscale roughness variation matching the painted grass/clutter pattern
+  normal: >-
+    No T_Grass1 normal map is installed and none of the three verified material
+    instances binds one for the Grass layer. A project-owned flat-normal route
+    is therefore the semantically correct closure; the current StylizedRocks
+    normal must not be retained blindly.
+
+verified_source_bindings:
+  common_parameters:
+    Grass Color Texture: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_BC
+    Grass Roughness Texture: /Game/SoStylized/Environment/Landscape/Textures/T_Grass1_R
+  material_instances:
+    - /Game/SoStylized/Environment/Rocks/Materials/Desert/MI_RockDesert_Cliff_Grass
+    - /Game/SoStylized/Environment/Rocks/Materials/Desert/MI_RockDesert_Rocks_Grass
+    - /Game/SoStylized/Environment/Rocks/Materials/Desert/MI_RockDesert_Shelves_Grass
+  material_functions:
+    - /Game/SoStylized/Materials/MF_Grass
+    - /Game/SoStylized/Materials/MF_DesertGrass
+  conclusion: >-
+    The installed vendor content independently names and binds the exact two
+    textures as Grass Color Texture and Grass Roughness Texture. This proves a
+    minimal project-owned PPG-compatible closure of T_Grass1_BC, T_Grass1_R,
+    flat normal, zero metallic and restrained specular without copying the
+    vendor RVT, rock, landscape or global-environment dependency fan-out.
+
+canonical_validation:
+  integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/ProjectKnowledgeIntegrity_R36_20260805T1425Z.json
+  integrity_report_sha256: 86DBE7053AEF586DE539244B9F3D048A3D85B480409236DE362AE08C43238AB0
+  integrity_result: pass_zero_findings
+  focused_tests: 20_passed
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  active_surface_sha256_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R36 proves installed texture roles and a dependency-minimal material closure
+  through read-only Unreal automation and exported source pixels. It does not
+  change or prove the in-world PPG surface, grass visibility, terrain, biome,
+  gameplay, standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  Create an exact rollback for the restored active surface, then construct one
+  project-owned PPG surface successor that binds T_Grass1_BC, T_Grass1_R and a
+  flat normal with zero metallic and restrained specular. Do not copy the broad
+  SoStylized vendor material closure, do not modify vendor assets and do not
+  change terrain, seed, grass density, height, placement, water, spawn or
+  topology. Retain the successor only after fresh reload, zero MapCheck errors
+  and a grass-visible normal-lit player-scale D3D12 comparison with no transient
+  visibility changes.

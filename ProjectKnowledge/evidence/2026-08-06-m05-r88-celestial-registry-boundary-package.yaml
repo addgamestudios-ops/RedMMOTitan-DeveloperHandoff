@@ -1,0 +1,142 @@
+schema_version: 1
+id: evidence.m05.r88-celestial-registry-boundary-package
+module: M05
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T09:52:00Z
+scope: >-
+  One read-only clean-source and exact R88 package binary/PDB identity audit
+  for the celestial-frame registry. No Unreal, build, cook, package, editor,
+  desktop-control, map, source, asset, Config, plugin, vendor, user-asset, or
+  rollback process was launched or changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 195
+  dirty_entry_count_expanded_untracked: 2374
+  free_physical_ram_gib: 51.33
+  commit_headroom_gib: 53.65
+  gpu_free_mib: 9097
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+r88_identity:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R88_Playable_20260806_0853Z/Windows
+  tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  game_binary:
+    path: RedMMO/Binaries/Win64/RedMMO.exe
+    bytes: 333967872
+    sha256: 5957CBF87F10A63600FA4296CEE93072E6C3537F039FF0C6E0F31EA46E8C05F0
+  program_database:
+    path: RedMMO/Binaries/Win64/RedMMO.pdb
+    bytes: 398495744
+    sha256: 1E172FC90F4775A04BD58AB5035DC5EB2E83458F4736F4848FE5CFAB08C64D38
+  target_receipt_sha256: CA1FFA63CB744EB5A364EEFC5F4EF377CA9C75DB2CE03C51ED0AA8B9884D3FBE
+  iostore_listing_sha256: 06C5147CC6A1B45CA39EC3D16954B89421B615BBAFEA4A2BBEC2E6C463EFD913
+  packaged_smoke_sha256: D3BA0233E543D1AD714FAD53F3E7D2FDC47B6ED0BAD9BADAF9888C0063A5D750
+clean_registry_source:
+  header:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedCelestialFrameRegistry.h
+    sha256: 223593D0338ECE2D94804ECE56391B22BA707D5CFE875F6F0A7B07579F6669D7
+    exact_authenticated_legacy_match: true
+  implementation:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistry.cpp
+    sha256: 1C72D20ED720C49AA948282F956504EE6E2BA69BB0184D17C7DEBC7FB67F44B0
+    exact_authenticated_legacy_match: true
+  tests:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedCelestialFrameRegistryTests.cpp
+    sha256: 4F721397BADED4C23A72A0C8523A12334760CE417E1BD581373CF4319D7B3522
+    scenario_count: 3
+  ppg_surface_header_sha256: 4E5D00561983C92531240EC33DE33EFF6F5864054FECB3B5D395FDC05108D0C4
+  ppg_surface_implementation_sha256: 823094E2C229EC289E0905FA18765C7BE6EF253100C159712D44E0787F6A7487
+  ppg_stable_id: planet.red.mars
+package_linkage:
+  pdb_identity_counts:
+    RedCelestialFrameRegistry_cpp: 8
+    RegisterOrUpdate: 2
+    ResolveExact: 2
+    GCelestialFrameRegistry: 11
+  executable_test_identity_counts:
+    RegistrationLifecycle: 1
+    CompetingAuthorityConflict: 1
+    Cleanup: 1
+  executable_utf16_identity_counts:
+    planet_red_registry_test_lifecycle: 1
+    planet_red_mars: 1
+    planet_redmmo_home: 1
+  finding: >-
+    The exact R88 executable and PDB link the authenticated registry
+    implementation plus all three development automation groups. The earlier
+    pre-port audit is historical; clean registry absence is no longer true.
+unwired_boundary:
+  clean_source_file_count: 46
+  production_registry_callsite_files_excluding_registry_and_tests: 0
+  production_producer_present: false
+  production_consumer_present: false
+  replicated_celestial_snapshot_present: false
+  iostore_registry_identity_hit_count: 0
+  packaged_smoke_registry_marker_counts:
+    CelestialRegistry: 0
+    RegisterOrUpdate: 0
+    ResolveExact: 0
+    planet_red_mars: 0
+  native_registry_test_execution_proven: false
+  multiplayer_execution_proven: false
+stale_audit_detection:
+  script: Build/Automation/audit_clean_redmmo_celestial_registry_port.py
+  exact_result: "RuntimeError: clean registry symbols already exist; no-copy gate requires review"
+  disposition: >-
+    Retain the script as a historical pre-port/no-copy guard. Do not use its
+    old absence result as current state and do not weaken it in this slice.
+prior_evidence:
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-source-port-build.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-tests-build.yaml
+  - ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-celestial-registry-automation-nullrhi-blocked.yaml
+report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M05_R88_CelestialRegistryBoundary_20260806T0948Z/registry_package_boundary.json
+  byte_length: 4769
+  sha256: 04D201F1CDBB7CD5274FC5F92AE9BBF1B051648298FFF30A30745E05C9C4F061
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  protected_face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  tangent_authoring_inputs: preserved
+  fused_faces: preserved
+verification:
+  registry_package_boundary_assertions: 27_of_27_passed
+  focused_projectknowledge_and_fused_tests: 37_of_37_passed
+  project_knowledge_integrity_audit: passed_zero_findings
+  report_json_yaml_and_queue_json_parse: passed
+  queue_snapshot_sha256: 48B8AD9192DA52B89B392D14D58E95A0B0E57145E0F630206B7AC132C8F5BA97
+postcheck:
+  captured_utc: 2026-08-06T09:55:43Z
+  dirty_entry_count_default: 195
+  dirty_entry_count_expanded_untracked: 2375
+  free_physical_ram_gib: 51.26
+  commit_headroom_gib: 53.63
+  gpu_free_mib: 9143
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 756.60
+  active_unreal_build_package_process_count: 0
+  provider_or_trace_listener_count: 0
+  protected_hashes_match: true
+rollback: >-
+  Remove only this evidence/index/state/queue linkage and the external report.
+  No package or project rollback is required because no package, project,
+  source, map, asset, Config, plugin, vendor, or user byte changed.
+claim_limit: >-
+  Exact package binary/PDB identity plus static source-wiring evidence. This
+  proves code presence but not a live PPG registry producer, runtime lookup,
+  cleanup, client snapshot, standalone, travel, replication, multiplayer,
+  warp, or player-visible behavior.
+next_safe_action: >-
+  Preserve R88 and its unwired registry boundary. On the next unattended wake,
+  refresh the M10 R88 developer handoff with the exact M04 streaming and M05
+  registry limits; do not launch Unreal, wire a producer/client snapshot, or
+  mutate project/vendor bytes.

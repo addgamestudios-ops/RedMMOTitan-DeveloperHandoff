@@ -1,0 +1,85 @@
+schema_version: 1
+id: evidence.asteroid-field.red-mars-deep-space.2026-07-21.gpu-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T07:54:08+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_NightWater_T04
+target: asteroid-field.red.mars.deep-space
+
+action:
+  - compile the distance-band assertions, runtime telemetry, and replicated client presentation cull in a one-action TitanEditor build
+  - launch one bounded 1280x720 D3D12 listen-server diagnostic with texture streaming capped at 1024 MB and frame rate capped at 45
+  - execute the genuine F7 shoreline and F9 25 km inward orbit paths
+  - inspect the generated orbit frame for asteroids intersecting or hugging the atmosphere and planet limb
+
+result:
+  editor_compile_gate: pass
+  authority_spawn_distance_gate: pass
+  mineable_client_cull_code_gate: pass
+  single_orbit_clearance_visual_gate: pass
+  targeted_field_presence_gate: pending
+  two_client_parity_gate: pending
+  mining_interaction_gate: pending
+  observed:
+    - decorative instances were 72/72 with actual altitude 39.20 to 68.32 km
+    - mineable actors were 24/24 with actual altitude 39.62 to 67.12 km
+    - configured altitude band was 38.40 to 68.40 km
+    - distancePass and cullPass both logged 1
+    - the 25 km inward orbit capture contains no close asteroid silhouette on or inside the atmosphere limb
+    - the starfield is visible in the same real-GPU orbit frame
+    - the diagnostic exited normally with no fatal, assertion, OOM, GPU-crash, or device-removal marker
+  claim_limit: >-
+    This accepts radial relocation and the absence of atmosphere-hugging rocks in
+    one inward orbit composition. It does not prove field presence at mining
+    range, two-client visual parity, asteroid collision, mining damage, or
+    depletion behavior. The oversized bright atmosphere corona visible in this
+    disposable water-test frame remains a separate atmosphere module.
+
+artifacts:
+  build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AsteroidDeepSpace_20260721/TitanEditor_DeepSpaceAsteroids_ReplicatedCull_SerialBuild.log
+    sha256: FC3DDBB7E91B60423E84F6A8B1813AA9C5B86D7C3631410E9D50F1DD0AD90365
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AsteroidDeepSpace_20260721/DeepSpaceAsteroids_RealGPU_Final.log
+    sha256: 932C01C0DC1EF19249EEA0354D69EC95652EA10A5E0344434D4AF5A66105595F
+    markers:
+      distance_contract: 1
+      shore_capture: 1
+      orbit_capture: 1
+      clean_exit: 1
+      fatal: 0
+      out_of_video_memory: 0
+      gpu_crash: 0
+      device_removed: 0
+  orbit_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AsteroidDeepSpace_20260721/RealGPU_Captures_Final/NightWater_T04_Orbit.png
+    sha256: BF9FBAEF5D1F926092DFC26CB1AB25C77E354FB43DA9FF6C21EF2511884A5D58
+  shoreline_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/AsteroidDeepSpace_20260721/RealGPU_Captures_Final/NightWater_T04_Shore.png
+    sha256: 42E4DEAB0E4F093E77452F4F88AD63AC66DABF73D019244A05AA6BA971F6185C
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 9BE571762073D96B85F372AF983920C5C11BB917A88D699754D2CEE3BE2892A3
+  source:
+    - Source/RedMMO/RedPlanetPresentationTuning.h
+    - Source/RedMMO/RedSpaceScenery.cpp
+    - Source/RedMMO/RedMineableAsteroid.h
+    - Source/RedMMO/RedMineableAsteroid.cpp
+
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  modified: false
+
+machine_safety_audit:
+  peak_observed_vram_used_mb: 3781
+  minimum_observed_free_ram_gb: 6.87
+  post_exit_free_ram_gb: 11.23
+  post_exit_free_vram_mb: 7361
+  unreal_process_count_after_exit: 0
+
+next_safe_action: >-
+  Separate and tune the thin visual atmosphere from the 8 km gameplay ascent,
+  using a bounded real-GPU surface, ascent, and orbit capture without changing
+  the protected foundation checkpoint.

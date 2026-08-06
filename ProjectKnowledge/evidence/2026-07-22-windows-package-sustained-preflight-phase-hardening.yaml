@@ -1,0 +1,130 @@
+schema_version: 1
+id: evidence.windows-package.sustained-preflight-phase-hardening.2026-07-22.static-live-01
+evidence_class: static
+captured_local: "2026-07-22T13:17:55+03:00"
+platform: Windows
+target: module.M09.windows-development-package
+
+result:
+  prior_attempt_phase_reconciliation: corrected_to_ubt_build
+  script_ast_gate: pass
+  offline_guard_contract_tests: pass_5_of_5
+  live_sustained_preflight_gate: refused_as_designed
+  fresh_package_gate: not_run
+  packaged_launch_gate: not_run
+  multiplayer_gate: not_run
+
+prior_attempt_forensics:
+  requested_action: ATMOSPHERE_TEST_20260722
+  main_log:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    line_count: 67
+    build_command_started_line: 10
+    building_titan_editor_and_titan_line: 44
+    build_command_completed: false
+    cook_command_started: false
+    unreal_editor_cmd_marker_count: 0
+    shader_compile_worker_marker_count: 0
+    zen_server_marker_count: 0
+  ubt_json:
+    path: C:/Users/user/AppData/Roaming/Unreal Engine/AutomationTool/Logs/D+UE_5.8/UBA-TitanEditor-Win64-Development.json
+    sha256: 8807B5946DC937A36FBE821A8E0E309BC0BF3E42B5A2BDBDF996A311AAE258A5
+    executor: Unreal Build Accelerator local executor
+    queued_action_count: 25
+    queued_examples:
+      - compile Module.RedMMO.gen.cpp
+      - compile RedGameMode.cpp
+      - link Titan.exe
+  memory_guard:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log.memory-guard.log
+    sha256: 1426B7C4DADA2E803D1181561F198DA7842438E19D9C2DFF27CAF87A8FDA8B12
+    launch_free_physical_gib: 12.59
+    launch_free_commit_gib: 23.48
+    abort_utc: "2026-07-21T22:28:53Z"
+    abort_free_physical_gib: 7.91
+    abort_free_commit_gib: 15.99
+    observed_physical_draw_gib: 4.68
+    observed_commit_draw_gib: 7.49
+  attribution_limit: >-
+    The old guard sampled system-wide memory and monitored the cmd.exe wrapper.
+    It proves the exact UBT/UBA build phase but cannot attribute the largest
+    allocation to an individual child process. It provides no cook or Zen peak.
+
+launcher_hardening:
+  minimum_free_physical_gib:
+    default: 20.0
+    parameter_floor: 18.0
+  minimum_free_commit_gib:
+    default: 26.0
+    parameter_floor: 24.0
+  abort_free_physical_gib: 12.0
+  abort_free_commit_gib: 16.0
+  sustained_preflight:
+    sample_count: 12
+    interval_seconds: 1
+    decision_inputs:
+      - minimum free physical memory across every sample
+      - minimum free commit headroom across every sample
+      - any blocking process observed in any sample
+  runtime_guard:
+    - writes a non-regressing BuildCookRun phase on each sample
+    - writes aborted_phase before exact process-tree termination
+    - writes final_phase after process exit
+  unchanged_package_contract:
+    - serial UBT request remains -NoUBA -MaxParallelActions=1
+    - build, cook, stage, pak, IoStore, Zen Store, and archive remain required
+    - no skip-build mode was enabled without binary/input currency proof
+
+verification:
+  powershell_ast_error_count: 0
+  python_compile: pass
+  unittest_command: python -B -m unittest Tools.tests.test_package_windows_50km_guard -v
+  unittest_result: 5 tests passed
+  live_preflight_command: >-
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File
+    Build/Automation/package_windows_50km.ps1 -PreflightOnly
+  live_preflight:
+    samples: 12
+    interval_seconds: 1
+    min_free_physical_gib: 10.28
+    min_free_commit_gib: 21.50
+    max_committed_gib: 31.37
+    commit_limit_gib: 52.87
+    blocking_processes_seen: 0
+    exit_code: 20
+    latest_package_pointer_unchanged: true
+    canonical_blocking_processes_after: 0
+
+artifacts:
+  package_script:
+    path: Build/Automation/package_windows_50km.ps1
+    sha256: BF4532A536954FF6AA31D3887F5F2143F730C7F981D57F93472CF1F3EA42651C
+  guard_contract_tests:
+    path: Tools/tests/test_package_windows_50km_guard.py
+    sha256: 368D964840702412E55D644E10A6348BC45292148BEA1360F1EF01F884F775F7
+  prior_wrapper_stdout:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722_retry/package_stdout.log
+    sha256: FD72F4AEE9B67C30954A42AE87DB9D960EF873A48D82EA29310BAA7BD07A8D9A
+  prior_wrapper_stderr:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/WindowsPackage_AtmosphereTest_20260722_retry/package_stderr.log
+    sha256: 16DCE11EBC4BEB035FB48D72F54B749F960F50D2EAC14990E030D2882939083F
+
+protected_checkpoint:
+  map_path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  ready_marker_path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+  ready_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  modified: false
+
+claim_limit: >-
+  This slice is static guard, live preflight-refusal, and preserved build-phase
+  forensic evidence only. It did not start Unreal, UAT, UBT, cook, Zen, stage,
+  package, runtime, visual, gameplay, or multiplayer work.
+
+next_safe_action: >-
+  Keep M09 deferred. When a separate gate provides safe resources, first produce
+  successful, current TitanEditor and Titan target evidence. Only then design a
+  skip-build packaging path with exact binary/input freshness checks. The overall
+  canonical next action remains M00's capped real-GPU T02 sparkle capture when
+  its own resource gate passes.

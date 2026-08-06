@@ -1,0 +1,156 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r58-star-density-persisted-build-real-gpu.2026-08-05
+captured_utc: "2026-08-05T19:55:46Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r58-persist-restrained-star-density
+evidence_class: real_gpu_visual
+result: persisted_density_0_08_build_reload_and_visual_pass
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 53.64
+  commit_headroom_gib: 56.38
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.47
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: BB8C9A2F412374B4959F0727C0F069D11A84B463C7BB54F88A00A9EE4E608781
+
+transaction:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/transaction_manifest.yaml
+    sha256_before_completion_append: 8E77A3C373A3239FFDFE6A25D1B6BD4D3D3DA7C508752DE15971DA3312F1A051
+    sha256_final: C4B161EB66366360D9B374B5D86C978BE59DD49CF3C1430E757DF8EA2AE4B138
+  rollback_directory: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/Rollback
+  rollback_files:
+    RedPlanetNightPresenter_h: 491115B080433ECADD23AD3E6649DB60EF246A5128E5595C2CAE720E562173D5
+    RedPlanetNightPresenter_cpp: 69487B6649E230906F2A3234D4CE19C505DA029B1950E4A78E7BB84514921112
+    RedMMO_PPG_HomeWorld_umap: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+    RedMMO_uproject: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  changed_file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Public/RedPlanetNightPresenter.h
+  exact_change: "float StarDensity = 0.004f -> float StarDensity = 0.08f"
+  header_sha256_before: 491115B080433ECADD23AD3E6649DB60EF246A5128E5595C2CAE720E562173D5
+  header_sha256_after: A4DEAF8C45A3318699F6D2B0367B6F61C7F17115C6681E07CBAA9882F4FB2B77
+  home_map_mutated: false
+  package_save_called: false
+
+build:
+  target: RedMMOEditor_Win64_Development
+  flags: [-NoUBTMakefiles, -NoUBA, -MaxParallelActions=1]
+  result: succeeded
+  actions: 5
+  seconds: 18.61
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/build_stdout.log
+    sha256: 9C25C9032A7F03CB53E13D9B758DBE0AAD7D0389FA68C292C7F845BE9D05EDF7
+  binary:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256_before: 22C2AE57A79AA6FC8E5CBFB4865AB6915826C058FE7119E28D63A2F4576A1801
+    sha256_after: 8D2276822AE6BA26329BD33E43E48B0C69297CE97BE7A206B18737BBE84978B2
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  provider_plugins_disabled: true
+  driver:
+    path: D:/RedMMOTitan/Build/Automation/verify_redmmo_star_density_persistence_r58.py
+    sha256: 4A3EBAC14BE0639B009D7B276380E4BE7CBEA3574F7E1BCA24F4C26D78D50CEC
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/RuntimeAttempt3/result.json
+    sha256: 90E689B80B9B6BD540CB88E2FF44968DA1EBEEB9704BB3B774CFC11093297EE9
+    status: PASS_R58_PERSISTED_DENSITY_008_RUNTIME_PENDING_PIXEL_REVIEW
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/RuntimeAttempt3/unreal.log
+    sha256: C4E62598EA9482195FE73FE8991552B847A3887E797FDCB0C2AB64713ED9A312
+  mapcheck: {errors: 0, warnings: 0}
+  generation: {phase: COMPLETE, chunks: 516}
+  persisted_density_before_and_after_captures: 0.07999999821186066
+  constant_controls:
+    star_cell_scale: 42.0
+    star_point_radius: 0.035
+    star_emission: 3.0
+    star_visibility_weight: 0.18
+    night_fill_weight: 0.16
+    night_hemisphere_weight: 1.0
+    atmosphere_visible: true
+    cloud_radius_km: 6360.0
+  camera_location_cm: [191297894.9941019, 196950314.12154225, -421017759.8001751]
+  camera_rotation_deg: [20.411666768959616, -46.37008029227468, 111.80009049544569]
+  camera_location_delta_cm: 0.0
+  camera_rotation_max_delta_deg: 0.0
+  grass_before_and_after:
+    components: 196
+    instances: 2218356
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+  dirty_packages_after: 0
+  save_called: false
+
+captures:
+  persisted:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/RuntimeAttempt3/R58_persisted_density_0080.png
+    sha256: D86D4CD2D94AEE3B12C8EA006C7AAA75A4F59B3C04F033831642F28A3AA7DFA5
+    bytes: 1016142
+  confirmation:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_StarDensityPersistence_R58_20260805T1947Z/RuntimeAttempt3/R58_persisted_density_0080_confirm.png
+    sha256: 45A067611F93E843121ECE409B240D6D0A4BD7F3BEF75F3D660DEDFEBECEA7DD
+    bytes: 1011807
+  comparison_against_r57_baseline_sky_mask:
+    r58_confirm_luma_40_plus_pixels: 110
+    r58_confirm_neutral_bright_pixels: 1
+    r58_confirm_nearwhite_pixels: 0
+    r57_candidate_luma_40_plus_pixels_same_metric: 117
+    r57_candidate_neutral_bright_pixels_same_metric: 2
+    interpretation: >-
+      The fresh persisted confirmation reproduces the sparse restrained R57
+      analytic-star pattern without the density-1 diagnostic noise. This is a
+      narrow density persistence pass, not acceptance of the entire night view.
+
+harness_corrections:
+  attempt_1: >-
+    Failed before PIE because the inherited R54 table still pinned the pre-build
+    DLL hash. No project property or package changed. The exact failure result
+    is retained under the transaction diagnostics directory.
+  attempt_2: >-
+    Failed before PIE because the retained first result correctly triggered the
+    inherited no-clobber gate. No project property or package changed. Attempt 3
+    used a new explicit output directory and passed.
+
+protected_state:
+  uproject_sha256_before_after: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  presenter_cpp_sha256_before_after: 69487B6649E230906F2A3234D4CE19C505DA029B1950E4A78E7BB84514921112
+  star_material_sha256_before_after: E7C36E9E030527AEF5236232296A3AF6E5ECC6D99A886775BB0FD6620D21DA52
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  instance_a_sha256_before_after: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256_before_after: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+
+open_independent_defect: >-
+  The runtime still emits the existing starter-ship authoritative PPG parking
+  rejection and stops after 8 of 8 attempts. R58 did not change ship, terrain,
+  gravity, surface authority, player control, biome or package behavior.
+
+claim_boundary: >-
+  R58 proves the accepted restrained StarDensity 0.08 source default compiles,
+  reloads and reproduces its sparse D3D12 pattern without map or package save.
+  It does not accept the overall night art, moon, saturated grass/ground,
+  repetitive palms, ship parking or flight, standalone packaging, replication,
+  multiplayer, or a developer handoff build.
+
+next_safe_action: >-
+  Diagnose the repeated starter-ship authoritative PPG parking rejection as the
+  next bounded R59 handoff-critical slice. Preserve the persisted night change,
+  exact PPG seed, terrain, grass, foliage, map and protected checkpoints. Use
+  the existing project-owned ship and authentic generated surface authority;
+  do not place a stand-in or manually alter terrain.

@@ -1,0 +1,75 @@
+schema_version: 1
+reference_set_id: reference.user.seamless-planet-streaming-commandline-2026-07-23
+reviewed_utc: "2026-07-23"
+source_kind: user_supplied_design_direction
+authority: design_input_subject_to_project_invariants_and_evidence
+
+source_snapshots:
+  - id: reference.user.seamless-planet-streaming
+    title: RED MMO Seamless Planet Streaming and Atmospheric Entry System
+    original_path: C:/Users/user/.codex/attachments/344f430b-345d-472f-ba23-4548adab4f83/pasted-text.txt
+    bytes: 25715
+    sha256: 4F206B716E186930292304011B56888358C55C0E1401A88D43B96AC31369DC13
+  - id: reference.user.commandline-memory-safe-planet-workflow
+    title: RED MMO Command-Line and Memory-Safe Development Rules
+    original_path: C:/Users/user/.codex/attachments/20927cf2-c48c-4575-9136-31f903035978/pasted-text.txt
+    bytes: 12578
+    sha256: 4DA92FB4D15059A292A4EEF7E6643D1768ECED0F27C11AC6B67D6E118C788C93
+
+adoption_target:
+  primary_module: M04
+  related_modules: [M02, M03, M05, M09]
+  production_map_migration_authorized: false
+  initial_scope: isolated_planet_prototype_only
+
+accepted_architecture_direction:
+  - coordinate deep-space proxy, orbital close-range proxy, regional world, and local gameplay representations from shared planetary data and stable body coordinates
+  - predict a directionally biased flight corridor from position, velocity, acceleration, forward and camera directions, altitude, descent, braking distance, and an optional landing target
+  - keep minimum omnidirectional reserve, larger forward coverage, moderate side coverage, smaller rear coverage, delayed unload, hysteresis, and emergency direction-change preload
+  - separate visual, collision, gameplay, AI, networking, audio, shadow, effects, and detailed-foliage activation ranges
+  - keep foliage and landmarks deterministic or baked so repeated streaming produces stable placement
+  - use atmosphere and clouds for continuity and headroom without treating entry as a loading screen
+  - keep distant representations inexpensive and the opposite side unloaded except for global proxy data
+  - keep client visual preparation separate from regional server authority and replication handoff
+
+project_specific_boundaries:
+  - the 27 tangent-local square maps remain authoring inputs fused into six seam-safe fields; they are not 27 runtime World Partition cells
+  - PlanetGen owns procedural spherical surface chunks while World Partition, Data Layers, HLOD, and PCG own hand-authored hubs, roads, foliage, landmarks, and interiors
+  - Mesh Terrain remains an isolated evidence-based comparison and is not a production dependency
+  - the protected production map, 50 km checkpoint, fused prototype, artist maps, and handoffs must not be used as initial tooling targets
+  - build, headless, NullRHI, or commandlet output cannot satisfy visual, gameplay, package, or multiplayer acceptance
+
+commandline_workflow:
+  lightweight_code_mode:
+    - keep Unreal Editor closed for ordinary C++ and configuration work
+    - build the smallest affected target or translation unit and parse logs
+  isolated_processing_mode:
+    - run one UnrealEditor-Cmd commandlet for one named prototype region per process
+    - process cells in bounded batches, save, unload, collect garbage, report memory, and persist a resume checkpoint
+    - use NullRHI only for work that does not need rendering
+  visual_validation_mode:
+    - use one controlled standalone development runtime at bounded resolution and scalability
+    - collect real-GPU captures, Insights or stat data, visible-pop-in counts, collision readiness, and streaming telemetry, then exit
+  orchestration_contract:
+    - named JSON region manifests select patch IDs, World Partition bounds, and requested stages
+    - CPU placement and validation jobs are separate from GPU HLOD, proxy-material, minimap, and capture jobs
+    - no concurrent GPU-heavy Unreal jobs
+    - every job reports region, cells, packages, elapsed time, peak RAM, VRAM where available, warnings, failures, resume checkpoint, and output paths
+
+prototype_acceptance_direction:
+  - one orbital proxy, atmosphere, cloud layer, playable region, deterministic lush biome, water feature, settlement silhouette, ship, predicted landing target, World Partition cells, and HLOD
+  - continuous space approach, atmospheric entry, prepared lower-cloud reveal, high-speed surface flight, landing, exit, and walking without a loading screen
+  - speed, direction-change, memory-pressure, IO, cell-readiness, HLOD, foliage, collision, PSO, network-readiness, and pop-in measurements
+
+adoption_rules:
+  - inspect existing M04, PlanetGen, World Partition, ship movement, atmosphere, PCG, foliage, and server interfaces before naming or adding managers
+  - write the architecture and region-manifest contract before implementing a custom World Partition builder
+  - build the smallest isolated prototype before touching any production planet package
+  - preserve the forward corridor and landing destination longest under memory pressure
+  - require current full-target compile proof before runtime prototype acceptance and real-GPU evidence before any visual claim
+
+claim_limit: >-
+  This record preserves and reconciles the user's requested design direction. It
+  is not evidence that predictive streaming, World Partition region builders,
+  HLOD, deterministic foliage, atmosphere handoff, server regions, or seamless
+  flight are implemented or accepted.

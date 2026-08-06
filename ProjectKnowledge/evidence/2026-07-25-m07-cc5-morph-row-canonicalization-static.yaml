@@ -1,0 +1,162 @@
+schema_version: 1
+id: evidence.M07.cc5-morph-row-canonicalization-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T02:41:04Z
+result: passed_reviewed_fail_closed_cross_category_morph_row_canonicalization
+
+scope:
+  objective: >-
+    Resolve the independently reproduced P2 that prevented the approved
+    single-morph and linked-preset paths from using a CC5 morph ID represented
+    identically in both parent and child shaping categories, without weakening
+    missing-ID, conflicting-record, rollback, binding, allowlist, digest, or
+    public response-shape protections.
+  changed:
+    - Tools/CC5MCP/cc5_plugin/main.py
+    - Tools/tests/test_cc5_mcp_bridge.py
+  not_changed:
+    - installed Character Creator plugin files
+    - D:/RedMMOTitanWindowsData/CC5MCPBridge/config.json
+    - active Character Creator character or project
+    - Codex MCP configuration
+    - Unreal configuration, source, assets, maps, builds, cooks, or packages
+
+implementation:
+  resolver: _resolve_canonical_slider_row
+  behavior:
+    - reject an invalid or absent expected morph ID
+    - reject malformed host category, morph-ID, and display-name values before string coercion
+    - reject non-object, incomplete, nonfinite, boolean-numeric, or inverted-range shaping records
+    - accept repeated parent and child representations only when the complete non-category mappings match exactly
+    - reject a conflict in any current or future non-category field before a write
+    - retain every exact category representation internally for auditability
+    - preserve the preexisting public mutation result shapes
+  consumers:
+    - set_approved_morph
+    - apply_approved_linked_preset
+  rollback_coverage:
+    single_morph:
+      simulated_sequence:
+        - write requested value
+        - observe mismatched readback
+        - restore exact prior value
+      expected_result: morph_write_unverified_with_verified_restore
+    linked_pair:
+      simulated_sequence:
+        - write body
+        - write head
+        - observe mismatched head readback
+        - restore head
+        - restore body
+      expected_result: linked_preset_write_unverified_with_reverse_order_verified_pair_restore
+
+exact_reviewed_source:
+  Tools/CC5MCP/cc5_plugin/main.py:
+    bytes: 42082
+    sha256: 3BE0B2EF22D3C4286C7AA5F98DB21E5EC4430F96244B79D98F092B69A1351DB7
+  Tools/tests/test_cc5_mcp_bridge.py:
+    bytes: 62305
+    sha256: B202E5F8561734136471E260D8AE9C6D69A14DF8BFD3DFD708C319D914832BF6
+
+validation:
+  focused_tests:
+    command: python -B -m unittest Tools.tests.test_cc5_mcp_bridge
+    run: 36
+    passed: 36
+    failed: 0
+  python_3_8_parse:
+    files: 2
+    passed: 2
+    failed: 0
+  full_offline_discovery:
+    command: python -B -m unittest discover -s Tools/tests
+    run: 751
+    passed: 750
+    skipped: 1
+    failed: 0
+    exit_code: 0
+    note: >-
+      The printed PKI011 failure object is the intentional output of a negative
+      integrity-auditor contract; the unittest discovery itself completed OK.
+  independent_exact_hash_reviews:
+    reviewers: 2
+    final_p0_findings: 0
+    final_p1_findings: 0
+    final_p2_findings: 0
+    checks:
+      - raw host names are rejected before coercion
+      - complete non-category mappings, including unknown future fields, must match exactly
+      - conflict and missing-ID paths perform zero writes
+      - identical parent and child rows resolve to one mutation per target ID
+      - single and paired post-write mismatch paths restore exact prior state
+      - public mutation response shapes remain unchanged
+  canonical_integrity:
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_MorphRowCanonicalization_20260725_0241Z/integrity.json
+    result: pass
+    errors: 0
+    warnings: 0
+
+deployment_state:
+  installed_main:
+    path: D:/cc5/Character Creator 5/Bin64/OpenPlugin/RedMMO_CC5_MCP/main.py
+    bytes: 39013
+    sha256: B60FA68FB97960E24D38AC702CE14BCE18219FB688BE7E9946CF2C93FE15EFFF
+    exact_reviewed_source_match: false
+  live_bridge:
+    protocol_version: "1.2"
+    state: running
+    requests_processed: 8
+    last_error: null
+  private_config:
+    sha256: 119FC14855C1ADC8CAF9F4047715B31CDA708C67BFBFFE4D2B1AB67236BCE32E
+    morph_allowlist_count: 0
+    linked_preset_count: 0
+    version_files: 0
+  claim: source_only_not_deployed
+
+resources_at_capture:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 8.886
+  commit_limit_gib: 54.872
+  commit_used_gib: 23.353
+  commit_headroom_gib: 31.519
+  d_drive_free_gib: 1076.948
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4036
+    free_vram_mib: 6018
+  exact_unreal_or_build_process_count: 0
+  cc5_process_count: 1
+  decision: >-
+    The slice remained source-only because physical RAM was below Unreal and
+    package gates and CC5 was open. No installed plugin or live configuration
+    file was changed while the host was running.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This static result proves the project-owned resolver implementation and its
+  focused and full offline contracts pass independent exact-hash review. It
+  does not prove the new resolver is installed in CC5, that the review-only
+  Brute preset is configured or applied, that a live mutation or save works,
+  that a character looks correct, or that any Unreal integration exists.
+
+remaining_blockers:
+  - deploy the exact reviewed main.py only while CC5 is closed and retain an exact rollback copy of the installed revision
+  - restart CC5 and repeat authenticated status plus read-only Brute category inspection before changing the private config
+  - configure no allowlist or linked preset until the deployed revision and rollback boundary are independently verified
+  - test one reversible named pair without saving only after a separately reviewed no-clobber config migration
+
+next_safe_action: >-
+  At a later closed-CC5 boundary, retain the installed main.py and private
+  config in a new rollback directory, synchronize only exact source SHA-256
+  3BE0B2EF...51DB7, restart CC5, and perform status, inspect, and exact-category
+  list requests only. Do not configure or apply the Brute preset in that
+  deployment slice.

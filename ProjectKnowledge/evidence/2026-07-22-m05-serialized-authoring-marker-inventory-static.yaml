@@ -1,0 +1,109 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M05-SERIALIZED-AUTHORING-MARKER-INVENTORY-STATIC
+captured_at: "2026-07-22T09:17:39.208Z"
+module: module.M05.hub-anchors-and-seeded-biome-masks
+evidence_class: static
+result: passed_bounded_selected_marker_inventory
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree: pre_existing_dirty_worktree_preserved
+implemented:
+  - A read-only deterministic scanner inventories project-owned Unreal package payloads under Content/RedMMO and the expected RedMMO external-actor and external-object roots.
+  - Exact identifier-boundary ASCII and UTF-16LE names are grouped into selected strong PCG runtime-reference, WorldGen runtime-reference, palette-policy, manual-protection, and procedural-dressing markers. Generic WorldGen noise labels are reported separately as weak metadata markers.
+  - UE 5.8 split-package sidecars .uexp, .ubulk, .uptnl, .m.ubulk, and .upayload are included when present.
+  - The protected 50 km checkpoint main payload and expected sidecar manifest are authenticated before and after the scan. Pre-scan and post-scan payload size and modification-time inventories must match or the audit fails closed.
+  - CLI output is restricted to JSON beneath D:/RedMMOTitanWindowsData/Diagnostics and is replaced atomically. The scanner never loads Unreal or writes package content.
+files:
+  - path: Tools/audit_world_authoring_packages.py
+    sha256: 563DC5097B09DBF4F6C1108AC79AC9B1EE44457536CC75653B6137AF48C706DA
+  - path: Tools/tests/test_audit_world_authoring_packages.py
+    sha256: 2FAC59B92BC8DB989FFF94A419F77C4693E40DB6ABAAB6F1BAAFDFD23689609D
+reports:
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M05_SerializedAuthoringAudit_20260722_0852/serialized_package_inventory.json
+    sha256: 9F948F340604344499F6146CC1E0836582BF27288CC1DBDB0539F2E2A5304839
+    role: project_owned_package_inventory
+  - path: D:/RedMMOTitanWindowsData/Diagnostics/M05_SerializedAuthoringAudit_20260722_0852/worldgen_plugin_positive_control.json
+    sha256: DA90E1E363678B79C29F84B3452194CEA82EBE95CD00D742CD9EBA0E72BC2032
+    role: installed_vendor_worldgen_positive_control
+findings:
+  project_owned_scope:
+    package_count: 73
+    map_count: 10
+    asset_count: 63
+    payload_count: 73
+    sidecar_count: 0
+    bytes_scanned: 197722033
+    tree_quiescent_during_scan: true
+    expected_external_actor_root_exists: false
+    expected_external_object_root_exists: false
+  selected_strong_marker_package_counts:
+    pcg_runtime_reference: 0
+    worldgen_runtime_reference: 0
+    palette_pcg_policy_marker: 0
+    manual_protection_marker: 0
+    dressing_policy_marker: 0
+  weak_marker_findings:
+    worldgen_label_only_package_count: 9
+    package_type: map
+    interpretation: undetermined_metadata_only_not_runtime_acceptance
+  positive_control:
+    content_root: D:/UE_5.8/Engine/Plugins/Marketplace/WorldGenab6305bc725eV5/Content
+    package_count: 93
+    selected_worldgen_runtime_reference_package_count: 16
+    weak_worldgen_label_package_count: 2
+verification:
+  scanner_tests:
+    command: "python -B -m unittest Tools.tests.test_audit_world_authoring_packages -v"
+    result: "10/10 passed"
+  combined_m05_offline_tests:
+    command: "python -B -m unittest Tools.tests.test_audit_world_authoring_packages Tools.tests.test_planet_pcg_reservations Tools.tests.test_planet_pcg_runtime_registry_contract -v"
+    result: "26/26 passed"
+  project_report_check:
+    command: "python -B Tools/audit_world_authoring_packages.py --check D:/RedMMOTitanWindowsData/Diagnostics/M05_SerializedAuthoringAudit_20260722_0852/serialized_package_inventory.json"
+    result: RED_WORLD_AUTHORING_PACKAGE_AUDIT_OK_packages_73_runtime_refs_0_policy_markers_0
+  positive_control_check: deterministic_live_rescan_matched_saved_report
+resource_gate:
+  samples: 12
+  free_physical_ram_gib_range: [10.551, 11.036]
+  free_virtual_or_commit_headroom_gib_range: [21.621, 22.183]
+  gpu: NVIDIA GeForce RTX 3080
+  total_vram_mib: 10240
+  free_vram_mib: 8939
+  free_disk_gib:
+    C: 129.04
+    D: 1141.74
+  unreal_or_build_processes: 0
+  action: "No UHT, UnrealBuildTool, Unreal Editor, runtime, cook, package, or real-GPU process was launched."
+protected_foundation:
+  - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  - path: docs/PLANET_50KM_PCG_RESERVATIONS.json
+    sha256: 8E2952B8CB6530019BD9D1FFCAB526FB483B448B2B8D48164CCD10D00A78EDA8
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchProfile.json
+    sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  - path: SourceArt/Planet50Km/AuthoringPatches/RED_PatchRasters.json
+    sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+preservation:
+  - Protected checkpoints, production maps, artist repositories and handoffs, vendor plugins, user assets, binary packages, generated reservation data, and unrelated dirty work were not modified.
+  - Surface dressing remains disabled. No PCG graph, WorldGen adapter, exclusion volume, map actor, DataAsset, or production asset was created or changed.
+limitations:
+  - Zero selected strong-marker hits is not proof that runtime references or overrides are absent. This inventory does not decode Unreal properties, exports, dependencies, soft references, or actor enabled state.
+  - Default-valued native properties may be absent from serialized bytes. Renamed Blueprint types, Data Layers, plugin-created runtime objects, and markers outside the selected exact-name set can evade this scan.
+  - The nine weak WorldGen noise-label hits have undetermined meaning and are not treated as harmless or as runtime-reference evidence.
+  - Only the expected RedMMO external-actor and external-object roots were checked; both were absent. No project-wide absence claim is made.
+  - Matching size and modification-time inventories bound concurrent-change risk but are not an absolute proof that no other process touched content.
+claim_limit: >-
+  This evidence proves only a deterministic static inventory of selected exact-name
+  markers in the enumerated package payloads, plus scanner sensitivity against the
+  installed WorldGen content. It does not prove decoded asset state, dependency
+  closure, runtime placement, multiplayer behavior, overlap clearance, or visual
+  and gameplay acceptance.
+next_safe_action: >-
+  Use an Asset Registry or editor-backed decoded property/dependency audit when a
+  safe single Unreal process is permitted, then review Data Layers and placement
+  state before any production adapter or dressing is enabled. Keep compilation
+  deferred until at least 14 GiB of free physical RAM is sustained and packaging
+  deferred until 18-20 GiB remains sustainably free.
+rollback:
+  - Delete only Tools/audit_world_authoring_packages.py, Tools/tests/test_audit_world_authoring_packages.py, this evidence record, and the two derived diagnostic JSON reports if this static slice is rejected.
+  - Remove only this evidence link and its concise queue/current-state references. Do not alter maps, assets, artist content, vendor content, generated reservations, or unrelated dirty work.

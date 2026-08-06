@@ -1,0 +1,27 @@
+﻿schema_version: 1
+id: evidence.r92.dependency-focalrig-worldgen-unblock-build
+module: M12
+evidence_class: build
+status: accepted_partial_editor_slot_held_by_sibling
+timestamp_utc: 2026-08-06T21:23:42Z
+scope: >-
+  Machine search found no recoverable official FocalRig/WorldGen Fab payloads
+  (Intermediate-only Marketplace stubs). Titan.uproject disables both; RedMMO
+  optionalizes FocalRig with stock ControlRig AimItem substitute; PlanetGen
+  fork APIs shimmed for stock 1.7. TitanEditor Win64 Development succeeded.
+diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/R92_DependencyUnblock_20260807_000731
+build:
+  target: TitanEditor Win64 Development
+  result: succeeded
+  log: D:/RedMMOTitanWindowsData/Diagnostics/R92_DependencyUnblock_20260807_000731/TitanEditor_build_retry2.log
+  unrealeditor_redmmo_dll: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+disposition:
+  FocalRig: substituted_stock_controlrig_aimitem_plugin_disabled
+  WorldGen: disabled_with_documented_rollback
+  PlanetGenPinnedFork: not_restored_over_1_7_ppg_apis_shimmed
+rollback:
+  FocalRig_WorldGen: re-enable in Titan.uproject after official uplugin restore
+  PlanetGenCompat: delete RedPlanetGenCompat.* and restore direct Planet->* calls after fork restore
+coordination:
+  sibling_pie_agent: 9ceda3fa-7b43-433e-9bfb-024d14208fe0
+  note: single editor slot held by sibling RedMMO.uproject MCP launch

@@ -1,0 +1,13 @@
+﻿Binaries/
+Intermediate/
+DerivedDataCache/
+Saved/
+.vs/
+*.sln
+*.VC.db
+__pycache__/
+*.pyc
+.env
+.env.*
+*.log
+PackagedBuilds/

@@ -1,0 +1,228 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-MINING-RECEIPT-REAL-GPU
+captured_at: "2026-07-23T12:47:54Z"
+module: M09
+defect: DEF-0004
+slice: inventory-only-resource-totals-and-transient-mining-receipt
+evidence_class: real_gpu_visual
+result: persistent_resource_tally_removed_and_transient_mining_receipt_real_gpu_accepted
+
+scope:
+  authorized:
+    - remove the permanent Stone, Iron, and Crystal line from the combat HUD
+    - retain authoritative resource totals for a future inventory presentation
+    - show a short owner-only mining receipt only when authoritative credit is granted
+    - compile the affected current editor modules and run one bounded D3D12 visual acceptance
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - fused terrain assets and retained rollback maps
+    - artist repositories, supplied HUD source art, Vibe sources, and SAFE8 handoff
+    - unrelated dirty work and all pre-existing source ownership
+  not_run:
+    - Windows cook or packaging
+    - Steam transport
+    - a quantity-bearing inventory screen
+    - remote-client runtime acceptance
+    - ultrawide visual acceptance
+    - full DEF-0004 interaction and persistence acceptance
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The worktree was already materially dirty. Relevant pre-edit bytes were
+    copied directly to a D-resident rollback; Git was not used as rollback
+    authority, and unrelated entries were not cleaned, staged, reset, or
+    overwritten.
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/HUD_MiningResult_20260723_1235
+  contents:
+    - exact pre-edit copies of all six production C++ files
+    - exact pre-edit copies of all three runtime acceptance C++ files
+    - exact pre-edit copies of all three focused Python contract files
+    - exact pre-update copies of INDEX, current_state, DEF-0003, DEF-0004, and the module queue
+  manifest: D:/RedMMOTitanWindowsData/Rollback/HUD_MiningResult_20260723_1235/manifest.yaml
+  manifest_sha256: 204D010C01BCAEB05A94EC7F9E410F5121458807E3FC853EBE50BC1D9082A725
+
+implementation:
+  combat_hud:
+    - the ResourceTallyText widget and its permanent STONE, IRON, and CRYSTAL string are absent
+    - replicated resource totals remain in a hidden cache for a future inventory consumer
+    - legacy HUD resource-tally publication is not called from the replacement HUD update path
+  mining_receipt:
+    - authoritative AddResource is the one reward funnel for direct asteroid credit and collected pickups
+    - standalone and listen-host owners present locally; remote owners receive one reliable owner Client RPC
+    - the receipt uses the supplied purple-and-gold T_REDHUD_BuffRow_01 art without modifying the source texture
+    - an opaque live mask removes the sprite's baked sample label and time
+    - the live label reads MINING YIELD and the value reports only the credited resource and positive amount
+    - Stone, Iron, and Crystal use distinct silver, orange-gold, and violet accents
+    - the receipt remains for 3.25 seconds and fades during the final 0.70 seconds
+    - a bounded timer drives the fade and is cleared in NativeDestruct; NativeTick is not introduced
+  acceptance_harness:
+    - before requires the inventory cache to be hidden and the mining receipt to be absent
+    - reward requires hidden persistent totals plus visible exact IRON +6 receipt state
+    - after requires the receipt to be invisible with zero remaining time
+    - existing actual-field and two-client acceptance sources now distinguish inventory-total parity from transient receipt presentation
+
+source_identities:
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Public/RedHUDWidget.h
+    sha256: F165B2BBA6708E39D734FFB9ACACB8A358287637CD99B5A40AD6C9D6097B5D8B
+  - path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    sha256: D9A53E04F481F263E3D75A9D7D52A1F4EA68C70B2A85905FA4D97D6F22E711C3
+  - path: Source/RedMMO/RedHUD.h
+    sha256: DDCEDBEDB27ACFE5F4A349C553AD4240D71A221F70CDF1974D153889BB6D3890
+  - path: Source/RedMMO/RedHUD.cpp
+    sha256: 2E52902826AA41A3D0A5B3FCA8B8E7A7F6417E12AA9B293F6CD8240DC1E76D7E
+  - path: Source/RedMMO/RedPlayerCharacter.h
+    sha256: BB34A539A1BBB0370A84403856734B4A361DCC9B1B6F2A9A4C6F25AE303EEAE8
+  - path: Source/RedMMO/RedPlayerCharacter.cpp
+    sha256: 467A442F83C19373DD25D5D55B2A3A48B51993B72C92E20BC5F1BBBE8BCDB3A1
+  - path: Source/RedMMO/Tests/RedDEF0003ActualFieldPIETests.cpp
+    sha256: A6D2F2399FCF1E31A5D340B9627373C24DEAF6A5BEA9D6FD0337B6F4766B44B6
+  - path: Source/RedMMO/Tests/RedDEF0003TwoClientPIETests.cpp
+    sha256: 8A5E866CB4B541B032E47A563B1313417E8E3B57BAF55DD426110E8C1FB44E71
+  - path: Source/RedMMO/Tests/RedDEF0003ActualFieldTwoClientDepletionPIETests.cpp
+    sha256: DD5FC2D4E17B4795274670AAFCFD901EC521B97DD027F0D5C22CE76EA0E672B9
+
+build_verification:
+  full_editor_rebuild:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    actions: 14
+    log: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_20260723_1245/TitanEditor_final2_build.stdout.log
+    log_sha256: AB346BE91084227EE1CA751905EBED497CCA581B10C23307842F61AC2E3CF871
+  opaque_mask_incremental_rebuild:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    actions: 4
+    log: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_20260723_1245/TitanEditor_maskfix_build.stdout.log
+    log_sha256: E0E0A88B0FB8EA48926DA32C9EC190457EDA57D930AEE3BBCBD11DD2057FD1AA
+  products:
+    red_hud_runtime:
+      path: Plugins/RedHUD/Binaries/Win64/UnrealEditor-RedHUDRuntime.dll
+      sha256: 545E185482E98E6CE90CFEBA86B9999457AD90FFD0405430B42725510034B27F
+    red_mmo:
+      path: Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: 3154A309FA2083804280D68AFE961ACC2B053B3B6B8651BD2AB7A14F7047CAC9
+  focused_contracts:
+    result: 46_of_46_passed
+    suites:
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+      - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+    log: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/focused_contracts_clean.log
+    log_sha256: F40F9AD83EC60D0B68FDEB91F2860AE54BFFA3BF7447A1AC3044D4E3521F1F3A
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  mode: listen_server_one_local_client
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  resolution: 1280x720
+  command_line: >-
+    /Game/RedMMO/Maps/RedPlanetGen?Listen -game -d3d12 -windowed
+    -ResX=1280 -ResY=720 -ForceRes -NoSplash -NoAutoMatch -NoSteam
+    -NoLiveCoding -ddc=NoZenLocalFallback -RedDEF0003DepletionAutoCapture
+    -RedDEF0003CaptureDir=D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/Captures
+    -AbsLog=D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/runtime.log
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/runtime.log
+    sha256: 1961837B246745768C485C54B3F3B40EECDCB582B538FD3E0282A9BDF05493CC
+    bytes: 347089
+  markers:
+    begin: >-
+      pass=1 inventoryCachePass=1 persistentTallyVisible=0
+      miningResultPass=1 miningResultVisible=1 miningResultSeconds=3.25
+      miningResultText="IRON  +6"
+    result: >-
+      acceptancePass=1 runtimePass=1 beginHUD=1 final=1
+      inventoryCachePass=1 persistentTallyVisible=0
+      miningResultPass=1 miningResultVisible=0 miningResultSeconds=0.00
+      miningResultText="IRON  +6"
+    complete: requesting_clean_exit=1
+    exit: clean
+  failure_scan:
+    fatal: 0
+    assertion: 0
+    ensure: 0
+    unhandled_exception: 0
+    out_of_memory: 0
+    gpu_crash: 0
+    device_removed: 0
+
+visual_review:
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/Captures/DEF0003_Before.png
+    sha256: B9096A329CF726ED635DD06D4577E4544CAE11BA0CC41F93EE5210C5937B7CAF
+    finding: no Stone, Iron, or Crystal tally and no mining receipt are present
+  reward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/Captures/DEF0003_Reward.png
+    sha256: 430170D5D1030A816EB315B4D106A15B1093A71ADC30708E684BC7FE9D3628AD
+    finding: a purple-and-gold MINING YIELD / IRON +6 receipt is readable above the player status panel
+    finding_baked_sample_text: absent_after_opaque_mask_rebuild
+  after:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/Captures/DEF0003_After.png
+    sha256: 69835DC16B5317916D4919A9790DC4C6574A162A8FF47F5C2E5C72D438EC2B1E
+    finding: the mining receipt and permanent resource tally are both absent after expiry
+
+resource_and_process_gate:
+  final_free_physical_ram_gib: 16.721
+  final_free_commit_gib: 33.964
+  final_free_vram_mib: 8732
+  final_free_disk_d_gib: 1141.095
+  launched_unreal_process_count_per_run: 1
+  final_unreal_or_build_process_count: 0
+  packaging_ram_rule: respected_no_packaging_launched_below_18_to_20_gib_gate
+
+protection:
+  result: 8_of_8_exact
+  files:
+    - path: Content/RedMMO/Maps/RedPlanetGen.umap
+      sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+      sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    - path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+      sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    - path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+    - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+      sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+      sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+      sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/project_knowledge_integrity.json
+  report_sha256: BEF620EA1DA36476C31591BF0DC89684DF72347A3F4AD4F3EE5037E4F7C37FCD
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+
+accepted:
+  - resource totals are not permanently displayed on the combat HUD
+  - the authoritative totals remain available for a future inventory consumer
+  - one local mining receipt appears only when positive credit is granted
+  - the receipt uses HUD-theme art, contains no baked sample text, and expires
+  - current affected editor modules compile and the bounded real-GPU run exits cleanly
+
+remaining:
+  - a real quantity-bearing inventory screen for stored Stone, Iron, and Crystal totals
+  - remote-owner runtime receipt acceptance after the compiled two-client harness update
+  - ultrawide and controller-visible HUD placement acceptance
+  - full DEF-0004 controls, persistence, party, quest, consumable, and minimap scope
+  - packaged-client and Steam verification
+
+claim_limit: >-
+  This accepts the 16:9 local combat-HUD removal and transient mining-receipt
+  presentation in one D3D12 editor-game run. It does not implement or accept a
+  quantity-bearing inventory screen, remote runtime routing, ultrawide layout,
+  package, Steam, or the remaining broad DEF-0004 scope.

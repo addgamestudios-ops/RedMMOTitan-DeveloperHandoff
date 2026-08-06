@@ -1,0 +1,75 @@
+schema_version: 1
+id: evidence.m00.clean-r85-native-infantry-bolt-build
+module: M00
+evidence_class: build
+status: accepted_partial_runtime_visual_package_pending
+timestamp_utc: 2026-08-06T04:49:45Z
+scope: >-
+  One rollback-backed clean RedMMO source correction that prevents the current
+  A01 projectile Blueprint from replacing the native compact sphere tracer with
+  the rejected ProjectilesVol1 SM_Conus spacecraft-plume geometry. No map,
+  Blueprint, content asset, material, plugin, Config, package, or vendor source
+  changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.27
+  commit_headroom_gib: 54.34
+  gpu_free_mib: 9108
+  gpu_used_mib: 946
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+change:
+  file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Source/RedMMO/Private/RedBolt.cpp
+  before_sha256: 3E780E83A66221D8EDB3F398F2518FF8A3D01436749DAED23192B0913F975CF9
+  after_sha256: 74214A105BF180D72D9EAA469216FB61082ADB70FE191AF47463A9E4C05ED05E
+  behavior: >-
+    BeginPlay no longer applies the legacy serialized ProjectileMeshAsset
+    override. The constructor's /Engine/BasicShapes/Sphere mesh,
+    /Game/RedMMO/Materials/M_BoltTracer material and compact 1.6 by 0.07 by
+    0.07 scale remain authoritative for the current projectile.
+  compatibility: >-
+    ProjectileMeshAsset remains serialized for rollback compatibility but is
+    intentionally ignored until a separately verified infantry-tracer profile
+    explicitly re-enables overrides.
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeInfantryBoltRuntimeGate_R85_20260806T044710Z
+  backup_file: D:/RedMMOTitanWindowsData/Rollback/BeforeInfantryBoltRuntimeGate_R85_20260806T044710Z/RedBolt.cpp
+  backup_sha256: 3E780E83A66221D8EDB3F398F2518FF8A3D01436749DAED23192B0913F975CF9
+build:
+  target: RedMMOEditor Win64 Development
+  engine: D:/UE_5.8
+  invocation: >-
+    bundled DotNet 10.0 UnrealBuildTool.dll RedMMOEditor Win64 Development
+    -Project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -WaitMutex -NoHotReloadFromIDE -NoUBA -MaxParallelActions=1
+  result: succeeded
+  compiled_action: RedBolt.cpp
+  linked_action: UnrealEditor-RedMMO.dll
+  build_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_InfantryBoltRuntimeGate_R85_20260806T0447Z/RedMMOEditor_build.stdout.log
+  build_log_sha256: 2D013E3795B16A269F5CF0B315FA9DE56C73036F888F51CF484A24DE417F090D
+  build_log_bytes: 2531
+  editor_module:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: 55B98B7AF5765CE14D5B82247EECF3913022CD8530A04ED07B63C1B037D1E008
+    bytes: 807936
+  editor_target_metadata:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Binaries/Win64/RedMMOEditor.target
+    sha256: 99913ABA38977C6F09B0CB32232428FB597CDE05EF9BB673D4CD16204D8789D3
+    bytes: 949424
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  active_unreal_build_package_process_count_after: 0
+claim_limit: >-
+  Successful source compile and editor-module link only. The correction is not
+  yet in the R84 package and no runtime, player-scale projectile pixels,
+  muzzle-flash art, fire/recoil animation, physical input, replication,
+  multiplayer, Steam, or user acceptance is claimed.
+next_safe_action: >-
+  Run a fresh no-save D3D12 projectile-specific editor acceptance that proves
+  the current A01 Blueprint renders the native compact tracer rather than
+  SM_Conus. If it passes, keep this source change, then address the separate
+  infantry muzzle and compatible fire/recoil animation closure before building
+  a new playable package.

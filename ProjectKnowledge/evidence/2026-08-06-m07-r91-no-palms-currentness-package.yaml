@@ -1,0 +1,186 @@
+schema_version: 1
+id: evidence.m07.r91-no-palms-currentness-package
+module: M07
+evidence_class: package
+status: accepted_partial_currentness_boundary_confirmed
+timestamp_utc: 2026-08-06T17:33:04Z
+scope: >-
+  One bounded read-only currentness audit of the R91 active no-palms biome
+  authority against R90 and the current serialized ProfileV1/R66/R73 source.
+  No Unreal, build, cook, package, runtime or desktop-control process launched,
+  and no map, profile, content, Config, Source, package, vendor source, user
+  asset, protected checkpoint, fused face or tangent-authoring input byte
+  changed.
+
+preflight:
+  captured_utc: 2026-08-06T17:26:31Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2464
+  free_physical_ram_gib: 54.26
+  commit_headroom_gib: 54.04
+  gpu_free_mib: 8943
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+  queue_sha256_before: 44C2E6540B0B5F5A90F6F56FF2FF2464F4B7AD924D87B18F15DC252DD04F0C6E
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/transaction_intent.yaml
+  intent_bytes: 935
+  intent_sha256: 40FFAA774A66D6C82E9937CAC0584639A27CB8A6EE9C4D0CE1BC6BB3FEAC4F81
+  operation: read_only_package_currentness_audit
+  project_or_package_mutation_count: 0
+
+r91_package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R91_Playable_20260806T1642Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R91_Playable_20260806T1642Z/Windows/RedMMO.exe
+  file_count: 50
+  total_bytes: 1454950806
+  tree_sha256: 78CA43D6902FC646EAF640C0344B3E0879A875FBA1A2CDAAB2CE829700E5467E
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R91_Package_20260806T1642Z/iostore_list.txt
+  iostore_listing_bytes: 610886
+  iostore_listing_sha256: A8C9D679AD4FF12D2CE8A42EA78B188630BE1D275492C4A3C4D2431B11480FE6
+  indexed_entries: 3295
+  unique_paths: 1824
+
+r90_r91_exact_currentness:
+  r90_unique_paths: 1824
+  r91_unique_paths: 1824
+  added_paths: 0
+  removed_paths: 0
+  project_utoc_sha256_both: DD7A8A63CF7EDF1CAD9DE246080F7932758D6C476B2053D06F56B768F5D01370
+  project_ucas_sha256_both: E310E240CC3DBB13A3DCD94D0407D8EC7CF770E63B5924B68B1EB1E2542DD975
+  project_pak_sha256_both: BE6CD69DC131D23C7F3D0CA4D044E08D3512D064A53FBE8741C4E383E767A0C3
+  interpretation: >-
+    R91 and R90 have the same project content containers and the same unique
+    IoStore path set. The R91 native-code update did not change cooked content.
+
+active_serialized_authority:
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  no_palms_r66_sha256: C0EE6CB0A2D9D679D1FB4D64747555D55A5AF18ABED4AEC2666A1D5BECDA97DC
+  no_palms_r66_foliage_densities: [0.0, 90.0, 0.6000000238418579]
+  rock_only_r73_sha256: 4499F76A4B541D92BB7CCF66EA4C8B55C2AA0AC0CEEA4D4AFB964D2807EE7A1D
+  rock_only_r73_foliage_densities: [0.0, 0.0, 0.6000000238418579]
+  active_palm_tree_category_density: 0.0
+  r91_no_palms_r66_uasset_entry_count: 1
+  r91_rock_only_r73_uasset_entry_count: 1
+  profile_bindings:
+    Hills: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_NoPalms_R66
+    Craters: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+    Mountains: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1/Profiles/DA_PPG_ProfileV1_RockOnly_R73
+    Desert: null
+    Ocean: null
+    Poles: null
+  disable_contract: >-
+    Installed PPG skips a foliage category when effective density is less than
+    or equal to zero. Retaining mesh identity with density zero is the
+    supported disable path; an empty mesh entry is invalid.
+
+dormant_cooked_palm_boundary:
+  project_palm_alias_uasset_entry_count: 1
+  vendor_stylized_desert_oasis_palm_uasset_entry_count: 9
+  vendor_stylized_desert_oasis_palm_total_entry_count_including_bulk: 16
+  interpretation: >-
+    Cooked asset presence is not a spawn binding, foliage component or foliage
+    instance. These bytes remain dormant under the exact active authority.
+
+prior_runtime_and_real_gpu_boundary:
+  r80_runtime_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Verify4/result.json
+  r80_runtime_result_sha256: 477EF2648B8E238E8D994B856E95D18CBC894A0A869E56768D0F45382A6D06CD
+  r80_binding_matches_current_profile_v1: true
+  r66_evidence: ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r66-seeded-palms-disabled-real-gpu.yaml
+  r66_palm_component_count: 0
+  r66_palm_instance_count: 0
+  r66_grass_component_count: 196
+  r66_grass_instance_count: 2218356
+  r66_visible_repeated_palms: false
+  r73_evidence: ProjectKnowledge/evidence/2026-08-05-m07-clean-redmmo-r73-biome-presentation-real-gpu-partial.yaml
+  r73_visible_palms: false
+  r73_overall_art_acceptance: false
+
+hud_config_boundary_preserved:
+  default_game_ini_sha256: 15F3031EDDFDBFA95DC08FE09FDF2C96CC155BAEB5AABC196119D77E638573E0
+  player_status_always_cook_rule_preserved: true
+  successor_package_built_in_this_slice: false
+
+verification:
+  verifier: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/audit_r91_no_palms_currentness.py
+  verifier_bytes: 10954
+  verifier_sha256: 4631F7E3D0241F5A4964578D0CB6899420E10D5BA31E3A3066300E55CA5DCF24
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/r91_no_palms_currentness.json
+  report_sha256: EBC1EBFFA5F6F994EBFA34473FD8CF573E2B646787F1401BF8FB5488665C20D9
+  focused_checks: 32_of_32_passed
+  failed_checks: 0
+  project_knowledge_and_fused_tests: 37_of_37_passed
+  project_knowledge_tests_stdout: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/project_knowledge_and_fused_tests.txt
+  project_knowledge_tests_stdout_bytes: 400
+  project_knowledge_tests_stdout_sha256: 256A2CE7A7C5C1C50548B9793EAE8ED29FA0ECFDD40AE287288F5B1C30213374
+  project_knowledge_tests_stderr: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/project_knowledge_and_fused_tests.stderr.txt
+  project_knowledge_tests_stderr_bytes: 15530
+  project_knowledge_tests_stderr_sha256: 881C06BC0826B822CA4DBADD5632A0A94D9AE4DB1C8418410B53D958DD68D2E0
+  canonical_integrity_audit: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M07_R91_NoPalmsCurrentness_20260806T1727Z/project_knowledge_integrity.json
+  canonical_integrity_report_bytes: 1836
+  canonical_integrity_report_sha256: E02A443492D5A7A7C93BC074C04A1735D9F655FA212642AC112D32EF6CD9D570
+  direct_r91_visible_or_hands_on_review: false
+
+finding: >-
+  R91 is package-current with the authoritative no-palms ProfileV1 binding.
+  Every active foliage profile has palm/tree density zero and prior runtime
+  plus real-GPU evidence for the exact unchanged profile hashes recorded zero
+  palm components and zero palm instances. Dormant palm asset bytes remain
+  cooked but are not active map foliage.
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_tangent_authoring_inputs_count: 27
+  protected_fused_faces_count: 6
+  vendor_and_user_assets_modified: false
+
+queue:
+  snapshot_sha256: D74BB1ABD8E4DC17925DB8B6401E270F94D6936A458989517A51C1DAF72D17CD
+  module_status: in_progress
+  retry_count: 88
+
+postflight:
+  captured_utc: 2026-08-06T17:33:04Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2464
+  free_physical_ram_gib: 54.19
+  commit_headroom_gib: 58.19
+  gpu_free_mib: 9013
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 13
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+  protected_hashes_match: true
+
+blocker: >-
+  This wake did not launch or capture R91. A direct visible R91 player-scale
+  palm census and human review remain open, as do the wider M07 physical
+  controls and final biome, shoreline and day/night art gates. Dormant palm
+  bytes remain cooked; a zero-byte policy would require a separately reviewed
+  cook-exclusion mutation.
+
+rollback: >-
+  Remove only this diagnostics report and its canonical evidence/index/state/
+  queue linkage. No project or package rollback is required because the slice
+  was read-only.
+
+claim_limit: >-
+  Package/static currentness plus referenced prior runtime and real-GPU
+  evidence for the exact unchanged active no-palms profile hashes. No direct
+  R91 visible, hands-on, gameplay, standalone, replication, multiplayer,
+  performance or final-art acceptance is claimed.
+
+next_safe_action: >-
+  Rotate to M09 and build exactly one no-clobber successor package from the
+  retained PlayerStatus cook rule. Require exactly one cooked PlayerStatus
+  package/object, zero missing-art warnings and clean packaged D3D12 startup.

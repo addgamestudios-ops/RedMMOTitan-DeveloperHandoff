@@ -1,0 +1,157 @@
+schema_version: 1
+id: evidence.M07.nwiro-restricted-probe-baseline-source-audit-static.2026-07-25
+evidence_class: static
+module: M07
+captured_utc: 2026-07-25T09:15:15Z
+result: passed_fail_closed_baseline_blocker_inventory_with_no_positive_state
+
+scope:
+  objective: >-
+    Convert the known Nwiro Integration Kit restricted-probe blockers into one
+    deterministic offline baseline audit without launching Unreal or Nwiro,
+    modifying the Marketplace plugin, exposing a transport, or claiming that a
+    hardened candidate exists.
+  performed:
+    - authenticate eleven named critical files from installed Integration Kit 1.0.9 by exact byte count and SHA-256
+    - parse the reviewed MCP server and bridge definitions without allowing comments or strings to satisfy diagnostic source shapes
+    - inventory the installed raw-route, process-lock, config-publication, ProcessJsonRpc, registry, DispatchTool, headless, bridge-null, and ACP blockers
+    - refuse source drift before diagnostic evaluation
+    - make blocked the only legal CLI expectation and keep runtime authorization permanently false
+    - independently review and remove the initial unsafe positive fixture and every ready-state path
+  not_performed:
+    - authenticate the complete 84-file plugin source tree, filesystem link topology, Build output, loaded module, or running binary
+    - implement, compile, install, enable, launch, or exercise a restricted Nwiro mode
+    - initialize MCP, list tools, call find_assets, send a provider request, or open a network transport
+    - load, migrate, convert, place, render, modify, or upload either environment pack
+    - create or modify a map, asset, plugin configuration, Codex configuration, or protected checkpoint
+    - claim Nwiro, mini-hub, curved-tile, visual, gameplay, performance, or real-GPU acceptance
+
+preflight_and_final_state:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 9.927
+  commit_headroom_gib: 16.248
+  d_drive_free_gib: 1076.947
+  gpu:
+    name: NVIDIA GeForce RTX 3080
+    total_vram_mib: 10240
+    used_vram_mib: 4052
+    free_vram_mib: 6002
+  exact_unreal_or_build_process_count: 0
+  decision: >-
+    Physical RAM remained below the one-editor floor. No Unreal, Nwiro, MCP,
+    build, cook, package, import, provider, or real-GPU process was started.
+
+artifacts:
+  baseline_auditor:
+    path: Tools/audit_nwiro_restricted_probe_source.py
+    bytes: 18258
+    sha256: 2E8B3B669630B125BB0C427C6F52CDC2DF7F24392D1728374342808C635CEAC1
+  tests:
+    path: Tools/tests/test_audit_nwiro_restricted_probe_source.py
+    bytes: 7244
+    sha256: 9E7F5D6028AB2C7C868B2AAAA60025272A7F5E35444EEA1B704FC904542A3256
+
+baseline_contract:
+  installed_plugin: Nwiro Integration Kit
+  plugin_version: 1.0.9
+  plugin_root: D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4
+  named_critical_file_count: 11
+  source_revision: reviewed_blocked_baseline_critical_files_exact
+  assessment_kind: critical_file_baseline_blocker_inventory
+  file_scope: named_critical_files_only_not_complete_plugin_tree
+  status: blocked
+  candidate_static_acceptance_supported: false
+  running_binary_authenticated: false
+  runtime_authorized: false
+  legal_cli_expectations:
+    - blocked
+  source_drift_behavior: return_source_drift_without_evaluating_diagnostics
+
+confirmed_blockers:
+  candidate_hardened_source_contract_absent: true
+  restricted_mode_declared: false
+  exclusive_process_lock_before_listener: false
+  alternate_http_routes_suppressed: false
+  vendor_config_publication_suppressed: false
+  process_jsonrpc_predispatch_gate: false
+  runtime_tool_registry_generation_bound: false
+  dispatch_tool_exact_allowlist: false
+  headless_permission_fail_closed: false
+  bridge_null_extension_fail_closed: false
+  acp_direct_dispatch_suppressed: false
+  installed_bridge_null_fail_open_extension_gate_count: 7
+
+verification:
+  focused_baseline_audit_tests:
+    run: 8
+    passed: 8
+    failed: 0
+  combined_metadata_contract_firewall_and_baseline_audit_tests:
+    run: 48
+    passed: 48
+    failed: 0
+  standalone_cli:
+    command: python -B Tools/audit_nwiro_restricted_probe_source.py --expect blocked
+    exit_code: 0
+    reported_status: blocked
+    reported_runtime_authorized: false
+  canonical_integrity:
+    result: pass
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 158
+    queue_sha256: 070382B07A0A50A5AD30CC16D194B49182C9F76ABA3C649C530A5AF71EDB6542
+    report_path: D:/RedMMOTitanWindowsData/Diagnostics/M07_NwiroRestrictedBaseline_20260725_0915Z/integrity_final.json
+    report_bytes: 1784
+    report_sha256: 8737488738AFC6EA4E0D193E634D7BF8A250A5FBB897948213F0641DBCDA3A50
+  independent_reviews:
+    final_p0_findings: 0
+    final_p1_findings: 0
+    final_p2_findings: 0
+    reviewers_executed_implementation_or_tests: false
+    initial_material_findings:
+      - marker ordering could falsely accept ignored validators and duplicate unsafe routes
+      - the positive synthetic fixture used no real lock or restrictive validator
+      - ACP presence was initially treated as covered rather than unsuppressed
+      - a changed candidate could never authenticate against baseline-only embedded hashes
+      - the named critical-file set was not a complete plugin-tree or binary attestation
+    corrections:
+      - remove the positive fixture and every ready-state path
+      - make blocked the only legal expectation
+      - label all source-shape results diagnostic and non-authoritative
+      - report ACP direct ProcessJsonRpc presence as unsuppressed
+      - disclose named-critical-file-only scope and unauthenticated running binary
+      - require a separate future candidate-source contract before positive acceptance can exist
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is exact blocked-baseline static evidence for eleven named critical
+  Integration Kit 1.0.9 files only. The diagnostic source shapes are not a C++
+  control-flow proof and cannot accept a hardened candidate. The artifact does
+  not authenticate the complete plugin tree, filesystem identities, build,
+  loaded module, binary, endpoint, provider behavior, or runtime. It has no
+  ready state and cannot authorize a live Nwiro or MCP operation.
+
+remaining_blockers:
+  - define a separate immutable candidate-source contract and complete critical-tree manifest with explicit extra-file and filesystem-link policy
+  - implement the restricted mode in an isolated project-owned or vendor-approved fork rather than modifying the Marketplace installation in place
+  - default the mode off and bind activation, one process, one in-flight call, nonce, generation, phase, exact singleton tool definition, exact query, and exact redacted response
+  - suppress raw HTTP, fallback ports, restarts, ACP, dynamic registry, bridge events, provider egress, secrets access, permission bypass, and client-config publication
+  - add adversarial semantic and mutation tests, compile the reviewed candidate, authenticate its binary, and independently review it before any live probe
+  - keep both packs allows_usage_with_ai false and complete explicit rights review
+  - obtain authoritative Asset Registry closure, isolated UE 5.8 conversion, exact migration, isolated mini-hub map, and real-GPU acceptance later
+
+next_safe_action: >-
+  Without launching Unreal or touching the installed Marketplace plugin, author
+  the separate versioned candidate-source contract and an isolated project-owned
+  Integration Kit fork skeleton whose restricted mode is default-off. Add
+  adversarial source and behavior tests for exact activation, process/in-flight
+  ownership, nonce/generation/phase, singleton registry, exact query and response,
+  and total alternate-route/provider/config suppression before any compile,
+  installation, MCP initialization, or tool call.

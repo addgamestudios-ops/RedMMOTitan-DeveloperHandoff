@@ -1,0 +1,193 @@
+schema_version: 1
+id: evidence.m07.stylized-source-semantic-taxonomy-overlay.static.2026-07-24
+captured_utc: "2026-07-24T20:47:09Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: deterministic-fail-closed-stylized-source-semantic-taxonomy-overlay
+evidence_class: static
+result: passed
+
+scope:
+  authorized:
+    - classify every authenticated v2 stylized-source record offline
+    - preserve source category as provenance while separating object family from material substance
+    - fail closed on ambiguous, unresolved, technical, generic-prop, and source-category-conflict records
+    - verify the demonstrated wood-door-under-Trees regression
+  explicitly_not_run:
+    - import, delete, move, rename, overwrite, promote, or reference any Unreal package
+    - mutate D:/styled assets or the authenticated v2 plan
+    - edit any production, protected, test, vendor, or artist map
+    - launch Unreal Editor, build, cook, package, Nwiro, Meshy, Tripo, or a real-GPU test
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  free_physical_gib: 8.392
+  free_commit_gib: 21.296
+  free_d_drive_gib: 1105.528
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 7443
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  selected_work_mode: offline_static_only
+
+authenticated_input:
+  source_root: D:/styled assets
+  source_policy: immutable
+  plan:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/plan_v2_20260724_2218.json
+    file_sha256: 29D15839FAD2E0624856F765C78D4FABBB9693B6023AE62590D89C2833AEAC17
+    dataset_sha256: 83FC1D37DB9861508E7A49EB1FDC28C2D6F730F49D74C0D288764B1343488BB1
+    semantic_plan_sha256: 97E5A38D14FA585C646C3BDFBC5324C75423995646DF0CB5E717B7E54826864C
+    record_count: 23599
+
+implementation:
+  tool:
+    path: Tools/build_redmmo_stylized_source_taxonomy.py
+    sha256: 1AA922D070B7FB9412E380E8D6C0C3F97700BBCC69E30F409EC54036489A3E04
+  tests:
+    path: Tools/tests/test_build_redmmo_stylized_source_taxonomy.py
+    sha256: 92AF83A467E1DB9129D251E05AB30B9DC3C516C2F04C9A937B2B28EEF81E2453
+  schema: redmmotitan.stylized_source_taxonomy.v3
+  ruleset_version: redmmo-object-family-material-substance-v1
+  ruleset_sha256: 65D63916B0E0A9C85221D018DDDC54495E334EFCE17D7C190BD69D7210177B57
+  policy:
+    - source category is provenance and is excluded from object-family token inference
+    - material tokens never establish object family
+    - multiple object-family matches require review
+    - source object-category conflicts require review
+    - every review-required record has no recommended library path
+    - output is restricted to the D-resident taxonomy diagnostics root and is no-clobber
+    - the overlay binds the exact authenticated v2 plan, dataset, source policy, source hash, stable source ID, and v2 object path
+
+determinism:
+  generation_a:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Taxonomy/taxonomy_v3_20260724_2038_a.json
+    file_sha256: 46DD7F969C7E1E829A32C8671C36535A4D1D25EE4BF0A98871895DE24CEE5ADD
+    authenticated_verify_exit_code: 0
+  generation_b:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Taxonomy/taxonomy_v3_20260724_2038_b.json
+    file_sha256: 46DD7F969C7E1E829A32C8671C36535A4D1D25EE4BF0A98871895DE24CEE5ADD
+    authenticated_verify_exit_code: 0
+  byte_identical: true
+  semantic_taxonomy_sha256: EAF4C579B35E11FAC8DBD245D78AF99A6145211664A488095CD13441BF262418
+
+full_corpus_result:
+  record_count: 23599
+  promotion_candidate_count: 2640
+  review_required_count: 20959
+  source_category_conflict_count: 996
+  unresolved_count: 15538
+  object_family_counts:
+    ambiguous: 903
+    architecture_building: 610
+    architecture_door: 116
+    architecture_floor_path: 236
+    architecture_roof: 83
+    architecture_wall: 378
+    architecture_window: 27
+    environment_water: 97
+    geology_rock: 183
+    mineral_crystal: 27
+    prop_generic: 3920
+    technical_ui: 87
+    terrain_surface: 694
+    unresolved: 15538
+    vegetation_foliage: 423
+    vegetation_grass: 57
+    vegetation_tree: 220
+  review_reason_counts:
+    generic_prop_family_requires_review: 3920
+    multiple_object_family_matches: 903
+    no_high_confidence_object_family_token: 15538
+    source_category_conflicts_object_family: 996
+    technical_name_requires_review: 87
+
+demonstrated_regression:
+  expected:
+    object_family: architecture_door
+    material_tags: [wood]
+    review_required: true
+    review_reasons: [source_category_conflicts_object_family]
+    recommended_library_path: null
+  exact_records:
+    - RED-STYLIZED-E8A8A6157181F6058A861B24
+    - RED-STYLIZED-49156E6D8B89646879AC66CE
+    - RED-STYLIZED-65EEBE012F31939103276E82
+    - RED-STYLIZED-BF0EF79909C676D4626B846C
+    - RED-STYLIZED-89F6B653298F543090E22EC9
+    - RED-STYLIZED-97A4BCF1F33DD45A956262E4
+    - RED-STYLIZED-23D277C769A794268322DDCD
+    - RED-STYLIZED-DD4C2E1C2ED32FA61D422750
+  observed: all_eight_match_expected_exactly
+  package_disposition:
+    - retain the eight existing packages in place as unreferenced quarantined evidence
+    - never relocate them with filesystem operations, wildcard selection, or category-wide rules
+    - require an exact Unreal AssetTools old-path/new-path manifest if a later reviewed decision authorizes relocation
+
+verification:
+  combined_test_command: >-
+    python -m unittest
+    Tools.tests.test_build_redmmo_stylized_source_taxonomy
+    Tools.tests.test_import_redmmo_stylized_source_library
+    Tools.tests.test_invoke_red_stylized_source_import_batch
+  combined_tests_run: 40
+  combined_tests_passed: 39
+  combined_tests_skipped: 1
+  combined_tests_failed: 0
+  py_compile_exit_code: 0
+  authenticated_generation_a_verify_exit_code: 0
+  authenticated_generation_b_verify_exit_code: 0
+  defects_found_and_closed_during_slice:
+    - direct script invocation initially could not resolve the Tools package; a guarded same-directory import fallback now preserves both module and CLI execution
+    - tuple fields initially failed strict JSON round-trip equality; serialized record payloads now use canonical JSON arrays
+
+canonical_validation:
+  project_knowledge_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_StylizedTaxonomy_20260724_2049/project_knowledge_integrity.json
+    sha256: 166A4E1127A326EBDFAA78CAE43365E5701E694357BB6B1A2D7F4F958450BE79
+    result: pass
+    errors: 0
+    warnings: 0
+  focused_integrity_tests:
+    run: 20
+    passed: 20
+    failed: 0
+  canonical_queue_sha256: E158F11E3229FFB8A666BB0F3D7F27D0AA9EB8D7D77F217EDEC020A91F5E6E00
+
+postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  free_physical_gib: 8.359
+  free_commit_gib: 21.509
+  free_d_drive_gib: 1105.490
+  vram_free_mib: 7527
+  packaging_gate: remained_closed
+  unreal_process_launched_by_slice: false
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is deterministic static taxonomy evidence, not an approved asset
+  library. The 2640 machine candidates have not received human identity,
+  family-completeness, duplicate-resolution, license, provenance, pixel, PBR,
+  scale, material, Unreal dependency, visual, runtime, or performance review.
+  The remaining 20959 records intentionally fail closed. No package or map was
+  changed, and no Nwiro, Meshy, Tripo, curved-tile, foliage, gameplay, package,
+  Steam, multiplayer, or real-GPU acceptance is claimed.
+
+remaining_blockers:
+  - emit authenticated human-review decisions bound to this exact taxonomy hash
+  - emit an exact resolved-selection manifest containing stable source IDs rather than category ranges
+  - add family grouping and duplicate-payload decisions before importer enforcement
+  - update the importer to consume only exact reviewed stable IDs and refuse source-category bulk promotion
+  - retain all existing v2 and legacy packages quarantined until those review and selection layers exist
+
+next_safe_action:
+  - build and test the no-clobber reviewed-decision and exact stable-ID resolved-selection layer offline
+  - do not resume another Unreal import batch until the importer enforces that resolved selection

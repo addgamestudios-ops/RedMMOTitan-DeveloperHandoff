@@ -1,0 +1,153 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-DEF-0003-ASTEROID-DEPLETION-SOURCE-CONTRACT-STATIC
+captured_at: 2026-07-22
+module: M00
+slice: DEF-0003-asteroid-depletion-source-contract-reconciliation
+evidence_class: static
+result: failed_contract_root_cause_pinned
+
+authorization_and_scope:
+  bounded_defect: DEF-0003
+  production_source_modified: false
+  reason_for_audit_only: >-
+    The directly relevant asteroid and explosion source files are untracked, and
+    RedBolt.cpp plus RedResourcePickup.cpp already contain unrelated tracked
+    modifications. This slice preserved those existing bytes and added only an
+    offline contract plus canonical evidence.
+
+resource_preflight:
+  samples: 8
+  duration_seconds: 31.1
+  total_physical_ram_gib: 31.872
+  free_physical_ram_gib_range: [11.209, 11.673]
+  free_commit_gib_range: [20.704, 21.195]
+  free_vram_mib_range: [8940, 8953]
+  gpu_utilization_percent_range: [11, 15]
+  gpu_temperature_c: 43
+  disk_free_gib:
+    C: 132.865
+    D: 1141.736
+  blocker_process_count: 0
+  decision: >-
+    Did not launch Unreal, UnrealBuildTool, cook, or packaging. Sustained free
+    physical RAM remained below the safe Unreal/build gate and far below the
+    18-20 GiB packaging rule.
+
+authoritative_runtime_observation:
+  playtest: ProjectKnowledge/playtests/2026-07-21-space-flight-asteroid-landing.yaml
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/ShipSurfaceRuntime_20260721_040045/runtime.log
+    sha256: FC452ECD48BF9AE2077448B5BFD48D267A349594568D465B302CB14A8BB25D95
+    last_write_utc: 2026-07-21T01:20:13.0596181Z
+  actor: RedMineableAsteroid_23
+  mining_instigator: BP_RedModularStarSparrow_C_0
+  log_lines: [2697, 2698, 2699, 2700, 2701, 2702, 2703]
+  remaining_sequence: [5010, 4020, 3030, 2040, 1050, 60, 0]
+  final_extracted: 60
+  conclusion: >-
+    Player evidence and the runtime log prove that authoritative mining reached
+    exactly zero ore and the visible asteroid then disappeared without readable
+    breakup, debris, or reward feedback.
+
+current_source_contract:
+  verified_present:
+    - RegisterMiningHit rejects non-authority, depleted, and non-positive requests
+    - extracted ore is bounded by OreRemaining and the server forces a net update
+    - OreRemaining uses ReplicatedUsing and is included in lifetime replication
+    - the depletion refresh runs on both server mutation and OnRep_OreRemaining
+  root_cause:
+    - >-
+      RefreshDepletedState derives one boolean directly from OreRemaining and
+      immediately calls SetActorHiddenInGame(true) at zero
+    - collision is disabled in the same immediate refresh with no presentation interval
+  missing_contracts:
+    - no replicated active, depleting, or depleted state machine
+    - no authoritative transition timestamp or bounded cleanup timer
+    - no destruction VFX, debris actor, fracture event, or sound handoff
+    - no resource pickup or inventory/reward handoff from asteroid depletion
+    - RedBolt ignores RegisterMiningHit's extracted-ore return value
+    - no explicit late-join depleted or respawned-state contract
+  chronology_limit: >-
+    The current asteroid source timestamp postdates the reproducing runtime log,
+    so the log does not authenticate this exact source identity. The present
+    source independently retains the same immediate-hide mechanism and still has
+    none of the required transition contracts.
+
+source_identity:
+  - path: Source/RedMMO/RedMineableAsteroid.h
+    sha256: 7EF8E19B7D20CB6ABD186A7E460B6859CB0045D4F09571B7CC5DC88E1E735805
+    last_write_utc: 2026-07-21T04:43:38.4868492Z
+    worktree_state: untracked_preserved
+  - path: Source/RedMMO/RedMineableAsteroid.cpp
+    sha256: 1D3B1BFD63239F3DF0CF52BE835573109BA7D18AAB8E099A9AABDEBEE17A0988
+    last_write_utc: 2026-07-21T04:43:38.4878789Z
+    worktree_state: untracked_preserved
+  - path: Source/RedMMO/RedBolt.cpp
+    sha256: C7434E86A2782DA4CB9697391FD6B3144DC9B14C86C6A1AA22BF4D8A0CF02C93
+    last_write_utc: 2026-07-13T02:19:02.4940066Z
+    worktree_state: tracked_modified_preserved
+  - path: Source/RedMMO/RedShipExplosionFX.h
+    sha256: 00658A2775F7CC192F8A02A23B1440DFF1C6D4AFE144BA4FFAF37F4D3E2961E4
+    worktree_state: untracked_preserved
+  - path: Source/RedMMO/RedShipExplosionFX.cpp
+    sha256: B0EC6C44288FEC71C33FF7788CEFBE48780BF3CF38D646E110977C680393547A
+    worktree_state: untracked_preserved
+  - path: Source/RedMMO/RedResourcePickup.h
+    sha256: 0E414C6B51A5B7F0AE956DF6A773264E37F2FA295A10F26EFCC1AED44A268FB2
+    worktree_state: existing_preserved
+  - path: Source/RedMMO/RedResourcePickup.cpp
+    sha256: 84EC69D9843249CC5358295E431A0C9859ABA7ECBCDA43A4C47B6BF3CD61522B
+    worktree_state: tracked_modified_preserved
+  - path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: B485B85093C8B148264E31B9CA4EC8C1D1BC4CD9E77FA15B1DC885DC8704277C
+
+verification:
+  command: python -B -m unittest Tools.tests.test_def0003_asteroid_depletion_contract -v
+  result: passed
+  tests_passed: 6
+  assertions:
+    - exact pinned runtime log reaches the expected seven-step zero-ore sequence
+    - authority gate, bounded extraction, net update, and OreRemaining replication
+    - immediate hidden and collision-disabled zero-ore root cause
+    - absence of replicated transition, timestamp, delay, and cleanup semantics
+    - absence of destruction FX, debris, reward handoff, and extracted-return consumption
+    - open defect plus runtime, real-GPU, reward, and late-join acceptance gates
+
+target_currency_boundary:
+  evidence: ProjectKnowledge/evidence/2026-07-22-def-0002-fighter-reboard-source-contract-static.yaml
+  titan: stale_unproven_with_27_newer_project_inputs
+  titan_editor: stale_unproven_with_14_newer_project_inputs
+  skip_build_authorized: false
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  safe8_archive_sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+  safe8_embedded_manifest: 338_of_338_passed
+  protected_source_rasters: 135_of_135_passed
+  unreal_or_build_processes_launched: 0
+  map_or_asset_files_modified: 0
+  artist_repository_files_modified: 0
+
+claim_limit: >-
+  This is static diagnosis and an offline regression sentinel. It proves the
+  exact current failure mechanism and missing contracts; it does not implement
+  or prove a depletion transition, cleanup delay, VFX, debris, rewards,
+  collision behavior, replication, late join, rendering, packaging, or
+  multiplayer. DEF-0003 remains open.
+
+next_safe_action: >-
+  Before a behavior edit, create an explicit D:-resident rollback snapshot for
+  the relevant untracked and dirty source identities. Then implement one
+  authority-owned replicated Active, Depleting, and Depleted state with an
+  initial-bunch transition timestamp, immediate collision shutdown, bounded
+  visible delay, replicated destruction/debris presentation, one idempotent
+  reward handoff, and a durable depleted or respawned late-join result. Build
+  only after the safe RAM gate passes, then require real-GPU and two-client
+  acceptance. The project-wide next action remains M00's capped T02 sparkle
+  captures when its stricter real-GPU resource gate passes.

@@ -1,0 +1,307 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0004-ULTRAWIDE-MINING-RECEIPT-REAL-GPU
+captured_at: "2026-07-23T14:29:17Z"
+module: M09
+defect: DEF-0004
+related_defects: [DEF-0006]
+system: ui.red-hud.mining-receipt
+slice: native-ultrawide-mining-receipt-placement-and-fade
+evidence_class: real_gpu_visual
+result: pass_native_3440x1440_default_layout_receipt_and_staged_fade
+
+scope:
+  authorized:
+    - authenticate one exact native 3440x1440 rendered game viewport
+    - verify the transient mining receipt before reward, at full reward, during the final fade, and after expiry
+    - fix only a visual defect exposed by the bounded mid-fade capture
+    - compile the affected current editor modules and rerun one D3D12 visual acceptance
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - the canonical twenty-four-member mineable production field
+    - fused terrain assets and retained rollback maps
+    - artist repositories, supplied HUD source art, Vibe sources, and SAFE8 handoff
+    - unrelated dirty work and all pre-existing source ownership
+  not_run:
+    - Windows cook or packaging
+    - Steam transport or two-account networking
+    - a quantity-bearing inventory screen
+    - controller interaction or customized receipt placement
+    - full DEF-0004 or DEF-0006 gameplay-UI acceptance
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  queue_sha256_before: A652C6F1FF8E89B0F81A492F5B7E04C9AF4AF7EC8CA8B3622505480F89B34453
+  worktree_policy: >-
+    The worktree was already materially dirty. Relevant pre-edit bytes were
+    copied directly to a D-resident rollback; Git was not used as rollback
+    authority, and unrelated entries were not cleaned, staged, reset, or
+    overwritten.
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/DEF0004_UltrawideReceipt_20260723_140520Z
+  contents:
+    - exact pre-edit copy of Source/RedMMO/RedPlayerCharacter.cpp
+    - exact pre-edit copy of Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    - exact pre-edit copy of Tools/tests/test_def0003_asteroid_depletion_contract.py
+    - exact pre-update copies of INDEX, current_state, DEF-0004, DEF-0006, and the module queue
+  manifest: D:/RedMMOTitanWindowsData/Rollback/DEF0004_UltrawideReceipt_20260723_140520Z/manifest.yaml
+
+acceptance_harness:
+  implementation:
+    - an optional non-shipping RedDEF0004UltrawideReceiptAudit flag leaves the ordinary depletion harness unchanged
+    - the gate requires an exact 3440x1440 game viewport with aspect ratio above 2.30
+    - the mid-fade state requires exact IRON +6, visible presentation, and remaining lifetime strictly between zero and 0.70 seconds
+    - SpaceFade is captured after the state gate and final acceptance requires both the ultrawide and fade gates
+  source:
+    path: Source/RedMMO/RedPlayerCharacter.cpp
+    bytes: 377032
+    sha256: 893E8AF9AB1CB82F3819A9A0A3832492CE01BDEF8F2712D0D7FC71338E405EEC
+
+diagnostic_rejection_before_fix:
+  windowed_attempt:
+    requested_resolution: 3440x1440
+    captured_resolution: 3440x1392
+    result: rejected_not_exact_due_to_windows_work_area
+  first_exact_fullscreen_attempt:
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/runtime_exact.log
+      bytes: 349559
+      sha256: 9A06E67A41598796AA1AF95D6F2508434F2E79CC9E9A68EBF954271A852FE4F0
+    fade_capture:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExact/DEF0003_SpaceFade.png
+      bytes: 575904
+      sha256: E6B960E18E064938420247381D87DE4F711FC5DF1F1768AF563B3AE773036E78
+    result: rejected_by_visual_review
+    finding: >-
+      At 0.38 seconds remaining, applying one shared render opacity made the
+      opaque live mask translucent and exposed the supplied sprite's baked
+      Wayfinder's Boon / 12s sample text. Runtime state passed, but the pixels
+      did not, so this attempt was not used as acceptance evidence.
+
+production_fix:
+  source:
+    path: Plugins/RedHUD/Source/RedHUDRuntime/Private/RedHUDWidget.cpp
+    bytes_before: 48484
+    sha256_before: D9A53E04F481F263E3D75A9D7D52A1F4EA68C70B2A85905FA4D97D6F22E711C3
+    bytes_after: 49225
+    sha256_after: 851A91A478B3E256F24CF974DDA09D07574BBF7D3CC24FF80F1B99704C521240
+  behavior:
+    - the supplied source row fades to zero during the first 0.12 seconds of the final fade while its live mask remains opaque
+    - only after source art is hidden do the live mask, accent, label, and authoritative value fade together
+    - the receipt still collapses at zero remaining time and still uses the bounded 30 Hz timer rather than NativeTick
+    - no supplied texture was modified or recreated
+
+build_verification:
+  harness_build:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    max_parallel_actions: 1
+    actions: 4
+    execution_seconds: 30.74
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/TitanEditor_build.log
+      bytes: 19894
+      sha256: 0D56BF732ABB9A3F96F80EF0992AFA9ED62F01E3D63D02BE12677D7CF8797A7A
+  staged_fade_build:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    max_parallel_actions: 1
+    actions: 4
+    execution_seconds: 12.44
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/TitanEditor_maskfade_build.log
+      bytes: 19910
+      sha256: 15340F37AAA0F8ED09EB6967E0582954CC2526134E4D7A2187511D8CB258989F
+  products:
+    red_hud_runtime:
+      path: Plugins/RedHUD/Binaries/Win64/UnrealEditor-RedHUDRuntime.dll
+      bytes: 252928
+      sha256: 08BFA9F836BCB53E12B31261E4CB93741C4644DF7182B65CE5A8E9CD85817EAA
+    red_mmo:
+      path: Binaries/Win64/UnrealEditor-RedMMO.dll
+      bytes: 4124672
+      sha256: 42E614DFD8B3DB17A25CBDF3AC3CF2C3D4F574A5D34E89DFC666DF7919F5B476
+  focused_contracts:
+    result: 49_of_49_passed
+    suites:
+      - Tools.tests.test_def0003_asteroid_depletion_contract
+      - Tools.tests.test_def0004_replacement_hud_consumable_inventory_contract
+      - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+      - Tools.tests.test_def0006_red_hud_runtime_contract
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/combined_contracts_maskfade_full.log
+      bytes: 24580
+      sha256: EBED4F8579962EF1F14DA966AFE109514398ED49B9C0923A19A51526A3538767
+  contract_source:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    bytes: 55535
+    sha256: 5B032D2B75EA0BB699C1F08F987C77C8A88F9256E15709F1E8E446402BE526AD
+
+real_gpu_runtime:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe
+  map: /Game/RedMMO/Maps/RedPlanetGen
+  topology: one_process_listen_server_one_local_client
+  rhi: D3D12
+  feature_level: SM6
+  adapter: NVIDIA GeForce RTX 3080
+  monitor_resolution: 3440x1440
+  captured_game_viewport: 3440x1440
+  aspect_ratio: 2.389
+  command_line: >-
+    /Game/RedMMO/Maps/RedPlanetGen?Listen -game -d3d12 -fullscreen
+    -ResX=3440 -ResY=1440 -ForceRes -NoSplash -NoAutoMatch -NoSteam
+    -NoLiveCoding -ddc=NoZenLocalFallback -RedDEF0003DepletionAutoCapture
+    -RedDEF0004UltrawideReceiptAudit
+    -RedDEF0003CaptureDir=D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExactFixed
+    -AbsLog=D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/runtime_exact_fixed.log
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/runtime_exact_fixed.log
+    bytes: 349414
+    sha256: 51A58458F273FE9B7D5902A57DFA375D4DD93FE3ECB096183BC382030C599AF0
+  surface_marker: >-
+    pass=1 frame=1 viewAltitudeKm=0.502 atmosphereKm=8.000
+    productionField=24 auditAsteroids=0 fieldContract=1
+    minimumFieldAltitudeKm=39.620 minimumViewDistanceKm=43.699 cullKm=20.000
+  fade_marker: >-
+    pass=1 viewport=3440x1440 aspect=2.389 hudPass=1 visible=1
+    secondsRemaining=0.38 text="IRON  +6"
+  result_marker: >-
+    acceptancePass=1 runtimePass=1 surface=1 setup=1 before=1 begin=1
+    beginHUD=1 mid=1 final=1 productionField=24 pristineProduction=24
+    productionUnaffected=1 ironBefore=0 ironAfter=6 inventoryCachePass=1
+    persistentTallyVisible=0 miningResultPass=1 miningResultVisible=0
+    miningResultSeconds=0.00 miningResultText="IRON  +6"
+    ultrawideAudit=1 ultrawideFade=1
+  exit: clean_self_exit
+  critical_failure_scan:
+    fatal: 0
+    assertion: 0
+    ensure: 0
+    unhandled_exception: 0
+    out_of_memory: 0
+    gpu_crash: 0
+    device_removed: 0
+    harness_failure: 0
+    log_error_lines: 0
+  known_nonfatal_warning_scope:
+    warning_lines: 49
+    accepted_behavioral_claim_impact: none_for_this_bounded_receipt_visual
+    examples:
+      - editor data-storage widget registration noise
+      - render-thread safety warning for r.MotionVectorSimulation
+      - optional VoxelCollisionInvokerComponent and SteamSockets lookup warnings
+      - one SpawnActor teardown warning after accepted capture completion
+
+visual_review:
+  before:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExactFixed/DEF0003_SpaceBefore.png
+    dimensions: 3440x1440
+    bytes: 1110157
+    sha256: A5F60EC5ACCCFA27627E20FDB0426393C652D0EBAC09FC02311255DFE84DEC58
+    finding: no Stone, Iron, or Crystal tally and no mining receipt are present
+  reward:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExactFixed/DEF0003_SpaceReward.png
+    dimensions: 3440x1440
+    bytes: 1168284
+    sha256: 9F5625B585E1ECAD35680C8F5AFEADA19C6ED8CE110B6817DA8E80924A5632F9
+    finding: >-
+      The supplied purple-and-gold frame and icon surround exact
+      MINING YIELD / IRON +6 presentation above the player status panel.
+      It is fully inside the viewport with no clipping, overlap, permanent
+      tally, or baked sample text.
+  fade:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExactFixed/DEF0003_SpaceFade.png
+    dimensions: 3440x1440
+    bytes: 529524
+    sha256: DAABF16EA07FAC33D864DC32E364898C2870476EB6A0DEE7E1B69AA2E906F712
+    finding: >-
+      At 0.38 seconds remaining the source row is hidden and only the reduced-
+      opacity purple backdrop, gold accent, MINING YIELD label, and IRON +6
+      value remain. Wayfinder's Boon / 12s sample text is absent, and the live
+      receipt remains readable, unclipped, and clear of the status panel.
+  after:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/CapturesExactFixed/DEF0003_SpaceAfter.png
+    dimensions: 3440x1440
+    bytes: 451434
+    sha256: 234D5475E15DB5D8349F50FFD4B649F880515F35A90C69CDB2FFE9692EFDC4E4
+    finding: the mining receipt and permanent resource tally are both absent after expiry
+  additional_capture_hashes:
+    space_debris: 7F7FB12FB4C09CF5445E757CD0923E5680CFCDC5BC3446C9BD70BC24513A56A5
+    space_explosion: 96AD760CA40636553DA6D50A8909518201F56E95E69C88A9A60C010A57FD2A65
+    space_transition: 55C28A932D4FF878615E2A38C37C06CAF44983A2D99D9DCA24849C17625BF1C6
+    surface: 94ABDE0577F46B81F723C69D6CF9B0CDB336C10945349D98A69AB55B394D7804
+  capture_inventory:
+    count: 8
+    all_exact_3440x1440: true
+
+resource_and_process_gate:
+  pre_runtime_free_physical_ram_gib: 16.172
+  pre_runtime_free_commit_gib: 33.575
+  pre_runtime_free_vram_mib: 8673
+  final_free_physical_ram_gib: 16.349
+  final_free_commit_gib: 33.633
+  final_free_vram_mib: 8693
+  final_free_disk_d_gib: 1141.036
+  launched_unreal_process_count: 1
+  final_unreal_or_build_process_count: 0
+  packaging_ram_rule: respected_no_packaging_launched_below_18_to_20_gib_gate
+
+protection:
+  result: 8_of_8_exact
+  files:
+    - path: Content/RedMMO/Maps/RedPlanetGen.umap
+      sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+      sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    - path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    - path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap
+      sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+    - path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap
+      sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+    - path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+      sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+    - path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt
+      sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+    - path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip
+      sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784
+
+canonical_integrity:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/project_knowledge_integrity.json
+    bytes: 17861
+    sha256: 6D3A57772416EED1946FA161B17CB83502AE6E7CB0F6E398F9C759760C26139A
+  result: expected_fail_closed_with_unchanged_historical_findings
+  error_count: 64
+  warning_count: 0
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  new_slice_findings: 0
+  auditor_contracts:
+    result: 20_of_20_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_UltrawideReceipt_20260723_140520Z/project_knowledge_integrity_tests.log
+      bytes: 9184
+      sha256: 72DB8E1D21A09F9AE2B0BDDFC34307A4806494AE8F514282ED167695D696AF08
+
+accepted:
+  - the default mining receipt is fully contained and does not overlap the player status panel at native 3440x1440
+  - the exact IRON +6 receipt remains readable during a visually reduced mid-fade state
+  - staged source-art and live-layer fading prevents baked sample text from bleeding through
+  - no permanent Stone, Iron, or Crystal tally exists before, during, or after the receipt
+  - the receipt collapses at zero remaining time
+  - current affected editor code compiles and the bounded D3D12 run exits cleanly
+
+remaining:
+  - a real quantity-bearing inventory screen for stored Stone, Iron, and Crystal totals
+  - controller-visible and customized-layout receipt placement acceptance
+  - full DEF-0004 controls, persistence, party, quest, consumable, and minimap scope
+  - full DEF-0006 compass, heat, sight, layer, and overlap gameplay acceptance
+  - packaged-client, Steam, dedicated-server, and two-account verification
+
+claim_limit: >-
+  This accepts only the default-layout transient mining receipt at one exact
+  native 3440x1440 D3D12 editor-game viewport, including its mid-fade pixels
+  and expiry. It does not implement an inventory screen, accept controller or
+  customized placement, close DEF-0004 or DEF-0006, or prove package, Steam,
+  dedicated-server, or two-account behavior.

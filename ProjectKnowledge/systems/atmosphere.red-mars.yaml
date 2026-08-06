@@ -1,0 +1,47 @@
+schema_version: 1
+id: atmosphere.red.mars
+body_id: planet.red.mars
+display_name: Red Mars Thin Visual Atmosphere
+status: runtime_geometry_accepted_art_pending
+
+geometry:
+  center_source: owning_body
+  nominal_surface_radius_cm: 795774.71546
+  bottom_radius_cm_runtime_approx: 746000.0
+  component_height_cm_runtime_approx: 229775.0
+  visual_top_above_nominal_surface_cm: 180000.0
+  component_scale: [1.0, 1.0, 1.0]
+  canonical_component: SunSky_C_0.SkyAtmosphere
+  active_component_count: 1
+
+gameplay_transition:
+  presentation_start_cm: 720000.0
+  space_transition_end_cm: 840000.0
+  independent_from_visual_shell: true
+
+rendering:
+  implementation: project-owned runtime configuration of UE SkyAtmosphere
+  rayleigh_distribution_km: 0.85
+  cloud_bounds_id: clouds.red-mars.hi5
+  notes:
+    - The rendered shell and HI-5 bounds use the 1.8 km visual contract.
+    - Flight, exposure, star fade, and vehicle vacuum state continue to use the 8 km gameplay ascent.
+
+validation:
+  surface_real_gpu_capture: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/RealGPU_Captures_ThinShell/NightWater_T04_Shore.png
+  orbit_real_gpu_capture: D:/RedMMOTitanWindowsData/Diagnostics/AtmosphereDecouple_20260721/RealGPU_Captures_ThinShell/NightWater_T04_Orbit.png
+  visual_scale_accepted: true
+  daylight_color_accepted: false
+  ascent_crossing_accepted: false
+
+known_defect_ids:
+  - DEF-0001
+
+evidence:
+  status: runtime_geometry_accepted
+  artifacts:
+    - ProjectKnowledge/evidence/2026-07-21-red-mars-atmosphere-decoupling-real-gpu.yaml
+  claim_limit: >-
+    The main fused runtime now has an accepted proportional shell and independent
+    gameplay transition. This does not approve daytime sky color, cloud coverage,
+    water, the 1.7/1.9 km crossing feel, or the separately packaged artist canvas.

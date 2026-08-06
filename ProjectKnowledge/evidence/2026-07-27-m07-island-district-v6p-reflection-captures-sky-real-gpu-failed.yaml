@@ -1,0 +1,263 @@
+schema_version: 1
+id: evidence.m07.island-district-v6p.reflection-captures-sky-real-gpu-failed.2026-07-27
+module_id: M07
+captured_utc: "2026-07-27T14:50:23Z"
+evidence_class: real_gpu_visual
+result: scratch_v6p_clean_but_no_visible_reflection_restoration_visual_fit_failed
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_IslandDistrict_R15_V10
+  authored_source: /Game/RedMMO/Staging/M07/Maps/M07_VendorIsland_R15_AuthoredSource_V10
+  water_material: /Game/RedMMO/Staging/M07/Materials/MI_M07_LocalOcean_NormalTuned_V6M
+  scratch_only: true
+  map_or_asset_mutation: false
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  global_planet_water_added: false
+  providers_used: false
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  core_island_region: 15
+  local_ocean_ring_regions: [7, 10, 18, 23, 20, 12]
+  outside_district_material_owner: existing_bare_sand_planet
+
+rollback:
+  base_map:
+    bytes: 1166360982
+    sha256: 1B8AD03C2081E61020BD5F815D1C17B0511209A5D2046303F814EDE712B2E638
+  authored_source:
+    bytes: 59872776
+    sha256: 46947B30602E62A828AB07CE6986B5C109763B5B6D665699F7DBDC9A09105F20
+  water_material:
+    sha256: 657C4C58E1BADEE1FBA9C652C5CDAECC6C66CEF6C2370A48085043C41D293714
+  canonical_metadata_preimages:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PCanonicalRollback_20260727T1450Z
+
+reflection_policy_control:
+  cvar: r.Water.SingleLayer.Reflection
+  value: 2
+  engine_contract: force_reflection_captures_and_skylight_cubemaps_only
+  readback_count: 2
+  last_readback_before_wide: 2
+  last_readback_before_near: 2
+  non_technique_2_readbacks_after_set: 0
+  engine_source:
+    path: D:/UE_5.8/Engine/Source/Runtime/Renderer/Private/SingleLayerWaterRendering.cpp
+    sha256: CBB2D14D79F8593776AA939764FCC1E8D44037E51CCF3B54955183832A5A5236
+  limitation: >-
+    Technique 2 selects the reflection-capture and skylight renderer path.
+    This run does not prove that a local reflection-capture actor contributed;
+    the visible result is consistent with capture noise or skylight-only
+    fallback and is not a usable final reflection policy.
+
+preserved_inputs:
+  map_sha256: 1B8AD03C2081E61020BD5F815D1C17B0511209A5D2046303F814EDE712B2E638
+  source_sha256: 46947B30602E62A828AB07CE6986B5C109763B5B6D665699F7DBDC9A09105F20
+  material_chain:
+    v6m: 657C4C58E1BADEE1FBA9C652C5CDAECC6C66CEF6C2370A48085043C41D293714
+    v6k: 6D60D65E523CF4DD60DECC0C8D4D567A0526E08D38FEF2632EC6DD92E39A474B
+    v6i: F479CCB2A3853886FC46D7BE752AFC94092228B901DB3901E1F208A4CF070D51
+    vendor_instance: 4E1DD3EABE695271F3B963A558B641F75C2B7EC5BB97E2E8827A7D0315BC35AF
+    vendor_master: 579F30F14DCCFD311DEA153A708D87D14224E07B139F93472D1DAEB3408E750A
+  authenticated_ocean_geometry:
+    vertex_count: 1640153
+    triangle_count: 3262828
+    source_triangle_count: 3274240
+    fully_dry_source_triangle_count: 12291
+    clipped_source_triangle_count: 1752
+    clipped_output_triangle_count: 2631
+    boundary_vertex_count: 1752
+    boundary_edge_count: 1752
+    non_manifold_boundary_vertex_count: 0
+    degenerate_clipped_triangle_count: 0
+    reversed_clipped_triangle_count: 0
+
+implementation_files:
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/Invoke-M07IslandDistrictV6PReflectionCapturesSkyRealGPU.ps1
+    bytes: 35599
+    sha256: 6C25544204CBFF75765FBBADDA607CD324F67EC727FBCC5B464A9219ACBDB14C
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_v6p_reflection_captures_sky_contract.py
+    bytes: 4899
+    sha256: 13A6981824002ADE1C2FB98F6F7F7CB651B0B9D7C2E11D0BC0F88A242B345DF5
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/review_m07_v6p_reflection_captures_sky_pixels.py
+    bytes: 33764
+    sha256: 093DCD92C7FC56D6427FB0CD6D95CB7DF7117EC270B937EF6DD41C415611A946
+  - path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/test_m07_v6p_pixel_review_contract.py
+    bytes: 6843
+    sha256: 466CB47C46AD0757377B9990808D409CC6DBFB8323717859DE18002A20898571
+
+verification:
+  focused_contracts:
+    command: python -B -m unittest Build.Automation.test_m07_v6p_reflection_captures_sky_contract Build.Automation.test_m07_v6p_pixel_review_contract
+    result: passed
+    tests: 16
+  powershell_parser:
+    result: passed
+  independent_launcher_review:
+    result: go
+    finding: exact_value_2_readback_timeline_provider_and_no_mutation_contracts_pass
+  independent_pixel_review:
+    first_review_result: no_go
+    first_review_blocker: no_signal_was_misclassified_as_invalid_recapture
+    correction: >-
+      Split fixed-sky validity from water-signal specificity, added exact
+      source/audit/graph/material-chain/geometry/runtime-gate authentication,
+      introduced a pure failure-reason classifier, narrowed claims to
+      water-dominant versus the fixed sky ROI, and added behavioral contracts.
+    corrected_review_result: go
+  first_shell_invocation:
+    result: blocked_before_launch
+    cause: local_powershell_execution_policy
+    unreal_started: false
+    mutation: false
+  corrected_shell_invocation:
+    method: powershell_execution_policy_bypass_for_reviewed_local_script
+    result: passed
+  canonical_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PCanonical_20260727T1450Z/project_knowledge_integrity.json
+    bytes: 1784
+    sha256: 2E072645F7D99ADDC26ECFEABBC19BDBA0C026EE5DE8DA981911BD5D04778B3F
+    result: passed
+    errors: 0
+    warnings: 0
+
+real_gpu:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/capture_result.json
+    bytes: 15962
+    sha256: 7B14ED76A09BD4501FC78FFA0302644D99E87A2682263CE33BE121F09B1E74B7
+    status: passed_pending_pixel_review
+  rejected_first_pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/pixel_review.json
+    bytes: 20442
+    sha256: 9CDB59D3B53BEA00E58FB0E2027E20C5D663F6F47DC5D620A3EE1F32DD142870
+    status: rejected_by_independent_review
+    reason: clean_no_signal_result_was_incorrectly_classified_as_invalid_recapture
+  corrected_pixel_review:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/pixel_review_v2.json
+    bytes: 20583
+    sha256: 8961B121F0D8E613C8FF246392979BA2CAA0CB4EDC282A1FC89FD6A904537E3E
+    status: technique2_clean_but_no_visible_reflection_restoration
+    failure_reasons: [no_distributed_water_dominant_signal]
+  rhi: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: [1920, 1080]
+  editor_pid: 23764
+  editor_exit_code: 0
+  initial_free_ram_gib: 35.386
+  minimum_observed_free_ram_gib: 29.875
+  provider_listener_observed: false
+  sm6_material_compile_fallbacks: 0
+  default_material_runtime_fallbacks: 0
+  camera_contract:
+    wide: "V(X=167118.50, Y=-831983.97, Z=-205959.18)"
+    target: "V(X=127958.47, Y=-780483.17, Z=-98190.17)"
+    near: "V(X=141632.76, Y=-800923.22, Z=-161397.90)"
+  wide_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/M07_IslandDistrict_R15_V10_Wide.png
+    bytes: 1305899
+    sha256: 2DA8EAEFA085B37A2DEC2E69F98D0645AA77F71F86B79A64BAA16226ED95C8BA
+  near_capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/M07_IslandDistrict_R15_V10_Near.png
+    bytes: 1409776
+    sha256: F0DFDCFD69E36F27C71A9D2E5DFB003DAB3D82B8723C66FF96A77C5FFFD22658
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_IslandDistrictV10V6PReflectionCapturesSkyRealGPU_20260727T144123Z/M07_IslandDistrict_R15_V10_V6PReflectionCapturesSky_Standalone.log
+    bytes: 319587
+    sha256: B92D7E2BAE4AA2C035450C3363148B9E101BD5CA5B4A4FA48CC5EB14C9545DB1
+
+matched_pixel_findings:
+  Wide:
+    full_frame_rgb_mae_vs_v6m_0_to_255: 0.334065
+    full_frame_rgb_mae_vs_v6o_0_to_255: 0.141807
+    control_water_rgb_mae_median_vs_v6o: 0.120598
+    control_water_rgb_mae_minimum_vs_v6o: 0.118749
+    control_rois_with_fraction_gte_2_at_least_0_10: 0
+    sky_rgb_mae_vs_v6o: 0.147247
+    artifact_to_control_rgb_mae_ratio: 0.477012
+    artifact_minus_control_rgb_mae: -0.001345
+    overall_visible_water_recall: 1.0
+    minimum_spatial_cell_visible_water_recall: 1.0
+    shore_contact_recall: 1.0
+    static_island_camera_edge_recall: 1.0
+  Near:
+    full_frame_rgb_mae_vs_v6m_0_to_255: 0.600276
+    full_frame_rgb_mae_vs_v6o_0_to_255: 0.161514
+    control_water_rgb_mae_median_vs_v6o: 0.123704
+    control_water_rgb_mae_minimum_vs_v6o: 0.121219
+    control_rois_with_fraction_gte_2_at_least_0_10: 0
+    sky_rgb_mae_vs_v6o: 0.126601
+    artifact_to_control_rgb_mae_ratio: 0.484486
+    artifact_minus_control_rgb_mae: -0.002582
+    overall_visible_water_recall: 1.0
+    minimum_spatial_cell_visible_water_recall: 1.0
+    shore_contact_recall: 1.0
+    static_island_camera_edge_recall: 0.999799
+
+verified:
+  - technique 2 remains streak-clean at both exact cameras and retains V6M water coverage, shore contact, and effectively exact static island silhouette
+  - the technique-2 frames are nearly identical to V6O reflection-off evidence; none of the six fixed plain-water control regions contains at least ten percent pixels with RGB MAE at or above 2
+  - the only failed corrected gate is absence of a distributed water-dominant reflection signal
+  - the provider-off D3D12 SM6 run exits cleanly with no material fallback and no provider listener before, during, or after
+  - protected production maps, vendor packages, predecessor packages, and all 27 fused tangent-local authoring inputs remain unchanged
+
+remaining_failures:
+  - technique 2 does not restore a visible or artistically useful reflection signal in this scratch scene and is rejected as the final water policy
+  - V6O reflection-off remains diagnostic-only because it removes all reflections renderer-wide
+  - the broad flat peach island and shore apron remain visually unacceptable and do not read as the authored vendor beach
+  - beach or berm work was intentionally not started in this reflection-policy slice
+  - island composition visual acceptance, gameplay, performance, Chaos, and production integration remain false
+
+acceptance:
+  provider_off_d3d12_runtime: true
+  exact_camera_pair: true
+  exact_v6m_map_material_geometry_and_coverage_chain: true
+  water_coverage_preserved: true
+  shore_contact_preserved: true
+  static_island_silhouette_preserved: true
+  left_cliff_streak_remains_suppressed: true
+  technique2_visible_reflection_restoration: false
+  technique2_final_policy: false
+  final_local_water_reflection_policy: false
+  natural_beach_transition: false
+  island_composition_visual_acceptance: false
+  human_visual_acceptance: false
+  gameplay: false
+  performance: false
+  chaos_layer_implemented: false
+  production_integration: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+next_safe_action: >-
+  Reject techniques 0 and 2 as final water policies: value 0 is a useful
+  artifact-free diagnostic but removes all reflections globally, and value 2
+  adds no visible distributed reflection signal in the current scene. The
+  reflection-only test is complete, so the next bounded scratch successor may
+  author the previously deferred signed-distance nonuniform berm/cove beach
+  over the accepted V6L shoreline topology and V6M map/coverage base. Use V6O
+  reflection-off only as a clearly labeled diagnostic capture mode while the
+  beach profile is judged; do not present it as final water. Keep the final
+  localized water-reflection policy as a separate open gate, to be resolved
+  later through an explicitly reviewed project-owned local capture or
+  material-owned stylized-reflection approach. Preserve Region 15 plus
+  [7, 10, 18, 23, 20, 12], the rest-of-planet sand owner, production content,
+  vendor source, and all 27 fused authoring inputs.
+
+claim_limit: >-
+  This proves one no-save scratch-only V6P provider-off D3D12 SM6 reflection
+  technique-2 run and independently reviewed deterministic matched-camera
+  comparison. It establishes that technique 2 remains streak-clean but adds no
+  visible distributed reflection signal over V6O in this scene. It does not
+  prove a local reflection-capture contribution, accept final water or beach
+  art, accept the seven-region district, or establish gameplay, performance,
+  Chaos, human visual quality, or production integration.

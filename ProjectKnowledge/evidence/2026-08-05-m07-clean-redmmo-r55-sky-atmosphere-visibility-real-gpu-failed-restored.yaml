@@ -1,0 +1,140 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r55-sky-atmosphere-visibility-real-gpu-failed-restored.2026-08-05
+captured_utc: "2026-08-05T19:20:00Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r55-transient-sky-atmosphere-component-visibility-discriminator
+evidence_class: real_gpu_visual
+result: hiding_sky_atmosphere_does_not_restore_surface_stars_and_is_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 52.8
+  commit_headroom_gib: 55.1
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.47
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  queue_sha256: D940BFAE6F81EE34F432F6C6D2763FFF79C5A699C41189A24EE43107FF472E14
+  desktop_control: false
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  engine: Unreal Engine 5.8.1
+  renderer: D3D12_RenderOffscreen
+  viewport_request: [1280, 720]
+  captured_existing_viewport: [1014, 550]
+  capture_api: URedPPGFoliageDiagnostics::RequestViewportScreenshot_to_FScreenshotRequest
+  provider_plugins_disabled: true
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_sky_atmosphere_visibility_r55.py
+  driver_sha256: 7DE74EA72727780000FB945432227067AA58C90EE095760B026E0E0EA715B9B7
+  pinned_harness_dependency:
+    path: D:/RedMMOTitan/Build/Automation/verify_redmmo_cloud_radius_surface_sky_r54.py
+    sha256: 7B5961C137C476F4A963BDEE8231881F21DE71933EE8A289C2CB17349F373ADC
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SkyAtmosphereVisibility_R55_20260805T1918Z/result.json
+    sha256: 93963FD0CCD397EBDF9024A5722A9A2A0DDD63204EBF9FBD09F544FE0FC8627C
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SkyAtmosphereVisibility_R55_20260805T1918Z/unreal.log
+    sha256: 76E3BF82FB341A54FB3A5E407BAABEFDD6C08441816340FBAB1D49556BD1DC1F
+
+control:
+  generation: {phase: COMPLETE, progress: 1.0, is_generating: false}
+  property: SkyAtmosphereComponent.visible
+  original_visible: true
+  tested_visible: false
+  restored_visible: true
+  hidden_in_game_before_during_after: [false, false, false]
+  cloud_radius_km_before_during_after: [6360.0, 6360.0, 6360.0]
+  presenter_weights_before_during_after:
+    night_hemisphere: [1.0, 1.0, 1.0]
+    star_visibility: [0.18, 0.18, 0.18]
+    night_fill: [0.16, 0.16, 0.16]
+  camera_location_cm: [191297894.99443516, 196950314.1218853, -421017759.80038583]
+  camera_rotation_deg: [20.411666768959616, -46.37008029227468, 111.80009049544569]
+  camera_location_delta_cm: 0.0
+  camera_rotation_max_delta_deg: 0.0
+  grass_before_test_after:
+    components: [196, 196, 196]
+    instances: [2218356, 2218356, 2218356]
+    registered: [196, 196, 196]
+    instance_data_ready: [196, 196, 196]
+    scene_proxy: [196, 196, 196]
+    within_run_identity_sha256: 5DC5AE580964086FDC5F9AB5CFD8F3E256E29BC84AD75045B49D83A64C4EFDC1
+
+captures:
+  atmosphere_visible:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SkyAtmosphereVisibility_R55_20260805T1918Z/R55_sky_atmosphere_visible.png
+    sha256: AB20869426FF44A3B97F905BD85202A974E9E6DC3F6AB4B21ECBCE3B2C170118
+    bytes: 1014861
+    independent_review: >-
+      The Trooper, dense saturated grass and repeated palms are readable while
+      the full-night surface sky remains uniformly black without visible stars.
+  atmosphere_hidden:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_SkyAtmosphereVisibility_R55_20260805T1918Z/R55_sky_atmosphere_hidden.png
+    sha256: A16EA8B859210A14B06523246868E96D4744D480F43C66FA5BDF3C62C2EBC2F1
+    bytes: 1006029
+    independent_review: >-
+      Disabling only SkyAtmosphere changes foreground lighting subtly but the
+      exposed surface sky remains uniformly black and starless.
+  top_80_pixel_metrics:
+    baseline_exact_black_fraction: 0.4525394477317554
+    atmosphere_hidden_exact_black_fraction: 0.45791420118343196
+    baseline_nearblack_mask_pixels: 38023
+    atmosphere_hidden_on_same_mask_nearblack_fraction: 0.9895589511611393
+    atmosphere_hidden_on_same_mask_neutral_bright_pixels: 0
+    atmosphere_hidden_on_same_mask_nearwhite_pixels: 0
+    full_frame_changed_pixels: 514343
+    note: >-
+      Moving foliage and the atmosphere lighting change affect other pixels.
+      No neutral-bright or near-white star pixel appears in the baseline
+      near-black sky mask after the atmosphere component is hidden.
+
+diagnosis:
+  proven:
+    - the planet-centered SkyAtmosphere component is not the surface-star occluder by itself
+    - disabling only that component at the exact saved full-night camera does not reveal readable stars
+    - cloud radius and presenter night, star and fill weights remained exact throughout the test
+    - the selected DenseTall grass census and readiness remained exact throughout the test
+  remaining_surface_star_blocker: >-
+    The failure is now isolated downstream to the project-owned star-dome
+    rendering path or another later composition layer. R42 falsified star
+    visibility weight increases, R53 proved CameraVectorWS-only analytic input,
+    R54 falsified cloud radius, and R55 falsifies SkyAtmosphere visibility.
+    Do not repeat these controls.
+
+restoration:
+  transient_property_retained: false
+  atmosphere_visibility_restored_before_pie_stop: true
+  persistent_save_called: false
+  dirty_packages_after: 0
+  unreal_or_build_processes_after: 0
+  provider_ports_closed_after: [11111, 5353, 8000, 8765]
+  rollback_artifact: not_required_transient_pie_value_restored_and_packages_byte_exact
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_sha256_before_after: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  approved_instance_a_sha256_before_after: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  approved_instance_b_sha256_before_after: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary: >-
+  R55 is a matched existing-viewport real-GPU failed discriminator with exact
+  transient restoration. It falsifies SkyAtmosphere visibility as the surface-
+  star cause by itself. It does not correct or accept the night sky, cloud
+  system, grass/foliage art, moon, gameplay, standalone, replication or
+  multiplayer behavior.
+
+next_safe_action: >-
+  Rotate to one bounded R56 project-owned star-dome rendering discriminator.
+  Preserve the exact camera, presenter weights, atmosphere, cloud radius,
+  grass, foliage, surface, seed, map and vendor state. Test one isolated
+  material/depth presentation variable with rollback and existing-viewport
+  D3D12 evidence; do not repeat visibility-weight, cloud-radius or atmosphere-
+  visibility controls.

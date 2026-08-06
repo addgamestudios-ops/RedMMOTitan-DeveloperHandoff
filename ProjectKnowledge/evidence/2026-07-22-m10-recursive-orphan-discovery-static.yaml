@@ -1,0 +1,218 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M10-RECURSIVE-ORPHAN-DISCOVERY-STATIC
+captured_at: "2026-07-22T23:40:00Z"
+module: M10
+slice: recursive-nested-yaml-yml-orphan-evidence-discovery
+evidence_class: static
+result: passed
+
+authorization_and_scope:
+  intended_work: >-
+    Close only the final documented M10 auditor-hardening category: recursive,
+    deterministic orphan-evidence discovery for nested YAML and yml records.
+  production_files_modified: 0
+  runtime_or_gameplay_files_modified: 0
+  tooling_files_modified:
+    - Tools/audit_project_knowledge_integrity.py
+    - Tools/tests/test_project_knowledge_integrity.py
+  canonical_records_modified_after_evidence:
+    - ProjectKnowledge/INDEX.yaml
+    - ProjectKnowledge/current_state.yaml
+    - Build/Automation/redmmotitan_module_queue.json
+  explicitly_preserved:
+    - production maps, protected checkpoints, fused prototype assets, and archives
+    - artist repositories, handoffs, and all protected source rasters
+    - supplied HUD and Vibe assets, user assets, and unrelated dirty work
+    - all 64 historical live-audit findings
+  explicitly_deferred:
+    - all legacy metadata repair
+    - all M10 dependency and acceptance closure
+    - HUD, gameplay, maps, artist work, Unreal, build, cook, package, real-GPU, Steam, and multiplayer work
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_entries: 0
+    unstaged_modified_entries: 60
+    untracked_entries: 1364
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+  processes:
+    unreal_editor_build_cook_package_shader_zen_uba_count: 0
+    competing_project_writer_before_slice: false
+  resource_samples:
+    sample_count: 11
+    physical_free_gib: {minimum: 0.638, maximum: 11.322, average: 6.815}
+    commit_headroom_gib: {minimum: 1.688, maximum: 15.203, average: 9.934}
+    gpu: {name: NVIDIA_GeForce_RTX_3080, total_mib: 10240, used_mib: 1369, free_mib: 8685, utilization_percent: 12, temperature_c: 41}
+    disk_free_gib: {C: 131.925, D: 1141.634}
+  decision: static_offline_only
+  latest_build_attempt:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    bytes: 15739
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+    exit_code: 1
+    last_phase: BUILD
+    cook_stage_package_archive_started: false
+  latest_guarded_package_evidence:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log.memory-guard.log
+    bytes: 6536
+    sha256: 1426B7C4DADA2E803D1181561F198DA7842438E19D9C2DFF27CAF87A8FDA8B12
+    memory_guard_terminal_physical_free_gib: 7.91
+    current_archive_created: false
+    ready_marker_created: false
+  latest_target_currency:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0001_SAFE8AtmosphereRootCause_20260722_2019/target_currency.json
+    bytes: 325110
+    sha256: CDEF089B16CD93C6C96122C42568506EBEA5DD3EF26486105DCAB87914CECF7E
+    result: refused_fail_closed
+    inputs: 874
+    titan_newer_inputs: 38
+    titan_editor_newer_inputs: 26
+    exact_build_proofs_present: false
+    skip_build_allowed: false
+
+pre_implementation_audit:
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/integrity_pre.json
+    bytes: 17807
+    sha256: 6E86E9D4C632B878F543F4D746C744441CFDA418BC911C3D3D7E404489B340DF
+  expected_exit_code: 1
+  finding_count: 64
+  finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+  orphan_findings: 0
+
+implementation:
+  auditor:
+    path: Tools/audit_project_knowledge_integrity.py
+    bytes: 45199
+    sha256: D2CD1CB8256D146ED705AB60AA9A9F45E5413B62D57A9CDB8CA6B58145E62BFC
+  tests:
+    path: Tools/tests/test_project_knowledge_integrity.py
+    bytes: 44860
+    sha256: BD860654211A44830DC1AB174FFCCC701A10E0D2ED199173DE80B54EAC6BB65B
+  behavior:
+    - recursively and deterministically scans ProjectKnowledge/evidence
+    - recognizes case-insensitive final .yaml and .yml suffixes
+    - includes top-level, nested, deep, and hidden evidence directories
+    - preserves exact repository-relative indexed-path comparison
+    - ignores non-YAML files, compound suffixes, and directories named with YAML suffixes
+    - requires the evidence root and every root-path component to remain inside the repository and not be a link or reparse point
+    - refuses nested linked directories, Windows junctions, reparse points, and linked file entries through deterministic PKI018 findings
+    - reports missing roots and scan or classification errors deterministically without localized error-text dependence
+    - never traverses a linked or reparse-point evidence location
+
+verification:
+  slice_intent:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/slice_intent.yaml
+    bytes: 2584
+    sha256: 77A29901CF1FBC30727CFD84C3183C930E6A5CB55607FAA348842FC9ACBBB1AB
+  focused_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/focused_tests.log
+    bytes: 1319
+    sha256: 530506445C39BD923FE99A8F747D15820D06D43BB66AFB4F9DA833225DD8548B
+    result: 6_of_6_passed
+  focused_contracts:
+    recursive_yaml_yml_and_indexed_suppression: passed
+    real_directory_link_or_windows_junction_refusal: passed
+    linked_root_fail_closed: passed
+    linked_file_entry_fail_closed: passed
+    deterministic_scan_error: passed
+    missing_evidence_root_fail_closed: passed
+  integrity_suite: 20_of_20_passed
+  combined_regression_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/combined_regression_tests.log
+    bytes: 8644
+    sha256: BD49D0F28D81DE309CEA75D5BB755C8E4CA73F9B9F202182B44BA96D1A72E168
+    result: 42_of_42_passed
+    suites:
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_fused_prototype_provenance
+      - Tools.tests.test_audit_windows_target_currency
+      - Tools.tests.test_package_windows_50km_guard
+  live_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/integrity_probe.json
+    bytes: 17807
+    sha256: E4413C9C53A67458A7D9CC88C737F50F78438AC19D00C2BF131614B0B0745DDB
+    expected_exit_code: 1
+    finding_count: 64
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    PKI018: 0
+  independent_review:
+    result: pass_after_fail_closed_edge_corrections
+    focused_tests_independently_rerun: 6_of_6_passed
+    residual_limits:
+      - root and file-link call paths use mocks while the shared Windows reparse detector is exercised by a real junction
+      - filesystem mutation between classification and traversal remains a normal quiescent-filesystem assumption
+      - exact path casing remains intentionally fail-closed
+
+protection:
+  pre_reconciliation_result: pass_no_drift
+  indexed_routes_exact: 105_of_105
+  protected_artifacts_exact: 8_of_8
+  protected_rasters_exact: 135_of_135
+  supplied_hud_assets_exact: 56_of_56
+  vibe_sources_exact: 8_of_8
+  safe8_manifest_members_exact: 338_of_338
+  unrelated_input_sentinels_exact: 874_of_874
+  artist_repository_shapes:
+    SAFE7: clean
+    SAFE8: 4_modified_1_untracked
+    SAFE9: 9_modified_3_untracked
+  unreal_build_or_project_writer_count: 0
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeM10RecursiveOrphanDiscovery_20260722_2315
+  retained_files: 5
+  auditor_before_sha256: 2B7130CF31298BC3B0394E7C1E62BF710201442DB8A42333C7E1E26E886005C9
+  tests_before_sha256: 22D2F0FFE92276ADE5DB566AECA2A5006902E5CABAB2F04661A6B8A0B8CFFFC3
+  index_before_sha256: 629EB5B887374B71F18E164B65CBBA91E41723CB2BB20BEE59FEAE716911384B
+  current_state_before_sha256: B2A9AE9A82C2BE346278D1EA9591F66587D08DA2D3AD7DBD4D017A97E28B9C33
+  queue_before_sha256: D70DDD61196ED9BDBF476AADAAF6398427DF3FA61026CAE743136845D4B57B49
+
+canonical_reconciliation:
+  status: complete_for_this_static_slice
+  final_live_audit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M10_RecursiveOrphanDiscovery_20260722_2315/integrity_final.json
+    expected_exit_code: 1
+    result: failed_closed_with_64_historical_metadata_findings
+    finding_code_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    orphan_findings: 0
+    indexed_routes: 106
+    indexed_evidence_records: 71
+    indexed_defect_records: 7
+    queue_modules: 12
+  index:
+    path: ProjectKnowledge/INDEX.yaml
+    bytes: 9970
+    sha256: D85E48F3FA926EF4482CEE59EBF6FF8A1EEF1ED6F3C57D5081D4AC205219C923
+  current_state:
+    path: ProjectKnowledge/current_state.yaml
+    bytes: 55587
+    sha256: CA1CB10D78576455EB1AE5A753E511B3B70F405F7B3A04714D5CDB7C9ACE9875
+  module_queue:
+    path: Build/Automation/redmmotitan_module_queue.json
+    bytes: 179529
+    sha256: D7E711A12FC03F3C21E2E072627B92673B74E705F0B5279B914A258AA43BDADB
+  queue_snapshot_matches_current_state: true
+
+remaining_m10_blockers:
+  documented_auditor_hardening_categories: 0
+  legacy_metadata_findings: 64
+  dependencies_complete: false
+  acceptance_complete: false
+  m10_status: queued
+
+claim_limit: >-
+  Static tooling evidence only. This slice implements and statically verifies
+  recursive orphan-evidence discovery; it does not repair the 64 historical
+  findings, complete any M10 dependency or acceptance gate, or prove Unreal
+  execution, build, runtime, visuals, gameplay, HUD, packaging, Steam, or
+  multiplayer behavior.
+
+next_safe_action: >-
+  Keep Unreal, builds, packaging, and real-GPU work closed while sustained free
+  physical RAM remains below 18-20 GiB. Reassess the authoritative queue on the
+  next heartbeat and select one independent static or offline slice whose
+  dependency state permits progress. Keep legacy metadata cleanup separate.

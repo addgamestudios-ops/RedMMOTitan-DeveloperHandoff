@@ -1,0 +1,231 @@
+schema_version: 1
+id: evidence.m12.native-journal-capacity-acknowledgement-release-automation-source.static.2026-07-24
+captured_utc: "2026-07-24T04:36:49.9870121Z"
+module_id: M12
+system: mining.red.asteroid.voxel-on-foot
+slice: native-journal-capacity-acknowledgement-release-automation-source
+evidence_class: static
+result: passed_source_contracts_native_test_uncompiled_unexecuted
+
+scope:
+  authorized:
+    - add one independent development-only journal-capacity acknowledgement-release scenario to the existing M12 backend test translation unit
+    - prove a full bounded journal refuses an otherwise-valid exact edit atomically
+    - prove checkpoint capture alone does not release capacity
+    - prove only the exact trusted acknowledgement compacts the covered prefix and permits the identical refused edit to succeed and rechain
+  explicitly_not_run:
+    - Unreal Editor, commandlet, UnrealBuildTool target build, cook, package, game, Steam, or multiplayer process
+    - native C++ compilation or automation execution
+    - ReleaseVolume lifecycle teardown, restore, multi-volume isolation, generated-output adapter, persistence adapter, actor, map, collision cook, suction, Inventory, rendering, or production-field integration
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  dirty_file_entries_observed_with_untracked_expansion: 1524
+  stale_zero_byte_git_index_lock_preserved: true
+  other_active_codex_continuations: 0
+  overlapping_unreal_build_cook_or_package_processes: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [15.948, 15.956, 15.887]
+  commit_used_gib_samples: [23.761, 23.755, 23.822]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.111, 31.117, 31.050]
+  disk_c_free_gib: 127.303
+  disk_d_free_gib: 1140.032
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 32
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  native_build_decision: deferred_below_the_canonical_memory_gate
+  action_decision: one_non_packaging_source_only_M12_journal_capacity_acknowledgement_release_automation_slice
+
+implementation:
+  native_test_source:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackendTests.cpp
+    bytes: 187977
+    sha256: 816DE1F79CCCE6AF9E787E86B3EEAFDD07FB71716928093DAAC6E2C1CD2E2031
+    added_automation_name: RedMMO.Mining.VoxelBackend.JournalCapacityRelease
+    total_native_automation_scenarios_in_file: 8
+    compile_state: uncompiled
+    execution_state: unexecuted
+  source_contract:
+    path: Tools/tests/test_m12_native_backend_automation_contract.py
+    bytes: 147920
+    sha256: AADDE9A59998C75892F32FC84DFF6C5D0EBE19E852374C05D15BF887F4970F1B
+    total_contracts: 40
+    new_journal_capacity_release_contracts: 6
+  backend_implementation_modified: false
+  project_build_rule_plugin_map_asset_or_vendor_modified: false
+
+native_scenario_authored:
+  bounded_fixture:
+    - one project-owned backend uses MaxJournalOperationsPerCheckpoint equal to one
+    - one exact revision-zero persistence request validates and acknowledges before any edit
+    - one deterministic one-cell edit advances from revision zero to one and occupies the sole journal suffix slot
+  capacity_rejection:
+    - one immutable sequence-two edit carries the exact current revision, authority generation, stable IDs, brush, and prediction token
+    - ApplyValidatedEdit returns handled true while the result is accepted false with JournalCapacityReached
+    - the validated rejection retains revision one and contains zero removed cells, zero material yields, and zero dirty chunks
+    - authority revision and generation, the checkpoint manifest and every chunk payload, and the complete one-operation journal identity remain exact
+  capture_versus_acknowledgement:
+    - one revision-one persistence request binds the acknowledged revision-zero base, the full checkpoint manifest, and the first operation tail
+    - submitting the identical refused edit after capture but before acknowledgement returns the same capacity rejection
+    - the untouched exact pending ticket remains usable after that second refusal
+    - exact acknowledgement advances only the journal base to revision one and compacts the covered operation into an empty suffix without changing density, current revision, or authority generation
+  immutable_retry_and_rechain:
+    - the exact previously refused edit is not reconstructed or mutated between refusal and retry
+    - the same sequence and prediction token succeed once after acknowledgement and advance revision one to two
+    - the sole final exported operation preserves exact target, collector, tool, brush, sequence, and prediction identity
+    - the operation previous-tail hash equals the acknowledged revision-one checkpoint tail and its canonical hash becomes the final tail
+  isolation:
+    - all eight native automation macros and backend-using code remain inside WITH_DEV_AUTOMATION_TESTS
+    - every registration is ProductFilter and has one exact automation path
+    - the new scenario excludes ReleaseVolume, restore, multi-volume, generated-output, actor, world, map, Inventory, mesh, voxel-plugin, Steam, and filesystem-adapter APIs
+
+verification:
+  native_source_contract:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/native_capacity_contract_final_stderr.log
+    bytes: 19334
+    sha256: 8EBDF420D068511506D7D22858734A8F9C19EC1D61EB7FAF1178F58BDDA717A3
+    result: 40_of_40_passed
+    new_journal_capacity_release_source_contracts: 6_of_6_passed
+  focused_M12:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/m12_focused_final_stderr.log
+    bytes: 51264
+    sha256: F05C9235441634BDF4B2FE3F453FEA3E0D1A63C2B28BD02C81988B3E27C634FD
+    result: 112_of_112_passed
+    composition:
+      prior_focused_M12_source_and_model_contracts: 106
+      native_automation_source_contracts: 40
+      new_journal_capacity_release_source_contracts: 6
+  protected_provenance:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/protected_provenance_stderr.log
+    bytes: 3740
+    sha256: 929D290CC3089B447A99234C2C4B54E559AC7FCC73D3EB697560C857276733CD
+    result: 7_of_7_passed
+  final_static_regressions_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/final_static_regressions_prerecord_stderr.log
+    bytes: 61988
+    sha256: B486676749C61804CB1B218C3A965BAA25782ACD6F42ACD583E02FC65EED1DE8
+    result: 139_of_139_passed
+    composition:
+      focused_M12_source_and_model_contracts: 112
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+    expected_negative_fixture_note: the_single_JSON_failure_line_is_an_intentional_integrity_negative_fixture_and_the_unittest_suite_completed_OK
+  final_static_regressions_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/final_static_regressions_postrecord_stderr.log
+    bytes: 61988
+    sha256: 693291ACA79008A4BF7565D091F29439E8A58A0EE4598652F6B70556EC50B295
+    result: 139_of_139_passed
+    composition:
+      focused_M12_source_and_model_contracts: 112
+      protected_provenance_contracts: 7
+      project_knowledge_integrity_contracts: 20
+  project_knowledge_integrity_prerecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/project_knowledge_integrity_prerecord.json
+    bytes: 1782
+    sha256: A8A9D828DD0F6334A4C792256556EE5195CB8D9D756B398AE97D6E98416AA476
+    result: passed_with_0_errors_and_0_warnings
+  project_knowledge_integrity_postrecord:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/Heartbeat_M12_NativeJournalCapacityRelease_20260724T042650Z/project_knowledge_integrity_final.json
+    result: passed_with_0_errors_and_0_warnings
+    indexed_evidence_count: 116
+    indexed_route_count: 154
+    queue_sha256: C83C7AB92B02FC6CCBB2255625655ECA00071EA6178F24F7AF7CA98D4C57A3E4
+    note: report_is_regenerated_after_the_final_evidence_annotation_to_avoid_a_self-referential_digest_claim
+  independent_review:
+    cpp_compile_plausibility: clean_at_816DE1F79CCCE6AF9E787E86B3EEAFDD07FB71716928093DAAC6E2C1CD2E2031
+    semantic_scope: clean_after_acknowledgement_compaction_and_exact_retry_review
+    architecture: acknowledgement_compaction_confirmed_as_capacity_release_while_ReleaseVolume_is_destructive_lifecycle_teardown
+    source_contract_mutation_sensitivity: clean_at_AADDE9A59998C75892F32FC84DFF6C5D0EBE19E852374C05D15BF887F4970F1B
+    mutation_probes_rejected:
+      - assertion-polarity inversion across refusal atomicity capture-only acknowledgement retry and rechain
+      - zero-iteration checkpoint chunk loop
+      - extra named backend declaration
+      - whole-object field bare compound prefix postfix or nested-method mutation of the refused edit
+      - bare compound prefix postfix or nested-method mutation of the release ticket before acknowledgement
+      - decoupled acknowledgement or retry result from the backend call
+    reviewers: 3
+    limitation: read_only_source_and_in_memory_mutation_review_not_compile_or_native_execution
+
+latest_prior_build_context:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+  bytes: 19894
+  sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  result: succeeded_prior_context_only
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M12_NativeJournalCapacityRelease_20260724_042006Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/M12_NativeJournalCapacityRelease_20260724_042006Z/preimage_manifest.json
+  manifest_bytes: 1927
+  manifest_sha256: F6E8C7D1233C89FD8E2648B9909601C96FBF9B9B773B864463BD15B0643A6A2B
+  absent_before_marker: D:/RedMMOTitanWindowsData/Rollback/M12_NativeJournalCapacityRelease_20260724_042006Z/absent_before.json
+  absent_before_marker_bytes: 196
+  absent_before_marker_sha256: E5B39EFA2CF7DF9953D383124D6523439A8D9B50496550FD0532CFECF2C5C2E1
+  exact_records: 6
+  unrelated_dirty_work_preserved: true
+
+canonical_queue:
+  path: Build/Automation/redmmotitan_module_queue.json
+  bytes: 223540
+  sha256: C83C7AB92B02FC6CCBB2255625655ECA00071EA6178F24F7AF7CA98D4C57A3E4
+  m12_evidence_records: 13
+  m12_status: in_progress
+  m12_retry_count: 0
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_field_asset_artist_vendor_or_handoff_modified: false
+
+postflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  dirty_file_entries_observed_with_untracked_expansion: 1524
+  physical_ram_free_gib_samples: [15.902, 15.867, 15.834]
+  commit_used_gib_samples: [23.794, 23.765, 23.910]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [31.078, 31.107, 30.962]
+  disk_c_free_gib: 127.275
+  disk_d_free_gib: 1140.031
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  gpu_utilization_percent: 0
+  gpu_temperature_c: 33
+  exact_unreal_build_processes: 0
+  other_active_codex_continuations: 0
+  packaging_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  unreal_build_package_or_runtime_launched_by_this_slice: false
+  protected_hashes_reverified_exact: true
+
+active_defects:
+  changed_by_this_slice: false
+  open: [DEF-0001, DEF-0002, DEF-0004]
+  implemented_awaiting_acceptance: [DEF-0003, DEF-0005, DEF-0006, DEF-0007]
+  resolved: [DEF-0008]
+
+claim_limit: >-
+  This is static source evidence. The eighth native automation scenario has
+  not been compiled or executed, and the Python source contracts do not execute
+  the C++ backend. Acknowledging a checkpoint is an in-memory trusted-adapter
+  declaration and does not prove external write, flush, restart recovery,
+  authentication, or replication. No generated-output or persistence adapter,
+  installed mesh or collision artifact, deformation, suction, Inventory credit,
+  rendering, gameplay, performance, packaging, Steam, or multiplayer behavior
+  is proved.
+
+next_safe_action: >-
+  When physical memory safely permits, compile serialized TitanEditor and game
+  targets and execute all eight exact RedMMO.Mining.VoxelBackend native
+  automation scenarios, including JournalCapacityRelease. Generated-output and
+  persistence adapter work remains gated on those compile and native-execution
+  results. If physical RAM remains below the safe compile gate, continue
+  another independent queued module rather than weakening the gate.

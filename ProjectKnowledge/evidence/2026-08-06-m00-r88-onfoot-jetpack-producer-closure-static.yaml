@@ -1,0 +1,161 @@
+schema_version: 1
+id: evidence.m00.r88-onfoot-jetpack-producer-closure
+module: M00
+defect: DEF-0004
+evidence_class: static
+status: producer_contract_open_owned_presentation_closure_present
+timestamp_utc: 2026-08-06T10:55:59Z
+scope: >-
+  Read-only clean-project input, pawn, radial-movement, owned jetpack payload,
+  legacy source-candidate, historical registry, and R88 package audit. No
+  Unreal, build, cook, package, asset, map, source, Config, plugin, vendor, or
+  user-content mutation was attempted.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_default_count: 195
+  dirty_expanded_count: 2379
+  free_physical_ram_gib: 51.35
+  commit_headroom_gib: 55.35
+  gpu_free_mib: 9110
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 756.6
+  active_unreal_build_package_process_count: 0
+  package_attempted: false
+
+active_clean_pawn:
+  class: ARedPlayerCharacter
+  blueprint: /Game/RedMMO/Characters/BP_RedGameplayCharacter
+  game_mode_implementation_sha256: B0ED7072BEC4731A331C6F45EFB1B682EAD96E91E45D3F48CA6798283AEA4169
+  player_header_sha256: 4FEA8A173A1022966E959D852878CB65327434F33EBBF29F95624D5B63E815D5
+  player_implementation_sha256: BCD11DF53C33CC57559CF3351FA876C1DC27987999D7AC5EFBDD2ACBAC8182CC
+  current_fuel_producer_present: false
+
+input_closure:
+  default_input_sha256: 1E7056A6357D723EEC0E48ECA7A161BDA027B84F944B06597D2D1EE6A3CFA780
+  space_bar_action: Jump
+  shift_action: Sprint
+  enhanced_jump_transitions_present: true
+  enhanced_sprint_transitions_present: true
+  new_input_asset_required: false
+  finding: >-
+    The clean pawn already exposes Started and Completed/Canceled transitions
+    for Jump and Sprint. The narrow producer can reuse these actions without
+    changing DefaultInput.ini or copying the legacy input stack.
+
+radial_movement_boundary:
+  header_sha256: E6C5AB6EDC4C590C9C82954DFF89BBD51DB42C6E5EFB5F235D38038276FF78C2
+  implementation_sha256: A7D0FADFAC38CC681FC15BD93848FE36126C131EB91B2B3E50A435D6FFF8D804
+  finding: >-
+    The legacy pack applies lift opposite radial gravity while remaining in
+    MOVE_Falling. Clean physical-surface resolution remains active in
+    MOVE_Falling and snaps only while descending or nearly idle within 60 cm;
+    MOVE_Flying bypasses it. The first clean implementation should retain
+    MOVE_Falling and defer any surface-snap guard until runtime evidence.
+
+owned_presentation_closure:
+  root: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/Jet_Packs_Sci-Fi
+  clean_pack_assets: 140
+  clean_pack_bytes: 162841151
+  clean_pack_manifest_sha256: 88EBBAE918F8A148E857A61BF5A5B0D9801C55731995DA970AA5061ED558534C
+  master_blueprint: /Game/Jet_Packs_Sci-Fi/Blueprints/Sci-Fi_Jetpack_Master_BP
+  master_blueprint_sha256: 21D2406FA4194A016564BF6A8EAB87BE11C5BC739BDD6047D651E0784F9758AC
+  embedded_direct_references: 21
+  embedded_transitive_edges: 238
+  embedded_transitive_packages: 139
+  embedded_transitive_present: 139
+  embedded_transitive_missing: 0
+  embedded_transitive_bytes: 161984323
+  embedded_transitive_manifest_sha256: E35792051C7662718908078D92318CEBA77447D32B8ECAF689E29114A606CFF0
+  only_clean_asset_outside_master_closure: /Game/Jet_Packs_Sci-Fi/Blueprints/SciFI_Jetpack_ThirdPersonCharacter
+  legacy_pack_assets: 198
+  legacy_only_assets: 58
+  legacy_only_required_by_embedded_master_closure: 0
+  method: >-
+    Recursively extracted exact serialized /Game/Jet_Packs_Sci-Fi package
+    paths from every reached uasset and resolved each reached package against
+    the current clean filesystem, then bound the sorted path-size-sha256 list.
+  limit: >-
+    A fresh UE Asset Registry load, Blueprint compile/reload, cook, runtime
+    sockets/materials/audio and real-GPU pixels remain separate gates.
+
+legacy_source_candidate:
+  header_sha256: 0CADFD6C52B5AECC112B1B969EC26334B6A7C35B98FB55B47455185EFB2E15A7
+  implementation_sha256: 7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99
+  reference_behavior:
+    activation: ordinary_jump_plus_0.30_second_double_tap
+    boost: Shift
+    max_fuel: 100.0
+    fuel_drain_per_second: 18.0
+    fuel_regen_per_second: 22.0
+    sprint_fuel_drain_per_second: 12.0
+    acceleration_cm_per_second_squared: 2600.0
+    max_up_speed_cm_per_second: 950.0
+    boost_acceleration_multiplier: 1.85
+    boost_max_up_multiplier: 1.55
+  reuse_status: reference_only_not_wholesale_migration
+
+authority_blocker:
+  finding: >-
+    The legacy ServerSetJetpackInput accepts client-supplied engaged, thrust,
+    boost and orbital-thrust booleans and rejects only the downed state before
+    assigning them. Its lift/fuel tick runs on both authority and autonomous
+    proxy, and no jetpack-specific saved-move/compressed prediction contract
+    was identified. That cannot be copied as the clean multiplayer authority
+    contract.
+  required_contracts:
+    - server-owned replicated fuel and engaged/thrust/boost state
+    - transition-intent RPCs rather than client-authored state values
+    - server validation for possession, movement availability, fuel, state and ordering
+    - defined autonomous prediction and server correction
+    - forced shutdown before ship possession and while hidden or movement-disabled
+    - resource read API for a later project-owned authored HUD presenter
+
+r88_boundary:
+  package_tree_sha256: 8637B6183E6C1CC22F2DB5DE55337AE81F35D2F877C30785CE7FEFEE89B26DAD
+  cooked_jet_pack_identity_count: 0
+  cooked_jetpack_air_animation_identity_count: 0
+  jetpack_gameplay_accepted: false
+
+verification:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M00_R88_OnFootJetpackProducerClosure_20260806T1047Z/jetpack_producer_closure.json
+  report_bytes: 8803
+  report_sha256: D7EE2F05074CE754FD3524DC68F1D80718440ABCB6266EE577DBFCF756FEC608
+  verification: D:/RedMMOTitanWindowsData/Diagnostics/M00_R88_OnFootJetpackProducerClosure_20260806T1047Z/verification.json
+  verification_bytes: 1945
+  verification_sha256: CA866D3F8CC7410C6423B1DAF35F5C43C3B585031D09BBFA9B7D60BB65E6E02D
+  checks: 32_of_32_passed
+  project_knowledge_integrity: D:/RedMMOTitanWindowsData/Diagnostics/M00_R88_OnFootJetpackProducerClosure_20260806T1047Z/project_knowledge_integrity.json
+  project_knowledge_integrity_bytes: 1836
+  project_knowledge_integrity_sha256: 65D71005D90810AF0B2F1B94E2AF4E1BDB45A349FE5A47D46172ADD408E20E5D
+  project_knowledge_integrity_result: pass_0_errors_0_warnings
+  project_knowledge_integrity_unit_tests: 20_of_20_passed
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  protected_inputs_user_assets_vendor_sources_and_package_modified: false
+
+finding: >-
+  The clean project already owns the necessary Jump/Sprint transition points
+  and a complete embedded 139-package master-jetpack presentation closure.
+  Missing Marketplace assets are not the M00 blocker. The open dependency is
+  a narrow clean native, server-authoritative fuel/state producer with an
+  explicit autonomous-prediction contract and ship-possession shutdown.
+
+next_safe_action: >-
+  Implement one rollback-backed clean native source-only jetpack producer in
+  ARedPlayerCharacter. Reuse existing Jump/Sprint handlers and radial
+  MOVE_Falling movement; add server-owned replicated fuel/state,
+  transition-intent validation, ship-possession shutdown and focused tests.
+  Do not wire HUD or presentation in that same tranche.
+
+claim_limit: >-
+  Static source and binary identity evidence only. No compile, Unreal load,
+  Blueprint compile, runtime, input, visual, audio, package, replication,
+  multiplayer, persistence or human acceptance is claimed.

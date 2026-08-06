@@ -1,0 +1,118 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r50-grass-lifecycle-capture-confound.2026-08-05
+captured_utc: "2026-08-05T18:17:54Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r50-read-only-approved-grass-lifecycle-timing
+evidence_class: automation
+result: high_resolution_capture_temporarily_invalidates_all_approved_grass_instance_data_without_component_recreation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 54.24
+  commit_headroom_gib: 58.24
+  free_gpu_vram_mib: 9215
+  free_d_drive_gib: 767.55
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  current_queue_sha256: 0EF40F85C4DCE61B5331AFBC368EE00934FE2618518E81E40C9BD285AB4D1F0D
+  desktop_control: false
+
+audit:
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_lifecycle_r50.py
+  driver_sha256: E75725C24CA1DA96C7FF14CD6D11F459117AE20DBA1525881820DA9B46014512
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassLifecycle_R50_20260805T1814Z/result.json
+  result_sha256: BC316FF1D665409C7DB63E87AB0550359CEF99270D358C540EEA2E6B72A71D65
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassLifecycle_R50_20260805T1818Z/unreal.log
+  log_sha256: A43CD02F85F7A6C7EED4A986A057FAC24B3546B9459446D4CE98A314E527338A
+  event_capture: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassLifecycle_R50_20260805T1814Z/R50_lifecycle_event_capture.png
+  event_capture_sha256: 877BB8D67BDAD1C3011C6FACDF7DDC0A5F802C7C7049F634FF8DCA7727C4508A
+  renderer: real_D3D12_RenderOffscreen
+  run_status: PASS_R50_READ_ONLY_LIFECYCLE_TIMELINE_CAPTURED
+  timeline_samples: 117
+  post_capture_samples: 47
+  generation:
+    terminal_phase: COMPLETE
+    terminal_progress: 1.0
+    first_approved_components_elapsed_seconds: 4.204
+    full_approved_census_elapsed_seconds: 5.235
+  pre_capture:
+    approved_components: 196
+    seeded_instances: 2218356
+    visible: 196
+    hidden_in_game: 0
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    positive_last_render: 76
+    component_identity_sha256: 74041430A855FF3CBD316BF9A7D57662B9A7972ABE046F9A5F7799AF457B1A55
+  capture_event:
+    capture_requested_utc: "2026-08-05T18:16:59.695796Z"
+    capture_file_ready_utc: "2026-08-05T18:16:59.906809Z"
+    first_all_not_ready_elapsed_seconds: 19.313
+    capture_file_ready_while_all_not_ready_elapsed_seconds: 19.625
+    first_full_recovery_elapsed_seconds: 19.875
+    observed_not_ready_window_seconds: 0.562
+    affected_components: 196
+    minimum_instance_data_ready: 0
+    minimum_components: 196
+    minimum_seeded_instances: 2218356
+    minimum_registered: 196
+    minimum_scene_proxy: 196
+    identity_hash_changed: false
+  interpretation: >-
+    The approved components assemble normally during generation and remain
+    stable at the full census. Immediately after the high-resolution screenshot
+    request, instance_data_ready alone drops from 196 to 0 for every approved
+    component. The capture file becomes ready while all 196 report not ready,
+    then readiness recovers to 196 by the next stable sample without any change
+    in component count, seeded instance count, registration, scene proxies or
+    the component-identity hash. The previously reported post-capture verifier
+    failure is therefore a deterministic capture-correlated readiness pulse,
+    not component deletion or PPG regeneration.
+  evidence_boundary: >-
+    Because the automated high-resolution file is produced inside that pulse,
+    prior missing-grass high-resolution frames are capture-path-confounded and
+    cannot by themselves prove the normal player viewport lacks grass. This
+    audit does not yet prove whether the capture request directly suppresses the
+    GPU draw or merely toggles the diagnostic readiness flag; source correlation
+    and a non-resizing viewport capture are required.
+  mutations:
+    component_property_write: false
+    visibility_cycle: false
+    view_mode_command: false
+    material_or_asset_write: false
+    map_or_package_save: false
+
+protected_state:
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  r29_foliage_sha256: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  r32_parent_sha256: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  instance_a_sha256: 91A0E7233A5922A921FB4CF8692B8631DBB7AEFE7D3D106FDB63C44DB412CE47
+  instance_b_sha256: 19D1B594553977A6A7BA116271F103DCD4044F8F24C3E8B5CF8F596082A9F68E
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  dirty_count_after: 194
+  unreal_or_build_processes_after: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  free_physical_ram_gib_after: 54.12
+  commit_headroom_gib_after: 58.12
+  free_gpu_vram_mib_after: 9215
+  free_d_drive_gib_after: 767.55
+
+claim_boundary: >-
+  R50 is runtime automation evidence of a capture-correlated lifecycle pulse.
+  It is not visual acceptance and does not prove accepted grass, biome art,
+  gameplay, standalone, replication, multiplayer or player acceptance.
+
+next_safe_action: >-
+  On the next wake perform one read-only installed-PPG source correlation for
+  the exact instance_data_ready writer and the Unreal high-resolution capture
+  resize path. Then select one non-resizing viewport capture route and require
+  the exact 196/2218356 census to remain ready before, during and after capture.
+  Do not change materials, foliage data, components, seed, distribution,
+  surface or the home map, and do not repeat the confounded high-resolution
+  screenshot as visual evidence.

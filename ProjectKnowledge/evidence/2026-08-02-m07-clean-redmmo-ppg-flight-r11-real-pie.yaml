@@ -1,0 +1,105 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-flight-r11.real-pie.2026-08-02
+captured_utc: "2026-08-02T17:44:52Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r11-gravity-relative-flight-controls
+evidence_class: automation
+evidence_subclass: real_d3d12_pie_enhanced_input_action_injection_and_motion_telemetry
+result: passed_real_d3d12_pie_flight_controls
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  source_r10o_home_map_sha256: C489B6000B359A7B52FBE7FD50A72A76232020DBC9A015DFC61CA2FB1120C46F
+  persisted_r11_home_map_sha256: 3F98136280504222E5340DB7044F0F3564E8BFFD7221C4EC2F2DF655CE2FFAEC
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_Flight_R11_20260802_171513
+  manifest: D:/RedMMOTitanWindowsData/Rollback/RedMMO_PPG_Flight_R11_20260802_171513/pre_r11_manifest.json
+  manifest_sha256: 51DE50CB34F9AE654E6508950738B3182B88CED0B16E81F5B0E48F594D56C7B8
+  rollback_method: >-
+    Close Unreal, restore the retained pre-R11 home map and DefaultEngine.ini,
+    then remove only the three exact R11 target assets listed in the manifest.
+
+persisted_changes:
+  scope: project_owned_player_input_and_home_map_game_mode_only
+  writes:
+    - asset: /Game/RedMMO/Gameplay/Input/IMC_RedPlanet_R11
+      sha256: 09AC8B9CAB42342C49A22BC6CC1B4A1770B9FB56CE1E251A8E0B0C50581E1DC6
+    - asset: /Game/RedMMO/Gameplay/Player/BP_RedPlanetCharacter_R11
+      sha256: B86B12ACF5CFB9A8DBC82650F56D815B0C6BE8BC32A099A510C5A085158931E6
+    - asset: /Game/RedMMO/Gameplay/Player/GM_RedPlanet_R11
+      sha256: 0696DE6039A5389BF0F872DB84D970E981C69184CD3AEA0279D89001B98BBEBD
+    - asset: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+      sha256: 3F98136280504222E5340DB7044F0F3564E8BFFD7221C4EC2F2DF655CE2FFAEC
+  physical_bindings:
+    toggle_flight: F
+    camera_directed_forward: W
+    explicit_ascend: Space
+    explicit_descend: LeftControl
+  graph_change: >-
+    The project-owned R11 pawn converts controller aim through PPG gravity-relative
+    rotation before deriving flight forward, so camera pitch participates in
+    radial climb and dive instead of being discarded.
+  unchanged:
+    - PPG seed, terrain, foliage distribution, water, atmosphere, and PlanetGen destination
+    - vendor PPG assets and all protected production/checkpoint maps
+    - character mesh, ship, biome topology, lighting, stars, replication, cook, and package
+
+structural_evidence:
+  build_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_Flight_R11_20260802/build_redmmo_ppg_flight_r11_result.json
+    sha256: 1929017C05BBD27ED7A07E3BB854A88B48E9E6168351928DDC9B9CE691B06E18
+    status: PASS
+  graph_probe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_Flight_R11_20260802/probe_ppg_flight_read_only.json
+    sha256: B18C0F69585D68608DB4BC6AD7D068D616B424C0F2A4AFCDC63700219B7662AA
+
+real_gpu_evidence:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_Flight_R11_20260802/validate_redmmo_ppg_flight_r11_result.json
+    sha256: CA1144DF0B5147FD91BF5193A59BA219DB988FDBB0B605EEBA199E0F41E7DBA0
+    status: PASS_REAL_D3D12_PIE_FLIGHT_CONTROLS
+    runtime_driver: UE_5.8_EnhancedInputLocalPlayerSubsystem_action_injection
+    map_saved_by_validation: false
+  measurements:
+    camera_directed_dive_w_radial_delta_cm: -503.194
+    camera_directed_dive_w_forward_alignment: 0.557821
+    camera_directed_climb_w_radial_delta_cm: 513.141
+    camera_directed_climb_w_forward_alignment: 0.784478
+    explicit_space_ascent_radial_delta_cm: 521.007
+    explicit_left_control_descent_radial_delta_cm: -509.356
+    flight_toggle_off_movement_mode: MOVE_FALLING
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_Flight_R11_20260802/RedMMO_R11_flight_descent_PIE_1920x1080.png
+    sha256: 9082F2A0BF768CE24254458E46A380B0E640317E9EA10040B0DD98CE36D4C144
+    dimensions: [1920, 1080]
+    bytes: 2861806
+
+protection:
+  protected_checkpoint_hashes_exact: true
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_night_t03_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed: true
+  unrelated_dirty_work_preserved: true
+
+claim_limit: >-
+  R11 proves the project-owned input and pawn graph, F flight toggle, W
+  gravity-relative camera-directed climb and dive, Space ascent, and Left Ctrl
+  descent in real D3D12 PIE through Enhanced Input action injection and motion
+  telemetry. Static inspection separately proves the physical-key mappings; this
+  does not prove OS-level physical-key delivery or final human control feel. It
+  also does not yet prove visible character, ship, biome quality, night lighting,
+  stars, multiplayer, cook, or standalone package acceptance.
+
+next_safe_action: >-
+  Create one rollback-backed R12 slice that gives the R11 pawn a visible
+  third-person mannequin presentation and adds one surface-resolved visual-only
+  parked StarSparrow reference, then fresh-reload, MapCheck, and verify both at
+  player scale in real D3D12 PIE without changing terrain, biomes, water, or lighting.

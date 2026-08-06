@@ -1,0 +1,73 @@
+schema_version: 1
+id: evidence.m03.protected-27-input-provenance-static
+module: M03
+evidence_class: static
+status: accepted_partial
+timestamp_utc: 2026-08-06T03:38:00Z
+scope: >-
+  Read-only current-byte verification of the protected 27 tangent-local
+  authoring inputs, their accepted snapshot, and the persisted six-face fused
+  outputs. No source raster, derived face, manifest, Unreal asset, map, profile,
+  package, source, Config, vendor root, or process was changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.34
+  commit_headroom_gib: 54.50
+  gpu_free_mib: 9108
+  d_drive_free_gib: 759.39
+  active_unreal_build_package_process_count: 0
+source_contract:
+  root: D:/RedMMOTitan/SourceArt/Planet50Km/AuthoringPatches
+  profile_sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  patch_manifest_sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+  patch_count: 27
+  source_raster_count: 135
+  source_resolution: 257
+  source_dataset_sha256: 228E1CDAC65F0AFFB51101E8639AC65C57063FC4C72D74588D24A194A87504ED
+  strict_manifest_and_format_validation: passed
+approved_snapshot:
+  root: D:/RedMMOTitan/SourceArt/Planet50Km/AuthoringPatches/RevisionBackups/APPROVED_SOURCE_81F1E8E9D1C25BB8E9CF1D4E17423B2D81AF0DFE839CADEBB5569F408CBF75B6
+  validated_file_count: 136
+  every_accepted_file_matches_current: true
+fused_faces:
+  root: D:/RedMMOTitan/SourceArt/Planet50Km/MacroFacesFromPatches
+  manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+  face_count: 6
+  face_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+  coverage_sample_count: 396294
+  uncovered_sample_count: 0
+  coverage_passed: true
+  shared_boundary_comparisons: 3076
+  max_height_delta_u16: 0
+  max_land_delta_u8: 0
+  max_biome_delta_u8: 0
+  seam_validation_passed: true
+tests:
+  command: >-
+    python -m unittest Tools/tests/test_planet_patch_compositor.py
+    Tools/tests/test_import_fused_macro_heightfield.py
+  tests_run: 22
+  failures: 0
+  errors: 0
+postcheck:
+  patch_temporary_directory_count: 0
+  face_temporary_directory_count: 0
+  active_unreal_build_package_process_count: 0
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+rollback: not_applicable_no_input_or_runtime_mutation
+claim_limit: >-
+  This accepts current source provenance, raster formats, snapshot identity,
+  persisted face hashes, offline coverage, seam equality, and the focused
+  compositor/import contracts only. It does not prove that clean RedMMO R84
+  consumes these faces, and it does not satisfy rendered terrain, collision,
+  player or vehicle traversal, hub flatness, water/shoreline agreement,
+  foliage/PCG placement, packaged currency, or multiplayer gates.
+next_safe_action: >-
+  Keep all 27 inputs and six faces immutable. After the R84 human control and
+  day/night gate, choose a separately checkpointed isolated consumer/traversal
+  slice; do not promote or regenerate production terrain from this static pass.

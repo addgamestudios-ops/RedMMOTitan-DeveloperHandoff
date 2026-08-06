@@ -1,0 +1,133 @@
+schema_version: 1
+id: evidence.m10.r90-developer-handoff-static
+module: M10
+evidence_class: static
+status: accepted_partial
+timestamp_utc: 2026-08-06T13:12:55Z
+scope: >-
+  One no-clobber, currentness-only M10 developer handoff for the already built
+  R90 clean-RedMMO candidate. The external D-resident document pins the exact
+  launcher, editable project, controls and jetpack checklist, active M04/M05/M02
+  boundaries, protected identities, rollback chain, and claim limits. No
+  Unreal, build, cook, package, editor, desktop-control, map, source, asset,
+  Config, plugin, vendor, user-asset, CC5, or Blender process was launched or
+  changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2418
+  free_physical_ram_gib: 50.47
+  commit_headroom_gib: 48.22
+  gpu_free_mib: 7046
+  gpu_total_mib: 10240
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+handoff:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_DeveloperHandoff_20260806T1309Z/DEVELOPER_HANDOFF_R90.md
+  byte_length: 13439
+  sha256: 4ABDB9A173B2F272A27B7ED0D521FA62C0F1E5A3663896C53B03FE4BB8B3DD00
+  heading_count: 9
+  reference_existence_checks: 32_of_32_passed
+  focused_document_checks: 38_of_38_passed
+  verified_sections:
+    - exact R90 launcher, clean tree, launcher and current game-binary identities
+    - exact editable D-drive project, home-map, ProfileV1 and seed identities
+    - retained R85 projectile, R86 rifle and R88 grounded-audio boundaries
+    - R89D/R89E native jetpack timing and producer-state boundaries
+    - M04 active PPG streaming capabilities and player-zero/performance limits
+    - M05 native lifecycle plus M02 exact-home producer and client-snapshot limits
+    - physical controls, jetpack, audio, StarSparrow and PPG visual checklist
+    - hard zero-palms, no-square-water and no-old-checkout guards
+    - protected identities, rollback chain and explicit claim limits
+source_evidence:
+  r90_package:
+    path: ProjectKnowledge/evidence/2026-08-06-m09-clean-redmmo-r90-current-playable-package.yaml
+    sha256: 626CB5A5C277DE71D57C25875BE7C175E906F746BF01F6B411A6B12E3D7672AD
+  jetpack_timing_native:
+    path: ProjectKnowledge/evidence/2026-08-06-m00-r89d-jetpack-frame-timing-native-automation.yaml
+    sha256: E66BFDEB82F5DF6CB5666CB904BECE3D4976AE31366A2A67566EA94249BC5F8F
+  jetpack_producer_native:
+    path: ProjectKnowledge/evidence/2026-08-06-m00-r89e-jetpack-producer-state-native-automation.yaml
+    sha256: 70466097BBA0DE9F59F9C8A0FB1EE2F1E98BC333FE24CCBAB21BEE168A05EFC6
+  celestial_registry_native:
+    path: ProjectKnowledge/evidence/2026-08-06-m05-clean-celestial-registry-native-automation.yaml
+    sha256: F409458DAB6F056B51D50AE816330FCDB8944589F9FB38203CD20ADBA8963721
+  ppg_celestial_producer_runtime:
+    path: ProjectKnowledge/evidence/2026-08-06-m02-clean-ppg-celestial-frame-producer-runtime.yaml
+    sha256: EBE1D87E33EA9062818627CB1F4BB33BD5464EA39960DB03C9156CE4DA3E760A
+artifact:
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows/RedMMO.exe
+  configuration: Win64_Development
+  package_tree_sha256: EA0A13DEF4AD9DB64F4F19E9B3974F6485E3C5368DB10B56019D0E965C4C3315
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 88364C664C99EA68E2F8D60B1DC0091EB14896516C3123DD55E4658470F3269C
+  clean_file_count: 50
+  total_bytes: 1454866566
+editable_project:
+  uproject: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  uproject_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_root: /Game/RedMMO/WorldAuthoring/PPG/ProfileV1
+  profile_data_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  ppg_seed: 1337
+current_boundaries:
+  m04: >-
+    Six-face recursive LOD, bounded asynchronous work, stale-result guards,
+    deterministic chunk seeds, native water and detail foliage are present;
+    player-zero selection, no velocity look-ahead, and missing traversal,
+    performance, two-process and late-join evidence remain explicit.
+  m05_m02: >-
+    Three native registry scenarios pass, the authority-owned producer executes
+    in the exact home, and packaged R90 startup publishes the initial frame.
+    Client snapshot, radar/minimap, runtime revision mutation, cloud/body radius
+    alignment, fused bridge, travel, warp and multiplayer remain open.
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  fused_tangent_authoring_inputs_count: 27
+  fused_faces_count: 6
+  hard_zero_palms_rule: preserved
+  package_project_source_map_profile_config_plugin_vendor_user_bytes_changed: false
+rollback: >-
+  Remove only the new external R90 handoff directory and this evidence/index/
+  state/queue linkage. No project or package rollback is required because the
+  handoff slice changed neither. For implementation rollback, use the exact
+  scoped rollback chain listed in the handoff.
+postflight:
+  captured_utc: 2026-08-06T13:12:55Z
+  free_physical_ram_gib: 50.19
+  commit_headroom_gib: 47.92
+  gpu_free_mib: 7014
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 36
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+verification:
+  project_knowledge_queue_snapshot_sha256: 844DD1D4A48FD084CA8FC6BAC1238849CAC50815B0AED46358C446D9EB6F1189
+  yaml_and_json_parse: 4_yaml_1_json_passed
+  project_knowledge_integrity_audit: passed_zero_errors_zero_warnings
+  project_knowledge_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_DeveloperHandoff_20260806T1309Z/project_knowledge_integrity.json
+  project_knowledge_integrity_report_bytes: 1836
+  project_knowledge_integrity_report_sha256: 64B53C1CC8A9FCBF579E2661110FAFC8F3B2D5EBF2BEBB1ED15CCBD84EC572E1
+claim_limit: >-
+  Static handoff currentness tied to the already-proven R90 package and source
+  evidence. It does not prove human playability, physical controls, perceived
+  audio, visible art, uninterrupted traversal, performance, protected fused
+  consumption, client replication, multiplayer, persistence, dedicated server,
+  Steam transport, warp, final art, or game completion and cannot complete M10
+  while its dependencies and acceptance gates remain incomplete.
+blocker: >-
+  R90 is launchable now, but human physical controls, jetpack/landing feel,
+  perceived grounded audio and current PPG visual review remain required.
+  Broader protected-world, client-registry, replication, multiplayer,
+  persistence, server, Steam, performance, travel and final-art gates are open.
+next_safe_action: >-
+  User or developer launches the exact R90 executable and records checklist
+  results against the pinned tree hash. Preserve R90 unchanged; make any fix in
+  a new bounded revision. The next unattended wake rotates to another
+  independent authorized module rather than repeating the human gate.

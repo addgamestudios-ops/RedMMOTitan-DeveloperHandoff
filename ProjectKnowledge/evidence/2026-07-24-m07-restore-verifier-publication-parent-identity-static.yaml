@@ -1,0 +1,233 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-publication-parent-identity.static.2026-07-24
+captured_utc: "2026-07-24T12:33:00Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: windows-local-ntfs-diagnostics-parent-handle-publication
+evidence_class: static
+result: passed_static_windows_parent_handle_publication_with_manifest_and_restore_gates_open
+
+scope:
+  authorized:
+    - close the reproduced diagnostics-parent junction-redirection race for report creation, write, no-clobber publication, and failure cleanup
+    - pin and traverse one Windows local-NTFS diagnostics-parent identity with native handle-relative operations
+    - keep report staging exclusive, flush its bytes before publication, and publish without replacing an existing final report
+    - fail closed outside the supported Windows local-NTFS publication boundary
+  explicitly_not_run:
+    - stable manifest-handle reads, direct-API manifest reauthentication, native 128-bit FILE_ID_INFO identity, ReFS, UNC, DFS, SMB, mapped drives, or other network-filesystem support
+    - parent-directory durability flush, power-loss or crash-consistency testing, external target access, payload copy, actual restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1491
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  background_unreal_mcp_thin_proxy_python_processes_preserved: 8
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_start: 13.178
+  physical_ram_free_gib_end: 12.138
+  commit_limit_gib: 54.872
+  commit_headroom_gib_start: 28.753
+  commit_headroom_gib_end: 28.054
+  disk_c_free_gib_start: 124.387
+  disk_d_free_gib_start: 1139.986
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8572
+  gpu_utilization_percent: 0
+  packaging_and_unreal_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_publication_parent_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_this_M07_static_slice
+
+reproduced_pre_fix_defect:
+  affected_boundary: diagnostics_report_output_parent
+  observation:
+    - the old flow validated a lexical output path and then created and published through that path
+    - replacing the validated parent with a junction redirected the report into an attacker-controlled directory
+    - path-based failure cleanup could also address the replacement directory rather than the directory originally validated
+  red_before_fix:
+    result: expected_security_failure_reproduced
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/parent_junction_redirect_red_before_fix.log
+      bytes: 582
+      sha256: 7847495655714F9D601709FE4B8D3BD0401C83A2E9B9497D74B7411796D034DB
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 84325
+    sha256: B966EED2B249EE26DC80D7ABE6A87C676E37E4947C8D9B375413F160E4302778
+    changes:
+      - validates and retains the diagnostics-root handle, local-NTFS filesystem type, non-reparse metadata, and volume-serial plus 64-bit file-index identity
+      - traverses or creates each output-parent component relative to retained directory handles with NtCreateFile and rejects reparse directories
+      - creates a randomized same-parent staging file with exclusive share mode, FILE_ATTRIBUTE_NORMAL, one link, and zero initial bytes
+      - writes the complete payload through the retained staging handle, calls FlushFileBuffers, and rechecks handle identity, size, link count, and reparse metadata
+      - publishes the still-open staging file with NtSetInformationFile FileRenameInformation, the retained parent RootDirectory, and flags zero so an existing final report is never replaced
+      - performs failure cleanup by marking the retained staging handle for deletion rather than unlinking a pathname
+      - rechecks that the lexical parent still names the pinned parent identity and that the final path names the exact flushed staging-file identity
+      - rejects report publication on non-Windows systems rather than retaining an unpinned path-based fallback
+      - leaves native 128-bit FILE_ID_INFO identity, parent-directory durability flush, and non-NTFS publication as explicit later gates
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 47168
+    sha256: 9EDE807ECBB238FA877A7196B66CAB78ABD9809273F54DA459406CC32825E570
+    added_contracts:
+      - a parent junction inserted after validation is rejected before publication
+      - a parent swapped after pinning cannot redirect final publication or failure cleanup, and attacker staging-name and final-name sentinels survive byte-exact
+      - a late competing final report is not clobbered and leaves no staging file
+      - the staging handle denies a second writer and the published final lacks FILE_ATTRIBUTE_TEMPORARY
+      - the native rename call uses the retained parent handle, FileRenameInformation class, flags zero, and the exact final filename
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  raw_sha256_observed: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  strict_structure_validated_after_publication_hardening: true
+  entries: 8228
+  plugins: 4
+  protected_inputs: 4
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/canonical_manifest_authentication.log
+    bytes: 336
+    sha256: 64520E9CEE55263203B28DBA290C2E92635661C6D346F484889218A234BB8CF5
+  actual_restore_tree_supplied_or_scanned: false
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z
+  complete_restore_verifier:
+    result: 22_of_22_passed
+  focused_static_and_provenance:
+    result: 89_of_89_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/focused_static_and_provenance_tests_final.log
+      bytes: 18564
+      sha256: D3289716386D511EA7E5910D437DD3F2E4ADBF0F14EBE758B53E77C8D732B079
+  full_offline_test_discovery:
+    result: 562_of_562_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/full_tools_test_discovery.log
+      bytes: 867
+      sha256: 2623AD0A57D05DA59A19FB5799AD53F24AB09C3006E77730F621E3B8A7EBB06A
+  real_windows_handle_publication_probe:
+    result: passed
+    second_publication_refused: true
+    original_payload_unchanged: true
+    final_file_temporary_attribute_present: false
+    residual_staging_files: 0
+    output:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/handle_publication_probe_final.json
+      bytes: 34
+      sha256: D2D31A3890BA4519DC072C39C16552BD0FE22403CCDF75847E44D48A7B50218E
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/handle_publication_probe_final.log
+      bytes: 467
+      sha256: 1A7D9B738768C034CC81DC60BD9CECD8D0C838A29CD634B9BA39D013335B40F0
+  python_compile: passed
+  whitespace_and_line_length_check: passed
+  static_quality_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/static_quality_checks.log
+    bytes: 110
+    sha256: 2D00A42C5D4D7727D774DE10DF9444D695211A2E205A1DBD4076928B35946DB6
+  canonical_integrity_pre_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 130
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/project_knowledge_integrity_pre_evidence.json
+      bytes: 1782
+      sha256: F296656A40AD444E0D90A7640C2B5247E148201BDC7511F2AD7278BE33DD7E10
+  canonical_integrity_post_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 131
+    queue_sha256: 603C21F328A0157E7F4472550CA768514775F6C03DCA774D1BCC1EBF2C738E61
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierPublicationParent_20260724_1202Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: C1BFC778F05C2E7B62C40E074AAFCCCA04A984A771095080D5B6318CE123476B
+
+independent_review:
+  result: no_remaining_windows_blocker_for_the_bounded_local_ntfs_publication_slice
+  conclusions:
+    - Python 3.11 lacks usable Windows directory-fd operations, so native retained-handle calls are required for this boundary
+    - the final design uses one retained parent handle for staging creation and final no-replace rename
+    - exclusive staging share mode closes a second-writer content-mutation route
+    - FILE_ATTRIBUTE_NORMAL avoids carrying temporary-file semantics onto durable evidence
+    - handle-based cleanup preserves attacker staging-name and final-name sentinels during a parent swap
+    - the native-call contract confirms RootDirectory, information class, flags, and filename
+    - the former non-Windows path fallback was rejected rather than left with a parent-identity race
+  review_edits_to_project: false
+  unreal_or_build_process_run_by_reviewers: false
+
+remaining_security_findings:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - read and authenticate the manifest through one stable opened handle and add a deterministic manifest-path ABA regression
+    - reauthenticate direct verify_isolated_restore inputs rather than relying only on the CLI call chain
+    - evaluate native 128-bit FILE_ID_INFO and reparse-safe directory handles before supporting ReFS, UNC, DFS, SMB, or mapped-network paths
+  operational_gates_still_open:
+    - no parent-directory durability flush or power-loss consistency evidence
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierPublicationParent_20260724_1202Z
+  exact_preimages: 5
+  preimage_hashes:
+    queue: 316E9BBFD36376CAD869BB86D17A975067091A7ED38738BACF4596364B340590
+    current_state: C09A7197A16F32E48B0675DB2D692A8BA217AF755FF99374E339A762EAC41814
+    index: EBD17D1D02CAB16E8FCF6F31009A78592C5988D4C3CE3BBBEB3E358CE0C111EC
+    tests: 419F298DDAC37CA26BBE894D6E46DFA6164374E331B29CC56AB343712CECF056
+    verifier: 55158F2372DE09A3CC29312D1222616A024470EBD18241FF8CEE4858AB5A03C4
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, local-NTFS native-handle, canonical-manifest parsing,
+  synthetic-fixture, and one disposable D-resident publication-probe evidence
+  only. It closes the reproduced diagnostics-parent junction redirection for
+  report staging, publication, and failure cleanup on the tested Windows
+  local-NTFS boundary. It does not prove parent-directory durability across
+  power loss, stable manifest-handle authentication, direct-API reauthentication,
+  128-bit FILE_ID_INFO, ReFS, network filesystems, external storage, ACLs, or an
+  actual restored payload. No RedMMOTitan payload was copied or restored, and
+  the verifier was not executed against an actual restored tree. This is not
+  Unreal load or save, build, runtime, visual, gameplay, package, Steam, or
+  multiplayer evidence.
+
+next_safe_action: >-
+  While physical RAM remains below the sustained Unreal compile and package
+  gate, read and authenticate the M07 manifest through one stable opened handle
+  and add a deterministic path-replacement regression. Keep direct-API
+  reauthentication, native 128-bit FILE_ID_INFO, network-filesystem support,
+  external copy, ACL proof, and one actual isolated restore-and-rehash execution
+  as separate bounded gates.

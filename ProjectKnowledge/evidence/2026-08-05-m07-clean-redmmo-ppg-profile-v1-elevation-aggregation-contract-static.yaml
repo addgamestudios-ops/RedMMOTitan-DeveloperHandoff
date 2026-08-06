@@ -1,0 +1,119 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-ppg-profile-v1-elevation-aggregation-contract-static.2026-08-05
+captured_utc: "2026-08-05T05:36:00Z"
+module_id: M07
+system: clean-redmmo.ppg-world-authoring
+slice: profile-v1-elevation-aggregation-and-shoreline-design
+evidence_class: static
+result: pass_per_biome_native_flatten_design_authenticated_no_write
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  tracked_dirty_count: 60
+  free_physical_ram_gib: 51.20
+  commit_headroom_gib: 49.97
+  free_gpu_vram_mib: 7845
+  free_d_drive_gib: 768.06
+  unreal_or_build_processes: 0
+  provider_ports_closed: [5353, 8000, 8765, 11111]
+  desktop_control: false
+
+authenticated_native_contract:
+  global_height:
+    behavior: >-
+      Planet Elevation Output compiles Global Height as custom output one,
+      evaluates it once into PPGGlobalHeight, and exposes it to each biome
+      branch through Planet Global Height. It is not added to final elevation.
+    unconnected_behavior: compiles_to_zero
+  biome_heights:
+    behavior: >-
+      Each contributing biome output is evaluated independently under its
+      actual cell context, then Planet.usf computes final elevation as
+      dot(biomeHeights, top4CellStrengths).
+    connected_profile_v1_inputs: [Craters, Mountains, Desert, Hills, Poles, Ocean]
+  post_blend_material_graph_hook: false
+  native_flatten:
+    inputs: [Elevation, Water Level, Threshold]
+    default_water_level: 0.0
+    default_threshold: 0.005
+    behavior: smoothstep_distance_then_lerp_to_water_level
+
+supported_unbound_design:
+  shared_scalar:
+    parameter_name: ShorelineFlattenThreshold
+    default: 0.005
+    identity: RedProfile.ShorelineFlattenThreshold
+  wrapper_count: 6
+  wrappers:
+    - {role: Craters, source: MaterialExpressionAdd_0, target: Craters Height}
+    - {role: Mountains, source: MaterialExpressionReroute_0, target: Mountains Height}
+    - {role: Desert, source: MaterialExpressionDivide_0, target: Desert Height}
+    - {role: Hills, source: MaterialExpressionAdd_3, target: Hills Height}
+    - {role: Poles, source: MaterialExpressionSubtract_3, target: Poles Height}
+    - {role: Ocean, source: MaterialExpressionSubtract_4, target: Ocean Height}
+  exact_wiring_per_role:
+    - existing branch root to native Flatten Elevation input
+    - shared scalar to every Flatten Threshold input
+    - Water Level unconnected at native zero default
+    - Flatten output to the same named biome-height input
+  global_height_action: leave_unconnected
+
+behavioral_boundary:
+  supported_order: blend_of_per_biome_flattened_heights
+  unsupported_exact_order: flatten_after_final_biome_blend
+  mathematically_equivalent_at_transitions: false
+  reason: >-
+    Native flatten uses nonlinear smoothstep, so blending already-flattened
+    biome samples can differ near transitions from flattening the final blended
+    height. Exact post-blend behavior requires a separately approved
+    project-owned PPG shader/plugin extension after the final dot product.
+
+source_hashes:
+  elevation_header: D4569CA1055B5C1EE9154F385D2ED38A431427FD790E8273C27359BA6F58A6A5
+  elevation_cpp: 0EB9AF7E05974F7022CB1F45A513DA6B9E213436834816E1112F9AAC7EA2DE2F
+  planet_shader: 4A109146711F1D0B0EB565568BA012ABBFD62202B7EC05808140C84344538EA2
+  flatten_header: 371F09B0035803983821ED75EEBD8312FD20BCAC458CD79563917997065EC658
+  flatten_cpp: 142CCABEEF9CFF1C46B629A234D6F3AEE8CCDC0D04707C972BDCCD6D1435A5E0
+  noise_shader: 358B2E37ABE6E5E8B8C32030E36717E6D2712DD7789F95C7236562B6554F8DD4
+
+hash_gates:
+  home_map_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  profile_generation_before_after: 5CD34E415CADD6B632B2896AE51461B8E7909FCC456027FC5E5CA8CC63EF541A
+  profile_planet_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  profile_mask_before_after: 6A4EA303452559810E4FF805FE86AD7057D9807069B3585A8CC9489279BFA66D
+  profile_surface_parent_before_after: 5B433BA09CCBB50EFC71A9F2C9100BF264274249A1B4AC2BE5E95126F4644768
+  profile_surface_instance_before_after: FBB3A58782DEED69D93BB2369387873FA2DA7FEAA93F47CBA289FC61EBEFBD66
+  protected_test_before_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_before_after: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ElevationAggregationContract_20260805_0531/audit_redmmo_ppg_profile_v1_elevation_aggregation_contract_result.json
+    sha256: B4AAFA60277A109FA1E70FA45059CF3496B13A9ABA356FAFFB46162A3A757EA8
+  script:
+    path: Build/Automation/audit_redmmo_ppg_profile_v1_elevation_aggregation_contract.py
+    sha256: 835B70F5F24077B06609AC2E1C602ACFF355FA60C847E4A9FA92A41062B870C1
+  project_knowledge_integrity:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1ElevationAggregationContract_20260805_0531/project_knowledge_integrity_after.json
+    sha256: D2E434B5C65AA1A3CDBEC04B694D7E2D1CC38DD9C6C2B7A1419868A9D9B9937B
+    result: pass_zero_findings
+  focused_integrity_tests:
+    command: python -m unittest Tools.tests.test_project_knowledge_integrity
+    result: 20_of_20_pass
+
+claim_boundary:
+  verified:
+    - native global and per-biome custom-output semantics
+    - shader-side final weighted aggregation after per-biome evaluation
+    - exact six-wrapper material-graph design using one shared scalar
+  not_verified:
+    - no graph node or scalar was created or saved
+    - no home binding, regeneration or visual shoreline change exists
+    - per-biome preblend and exact post-blend flatten are not claimed equivalent
+
+next_safe_action: >-
+  Under the retained exact generation rollback or a fresh hash-equivalent
+  rollback, persist one shared ShorelineFlattenThreshold scalar and six native
+  per-biome flatten wrappers in unbound ProfileV1 generation, then fresh-reload
+  only that package. Do not bind, regenerate, save the home map, capture or
+  claim a visible shoreline change.

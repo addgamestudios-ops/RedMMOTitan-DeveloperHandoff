@@ -1,0 +1,132 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r43-grass-render-state-recreate-failed-restored.2026-08-05
+captured_utc: "2026-08-05T16:11:19Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r43-approved-grass-render-state-recreate
+evidence_class: real_gpu_visual
+result: true_render_state_recreate_falsified_and_source_restored
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before_after: 194
+  free_physical_ram_gib: 49.43
+  commit_headroom_gib: 49.47
+  free_gpu_vram_mib: 8007
+  free_d_drive_gib: 767.63
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforePPGGrassRenderStateRecreate_R43_20260805T1602Z
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforePPGGrassRenderStateRecreate_R43_20260805T1602Z/manifest.txt
+  manifest_sha256: 021446FA3E5CB01574987DC86D6FA505F522E3BCA3A094A5646C007BD5CE521B
+  header_preimage_sha256: 94BEB7B37448C5CEC49F1F38B927B9AA153AAC7671F78B42EC78B46D24AE1639
+  source_preimage_sha256: 022C2B422D9BA20270B6CFA88BF1DB6B51D967AB2E88A7E6C34898CB1E4CD893
+  used: true
+
+attempted_change:
+  scope: >-
+    Added one project-owned authority timer that waited for the unique PPG
+    spawner to reach COMPLETE and for the exact approved grass census to be
+    stable and ready, then called UpdateBounds plus
+    RecreateRenderState_Concurrent exactly once on only the two approved R10N
+    DenseTall grass aliases. No map, content package, seed, placement, density,
+    surface, visibility, vendor or protected asset changed.
+  expected_components: 196
+  expected_instances: 2218356
+  driver: D:/RedMMOTitan/Build/Automation/verify_redmmo_grass_render_state_recreate_r43.py
+  driver_sha256: 8435C12458CBED4974324F175D959A9E607575F8FB6C729A2BA7EE03450A4FEB
+  attempt_build_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderStateRecreate_R43_20260805T1605Z/build.stdout.log
+  attempt_build_log_sha256: 6D0B6B93558A96145A22E30D07FC29DEB7ABD1C9B1729097EAC6C9F23424A3B1
+
+runtime:
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderStateRecreate_R43_20260805T1605Z/result.json
+  result_sha256: A2BC4003906ABA4ADB5D41835EE5DAD5F6287913A9CB3E75D0ADDD4A69FF0353
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderStateRecreate_R43_20260805T1605Z/unreal.log
+  log_sha256: 29B227DD3118373B4B03DF57823FDE4EDB360EC7BFE9B1573060B7AD2EC2B401
+  renderer: D3D12
+  generation: complete
+  recreate_log_proof: >-
+    Recreated approved PPG grass render states once after generation COMPLETE
+    with components 196, instances 2218356, attempts 16 and stable polls 2.
+  state_before_first_capture:
+    components: 196
+    instances: 2218356
+    visible: 196
+    hidden: 0
+    registered: 196
+    instance_data_ready: 196
+    scene_proxy: 196
+    positive_last_render: 76
+  camera_max_location_drift_cm: 0.0001265108585357666
+  camera_max_rotation_drift_deg: 0.0
+  camera_fov_drift: 0.0
+  view_mode_command_before_capture: false
+  visibility_cycle_called: false
+  component_property_mutation_called: false
+  save_called: false
+  capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassRenderStateRecreate_R43_20260805T1605Z/R43_untouched_lit_first_after_recreate.png
+    sha256: FD978EFF47755254C783490BE7FA32C874B16254D78781CCC962CEEF290AEC19
+    independent_review: >-
+      Player-scale Lit-first pixels still show the Trooper, solid green ground
+      and dense repeated palms, with no readable approved DenseTall grass in
+      the near or mid ground. The proxy rebuild did not repair the visual
+      defect.
+  terminal_status: fail_after_capture
+  terminal_reason: >-
+    The inherited verifier's strict post-capture census observed runtime
+    readiness drift while stopping PIE. This does not invalidate the already
+    captured pre-capture exact census and image, but the transaction is not a
+    runtime pass.
+  separately_observed_open_defect: >-
+    The run also logged the existing starter-ship authoritative parking
+    rejection after eight retries. R43 did not change or accept that system.
+
+diagnosis:
+  proven: >-
+    A true approved-only component render-state recreation after stable PPG
+    generation COMPLETE is insufficient. The exact approved components and
+    instances were ready and proxied before an untouched Lit-first capture,
+    yet the grass remained visually absent.
+  exact_blocker: >-
+    The failure is not repaired by RefreshInstanceSceneData or by a full
+    component render-state recreation. The remaining supported diagnostic
+    boundary is upstream PPG biome-entry remap and foliage eligibility or the
+    GPU instance material/relevance path; repeating render-state, visibility,
+    density, cull or identical capture loops is unsupported.
+
+restoration:
+  attempted_hook_retained: false
+  header_restored_sha256: 94BEB7B37448C5CEC49F1F38B927B9AA153AAC7671F78B42EC78B46D24AE1639
+  source_restored_sha256: 022C2B422D9BA20270B6CFA88BF1DB6B51D967AB2E88A7E6C34898CB1E4CD893
+  restored_sources_equal_authenticated_preimages: true
+  rollback_build_log: C:/Users/user/AppData/Local/UnrealBuildTool/Log.txt
+  rollback_build_log_sha256: DCAC29F0BF243C6BC315947E5B7B01D4DD969096A201037087FBAC7CDBE427E1
+  rollback_build_result: succeeded_5_actions_12.77_seconds
+  restored_binary_sha256: 270B497D46A3B85C61E11C25A615B3E02582360A6BFA3AE45F542F0451C64DEE
+
+protected_state:
+  home_map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  persistent_map_or_asset_saves: 0
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+  unreal_or_build_processes_after: 0
+
+claim_boundary: >-
+  R43 is a failed and fully rolled-back approved-grass render-state experiment
+  with a valid pre-capture runtime census and untouched player-scale Lit-first
+  D3D12 pixels. It does not prove visible grass, accepted biome art, ship
+  parking, broader gameplay, standalone, replication, multiplayer or player
+  acceptance.
+
+next_safe_action: >-
+  Rotate away from render-state and repeated capture loops. Inspect the exact
+  persisted SurfaceBiomeEntryMap by-name remap and runtime foliage eligibility
+  feeding the approved grass instances, preserving the selected meshes, seed,
+  placements and surface; mutate only if one directly supported mismatch is
+  proven.

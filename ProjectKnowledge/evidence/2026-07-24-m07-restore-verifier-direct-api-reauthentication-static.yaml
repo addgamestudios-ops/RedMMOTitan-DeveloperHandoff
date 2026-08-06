@@ -1,0 +1,236 @@
+schema_version: 1
+id: evidence.m07.restore-verifier-direct-api-reauthentication.static.2026-07-24
+captured_utc: "2026-07-24T13:45:56Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: direct-verify-isolated-restore-input-reauthentication
+evidence_class: static
+result: passed_static_direct_api_reauthentication_with_external_restore_and_acl_gates_open
+
+scope:
+  authorized:
+    - close the reproduced direct verify_isolated_restore digest, semantic-schema, detached-entry, and mutable-alias trust gaps
+    - preserve the existing four-argument direct API and CLI isolation-error ordering
+    - prove invalid inputs fail before restore-tree discovery
+  explicitly_not_run:
+    - manifest-parent junction regression, native 128-bit FILE_ID_INFO, ReFS, UNC, DFS, SMB, mapped-drive, or other network-filesystem support
+    - parent-directory durability flush, power-loss testing, external target access, payload copy, actual 8228-file restore, ACL or owner inspection, retention testing, or disaster-recovery drill
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, artist, vendor, supplied-art, source-raster, or Unreal-package mutation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed_before_evidence: 1493
+  conflicts_observed: 0
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  background_unreal_mcp_thin_proxy_python_processes_preserved: 8
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_start: 11.965
+  physical_ram_free_gib_end: 11.907
+  commit_limit_gib: 54.872
+  commit_headroom_gib_start: 27.857
+  commit_headroom_gib_end: 27.647
+  disk_c_free_gib_end: 122.545
+  disk_d_free_gib_end: 1139.984
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_free_mib: 8572
+  gpu_utilization_percent: 0
+  packaging_and_unreal_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_direct_API_slice
+  corrected_final_snapshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/final_preflight_corrected.json
+    bytes: 6820
+    sha256: 96604461D056321C4A08658C08968A06C717B274BF830332E669A905FFFC2DD0
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_this_M07_static_slice
+
+reproduced_pre_fix_defect:
+  affected_boundary: direct_verify_isolated_restore_manifest_inputs
+  observations:
+    - a valid manifest and restore with an all-zero supplied digest returned success and echoed that unverified digest into the report
+    - separately supplied entries with a mutated semantic field returned success because only path, byte count, and file SHA-256 were consumed
+    - a semantically invalid manifest with manifest_only changed to false and a recomputed canonical digest returned success
+    - the direct function reached restore discovery before validating the digest, semantic manifest schema, or exact entries coupling
+  direct_probe_red_before_fix:
+    result: three_expected_security_failures_reproduced
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/direct_api_red_before_fix.log
+      bytes: 430
+      sha256: 580709DD924E3BACD2ED7024E5647AA221E1101D3FA8A8A63F6CD0A00CC724D2
+  regression_red_before_fix:
+    result: three_missing_rejections_and_one_mutable_alias_failure_reproduced
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/direct_api_regressions_red_before_fix.log
+      bytes: 9614
+      sha256: C908B677A963AC67919DC5A44904204600B72982743C9F117FF32B207153EE93
+
+implementation:
+  verifier:
+    path: Tools/verify_redmmo_content_storage_restore.py
+    bytes: 98053
+    sha256: 07DF4F4B31D1EFD787DEA910C23FBFAE40BFC5335BA01F32B7192BFDC57DE0BB
+    changes:
+      - shares one canonical UTF-8 payload parser between stable-handle file loading and direct input reauthentication
+      - validates the caller digest syntax before manifest serialization and preserves lowercase-digest compatibility through normalization
+      - accepts only the plain dict and list envelopes produced by the authenticated loader and used by every repository callsite
+      - encodes the manifest incrementally with sorted keys, two-space indentation, finite JSON only, a canonical trailing newline, and the existing 256 MiB limit
+      - compares SHA-256 over those exact snapshot bytes to the caller trust anchor
+      - reparses the authenticated payload into detached built-in containers and reruns the complete semantic manifest contract
+      - serializes the separately supplied entries and requires byte-exact canonical equality with the validated manifest entries
+      - rebinds scan and report generation to the detached manifest, entries, and observed digest
+      - preserves active-project isolation error precedence and keeps the existing report schema
+      - expands the claim limit to distinguish direct canonical-snapshot authentication from the CLI raw stable-handle file boundary
+  tests:
+    path: Tools/tests/test_verify_redmmo_content_storage_restore.py
+    bytes: 65573
+    sha256: 949B86F26304266A5D19FCF66C8705E9E204CEF1E54F3D5D6355C77FA08E4FDB
+    added_contracts:
+      - wrong digest, detached entries, and a semantically invalid re-signed manifest fail before restore discovery
+      - mutation and clearing of the caller-owned containers after the first discovery cannot alter scan or report results
+      - malformed digest, non-plain mapping or sequence envelopes, nonfinite values, circular values, and bounded-size overflow fail before discovery
+
+canonical_manifest_validation:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+  raw_sha256_expected: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  stable_handle_observed_sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  direct_snapshot_observed_sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+  entries: 8228
+  plugins: 4
+  direct_entries_bound_to_manifest: true
+  caller_containers_detached: true
+  actual_restore_tree_supplied_or_scanned: false
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/canonical_manifest_direct_reauthentication_final.log
+    bytes: 1426
+    sha256: 89E64871524FC258869BCBA8E0BF0219DCC796B200F2FBFE25E825C5323DF183
+
+verification:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z
+  focused_direct_API_regressions:
+    result: 3_of_3_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/direct_api_regressions_3_final.log
+      bytes: 2264
+      sha256: 56F4EC0E5DEAC9831433F123EA0A6D35D317749A5D5E474A464CC0D88A7696DA
+  complete_restore_verifier:
+    result: 29_of_29_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/restore_verifier_29_tests_final.log
+      bytes: 14070
+      sha256: 83F3EFDE48A5FC1FC9D2D1B560EEDFBD2F6BB67ED4D461592E716B7C790FE85D
+  focused_static_and_provenance:
+    result: 96_of_96_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/focused_static_and_provenance_96_tests_final.log
+      bytes: 41394
+      sha256: E57CEE6CC1B1323AEBD5CBFB659654A62EDC0708D0303B8CB2E805B91CD8FCB4
+  full_offline_test_discovery:
+    result: 569_of_569_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/full_tools_test_discovery_569_final.log
+      bytes: 2428
+      sha256: 2ED2A8EB9795BD945E8C6ADD8BD57578302BB75B47CFD588CB9263E733C2FA76
+  python_compile:
+    result: passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/python_compile_final.json
+      bytes: 498
+      sha256: EF449CCA33E44843C1B2AAEF12B74707DB49AF7D9B0630CCB052B8D93D9B2CF2
+  whitespace_and_line_length:
+    result: passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/static_quality_checks_final.json
+      bytes: 1396
+      sha256: 1736A26BE6D77C05EA900AEB9842B8F96E5414B721B61A65F0D6F34598DFCEB8
+  canonical_integrity_pre_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/project_knowledge_integrity_pre_evidence.json
+      bytes: 1782
+      sha256: 065EFDA89B8F0534045E1212B4661E744FD2306C0E6E631B3932185B7AA639BD
+  canonical_integrity_post_evidence:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    indexed_evidence_count: 133
+    report: D:/RedMMOTitanWindowsData/Diagnostics/M07_RestoreVerifierDirectAPI_20260724_1321Z/project_knowledge_integrity_post_evidence.json
+  canonical_final_hashes:
+    queue_sha256: C925D9C0F1BC1D3BE0106BC33E1E707D40DEE72B4DC572BA0A717782D164EAAB
+    current_state_sha256: A89050DA6F282DBEE55FB76D8F94D70CA25F11F2B5D44DE1F4F5CDC7DCC38336
+    index_sha256: 2A37D0EE039E50FC8C71D30E1DF2B3DF75C5BC1B6EF7F1E9F4634B6AFFB5E59C
+
+independent_review:
+  result: no_blocking_authentication_bypass_or_test_gap_for_bounded_slice
+  conclusions:
+    - repository compatibility audit found only the CLI main and plain dict-list test callers, so the existing public call shape remains compatible
+    - security review found the digest, canonicalization, semantic validation, entries binding, detached-data use, and claim limits coherent
+    - review-found abstract-container materialization and late digest-validation denial-of-service surfaces were removed before final verification
+    - test review confirmed independent digest, schema, entries, mutable-alias, and pre-discovery rejection coverage
+  review_edits_to_project: false
+  unreal_or_build_process_run_by_reviewers: false
+
+remaining_security_and_operational_gates:
+  status: open_not_fixed_in_this_bounded_slice
+  next_independent_offline_priority:
+    - add a deterministic manifest-parent junction-swap regression while preserving retained-parent relative-open authentication
+    - evaluate native 128-bit FILE_ID_INFO before supporting ReFS or network filesystems
+  operational_gates_still_open:
+    - the pinned manifest parent exists only inside load_authenticated_manifest and does not span the earlier CLI isolation-validation call
+    - no parent-directory durability flush or power-loss consistency evidence
+    - no external storage target or independent access-control evidence
+    - no actual isolated 8228-file restore-and-rehash execution
+    - no ACL, owner, named-stream, timestamp, retention, physical-media, or disaster-recovery proof
+    - phase_0_access_controlled_storage_gate
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_RestoreVerifierDirectAPI_20260724_1321Z
+  exact_preimages: 5
+  preimage_hashes:
+    queue: 196339B865290C1E21983D58D741C9AD448BBAC78D2AF9E14BA770B6B1302C6D
+    current_state: B183C755C62589FD60251DC4635B4ACFB99C6F3021E87A223F543FD8A0E7B1B6
+    index: 6DAAA84E396108E09B65BD8B768FBE0C6EAAA9FBF4DFB29ADBCB12A2535391D2
+    tests: 331DFA340E33E27EF1DEF997CD15AF6CAAC77D8A924B31C0676CEC459148F3ED
+    verifier: 2D54526021C89D312EB2761C236C6135CCE22EC909D2C78C8056FF1085334721
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_input_hashes:
+    production_map: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+    checkpoint_map: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    fused_prototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+    fused_heightfield: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+
+claim_limit: >-
+  Static verifier-source, canonical in-memory snapshot, stable-handle manifest,
+  synthetic-fixture, deterministic attack, and offline test evidence only. The
+  direct function now proves that one canonical plain-dict snapshot matches a
+  caller-supplied SHA-256 trust anchor, satisfies the complete semantic
+  manifest contract, and has separately supplied entries that match exactly
+  before scanning with detached data. It cannot prove the original raw-file
+  encoding, duplicate-key history, path identity, origin, or trust-anchor
+  provenance; the CLI stable-handle loader remains the raw file boundary. It
+  does not close earlier CLI isolation-to-authentication parent races, native
+  128-bit identity, ReFS or network filesystems, parent-directory power-loss
+  durability, external storage, ACLs, or an actual restored payload. No
+  RedMMOTitan payload was copied or restored, and the verifier was not executed
+  against an actual 8228-file restore. This is not Unreal load or save, build,
+  runtime, visual, gameplay, package, Steam, or multiplayer evidence.

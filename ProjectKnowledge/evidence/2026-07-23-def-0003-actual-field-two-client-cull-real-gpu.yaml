@@ -1,0 +1,271 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-ACTUAL-FIELD-TWO-CLIENT-CULL-REAL-GPU
+captured_at: "2026-07-23T08:20:26Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-field-stable-member-reciprocal-two-client-presentation-cull
+evidence_class: real_gpu_visual
+result: pass_bounded_actual_field_two_client_stable_identity_and_reciprocal_near_far_presentation_cull
+
+scope:
+  authorized:
+    - add one editor-only one-process two-client acceptance harness
+    - authenticate one actual generated field member by immutable stable ID
+    - verify reciprocal host and remote-client near/far presentation behavior
+    - compile current TitanEditor and Titan Win64 Development targets
+    - extend the focused offline DEF-0003 contracts
+  explicitly_preserved:
+    - all production maps and protected planet checkpoints
+    - the configured production presentation and network cull distances
+    - the accepted transient and actual-member depletion harnesses
+    - artist repositories, artist handoffs, supplied art, user assets, and unrelated dirty work
+  not_run:
+    - asteroid depletion, destruction, reward, or HUD mutation
+    - player-controlled travel into the field
+    - projectile or client-originated mining RPC delivery
+    - late join, audio, persistence, or respawn acceptance
+    - Windows packaging
+    - Steam transport or two-account multiplayer
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  preexisting_dirty_entry_count: 154
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldTwoClientCull_20260723_1100
+  manifest: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ActualFieldTwoClientCull_20260723_1100/manifest.yaml
+  manifest_sha256: E3703376FB8AC94047075051286155BDFDC2CDF86D738B4E5FB01C66A617E7F6
+  new_harness_absent_at_baseline: true
+
+implementation:
+  production_runtime_changed: false
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldTwoClientCullPIETests.cpp
+    sha256: 6B897C1E8DF36E586B5635F79661964E95DB7964FC14D763F12A11AFA4636B42
+    automation_name: RedMMO.Mining.DEF0003.ActualFieldTwoClientCullPIE
+    behavior:
+      - loads /Game/RedMMO/Maps/RedPlanetGen in one-process listen-server plus Client 1 PIE
+      - disables the online subsystem for this local topology
+      - requires exactly twenty-four tagged production field members on authority
+      - selects asteroid-field.red.mars.deep-space/0x4F524531/23 only by immutable stable ID
+      - requires the client proxy to retain stable ID, transform, scale, full ore, Active phase, and simulated-proxy role
+      - reads the actual network relevancy distance rather than overriding it
+      - asserts the production presentation cutoff on actor and mesh components without modifying it
+      - uses transient cameras and uncullable reference cubes to authenticate each rendered viewport
+      - verifies exact collision traces, camera-forward alignment, projected target size, and last-render timestamps
+      - proves both-far, both-near, host-near/client-far, and host-far/client-near states
+      - does not mine or alter the selected member
+  focused_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: EF8F9CE66B4203D603CA9BD957FFD69F43909BD48F175BD21232CE2FF5F0DA21
+    result: 19_of_19_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/contract_tests_final.log
+      sha256: EFE2F90A4E3B8F4B1C02A29B6543D8B503E68EB855878A989DA3429FFF33E193
+    mutation_guard: >-
+      The contract fails if the harness assigns production presentation or mesh
+      cutoff values. Its sole SetCullDistance call belongs to the transient
+      reference cube and is pinned to zero.
+
+resource_and_process_gate:
+  machine:
+    total_physical_ram_gib: 31.872
+    gpu: NVIDIA GeForce RTX 3080
+    dedicated_vram_mib: 10240
+  initial_free_physical_ram_gib: 17.602
+  final_free_physical_ram_gib: 18.215
+  final_free_commit_headroom_gib: 36.029
+  final_free_vram_mib: 8821
+  final_free_disk_d_gib: 1141.152
+  final_free_disk_c_gib: 130.293
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched. Free physical RAM was below the required
+    sustained 18-20 GiB range before the rendered work and was not treated as
+    sustainably eligible merely because it briefly recovered after shutdown.
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/TitanEditor_build_final.log
+      sha256: EF4ADB55675A70CFA744014A47A02669955BD8FB50F51E20331F6CE88D82AD0C
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: B1E957F247A9AC206DC844B89880152C37BE70857488958CC194E2059A080CAB
+  titan:
+    target: Titan Win64 Development
+    result: succeeded
+    serialized_max_parallel_actions: 1
+    remote_execution: disabled
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/Titan_build_final.log
+      sha256: CC3DEA4C21476F88D70F178A0FBB155F26B2E10E9C2BBC598D93E7D9F777CE7A
+    output:
+      path: D:/RedMMOTitan/Binaries/Win64/Titan.exe
+      sha256: 16FA70CCEE54A06891FC3B5AF54C9554DE1D1E9D8CCEBCAF900A2299E6B68976
+
+runtime_acceptance:
+  evidence_class: real_gpu_visual
+  renderer: D3D12 SM6
+  editor_process_count: 1
+  topology:
+    pie_worlds: 2
+    listen_server_worlds: 1
+    remote_client_worlds: 1
+    server_player_controllers: 2
+    online_subsystem: disabled
+  automation:
+    result: pass_1_fail_0
+    elapsed_seconds: 10.548
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/RunAutomationTest-F12FDB344CEB2FD3E70DA5A99FB2E0F5.json
+      sha256: C61E81D8EBD06AC4CB1D2C1C0189EB8ECE8A90DEDEA6C0B41CEA90A134F4584F
+    report_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/RunAutomationTest-252F27D04019D08AC2BEBD8C79761411.txt
+      sha256: 7488ABD48C0CFDC6A3C112CFE97191B5A9E2D10068556D9A828337D7A27FBB43
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/Titan_runtime.log
+      sha256: 26F93CC196AA8E5FF2BB2205832F24260E24CC3712BD0F2AE23EB384FAE05FB9
+  identity:
+    stable_id: asteroid-field.red.mars.deep-space/0x4F524531/23
+    authority_role: ROLE_Authority
+    remote_role: ROLE_SimulatedProxy
+    transform_parity: true
+    scale_parity: true
+    state_unchanged: true
+    ore_authority_and_client: [6000.0, 6000.0]
+    presentation_cutoff_cm_authority_and_client: [2000000.0, 2000000.0]
+    network_relevancy_distance_cm: 5000000.0
+    cutoff_overridden: false
+  rendered_states:
+    both_far:
+      center_distance_cm: 2300000.0
+      closest_bounds_distance_cm_authority: 2194401.5
+      closest_bounds_distance_cm_client: 2194401.8
+      target_recent_authority_and_client: [false, false]
+      reference_recent_authority_and_client: [true, true]
+    both_near:
+      center_distance_cm: 500000.0
+      closest_bounds_distance_cm_authority: 394401.5
+      closest_bounds_distance_cm_client: 394401.6
+      target_recent_authority_and_client: [true, true]
+      reference_recent_authority_and_client: [true, true]
+    host_near_client_far:
+      host_target_recent: true
+      client_target_recent: false
+      host_projected_target_diameter_px: 554.3
+      client_projected_target_diameter_px: 60.2
+      client_proxy_retained: true
+      exact_trace_authority_and_client: [true, true]
+    host_far_client_near:
+      host_target_recent: false
+      client_target_recent: true
+      host_projected_target_diameter_px: 120.5
+      client_projected_target_diameter_px: 277.1
+      client_proxy_retained: true
+      exact_trace_authority_and_client: [true, true]
+  result_marker: >-
+    RED_DEF0003_FIELD_MP_CULL_RESULT acceptancePass=1
+    evidenceClass=real_gpu_visual topology=in_process_two_client
+    actualFieldMember=1 stableIdentity=1 reciprocalNearFarCull=1
+    cutoffOverridden=0 mining=0 playerControlledTravel=0
+    projectileDelivery=0 steamTransport=0
+  teardown:
+    pie_ended: true
+    acceptance_pass: true
+    editor_shutdown_via_official_bridge: true
+    fatal_assert_ensure_oom_gpu_crash_device_removed_scan: empty
+
+visual_evidence:
+  server_near:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/Captures/DEF0003_Field_MP_Server_Near.png
+    sha256: F293F2B4BA5FF56F41F9FB6FCC495E4902B9B119E0242B76D204AC368278D9E0
+    finding: the selected production asteroid is readable in the host frame and the HUD remains visible
+  client_near:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/Captures/DEF0003_Field_MP_Client_Near.png
+    sha256: 77B5E1480274D4E5DCDB98F06B0C919273CED08B622674F69B5F638F7FDCBF12
+    finding: the same asteroid is readable in Client 1 and the remote HUD remains visible
+  server_far:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/Captures/DEF0003_Field_MP_Server_Far.png
+    sha256: 0C7F45EBA03C9785C1E2F7C791A36E3B6C055AEAA94533E93534BD23991F5767
+    finding: the selected asteroid is absent beyond the production presentation cutoff while the uncullable reference cube and background remain rendered
+  client_far:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FinalPass/Captures/DEF0003_Field_MP_Client_Far.png
+    sha256: 5853C6ECFB6BE9797788CE944F0DE818470315A2B1A53AB2C6FFA6FD83FA0456
+    finding: Client 1 independently omits the selected asteroid beyond the same production cutoff while retaining the proxy and rendering the reference cube
+  visual_limit: >-
+    Client 1 frames contain an orange Unreal warning that multiple directional
+    lights are competing for the forward-shading slot. It does not invalidate
+    the target/reference cull proof, but it is not polished presentation
+    acceptance and remains separate from this bounded test.
+
+harness_corrections:
+  excluded_failed_trials:
+    - an initial trial rejected Client 1 because a 16:9 camera image was letterboxed inside a 640x482 PIE window; camera-forward angular alignment replaced the invalid full-window-center assumption
+    - a reciprocal trial compared the host far timestamp to a stale near timestamp captured several seconds earlier; the redundant stale comparison was removed while the per-transition baseline and render-state checks remained
+  preserved_failed_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/FailedReverseReciprocal
+  classification: harness_only_not_production_gameplay_defect
+
+known_nonblocking_runtime_warnings:
+  - the disabled Voxel collision-invoker class is absent and ship code reports its raycast fallback
+  - r.MotionVectorSimulation reports a render-thread safety warning
+  - teardown reports one attempted SpawnActor while the world is already tearing down
+  - Client 1 displays the multiple-directional-light forward-shading warning
+
+protection:
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+remaining_gates:
+  - actual-field two-client depletion, reward, and HUD parity
+  - player-controlled travel and naturally acquired mining range
+  - projectile or client-originated mining RPC delivery
+  - simultaneous client-originated final-hit contention if required
+  - visible remote destruction and debris pixels
+  - late join, audio, and explicit restart persistence or respawn semantics
+  - packaged Windows, Steam transport, and two-account acceptance
+
+canonical_sync:
+  module_status: incomplete_retry
+  retry_count: 33
+  queue_sha256_after: DDC97523F4A042356DAC65E0FCBEC8CDA62D2B615CE53D5ACA66B2F2853B9BDA
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+  yaml_parse: 5_of_5_passed
+  integrity_audit:
+    result: historical_failures_unchanged_new_slice_zero
+    error_count: 64
+    warning_count: 0
+    finding_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ActualFieldTwoClientCull_20260723_1100/project_knowledge_integrity.json
+      sha256: 8AD391F7DEB96C886D2D7E81D99316BC648C5F05CAFBF79BE7467E5B00483620
+
+claim_limit: >-
+  This is real RTX 3080 D3D12 visual and runtime evidence for one actual
+  production field member in one local UnrealEditor process with a listen
+  server and Client 1. It proves stable-ID and transform parity, proxy retention,
+  and reciprocal per-peer rendering inside and outside the unchanged 20 km
+  presentation cutoff while the member remains within its 50 km network
+  relevancy distance. It does not prove depletion, rewards, HUD mutation,
+  player-controlled travel, projectile or RPC delivery, late join, audio,
+  persistence, packaging, Steam, two accounts, performance capacity, or broad
+  multiplayer.

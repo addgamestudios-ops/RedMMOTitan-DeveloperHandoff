@@ -1,0 +1,143 @@
+schema_version: 1
+id: evidence.m02.r90-planet-core-profile-boundary-package
+module: M02
+evidence_class: package
+status: accepted_partial_blocker_confirmed
+timestamp_utc: 2026-08-06T14:11:26Z
+scope: >-
+  One bounded read-only currentness audit between the protected 795774.715 cm
+  fused 50 km core and the exact current R90 clean-RedMMO PPG/ProfileV1
+  package. No Unreal, build, cook, package, runtime or desktop-control process
+  was launched, and no project, package, map, profile, source, plugin, vendor,
+  protected input, fused face or user-asset byte changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2424
+  free_physical_ram_gib: 52.50
+  commit_headroom_gib: 52.15
+  gpu_free_mib: 8937
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 20
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+  queue_sha256_before: AAC37CB734A403EDAA931A80BD5BBB26E148F3F85866285929BEF0CD8EBD020C
+protected_50km_core:
+  required_playable_datum_radius_cm: 795774.715
+  patch_count: 27
+  source_raster_count: 135
+  source_dataset_sha256: 228E1CDAC65F0AFFB51101E8639AC65C57063FC4C72D74588D24A194A87504ED
+  cube_face_count: 6
+  persisted_face_file_count: 24
+  face_dataset_sha256: AAE25CCA654D3D966C7AE3C5A00A911BA2576E67592D5B1443D9145D0BC2399A
+  uncovered_face_samples: 0
+  persisted_seam_comparisons: 3076
+  max_persisted_height_land_biome_delta: 0
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+clean_redmmo_profile_v1:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  planet_data_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  exact_reflected_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_ProfileV1ShorelineBands_R80_20260806T0150Z/Verify4/result.json
+  exact_reflected_result_sha256: 477EF2648B8E238E8D994B856E95D18CBC894A0A869E56768D0F45382A6D06CD
+  seed: 1337
+  planet_center_cm: [0.0, 0.0, -300000000.0]
+  planet_radius_cm: 300000000.0
+  radius_difference_from_m02_required_cm: 299204225.285
+  profile_hash_unchanged_since_reflection: true
+source_boundary:
+  ppg_planet_data_header_sha256: 99AD104C419E1ADA4DD36804E6D7E6BA2AC47D8F67C5152E83DAAA08A8BDEF41
+  clean_surface_authority_sha256: 823094E2C229EC289E0905FA18765C7BE6EF253100C159712D44E0787F6A7487
+  resolved_nominal_radius_rule: PlanetData.PlanetRadius_times_uniform_actor_scale
+  profile_owns_separate_radius_field: false
+  game_mode_implementation_sha256: 099CBE7A42D3CFF15C6157836398C27EC8FD7FC0050C3C9834E21D9CA92BF874
+  game_mode_header_sha256: C29594643F745581E2403B78EF0DCC1D4C914F81A9547A996582313BC40B1F32
+  registry_implementation_sha256: 4534104BA26DD8F5A3792C9C85D2F43A0949FD5D3ECF525B75F3B8ED84D20EEE
+  registry_header_sha256: D43A81269918A148A701A9F8327C2EBE8CF1D10FC3C885CA79778E6B8421A1AE
+r90_package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R90_Playable_20260806T125650Z/Windows
+  file_count: 50
+  total_bytes: 1454866566
+  tree_sha256: EA0A13DEF4AD9DB64F4F19E9B3974F6485E3C5368DB10B56019D0E965C4C3315
+  tree_hash_reverified_now: true
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 88364C664C99EA68E2F8D60B1DC0091EB14896516C3123DD55E4658470F3269C
+  iostore_listing: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/iostore_list.txt
+  iostore_listing_sha256: 5ADE16F52F7BB0415CB5F15577E12F2C7FDC0A08D45125CB2013BBD33B2B6BB2
+  indexed_entries: 3295
+  profile_v1_entry_count: 9
+  profile_v1_planet_data_entry_count: 1
+  added_entries_vs_r88: 0
+  removed_entries_vs_r88: 0
+  exact_protected_fused_identity_hit_count: 0
+packaged_smoke_boundary:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R90_Package_20260806T125650Z/Smoke_20260806T1300Z/packaged_smoke.log
+  log_sha256: C81C963C75D83BC9A8C0A8769D58A90629016CCCB9021681A350C72329856E20
+  published_stable_id: planet.red.mars
+  published_revision: 1
+  published_center_cm: [0.0, 0.0, -300000000.0]
+  published_nominal_radius_cm: 300000000.0
+  generated_chunk_count: 516
+  publication_failure_count: 0
+  visible_or_hands_on_review: false
+finding: >-
+  R90 packages and starts the separate clean-RedMMO PPG/ProfileV1 core at
+  300000000 cm. It does not package or traceably consume the protected
+  795774.715 cm fused 50 km core. M02 playable-datum acceptance therefore
+  remains unmet, and R90 must not be described as the fused-continent world.
+accepted_partial:
+  - the protected 27-input and six-face fused source remains exact
+  - R90 contains the current ProfileV1 PlanetData package
+  - R90 publishes the ProfileV1 center and 300000000 cm radius through planet.red.mars
+  - clean RedMMO resolves nominal radius from PPG PlanetData
+remaining_blockers:
+  - R90 playable datum is 300000000 cm rather than the required 795774.715 cm
+  - R90 has zero exact fused-consumer identity closure
+  - VolumetricCloud remains 6360 km rather than the 3000 km ProfileV1 body
+  - radar or minimap consumer and client snapshot ordering are absent
+  - runtime radius mutation, rendered seam traversal, collision, replication and multiplayer remain unproved
+report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/M02_R90_PlanetCoreProfileBoundary_20260806T1411Z/planet_core_profile_boundary.json
+  byte_length: 6297
+  sha256: BA682518F06DC409C6950CF6EE5EEE0666D0036C6B7038C48F6439ED90AC744D
+verification:
+  r90_package_tree_exact: true
+  r90_and_r88_content_index_identical: true
+  profile_and_source_hashes_exact: true
+  protected_fused_identity_hit_count: 0
+  canonical_integrity_audit: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M02_R90_PlanetCoreProfileBoundary_20260806T1411Z/project_knowledge_integrity.json
+  queue_snapshot_sha256: 0F6AA332A686D110BD229BA8542F1A51E5C16B5427586A19025F3812ECD5A5BA
+preserved:
+  protected_hashes_match: true
+  clean_redmmo_home_and_profile_hashes_match: true
+  protected_tangent_authoring_inputs_count: 27
+  protected_fused_faces_count: 6
+  vendor_and_user_assets_modified: false
+postflight:
+  captured_utc: 2026-08-06T14:14:41Z
+  free_physical_ram_gib: 52.45
+  commit_headroom_gib: 52.20
+  gpu_free_mib: 8996
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 754.26
+  active_unreal_build_package_process_count: 0
+  protected_hashes_match: true
+  queue_sha256_after: 0F6AA332A686D110BD229BA8542F1A51E5C16B5427586A19025F3812ECD5A5BA
+rollback: >-
+  Remove only this report and its canonical evidence/index/state/queue linkage.
+  No project or package rollback is required because no project, package, map,
+  profile, source, plugin, vendor, protected input, fused face or user-asset
+  byte changed.
+claim_limit: >-
+  Exact R90 package, source, hash, prior reflection and offscreen startup
+  evidence. This proves the current 300000000 cm ProfileV1 authority boundary,
+  not protected fused-core integration, visible presentation, traversal,
+  collision, controls, replication, multiplayer or human acceptance.
+next_safe_action: >-
+  Keep both planet-core lines explicit and immutable. Rotate the next wake to
+  one independent read-only M07 R90 no-palms authority versus dormant cooked
+  palm-asset boundary audit; do not merge, rescale, regenerate or promote
+  either planet core from this evidence.

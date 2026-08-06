@@ -1,0 +1,155 @@
+schema_version: 1
+id: EVIDENCE-2026-07-22-M09-TARGET-CURRENCY-FAIL-CLOSED-STATIC
+captured_at: "2026-07-22T11:25:21.1344897Z"
+module: module.M09.windows-development-package
+evidence_class: static
+result: passed_fail_closed_refusal_targets_stale_unproven
+
+source_revision:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree: pre_existing_dirty_worktree_preserved
+
+implemented:
+  - Added a standalone read-only Windows target-currency audit; the package launcher remains unchanged and still requires -build.
+  - The audit creates a deterministic SHA-256 manifest over Titan.uproject, Config, project Source build inputs, project plugin descriptors and Source build inputs, and Windows build resources.
+  - Titan and TitanEditor receipts must independently identify Win64 Development and the expected Game or Editor target type.
+  - Every receipt-declared project Executable, DynamicLibrary, and RequiredResource is path-contained, existence-checked, and hash-pinned; SymbolFile records are reported but do not block packaging currency.
+  - Receipt and primary/required product timestamps are diagnostic only. Timestamp cleanliness never authorizes target reuse.
+  - A future proof must exactly match the current input digest, receipt hash, complete required-product digest, target identity, and a preserved hash-matching build log containing the exact target/platform/configuration plus Result Succeeded.
+  - Skip-build authorization requires separate valid proofs for both Titan and TitanEditor. Missing, malformed, stale, mismatched, single-target, or path-escaping evidence refuses fail closed.
+  - No skip-build argument or producer was added; successful build-time proof generation remains a later guarded-build slice.
+
+audit_report:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/WindowsTargetCurrency_20260722_1111Z/target_currency.json
+  sha256: FF439652CF84670459D068F083AE71C57258AE588DBD2816EFB5269560DCD19E
+  gate_exit_code: 10
+  gate_result: refused_fail_closed
+  skip_build_allowed: false
+  build_proofs_supplied: 0
+  input_count: 874
+  input_manifest_sha256: D98EC3E1022C7A326B4ADE722D73AEF289B96F4879F50DA1223E79CE0E76493C
+
+targets:
+  - name: Titan
+    identity: Titan_Game_Win64_Development_x64
+    receipt:
+      path: Binaries/Win64/Titan.target
+      sha256: B0FD8B5FD57BF9956A1200E45AFA33B0218793F0FCE5389557A07D515E981B03
+      last_write_utc: "2026-07-21T09:31:18.1627586Z"
+    primary_product:
+      path: Binaries/Win64/Titan.exe
+      sha256: 1D08705EA17049B420257EAAED0C4D558C9D5A81252F77037F0CEAEF8C04346E
+    required_project_products:
+      count: 18
+      missing: 0
+      manifest_sha256: 4301E5D69037D17ECBE8273AF0CD7FB476B318E53C16428BB3917C9DE40338F6
+    optional_symbol_products_missing: 1
+    optional_symbol_note: Titan.pdb is absent but is not a package-currency blocker.
+    newer_project_inputs:
+      count: 26
+      categories:
+        source: 16
+        plugin: 8
+        config: 2
+    proof_status: missing
+    currency_state: stale_unproven
+  - name: TitanEditor
+    identity: TitanEditor_Editor_Win64_Development_x64
+    receipt:
+      path: Binaries/Win64/TitanEditor.target
+      sha256: 46770F8EA77398C32A0927D31F5BBB32BDCAC3CAD41DD7F855BF541C709008A2
+      last_write_utc: "2026-07-21T20:59:29.9052096Z"
+    primary_product:
+      path: Binaries/Win64/UnrealEditor-RedMMO.dll
+      sha256: CE3D81711FC0AAAF03D06BE9060D5215852B289532E503ED3B23E58869E8BF38
+    required_project_products:
+      count: 12
+      missing: 0
+      manifest_sha256: 02B74288FCFB8D12141215B23933990C8F592F7833E4BEB7E272576A9B077897
+    optional_symbol_products_missing: 0
+    newer_project_inputs:
+      count: 9
+      categories:
+        source: 9
+    proof_status: missing
+    currency_state: stale_unproven
+
+files:
+  - path: Tools/audit_windows_target_currency.py
+    sha256: 4EC522805A6E19DC498D373330536112CE9124A0F94F7227E4D62064E1F7EC07
+    role: standalone_fail_closed_currency_auditor
+  - path: Tools/tests/test_audit_windows_target_currency.py
+    sha256: 63ACB0ED1ABE20569CDD8631320A1CC501BC1C7ABE465A85D14B8F7FED30DE40
+    role: proof_receipt_product_digest_and_path_safety_contract_tests
+  - path: Build/Automation/package_windows_50km.ps1
+    sha256: 6E7D1DF794C4317EE9EF28A533A267CB6D53EFE404DC96F9ADB17FD373ECFA5F
+    role: unchanged_build_cook_package_launcher
+  - path: Tools/tests/test_package_windows_50km_guard.py
+    sha256: FE452F873D92359D1E7FE2DE9B72CB174099809EE493D0DA6940AA2E570A0A91
+    role: unchanged_no_skipbuild_and_serial_build_contract
+
+verification:
+  command: >-
+    python -B -m unittest Tools.tests.test_audit_windows_target_currency
+    Tools.tests.test_package_windows_50km_guard -v
+  result: 15_of_15_passed
+  currency_tests: 8_of_8_passed
+  existing_package_guard_tests: 7_of_7_passed
+  covered:
+    - deterministic scoped input manifest and content digest
+    - no-proof refusal even when timestamps are clean
+    - newer-input stale reporting
+    - exact dual-proof requirement
+    - content change with preserved older timestamp invalidates proof
+    - wrong receipt identity and missing required product refusal
+    - project-product path escape refusal
+    - fail-closed gate exit with explicit diagnostic-report mode
+    - package launcher still contains -build and no -skipbuild
+
+machine_audit:
+  sustained_samples: 12
+  free_physical_ram_gib_range: [9.913, 10.167]
+  free_commit_gib_range: [21.137, 21.437]
+  free_vram_mib_range: [8858, 8931]
+  free_disk_gib:
+    C: 133.139
+    D: 1141.736
+  unreal_or_build_process_count: 0
+  m00_real_gpu_gate: closed_physical_ram
+  m09_package_gate: closed_physical_and_commit_headroom
+
+protected_foundation:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  current_fused_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  retained_prior_water_sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7
+  retained_pre_water_sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A
+  fused_asset_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  foundation_marker_sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8
+  protected_source_rasters: 135_of_135_match_manifest
+
+preservation:
+  - No Unreal, Titan, UAT, UBT, cook, package, shader, IoStore, Zen, or compiler process was launched.
+  - No package launcher, map, asset, protected checkpoint, rollback, artist archive/handoff, vendor plugin, package, or unrelated dirty file was modified.
+  - The SAFE8 archive remains internally valid; its separately dirty staging repository was preserved without reconciliation or rebuild.
+
+limitations:
+  - Both installed targets are stale or unproven against current project inputs; this audit does not make them current.
+  - No successful build-time proof producer exists yet, and no proof was invented from historical timestamps.
+  - No build, cook, package, runtime launch, visual check, gameplay check, Steam transport, or multiplayer test ran.
+
+claim_limit: >-
+  This accepts only the standalone static fail-closed target-currency audit, its
+  deterministic manifest, refusal result, and offline contract tests. It does
+  not authorize SkipBuild and is not build, package, runtime, visual, gameplay,
+  Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  Keep M09 deferred. When a separate sustained resource gate is safe, compile
+  TitanEditor and Titan separately, create exact build-time proofs only from
+  their successful logs and resulting receipts/products, and rerun this audit.
+  A fresh guarded package remains gated by 20 GiB physical and 26 GiB commit
+  defaults and must still emit the exact fused source marker. The canonical
+  cross-module next action remains M00's capped real-GPU T02 sparkle frames once
+  its separate 14 GiB physical-RAM gate passes.

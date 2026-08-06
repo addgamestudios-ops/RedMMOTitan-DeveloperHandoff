@@ -1,0 +1,99 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r20-seeded-land-start-scan-blocked.2026-08-05
+captured_utc: "2026-08-05T10:49:05Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r20-seed-preserving-generated-land-start-selection
+evidence_class: automation
+result: blocked_no_above_sea_collision_candidate_in_completed_generated_chunk_set
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  seed_changed: false
+  map_saved: false
+  content_saved: false
+  player_start_changed: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed_before: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  generation_phase: COMPLETE
+  generation_progress: 1.0
+  generation_called: false
+  editor_process_count_after: 0
+
+guarded_scan:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_seeded_land_start_r20.py
+    sha256: 7707C56E13E9922A2F2D3ADBCE4CB7CCD917241B5F875EE631E347B5A70B83B7
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1LandStart_R20D_20260805T1050Z/result.json
+    sha256: DD4657B52C2D369696F612357A4A9ADEEEB83D0EE1AB5D0C81AF89097423D167
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1LandStart_R20D_20260805T1050Z/unreal.log
+    sha256: 0EF32784A843118F78A1043F56DE2D12D16C83C9E6DA705BEFCBD2CC27F3130F
+  acceptance_filters:
+    minimum_elevation_above_sea_cm: 25000.0
+    minimum_surface_normal_radial_dot: 0.92
+    minimum_dominant_biome_strength: 0.90
+    foliage_binding_required: true
+    preferred_biomes: [Hills, Craters, Mountains]
+  observed_terminal_blocker: No above-sea collision candidate in completed generated chunk set
+  interpretation: >-
+    The currently generated query-collision component set around the unchanged
+    underwater start did not expose an above-sea, collision-fitted point. The
+    script therefore failed closed before PlayerStart selection or save. This
+    does not prove that seed 1337 has no land elsewhere; it proves that the
+    component-local direction set was insufficient for a safe land start.
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1LandStart_R20D_20260805T1050Z
+  manifest_sha256: 0240BAAA88A2766068128A0BB0CCC608A796E5C65B3ED21447FC2F34B29F6EED
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+retained_attempts:
+  - id: R20
+    result: failed_before_map_load_or_rollback
+    blocker: diagnostics directory was precreated by AbsLog and incorrectly treated as clobber
+    map_changed: false
+  - id: R20B
+    result: script_not_executed
+    blocker: Windows flattened ExecCmds to bare py
+    map_changed: false
+  - id: R20C
+    result: failed_closed_during_component_scan
+    blocker: Unreal Python StaticMeshComponent exposes get_world_location rather than get_component_location
+    map_changed: false
+  - id: R20D
+    result: terminal_component_local_scan_blocker
+    blocker: No above-sea collision candidate in completed generated chunk set
+    map_changed: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This is an automation blocker with durable no-mutation evidence. It does not
+  establish a valid land spawn, surface lighting, visible grass, moon, biome
+  composition, standalone, replication, multiplayer, or player acceptance.
+
+next_safe_action: >-
+  On the next wake, retain seed 1337 and use one deterministic multi-direction
+  generated-surface scan that streams or queries directions beyond the current
+  component-local chunk set. Require the same above-sea elevation, fitted PPG
+  collision, foliage-eligible live biome and smooth-normal gates before moving
+  only PlayerStart plus its attached label. Do not repeat the component-location
+  method, add a floor, disable native water, carpet Ocean, or change seed.

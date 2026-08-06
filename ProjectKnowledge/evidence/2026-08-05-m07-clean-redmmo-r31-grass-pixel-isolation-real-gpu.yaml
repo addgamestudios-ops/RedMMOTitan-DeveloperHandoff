@@ -1,0 +1,137 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r31-grass-pixel-isolation-real-gpu.2026-08-05
+captured_utc: "2026-08-05T13:10:16Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r31-grass-only-unlit-wireframe-pixel-isolation
+evidence_class: real_gpu_visual
+result: pass_dense_tall_grass_geometry_visible_in_wireframe_unlit_material_output_black
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 50.09
+  commit_headroom_gib: 49.82
+  free_gpu_vram_mib: 7714
+  free_d_drive_gib: 767.97
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  map_saved: false
+  content_package_saved: false
+  seed: 1337
+
+automation:
+  script: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_grass_pixel_isolation_r31.py
+  script_sha256: D772D030DCF2CD8F723EFF6326AFE497A1AF74C311A01058AEFBAF3531707590
+  render_backend: D3D12
+  render_mode: RenderOffscreen
+  resolution: [1280, 720]
+  provider_plugins_disabled: true
+  terminal_status: PASS_R31_NO_SAVE_GRASS_ONLY_UNLIT_WIREFRAME_CAPTURE
+  passing_result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31C_20260805T1320Z/result.json
+  passing_result_sha256: AD78E69F8FCD1408AB9BB19593936F3B3AA4A3D215A27A2FA72D55D1EA38C5A3
+  passing_log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31C_20260805T1320Z/unreal.log
+  passing_log_sha256: 33FDFE68D669DCBD29DEEEF4813175CD9853E987EF84C3EFE3A1FC9A10A2A49E
+  discarded_attempts:
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31_20260805T1310Z/result.json
+      result_sha256: 604DAD0592253851C738C02EB14A3253437FF6F3FAC05F574DE0B41063D31793
+      log_sha256: 7F51413BCA7E039F2B454D1FA4FD8D2FBAF85B764DF6716AD4051C8EE15C6490
+      cause: PlayerCameraManager_get_view_target_not_exposed_to_Unreal_Python
+      project_changed: false
+    - result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31B_20260805T1315Z/result.json
+      result_sha256: 5F93490FA39227EF929904012867BF93A3069DB3AEE8F61827A31C3E63A81A37
+      log_sha256: 5F6992A12C756C36CEB9DCB876CE865627C482A69F585C3605814F9C71E95D12
+      cause: PlayerController_get_pawn_not_exposed_to_Unreal_Python
+      project_changed: false
+
+runtime:
+  generation_phase: COMPLETE
+  approved_grass_component_count: 196
+  positive_instance_component_count: 196
+  total_reported_instances: 2218356
+  kept_grass_primitive_components: 196
+  transiently_hidden_non_grass_primitive_components: 1582
+  nearest_component_origin_to_player_camera_cm: 49655.58410709656
+  active_capture_camera:
+    location: [191297894.9943321, 196950314.1217792, -421017759.8003207]
+    rotation: [20.41166676895961, -46.37008029227465, 111.80009049544566]
+    fov_degrees: 90.0
+  camera_measurement_note: >-
+    The valid player-camera record was sampled after generation and isolation.
+    The early pre-generation camera manager still returned its zero default, so
+    R31 does not claim a matched pre-generation camera transform.
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+captures:
+  unlit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31C_20260805T1320Z/grass_only_unlit.png
+    sha256: A0DE39F81BA47B14FB69493F767E476796E44AFF38340CBF9F2FB1FDBE50CCEA
+    bytes: 18571
+    nonblack_pixel_ratio_gt_8: 0.000078
+    mean_rgb: [0.018, 0.019, 0.019]
+    independent_review: >-
+      The image is effectively black except for the white center crosshair; no
+      grass color or silhouette is readable through the current material path.
+  wireframe:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1GrassPixelIsolation_R31C_20260805T1320Z/grass_only_wireframe.png
+    sha256: 00B5E5EB87A95D717DCC9ADA62A74974D2B7A0A533FCCA0BFD7B24E0F7FC0E22
+    bytes: 553138
+    nonblack_pixel_ratio_gt_8: 0.448203
+    mean_rgb: [47.687, 0.019, 47.688]
+    independent_review: >-
+      Dense tall grass geometry is clearly visible from the player camera over
+      the near ground, mid ground and rising terrain. Coverage is not sparse.
+
+diagnosis: >-
+  The user-approved DenseTall grass is generated, spatially present, tall and
+  dense at the player camera. R31's grass-only wireframe directly falsifies
+  missing nearby transforms, inadequate density, inadequate height, component
+  culling and absent proxy geometry as the primary no-grass cause. The same
+  isolated geometry produces effectively zero visible unlit color pixels, so
+  the active blocker is now the project-owned R10N material/base-color, opacity
+  mask, shading or relevance path. Normal/night presentation can additionally
+  swallow a dark result, but terrain placement must not be changed to fix it.
+
+writes:
+  - path: D:/RedMMOTitan/Build/Automation/audit_redmmo_profile_v1_grass_pixel_isolation_r31.py
+    sha256: D772D030DCF2CD8F723EFF6326AFE497A1AF74C311A01058AEFBAF3531707590
+    role: no-save transient grass-only D3D12 capture driver
+vendor_source_changed: false
+map_or_asset_package_changed: false
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeGrassPixelIsolation_R31_20260805T1305Z
+  manifest_sha256: 766A68D4C96F7C4FC985678063CC4865AA27AAD3BB01283626725758B77C507F
+  policy: remove_only_the_new_script_when_its_hash_exactly_matches_the_manifest
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This is real-D3D12 visual evidence that the approved grass geometry is dense,
+  tall and present at the active player camera, paired with automation evidence
+  for unchanged inputs and runtime counts. It does not prove a corrected grass
+  material, accepted normal lighting, biome art, gameplay, package, standalone,
+  replication, multiplayer or player approval.
+
+next_safe_action: >-
+  Keep R29 eligibility, the R30 diagnostics bridge and all PPG placements. Do
+  not increase density or height and do not move spawn, seed, terrain, water or
+  foliage transforms. Inspect the project-owned R10N grass material instances
+  and their StylizedRocksPack parent for BaseColor, opacity-mask, two-sided and
+  view-relevance behavior, then make one rollback-backed project-owned
+  material-only successor. Require a fresh grass-only unlit capture with
+  restrained readable color, followed by a normal lit player-scale D3D12 frame.

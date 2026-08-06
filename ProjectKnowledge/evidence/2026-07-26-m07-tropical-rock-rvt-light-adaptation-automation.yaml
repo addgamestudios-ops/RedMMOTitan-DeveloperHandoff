@@ -1,0 +1,175 @@
+schema_version: 1
+id: evidence.m07.tropical-rock-rvt-light-adaptation.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T23:38:16Z"
+evidence_class: automation
+result: passed_scratch_rvt_light_rock_adaptation_fresh_output_load_pending
+
+scope:
+  canonical_project: D:/RedMMOTitan
+  scratch_project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  scratch_map_v3: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalTile_R15_V3
+  production_modified: false
+  fused_authoring_inputs_modified: false
+  vendor_source_modified: false
+  v3_opened: false
+  v3_saved: false
+  providers_enabled_for_successful_mutation: false
+  pie_entered: false
+  real_gpu_visual_accepted: false
+
+payload_stage:
+  status: passed
+  script: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/stage_m07_rock_04_06_payload.py
+  script_sha256: D15C9C7A1BFD5B36502A6CC891B2FCC87CD309FC7DDA0EB5EFAE48DA37FA8792
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406PayloadStage_20260726T232455Z/rock_04_06_payload_stage.json
+  report_sha256: F5E98C6008C65449CC59290A9F90FAB2E88CC03C8AA5ADA4C8DF5B4E1CD29966
+  exact_file_count: 8
+  staged:
+    - /Game/Zenscape_Island/Model/Rocks/SM_Rock_04
+    - /Game/Zenscape_Island/Model/Rocks/SM_Rock_06
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_04_BaseColor
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_04_Normal
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_04_OcclusionRoughnessMetallic
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_06_BaseColor
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_06_Normal
+    - /Game/Zenscape_Island/Texture/Rock/T_Rock_06_OcclusionRoughnessMetallic
+  source_hash_mismatches: 0
+  target_overwrites: 0
+  map_mutation: false
+
+input_preflight:
+  status: passed
+  engine: 5.8.0-55116800+++UE5+Release-5.8
+  renderer: NullRHI
+  script: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/inspect_m07_rock_04_06_adaptation_inputs.py
+  script_sha256: 2CCE337E3EEAF95F73841CC089D15DDF83CE5D10F46790566196A69AF55FE255
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406InputPreflight_20260726T232744Z/rock_04_06_adaptation_input_preflight.json
+  report_sha256: B5431D2F9643EF4FB1F3A826713D7717F4440812130AC4D25D0F9154C6F83FF9
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406InputPreflight_20260726T232744Z/UnrealEditor-Cmd.log
+  log_sha256: D9256C12D1FEB1655164A6244C18BEBCC5A99C962532810ABC1EB0F6F1D5CF08
+  loaded_assets: 9
+  missing_dependencies:
+    /Game/Zenscape_Island/Model/Rocks/SM_Rock_04:
+      - /Game/Zenscape_Island/Material/MI_Rock_04
+    /Game/Zenscape_Island/Model/Rocks/SM_Rock_06:
+      - /Game/Zenscape_Island/Material/MI_Rock_06
+  parent_texture_parameters: [BaseColor, Normal, Normal_2, ORM]
+  dirty_before: 0
+  dirty_after: 0
+  save_performed: false
+  map_opened: false
+
+aborted_first_mutation_attempt:
+  status: safely_stopped_and_quarantined
+  exact_pid_stopped: 27460
+  reason: >-
+    Independent pre-execution review identified missing live input rehash,
+    rollback tracking before class validation, and fixed-point closure checks.
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406NoRVTAdapt_20260726T233355Z/UnrealEditor-Cmd.log
+  log_sha256: 62E991186277EFE0F45E20AAF260D98AEA1B3B7FFF90EAA7A3E995E91D9B9B5C
+  partial_output: /Game/RedMMO/Staging/M07/Tropical/Geology/MI_M07_TropicalRock_04_NoRVT
+  partial_output_sha256: EAA1D4966D17AD312C57A3E08726D6A071238A81B5F6E4BE830A5423D7CC71A4
+  quarantine: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406NoRVTAdapt_20260726T233355Z/aborted_partial_exact_pid_27460/MI_M07_TropicalRock_04_NoRVT.uasset
+  recoverable: true
+  partial_output_remaining_in_content: false
+  map_mutation: false
+
+adapted_assets:
+  status: passed
+  engine: 5.8.0-55116800+++UE5+Release-5.8
+  renderer: NullRHI
+  script: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Build/Automation/create_m07_rock_04_06_no_rvt_adaptations.py
+  script_sha256: 55072BAE072A89002464D1F8F5B596A100E398A6FFB0F1E10FAE8881517E8971
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406NoRVTAdapt_20260726T233709Z/rock_04_06_no_rvt_adaptation.json
+  report_sha256: 78ACB671A99F04DBE9B24E4094665A934CFA478D9564168351D85DD3837E71DC
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M07_Rock0406NoRVTAdapt_20260726T233709Z/UnrealEditor-Cmd.log
+  log_sha256: 54F22799D0CC9E38CC2273507485533DCBAB166DA3AFB5A5BE29213A45E952A7
+  command_line_disabled_plugins:
+    - ModelContextProtocol
+    - UnrealAIIntegrationPlatform
+    - Nwiro
+    - NwiroIntegrationKit
+    - AIAssistant
+    - BpGeneratorUltimate
+    - VibeUE
+    - EditorToolset
+    - ToolsetRegistry
+    - Terminal
+  listener_started_on_port_8000: false
+  outputs:
+    /Game/RedMMO/Staging/M07/Tropical/Geology/MI_M07_TropicalRock_04_NoRVT:
+      sha256: EC300D5D1CD61625DBEEC4C5F576DFE00DA3308D18BB85F6F549422938EDDE2F
+      bytes: 4432
+    /Game/RedMMO/Staging/M07/Tropical/Geology/MI_M07_TropicalRock_06_NoRVT:
+      sha256: 915B3CBB702421760CD9508D4DDCBC82E3DF0948E2D745013365112E2390BD42
+      bytes: 4432
+    /Game/RedMMO/Staging/M07/Tropical/Geology/SM_M07_TropicalRock_04:
+      sha256: 57E92CFB2333AA64CC6E110FD843AF5A69628FE9974724042E16BE79E5CBEB19
+      bytes: 65122
+    /Game/RedMMO/Staging/M07/Tropical/Geology/SM_M07_TropicalRock_06:
+      sha256: 0E8AB38DCB4DF079933464DB3C4E8BF3940E0B775F142F90EB482E5AF5198FE5
+      bytes: 42727
+  texture_bindings:
+    Rock04:
+      BaseColor: /Game/Zenscape_Island/Texture/Rock/T_Rock_04_BaseColor
+      Normal: /Game/Zenscape_Island/Texture/Rock/T_Rock_04_Normal
+      ORM: /Game/Zenscape_Island/Texture/Rock/T_Rock_04_OcclusionRoughnessMetallic
+    Rock06:
+      BaseColor: /Game/Zenscape_Island/Texture/Rock/T_Rock_06_BaseColor
+      Normal: /Game/Zenscape_Island/Texture/Rock/T_Rock_06_Normal
+      ORM: /Game/Zenscape_Island/Texture/Rock/T_Rock_06_OcclusionRoughnessMetallic
+  fixed_point_game_closure_packages: 16
+  missing_dependencies: 0
+  forbidden_legacy_dependencies: 0
+  compatible_present_rvt_dependencies:
+    - /Game/Zenscape_Island/Texture/Landscape/RVT_Landscape_Height
+  dirty_before: 0
+  dirty_after: 0
+  maps_opened_by_script: []
+  maps_saved: []
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+  target_region: 15
+
+protected_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  scratch_v3_before_and_after: 5B2362614F22C5D2077E742BE46A507EF1D451F064139000EA35E74163CDECAA
+  vendor_map_before_and_after: 1CBA47E0DADC8495348811EDB32425460F78E6F80541983DB4E410321341FBAE
+
+acceptance:
+  authenticated_source_payload_staged: true
+  ue58_input_load_passed: true
+  project_owned_rvt_light_materials_created: true
+  project_owned_mesh_duplicates_created: true
+  authoritative_fixed_point_closure_passed: true
+  fresh_process_output_bounded_load_passed: false
+  adapted_rocks_placed: false
+  runtime_lighting_verified: false
+  rock_visual_fidelity_accepted: false
+  real_gpu_visual_accepted: false
+  production_integration: false
+
+next_safe_action: >-
+  Run one provider-off fresh UE 5.8 read-only bounded load of the four exact
+  project-owned outputs and their 16-package closure, requiring the recorded
+  hashes and an empty dirty-package state. If it passes, duplicate V3 with
+  rollback, replace the foreground hero-cliff crop with the frozen exact
+  six-instance Rock04/Rock06 cluster while retaining only reviewed distant
+  landmarks, and then obtain matched-camera D3D12 PIE evidence.
+
+claim_limit: >-
+  This is scratch-only automation evidence for exact payload staging, UE 5.8
+  input loading, four project-owned RVT-light asset saves, and one in-process
+  fixed-point dependency closure. The retained parent still references one
+  compatible present RVT height package; only the missing legacy
+  /Landscape/Texture/RVT_* chain is eliminated. The four outputs have not yet
+  passed a fresh-process bounded-load gate, no rock was placed, V3 was not
+  opened or saved, and there is no runtime, visual, gameplay, or production
+  acceptance.

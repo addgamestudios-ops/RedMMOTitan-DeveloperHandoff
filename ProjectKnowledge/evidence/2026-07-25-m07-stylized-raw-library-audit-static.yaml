@@ -1,0 +1,261 @@
+schema_version: 1
+id: evidence.m07.stylized-raw-library-audit.static.2026-07-25
+captured_utc: "2026-07-25T19:04:32Z"
+module_id: M07
+system: repository.asset-library-and-curved-tile-authoring
+slice: raw-stylized-library-rights-format-duplicate-and-unreal-import-pilot-gate
+evidence_class: static
+result: passed_inventory_with_material_pilot_blocked
+
+scope:
+  authorized:
+    - audit D:/styled assets without modifying its bytes or directory structure
+    - distinguish payload files from macOS resource-fork companions
+    - inspect formats, texture semantics, sampled resolutions, duplicate risk, and local rights metadata
+    - inventory the existing Unreal packages below /Game/RedMMO/ArtLibrary/StylizedSource
+    - select one exact PBR material pilot only if provenance and channel mappings are unambiguous
+  explicitly_not_run:
+    - import, convert, normalize, copy, move, rename, delete, deduplicate, or overwrite any source or Unreal asset
+    - create a material, material instance, staging asset, collection, palette, map, placement, or Nwiro registration
+    - call Nwiro, Epic MCP, UAIP, Meshy, Tripo, fal.ai, or any external provider
+    - edit or save a production, checkpoint, fused, vendor, test, or artist map
+    - launch a second Unreal process, build, cook, package, PIE, or a real-GPU test
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  worktree_materially_dirty_before_slice: true
+  worktree_status_entry_count: 188
+  unreal_editor:
+    running_count: 1
+    pid: 20332
+    project: D:/RedMMOTitan/Titan.uproject
+    reused_or_called_by_this_slice: false
+  overlapping_build_cook_package_process_count: 0
+  total_physical_gib: 63.872
+  free_physical_gib: 36.244
+  free_commit_gib: 43.343
+  free_d_drive_gib: 1069.514
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 4979
+  vram_free_mib: 5075
+  selected_work_mode: offline_read_only_inventory
+
+authenticated_prior_inputs:
+  import_plan:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/plan_v2_20260724_2218.json
+    bytes: 18023357
+    sha256: 29D15839FAD2E0624856F765C78D4FABBB9693B6023AE62590D89C2833AEAC17
+    schema: redmmotitan.stylized_source_import.v2
+    selected_record_count: 23599
+    selected_bytes: 11408655298
+    note: >-
+      The prior plan records the user's explicit conversion instruction as its
+      approval basis. That instruction is not independent proof of third-party
+      commercial, redistribution, model-training, or generative-AI rights.
+  semantic_taxonomy:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/Taxonomy/taxonomy_v3_20260724_2038_a.json
+    bytes: 20433388
+    sha256: 46DD7F969C7E1E829A32C8671C36535A4D1D25EE4BF0A98871895DE24CEE5ADD
+    schema: redmmotitan.stylized_source_taxonomy.v3
+    machine_candidate_count: 2640
+    review_required_count: 20959
+    note: classification_is_not_import_or_rights_approval
+  wildfield_review_request:
+    path: D:/RedMMOTitanWindowsData/AssetImports/StylizedSource/ReviewRequests/wildfield_grass_review_request_v1_20260724_2145_a.json
+    bytes: 4526
+    sha256: 376874431E1293A8CD91D49257E4E9A51297F3EF112B1D4AF73B11023493B658
+    status: review_only_not_approved_not_imported
+
+filesystem_inventory:
+  root: D:/styled assets
+  reparse_entry_count: 0
+  total_file_count: 66574
+  total_directory_count: 38757
+  total_bytes: 11415660223
+  payload:
+    file_count: 23599
+    bytes: 11408655298
+    png:
+      file_count: 11226
+      bytes: 9190635662
+    dds:
+      file_count: 12373
+      bytes: 2218019636
+  macos_resource_fork_companions:
+    root: D:/styled assets/__MACOSX
+    file_count: 42975
+    bytes: 7004925
+  unreal_or_mesh_payloads:
+    uasset: 0
+    umap: 0
+    fbx: 0
+    obj: 0
+  local_metadata_search:
+    license_or_licence_files: 0
+    readme_files: 0
+    manifest_files: 0
+    attribution_or_credits_files: 0
+    eula_or_copyright_files: 0
+    result: no_local_rights_or_channel_metadata
+
+category_inventory:
+  Stylized_Crystal: {files: 83, bytes: 104983799}
+  Stylized_Fabric: {files: 288, bytes: 104871699}
+  Stylized_Foliage: {files: 723, bytes: 688696875}
+  Stylized_FX: {files: 1101, bytes: 290614432}
+  Stylized_Grass: {files: 166, bytes: 214225397}
+  Stylized_Ground: {files: 644, bytes: 312521057}
+  Stylized_Lava: {files: 37, bytes: 45064991}
+  Stylized_Maps: {files: 11855, bytes: 2055400664}
+  Stylized_Masonry: {files: 694, bytes: 603892125}
+  Stylized_Metal: {files: 537, bytes: 475357252}
+  Stylized_Props: {files: 3281, bytes: 2581556546}
+  Stylized_Rock: {files: 923, bytes: 1037212837}
+  Stylized_Sand: {files: 133, bytes: 121352923}
+  Stylized_Sky: {files: 528, bytes: 244904935}
+  Stylized_SnowIce: {files: 197, bytes: 225437494}
+  Stylized_Structure: {files: 1235, bytes: 1238623658}
+  Stylized_Terrain: {files: 351, bytes: 391991407}
+  Stylized_Trees: {files: 645, bytes: 527996931}
+  Stylized_Water: {files: 178, bytes: 143950276}
+
+texture_semantics_from_exact_terminal_names:
+  color: 19507
+  normal: 3965
+  emissive: 54
+  ramp: 52
+  mask: 9
+  metallic: 3
+  opacity: 2
+  other: 7
+  exact_same_base_color_plus_normal_family_count: 3649
+  exact_same_base_complete_pbr_family_count: 0
+  missing_or_unbound_channels:
+    - roughness
+    - ambient_occlusion
+    - ORM_or_RMA_packed_layout
+    - normal_map_convention
+    - mask_channel_meaning
+    - expected_color_space
+
+resolution_sample:
+  method: deterministic_evenly_spaced_up_to_30_per_category_and_format
+  decoded_header_count: 810
+  decode_error_count: 0
+  power_of_two_count: 786
+  non_square_or_non_power_of_two_count: 23
+  square_non_power_of_two_count: 1
+  dominant_classes:
+    "1024x1024": 396
+    "512x512": 220
+    "256x256": 46
+    "128x2": 24
+    "128x128": 23
+    "704x1024": 17
+    "256x1024": 13
+  claim_limit: sampled_not_full_corpus
+
+duplicate_probe:
+  full_corpus_current_tree_hash_scan:
+    result: stopped_before_completion
+    reason: bounded_read_only_slice_exceeded_without_meaningful_completion
+  prior_authenticated_taxonomy:
+    duplicate_payload_group_count: 995
+    duplicate_payload_record_count: 7464
+    currency_claim: prior_plan_only_not_refreshed_by_this_slice
+  bounded_current_tree_probe:
+    method: SHA256_for_same_byte_length_files_within_the_same_leaf_folder
+    files_hashed: 192
+    exact_duplicate_group_count: 69
+    duplicate_file_count: 139
+    minimum_redundant_bytes: 54948501
+    claim_limit: lower_bound_not_global_duplicate_inventory
+
+existing_unreal_imports:
+  root: /Game/RedMMO/ArtLibrary/StylizedSource
+  filesystem_package_count: 24
+  filesystem_package_bytes: 8581632
+  sorted_path_size_hash_manifest_sha256: E8130B5F8C0D75073FC2615F7A6AA608E7FA6F8A22948677329D0F0592554898
+  material_package_count: 0
+  material_instance_package_count: 0
+  crystal:
+    package_count: 8
+    evidence: UE_5_8_NullRHI_Texture2D_import_and_exact_resume_passed
+    readiness: texture_only_not_rights_art_material_or_placement_approved
+  grass:
+    package_count: 8
+    evidence: filesystem_plus_legacy_pre_v2_commandlet_state
+    readiness: intentionally_unverified_and_quarantined
+  trees:
+    package_count: 8
+    evidence: UE_5_8_NullRHI_Texture2D_import_and_exact_resume_passed
+    readiness: exact_id_quarantined_mislabeled_door_and_entry_wood_textures
+  exact_packages:
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/AlgorocCrystalCave/AlgorocCrystalCave_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/AlgorocCrystalCave_Crisp/AlgorocCrystalCave_Crisp_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/Crystal_Loftite_Rotation_01/Crystal_Loftite_Rotation_01_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/Crystal_Loftite_Rotation_01_BLU/Crystal_Loftite_Rotation_01_BLU_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/Icons_Crystal_01_BnW/Icons_Crystal_01_BnW_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/ph_housing_wallfoundation_orangemetalplates_000/ph_housing_wallfoundation_orangemetalplates_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/ph_housing_wallfoundation_orangemetalplates_000/ph_housing_wallfoundation_orangemetalplates_000_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Crystal/PRP_ControlPanel_EldanCrystal_000/PRP_ControlPanel_EldanCrystal_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/Clutter_Corrupted_Grass_000/Clutter_Corrupted_Grass_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/Clutter_Corrupted_Grass_000/Clutter_Corrupted_Grass_000_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/clutter_golden_Grass_000/clutter_golden_Grass_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/clutter_golden_Grass_000/clutter_golden_Grass_000_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/Clutter_Grass_CrispLongDirectional_CoolGreenDark_000/Clutter_Grass_CrispLongDirectional_CoolGreenDar_F2155E61.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/Clutter_Grass_CrispLongDirectional_CoolGreenDark_000/Clutter_Grass_CrispLongDirectional_CoolGreenDar_F282321A.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/CLutter_Grass_CrispLongDirectional_GreenDark_000/CLutter_Grass_CrispLongDirectional_GreenDark_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Grass/Clutter_Grass_CrispLongDirectional_GreenDarkDes_A8BE8A9D/Clutter_Grass_CrispLongDirectional_GreenDarkDes_60636527.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_5952_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_7504_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_Door_Assorted_Wood_000/DEC_Door_Assorted_Wood_000_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_4883_Normal.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_6032_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Color.uasset
+    - Content/RedMMO/ArtLibrary/StylizedSource/Stylized_Trees/DEC_EntryLrg_SancCommon_BaseWood_000/DEC_EntryLrg_SancCommon_BaseWood_000_Normal.uasset
+
+nwiro_boundary:
+  installed_loaded_and_tools_list_verified: true
+  tools_list_count: 224
+  raw_library_exact_path_query_proven: false
+  existing_24_asset_query_proven: false
+  processing_or_generation_proven: false
+  local_material_or_placement_proven: false
+  provider_or_upload_authorized: false
+  note: >-
+    The only offline synthetic asset-discovery transcript concerns Savanna, not
+    this raw library. No Nwiro request was sent in this slice.
+
+pilot_decision:
+  selected_asset_count: 0
+  material_or_instance_created: false
+  discoverability_changed: false
+  result: no_safe_pbr_pilot
+  blockers:
+    - no local license, attribution, provenance, or redistribution metadata
+    - user conversion instruction is not independent third-party rights proof
+    - no complete unambiguous PBR channel family exists
+    - normal convention, mask packing, and color-space expectations are undocumented
+    - the existing 24 Unreal packages contain textures only and include quarantined or unverified content
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This is static and read-only filesystem, prior-plan, prior-automation, and
+  bounded duplicate/resolution evidence. It is not a current full-tree content
+  authentication, rights approval, material, material instance, Nwiro
+  discovery or processing result, Unreal Asset Registry query, map, placement,
+  visual result, runtime-performance result, or production acceptance.
+
+next_safe_action:
+  - keep D:/styled assets and its 24 existing Unreal packages quarantined and unreferenced
+  - do not expose raw or derived bytes to Nwiro providers without separately proven rights and consent controls
+  - switch to the owned Tropical Island and Underwater pack for the already authorized local-only isolated UE 5.8 compatibility and real-GPU vendor-environment review
+  - stop before any production migration, planetary-tile integration, or protected-map change

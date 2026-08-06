@@ -1,0 +1,217 @@
+schema_version: 1
+id: evidence.M07.cc5-local-mcp-bridge-readonly-runtime.2026-07-25
+evidence_class: automation
+module: M07
+captured_utc: 2026-07-25T01:29:18Z
+result: passed_authenticated_cc5_readonly_runtime_and_reviewed_protocol_1_2_source_sync_pending
+
+scope:
+  objective: >-
+    Verify the project-owned Character Creator 5 bridge against the installed
+    CC5 5.11 host without enabling character mutation or project saving, then
+    harden the reviewed source against manual reload races discovered during
+    the live setup and add one named, paired body/head preset operation without
+    exposing caller-selected values or expressions.
+  performed:
+    - create and verify the fixed D-resident private runtime tree and local config
+    - install a bounded CC5 OpenPlugin revision and start it through manual Script > Load Python
+    - authenticate a live CC5 heartbeat through the external queue client
+    - send only inspect_active_character and list_active_character_morphs requests
+    - load the disposable HD Caricature Mixer Brute scene and verify active-character inspection plus one paginated morph page
+    - harden the project source with process-wide reload ownership, teardown neutralization, failed-start cleanup and one-second heartbeat coalescing
+    - implement protocol 1.2 named linked presets with exact character/project binding, fixed allowlisted body/head values, authenticated definition digest, finite live-value checks and verified pair rollback
+    - require every public FastMCP tool to reject unknown arguments before dispatch
+    - run 33 focused contracts, external stdio initialize/tools-list/schema checks and independent final P0-through-P2 review on the current project source
+  not_performed:
+    - add any morph to the live allowlist
+    - add any linked preset to the live config
+    - issue set_approved_morph, apply_approved_linked_preset or save_project_as
+    - install or exercise the pinned mcp 1.28.1 environment
+    - register the server in Codex MCP configuration
+    - claim that CC5 automatic OpenPlugin loading works
+    - hot-reload or install the final reviewed project source into the running CC5 process
+    - launch Unreal, build, cook, package, import, migrate, modify a map, or touch a protected game asset
+
+private_runtime:
+  root: D:/RedMMOTitanWindowsData/CC5MCPBridge
+  config:
+    path: D:/RedMMOTitanWindowsData/CC5MCPBridge/config.json
+    bytes: 366
+    sha256: 6E82B1485CE4C476A19D95EF925147B1412A646E23FA436384273AC5CC595AE3
+    enabled: true
+    bridge_token_present_and_length_valid: true
+    bridge_token_value_recorded: false
+    morph_allowlist_count: 0
+    linked_presets_field_present: false
+    compatibility_note: protocol_1_0_runtime_config_requires_offline_migration_before_protocol_1_2
+    queue_root: D:/RedMMOTitanWindowsData/CC5MCPBridge/queue
+    save_root: D:/RedMMOTitanWindowsData/CC5MCPBridge/versions
+    poll_interval_seconds: 0.1
+    request_timeout_seconds: 15.0
+    max_message_bytes: 65536
+  acl:
+    owner: DESKTOP-9MA6DG9/user
+    inheritance_disabled: true
+    inherited_aces: 0
+    explicit_full_control_principals:
+      - current_user
+      - SYSTEM
+      - Builtin_Administrators
+    broad_principal_present: false
+
+cc5_runtime:
+  process:
+    executable: D:/cc5/Character Creator 5/Bin64/CharacterCreator.exe
+    pid_at_capture: 2424
+    product_version: 5.11.1909
+    api_version: 0.8.4
+  authenticated_status:
+    protocol_version: "1.0"
+    state: running
+    live: true
+    heartbeat_utc: 2026-07-25T01:29:17.878815Z
+    last_error: null
+    project_epoch: 14
+    requests_processed: 4
+    capabilities:
+      selected_avatar_inspection: true
+      avatar_shaping_component: true
+      shaping_methods_present: true
+      save_project_as: true
+      timer_polling: true
+  authenticated_request_history:
+    - operation: inspect_active_character
+      result: expected_refusal_without_exactly_one_selected_avatar
+      error_code: active_character_ambiguous
+    - operation: inspect_active_character
+      successful_response_count: 3
+      selected_character_name: CC3_Base_Plus
+      returned_character_and_project_bindings: true
+    - operation: list_active_character_morphs
+      successful_response_count: 1
+      offset: 0
+      limit: 25
+      returned_count: 25
+      total_reported_live_morphs: 4109
+  mutation_or_save_request_count: 0
+  versions_created: 0
+  console_limitation: >-
+    CC5 still reports a separate host autoload warning,
+    "main has no attribute rl_plugin". Manual Script > Load Python mode
+    produces a healthy authenticated heartbeat, but automatic plugin loading is
+    not accepted.
+
+installed_and_running_revision_boundary:
+  installed_plugin_root: D:/cc5/Character Creator 5/Bin64/OpenPlugin/RedMMO_CC5_MCP
+  installed_files:
+    - {name: __init__.py, bytes: 59, sha256: E2A74C1BA934AC50BAD13047F8D2F665435322D396F25E16A602FE38F22D9053}
+    - {name: bridge_core.py, bytes: 18325, sha256: FA6C569677B11911D5486726F9912AD66D8EA6CB5518ABF53B8B875E81BCE0B4}
+    - {name: main.py, bytes: 27545, sha256: 53C7DC28D2D34D6D39D264EBBCD4316E2D79F5031D0D49DF4A86613AAAB08733}
+    - {name: windows_security.py, bytes: 14236, sha256: 922182E34294DBBF75BC98AA7508DE4B14350B0626DC60BB44FD6682DA322061}
+  exact_in_memory_module_hash_available: false
+  limitation: >-
+    The healthy read-only session was manually loaded before final source
+    hardening. Its exact in-memory revision is not attested, and the installed
+    files do not match the final reviewed project source. Because the older
+    running revision has no proven process-wide reload sentinel, do not hot
+    reload it. Close CC5, synchronize the reviewed files, restart, and repeat
+    read-only acceptance.
+
+current_project_source:
+  artifacts:
+    - {path: Tools/CC5MCP/__init__.py, bytes: 58, sha256: 0B60719A9232E04BEFE120C8AB735C58931BDD5845EA4EDEB62277B42C9875AB}
+    - {path: Tools/CC5MCP/protocol.py, bytes: 33707, sha256: DE462D2C382C4BBEEA3D9277CBEDF74761CEDE817C9A94ABBF0612D13C1DA706}
+    - {path: Tools/CC5MCP/server.py, bytes: 5943, sha256: C9F380842E92697D24A399A2C6296E0426BCF266ACBBB0254C1AC24CF0F49696}
+    - {path: Tools/CC5MCP/requirements.txt, bytes: 77, sha256: 202E6C57BB6262106548D94FACDAC9CFFE33B25E15F4A958105FB4C6F83FB590}
+    - {path: Tools/CC5MCP/config.example.json, bytes: 380, sha256: 44BA038FA26BB05AF13327E714DD700019DF380A0C960AA00B8B5C9E6F2C50CE}
+    - {path: Tools/CC5MCP/README.md, bytes: 13760, sha256: 02735EFAA6290EF35C848522FADEB65A578D95BB1364DC575A9C31CC84B68FCD}
+    - {path: Tools/CC5MCP/cc5_plugin/__init__.py, bytes: 59, sha256: E2A74C1BA934AC50BAD13047F8D2F665435322D396F25E16A602FE38F22D9053}
+    - {path: Tools/CC5MCP/cc5_plugin/bridge_core.py, bytes: 24458, sha256: 047AEEBF55FE6BBAB00458B101D6F7743207C898C2A84C8C1DE55C165CA9CCC8}
+    - {path: Tools/CC5MCP/cc5_plugin/main.py, bytes: 39013, sha256: B60FA68FB97960E24D38AC702CE14BCE18219FB688BE7E9946CF2C93FE15EFFF}
+    - {path: Tools/CC5MCP/cc5_plugin/windows_security.py, bytes: 14236, sha256: 922182E34294DBBF75BC98AA7508DE4B14350B0626DC60BB44FD6682DA322061}
+    - {path: Tools/tests/test_cc5_mcp_bridge.py, bytes: 47013, sha256: 9D6C9E508D5AE750438AA21F4C9626F3C8395742CA72861A0527E45CB2095B81}
+  focused_tests:
+    command: python -B -m unittest Tools.tests.test_cc5_mcp_bridge
+    run: 33
+    passed: 33
+    failed: 0
+  external_mcp_smoke:
+    installed_sdk_version: 1.26.0
+    initialize: pass
+    exact_tool_count: 6
+    linked_public_properties: [expected_character_id, expected_project_identity, preset_alias]
+    linked_additional_properties: false
+    pinned_sdk_1_28_1_exercised: false
+  final_independent_review:
+    p0_findings: 0
+    p1_findings: 0
+    p2_findings: 0
+    python_3_8_parse: pass
+    reviewed_main_sha256: B60FA68FB97960E24D38AC702CE14BCE18219FB688BE7E9946CF2C93FE15EFFF
+    reviewed_tests_sha256: 9D6C9E508D5AE750438AA21F4C9626F3C8395742CA72861A0527E45CB2095B81
+
+linked_preset_source_boundary:
+  protocol_version: "1.2"
+  public_tool: cc5_apply_approved_linked_preset
+  caller_supplied_values_or_expressions: false
+  fixed_pair_roles: [body, head]
+  aliases_must_be_distinct: true
+  resolved_morph_ids_must_be_distinct: true
+  active_character_and_project_binding_required: true
+  character_signature_required: true
+  definition_digest_covers_preset_and_resolved_rules: true
+  nonfinite_live_values_denied: true
+  pair_failure_rolls_back_and_verifies_both: true
+  save_as_contract_changed: false
+  configured_live_presets: 0
+  live_cc5_exercised: false
+
+canonical_integrity:
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M07_CC5MCP_20260725_0149Z_final/integrity.json
+  result: pass
+  errors: 0
+  warnings: 0
+
+resources_at_capture:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  physical_ram_free_gib: 5.980
+  d_drive_free_gib: 1075.171
+  gpu: {name: NVIDIA GeForce RTX 3080, total_vram_mib: 10240, used_vram_mib: 4349, free_vram_mib: 5705}
+  exact_unreal_or_build_process_count: 0
+  cc5_process_count: 1
+  decision: >-
+    The bounded slice remained within CC5 and offline source tests. Unreal,
+    build, cook and package were not launched.
+
+protected_inputs_after_slice:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+claim_limit: >-
+  This proves authenticated local filesystem IPC reached the live CC5 5.11
+  RLPy host for active-character inspection and one paginated morph listing.
+  It also proves the separate project source exposes a statically reviewed,
+  fail-closed protocol 1.2 named body/head preset contract. It does not prove
+  that final source is installed or running, any linked preset is configured,
+  CC5 automatic plugin loading, the pinned mcp 1.28.1 FastMCP environment,
+  Codex MCP registration, a safe morph edit, a project snapshot, visual
+  quality, or any Unreal/game integration.
+
+remaining_blockers:
+  - close CC5 before backing up and migrating the live config with an explicit empty linked_presets object and synchronizing the exact final reviewed plugin files; do not hot reload the older running revision
+  - restart CC5 and repeat authenticated heartbeat, inspect and list acceptance against the exact reviewed hashes
+  - resolve and verify the CC5 automatic OpenPlugin rl_plugin entry contract separately
+  - install and smoke-test pinned mcp 1.28.1 in an isolated external environment before any Codex MCP registration
+  - externally review exact Brute body/head morph IDs, safe values, character signature and generated definition digest before adding one named preset
+  - test one small reversible named pair, then one explicit no-overwrite snapshot, only after exact-revision read-only acceptance and fresh bindings
+
+next_safe_action: >-
+  At the next CC5-safe boundary, close CC5, back up and migrate the private
+  config with an empty linked_presets object, copy the exact reviewed protocol
+  1.2 plugin files into OpenPlugin, restart once, manually load once if autoload
+  still warns, and rerun only authenticated status, inspect and list. Do not
+  configure or apply a linked preset and do not save until that exact-revision
+  read-only acceptance passes.

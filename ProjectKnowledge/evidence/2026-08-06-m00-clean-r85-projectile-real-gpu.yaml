@@ -1,0 +1,120 @@
+schema_version: 1
+id: evidence.m00.clean-r85-projectile-real-gpu
+module: M00
+evidence_class: real_gpu_visual
+status: pass_r85_native_infantry_tracer
+timestamp_utc: 2026-08-06T06:02:22Z
+scope: >-
+  One provider-off, no-save D3D12 RenderOffscreen PIE acceptance of the current
+  clean-RedMMO R85 infantry projectile on the saved ProfileV1 home map. This
+  slice changed only the project-owned evidence adapter for UE 5.8 Python API
+  compatibility; no gameplay source, map, asset, Config, plugin, package, seed,
+  terrain, biome, foliage, water, ship, or character package changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.05
+  commit_headroom_gib: 54.31
+  gpu: NVIDIA_GeForce_RTX_3080
+  gpu_free_mib: 9098
+  gpu_used_mib: 956
+  d_drive_free_gib: 759.38
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+launcher_correction:
+  method: System.Diagnostics.ProcessStartInfo_with_one_raw_Arguments_string
+  exec_cmds: py D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r85_projectile_pie.py
+  exact_cmd_marker_present: true
+  validator_bootstrap_marker_present: true
+  execute_python_script_used: false
+  desktop_control_used: false
+adapter_correction:
+  file: D:/RedMMOTitan/Build/Automation/validate_clean_redmmo_r85_projectile_pie.py
+  original_sha256: 148ADC25E47663A5F2CE2752441661CD3640E04243BAEB5A0244A014DA37DD9B
+  corrected_sha256: 7EAF1C6954F87CC5B8F9ED9660177EE5026AF28F5B76D00E409953DC66AF83B8
+  changes:
+    - use StaticMeshComponent static_mesh editor property instead of unavailable get_static_mesh wrapper
+    - use relative_scale3d editor property instead of unavailable get_relative_scale3d wrapper
+  syntax_check: passed
+  rollback_root: D:/RedMMOTitanWindowsData/Rollback/M00_R85_ValidatorApi_20260806T055747Z
+failed_adapter_trials:
+  r85f: >-
+    Lifecycle and authoritative IA_RedFire path reached the fired bolt, then the
+    evidence adapter failed closed on the unavailable get_static_mesh wrapper.
+  r85g: >-
+    Static-mesh access advanced, then the evidence adapter failed closed on the
+    unavailable get_relative_scale3d wrapper.
+  persistent_project_mutation: false
+runtime:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  renderer: D3D12_SM6_RenderOffscreen_PIE
+  resolution: 1280x720
+  ppg_generation_phase: COMPLETE
+  ppg_generation_progress: 1.0
+  ppg_collision_enabled: true
+  mapcheck_errors: 0
+  mapcheck_warnings: 0
+  fire_input_action: /Game/RedMMO/Gameplay/Trooper/A01/Input/IA_RedFire
+  authoritative_spawn: true
+  owner_and_instigator: current_A01_Trooper
+  muzzle_socket: Muzzle
+  muzzle_to_observed_bolt_cm: 93.53
+  projectile_class: /Game/RedMMO/Gameplay/Trooper/A01/Combat/BP_RedBolt_Trooper_A01.BP_RedBolt_Trooper_A01_C
+  static_mesh: /Engine/BasicShapes/Sphere.Sphere
+  rejected_sm_conus_active: false
+  material: /Game/RedMMO/Materials/M_BoltTracer.M_BoltTracer
+  relative_scale: [1.6, 0.07, 0.07]
+  actual_fired_actor_reused_for_capture: true
+  capture_distance_cm: 350.0
+  pie_stopped: true
+  severe_log_signature_count: 0
+visual_review:
+  status: passed_projectile_visibility_only
+  observation: >-
+    Original-resolution inspection shows a clearly readable bright cyan-white
+    tracer immediately ahead of the Trooper reticle at player scale, with the
+    Trooper and parked StarSparrow also visible. The frame does not prove muzzle
+    flash, recoil, fire montage, impact, biome art, or physical input feel.
+artifacts:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R85H_20260806T060050Z/result.json
+    sha256: 102FFD3C86EF0C5BE4562B87C616D583B00F67533786D83A7AED1293584FF075
+    bytes: 1459372
+  capture:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R85H_20260806T060050Z/projectile.png
+    sha256: 4EE24A60C766C8C8E25A629B657975E11E42276C93521F164343EE7489A9323A
+    bytes: 692864
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_Launch_R85H_20260806T060050Z/UnrealEditor_R85H.log
+    sha256: 4E9043595440C61E2CB9BF84D617B4490A7D4D3D25AAB3668EE49C84EC890CBC
+    bytes: 261041
+preserved:
+  tracked_runtime_hashes_unchanged: true
+  config_tree_unchanged: true
+  dirty_content_packages_after: []
+  dirty_map_packages_after: []
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  source_bolt_sha256: 74214A105BF180D72D9EAA469216FB61082ADB70FE191AF47463A9E4C05ED05E
+  editor_module_sha256: 55B98B7AF5765CE14D5B82247EECF3913022CD8530A04ED07B63C1B037D1E008
+  protected_hashes_exact: true
+postcheck:
+  active_unreal_build_package_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+  free_physical_ram_gib: 52.03
+  commit_headroom_gib: 54.39
+  gpu_free_mib: 9156
+  gpu_used_mib: 898
+claim_limit: >-
+  R85 now has real-GPU player-scale evidence for the actual authoritative
+  projectile created through IA_RedFire and its native sphere/project tracer
+  identity. This does not accept an infantry muzzle effect, fire/recoil/aim
+  animation, physical keyboard or controller input, impact pixels, a new
+  package, R84 currency, replication, multiplayer, Steam, or human playability.
+next_safe_action: >-
+  Keep the R85 projectile correction. On the next bounded M00 slice, inspect the
+  authenticated installed animation and infantry-effect closure for one
+  dependency-closed project-owned muzzle flash plus compatible rifle fire/recoil
+  presentation. Do not reuse the rejected spacecraft plume or SM_Conus and do
+  not package until that runtime visual gate and the separate hands-on gate pass.

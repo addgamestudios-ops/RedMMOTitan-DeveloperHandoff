@@ -1,0 +1,82 @@
+schema_version: 1
+id: evidence.ring-moon-a.2026-07-21.real-gpu-contact-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T01:47:24+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+target: moon.red.ring-01.a
+scope: real_gpu_character_surface_contact_and_gravity_identity
+
+launch_profile:
+  resolution: 1280x720
+  screen_percentage: 60
+  texture_pool_mb: 1024
+  fps_cap: 45
+  audio_disabled: true
+  native_diagnostic_pawn: true
+  command_line_gate: RedRingMoonAProbe
+
+action:
+  - discover Moon A by immutable component tag RedGravityBodyId=moon.red.ring-01.a
+  - place the native diagnostic character immediately above the physical moon surface
+  - allow the character movement component to settle under radial gravity
+  - sample exact floor and trace contact twice, two seconds apart
+  - capture the rendered standing frame and exit cleanly
+
+result:
+  compile_and_link_gate: pass
+  real_gpu_runtime_gate: pass
+  moon_a_character_contact_gate: pass
+  moon_a_gravity_identity_gate: pass
+  moon_a_visual_presence_gate: pass_partial
+  moon_a_art_acceptance_gate: pending
+  observed:
+    - both samples reported Walking movement mode
+    - CurrentFloor and an independent trace both hit the exact RingMoonA component
+    - RedCharacterMovement, RadialGravityComponent, and the gravity query all selected moon.red.ring-01.a
+    - both samples measured a 2.36 cm surface gap, radial up dot 1.00000, and zero speed
+    - the real-GPU capture visibly shows the character on Moon A with the ring body, ring bands, and mineable asteroids in view
+    - the runtime completed an orderly engine shutdown with no fatal, GPU crash, or video-memory marker
+  findings:
+    - ring bands remain over-bright and visually flat
+    - Moon A remains a bare prototype surface without an authored biome or landing treatment
+
+artifacts:
+  serialized_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonAProbe_20260721_012931/UnrealBuildTool.log
+    sha256: 28DCAE9C5C4D91EC754AA41B5072F6AB3DDAB52C7609DE79CBC3654CE5CECB2C
+  real_gpu_runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonAProbe_20260721_012931/RingMoonAProbe_retry.log
+    sha256: CD0AAA17E03D3C13F6872CB088F0AA988FB0243369A15FD36076E160AAF1603A
+    marker_lines: [2213, 2232, 2584, 2587, 2589, 2590, 2591, 2592, 2594, 2652, 2653]
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RingMoonAProbe_20260721_012931/Capture/RingMoonA_Standing.png
+    sha256: 42A3F29D23F8B57411CF845C3415C792C512DF19C50AE0C6DE903C4BD39CCDF4
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: A6B1D9AEE739D02056A4180B12E406C07BE419806DED30BD62C70422E6BE5A2F
+
+protection:
+  checkpoint_path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256_before_and_after: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  unchanged: true
+
+memory_stability:
+  one_runtime_only: true
+  peak_observed_process_ram_gb: 3.72
+  peak_observed_total_vram_mb: 3648
+  free_ram_after_exit_gb: 9.84
+  note: "The first hidden-window startup stalled before map load and was terminated; the normal-window retry advanced, passed, captured, and exited cleanly."
+
+claim_limit: >-
+  This proves one native character can settle and remain physically grounded on
+  Moon A while all three local gravity consumers agree on its stable body ID.
+  It does not prove Moon B or C, gravity transitions during travel, ship landing
+  or exit, mining interaction, packaged behavior, multiplayer authority, or art
+  acceptance.
+
+next_safe_action: >-
+  Reuse the same bounded real-GPU probe for Moon B, without changing the ring
+  art or protected 50 km checkpoint, then repeat for Moon C before attempting a
+  moving inter-body transition test.

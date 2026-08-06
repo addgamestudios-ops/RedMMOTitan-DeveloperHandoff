@@ -1,0 +1,233 @@
+schema_version: 1
+id: evidence.m09.clean-redmmo.r92-player-status-cook-closure-package
+module: M09
+defect: DEF-0004
+evidence_class: package
+status: accepted_partial_player_status_cook_startup_closed_visual_pending
+timestamp_utc: 2026-08-06T17:47:45Z
+scope: >-
+  One guarded no-clobber Win64 Development build, cook, stage, Pak/IoStore
+  archive, exact R91-to-R92 container delta audit, and bounded offscreen
+  real-D3D12 packaged startup. R91 remained byte-exact. This closes the
+  PlayerStatus package/startup blocker without claiming authored fuel-state
+  pixels, physical controls, gameplay feel or multiplayer.
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/transaction_intent.yaml
+  intent_bytes: 2516
+  intent_sha256: 84C433FC40F105A901E52D6075E59C56F18C7DC6B67C1BFD56E784CB4AF63768
+  archive_root_absent_at_entry: true
+  prior_r91_preserved: true
+  diagnostics: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z
+  rollback: D:/RedMMOTitanWindowsData/Rollback/BeforeRedMMO_R92_Package_20260806T1740Z
+  rollback_file_count: 16
+  rollback_bytes: 839733622
+
+preflight:
+  captured_utc: 2026-08-06T17:37:51Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2465
+  free_physical_ram_gib: 54.15
+  commit_headroom_gib: 58.15
+  gpu_free_mib: 8949
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 14
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+  package_ram_gate_passed: true
+  recorded_sustained_gate_gib:
+    physical: 18_to_20
+    commit_headroom: 24_to_26
+  queue_sha256_before: D74BB1ABD8E4DC17925DB8B6401E270F94D6936A458989517A51C1DAF72D17CD
+
+build:
+  tool: D:/UE_5.8/Engine/Build/BatchFiles/RunUAT.bat
+  command: >-
+    BuildCookRun -project=D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    -noP4 -utf8output -target=RedMMO -platform=Win64
+    -clientconfig=Development -build -cook
+    -map=/Game/RedMMO/Maps/RedMMO_PPG_HomeWorld -stage -pak -iostore
+    -archive
+    -archivedirectory=D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z
+    -prereqs
+  result: success
+  uat_exit_code: 0
+  build_cook_run_seconds: 111.55
+  native_binary_reused_current: true
+  cooked_packages_total: 1540
+  cooked_packages_remaining: 0
+  iostore_packages: 1469
+  uat_warning_lines: 28
+  uat_unique_warning_count: 14
+  uat_error_severity_lines: 0
+  uat_fatal_assert_ensure_hits: 0
+  uat_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/uat_stdout.log
+    bytes: 87943
+    sha256: 36E2A1AFE74FAC7535850A2564901E3C0EE6CBD0C80188E8A7DA357B0DE67A40
+  stderr_bytes: 0
+  stderr_sha256: E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
+  warning_boundary: >-
+    UAT retained the same fourteen unique installed-PPG example Niagara/SM5
+    example-material cook warnings. The corrected packaged D3D12 startup has
+    zero warnings, errors or severe markers; these build warnings are not
+    treated as visual acceptance.
+
+package:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R92_Playable_20260806T1740Z/Windows/RedMMO.exe
+  configuration: Development
+  platform: Win64
+  clean_file_count: 50
+  total_bytes: 1455490099
+  tree_sha256: 11F6F6AE332D56EE6BED0ADE800BFD72EC878990F2B262884FD162DD7445B409
+  launcher_sha256: FAB7722DBF9C2CCA60E1E9100721D1236C9227D0203D22CB1B07B2F02939C7A4
+  game_binary_sha256: 8E3A0909D991E678AF3CDB93B9DA4E082B8BA9D4DCE53B2F2D3D831A9089BC6A
+  project_utoc_sha256: 452CE2AEBEE6901C6B80900FDAC81B36B35BB12DA3278906168C237A6ACE006A
+  project_ucas_sha256: 2EFBBBD91639DE8B2DFF497FE92640687B854558FD560CA5ACFC2FA75E95798B
+  project_pak_sha256: 982B8BFD5C4A1DC2938ED5B099DFF59E4630B1A257F0EFCAF3E2220F7D50C898
+  r91_preserved:
+    file_count: 50
+    total_bytes: 1454950806
+    tree_sha256: 78CA43D6902FC646EAF640C0344B3E0879A875FBA1A2CDAAB2CE829700E5467E
+
+container_listing:
+  path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/iostore_list_utf8.txt
+  bytes: 611104
+  sha256: 3F8DF93795CE344AD5640A29CE12862601FFCED8E768BB6CA14A5F17596C7DD2
+  entry_count: 3296
+  unique_path_count: 1825
+  r91_entry_count: 3295
+  r91_unique_path_count: 1824
+  added_paths:
+    - ../../../RedMMO/Content/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.uasset
+  removed_path_count: 0
+  player_status_entry_count: 1
+  exact_single_intended_delta: true
+
+smoke:
+  renderer: D3D12_SM6
+  gpu: NVIDIA_GeForce_RTX_3080
+  resolution: 1280x720
+  mode: packaged_offscreen_unattended_no_sound
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  game_class: GM_RedTrooperPPG_A01_C
+  celestial_frame:
+    stable_id: planet.red.mars
+    revision: 1
+  generated_chunk_count: 516
+  trooper_surface_placement: true
+  starsparrow_surface_spawn_and_park: true
+  player_status_missing_warning_count: 0
+  warning_line_count: 0
+  error_line_count: 0
+  assertion_ensure_fatal_bad_export_gpu_loss_count: 0
+  clean_engine_shutdown: true
+  clean_object_subsystem_shutdown: true
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/Smoke2_20260806T1745Z/packaged_smoke.log
+    bytes: 86863
+    sha256: 9827E73D54809812852F6E2EF6DE390FD98A28A767E24963308FC0BB60A19794
+  generated_saved_data: >-
+    Three smoke-generated Config files and one archived Engine manifest were
+    moved out of the handoff tree into this slice's diagnostics; the clean R92
+    tree hash was then computed and independently verified.
+
+rejected_first_smoke_invocation:
+  disposition: diagnostic_only_no_world_test
+  cause: >-
+    Start-Process split -AbsLog= from its value, so Unreal interpreted the log
+    path as the game URL and exited cleanly without loading the world.
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/Smoke_20260806T1743Z/packaged_smoke.log
+  log_bytes: 76439
+  log_sha256: 409B9295CBE07965F456ACD909C56B066D084235AEF47826C033D47DE4C838B3
+  package_bytes_changed: false
+  accepted_as_runtime_evidence: false
+
+verification:
+  verifier: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/verify_r92_player_status_package.py
+  verifier_bytes: 10824
+  verifier_sha256: EA91F8B936406FAC1260985ADF999AC3DEC6D074FB7FF3C326E0B5E3E1F7BFEE
+  report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/r92_player_status_package_verification.json
+  report_bytes: 6202
+  report_sha256: 73B62BD5FB3560CAE1CD71452B92A90B1B453C56FBFA58E2663895006713702A
+  focused_package_checks: 41_of_41_passed
+  failed_checks: 0
+  focused_project_knowledge_and_fused_tests: 37_of_37_passed
+  focused_tests_stdout: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/project_knowledge_and_fused_tests.txt
+  focused_tests_stdout_bytes: 400
+  focused_tests_stdout_sha256: 5D70FB23206538DF7B49EF4C34D51EDE563E9BAFBBAD109623CFAF3AD1827851
+  focused_tests_stderr: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/project_knowledge_and_fused_tests.stderr.txt
+  focused_tests_stderr_bytes: 15518
+  focused_tests_stderr_sha256: 7BEC0B86AD14BAD2030A6E130EAE20E05065F3809268DDAC3404EFA9657DFE8D
+  project_knowledge_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_R92_Package_20260806T1740Z/project_knowledge_integrity.json
+  project_knowledge_integrity_report_bytes: 1836
+  project_knowledge_integrity_report_sha256: 88BE801A3E90515EFFAFBCA5785AB1A52B2D5A28EBDE9ED6089842A6A1CFCC9C
+  project_knowledge_integrity_result: pass
+  project_knowledge_integrity_errors: 0
+  project_knowledge_integrity_warnings: 0
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  default_game_ini_sha256: 15F3031EDDFDBFA95DC08FE09FDF2C96CC155BAEB5AABC196119D77E638573E0
+  player_status_source_sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  protected_tangent_authoring_inputs_count: 27
+  protected_fused_faces_count: 6
+  vendor_and_user_assets_modified: false
+
+queue:
+  snapshot_sha256: A5AAB801293F2C2D62974A7BD9AAD38DABF69517A4AA4EA1FC8495AF05EF40AC
+  module_status: incomplete_retry
+  retry_count: 41
+
+postflight:
+  captured_utc: 2026-08-06T17:47:45Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2465
+  free_physical_ram_gib: 53.94
+  commit_headroom_gib: 57.94
+  gpu_free_mib: 9009
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 14
+  d_drive_free_gib: 749.86
+  active_unreal_build_package_process_count: 0
+  protected_hashes_match: true
+
+finding: >-
+  R92 is the newest launchable Win64 Development candidate. Its exact single
+  cooked-path delta closes the PlayerStatus package/startup blocker: the
+  texture is present once, nothing was removed, and corrected D3D12 startup
+  emits zero PlayerStatus, warning, error or severe markers while retaining
+  the current world/gameplay startup boundaries.
+
+blocker: >-
+  Authored full, partial, near-empty and regenerating fuel pixels remain
+  visually unaccepted until separate real-GPU state captures. Physical
+  keyboard/mouse/controller controls, rifle/ship/jetpack feel and perceived
+  audio require human playtest. Replication and multiplayer require real
+  server/client topology; wider world/art gates remain open.
+
+rollback: >-
+  Preserve R91. If R92 must be withdrawn, authenticate the exact R92 archive
+  path and move only that archive out of distribution. Restore backed-up
+  Config, PlayerStatus or clean-project Win64 binaries only if current hashes
+  differ from this evidence. Touch no maps, user assets, vendor sources,
+  checkpoints or unrelated files.
+
+claim_limit: >-
+  Build, cook, archive, exact container and packaged D3D12 startup evidence.
+  No authored fuel-pixel appearance, physical controls, gameplay feel,
+  perceived audio, replication, multiplayer, performance, persistence, final
+  art or human acceptance is claimed.
+
+next_safe_action: >-
+  Rotate to one M10 currentness-only developer handoff update pointing to the
+  exact R92 launcher/tree and disclosing that package/startup is closed while
+  fuel-state pixels and human controls remain open. Do not rebuild R92.

@@ -1,0 +1,88 @@
+schema_version: 1
+id: evidence.m09.r84-gameplay-asset-package-closure
+module: M09
+evidence_class: package
+status: accepted_partial
+timestamp_utc: 2026-08-06T04:24:16Z
+scope: >-
+  Read-only UnrealPak IoStore directory-index audit of the exact R84 Windows
+  Development package's project container. No game, editor, build, cook,
+  package, map, asset, or desktop-control process was launched.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.29
+  commit_headroom_gib: 54.33
+  free_disk_d_gib: 759.39
+  gpu_free_mib: 9097
+  gpu_used_mib: 957
+  active_unreal_build_package_process_count: 0
+artifact:
+  root: D:/RedMMOTitanWindowsData/Builds/RedMMO_R84_Playable_20260806_0310Z/Windows
+  launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R84_Playable_20260806_0310Z/Windows/RedMMO.exe
+  package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  project_utoc_sha256: DBAD7191842E409CC90CACED93FE077C94FE2649B38B3D0806AA499843AB1F0F
+  project_ucas_sha256: B612800833E31DAC67E7860BE75E48C0856E6621C2725975939559967BA04C1A
+  project_pak_sha256: B342B7DF1CB1582C4F91F3749CF673D76D0E2E057BC7413477CA8F939F31F8F4
+project_container_listing:
+  command: UnrealPak RedMMO-Windows.utoc -List
+  exit_code: 0
+  entry_count: 3228
+  uasset_entry_count: 1409
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_R84_PackageGameplayClosure_20260806T0424Z/RedMMO-Windows-utoc-list.log
+  log_encoding: utf-16-le
+  log_sha256: DCF8648090BFA3D2BE395FBEE8387B196D3DEA5B2375953F454FE07D60B4F567
+verified_present_exactly_once:
+  - /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  - /Game/RedMMO/Gameplay/Trooper/A01/Combat/BP_RedBolt_Trooper_A01
+  - /Game/RedMMO/Gameplay/Trooper/A01/Player/BP_RedTrooperPlayer_A01
+  - /Game/RedMMO/Gameplay/Trooper/A01/Player/GM_RedTrooperPPG_A01
+  - /Game/RedMMO/Gameplay/Trooper/A01/Ship/BP_RedModularStarSparrow_Trooper_A01
+  - /Game/RedMMO/Materials/M_BoltTracer
+  - /Game/ProjectilesVol1/Effects/P_Hit_3
+a01_closure:
+  uasset_count: 18
+  includes:
+    - four gameplay Blueprints: bolt, player, GameMode, and StarSparrow
+    - IA_RedMove, IA_RedLook, IA_RedJump, IA_RedSprint, IA_RedFire, IA_RedADS, and IA_RedInteract
+    - IA_RedShipMove, IA_RedShipLook, IA_RedShipRoll, IA_RedShipBoost, and IA_RedShipExit
+    - IMC_RedTrooper_A01 and IMC_RedShip_A01
+trooper_vendor_closure:
+  action_trooper_uasset_count: 122
+  fire_shoot_aim_recoil_named_asset_count: 0
+projectile_closure:
+  projectiles_vol1_uasset_count: 12
+  included_effect: /Game/ProjectilesVol1/Effects/P_Hit_3
+  included_tracer_material: /Game/RedMMO/Materials/M_BoltTracer
+  project_container_absent:
+    - /Game/ProjectilesVol1/Effects/P_Flash_4
+    - /Game/ProjectilesVol1/Models/SM_Conus
+  interpretation: >-
+    R84 does not cook the copied spacecraft-style muzzle plume or the rejected
+    cone mesh into the project container. This is consistent with the current
+    runtime nulling MuzzleVFX and relying on the native tracer default, but it
+    does not by itself prove the projectile's rendered pixels or feel.
+global_container_note:
+  directory_listing_result: unsupported_missing_directory_index
+  unrealpak_exit_code: 3
+  raw_name_search_hits_for_projectile_targets: 0
+  log: D:/RedMMOTitanWindowsData/Diagnostics/M09_R84_PackageGameplayClosure_20260806T0424Z/global-utoc-list.log
+  log_sha256: F47DE10B6D76CA089DDCADF967D2034EE5C9A8A4031905613FC8E2D43C7E3F30
+  claim_boundary: >-
+    The accepted asset inventory comes from the successful project-container
+    directory index. The global container's unsupported listing is retained as
+    a diagnostic and is not used as positive package-closure evidence.
+preserved:
+  home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+claim_limit: >-
+  Package directory-index evidence only. R84 contains the named map, Trooper,
+  StarSparrow, input, tracer-material, impact, and vendor locomotion closure.
+  This does not prove physical controls, projectile pixels, muzzle presentation,
+  fire/recoil animation, damage, runtime behavior, visuals, replication,
+  multiplayer, Steam, or user acceptance.
+next_safe_action: >-
+  Keep R84 as the current playable candidate and require its pending physical
+  on-foot, ship, projectile, and day/night playtest. A later corrective weapon
+  build must add only a verified project-owned infantry muzzle and compatible
+  fire-animation closure, then repeat package and real-GPU acceptance.

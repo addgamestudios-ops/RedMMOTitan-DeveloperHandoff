@@ -1,0 +1,77 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-night-presentation-automation-pass.2026-08-05
+captured_utc: "2026-08-05T09:33:26Z"
+module_id: M07
+system: presentation.clean-redmmo-planet-aware-night-and-space
+slice: pure-night-presentation-automation-execution
+evidence_class: automation
+result: passed_five_of_five_nullrhi_visual_binding_pending
+
+execution:
+  project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  launch_map: /Engine/Maps/Entry
+  engine: Unreal Engine 5.8.1
+  platform: WindowsEditor
+  gpu_reported: NVIDIA GeForce RTX 3080
+  rhi: NullRHI
+  provider_plugins_disabled:
+    - ModelContextProtocol
+    - VibeMMOUIKit
+    - ToolsetRegistry
+    - EditorToolset
+    - Nwiro
+    - NwiroIntegrationKit
+    - UnrealAIIntegrationPlatform
+    - VibeUE
+    - MCPClientToolset
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  map_saved: false
+  content_saved: false
+  process_count_after: 0
+
+tests:
+  filter: RedMMO.Presentation.NightSky
+  discovered: 5
+  succeeded: 5
+  failed: 0
+  warnings: 0
+  total_duration_seconds: 0.039583701640367508
+  cases:
+    - RedMMO.Presentation.NightSky.InvalidFrameFailsClosed
+    - RedMMO.Presentation.NightSky.Orbit
+    - RedMMO.Presentation.NightSky.SurfaceDay
+    - RedMMO.Presentation.NightSky.SurfaceNight
+    - RedMMO.Presentation.NightSky.TransitionMonotonic
+
+artifacts:
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresentationAutomation_R04_20260805T0932Z/RedMMO_NightPresentation_Automation.log
+    sha256: 3FBF8EB3EABAD6217F4D8863FF6F378B97303FDF7810654A5F0BD0D203AB9722
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_NightPresentationAutomation_R04_20260805T0932Z/Report/index.json
+    sha256: 1BAE75EE2389278F56F1DDE3DE9FC4AB422B51CCE8105B7778D8B2BFBAA03569
+
+source_hashes:
+  header: 66BAF74D20519E2C21DAA77A7228B97D70BF607F39A61FD90B88A239E99E84AF
+  implementation: 1715AE27CFB3C15356B57B3A47DEA3E56E61C8415C30CF29EBFB4237F3094428
+  tests: 3C17828635E604D90EC8A22CB3E254ECA03E9EDD830EA0967010105A5EBAF080
+
+protected_state:
+  home_map_sha256_before_after: 83C78D0ACB599F01E8D3834FB62D58D6B6AA75466F6549F03BFEC4DF908E3336
+  profile_v1_planet_data_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+
+claim_boundary: >-
+  The deterministic body-relative surface-day, surface-night, orbit,
+  monotonic-transition and invalid-frame calculations execute and pass. NullRHI
+  proves no visible stars, moon, night fill, atmosphere transition, map binding,
+  gameplay, standalone, package, replication or multiplayer behavior.
+
+next_safe_action: >-
+  Under a fresh rollback, implement the smallest project-owned runtime presenter
+  boundary that consumes these verified weights while preserving the existing
+  SkyAtmosphere and sun ownership and avoiding a fixed vendor skybox. Then
+  require a fresh reload plus matched real-D3D12 surface-day, surface-night and
+  orbit captures before any visual acceptance claim.

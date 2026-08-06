@@ -1,0 +1,217 @@
+schema_version: 1
+id: evidence.2026-07-24.def-0004.quest-producer-domain-scope-reconciliation-static
+captured_utc: "2026-07-24T05:28:33.6202118Z"
+module_id: M09
+defect_id: DEF-0004
+evidence_class: static
+result: pass_false_positive_removed_without_weakening_quest_model_inventory
+
+scope:
+  selected_slice: >-
+    Reconcile the replacement-HUD quest producer inventory with M12's independent
+    voxel edit-journal implementation. Preserve the global fail-closed quest and
+    journal-state checks while admitting only the exact current voxel validation
+    helper at its exact path and occurrence count.
+  gameplay_source_files_modified: 0
+  plugin_source_files_modified: 0
+  test_files_modified: 1
+  production_maps_modified: 0
+  assets_modified: 0
+  config_modified: 0
+  authority_or_replication_modified: false
+  artist_vendor_vibe_or_supplied_art_modified: false
+  m12_source_modified: false
+
+preflight:
+  git:
+    branch: main
+    head: 709954a7e209a07352b81c176f91fd869b27c48b
+    staged_paths: 0
+    tracked_unstaged_paths: 60
+    individual_untracked_paths: 1466
+    status_entries: 1526
+    conflicts: 0
+    stale_zero_byte_index_lock_preserved: true
+    unrelated_dirty_work_preserved: true
+  resources:
+    total_physical_gib: 31.872
+    sustained_free_physical_gib_range: [15.779, 15.852]
+    later_free_physical_gib: 15.466
+    commit_limit_gib: 54.872
+    commit_headroom_gib_range: [30.683, 31.104]
+    gpu: NVIDIA_GeForce_RTX_3080
+    vram_total_mib: 10240
+    vram_free_mib: 8582
+    gpu_utilization_percent: 0
+    gpu_temperature_c: 32
+    c_free_gib: 127.224
+    d_free_gib: 1140.029
+  overlap:
+    unreal_editor_build_cook_or_package_processes: 0
+    other_overlapping_continuations_detected: 0
+  gate_decision: >-
+    Sustained free physical RAM remained below the required 18-20 GiB gate.
+    No Unreal Editor, commandlet, build, cook, package, game, Steam, or
+    real-GPU process was launched. This bounded offline contract repair was safe.
+
+latest_build_evidence:
+  prior_context_only: true
+  latest_successful_related_build_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+  package_pointer:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/LatestPackage50km.txt
+    bytes: 69
+    sha256: 077CE1252694470E4BA3F66ED05E7FEAD807B0B09F67E2197B8234EA6DEC93EA
+  pointed_failed_package_log:
+    path: D:/RedMMOTitanWindowsData/BuildLogs/Package50km_20260722_012549.log
+    bytes: 15739
+    sha256: EA629C5F4D59BA53E8712548C8AE25409509E9A14BFAAF26C3D48417565768FD
+  package_currency: stale_unverified
+
+root_cause:
+  stale_contract: >-
+    The July 22 test concatenated every compiled RedMMO header and source and
+    rejected the substring JournalState globally. M12 subsequently introduced
+    ValidateStoredJournalState for voxel checkpoint and edit-journal integrity,
+    so the quest inventory produced one false positive despite no quest system
+    being added.
+  approved_independent_symbol:
+    path: Source/RedMMO/Mining/RedInMemorySparseVoxelBackend.cpp
+    identifier: ValidateStoredJournalState
+    whole_identifier_occurrences: 5
+    definition_line: 959
+    call_lines: [1247, 1771, 1836, 1952]
+    source_bytes: 80650
+    source_sha256: A31572109209338DDBAE4EAE07D8D0D9DD54264F6A7841C49B536DFBCC001A2C
+    semantic_domain: voxel_edit_journal_checkpoint_persistence
+    quest_or_hud_role: none
+  all_other_current_forbidden_or_suspicious_quest_model_findings: 0
+
+implementation:
+  path: Tools/tests/test_def0004_replacement_hud_quest_inventory_contract.py
+  pre_slice_bytes: 7928
+  pre_slice_sha256: B66E8AF8DE3E0C88A99114C03B0B731A1D49920D238D66F077322A4F67EB2931
+  post_slice_bytes: 9845
+  post_slice_sha256: 0B2C85B10A2F8D1DF981D4ACB028A7F19F7ED3A077756EFD11C8CBA9E5BB1ABE
+  changes:
+    - inventory exact whole-identifier sites by relative compiled-source path
+    - require the approved voxel helper to remain exactly five sites in one exact Mining source
+    - redact only that exact whole identifier to a neutral voxel-ledger name before the global scan
+    - keep JournalState and every prior quest or mission identifier globally forbidden
+    - add mutation-sensitive rejection coverage for standalone and compound journal state, quest state, quest progress, replicated quest hooks, quest identity, and a prefixed helper look-alike
+  intentionally_not_changed:
+    - M12 voxel backend source or contracts
+    - replacement HUD consumer or plugin source
+    - quest gameplay, authority, replication, persistence, or presentation
+    - historical July 22 evidence
+
+verification:
+  syntax:
+    command: python -m py_compile Tools/tests/test_def0004_replacement_hud_quest_inventory_contract.py
+    result: passed
+  focused_quest_contract:
+    command: python -B -m unittest -v Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+    result: 7_of_7_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/focused_quest_contract.stderr.log
+    log_bytes: 1834
+    log_sha256: 78D451CC8A3F2DEF3DC6F69985B43EC817FE6CA3AC00E53AFF7AD8D8FC6B5A8F
+  all_DEF_0004_static_contracts:
+    command: python -m unittest discover -s Tools/tests -p test_def0004*.py -v
+    result: 115_of_115_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/def0004_static_suite.log
+    log_bytes: 54940
+    log_sha256: 44CEB3B2DFE082EC117C4C97388A42A81AAB747AC5F46C63E2D972D1E6CB888A
+  full_static_discovery:
+    command: python -m unittest discover -s Tools/tests -v
+    result: 498_of_505_passed_with_6_failures_and_1_error_outside_DEF_0004
+    previous_result: 496_of_504_passed_with_7_failures_and_1_error
+    exact_change: >-
+      The former DEF-0004 JournalState failure is gone and the new mutation test
+      passes. The remaining seven outcomes are pre-existing DEF-0005, Night T03,
+      and M07 Planet-PCG contract findings outside this slice.
+    stderr_log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/full_discovery.stderr.log
+    stderr_log_bytes: 392755
+    stderr_log_sha256: 59B44C32092EC44D406E4499829D6D1D24DD01BD0B6C30F17A3B9C6B4CAEBE6A
+  protected_provenance:
+    modules:
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 15_of_15_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/protected_provenance.stderr.log
+    log_bytes: 3568
+    log_sha256: 5D946D89E159D42D75E7C74BE01A1760CF04475D219FE53CADB591A1BA60CB98
+  postrecord_contract_integrity:
+    modules:
+      - Tools.tests.test_def0004_replacement_hud_quest_inventory_contract
+      - Tools.tests.test_project_knowledge_integrity
+      - Tools.tests.test_def0001_safe8_artist_atmosphere_root_cause_contract
+      - Tools.tests.test_fused_prototype_provenance
+    result: 42_of_42_passed
+    log: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/final_contract_integrity.stderr.log
+    log_bytes: 9197
+    log_sha256: 9735461657FBEE83B91906B85C1DA03CD298D9BF96D323224BC6A521465343A3
+  independent_read_only_review:
+    reviewers: 2
+    result: pass
+    findings: 0
+    confirmed:
+      - exact path and count inventory fails on a sixth or relocated approved identifier
+      - whole-token redaction does not hide FJournalState or a prefixed look-alike
+      - no broad Mining subtree exclusion or global JournalState removal was accepted
+      - canonical ownership remains M09 and DEF-0004 while M12 remains untouched
+
+protection:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  protected_checkpoint_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  protected_source_rasters: 135_of_135_exact
+  production_map_checkpoint_artist_vendor_handoff_user_asset_or_package_modified: false
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0004QuestInventoryContractReconcile_20260724_0520
+  exact_pre_slice_files: 5
+  files:
+    - {name: test_def0004_replacement_hud_quest_inventory_contract.py, bytes: 7928, sha256: B66E8AF8DE3E0C88A99114C03B0B731A1D49920D238D66F077322A4F67EB2931}
+    - {name: DEF-0004-pixel-exact-hud-static-composite.yaml, bytes: 30420, sha256: 6033BF37FC63E0745980C342ABC0F8CBF18AACE3FD98B0FDDCA692FC6B8A67D1}
+    - {name: current_state.yaml, bytes: 122336, sha256: D6FFB889631CCD1487384545CF1FFEAAE5ED26EA9EB588900A59AAFEB81081D0}
+    - {name: INDEX.yaml, bytes: 14438, sha256: F044CA8D753E9A7EEF8E1117EB45BD6D65A3FDB922CE0B6C9B3B3BC93BD44C53}
+    - {name: redmmotitan_module_queue.json, bytes: 224967, sha256: 097106F5D998D201B2CFEFA1F8BC8E05202B848A44783B9015A0B7EF9E3C60F6}
+  exact_pre_slice_bytes_retained: true
+
+project_knowledge_integrity:
+  prerecord_report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/project_knowledge_integrity_prerecord.json
+  prerecord_report_bytes: 1782
+  prerecord_report_sha256: 739DAC078C3AB701D35F9382A738AE66A3341DF2C2818A8526F4A43CF2D71191
+  prerecord_result: passed_with_0_errors_and_0_warnings
+  prerecord_indexed_evidence_count: 117
+  prerecord_indexed_route_count: 155
+  postrecord_report: D:/RedMMOTitanWindowsData/Diagnostics/DEF0004_QuestDomainScope_20260724_0524/project_knowledge_integrity_final.json
+  postrecord_result: passed_with_0_errors_and_0_warnings
+  postrecord_indexed_evidence_count: 118
+  postrecord_indexed_route_count: 156
+
+canonical_queue:
+  pre_slice_sha256: 097106F5D998D201B2CFEFA1F8BC8E05202B848A44783B9015A0B7EF9E3C60F6
+  post_slice_sha256: 19AEC3D757838B16CEE10C9F7F32F67BB0ECCE9AE8156C47C90D9DE6CD387CBC
+  module_id: M09
+  module_status: incomplete_retry
+  retry_count: 25
+  m12_record_modified: false
+
+remaining_blockers:
+  - no real server-owned stable-ID quest or objective model exists
+  - no trustworthy authoritative or replicated per-player quest producer exists
+  - serialized Blueprint graphs and asset payloads remain undecoded by this static inventory
+  - quest switching, completion, stale clearing, late join, and persistence remain unimplemented and unverified
+  - DEF-0004 and M09 remain open or incomplete for their broader runtime, visual, controller, persistence, package, Steam, and multiplayer gates
+
+claim_limit: >-
+  This evidence proves only that the bounded static quest-producer inventory is
+  current again and remains mutation-sensitive while allowing one exact
+  independent voxel edit-journal helper. It does not prove the absence of quest
+  data in undecoded serialized assets, implement or accept a quest system, compile
+  C++, launch Unreal, render pixels, exercise gameplay, validate replication or
+  persistence, package Windows, test Steam transport, or accept multiplayer.

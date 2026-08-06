@@ -1,0 +1,82 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r25-land-playerstart-persistence-automation.2026-08-05
+captured_utc: "2026-08-05T11:45:48Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: r25-persist-r24-proven-seeded-land-playerstart
+evidence_class: automation
+result: pass_playerstart_and_attached_label_saved_pending_fresh_reload_mapcheck
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  map_sha256_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: 5C50D50A8955C1E5F4270BDD4E53D1214C941725157B76422CD72B748978B837
+  seed: 1337
+  map_saved: true
+  content_saved: false
+  generation_called: false
+  pie_started: false
+
+runtime:
+  engine: Unreal Engine 5.8.1
+  rhi: D3D12
+  render_mode: RenderOffscreen
+  provider_plugins_disabled: true
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+  editor_process_count_after: 0
+
+canonical_attempt:
+  script:
+    path: D:/RedMMOTitan/Build/Automation/apply_redmmo_profile_v1_r24_land_playerstart_r25.py
+    sha256: D54CE87C9BCA5F2C924D1DAF14113583BF41E24C0F211C9F48DD11079DEDAC57
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R24LandPlayerStart_R25_20260805T1150Z/result.json
+    sha256: FD2FC0FBCCE02BCF4CFF7236835BCD330A85E2A44B641E36E6FDB5E8747CEBAF
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_PPG_ProfileV1R24LandPlayerStart_R25_20260805T1150Z/unreal.log
+    sha256: FC2DEA1008D326812B5ECB85BE3E1389DBC2C5FFC9865B8A370182CD961E82DB
+  r24_result_sha256: B1B4B00C5F177B9EF4020172BD88FA1C794D762597DE44603F0F10F63F806B32
+  terminal_status: PASS_R25_R24_LAND_PLAYERSTART_SAVED_PENDING_FRESH_RELOAD_MAPCHECK
+
+mutation:
+  playerstart_before: [-198911217.22968367, 16591254.847640004, -523634710.60749865]
+  playerstart_after: [191298068.87328622, 196950130.75085244, -421017596.52606624]
+  playerstart_rotation_preserved: [0.0, -5.282776832580566, 0.0]
+  playerstart_scale_preserved: [1.0, 1.0, 1.0]
+  attached_label_count: 1
+  attached_label_class: TextRenderActor
+  attached_label_relative_location_preserved: [-176.14661082754293, 194.88393431659483, 23.27325318406838]
+  attached_label_relative_rotation_preserved: [-27.99034882719883, -29.396086596022894, 4.179246447900821]
+  attached_label_relative_scale_preserved: [1.0, 1.0, 1.0]
+  other_actor_count_preserved: 11
+  dirty_packages_after: {content: [], maps: []}
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeRedPPGProfileV1R24LandPlayerStart_R25_20260805T1150Z
+  manifest_sha256: 27716FC37660928D41BF630851532C33B6264A11EC95FE4AE6BDB9543637B8A8
+  map_preimage_sha256: 6B45B423ED59BD8906A05CF35E7349C70282154DE2CE4723D41E0C16380F88D9
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_assets_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  This proves persistence of only the unique home-map PlayerStart and its
+  existing attached label at the R24-proven capsule center. It does not prove
+  fresh reload, MapCheck, runtime spawn grounding, visible approved grass,
+  surface day or night, broader gameplay, standalone, replication, multiplayer
+  or player approval.
+
+next_safe_action: >-
+  In one separate fresh provider-off process, reload map hash
+  0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3,
+  verify the exact PlayerStart and attached-label relationship from disk, and
+  run MapCheck without save or PIE. Only after that passes may a real-D3D12 PIE
+  prove the saved surface spawn, approved grass and matched day/night views.

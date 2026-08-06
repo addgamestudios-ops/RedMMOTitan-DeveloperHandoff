@@ -1,0 +1,142 @@
+schema_version: 1
+id: evidence.m07.tropical-region15.land-water-probe.runtime.2026-07-26
+module_id: M07
+captured_utc: "2026-07-26T16:26:14.428444Z"
+evidence_class: automation
+result: passed_current_actor_mask_and_water_datum_diagnosis
+
+scope:
+  project: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject
+  map: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1
+  production_modified: false
+  scratch_modified: false
+  map_saved: false
+  pie_entered: false
+  providers_enabled: false
+  external_write_only: true
+
+live_editor_binding:
+  unreal_version: "5.8"
+  editor_pid: 2000
+  map:
+    bytes: 107056719
+    sha256_before: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+    sha256_after: 5CD7FF8C74E58CF6956730E013E5816E5AC43ABC0469E7B20142502EBA4E9AE4
+  dirty_content_packages_before: 0
+  dirty_content_packages_after: 0
+  dirty_map_packages_before: 0
+  dirty_map_packages_after: 0
+
+planet:
+  actor: /Game/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1.RedPlanetGen_50km_FusedPrototype_M07_TropicalBiomeStage_V1:PersistentLevel.BPCLMPlanet_C_0
+  center_cm: [0.0, 0.0, 0.0]
+  planet_radius_cm: 795774.6875
+  min_height_cm: -30000.0
+  max_height_cm: 30000.0
+  sea_level_normalized: 0.5
+  water_height_cm: 0.0
+  water_radius_cm: 795774.6875
+  authoring_actor_enable_water: false
+  macro_asset: /Game/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield
+  macro_resolution: 257
+
+managed_tropical_actor_probe:
+  actor_count: 17
+  collision_disabled_count: 17
+  native_snap_complete_count: 17
+  dominant_macro_face: negative_y
+  actor_origin_radius_cm:
+    min: 784159.7209745945
+    max: 784168.1478132897
+  actor_origin_minus_water_radius_cm:
+    min: -11614.966525405529
+    max: -11606.53968671034
+  actor_origin_depth_below_water_m:
+    min: 116.0653968671034
+    max: 116.14966525405529
+  authored_land_weight:
+    min: 0.0
+    max: 0.0
+  authored_land_count_at_threshold_0_5: 0
+  authored_ocean_count_at_threshold_0_5: 17
+  finding: >-
+    All 17 currently snapped Tropical actor origins are in exact authored
+    ocean-mask samples and approximately 116.1 metres below the planet's sea
+    datum. This explains why the prior real-GPU region-15 capture was dominated
+    by blue water or fog instead of a readable island biome.
+
+sampling_contract:
+  direction_mapping: source_identical_equiangular_cube_face_projection
+  interpolation: source_identical_four_texel_bilinear
+  height_source: reflected_macro_height_arrays
+  land_source: reflected_macro_land_arrays
+  implementation_source:
+    path: D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Plugins/PlanetGenPinned_1_4_0_RedMMO/Source/PlanetGen/Private/Shared/PlanetGenMacroHeightfieldAsset.cpp
+    bytes: 22384
+    sha256: ACD7C9157809147BCACC98A39DA06AD003D94015110F0956CD0BADCB4B94C72D
+  final_resolved_surface_sampled_fresh: false
+  reason: >-
+    ACLMPlanet::SampleResolvedSurface and LineTraceActiveTerrain are plain C++
+    methods and are not exposed to the current Python reflection surface.
+    Persisted native-snap actor radii are therefore a terrain-hit proxy, not a
+    fresh analytic final-terrain sample.
+
+artifacts:
+  successful_probe_script:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_06/probe_m07_region15_land_water.py
+    bytes: 20614
+    sha256: 065D393B6541E7527354D2C56FCF8C708096A6B0195658EA34B35AAFAD83F567
+  successful_probe_output:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_07/region15_land_water_probe.json
+    bytes: 55782
+    sha256: 1BDAF9AB1C94A76F6AD832FDEB7F81B664C39F92AF6C33276DBBDF70EC983D94
+  fail_closed_reflection_attempt:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_TropBiomeRealTest_20260726_140027Z/live_06/region15_land_water_probe.json
+    bytes: 711
+    sha256: 3F4B23C48A53A122D737237EF992C2FAF4F0A19616B26BC3812A0DF8B07F8BA5
+    map_or_asset_mutation: false
+
+protected_canonical_hashes:
+  Content/RedMMO/Maps/RedPlanetGen.umap: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+
+authoring_contract:
+  tangent_local_authoring_inputs: 27
+  runtime_world_partition_cells: false
+  fused_inputs_modified: false
+
+acceptance:
+  current_actor_mask_and_water_datum_diagnosed: true
+  fresh_final_resolved_surface_sample: false
+  land_candidate_selected: false
+  cluster_relocated_or_elevated: false
+  clean_real_gpu_recapture: false
+  terrain_collision_feel: false
+  tropical_prop_collision: false
+  water_or_shoreline: false
+  buildability: false
+  seams_or_lod: false
+  performance: false
+  surface_to_orbit: false
+  visual_fit: false
+  production_integration: false
+
+next_safe_action: >-
+  In a new scratch-only slice, scan a bounded region-15 tangent neighborhood
+  against the authenticated macro land mask and heightfield to choose an exact
+  land candidate with sufficient dry-water clearance and room for the Tropical
+  cluster. Review that relocation plan before moving only the 17 disposable
+  actors and PlayerStart, then run a clean local-up real-GPU recapture. If a
+  fresh analytic final-terrain result is required before relocation, first add
+  and compile a narrowly scoped read-only Python-callable wrapper around
+  SampleResolvedSurface; do not expose mutation.
+
+claim_limit: >-
+  This proves the current disposable actor transforms, live planet water datum,
+  exact raw authored macro land weights, unchanged scratch map, and unchanged
+  protected production files. It does not freshly sample final resolved terrain
+  after macro/noise/stamps, and does not accept collision, water rendering,
+  shoreline, gameplay, buildability, seams, LOD, performance, visual fit,
+  surface-to-orbit behavior, or production integration.

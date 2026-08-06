@@ -1,0 +1,202 @@
+schema_version: 1
+id: evidence.m07.content-project-plugin-source-storage-manifest.static.2026-07-24
+captured_utc: "2026-07-24T09:24:22Z"
+module_id: M07
+system: repository.content-and-project-plugin-storage-readiness
+slice: deterministic-project-content-and-local-plugin-source-input-checksum-manifest
+evidence_class: static
+result: passed_static_source_input_storage_readiness_manifest
+
+scope:
+  authorized:
+    - build one project-owned read-only checksum manifest for the active project descriptor, all Content files, and all non-generated local-plugin inputs
+    - include plugin Resources, scripts, source art, documentation, SDK inputs, Config, Content, Source, and descriptors without mutating them
+    - reject incomplete, ambiguous, linked, aliased, unsafe, concurrently changing, or protected-hash-drifted input
+    - emit two no-clobber external diagnostic manifests and require byte identity
+  explicitly_not_run:
+    - Unreal Editor, commandlet, build, cook, package, runtime, real-GPU, Steam, or multiplayer process
+    - Content, map, plugin, vendor, supplied-art, artist-handoff, source-raster, or package mutation
+    - external storage copy, access-control-list verification, restore test, backup retention, or disaster-recovery approval
+    - plugin Binaries, Intermediate, DerivedDataCache, Saved, .git, or .vs inventory
+    - empty-directory, named-NTFS-stream, ACL, owner, or timestamp preservation
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_materially_dirty_before_slice: true
+  tracked_dirty_entries_observed: 60
+  expanded_untracked_entries_observed: 1477
+  stale_zero_byte_git_index_lock_preserved: true
+  overlapping_unreal_build_cook_package_or_runtime_processes: 0
+  other_redmmotitan_continuation_processes_observed: 0
+  physical_ram_total_gib: 31.872
+  physical_ram_free_gib_samples: [13.394, 13.415, 13.274]
+  commit_limit_gib: 54.872
+  commit_headroom_gib_samples: [28.964, 28.868, 28.913]
+  disk_c_free_gib: 124.73
+  disk_d_free_gib: 1140.01
+  gpu: NVIDIA GeForce RTX 3080
+  vram_total_mib: 10240
+  vram_used_mib: 1472
+  vram_free_mib: 8582
+  packaging_and_M12_compile_gate: closed_below_sustained_18_to_20_gib_physical_ram
+  action_decision: one_independent_offline_static_M07_source_storage_readiness_slice
+  latest_successful_build_evidence:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M09_DEF0004_UltrawideInventory_20260723_202937Z/build_isolated_inventory_captures.log
+    bytes: 19894
+    sha256: 43B7071278B809E064D6CFBF861E44F7CBC3971C5EF0E1659233AA157CA19657
+    currency_limit: predates_M12_and_this_M07_static_slice
+
+implementation:
+  builder:
+    path: Tools/build_redmmo_content_storage_manifest.py
+    bytes: 31236
+    sha256: 8D1416286BC571E1C3E6E8DBBF41A9610D4F237A192D521F1B4688151402F63F
+    contracts:
+      - authenticates the exact D:/RedMMOTitan project root and Titan.uproject identity
+      - discovers every direct project-local plugin dynamically and requires exactly one regular top-level descriptor
+      - includes all regular Content files and every non-generated regular plugin file, not only Source, Content, Config, and descriptors
+      - explicitly excludes immediate plugin .git, .vs, Binaries, DerivedDataCache, Intermediate, and Saved directories
+      - rejects project, Content, Plugins, plugin-root, selected-child, nested-directory, nested-file, and diagnostics-ancestor links or reparse points
+      - rejects hard links, non-regular files, path escapes, non-NFC names, unsafe Windows names, ADS-style colons, control characters, trailing dots or spaces, and case-insensitive collisions
+      - streams SHA-256 without loading files into memory and compares file identity before and after each hash
+      - repeats full descriptor and selected-tree discovery after all hashing and fails on any selected-input drift
+      - enforces the four canonical protected hashes inside the manifest build
+      - writes only below D:/RedMMOTitanWindowsData/Diagnostics through same-directory fsync and atomic no-clobber rename
+  tests:
+    path: Tools/tests/test_build_redmmo_content_storage_manifest.py
+    bytes: 15438
+    sha256: 1B22EDCACC78E6EAC663C70826B18A455448C7FE9D98CCB24DCECF0C22C444B4
+    focused_result: 10_of_10_passed
+  architecture_record:
+    path: docs/REDMMO_PROJECT_ARCHITECTURE_AND_WORLD_AUTHORING_TOOLS.md
+
+independent_review:
+  result: no_blocker_after_fail_closed_corrections
+  blocking_findings_closed:
+    - generated exclusion names are now inspected for reparse status before exclusion
+    - every direct Plugins child is lstat-classified so broken links and unexpected files cannot disappear from discovery
+    - the lexical project root is authenticated before resolution
+    - lexical diagnostics ancestors are checked before resolved containment
+    - output containment and no-clobber state are revalidated after the long scan
+    - status and claim text now enumerate all exclusions and keep external copy, ACL, and restore false
+  residual_explicit_limits:
+    - empty directories, named NTFS streams, ACLs, owners, timestamps, and generated plugin products are not represented
+    - adversarial handle-level replacement races are outside this offline manifest
+
+manifest:
+  run_root: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z
+  report:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest.json
+    bytes: 2218458
+    sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+    status: checksummed_source_inputs_ready_external_storage_unverified
+  deterministic_repeat:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/content_project_plugin_source_storage_manifest_repeat.json
+    bytes: 2218458
+    sha256: FE2927FEAEEF55BF92B01AB52996CE6A1CEFB60D3BCB0438014C8BF46A3BAE00
+    byte_identical: true
+  coverage:
+    total_files: 8228
+    total_bytes: 10490519650
+    path_set_signature_sha256: E40E2A68FC035E023A5A6A273723F3E5937E29855E54D43ADBCAE3E245F4D9BA
+    payload_set_signature_sha256: A9B618EE1B51E381AA02C5350C97D4BE96CF892C18429D094AFEDA715570CD77
+    project_descriptor_files: 1
+    project_content_files: 7147
+    project_content_bytes: 9902601430
+    project_content_signature_sha256: 9787C22EC606F307D05D842800F0522EE6D6A69E55BAE4B91ADE4805312C0E6C
+    project_plugin_files: 1080
+    project_plugin_count: 4
+    tree_quiescent_during_both_scans: true
+  plugins:
+    - {id: PlanetGen, root: Plugins/PlanetGenPinned_1_4_0_RedMMO, files: 256, bytes: 549608842, signature_sha256: CEE9D7890906A191C74513643FBA1C6F8A98C8AA8D0875CC9E2B13AE5A118C30}
+    - {id: RedHUD, root: Plugins/RedHUD, files: 70, bytes: 13033824, signature_sha256: 4233FBDF16DEADE11F8CDA355EFAA9179FB14FBA2B1AB410692CF2AC92846680}
+    - {id: SteamIntegrationKit, root: Plugins/SteamIntegrationKit, files: 713, bytes: 24964615, signature_sha256: DE0025E64CA6368765A5E86E075AD5AD8B29CDA14373473721155CFF28BBAE59}
+    - {id: VibeMMOUIKit, root: Plugins/VibeMMOUIKit, files: 41, bytes: 301813, signature_sha256: 0E3BCFF89415A13E88C38E5615C6B9B6A6A625B898152AF3B75281A438E84332}
+  external_storage_copied: false
+  external_storage_access_control_verified: false
+  restore_tested: false
+
+protected_inputs:
+  - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724, matches: true}
+  - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D, matches: true}
+  - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284, matches: true}
+  - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562, matches: true}
+
+post_manifest_integrity:
+  package_inventory:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/post_manifest_asset_library_inventory.json
+    bytes: 5161444
+    sha256: 387B695FA2A09766533BF0DDD5CAF11695A2A15EF252F068B6A50ACA9571778C
+    packages: 7353
+    assets: 7294
+    maps: 59
+    package_bytes: 10449604064
+    inventory_signature_sha256: 89C0FB3ABFD6A12C1A13719A036E2A47B84DD4CAE82A5F74F6C6BCD06301EF31
+    matches_pre_manifest_signature: true
+  focused_static_and_protected_provenance:
+    result: 37_of_37_passed
+    suites:
+      - Tools.tests.test_build_redmmo_content_storage_manifest
+      - Tools.tests.test_build_redmmo_asset_curation_manifest
+      - Tools.tests.test_export_redmmo_asset_registry_catalog
+      - Tools.tests.test_audit_redmmo_asset_library
+      - Tools.tests.test_fused_prototype_provenance
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/focused_static_and_provenance_tests.stderr.log
+      bytes: 16368
+      sha256: 66D8D36635A4D5798DD06A71FD7C4E6621620F6CE9917C9598FE987BFCC0290F
+  full_offline_test_discovery:
+    result: 535_of_535_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/full_offline_test_discovery.stderr.log
+      bytes: 224372
+      sha256: 72C55AE7A2976DE721AE39C9BFED402D6AE78959E89F7487875ECA380A705B22
+  canonical_integrity:
+    result: passed
+    error_count: 0
+    warning_count: 0
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/project_knowledge_integrity_post_evidence.json
+      bytes: 1782
+      sha256: F72490E12434F17B56247563C577A9BC12343E7631C992DBA18868378629D09B
+  combined_integrity_and_m07_tests:
+    result: 57_of_57_passed
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/M07_ContentStorageManifest_20260724_0930Z/combined_integrity_and_m07_tests.stderr.log
+      bytes: 24258
+      sha256: C16656C67005D27783DC072BDF65D1537B4A590F367258D56BA2CF6CF729631B
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Rollback/M07_ContentStorageManifest_20260724_0910Z
+  exact_canonical_and_architecture_preimages: 4
+  new_builder_test_and_evidence_have_no_preimage: true
+  unrelated_dirty_work_preserved: true
+
+protection:
+  unreal_or_build_process_launched: false
+  packaging_launched: false
+  real_gpu_or_gameplay_claimed: false
+  production_map_modified: false
+  protected_checkpoint_modified: false
+  fused_prototype_or_heightfield_modified: false
+  protected_source_rasters: 135_of_135_exact
+  artist_repository_or_handoff_modified: false
+  vendor_or_supplied_asset_modified: false
+  plugin_input_modified: false
+  package_tree_signature_changed: false
+
+claim_limit: >-
+  This is static source-input checksum and storage-readiness evidence. It is not
+  an external backup, access-control audit, restore test, exact filesystem
+  topology record, license approval, dependency proof, Unreal load or save,
+  build, runtime, visual, gameplay, package, Steam, or multiplayer evidence.
+
+next_safe_action: >-
+  Copy the authenticated manifest scope to a private access-controlled external
+  store, verify ACLs, and execute one isolated restore-and-rehash test before
+  closing the Phase 0 storage gate. Separately obtain provenance and license
+  records, review one small coherent family and its real Unreal dependencies,
+  then author one project-owned palette or catalog entry and one isolated review
+  map. Do not mutate vendor packages or package below the sustained 18-20 GiB
+  physical-RAM gate.

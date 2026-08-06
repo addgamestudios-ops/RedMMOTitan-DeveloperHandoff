@@ -1,0 +1,145 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r32-grass-material-readable-color-visual-partial.2026-08-05
+captured_utc: "2026-08-05T13:29:19Z"
+module_id: M07
+system: presentation.clean-redmmo-ppg-home-world
+slice: r32-project-owned-masked-grass-material-correction
+evidence_class: real_gpu_visual
+result: partial_grass_pixels_restored_but_color_too_saturated_and_night_sky_black
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_count_before: 194
+  free_physical_ram_gib: 49.93
+  free_gpu_vram_mib: 7713
+  free_d_drive_gib: 767.97
+  unreal_or_build_processes_before: 0
+  provider_ports_closed: [11111, 5353, 8000, 8765]
+  desktop_control: false
+
+project:
+  path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  map_sha256_before_after: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256_before_after: D226215C7367808F4A2E3225A0C9CBD7F4F32E803ABEFD22CA39062CD5538970
+  foliage_successor_sha256_before_after: D1ACEE4F403D2082FF49CB57D52907AAADA0C20D06386576C435557CF49404D8
+  seed: 1337
+  map_saved: false
+
+diagnosis:
+  inspector: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32_20260805T1320Z/inspection.json
+  inspector_sha256: DFB6C8AD357C10924CFA403C92EDD9FA4CC26BAE917444993289D3A172E15628
+  findings:
+    - both project-owned R10N grass instances inherited the vendor opaque parent while the vendor material documents an opacity-mask path that requires Masked blend mode
+    - custom grass color and color effects were disabled and the saved colors were extremely dark, explaining the R31 black unlit pixels
+    - density, height, PPG eligibility, seed, topology, culling and transforms were not implicated and were not changed
+
+writes:
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/World/PPG/HomeWorld/StylizedBinding/R32/Materials/M_GrassChunks_PPGReadable_R32.uasset
+    role: project-owned masked parent duplicated from the unchanged vendor base
+    sha256: 2BD2B8DD41C611CF1250F1A39C40D3B4A7C47B5EB71ECD1497732546B80F0210
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_A_R10N.uasset
+    before_sha256: 6B6410611A60F382B57BA92C35B585D4954F491434680F1B6E74080A578ECCA0
+    after_sha256: DD8E4BEE5ECB06FE126E1662E1D35475AC0441BB4FD2015BD1BF59C44952C82E
+  - path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Content/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Materials/MI_GrassChunks_DenseTall_B_R10N.uasset
+    before_sha256: FA3994C498C80335E2077AAF8EDD41AEF5A32C0B4E3EABA1BB02E1A10F63950B
+    after_sha256: 9EC5A7261F8C9606931DD596A4F71F7ADD8D746F6C5C5055523E2951939E6CC1
+  - path: D:/RedMMOTitan/Build/Automation/inspect_redmmo_grass_material_r32.py
+    sha256: 30DDB982CB0C99EC7C414E268F3BCE680AE47E00994990C09AE36E15474D8C79
+  - path: D:/RedMMOTitan/Build/Automation/apply_verify_redmmo_grass_material_r32.py
+    sha256: CEFEF95F25AE341C92C6BBEF27FB5FDEE6F92A7869BB22C56D9815EF73CDB55A
+
+material_correction:
+  parent_blend_mode: BLEND_MASKED
+  opacity_mask_clip_value: 0.3333
+  two_sided: true
+  custom_color_enabled: true
+  color_effects_enabled: true
+  landscape_color_amount: 0.0
+  grass_color_intensity: 0.95
+  grass_color_contrast: 1.05
+  grass_color_saturation: 0.05
+  grass_color_min_value: 0.75
+  grass_color_max_value: 1.08
+  material_a_color: [0.055, 0.300, 0.025, 1.0]
+  material_b_color: [0.075, 0.360, 0.035, 1.0]
+  material_a_highlight: [0.220, 0.520, 0.070, 1.0]
+  material_b_highlight: [0.280, 0.600, 0.090, 1.0]
+
+automation:
+  render_backend: D3D12
+  render_mode: RenderOffscreen
+  resolution: [1280, 720]
+  provider_plugins_disabled: true
+  result: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32E_20260805T1350Z/result.json
+  result_sha256: AF94D565B4AE2DED6946D4B47EB4ED8709686189F3B33E8E4340E0EE38543089
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32E_20260805T1350Z/unreal.log
+  log_sha256: 325C14E2C526554CAD1F6BDEB78D77A511FDE722BE9B846101C1344A3C64322C
+  terminal_status: PASS_R32_GRASS_MATERIAL_SAVED_AND_D3D12_CAPTURED_PENDING_PIXEL_REVIEW
+  discarded_attempts:
+    - output: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32_20260805T1325Z
+      cause: invalid MaterialEditingLibrary usage-override call on a base Material
+      persisted_effect: created only the rollback-covered project-owned parent; R10N instances remained exact preimages
+    - output: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32B_20260805T1330Z
+      cause: no-clobber correctly rejected the partial parent
+      persisted_effect: none
+    - output: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32C_20260805T1340Z
+      cause: material save pumped Slate and exposed PREPARE callback re-entry
+      persisted_effect: parent reserialized only; R10N instances remained exact preimages
+    - output: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32D_20260805T1345Z
+      cause: non-exposed optional GrassEmissive_Intensity parameter failed closed before instance save
+      persisted_effect: none beyond the already rollback-covered parent
+
+runtime:
+  generation_phase: COMPLETE
+  approved_grass_components: 196
+  total_reported_instances: 2218356
+  hidden_non_grass_primitives_for_unlit_capture: 1582
+  dirty_packages_after: {content: [], maps: []}
+  editor_process_count_after: 0
+
+captures:
+  grass_only_unlit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32E_20260805T1350Z/grass_only_unlit_r32.png
+    sha256: 3BD143B1554C463B17AB4BAC53FCC8BB5519B8BCD0A64ABF0F839616F6B35798
+    bytes: 680908
+    nonblack_pixel_ratio_gt_8: 0.398574
+    green_dominant_pixel_ratio: 0.398496
+    saturated_green_pixel_ratio: 0.169364
+    independent_review: dense tall masked grass silhouettes are clearly readable from near ground through the distant terrain
+  player_scale_normal_lit:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GrassMaterial_R32E_20260805T1350Z/player_scale_normal_lit_r32.png
+    sha256: 9475AF79D9F19202353145FC9EB146A618050A6BDAA58FCE25CB5D88C86990FB
+    bytes: 1716441
+    nonblack_pixel_ratio_gt_8: 0.917656
+    green_dominant_pixel_ratio: 0.806324
+    saturated_green_pixel_ratio: 0.304646
+    independent_review: grass is now dense and visible, but its lime-green color is too saturated and the surrounding terrain is still uniformly neon; the sky is still black at this night location
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeGrassMaterial_R32_20260805T1318Z
+  manifest_sha256: 9B44CABB3118206588FC7C39C66EE23EE28082B067286B93180632231F083EB2
+  policy: authenticate current post-mutation hashes, restore the two exact preimages and remove only the exact R32 project-owned parent
+  used: false
+
+protected_state:
+  protected_test_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  protected_fused_map_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  protected_hashes_unchanged: true
+  vendor_source_changed: false
+  production_redmmotitan_changed: false
+
+claim_boundary: >-
+  R32 proves the project-owned masked/custom-color material path restores dense
+  visible pixels for the existing seeded PPG grass distribution. It does not
+  accept the current lime/neon color balance, uniformly green biome ground,
+  black night sky, gameplay, standalone, replication, multiplayer or player
+  approval.
+
+next_safe_action: >-
+  Preserve the R32 masked parent, R29 eligibility, R30 bridge, exact grass
+  meshes, density, height, seed and transforms. Make one rollback-backed
+  parameter-only R33 color restraint pass using darker hand-painted olive/green
+  values and lower highlight energy, then require matched grass-only unlit and
+  normal-lit player-scale D3D12 review. Keep surface-night stars/moon and biome
+  diversity in their own independent queued slices.

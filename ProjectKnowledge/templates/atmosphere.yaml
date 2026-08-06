@@ -1,0 +1,33 @@
+schema_version: 1
+template: celestial.atmosphere
+
+id: "atmosphere.<slug>"
+body_id: "planet.<slug>"
+display_name: "<artist-facing name>"
+status: specified
+
+geometry:
+  center_source: owning_body
+  bottom_radius_cm: null
+  atmosphere_height_cm: null
+  component_scale: [1.0, 1.0, 1.0]
+
+gameplay_transition:
+  breathable_ceiling_cm: null
+  space_transition_start_cm: null
+  space_transition_end_cm: null
+
+rendering:
+  implementation: "<SkyAtmosphere or project-owned implementation>"
+  density_profile_id: "atmosphere-density.<slug>"
+  cloud_bounds_id: null
+
+validation:
+  surface_real_gpu_capture: null
+  orbit_real_gpu_capture: null
+  visual_scale_accepted: false
+
+known_defect_ids: []
+evidence:
+  status: specified
+  artifacts: []

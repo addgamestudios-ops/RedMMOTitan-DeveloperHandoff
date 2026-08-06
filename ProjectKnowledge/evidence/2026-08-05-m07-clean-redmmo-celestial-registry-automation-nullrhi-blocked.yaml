@@ -1,0 +1,100 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-celestial-registry-automation-nullrhi-blocked.2026-08-05
+captured_utc: "2026-08-05T01:04:00Z"
+module_id: M07
+system: identity.clean-redmmo-celestial-frame-registry
+slice: focused-native-registry-automation-execution
+evidence_class: automation
+result: blocked_after_engine_init_before_automation_discovery_nullrhi_tnotnull
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  launch_map: /Engine/Maps/Entry
+  renderer: NullRHI
+  content_or_map_changed: false
+
+launcher:
+  executable: D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe
+  test_filter: RedMMO.Identity.CelestialRegistry
+  provider_plugins_disabled: [ModelContextProtocol, VibeMMOUIKit]
+  sound_disabled: true
+  shader_compile_disabled: true
+  valid_run_one_process_tree: [1856, 22856, 2196]
+  valid_run_two_process_tree: [8848, 20188, 5960]
+  exact_process_trees_exited: true
+
+first_valid_run:
+  test_source_sha256: 466B2FDF8702D3FFEDF771A43205544BA45F0C829CBF76076E442109095DDAD5
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryAutomation_20260805T0050Z/RedMMO_CelestialRegistry_Automation.log
+    sha256: 469C0A597F9341BF66E5BD1D997A63C2C85269588374774BDE91AB746F7A3898
+  engine_initialized: true
+  automation_discovery: false
+  tests_executed: 0
+  report_created: false
+  fatal: UE_Core_NotNull_line_12_null_assigned_to_TNotNull
+
+fixture_context_correction:
+  rollback_manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeRedMMOCelestialRegistryTestFixtureFix_20260805T0100Z/manifest.yaml
+    sha256: E66CDB77045611581EFCC8B77BD919A5FFCEDE245AFD62D080F39044EB706361
+  change: synthetic_test_world_now_requests_an_engine_world_context_and_unique_name
+  corrected_test_source_sha256: 4F721397BADED4C23A72A0C8523A12334760CE417E1BD581373CF4319D7B3522
+  build:
+    target: RedMMOEditor Win64 Development
+    result: succeeded
+    actions: 4
+    elapsed_seconds: 40.24
+    compiler_warnings: 0
+    compiler_errors: 0
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryFixtureFixBuild_20260805T0100Z/RedMMOEditor_build.log
+      sha256: 2AF302B82DEE5A2681BC7AE59C87466BB8EE1DA48FBC70689300C2D3D6F35E4C
+    module_dll_sha256: 17C237439C0A1BA40FB74B1B66BFEDEC762C60ABE5BFF1BA288853B58649A8C4
+
+second_valid_run:
+  log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_CelestialRegistryAutomation_FixtureFix_20260805T0100Z/RedMMO_CelestialRegistry_Automation.log
+    sha256: 6161D4C09B7F125A720C95B188F876D2A3C68AF468B67FDD93159D1061198A94
+  crash_context:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/Saved/Crashes/UECC-Windows-6C7A45BF4B53B30602A5FA880C02932D_0000/CrashContext.runtime-xml
+    sha256: CF0202F86019C6038E3265DEEAB29D34D4349D220A1A78540781B6D5532A1D04
+  engine_initialized: true
+  automation_discovery: false
+  tests_executed: 0
+  report_created: false
+  fatal: UE_Core_NotNull_line_12_null_assigned_to_TNotNull
+  callstack_modules: [UnrealEditor-Core, UnrealEditor-Engine, UnrealEditor-UnrealEd, UnrealEditor-Cmd]
+  redmmo_test_function_on_callstack: false
+
+diagnosis: >-
+  The identical engine-only assertion occurs immediately after FEngineLoop
+  initialization both before and after the test-world context correction. The
+  log contains the filter only in the process command line, no automation
+  discovery/run marker, no per-test result and no report. The evidence therefore
+  does not attribute the crash to registry production code or to an executed
+  scenario. NullRHI/post-init automation startup is the bounded blocker.
+
+protection:
+  home_map_sha256_before_after: 0AB96B91A1F42042C878DC1822E3BB6D6C14DD0D5F3693D2FCD6492819D7EA75
+  r17_planet_sha256_before_after: ADFC9D79B509A9998C66229CF67E65C6E560E238141BE30F22C705075C3C6C55
+  protected_hashes:
+    RedPlanetGen_50km_Test: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+    RedPlanetGen_50km_FusedPrototype: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  final_unreal_or_build_process_count: 0
+  provider_ports_closed: [5353, 8000, 8765]
+  providers_called: false
+  desktop_control_used: false
+
+claim_limit: >-
+  The fixture correction and editor build pass, but none of the three registry
+  scenarios executed. This is not runtime registry, PPG producer, cleanup,
+  client replication, warp, visual, standalone, travel or multiplayer evidence.
+
+next_safe_action: >-
+  Do not repeat this NullRHI automation launcher. On the next wake rotate to an
+  independent authorized M07 slice from the canonical queue. Return to registry
+  execution only with a materially different bounded host, such as a guarded
+  D3D12 RenderOffscreen entry after explicit startup review, or a dedicated
+  dependency-minimal test host; do not wire a PPG producer before the tests run.

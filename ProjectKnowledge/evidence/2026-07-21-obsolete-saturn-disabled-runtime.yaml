@@ -1,0 +1,53 @@
+schema_version: 1
+id: evidence.legacy-saturn-disabled.2026-07-21.runtime-01
+evidence_class: real_gpu_visual
+captured_local: "2026-07-21T06:40:14+03:00"
+platform: Windows
+rhi: PCD3D_SM6
+map: /Game/RedMMO/Maps/RedPlanetGen
+target: feature.celestial.legacy-saturn-retirement.2026-07-21
+
+action:
+  - launch the production map in the bounded real-GPU HUD acceptance profile
+  - execute ARedSpaceScenery::BuildScenery
+  - confirm the legacy body, procedural bands, prototype moons, gravity registration, and tagged ring asteroids remain disabled
+
+result:
+  runtime_gate: pass
+  visual_absence_gate: pending_orbit_capture
+  observed:
+    - runtime emitted exactly one Legacy Saturn prototype disabled marker
+    - runtime emitted zero Ring world built markers
+    - the current module contains the compile-time-off gate and defensive cleanup path
+    - shutdown completed without fatal, assertion, video-memory, GPU-crash, or device-removal markers
+  claim_limit: >-
+    This proves the obsolete custom Saturn-like prototype is disabled in the
+    current production runtime. It does not yet provide an orbit-view capture
+    proving the final celestial composition, and it does not represent or
+    substitute for PlanetGen 1.5 ACLMRingWorld.
+
+artifacts:
+  runtime_log:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/HUD_PixelExact_20260721/HUD_RealGPU_1280x720_v2.log
+    sha256: 74D6A37F1C96F1F4B2B49B1B8AA1BD40C0916CECC2D8150EE598FB23DAE722E8
+    markers:
+      legacy_disabled: 1
+      legacy_built: 0
+  editor_module:
+    path: D:/RedMMOTitan/Binaries/Win64/UnrealEditor-RedMMO.dll
+    sha256: C2C71B4903C87E870CEAD0EC853E21EA4CBCD4DCA60014C08CE6AB4BB101DCCD
+  source:
+    - Source/RedMMO/RedSpaceScenery.cpp
+    - Source/RedMMO/RedSpaceScenery.h
+
+protected_checkpoint:
+  path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+  sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  modified: false
+
+machine_safety_audit:
+  unreal_process_count: 0
+  free_ram_gb: 2.45
+  disposition: >-
+    No additional editor or GPU runtime was launched during this audit because
+    available physical memory was below the safe project threshold.

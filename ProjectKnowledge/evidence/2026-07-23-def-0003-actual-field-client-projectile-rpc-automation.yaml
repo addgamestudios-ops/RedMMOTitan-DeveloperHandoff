@@ -1,0 +1,246 @@
+schema_version: 1
+id: EVIDENCE-2026-07-23-DEF-0003-ACTUAL-FIELD-CLIENT-PROJECTILE-RPC-AUTOMATION
+captured_at: "2026-07-23T11:53:02Z"
+module: M00
+defect: DEF-0003
+system: asteroid-field.red.mars.deep-space
+slice: actual-field-client-originated-production-projectile-rpc
+evidence_class: automation
+result: pass_bounded_actual_field_client_projectile_rpc
+
+scope:
+  authorized:
+    - extend the existing actual-field listen-server plus Client 1 editor-only harness
+    - originate one production ServerFire RPC from the owning autonomous Client 1 proxy
+    - require the server-owned ARedBolt to hit stable production field member 23
+    - retain the already accepted depletion, reward, HUD, destruction-pixel, audio, and peer-preservation gates
+    - compile TitanEditor and run one official-UE-MCP D3D12 automation test
+  explicitly_preserved:
+    - production mining authority, weapon cadence, projectile damage, depletion state, reward amounts, stable identity, transform, capacity, presentation cutoff, and network distance
+    - all production maps, protected checkpoints, production VFX and audio, and twenty-three peer field members
+    - artist repositories and handoffs, supplied art, user assets, and unrelated dirty work
+  not_run:
+    - physical keyboard or mouse fire input
+    - player-controlled travel into the field or naturally acquired mining range
+    - simultaneous client-originated final-hit RPC arrival
+    - server-restart persistence or explicit respawn behavior
+    - human-perceived audio mix-quality, attenuation, or concurrency acceptance
+    - warning-free final presentation
+    - Windows packaging, Steam transport, two accounts, or capacity testing
+
+baseline:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  branch: main
+  worktree_policy: >-
+    The repository was already materially dirty. Git was not used as rollback
+    authority and no unrelated entry was cleaned, staged, reset, or overwritten.
+
+rollback:
+  path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ProjectileRPC_20260723_144108
+  manifest:
+    path: D:/RedMMOTitanWindowsData/Rollback/BeforeDEF0003ProjectileRPC_20260723_144108/rollback_manifest.json
+    sha256: D7F6CF9EF7D280384E1B6117D25CBB9F00DF4823A9893869FC59AD50D4BC72C5
+  copied_and_hash_verified_files: 11
+
+implementation:
+  production_runtime_changed: false
+  editor_only_harness:
+    path: Source/RedMMO/Tests/RedDEF0003ActualFieldTwoClientDepletionPIETests.cpp
+    sha256: 7F3609912797A6E00C684651BFCE68C4B78C280783A61F7079EE52A7ACED13CB
+    automation_test: RedMMO.Mining.DEF0003.ActualFieldTwoClientDepletionPIE
+    behavior:
+      - requires a locally controlled Client 1 autonomous proxy in NM_Client
+      - resolves the reflected production ServerFire UFunction and requires Net, NetServer, and NetReliable flags
+      - populates the exact reflected RPC parameters through FStructOnScope and calls ProcessEvent on the owning client proxy
+      - never calls ServerFire_Implementation or RegisterMiningHit for the projectile-delivery step
+      - places the bounded test pawn outside the actual member collision surface and preflights an unobstructed muzzle trace to member 23
+      - requires a server bolt and Client 1 proxy bolt with matching remote-pawn owner, instigator, and sequence 60001
+      - requires exact authority and Client 1 ore replication from 6000 to 5820 after one 180-ore projectile hit
+      - completes the remaining 5820 ore with six direct authority calls so all previously accepted gates remain exercised
+  focused_contract:
+    path: Tools/tests/test_def0003_asteroid_depletion_contract.py
+    sha256: 38E2E8A740B01704723520AFE9496FF8B531713F584FFA4FFA54B19280FA97A3
+    result: 27_of_27_passed
+    safeguards:
+      - requires the reflected client ProcessEvent RPC path
+      - rejects ServerFire_Implementation in the harness
+      - requires projectile-delivery and client-originated-RPC result markers
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/contract-tests-final.log
+      sha256: 4B720CEF509FF5BF426C49BFEC677FD89A5759F153AE67D3BB5D3A4F1D95B7F9
+
+build_verification:
+  titan_editor:
+    target: TitanEditor Win64 Development
+    result: succeeded
+    elapsed_seconds: 18.93
+    log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/TitanEditor_projectile_rpc_build.log
+      sha256: E9A7286B7E14679D6CD6599F94B239E7241427531543CD38656F1F8DA5E3F8F2
+  titan:
+    result: not_rebuilt_for_editor_only_harness_change
+    note: >-
+      No production source changed in this slice. The current Titan Win64
+      Development link remains covered by the immediately preceding canonical
+      DEF-0003 audio evidence.
+
+runtime_acceptance:
+  evidence_class: automation
+  renderer: D3D12 SM6
+  gpu: NVIDIA GeForce RTX 3080
+  editor_process_count: 1
+  topology: in_process_listen_server_plus_client_1
+  online_subsystem: disabled
+  automation:
+    result: pass_1_fail_0
+    elapsed_seconds: 11.578817
+    official_ue58_mcp_command: UAIP.Editor.Execution.RunAutomationTest
+    report_artifact_id: 00AD2C37495672DEA310F189B875E9DD
+    log_artifact_id: BC3086F94FC766090B357D93B9FBCF30
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/RunAutomationTest_projectile_rpc.json
+      sha256: 44B940E97EA82F62EE7466E0AD55E251FA1F25768B5A7EFD99119F1148122BC6
+    report_text:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/RunAutomationTest_projectile_rpc.txt
+      sha256: 08520C3B03DB0D99CF4B0C38A2B57BE917C9ECAF8D516ED6539FA84876089AED
+    runtime_log:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/Titan_runtime_projectile_rpc_pass.log
+      sha256: DF8CD7A458FEF5AE0DD4A5ED0A8548287D5F437FC973DC1347AFF5793F4B414C
+  rpc_submission:
+    pass: true
+    local_role: autonomous_proxy
+    server_role: authority
+    net_mode: client
+    sequence: 60001
+    muzzle_parity_cm: 137.25
+    path_hit: RedMineableAsteroid_23
+    path_distance_cm: 11991.1
+  projectile_delivery:
+    pass: true
+    client_originated_rpc: true
+    production_projectile_delivery: true
+    authority_bolt: true
+    remote_client_bolt_proxy: true
+    owner_instigator_parity: true
+    stable_member_id: asteroid-field.red.mars.deep-space/0x4F524531/23
+    ore_before: 6000
+    authority_ore_after: 5820
+    client_1_ore_after: 5820
+    extracted_ore: 180
+    bolt_speed_cm_per_second: 7200.0
+    elapsed_seconds: 2.953
+    pristine_peer_members: 23
+  bounded_completion:
+    accepted_hits: 7
+    projectile_hits: 1
+    direct_authority_hits: 6
+    projectile_extracted: 180
+    direct_extracted: 5820
+    total_extracted: 6000
+    exactly_once_remote_iron: 6
+    host_iron: 0
+    client_1_hud_text: "STONE 0   IRON 6   CRYSTAL 0"
+    replicated_final_phase_sequence: "2/2"
+    pristine_peer_members: 23
+    simulated_and_recently_rendered_debris: "12/12"
+    flash_luminous_pixels: 3728
+    flash_warm_pixels: 1093
+    warm_pixel_matched_hot_debris: "4/4"
+    moving_hot_debris: 4
+    changed_central_pixels: 2040
+    late_luminous_pixels: 676
+    late_warm_pixels: 65
+  audio_regression:
+    format: PCM16_stereo_48000_hz
+    duration_seconds: 1.792
+    samples_at_or_above_absolute_128: 95389
+    peak_absolute_sample: 20671
+    rms: 2621.938
+  captures:
+    root: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/RuntimeCapture
+    files:
+      - {name: DEF0003_Field_MP_Depletion_Audio.wav, sha256: 82AD76A34481E3612A77904DD4A2610AF73C24EB132CA4A66FC34CA6C5DA9FA9}
+      - {name: DEF0003_Field_MP_Depletion_Before.png, sha256: 1052DFEE0A8FC8F66D573A7022F9DD86B5CA6BDB64B7DB30BDD760DB941FC6F5}
+      - {name: DEF0003_Field_MP_Depletion_Transition.png, sha256: 8394B134A524ADD62FA68105F6E413933EE2FD4A8F726A61D9D158F7D620CBC2}
+      - {name: DEF0003_Field_MP_Depletion_Explosion.png, sha256: 8E9942489991C007FD3B6A463EA934528C744C978C4892AB6EFB1A5DE98717AE}
+      - {name: DEF0003_Field_MP_Depletion_Debris_A.png, sha256: CACC6AE00605FE12F859BDA3AA9FD590C484E22101C9502F6A942A1424553809}
+      - {name: DEF0003_Field_MP_Depletion_Debris_B.png, sha256: 3885039866D1BC241E55DEC3244396CFF809584654239BD21BE3C67F0D3DAE84}
+  explicit_result_marker: >-
+    acceptancePass=1 evidenceClass=automation topology=in_process_two_client
+    actualFieldMember=1 stableIdentity=1 exactOnceReward=1 remoteHUDParity=1
+    rewardAudioOwnerComponent=1 destructionAudioComponents=1
+    separatePIEAudioDevices=1 pieAudioDeviceUnmuted=1
+    clientMixerWavNonSilent=1 destructionPixels=1 flashPixels=1
+    debrisPixels=1 debrisMotion=1 pristinePeers=23 cutoffOverridden=0
+    testTeleport=1 playerControlledTravel=0 projectileDelivery=1
+    clientOriginatedRPC=1 physicalFireInput=0 independentPlayerListening=0
+    mixQuality=0 packageAudio=0 steamTransport=0
+
+known_nonblocking_runtime_warnings:
+  - the optional Voxel collision-invoker class is absent and ship code reports its raycast fallback
+  - r.MotionVectorSimulation reports a render-thread safety warning
+  - teardown reports one attempted SpawnActor while the world is already tearing down
+
+resource_and_process_gate:
+  final_free_physical_ram_gib: 17.324
+  final_free_commit_headroom_gib: 34.747
+  final_free_vram_mib: 8795
+  final_free_disk_d_gib: 1141.110
+  final_unreal_or_build_processes: 0
+  packaging_gate: >-
+    Packaging was not launched because free physical RAM had not remained
+    sustainably inside the required 18-20 GiB range.
+
+protection:
+  files:
+    - {path: Content/RedMMO/Maps/RedPlanetGen.umap, sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap, sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D}
+    - {path: Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap, sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284}
+    - {path: Content/RedMMO/Maps/Tests/RedPlanetGen_50km_FusedPrototype_Night_T03.umap, sha256: 211429783F757F3CD8DE4A37B1E37B4A117125BF26EBFCBACF97CCFA9EFBE8D7}
+    - {path: D:/RedMMOTitanWindowsData/Rollback/BeforeCoastDatum_20260714/RedPlanetGen_50km_FusedPrototype.umap, sha256: A9C42C0D1B0429DD1018F00F0D2AB8A18F66C07291611964EFF5F9710F3B0C6A}
+    - {path: Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset, sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562}
+    - {path: D:/RedMMOTitanWindowsData/PackagedBuilds/Development_50KM_FOUNDATION_20260716_064703/REDMMO_PACKAGE_READY.txt, sha256: 26B00A20C4B18717CEC36B5CA289CC9001AE1E65DA649404ACC8721F14EF26E8}
+    - {path: D:/RedMMOTitanWindowsData/ArtistHandoff/RED_Mars_27Patch_ArtistB_UE58_SAFE8.zip, sha256: 7EDC9324F1B0AD9C20F5C925B9FA7D8A19A66C5DA2C0A33BFCE0C4F302E4B784}
+  result: 8_of_8_exact_after_runtime
+
+remaining_gates:
+  - player-controlled travel and naturally acquired mining range
+  - physical fire input if input-device acceptance is required
+  - simultaneous client-originated final-hit contention if required
+  - explicit server-restart persistence or respawn semantics
+  - human-perceived audio mix, attenuation, and concurrency acceptance
+  - warning-free final presentation
+  - packaged Windows, Steam transport, two-account acceptance, and capacity testing
+
+canonical_sync:
+  module_status: incomplete_retry
+  retry_count: 38
+  queue_sha256_after: 2BB8D79E01976809F3583E2F6529AB2161BA248EF62AB4BA85D72930C3777667
+  current_state_queue_hash_matches: true
+  defect_status: implemented_awaiting_runtime_acceptance
+  yaml_and_json_parse: 7_of_7_passed
+  integrity_fixture_tests: 20_of_20_passed
+  integrity_audit:
+    result: historical_failures_unchanged_new_slice_zero
+    error_count: 64
+    warning_count: 0
+    finding_counts: {PKI009: 23, PKI011: 17, PKI012: 20, PKI016: 1, PKI020: 2, PKI022: 1}
+    report:
+      path: D:/RedMMOTitanWindowsData/Diagnostics/DEF0003_ProjectileRPC_20260723_1448/project-knowledge-integrity.json
+      sha256: 96B3C383B1C68F7D623DDF6C20F1CFE7BD1937F7D6107CDA3332FEEE4936428D
+
+claim_limit: >-
+  This is rendered RTX 3080 D3D12 automation evidence for one actual production
+  field member in one local UnrealEditor process with a listen server and
+  Client 1. It proves an owning autonomous client proxy invoked the reflected
+  production reliable NetServer ServerFire UFunction, the authority spawned
+  and delivered a replicated ARedBolt with the expected owner and instigator,
+  and the actual stable member replicated exactly 6000 to 5820 ore on the
+  server and Client 1 after the 180-ore projectile hit. The harness used a
+  bounded test teleport and a reflected ProcessEvent call, not player-driven
+  travel or physical input. Six direct authority calls completed the remaining
+  depletion so this slice does not prove every mining hit or simultaneous
+  final hits traversed the client wire. It does not prove naturally acquired
+  range, simultaneous wire arrival, server-restart persistence, respawn policy,
+  warning-free polish, packaging, Steam, two accounts, performance capacity,
+  or broad multiplayer acceptance.

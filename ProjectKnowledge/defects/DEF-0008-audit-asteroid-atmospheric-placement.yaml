@@ -1,0 +1,81 @@
+schema_version: 1
+id: DEF-0008
+title: Depletion audit asteroid appears as a giant boulder inside the atmosphere
+status: resolved
+severity: major
+found_utc: "2026-07-23"
+resolved_utc: "2026-07-23T13:17:43Z"
+owner_domain: space_mining_presentation
+
+affected:
+  map_asset_path: /Game/RedMMO/Maps/RedPlanetGen
+  runtime_class: ARedMineableAsteroid
+  harness_flag: RedDEF0003DepletionAutoCapture
+
+observed: >-
+  The one-client depletion visual harness spawns its transient mineable
+  asteroid only 120 metres above the surface player and frames it at close
+  range. The resulting evidence looks like an enormous boulder suspended in
+  the blue atmosphere and can be mistaken for production asteroid placement.
+
+expected: >-
+  Asteroid mining and its acceptance evidence should occur outside the
+  atmosphere at a credible space scale and viewing distance. A surface player
+  should not see a giant mineable boulder hanging in atmospheric flight space.
+
+root_cause:
+  production_type: static_mesh_not_voxel
+  exact_harness_offset_cm: 12000
+  atmosphere_height_cm: 800000
+  production_field_inner_altitude_cm: 3840000
+  production_field_outer_altitude_cm: 6840000
+  production_render_cull_distance_cm: 2000000
+  finding: >-
+    The visible atmospheric rock is the transient non-Shipping audit actor, not
+    a member of the canonical twenty-four-asteroid production deep-space field.
+    The production field's configured altitude shell starts beyond atmosphere
+    plus render-distance and clearance guards.
+
+evidence:
+  user_screenshot: D:/RedMMOTitanWindowsData/UserTemp/codex-clipboard-05422b1b-bbfe-4570-a95d-3a1c8fb05aa1.png
+  reproduced_before: D:/RedMMOTitanWindowsData/Diagnostics/HUD_MiningResult_RealGPU_Final_20260723_154715/Captures/DEF0003_Before.png
+  source: Source/RedMMO/RedPlayerCharacter.cpp
+  production_field_spec: ProjectKnowledge/systems/asteroid-field.red-mars-deep-space.yaml
+  accepted_after: ProjectKnowledge/evidence/2026-07-23-def-0008-deep-space-harness-real-gpu.yaml
+
+impact:
+  resolved_claim:
+    - bounded_non_shipping_surface_absence_and_deep_space_mining_presentation
+  still_out_of_scope:
+    - warning_free_full_production_field_space_mining_visual_polish
+    - player_controlled_surface_to_space_asteroid_travel
+
+resolution: >-
+  The non-Shipping harness now captures a clean surface frame before any audit
+  asteroid exists, then places one transient production-class static-mesh
+  target at 53.400 km altitude with its production twenty-kilometre render
+  cull. The camera remains in deep space at 53.409 km altitude and frames the
+  mesh at an 11.42-degree angular diameter. The atmospheric 120-metre spawn and
+  unlimited-cull override were removed.
+
+acceptance_results:
+  - surface camera altitude 0.502 km is inside the 8.000 km atmosphere and the frame contains zero audit asteroids
+  - all twenty-four production members remain between their configured shell guards and at least 43.699 km from the surface camera
+  - the accepted target is SM_Mining_Asteroid_Med, a static mesh with voxel=0
+  - deep-space depletion produces one reward, one explosion, nine debris pieces, and an expiring IRON +6 receipt
+  - all twenty-four production members finish Active, full, and unaffected
+  - forty-seven focused contracts, TitanEditor compilation, and one clean RTX 3080 D3D12 run pass
+
+acceptance_to_close:
+  - no mineable asteroid is visible as a giant atmospheric boulder from the surface
+  - the acceptance target is beyond the configured atmosphere guard
+  - the target remains mineable and readable at a credible space distance
+  - production field identity, altitude shell, scale, render cull, and peer count remain unchanged
+  - pass current source contracts and TitanEditor build
+  - pass real-GPU surface-absence and space-mining visual review
+
+claim_limit: >-
+  DEF-0008 is closed only for the bounded non-Shipping one-client acceptance
+  harness. The evidence does not implement voxel asteroids, prove
+  player-controlled surface-to-space travel, or satisfy packaged, Steam,
+  dedicated-server, or multiplayer acceptance.

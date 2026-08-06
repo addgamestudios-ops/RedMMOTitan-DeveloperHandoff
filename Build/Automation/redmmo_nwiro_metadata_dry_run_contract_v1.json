@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "contract_id": "redmmo-nwiro-local-metadata-dry-run",
+  "status": "static_dry_run_only",
+  "evidence_class": "static",
+  "execution": {
+    "execution_authorized": false,
+    "unreal_launch_allowed": false,
+    "mcp_initialize_allowed": false,
+    "mcp_tools_list_allowed": false,
+    "mcp_tool_call_allowed": false,
+    "nwiro_chat_allowed": false,
+    "network_allowed": false,
+    "provider_call_allowed": false,
+    "credit_use_allowed": false,
+    "nwiro_or_unreal_file_write_allowed": false,
+    "validator_diagnostic_report_publication_allowed": true,
+    "asset_load_allowed": false,
+    "asset_import_allowed": false,
+    "asset_migration_allowed": false,
+    "map_or_actor_mutation_allowed": false
+  },
+  "project": {
+    "uproject_path": "D:/RedMMOTitan/Titan.uproject",
+    "uproject_sha256": "0EB6D5622267A520C829846C3A66E81A3BDFE9A9931D7F98138C754A84A66B23",
+    "runtime_state": "not_started_not_verified"
+  },
+  "plugins": [
+    {
+      "plugin_id": "nwiro_pro",
+      "version": "1.1.9",
+      "role": "environment_authoring_ui_not_runtime_proven",
+      "descriptor_path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Nwiro.uplugin",
+      "descriptor_sha256": "2E264C661C1DE87207031F6607FE0D97C375511085091BC742AA298DF7EEB79D",
+      "enabled_in_project": true,
+      "module_startup_verified": false,
+      "in_process_mcp_server_verified": false,
+      "binary_file": {
+        "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Binaries/Win64/UnrealEditor-Nwiro.dll",
+        "bytes": 3159040,
+        "sha256": "E76E6EE3A609E424A8116AEB7A5EDE180CF20055679707CEFA964A9D4BF08453"
+      },
+      "source_files": [
+        {
+          "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Source/Nwiro/Private/NwiroToolDispatch.cpp",
+          "bytes": 154843,
+          "sha256": "E26EB78630F51311D3A0536F68EEA2CA37792E06B3E254F70B5042865DFE10FA"
+        },
+        {
+          "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIP1a0f5c32b7eeV3/Source/Nwiro/Private/NwiroAssetTools.cpp",
+          "bytes": 14018,
+          "sha256": "F558B723A3927E2D6F01015A3EEC16F5D55CDF8CD498AE5604B35AB5F6F6F189"
+        }
+      ]
+    },
+    {
+      "plugin_id": "nwiro_integration_kit",
+      "version": "1.0.9",
+      "role": "future_loopback_mcp_transport_not_runtime_proven",
+      "descriptor_path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/NwiroIntegrationKit.uplugin",
+      "descriptor_sha256": "D6CCBFA2F08D478F0C53C67E0D8FCD5FF275C57948425D55D560309AD1C60B2E",
+      "enabled_in_project": true,
+      "module_startup_verified": false,
+      "in_process_mcp_server_verified": false,
+      "binary_file": {
+        "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/Binaries/Win64/UnrealEditor-NwiroIntegrationKit.dll",
+        "bytes": 3491840,
+        "sha256": "6C72757C068FAD28174C9A2F2F4960C6FA69C908E993E854AC94454540A43C0C"
+      },
+      "source_files": [
+        {
+          "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/Source/NwiroIntegrationKit/Private/NwiroIKMCPServer.cpp",
+          "bytes": 199619,
+          "sha256": "34C1BB2E81A7FFF742D043EC8E983783C047BA9C5ABBA4BE9CDB4806AD7CD8D7"
+        },
+        {
+          "path": "D:/UE_5.8/Engine/Plugins/Marketplace/NWIROAIIf0b7fbfe049eV4/Source/NwiroIntegrationKit/Private/NwiroIKAssetTools.cpp",
+          "bytes": 14823,
+          "sha256": "E30B47D984781D45B5C34B9C8F595AED9769725F80F2BB7223889C1E6C5FC519"
+        }
+      ]
+    }
+  ],
+  "source_selection": {
+    "request_path": "D:/RedMMOTitan/Build/Automation/redmmo_crosspack_minihub_selection_request_v1.json",
+    "request_sha256": "C2791F1FD3D4472D8B433E964335E5BFE44B449C64AE9D9500497B050BC2DF09",
+    "manifest_path": "D:/RedMMOTitanWindowsData/Diagnostics/M07_CrosspackMinihubSelection_20260724_2209Z/selection_manifest_v3.json",
+    "manifest_sha256": "331427762643D2C3A5CFEF7FAB88C5985310B1768C1683BB0685D53C859CAC37",
+    "manifest_semantic_sha256": "8D61DE6B1A7561E746BC893A2C1BBB440589D3CC80DDD65801C6A8D529512517",
+    "selected_primary_count": 9,
+    "offline_reference_closure_count": 68,
+    "pack_source_tree_sha256": {
+      "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e": "69F083AF85959AF5DA257D36B5B374C3766C242791D9ED9DC9452F5C445EC661",
+      "fab.934c1286-7388-4aa5-a300-e0a7cdf65675": "610F447CAF47269676D0301330411F3A9B42E04DDF0D18782E7D61085A211732"
+    },
+    "selection_ready": false,
+    "migration_ready": false,
+    "nwiro_ready": false,
+    "map_authoring_ready": false,
+    "source_reauthentication_required_before_runtime": true
+  },
+  "data_boundary": {
+    "all_source_packs_allow_usage_with_ai": false,
+    "vendor_or_derived_bytes_may_be_uploaded": false,
+    "reference_images_may_be_uploaded": false,
+    "thumbnails_may_be_rendered": false,
+    "asset_properties_may_be_loaded": false,
+    "remote_model_may_receive_metadata": false,
+    "local_loopback_metadata_query_may_be_considered_after_all_runtime_gates": true,
+    "permitted_response_fields_after_authorization": [
+      "success",
+      "assets",
+      "count",
+      "name",
+      "path",
+      "class"
+    ]
+  },
+  "tool_policy": {
+    "default_action": "deny",
+    "unknown_tools": "deny",
+    "unknown_namespaces": "deny",
+    "allowed_tool_definition_exact_match_required": true,
+    "input_schema_exact_match_required": true,
+    "future_single_probe_candidate_id": "RED-FAB-ASSET-8021792003EC13E7D10DBB1B",
+    "allowlist": [
+      {
+        "tool_name": "find_assets",
+        "implementation": "asset_registry_metadata_only",
+        "plugin_input_properties": [
+          "searchTerm",
+          "classFilter",
+          "path",
+          "maxResults"
+        ],
+        "wrapper_required_arguments": [
+          "searchTerm",
+          "classFilter",
+          "path",
+          "maxResults"
+        ],
+        "observed_vendor_input_schema_sha256": "1B0BFC2EAD394C9C424B047137B0DBFEFE4B091605A7DA979912D4C6EA697658",
+        "observed_vendor_tool_definition_sha256": "58DCD431CFCB943C9C2B8215F7FF8D69B43450A5CB4959377D47BFBFEE4C70C2",
+        "future_mcp_method": "tools/call",
+        "additional_arguments_allowed": false,
+        "max_results": 2,
+        "response_requires_exact_single_identity_match": true
+      }
+    ],
+    "explicit_denied_tools": [
+      "read_asset",
+      "get_asset_thumbnail",
+      "find_static_meshes",
+      "spawn_actor",
+      "execute_python",
+      "create_landscape",
+      "set_landscape_material",
+      "add_foliage_type",
+      "paint_foliage",
+      "erase_foliage",
+      "create_pcg_graph",
+      "pcg_generate",
+      "create_material",
+      "apply_material",
+      "save_level",
+      "import_data_table_json",
+      "generate_3d_model_meshy",
+      "generate_texture_meshy",
+      "generate_3d_model_tripo",
+      "list_voices_elevenlabs",
+      "generate_voice_elevenlabs",
+      "generate_sfx_elevenlabs",
+      "generate_music_elevenlabs",
+      "generate_material_fal"
+    ],
+    "denied_namespaces": [
+      "plugin.",
+      "ue.",
+      "mcp."
+    ],
+    "denied_tool_prefixes": [
+      "apply_",
+      "create_",
+      "delete_",
+      "duplicate_",
+      "edit_",
+      "erase_",
+      "execute_",
+      "generate_",
+      "import_",
+      "paint_",
+      "rename_",
+      "save_",
+      "set_",
+      "spawn_",
+      "take_"
+    ]
+  },
+  "query_templates": [
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-8021792003EC13E7D10DBB1B",
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": true,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "T_Sand_basecolor",
+        "classFilter": "Texture2D",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "T_Sand_basecolor",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture/T_Sand_basecolor.T_Sand_basecolor",
+        "class": "Texture2D"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-0136F15C7D44ADF6C94C719B",
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": true,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "T_Sand_normal",
+        "classFilter": "Texture2D",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "T_Sand_normal",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture/T_Sand_normal.T_Sand_normal",
+        "class": "Texture2D"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-A4ECC3D88041390347B5EB9E",
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": true,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "T_Sand_Roughness",
+        "classFilter": "Texture2D",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "T_Sand_Roughness",
+        "path": "/Game/Zenscape_Savanna/Landscape/Texture/T_Sand_Roughness.T_Sand_Roughness",
+        "class": "Texture2D"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-55D22F834072AFF6229BB14A",
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": true,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "SM_RockRoundDesert_02",
+        "classFilter": "StaticMesh",
+        "path": "/Game/Zenscape_Savanna/Model/Rocks",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "SM_RockRoundDesert_02",
+        "path": "/Game/Zenscape_Savanna/Model/Rocks/SM_RockRoundDesert_02.SM_RockRoundDesert_02",
+        "class": "StaticMesh"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-A4F6D5680DC132465128D65B",
+      "pack_id": "fab.12ec20bd-ce21-4d3d-8051-13ffb0fe851e",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": true,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "SM_AcaciaTree_01",
+        "classFilter": "StaticMesh",
+        "path": "/Game/Zenscape_Savanna/Model/Tree",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "SM_AcaciaTree_01",
+        "path": "/Game/Zenscape_Savanna/Model/Tree/SM_AcaciaTree_01.SM_AcaciaTree_01",
+        "class": "StaticMesh"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-F3C4A00B0686FACCA17356E9",
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": false,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "BP_WaterPlane",
+        "classFilter": "Blueprint",
+        "path": "/Game/Zenscape_Island/Blueprint",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "BP_WaterPlane",
+        "path": "/Game/Zenscape_Island/Blueprint/BP_WaterPlane.BP_WaterPlane",
+        "class": "Blueprint"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-3897AB32061911E704F9DEB4",
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": false,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "SM_Coral_01",
+        "classFilter": "StaticMesh",
+        "path": "/Game/Zenscape_Island/Model/Plants",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "SM_Coral_01",
+        "path": "/Game/Zenscape_Island/Model/Plants/SM_Coral_01.SM_Coral_01",
+        "class": "StaticMesh"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-71C6AF42FBE6C8C807395EC0",
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": false,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "SM_Plant_01",
+        "classFilter": "StaticMesh",
+        "path": "/Game/Zenscape_Island/Model/Plants",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "SM_Plant_01",
+        "path": "/Game/Zenscape_Island/Model/Plants/SM_Plant_01.SM_Plant_01",
+        "class": "StaticMesh"
+      }
+    },
+    {
+      "stable_candidate_id": "RED-FAB-ASSET-020D6DAAE70219B6F907C75B",
+      "pack_id": "fab.934c1286-7388-4aa5-a300-e0a7cdf65675",
+      "tool_name": "find_assets",
+      "execution_enabled": false,
+      "asset_files_present_in_active_project": false,
+      "asset_registry_visibility_verified": false,
+      "arguments": {
+        "searchTerm": "SM_CoconutTree_01",
+        "classFilter": "StaticMesh",
+        "path": "/Game/Zenscape_Island/Model/Tree",
+        "maxResults": 2
+      },
+      "expected_result": {
+        "name": "SM_CoconutTree_01",
+        "path": "/Game/Zenscape_Island/Model/Tree/SM_CoconutTree_01.SM_CoconutTree_01",
+        "class": "StaticMesh"
+      }
+    }
+  ],
+  "known_blockers": {
+    "nwiro_pro_environment_workflow_runtime_proven": false,
+    "integration_kit_mcp_runtime_proven": false,
+    "tools_list_observed": false,
+    "metadata_query_observed": false,
+    "predispatch_wrapper_implemented": false,
+    "raw_mcp_direct_path_blocked": false,
+    "integration_kit_headless_permission_bypass_fixed_in_vendor_source": false,
+    "paid_provider_bridge_null_bypass_fixed_in_vendor_source": false,
+    "paid_provider_tools_blocked_by_this_contract": false,
+    "rights_and_noai_boundary_reviewed": false,
+    "ue58_compatibility_reviewed": false,
+    "authoritative_asset_registry_dependency_closure_reviewed": false,
+    "isolated_migration_approved": false,
+    "mini_hub_map_created": false,
+    "real_gpu_acceptance_complete": false
+  },
+  "future_runtime_sequence": [
+    {
+      "step": "verify_module_startup",
+      "complete": false
+    },
+    {
+      "step": "initialize_loopback_mcp",
+      "complete": false
+    },
+    {
+      "step": "observe_tools_list_and_enforce_exact_allowlist",
+      "complete": false
+    },
+    {
+      "step": "perform_one_local_exact_identity_find_assets_query",
+      "complete": false
+    }
+  ]
+}

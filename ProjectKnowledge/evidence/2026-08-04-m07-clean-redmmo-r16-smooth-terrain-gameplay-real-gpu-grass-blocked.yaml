@@ -1,0 +1,116 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-r16-smooth-terrain-gameplay-real-gpu-grass-blocked.2026-08-04
+captured_utc: "2026-08-04T18:51:00Z"
+module_id: M07
+system: world-authoring.clean-redmmo-real-ppg-home-world
+slice: r16-smooth-terrain-a01-gameplay-and-playerstart-foliage-diagnosis
+evidence_class: real_gpu_visual
+result: terrain_and_gameplay_pass_grass_playerstart_visual_failed
+
+project:
+  canonical_repo: D:/RedMMOTitan
+  clean_red_project: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+  project_descriptor_sha256: 3BF3D8D1D1C7F892A2CD4873F7C0390EC1AF3CA8F77E60549169563D18DBF86F
+  real_home_map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+  persisted_home_map_sha256: 3EBFB65273119A7C6F49B94BB85509E053B5FB4DA96474DFD02B845A179529BF
+
+rollback:
+  root: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GameplayBlueprintImport_20260804/rollback_pre_r16_smooth_terrain_20260804_1803
+  scope: exact pre-R16 home map and project-owned R16 package transaction
+
+persisted_changes:
+  scope: project_owned_ppg_generation_material_and_planet_data_plus_home_map_binding
+  planet_data:
+    asset: /Game/RedMMO/World/PPG/HomeWorld/SmoothTerrain/R16/DA_PPG_HomeWorld_SmoothTerrain_R16
+    sha256: CB1C0168965F0EE10868E0E1A004494CDEEBCED8D88752B0FEF4344CE1F0F234
+  generation_material:
+    asset: /Game/RedMMO/World/PPG/HomeWorld/SmoothTerrain/R16/Materials/M_PPG_Generation_SmoothRolling_R16
+    sha256: 95756266D3BF470D1B0907257B0CA978F8755129EE2A03C88082675FD244D92E
+  controls:
+    HIllsHeight: 2.0
+    HillsDetails: 420.0
+    MountainsHeight: 0.45
+    MountainDetails: 300.0
+    CratersDetaliNoise: 120.0
+  preserved:
+    - PPG seed 1337, radius 300000000 cm, biome data, native seeded water and R10O foliage profile
+    - exact approved StylizedRocksPack grass aliases
+    - A01 Trooper, rifle, projectile, StarSparrow and Enhanced Input gameplay assets
+    - protected RedMMOTitan production maps, fused inputs, vendor sources and unrelated dirty work
+
+fresh_reload:
+  log: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_GameplayBlueprintImport_20260804/verify_r16_smooth_terrain.log
+  status: R16_VERIFY_PASS
+  map_check_errors: 0
+  map_check_warnings: 0
+  dirty_packages: 0
+
+real_gpu_gameplay:
+  result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R16_20260804T183828Z/result.json
+    sha256: 85EC0E98BFC3E1E042DE59A9E889AA1FF4C4DB1550A6901623CA255195E22716
+    status: PASS_AUTOMATED_REAL_D3D12_PIE_A01_TROOPER_STARSPARROW
+  screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R16_20260804T183828Z/R16_Grounded_PlayerView.png
+    sha256: 5FCB55D752519FAB3BB5C6B5142DAD9A697FFA61651AC8B75596EF4AF73869FD
+    dimensions: [1280, 720]
+  proved:
+    - real D3D12 SM6 PIE and successful PPG generation with 438 chunks
+    - radial walk, sprint, jump and landing
+    - authoritative rifle projectile spawn
+    - fitted owned-surface StarSparrow parking
+    - F entry, forward, strafe, ascent, descent, look, roll, cruise, boost and F exit
+    - clean PIE stop, MapCheck 0/0, zero dirty packages and unchanged tracked/protected hashes
+  visual_finding: broad rolling terrain replaces the prior jagged high-frequency distant mountain field
+
+grass_playerstart_diagnosis:
+  selected_source: /Game/StylizedRocksPack_01/Common/GrassChunks/Meshes/SM_GrassChunk_01
+  active_aliases:
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_A_R10N
+    - /Game/RedMMO/World/PPG/HomeWorld/StylizedBinding/R10N/Meshes/SM_GrassChunk_DenseTall_B_R10N
+  delayed_result:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R16_FoliageSettle_20260804T185011Z/result.json
+    sha256: 13353FD239DA376ED173754F0D730008668E06375B24958871A973943B575C15
+    status: PASS_AUTOMATED_REAL_D3D12_PIE_A01_TROOPER_STARSPARROW
+  delayed_screenshot:
+    path: D:/RedMMOTitanWindowsData/Diagnostics/RedMMO_TrooperStarSparrow_A01_PIE_R16_FoliageSettle_20260804T185011Z/R16_GrassAfter10s.png
+    sha256: 10BBB1A910B7737AAA017901298C817DC6D6D24BEDC29C8F985FDF663CADCA5D
+    dimensions: [1280, 720]
+  runtime_census:
+    total_actor_count: 32
+    ppg_gpu_foliage_components: 159
+    approved_grass_components: 140
+    approved_alias_a_components: 70
+    approved_alias_b_components: 70
+    visible_components: 140
+    hidden_in_game_components: 0
+    query_errors: 0
+  finding: >-
+    Waiting ten additional seconds after generation did not make grass visible at
+    the PlayerStart view. PPG creates visible GPU-foliage components with the
+    exact approved aliases, so the failure is not a missing or substituted mesh.
+    The current R16 seed/material result does not place readable grass coverage
+    at the player camera; the next correction must alter only seeded PPG
+    foliage eligibility/culling/depth or choose a seeded grass-covered start,
+    never hand-place grass or substitute the selected mesh.
+
+protection:
+  production_or_protected_content_changed: false
+  vendor_assets_changed: false
+  providers_called: false
+  provider_ports_closed: true
+  unreal_process_count_after: 0
+
+claim_limit: >-
+  R16 has durable persistence, fresh reload, MapCheck 0/0, real-GPU rolling
+  terrain evidence, and a complete one-player automated Trooper plus StarSparrow
+  control pass. It is not a visually accepted biome: the delayed player-start
+  frame still lacks readable grass, biome diversity, shoreline, night-side and
+  final art acceptance. Packaging, standalone, replication, multiplayer and
+  human hands-on acceptance remain unproven.
+
+next_safe_action: >-
+  Preserve R16 and the exact approved grass aliases. Timebox one seeded-only
+  grass-eligibility/culling/depth correction; if no supported PPG control yields
+  PlayerStart coverage without overflow, retain this blocker and advance the
+  independent night-side/star or biome-authority module rather than waiting.

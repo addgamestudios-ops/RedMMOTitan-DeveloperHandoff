@@ -1,0 +1,136 @@
+schema_version: 1
+id: evidence.m07.scratch-craft-collision-correction-source-static.2026-07-26
+module_id: "M07"
+captured_utc: "2026-07-26T20:26:56Z"
+evidence_class: static
+scope:
+  canonical_project: "D:/RedMMOTitan"
+  scratch_project: "D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A"
+  production_mutation: false
+  map_mutation: false
+  editor_launch: false
+  build: false
+  pie: false
+  real_gpu_acceptance: false
+  description: >
+    Rollback-backed scratch-source correction for the user-observed shuttle hover,
+    missing hull/wing Pawn collision, and coarse invisible projectile/aim blockers.
+    This evidence does not accept the shuttle or the separately reported large
+    fighter until a closed-editor build/reload and real PIE pass completes.
+
+preconditions:
+  rollback_root: "D:/RedMMOTitanWindowsData/Rollback/M07_ShuttleCollisionCorrection_20260726_195858Z"
+  rollback_files:
+    RedShuttleBase.h: "FECD06BBDB6D6623638EC89D9BC092B40741A19EFEA48EE7A90239591C4244F6"
+    RedShuttleBase.cpp: "8AA71FB81C38FC44662726EA40DF61262F73F61296C7185920DA99AD72479610"
+    RedGameMode.cpp: "2FB11F01C7CA2CFF9DE4B0BE29DA42FB0B00915DC7A10ACD77439EA86411CECD"
+    RedBolt.cpp: "C7434E86A2782DA4CB9697391FD6B3144DC9B14C86C6A1AA22BF4D8A0CF02C93"
+    RedPlayerCharacter.cpp: "7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99"
+    WeaponFirer.cpp: "5C7F7BCC1DC7275A8F1E040B4458E00BACA1C570973D906D50ED4AA7C02BBD2E"
+  prior_live_inventory:
+    root: "D:/RedMMOTitanWindowsData/Diagnostics/M07_ShuttleCollisionInventory_20260726_193132Z"
+    inventory_sha256: "B0D25B19CB5E4FDD39E5F8E9CC9C5AEA51D7CC20113FF01406DC10CCFB9CF1EA"
+    completion_sha256: "82EE34D771A92FE78879BAAD5575491AC5E1F0F99180738670AF5D41D2E2D230"
+    analysis_sha256: "9A5C82E7D3E62FD1550981894A370BB82362D4F2826DC525A8A500D7C6064A03"
+
+implemented_scratch_source:
+  shuttle_pawn_collision:
+    status: "source_implemented_runtime_unverified"
+    details:
+      - "Five QueryOnly Pawn-only fitted proxies cover central port/starboard sides, nose, and both wing solids."
+      - "The proxies ignore Visibility and WorldDynamic, generate no overlaps, affect no navigation, and are not step-up surfaces."
+      - "A 130 cm central-to-wing silhouette gap and the rear cargo opening remain intentionally unblocked."
+  projectile_and_aim_los:
+    status: "source_implemented_runtime_unverified"
+    details:
+      - "Authoritative ARedBolt movement sweeps request complex target geometry in constructor and BeginPlay."
+      - "Player and WeaponFirer visibility convergence traces request complex geometry."
+      - "Player Pawn-target acquisition remains on its prior simple object sweep."
+      - "Runtime performance and target complex-data availability require PIE proof."
+  shuttle_surface_parking:
+    status: "source_implemented_runtime_unverified"
+    details:
+      - "Only the three shuttle envelope boxes contribute to settled support distance."
+      - "Support uses exact oriented-box projection from absolute scaled extents and component unit axes after radial rotation."
+      - "The shuttle hard-coded 25 cm spawn cushion and native 20 cm landing gap are zeroed."
+      - "The large fighter retains its prior support calculation, rotation order, and 25 cm parking clearance."
+  large_fighter_outer_wings_and_engines:
+    status: "reported_not_implemented"
+    details:
+      - "User confirms the main fuselage is walkable but outer wings and engine solids do not block Pawn."
+      - "Projectiles already hit or ricochet on those parts, proving a channel-response mismatch rather than no collision."
+      - "A separate exact live component/mesh inventory and fitted Pawn-only correction is required; true gaps and projectile hits must be preserved."
+
+current_file_identities:
+  "Source/RedMMO/RedShuttleBase.h": "6023AC906E42C411FB1B70A298E7DB69303895CC237CB3C38C544BB329A1CDFF"
+  "Source/RedMMO/RedShuttleBase.cpp": "3CADEE04D79FDBEEC7F31219C0B7AA920BBB4AAE7C3DFB2085593355353EE96E"
+  "Source/RedMMO/RedGameMode.cpp": "21066E4E3260EE4CD715C480782E8B3EA83791E4E92B2183113473402FCCFCA3"
+  "Source/RedMMO/RedBolt.cpp": "61D3C2AEE3912279771DCE775B40790FD7104DCF92106E5B766A23D80A1ACECF"
+  "Source/RedMMO/RedPlayerCharacter.cpp": "09881B7ED1C925C4A64F4EB30B807259996F8BEA50E0C3665B49764A16BD0F75"
+  "Source/RedMMO/WeaponFirer.cpp": "497E8E7C40EAB44BAE0F0CF1AE5D76F4A91C3A374837AA12AA94C1AFCCF105F5"
+  "Build/Automation/test_m07_shuttle_collision_correction_contract.py": "3B615D6B7BF5959234D12D5A61F29319162C4D27D88DC0767B05946A105ABBEB"
+
+verification:
+  commands:
+    - "python -m unittest -v Build.Automation.test_m07_shuttle_collision_correction_contract Build.Automation.test_m07_shuttle_collision_inventory_contract"
+    - "python -m py_compile Build/Automation/test_m07_shuttle_collision_correction_contract.py"
+    - "git diff --check --no-index <rollback-file> <scratch-source-file> for all six edited C++ files"
+  results:
+    unittest: "12 passed, 0 failed"
+    python_compile: "passed"
+    whitespace_check: "passed"
+    independent_review: "review-clean for build/PIE; no P0-P2 compile or source-logic blocker"
+  evidence_limit: >
+    Contract tests and source review do not prove compilation, reflected Blueprint
+    defaults, collision coverage, projectile LOS, contact distance, network behavior,
+    query cost, or visible acceptance.
+
+protected_state:
+  production_map:
+    path: "D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen.umap"
+    sha256: "1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724"
+  scratch_bare_sand_baseline_map:
+    path: "D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Content/RedMMO/Maps/RedPlanetGen.umap"
+    sha256: "1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724"
+  source_vendor_assets_changed: false
+  tangent_authoring_inputs_changed: false
+  note: >
+    The accepted bare sand planet remains the scratch baseline. The 27 tangent-local
+    regions remain fused authoring inputs rather than runtime World Partition cells.
+
+process_boundary:
+  unreal_editor:
+    pid: 24068
+    command_line: '"D:/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe" "D:/RedMMOTitanWindowsData/Scratch/TropBiomeV1A/Titan.uproject"'
+    loaded_revision: "pre-correction module"
+  build_process_present: false
+  free_physical_gib: 37.472
+  free_virtual_gib: 50.193
+  gpu: "RTX 3080; 5919 MiB free at capture"
+  action_taken: >
+    The existing editor was not closed, rebuilt, live-coded, or overlapped. Reflected
+    component additions therefore remain unloaded.
+
+deferred_real_play_acceptance_queue:
+  collision_first:
+    - "Shuttle: visible nose, central sides, left/right wings, underside, rear opening, silhouette gaps, ramp open/closed, player standing, projectile LOS, flat/slope ground contact, and complex-query performance."
+    - "Large fighter: preserve walkable fuselage; fit only missing outer-wing/engine Pawn solids; validate left/right wings, engines, underside, open gaps, standing, projectile hit/ricochet, and projectile LOS."
+  after_collision_before_or_alongside_tile_review:
+    - "Unintended camera-like artifact on the right side of both fighters in third-person view."
+    - "Light-side atmospheric star visibility while retaining day lighting and ground-to-orbit ownership."
+    - "No audible weapon fire: verify actual fire audio routing, attenuation, concurrency, and PIE audio device."
+    - "Engine plumes: socket-centered, trailing behind craft, mirrored consistently, widest/strongest at nozzle and tapering narrower outward."
+    - "HUD heat presentation: compact in-frame fill, green-to-orange-to-red heating and reverse cooling, no large HEAT/COOL/countdown text."
+    - "HUD safe-zone and viewport scaling in fullscreen and windowed modes."
+    - "Restore a cohesive painted/stylized purple sprint/jet energy bar while preserving its value and behavior."
+    - "Identify the flat yellow meter's actual live binding before redesign; do not guess its meaning."
+
+next_safe_action:
+  summary: >
+    Do not start tangent-tile implantation yet. First perform a read-only exact live
+    inventory of the large fighter outer-wing/engine components, add a rollback-backed
+    fitted Pawn-only correction, then close the one scratch editor at a clean boundary,
+    run one serialized full TitanEditor build, reopen the exact bare-sand scratch map,
+    authenticate the loaded binary and Blueprint landing-gap value, and complete the
+    combined shuttle plus large-fighter real-GPU PIE acceptance pass. Report collision
+    acceptance before authoring the first raised/blended tangent tile and implanted map.

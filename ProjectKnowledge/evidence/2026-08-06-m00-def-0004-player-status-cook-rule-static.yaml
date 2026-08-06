@@ -1,0 +1,147 @@
+schema_version: 1
+id: evidence.m00.def-0004.player-status-cook-rule-static
+module: M00
+defect: DEF-0004
+evidence_class: static
+status: accepted_partial_config_closure_cook_pending
+timestamp_utc: 2026-08-06T17:16:15Z
+scope: >-
+  One rollback-backed project-owned Config change adds the narrowest practical
+  packaging rule for the exact staged PlayerStatus directory already consumed
+  by ARedHUD. That directory contains only the authenticated Texture2D package.
+  No Unreal, build, cook, package, runtime, desktop-control, source, map,
+  ProfileV1, plugin, vendor, user-asset, CC5 or Blender work ran.
+
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2463
+  free_physical_ram_gib: 54.20
+  commit_headroom_gib: 54.04
+  gpu_model: NVIDIA_GeForce_RTX_3080
+  gpu_free_mib: 8976
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+  queue_sha256_before: 96A497782DB47623E0FD51A933ABDF2BC7ABA24D843DD7E90F22B31F847BBD4A
+
+transaction:
+  intent: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/transaction_intent.yaml
+  intent_bytes: 1975
+  intent_sha256: FE37BC1AF9AA5DD7A23593AC58F009B8E91FE3887E59B151F506A04A09A7608A
+  affected_file_count: 1
+  affected_file: D:/RedMMOTitanWindowsData/Projects/RedMMO/Config/DefaultGame.ini
+
+implementation:
+  project_packaging_setting: DirectoriesToAlwaysCook
+  exact_added_line: '+DirectoriesToAlwaysCook=(Path="/Game/UI/RedHUD/Textures/HighResSprites")'
+  exact_added_line_count: 1
+  target_package_directory: /Game/UI/RedHUD/Textures/HighResSprites
+  target_files:
+    - T_REDHUD_PlayerStatus.uasset
+  target_file_count: 1
+  player_status_object_path: /Game/UI/RedHUD/Textures/HighResSprites/T_REDHUD_PlayerStatus.T_REDHUD_PlayerStatus
+  player_status_uasset_bytes: 500781
+  player_status_uasset_sha256: 697EDE2DED07E37E7A8B8C298F0A139E4C9DC5B7434E10ACFED1C406F0221E77
+  config_before_bytes: 462
+  config_before_sha256: F6674A59713F990778C08C19E9C13E06874D939CC94B682F1EB84E0A887E9ABF
+  config_after_bytes: 536
+  config_after_sha256: 15F3031EDDFDBFA95DC08FE09FDF2C96CC155BAEB5AABC196119D77E638573E0
+  existing_environment_cook_rule_preserved_once: true
+  hud_source_modified: false
+  gameplay_authority_or_replication_modified: false
+
+verification:
+  verifier: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/verify_player_status_cook_rule.py
+  verifier_bytes: 5218
+  verifier_sha256: D23A1F793C98B18D6619056ED2652488235591711B17C96D3348B976B9127F30
+  report: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/player_status_cook_rule_report.json
+  report_bytes: 3285
+  report_sha256: A74311268189595193C2F33C4B40DDF349266E304724E494B3CEA106EC680C70
+  focused_static_checks: 11_of_11_passed
+  failed_static_checks: 0
+  project_knowledge_and_fused_tests: 37_of_37_passed
+  project_knowledge_tests_stdout: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/project_knowledge_and_fused_tests.txt
+  project_knowledge_tests_stdout_bytes: 400
+  project_knowledge_tests_stdout_sha256: E58A957C8178DBBCB6CD81F047E693E4B668BEF7A765806FA10B84D16DD6A965
+  project_knowledge_tests_stderr: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/project_knowledge_and_fused_tests.stderr.txt
+  project_knowledge_tests_stderr_bytes: 15502
+  project_knowledge_tests_stderr_sha256: 9B3EA3EEA20C0EB384D759E7FB4813B83C4A835282425C20B0655626F2FD2343
+  expected_fixture_note: >-
+    The stdout PKI011 fail result is the intentional temporary-fixture output
+    from test_cli_fails_closed_but_can_write_a_failed_diagnostic; the complete
+    unittest process exited zero and reports 37 tests OK.
+  canonical_integrity_audit: passed_with_zero_errors_and_zero_warnings
+  canonical_integrity_report: D:/RedMMOTitanWindowsData/Diagnostics/M00_DEF0004_PlayerStatusCookRule_20260806T1716Z/project_knowledge_integrity.json
+  canonical_integrity_report_bytes: 1836
+  canonical_integrity_report_sha256: 1239C82304C9155FA0A21A6F56932A8B785B4D003F06804C439B2D685F0DAC62
+
+current_package_boundary:
+  r91_launcher: D:/RedMMOTitanWindowsData/Builds/RedMMO_R91_Playable_20260806T1642Z/Windows/RedMMO.exe
+  r91_tree_sha256: 78CA43D6902FC646EAF640C0344B3E0879A875FBA1A2CDAAB2CE829700E5467E
+  r91_modified: false
+  r91_player_status_entry_count: 0
+  r91_missing_player_status_warning_count: 2
+  r91_fallback_reticle_only: true
+  successor_package_built_in_this_slice: false
+
+preserved:
+  production_map_sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map_sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype_sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_heightfield_sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  clean_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  profile_v1_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  red_hud_cpp_sha256: FFBCC5387B646D35A224CEA1E3CF2599564BDD752CEC9AC9F342DE5AC208B20F
+  fused_tangent_authoring_inputs_count: 27
+  fused_faces_count: 6
+  production_project_source_map_profile_plugin_vendor_user_bytes_changed: false
+
+rollback:
+  directory: D:/RedMMOTitanWindowsData/Rollback/BeforeM00DEF0004PlayerStatusCookRule_20260806T1716Z
+  config: D:/RedMMOTitanWindowsData/Rollback/BeforeM00DEF0004PlayerStatusCookRule_20260806T1716Z/DefaultGame.ini
+  config_bytes: 462
+  config_sha256: F6674A59713F990778C08C19E9C13E06874D939CC94B682F1EB84E0A887E9ABF
+  policy: >-
+    Restore only clean RedMMO Config/DefaultGame.ini after authenticating the
+    current post-change hash and exact rollback hash. Touch no other file.
+
+queue:
+  snapshot_sha256: 44C2E6540B0B5F5A90F6F56FF2FF2464F4B7AD924D87B18F15DC252DD04F0C6E
+  module_status: incomplete_retry
+  retry_count: 65
+
+postflight:
+  captured_utc: 2026-08-06T17:20:28Z
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count_default: 196
+  dirty_entry_count_expanded_untracked: 2464
+  free_physical_ram_gib: 54.25
+  commit_headroom_gib: 54.09
+  gpu_free_mib: 8978
+  gpu_total_mib: 10240
+  gpu_utilization_percent: 11
+  d_drive_free_gib: 752.00
+  active_unreal_build_package_process_count: 0
+  config_sha256: 15F3031EDDFDBFA95DC08FE09FDF2C96CC155BAEB5AABC196119D77E638573E0
+  protected_hashes_match: true
+
+blocker: >-
+  The static cook-reference boundary is closed, but R91 predates it and still
+  has zero PlayerStatus entries plus two missing-art warnings. A no-clobber
+  successor package must prove exactly one cooked package/object and zero
+  missing-art warnings. Authored full, partial, near-empty and regenerating fuel
+  pixels, physical controls, gameplay feel, replication, multiplayer and human
+  review remain open.
+
+next_safe_action: >-
+  Rotate next wake to another independent authorized module. On a later M09
+  return, build exactly one no-clobber Win64 Development successor from this
+  Config and require one PlayerStatus cook entry, zero missing-art warnings and
+  clean packaged D3D12 startup before any separate real-GPU fuel-pixel gate.
+
+claim_limit: >-
+  Static packaging-rule closure only. It does not prove cook inclusion,
+  package currency, startup, authored fuel pixels, gameplay, physical controls,
+  replication, multiplayer, performance, persistence or human acceptance.

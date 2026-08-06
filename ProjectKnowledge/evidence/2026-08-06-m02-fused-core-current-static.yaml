@@ -1,0 +1,79 @@
+schema_version: 1
+id: evidence.m02.fused-core-current-static
+module: M02
+evidence_class: static
+status: accepted_partial
+timestamp_utc: 2026-08-06T03:48:00Z
+scope: >-
+  Read-only current-source regression and provenance verification for the 50 km
+  fused heightmap-patch core. No source raster, face output, manifest, Unreal
+  asset, map, profile, package, source, Config, plugin, vendor root, or build
+  product changed.
+preflight:
+  git_head: 709954a7e209a07352b81c176f91fd869b27c48b
+  dirty_entry_count: 194
+  free_physical_ram_gib: 52.29
+  commit_headroom_gib: 54.40
+  gpu_free_mib: 9108
+  d_drive_free_gib: 759.39
+  active_unreal_build_package_process_count: 0
+tests:
+  suites:
+    - Tools/tests/test_fused_prototype_provenance.py
+    - Tools/tests/test_planet_authoring_workflow.py
+    - Tools/tests/test_planet_patch_compositor.py
+    - Tools/tests/test_import_fused_macro_heightfield.py
+  tests_run: 47
+  failures: 0
+  errors: 0
+  result: passed
+protected_identities:
+  production_map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen.umap
+    sha256: 1DF9E6ED913A267875F1EF452F6ED51DAF337DBBAAE4C6EC3379EA6299346724
+  checkpoint_map:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_Test.umap
+    sha256: DA5987012EEB8F550254F5FCF0F47F42B8F5E03428CF4881C83D8687537F6E7D
+  fused_prototype:
+    path: D:/RedMMOTitan/Content/RedMMO/Maps/RedPlanetGen_50km_FusedPrototype.umap
+    sha256: 4C84D7752C87854C70987ED9988C64C124C577FBE1DE3DEF3CC826F81B0B6284
+  fused_asset:
+    path: D:/RedMMOTitan/Content/RedMMO/Environment/DA_RED_Planet50Km_FusedHeightfield.uasset
+    sha256: 412E26B75DAD95CE0EF4FA63BFF21CCA0EDB755B5D08BA1A4CFA3EEFEC06E562
+  patch_profile_sha256: 1CB393D6A9C6C713BD5543830AE7B29ADB5F8F140B7E526D9AC7774D300C7EB5
+  patch_manifest_sha256: 929433D8E612B82FA60C9BA9599452788E09F59929D212454237E7F31DE3A14D
+  face_manifest_sha256: 1FEA337FE826CB2E17908174592BE25F2B972B961DD8246701C940991175484F
+static_contract:
+  patch_count: 27
+  source_raster_count: 135
+  cube_face_count: 6
+  persisted_face_file_count: 24
+  uncovered_face_samples: 0
+  persisted_seam_comparisons: 3076
+  max_persisted_height_land_biome_delta: 0
+  temporary_directory_count_after_tests: 0
+runtime_boundary:
+  verifier: D:/RedMMOTitan/Tools/verify_fused_macro_heightfield.py
+  direct_system_python_result: blocked_expected
+  reason: >-
+    The verifier imports the Unreal Python module and therefore must run inside
+    an Unreal host; system Python correctly raises ModuleNotFoundError for
+    unreal. The legacy Titan editor host is separately blocked by the absent
+    enabled WorldGen plugin payload recorded under M12.
+preserved:
+  clean_redmmo_home_map_sha256: 0331E54155DF929C82E56084BEAD569865052A25D20A6082BA9C3E07E88F88F3
+  clean_redmmo_profile_sha256: D3F29BA1F3C2DBE5E6248787F4D0913E3D2B4D52E0DAB02E8B3329F5E343AD92
+  r84_package_tree_sha256: 0EB8D4EFAAC517B1CC2499CC5C6548BBB9713EA915CCC08FFDF05ACE5D822DE6
+  active_unreal_build_package_process_count: 0
+rollback: not_applicable_no_runtime_or_input_mutation
+claim_limit: >-
+  This accepts current static provenance and offline fused-core contracts only.
+  It does not prove a current Unreal load, clean RedMMO R84 consumer binding,
+  the shared runtime celestial frame, rendered seams, collision traversal,
+  gravity, ocean, atmosphere, spawn, ships, radar, clouds, moon, package
+  currency, multiplayer, or visual acceptance.
+next_safe_action: >-
+  Rotate to another independent authorized module. Return to native M02
+  verification only after an official compatible Unreal host is available and
+  after the R84 human control/day-night gate; do not regenerate or promote the
+  protected terrain inputs from this static result.

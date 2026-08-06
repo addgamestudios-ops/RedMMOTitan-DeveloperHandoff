@@ -1,0 +1,153 @@
+schema_version: 1
+id: evidence.m07.clean-redmmo-titan-gameplay-migration-audit.static.2026-08-03
+captured_utc: "2026-08-03T02:08:49Z"
+module_id: M07
+system: gameplay.clean-redmmo-ppg-home-world
+slice: titan-proven-on-foot-stack-source-and-migration-boundary-audit
+evidence_class: static
+result: pass_static_roots_and_architecture_migration_blocked_on_native_and_registry_closure
+
+projects:
+  authoritative_source:
+    path: D:/RedMMOTitan/Titan.uproject
+    configured_map: /Game/RedMMO/Maps/RedPlanetGen
+    configured_game_mode: /Script/RedMMO.RedGameMode
+  clean_target:
+    path: D:/RedMMOTitanWindowsData/Projects/RedMMO/RedMMO.uproject
+    map: /Game/RedMMO/Maps/RedMMO_PPG_HomeWorld
+    map_sha256_unchanged: 1821ED915E924085A2D6B3E1A85984A0F207C116EFF32AC974E8F0B7CD217F87
+    source_directory_present: false
+    project_plugins_directory_present: false
+    modules_stanza_present: false
+    cpp_target_files_present: false
+    enabled_plugins: [PPG, Niagara, ModelContextProtocol]
+
+proven_source_stack:
+  game_mode: /Script/RedMMO.RedGameMode
+  pawn_blueprint: /Game/RedMMO/Characters/BP_RedGameplayCharacter
+  pawn_native_parent: /Script/RedMMO.RedPlayerCharacter
+  controller: /Game/RedMMO/UI/BP_RedMultiplayerPlayerController
+  hud_native: /Script/RedMMO.RedHUD
+  hud_widget: /Game/RedMMO/UI/WBP_VibeMMOHUD
+  animation_blueprint: /Game/RedMMO/Characters/ABP_RedTrooperFemale
+  focal_control_rig: /Game/RedMMO/Characters/CR_RedTrooperFocalAim
+  rifle: /Game/RedMMO/Weapons/SK_RedTrooper_Rifle_A
+  native_runtime_classes:
+    - RedPlayerCharacter
+    - RedCharacterMovement
+    - RadialGravityComponent
+    - RedGravityBodies
+    - RedBolt
+  input_source: Config/DefaultInput.ini
+  input_subset:
+    - MoveForward
+    - MoveRight
+    - Turn
+    - LookUp
+    - CameraZoom
+    - Jump
+    - Fire
+    - ADS
+    - Sprint
+    - Weapon1
+    - Weapon2
+    - Holster
+    - AbilityQ
+    - AbilityE
+    - AbilityLoadout
+
+reviewed_root_hashes:
+  BP_RedGameplayCharacter: 7DAD00413C5F1DD16D5256C974D705E27D71A6722EC486061C8957163DCC9CF4
+  ABP_RedTrooperFemale: E1BA8D1D1FC86CD5E20281572CF18124FC332D86B1B003E1DB5A44BADDDC9EA3
+  CR_RedTrooperFocalAim: DA09D98461396D156F3FC38C7C51182C9DB2DC26F35E8229D54F1AD1F4440577
+  SK_RedTrooper_Rifle_A: 0657D4BFF587970BD0938D429E91408AFDA06226495D99F9EB9790C45AFCDC34
+  BP_RedMultiplayerPlayerController: 8D48C19D96C90BF156E01E6BA52DD3D98A27F7EB90FFB4C51FE33DFFECD64536
+  WBP_VibeMMOHUD: EAEE32C51CF78064A75735F0D6F78FA3827A6B496F8C0ADC9DE4F17A61DDC99B
+  M_BoltTracer: AFF9F50C900DA3AC498C7799F0CD7690434C3FFD16D9E3BF1B67DCE33F119246
+  MI_RedGrapplePlasma: CEEB98BD6EEFE7B6B3727BB2B408380647C356076610166B409A6018DB566BC0
+
+reviewed_native_hashes:
+  RedPlayerCharacter_cpp: 7A362D8F8789E2086078C1061E0408E327AF07D290EDDF44104E67FE62C23D99
+  RedPlayerCharacter_h: 0CADFD6C52B5AECC112B1B969EC26334B6A7C35B98FB55B47455185EFB2E15A7
+  RedCharacterMovement_cpp: 638AC8718B83A82A56C40025C1B87F9BA489F91AFDF1CC8D21D723E4C6EA0FA2
+  RedCharacterMovement_h: 365EEF6B91EC80D95FF43BD28940068DE6D6732C5BA348E25488BFE193AD39E5
+  RadialGravityComponent_cpp: 759C4BF62E3A1C52D2053409D2D7B1E345963C695667C054F100713E3D301E12
+  RadialGravityComponent_h: A7BABFBEBA6D722F9B2D7DC74EDDD6767BB97AB78C1096B55CC2DD8E10152C01
+  RedGravityBodies_cpp: F4E4E275247F3CB5D4B594C1FDFA917BAB88E32D8F7FA92CDB12779539FA2CD5
+  RedGravityBodies_h: 3463210BC06B2E22355E5B27A662D434C97F835D4D2A87805F53394DBE257911
+  RedBolt_cpp: C7434E86A2782DA4CB9697391FD6B3144DC9B14C86C6A1AA22BF4D8A0CF02C93
+  RedBolt_h: B576AA08CF83010507CFA9F0D30A259BFE9097C915F143E38906EE2C94B1EB28
+  RedGameMode_cpp: 2FB11F01C7CA2CFF9DE4B0BE29DA42FB0B00915DC7A10ACD77439EA86411CECD
+  RedGameMode_h: 083205F8AC61D97CE2258EE6FC3E4AEBE4CED144D5FA80E63A6484E82888F4F8
+  RedMMO_Build_cs: C29291BE044EFA51722E247305F6B3415EE2E9B6FCAF8507688BF4933A37F994
+
+registry_closure:
+  status: blocked_not_proven
+  existing_catalog: D:/RedMMOTitanWindowsData/Diagnostics/M07_AssetRegistryDecode_20260723_194505Z/asset_registry_catalog_candidates.json
+  existing_catalog_scope: six_art_library_roots_only
+  gameplay_roots_in_existing_catalog: false
+  direct_titan_query_blockers:
+    - enabled plugin payloads UnrealAIIntegrationPlatform and WorldGen are absent from the current load path
+    - additional legacy plugin dependencies include BpGeneratorUltimate, VibeUE, and FocalRig
+    - disabling missing descriptors still leaves the native RedMMO module linkage boundary unresolved
+  surrogate_query_result: stalled_before_python_entry_and_was_stopped_without_mutation
+  invalid_zero_root_report_is_evidence: false
+  diagnostic_root: D:/RedMMOTitanWindowsData/Diagnostics/TitanGameplayMigrationAudit_20260803_A01
+  logs:
+    audit_log_sha256: 433FB3A7D3B406CE71F86ECFD53EE2444B436AB62BAFA4426064547F5D607C02
+    retry_log_sha256: 64F4608AE8E1DE75E65FB53D6BC6B35945585F45C1B8F5E565D10BB713140D2D
+    retry2_log_sha256: F62F354560388C8408DC3704C92687210967E7B6BCEB83E6AC2F5AB95FC6D757
+    surrogate_fixed_log_sha256: 7BCF56D68C80D401E5B65197C008BF73974B7227AFD6662C2CA53F80B1D51CE4
+    surrogate_retry_log_sha256: 30D5F7718527166ACF8F7D8DE09870A44545563851B7E6BB92EBB068D136DF01
+
+architecture_decision:
+  required_clean_module_name: RedMMO
+  reason: preserve_existing_Script_RedMMO_class_paths_without_copying_legacy_environment_or_vehicle_systems
+  first_runtime_subset:
+    - pruned_API_compatible_on_foot_RedPlayerCharacter
+    - RedCharacterMovement
+    - RadialGravityComponent
+    - pruned_API_compatible_RedGravityBodies
+    - pruned_API_compatible_RedBolt
+    - clean_RedPPGGameplayGameMode
+    - minimal_controller_and_HUD_adapters
+  explicitly_excluded:
+    - legacy_RedGameMode_BeginPlay_environment_mutation
+    - Titan_map_geometry_or_PlanetGen_surface_ownership
+    - water_shoreline_atmosphere_cloud_star_foliage_or_biome_overrides
+    - shuttle_mini_fighter_vehicle_possession_or_vehicle_input
+    - mining_cloning_bots_or_orbital_sites
+    - bulk_directory_copy
+  hard_plugin_class_dependencies:
+    FocalRig: CR_RedTrooperFocalAim_contains_Script_FocalRig_references_and_no_current_target_descriptor_is_proven
+    VibeMMOUIKit: WBP_VibeMMOHUD_parents_Script_VibeMMOUIKit_VibeMMOHUDWidget
+  input_policy: retain_R11_Enhanced_Input_bridge_or_merge_only_audited_on_foot_named_mappings
+  package_path_policy: preserve_exact_referenced_Game_paths_or_use_Unreal_aware_duplication_and_remap
+  weapon_audio: hook_exists_but_no_assignment_is_verified
+  plan: docs/CLEAN_REDMMO_TITAN_GAMEPLAY_MIGRATION_PLAN.md
+
+preservation:
+  home_map_changed: false
+  clean_project_changed: false
+  gameplay_packages_copied: false
+  ppg_seed_or_markers_changed: false
+  production_or_protected_map_changed: false
+  provider_or_desktop_control_used: false
+
+claim_limit: >-
+  This is a static source, package-header, configuration, and architecture
+  audit. It identifies the proven Titan on-foot stack, its reviewed roots, and
+  the unsafe native and GameMode coupling that prevents an asset-only copy. It
+  does not prove the transitive Unreal dependency closure, clean-project
+  compilation, package migration, Blueprint loading, map binding, runtime,
+  visuals, audio, replication, or multiplayer. No gameplay package or map was
+  copied or changed.
+
+next_safe_action: >-
+  Build a minimal API-compatible project-owned RedMMO on-foot runtime module in
+  the clean project behind a rollback checkpoint, prove FocalRig and
+  VibeMMOUIKit compatibility or adapters, then run a compatible UE 5.8 Asset
+  Registry dependency query for the exact reviewed roots. Do not copy or bind
+  content until the module compiles and the dependency allowlist closes with no
+  unresolved plugin classes. Bind a clean PPG GameMode only after fresh package
+  load and Blueprint compile pass.
